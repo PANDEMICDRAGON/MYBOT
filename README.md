@@ -193,6 +193,27 @@ Run the bot with the `--wake` flag or set `ENABLE_WAKEWORD=true` in your `.env`:
 ```
 When Cortana hears **"Cortana"** or **"Jarvis"** spoken out loud in your room, it transcribes your speech via Groq Whisper (`whisper-large-v3-turbo`) in ~250ms, executes your directive, and answers aloud over your room/laptop speakers.
 
+### 3. Direct System-Level Audio Driver & Terminal TTS Bridge (`speak.py`)
+Direct COM hook into your laptop's physical sound card (via in-process `win32com` SAPI and `edge-tts` Cortana neural engine):
+1. **Direct Terminal Vocalization**:
+   ```powershell
+   .\.venv\Scripts\python speak.py "Construct operational. Standing by for directives, Michael."
+   ```
+2. **Piped STDIN (Pipe ANY CLI output straight into laptop speakers)**:
+   ```powershell
+   git status | .\.venv\Scripts\python speak.py
+   Write-Output "Perimeter scan complete. Defensive posture green." | .\.venv\Scripts\python speak.py
+   ```
+3. **Interactive Voice REPL**:
+   ```powershell
+   .\.venv\Scripts\python speak.py --interactive
+   ```
+4. **Python Module Import**:
+   ```python
+   from speak import speak, speak_async
+   speak("Audio driver online and hooked directly into sound card.")
+   ```
+
 ---
 
 ## 📺 Local Wi-Fi & Smart TV Command Matrix

@@ -813,7 +813,13 @@ def play_local_audio_file(filepath: str):
             subprocess.Popen(["ffplay", "-nodisp", "-autoexit", "-loglevel", "quiet", filepath])
         elif platform.system().lower() == "windows":
             escaped_path = filepath.replace("\\", "\\\\").replace("'", "''")
-            ps_cmd = f"$p = New-Object -ComObject WMPlayer.OCX; $p.openPlayer('{escaped_path}'); Start-Sleep -Milliseconds 800"
+            ps_cmd = (
+                f"Add-Type -AssemblyName PresentationCore; "
+                f"$m = New-Object System.Windows.Media.MediaPlayer; "
+                f"$m.Open([System.Uri]'{escaped_path}'); "
+                f"$m.Play(); "
+                f"Start-Sleep -Seconds 12"
+            )
             subprocess.Popen(["powershell", "-NoProfile", "-NonInteractive", "-Command", ps_cmd])
         elif shutil.which("termux-media-player"):
             subprocess.Popen(["termux-media-player", "play", filepath])
@@ -1060,7 +1066,7 @@ async def tool_scan_wifi_network(client: httpx.AsyncClient) -> str:
 # =====================================================================
 
 def execute_system_speech(text: str) -> str:
-    """Uses native Windows SAPI / macOS 'say' / Linux TTS to speak aloud through laptop speakers."""
+    """Uses native Windows SAPI (win32com / PowerShell) / macOS 'say' / Linux TTS to speak aloud through laptop speakers."""
     clean_text = (text or "").replace("'", " ").replace('"', ' ').replace("\n", " ").strip()
     if not clean_text:
         clean_text = "Cortana neural construct operational on laptop. Standing by for directives."
@@ -1068,13 +1074,31 @@ def execute_system_speech(text: str) -> str:
     os_sys = platform.system().lower()
     try:
         if "windows" in os_sys:
+            # 1. Direct in-process win32com COM driver
+            try:
+                import win32com.client
+                import pythoncom
+                def _speak_in_thread(phrase):
+                    try:
+                        pythoncom.CoInitialize()
+                        v = win32com.client.Dispatch("SAPI.SpVoice")
+                        v.Speak(phrase, 0)
+                    finally:
+                        pythoncom.CoUninitialize()
+                threading.Thread(target=_speak_in_thread, args=(clean_text,), daemon=True).start()
+                logger.info(f"[LAPTOP VOCALIZATION (Direct SAPI Hook)]: '{clean_text}'")
+                return f"Vocalized aloud on laptop speakers: \"{clean_text}\""
+            except Exception as e_com:
+                logger.debug(f"win32com SAPI fallback to powershell: {e_com}")
+
+            # 2. PowerShell SAPI COM fallback
             ps_cmd = f"(New-Object -ComObject SAPI.SpVoice).Speak('{clean_text}')"
             subprocess.Popen(
                 ["powershell", "-NoProfile", "-NonInteractive", "-Command", ps_cmd],
                 stdout=subprocess.DEVNULL,
                 stderr=subprocess.DEVNULL
             )
-            logger.info(f"[LAPTOP VOCALIZATION]: '{clean_text}'")
+            logger.info(f"[LAPTOP VOCALIZATION (PowerShell SAPI)]: '{clean_text}'")
             return f"Vocalized aloud on laptop speakers: \"{clean_text}\""
         elif "darwin" in os_sys:
             subprocess.Popen(["say", clean_text])
