@@ -732,3 +732,268 @@ body {
   }
 }
 
+/* ==========================================================================
+   HALO UNSC / CORTANA VISUAL TACTICAL HUD EXPANSION
+   ========================================================================== */
+
+/* --- 1. HEXAGONAL CVE THREAT HIVE --- */
+.hex-grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 12px 0;
+}
+
+.hex-cell {
+  position: relative;
+  width: 95px;
+  height: 108px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hex-cell:hover {
+  transform: translateY(-4px) scale(1.08);
+  z-index: 20;
+}
+
+.hex-shape {
+  position: absolute;
+  inset: 0;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid var(--hud-border);
+  transition: all 0.25s ease;
+}
+
+.hex-cell.crit .hex-shape {
+  background: linear-gradient(145deg, rgba(225, 29, 72, 0.25), rgba(15, 23, 42, 0.95));
+  box-shadow: 0 0 12px rgba(244, 63, 94, 0.35);
+  border-color: rgba(244, 63, 94, 0.6);
+}
+
+.hex-cell.crit:hover .hex-shape {
+  background: linear-gradient(145deg, rgba(225, 29, 72, 0.45), rgba(15, 23, 42, 0.9));
+  box-shadow: 0 0 24px rgba(244, 63, 94, 0.8);
+  border-color: #f43f5e;
+}
+
+.hex-cell.high .hex-shape {
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.2), rgba(15, 23, 42, 0.95));
+  border-color: rgba(245, 158, 11, 0.6);
+}
+
+.hex-cell.high:hover .hex-shape {
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.4), rgba(15, 23, 42, 0.9));
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.7);
+  border-color: #f59e0b;
+}
+
+.hex-cell.adv .hex-shape {
+  background: linear-gradient(145deg, rgba(0, 240, 255, 0.15), rgba(15, 23, 42, 0.95));
+  border-color: rgba(0, 240, 255, 0.4);
+}
+
+.hex-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: 6px;
+  pointer-events: none;
+}
+
+.hex-tag {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.hex-cve {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 800;
+  color: #fff;
+  margin-top: 2px;
+  line-height: 1.1;
+  word-break: break-all;
+}
+
+/* --- 2. GLOBAL THEATER RADAR & TARGET LOCK --- */
+.radar-display-frame {
+  position: relative;
+  border: 1px solid var(--hud-border);
+  border-radius: 8px;
+  background: radial-gradient(circle at center, rgba(3, 105, 161, 0.12) 0%, rgba(3, 7, 18, 0.95) 75%);
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.1);
+}
+
+.radar-reticle-crosshair {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: 
+    linear-gradient(to right, transparent calc(50% - 1px), rgba(0, 240, 255, 0.15) 50%, transparent calc(50% + 1px)),
+    linear-gradient(to bottom, transparent calc(50% - 1px), rgba(0, 240, 255, 0.15) 50%, transparent calc(50% + 1px));
+}
+
+.radar-target-card {
+  background: rgba(6, 11, 24, 0.92);
+  border: 1px solid var(--hud-border-bright);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 16px var(--hud-cyan-dim);
+}
+
+/* --- 3. LAN STAR TOPOLOGY & DEVICE NODE INSPECTOR --- */
+.lan-topology-frame {
+  position: relative;
+  border: 1px solid var(--hud-border);
+  border-radius: 8px;
+  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.08) 0%, rgba(3, 7, 18, 0.96) 80%);
+  overflow: hidden;
+}
+
+.device-node-pill {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--hud-border);
+  background: rgba(15, 23, 42, 0.85);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.device-node-pill:hover {
+  background: rgba(0, 240, 255, 0.15);
+  border-color: var(--hud-cyan);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.device-node-pill.active {
+  background: rgba(0, 240, 255, 0.22);
+  border-color: var(--hud-cyan);
+  color: #fff;
+  box-shadow: 0 0 12px var(--hud-cyan-glow);
+}
+
+.device-node-pill.online .status-dot {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+.device-node-pill.offline .status-dot {
+  background: #64748b;
+}
+
+.device-cockpit-panel {
+  background: linear-gradient(135deg, rgba(8, 18, 38, 0.94), rgba(4, 9, 20, 0.96));
+  border: 1px solid var(--hud-border-bright);
+  border-radius: 8px;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(0, 240, 255, 0.08);
+  position: relative;
+}
+
+.device-cockpit-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border-top: 2px solid var(--hud-cyan);
+  border-left: 2px solid var(--hud-cyan);
+  pointer-events: none;
+}
+
+.device-cockpit-panel::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  border-bottom: 2px solid var(--hud-cyan);
+  border-right: 2px solid var(--hud-cyan);
+  pointer-events: none;
+}
+
+/* Oscilloscope Latency Waveform */
+.oscilloscope-canvas {
+  width: 100%;
+  height: 42px;
+  border-radius: 4px;
+  background: rgba(2, 6, 23, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+}
+
+/* --- 4. RADIAL ATMOSPHERIC GAUGES --- */
+.radial-gauge-card {
+  position: relative;
+  background: rgba(8, 14, 28, 0.85);
+  border: 1px solid var(--hud-border);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.radial-gauge-card:hover {
+  border-color: var(--hud-cyan);
+  box-shadow: 0 0 16px var(--hud-cyan-dim);
+  transform: translateY(-2px);
+}
+
+.gauge-svg {
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+.gauge-track {
+  stroke: rgba(255, 255, 255, 0.08);
+}
+
+.gauge-progress {
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+/* --- 5. 5-AXIS SPIDER RADAR CHART --- */
+.spider-chart-frame {
+  position: relative;
+  background: rgba(7, 13, 26, 0.88);
+  border: 1px solid var(--hud-border);
+  border-radius: 8px;
+  padding: 18px;
+}
+
+.spider-polygon {
+  fill: rgba(0, 240, 255, 0.22);
+  stroke: var(--hud-cyan);
+  stroke-width: 2;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.6));
+}
+
+.spider-vertex {
+  fill: #fff;
+  stroke: var(--hud-cyan);
+  stroke-width: 2;
+  transition: all 0.5s ease;
+}
+
+

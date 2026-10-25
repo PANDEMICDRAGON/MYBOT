@@ -6,53 +6,53 @@
     "future_risk_forecast": "Watch fuel pricing and shipping delays into Mombasa port over next 14-30 days.",
     "defensive_protocol": "Maintain USD reserves; verify edge DNS failover; backup local repositories.",
     "asymmetric_upside": "Position in domestic cash-generative equities (SCOM, banking) and cloud resilience audits.",
-    "created_at": "2026-10-25T11:09:34.725420+00:00"
+    "created_at": "2026-10-25T11:24:50.653375+00:00"
   },
   "weather": [
     {
       "city": "Kitengela",
       "scope": "LOCAL",
-      "temp_c": 30.4,
+      "temp_c": 30.3,
       "humidity": 25,
-      "wind_kmh": 16.3,
+      "wind_kmh": 16.2,
       "condition": "Overcast",
-      "updated_at": "2026-10-25T11:09:18.006440+00:00"
+      "updated_at": "2026-10-25T11:24:36.651815+00:00"
     },
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 29.2,
-      "humidity": 26,
-      "wind_kmh": 12.7,
+      "temp_c": 29.4,
+      "humidity": 25,
+      "wind_kmh": 13.3,
       "condition": "Overcast",
-      "updated_at": "2026-10-25T11:09:18.183212+00:00"
+      "updated_at": "2026-10-25T11:24:36.826749+00:00"
     },
     {
       "city": "London",
       "scope": "GLOBAL",
-      "temp_c": 12.9,
-      "humidity": 47,
-      "wind_kmh": 29.9,
-      "condition": "Partly Cloudy",
-      "updated_at": "2026-10-25T11:09:18.361358+00:00"
+      "temp_c": 13.0,
+      "humidity": 46,
+      "wind_kmh": 30.6,
+      "condition": "Mainly Clear",
+      "updated_at": "2026-10-25T11:24:37.002300+00:00"
     },
     {
       "city": "New York",
       "scope": "GLOBAL",
-      "temp_c": 3.2,
-      "humidity": 87,
-      "wind_kmh": 5.2,
+      "temp_c": 3.1,
+      "humidity": 88,
+      "wind_kmh": 6.0,
       "condition": "Clear",
-      "updated_at": "2026-10-25T11:09:18.542744+00:00"
+      "updated_at": "2026-10-25T11:24:37.177996+00:00"
     },
     {
       "city": "Tokyo",
       "scope": "GLOBAL",
-      "temp_c": 18.5,
+      "temp_c": 18.4,
       "humidity": 93,
-      "wind_kmh": 2.2,
+      "wind_kmh": 1.5,
       "condition": "Partly Cloudy",
-      "updated_at": "2026-10-25T11:09:18.722221+00:00"
+      "updated_at": "2026-10-25T11:24:37.355273+00:00"
     }
   ],
   "cyber": [
@@ -66,7 +66,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-29583",
       "content_hash": "9f081a6e1d190b3adb67bea03885f7d65d18b78730b9c2c87cf597ad796249dc",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828283+00:00"
+      "created_at": "2026-10-25T11:24:41.720777+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -78,7 +78,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-8394",
       "content_hash": "dcf56971dec638c1e32bbc4863650ecccaa3af1c85cf2da3c1c671840c6eaeba",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828312+00:00"
+      "created_at": "2026-10-25T11:24:41.720798+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -90,7 +90,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-10189",
       "content_hash": "617c981616242dca0a79d74e690e201fa8363243f0fca31311c73e72299ea8a9",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828321+00:00"
+      "created_at": "2026-10-25T11:24:41.720805+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -102,7 +102,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-40539",
       "content_hash": "a0a7f6dce826b88ebb232c56805a6e18d05107d19068a3fb93dd0b621606f8f4",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828328+00:00"
+      "created_at": "2026-10-25T11:24:41.720811+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -114,7 +114,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-27561",
       "content_hash": "f2e8bbcb50ba59a8e1ff4f38363f496625804d18d53be7d4a45da85e33ab94f1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828335+00:00"
+      "created_at": "2026-10-25T11:24:41.720817+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -126,7 +126,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-9978",
       "content_hash": "0172212bf226992607a8a51bb7ec0b2612440984f13a9e3e8b0418fad56173a1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828341+00:00"
+      "created_at": "2026-10-25T11:24:41.720823+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -138,7 +138,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-11738",
       "content_hash": "895a24212bff3837e00307321f30d072fabdd1b8ffb152b643d8b9503297748c",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828346+00:00"
+      "created_at": "2026-10-25T11:24:41.720828+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -150,7 +150,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25213",
       "content_hash": "25047194a1fb08666eece4829b771542f068bad1a307586569ca0631c5c446d7",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828352+00:00"
+      "created_at": "2026-10-25T11:24:41.720833+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -162,7 +162,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-4006",
       "content_hash": "d96607a458fb92b0ad954e7ec202dd8e5339c638e4f43d7b7d373a473c45462a",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828367+00:00"
+      "created_at": "2026-10-25T11:24:41.720838+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -174,7 +174,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21985",
       "content_hash": "0519b9eb873c86afe0f3b3964b796bf66ff912cfa74eff08bddee80945e4bcc3",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828376+00:00"
+      "created_at": "2026-10-25T11:24:41.720845+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -186,7 +186,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21972",
       "content_hash": "6a15875afd5b6a0fc8b5116f6ded20c3b55fe218ed24823a9c41c945d0488645",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828382+00:00"
+      "created_at": "2026-10-25T11:24:41.720850+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -198,7 +198,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3952",
       "content_hash": "16fbba0f67a35e0d9abb77c5a704a8ec673bc65bef31c73e0e2b582dceefd527",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828388+00:00"
+      "created_at": "2026-10-25T11:24:41.720857+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -210,7 +210,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-22005",
       "content_hash": "8a7fe7a2172f4b0c3668a5827802771468f76277393fa4431ad437befb08ba97",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828402+00:00"
+      "created_at": "2026-10-25T11:24:41.720862+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -222,7 +222,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3950",
       "content_hash": "e4f53315ecff6219811605bb364839d390f5de7c151d53ef8fe2d3f802ad0946",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828408+00:00"
+      "created_at": "2026-10-25T11:24:41.720868+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -234,7 +234,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3992",
       "content_hash": "f4becfb39bd99c21aa036bc17049549112dde23f9fe030037cb5628a0a3650ee",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T11:09:24.828413+00:00"
+      "created_at": "2026-10-25T11:24:41.720873+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -246,7 +246,7 @@
       "link": "https://thehackernews.com/2026/10/openai-ai-agents-demonstrate-vm-escapes.html",
       "content_hash": "ac4bd7b21f1360445738dc78cfad2e78275ee08239370c3a53cbc212bcd9df8e",
       "published_at": "Sun, 25 Oct 2026 12:24:29 +053",
-      "created_at": "2026-10-25T11:09:25.747431+00:00"
+      "created_at": "2026-10-25T11:24:42.654332+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -258,7 +258,7 @@
       "link": "https://thehackernews.com/2026/10/brotli-decoder-flaw-behind-nodejs-rce.html",
       "content_hash": "b75d326892c9f5d67fb1fe2e2d94bfe291647280fe28fe8d3864ab465dec7943",
       "published_at": "Sat, 24 Oct 2026 16:39:29 +053",
-      "created_at": "2026-10-25T11:09:25.747459+00:00"
+      "created_at": "2026-10-25T11:24:42.654351+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -270,7 +270,7 @@
       "link": "https://thehackernews.com/2026/10/leaked-litellm-master-key-let-attackers.html",
       "content_hash": "75b5216799ce87391869dc56f4309f174632da42744abfc93e58a5ad4d3f531c",
       "published_at": "Sat, 24 Oct 2026 16:33:33 +053",
-      "created_at": "2026-10-25T11:09:25.747473+00:00"
+      "created_at": "2026-10-25T11:24:42.654361+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -282,7 +282,7 @@
       "link": "https://thehackernews.com/2026/10/google-says-gmail-and-photos-data.html",
       "content_hash": "fc3cc8e9e2b346a67a243cf594853e3e9f8a1df426f723b1648b7e2c130d62b2",
       "published_at": "Sat, 24 Oct 2026 16:06:33 +053",
-      "created_at": "2026-10-25T11:09:25.747483+00:00"
+      "created_at": "2026-10-25T11:24:42.654370+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -294,7 +294,7 @@
       "link": "https://thehackernews.com/2026/10/researchers-push-over-2-million-updates.html",
       "content_hash": "03c918151b2051053d4fb6ec10c8b90e95433f2b54df9634972afef6d4c79319",
       "published_at": "Sat, 24 Oct 2026 14:34:24 +053",
-      "created_at": "2026-10-25T11:09:25.747505+00:00"
+      "created_at": "2026-10-25T11:24:42.654379+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -306,7 +306,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/blackx-uefi-bootkit-exploits-baton-drop-flaw-to-bypass-secure-boot/",
       "content_hash": "33bc95e64c1975a1dda2036f8dcfd163720184c8297176bed7b4a1df90c084bb",
       "published_at": "Sat, 24 Oct 2026 10:17:32 -040",
-      "created_at": "2026-10-25T11:09:26.600125+00:00"
+      "created_at": "2026-10-25T11:24:42.911066+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -318,7 +318,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/abandoned-popcorn-time-app-exposed-millions-of-device-to-rce-attacks/",
       "content_hash": "2386b67bb17baa7634c50755bd1f0669836f668a7ec1c25ac4fe1315576411d0",
       "published_at": "Fri, 23 Oct 2026 16:55:05 -040",
-      "created_at": "2026-10-25T11:09:26.600147+00:00"
+      "created_at": "2026-10-25T11:24:42.911091+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -330,7 +330,7 @@
       "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-teams-to-get-ai-powered-context-aware-phishing-detection/",
       "content_hash": "411ee11ed9d2182af30fa10984579e679ebf1fbf5d89479b4fba0a16b040c30c",
       "published_at": "Fri, 23 Oct 2026 14:54:41 -040",
-      "created_at": "2026-10-25T11:09:26.600158+00:00"
+      "created_at": "2026-10-25T11:24:42.911103+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -342,7 +342,7 @@
       "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-server-2016-reaches-end-of-support-in-january/",
       "content_hash": "5d921e4373b14a76608d41de91f98972a6267c36202ac3b43e5c7a8d79766bc9",
       "published_at": "Fri, 23 Oct 2026 13:05:07 -040",
-      "created_at": "2026-10-25T11:09:26.600167+00:00"
+      "created_at": "2026-10-25T11:24:42.911113+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -354,7 +354,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/quest-diagnostics-confirms-data-breach-exposed-patient-records/",
       "content_hash": "f05faa1e110cc3622565e36706e80d6670fdd89d9831057975dc374921ffade6",
       "published_at": "Fri, 23 Oct 2026 12:40:07 -040",
-      "created_at": "2026-10-25T11:09:26.600175+00:00"
+      "created_at": "2026-10-25T11:24:42.911122+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -366,7 +366,7 @@
       "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE4tQ2JEZThuYVBZVTl5bG5vd3JxLW9tNzN4dmk5NTgtbm1WOFh2TnFQdXViMzBieC1ydVhGQ19vUG03ZlhIYy1Fd3ZYeThxX0hQLXIxU0FmYm9XbFcyend2YjV6WC1FVkVrLUwyNnNZVEVDNFdaZGlv?oc=5",
       "content_hash": "8d30229226f1b47fcf440678c82a5ec81de6596501590b54dcf3ae95bce209fd",
       "published_at": "Sat, 24 Oct 2026 11:00:36 GMT",
-      "created_at": "2026-10-25T11:09:27.380151+00:00"
+      "created_at": "2026-10-25T11:24:43.674378+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -378,7 +378,7 @@
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNNjRqUjhqSWZ2OC1kMi1HZmtyM1lYZDlQeFZFSVlyc09yUHBJT2ppeUdENHNBNV9reEhRQWJXV3Y0ZmthUGMxT3lPLXlNYkhkYy01ZXZhREgyUDI4MC1kU1pFOVJPZUNpbXQ1RlMxQUpTc3FZMWVFRUl1VTBvZ2xBN19vOHlacDRJRTN4c0JEMVhiNURGYXlKaEQ3ZHE5T2Nw?oc=5",
       "content_hash": "dfcdae4846e8007a0de4e7129ce8856b5b6bea0fad85f4cb6b2a31d04c96c589",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T11:09:27.380199+00:00"
+      "created_at": "2026-10-25T11:24:43.674401+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -390,7 +390,7 @@
       "link": "https://news.google.com/rss/articles/CBMi6whBVV95cUxPYjd0WUtPQ0M4dnc2Yk5DWWVhc1p4T1JqY0w1eGdqWjJGSUdLTDJJaGYyZ29OckpHTFlIUXVwRzRTZU9POUdZOTNvN0pBR0JsMW9rQTc5SlBTLThqc21USVhDTnpWTXdyejBmZjJyMjhOMWMxd0o2QlBBckY5dXNNVnRNY2M5Z04tWVFzNHNidkRUQVZRRFo5a3ZLT3pGdGpPQWxCOGdzVWd5bmozMmZub0pBTWJzOTNKdzE3QWtfQWZleTNQVHd1azJkV2wzSi1nY0NVYUo1V3ZmQ3kwdEVza3U1QU5CYU9XRlNqVHdTemxWNzhDUGpXTTBSa1VUZWF5YXRpUmpJRG5iNUdhbEo1RWhNMjNkRjVORzVfOERQTmxwYzdzeHV5VXdQYUtleWV0WkRnQ0ZrTGhydXFUaEhmQWJZb2ZIX2RkcF9DYzJrZUNtVFVTRWcyWER3aS1taHlFWlBCa1gya3A1YnE1enNqZFlwMm5sU3dOaWZqMzI0TDFGNmdmOFZibW4xZmRrcnVia3ZSTXRSYjg1eDk5YVZhenZvLUxsZEVic0ZweFNPVk52ZFB4N0pWcjE4Mk1qQ1RGendfN2t5OWtuWHBkclJURXRjN2MydUl0MjNYTG5WcWdlVzJrTzdNYlNrYlpwVVIyRUhDUWs5dzNVdTdqMW15bW1RVjhwVDlHUHRpWVRxd0RldDRrMjVSUmVJZHZ3cVhna0FkaEhSQVM1b0ZhVmlIX0ctZjVSYm9XSE5La2NLSmZvdU9BVUZVVWYyaWZ2bHlEUG1GaDgtaGJkeFpydUZQSGRad0w5OEZ3V211ajZoWDJFa1o2dGF0UUZGd05YWGZaaGRpX3RBaU95OGpJRmNEU1ltcVRmVUdhNWs1YUVUdEFTMnhSSGljMTY2d3EtQUUyUlhPU3EtVDRaN2U5eXBWeVlwWXYteHR5dHZEcDE0NHgtVDlaZlBCOFE5UWQydzg1SldqTGhuWWJaWlNKdmFQRktCM19FVGw4R2ZfYVo3LVVKaG9ad3hMM0x2bG1SMDJweEpqbWVEcTNNRUh0N1ozM2UtYVNxS25TVHBFZ196SGhYdTQzQ0dFYmpBZENENHYyYWlWb0F4S1ExQk9ZNE56X3M1b0hoZU1GZmJRQUx2RklqTTVNY3dxOHU1b1kwQjZjSGRkVGN3SnhiNEZRaGhQUFlPVWlIQmxsVjFmTFBqcjBxNTlTRWR2bGVIcEpGaHBGNGRBSHpSVkIyU1FEeE1KOXpHc09ydmhnN2dFODJzbVZrMmdvbXFMai1xUERCYWN4dXRLNm1MaG90cUVZR05oX0hqUHNTZ2Q5S05QX0c0MVJfaHMtSmRfRlN2QWY4LXg0dlJzRFZFcnNKMjVjV0xQemZBVGE3SjNCMm9qMmJ3SDhmMkYxOEVybGpULVJHREwySVVHMjFKOGxwa0ZiNzQ1QkQ1UTBuTlZfbk8tS1VKc09zc3pVUGNncUs1N3NLV1F0QmJvenVlQ1J6R1k?oc=5",
       "content_hash": "61cad910365d5aab214eced3ccbea2386cc54606df92b954a0ad31ae6ed2674d",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T11:09:27.381136+00:00"
+      "created_at": "2026-10-25T11:24:43.674428+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -402,7 +402,7 @@
       "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQQl90SDAtbFFGTWl1R05VS20tcGNia2hPdS03dElvWlNLUElka1Ixa045SXdQcThoUFM3d01HRElYaGNRLXJrZThQQTc2aFJ6ZjBMc0hPZTRPYUFPTlY0V2JsZHR3Y3hIcXM3LUp2SjYzVUo4ZW1hRlRHWTlEdXZFNzd6aWJ2bWRNMVViODRYR1RGYUZlVnA1akprUWp1NGstTVFPOVdhN1RaWnhKbVRSY0c4X0dHdw?oc=5",
       "content_hash": "d605122d644d87e1f0317321d57acedecffcf642ee6a7c380a3419c5828d8ba3",
       "published_at": "Wed, 07 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T11:09:27.381182+00:00"
+      "created_at": "2026-10-25T11:24:43.674439+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -414,7 +414,7 @@
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMGlYOUFaVy1PTTNHSHlXaTh6cklnQ0xSU3g3dXdYbjhWZGxsR0t4N1dXZ0NNd0pKM2NIOU0xQkdTUF9BdFNXYUk2bTBJYi1iM0h3TWZUM21WNmZIc2FnVEVhSzJHd1pvMnRBR0FvWFBJQ25URF9aVmxXR0xDTzhyNG1DLUEzTzNqRjV6Rnp4c0Y0Qm80ZXFQWnVvSGV2TkkwbWd5Rk9CR1RJTXYyTnc?oc=5",
       "content_hash": "2c77f445a49add8fdb3b5a81c3c6bc7a69e27c0175389c663aac488212e5520e",
       "published_at": "Wed, 14 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T11:09:27.381208+00:00"
+      "created_at": "2026-10-25T11:24:43.674448+00:00"
     }
   ],
   "news": [
@@ -425,7 +425,7 @@
       "link": "https://www.cnn.com/business/live-news/stock-market-bank-earnings/index.html",
       "content_hash": "9e62e2f1591678accd3da6045653edb189e48c2801b1f2d4c2124b461196fd0b",
       "published_at": "Fri, 14 Apr 2023 20:00:28 GMT",
-      "created_at": "2026-10-25T11:09:19.377450+00:00"
+      "created_at": "2026-10-25T11:24:37.983865+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -434,7 +434,7 @@
       "link": "https://www.cnn.com/2023/04/13/success/tax-filing-tips/index.html",
       "content_hash": "18c42e591f2c10094093d27776cb7cea488496b142aa0de7dc1e665050e70823",
       "published_at": "Fri, 14 Apr 2023 20:07:40 GMT",
-      "created_at": "2026-10-25T11:09:19.377484+00:00"
+      "created_at": "2026-10-25T11:24:37.983896+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -443,7 +443,7 @@
       "link": "https://www.cnn.com/2023/04/14/economy/march-retail-sales/index.html",
       "content_hash": "e66a9fe26f88f7b96baa0bca65dab984abaa5411731c940f773dddca24ed82e3",
       "published_at": "Fri, 14 Apr 2023 14:29:52 GMT",
-      "created_at": "2026-10-25T11:09:19.377494+00:00"
+      "created_at": "2026-10-25T11:24:37.983912+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -452,7 +452,7 @@
       "link": "https://www.cnn.com/2023/04/14/media/fox-news-dominion-hnk-intl/index.html",
       "content_hash": "19c41ac53dc17bdd275bb1449da6852c2fb0273b822690ded84f5db5d65d3ce2",
       "published_at": "Fri, 14 Apr 2023 06:41:00 GMT",
-      "created_at": "2026-10-25T11:09:19.377501+00:00"
+      "created_at": "2026-10-25T11:24:37.983926+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -461,7 +461,7 @@
       "link": "https://www.cnn.com/2023/04/13/business/silicon-valley-bank-entrepreneurs-of-color-reaj/index.html",
       "content_hash": "3fabfda02516e36e39d62b34610a5a5a611b4e7d4502ef81c971e75805db4d38",
       "published_at": "Thu, 13 Apr 2023 21:13:04 GMT",
-      "created_at": "2026-10-25T11:09:19.377509+00:00"
+      "created_at": "2026-10-25T11:24:37.983941+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -470,7 +470,7 @@
       "link": "https://www.bbc.co.uk/news/articles/c95ynd587ynzo?at_medium=RSS&at_campaign=rss",
       "content_hash": "6eb30388be9faba14c430d166ed634666a1f3aeadae19aeed365488aa47d70cf",
       "published_at": "Sun, 25 Oct 2026 10:38:15 GMT",
-      "created_at": "2026-10-25T11:09:19.844395+00:00"
+      "created_at": "2026-10-25T11:24:38.049986+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -479,7 +479,7 @@
       "link": "https://www.bbc.co.uk/news/articles/c6y93ylpl5p2o?at_medium=RSS&at_campaign=rss",
       "content_hash": "4f8f3090354a0d1938e98722854f58519e90a67efa92fe017fd19aadfb00cdc1",
       "published_at": "Sun, 25 Oct 2026 05:15:52 GMT",
-      "created_at": "2026-10-25T11:09:19.844415+00:00"
+      "created_at": "2026-10-25T11:24:38.050008+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -488,7 +488,7 @@
       "link": "https://www.bbc.co.uk/news/articles/cxp8g21j4648o?at_medium=RSS&at_campaign=rss",
       "content_hash": "28b1b9c069cf3870c56b6d0a80f0923cbc7785306678ff17be4cf4d8fe883f87",
       "published_at": "Sun, 25 Oct 2026 11:00:26 GMT",
-      "created_at": "2026-10-25T11:09:19.844423+00:00"
+      "created_at": "2026-10-25T11:24:38.050017+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -497,7 +497,7 @@
       "link": "https://www.bbc.co.uk/news/articles/cvx28ljp8n4xo?at_medium=RSS&at_campaign=rss",
       "content_hash": "0cc907f893357e5a482bf7b5f1a793e49fd03b92ed1f6619904b0887a3d326ea",
       "published_at": "Sun, 25 Oct 2026 09:00:00 GMT",
-      "created_at": "2026-10-25T11:09:19.844430+00:00"
+      "created_at": "2026-10-25T11:24:38.050025+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -506,7 +506,7 @@
       "link": "https://www.bbc.co.uk/news/articles/cq1kdlm1ze7do?at_medium=RSS&at_campaign=rss",
       "content_hash": "a28b5fd3902852b8e6c12c389dc2d2bf4c2e2d9d84bc5bb77004e8b5569d9028",
       "published_at": "Sun, 25 Oct 2026 03:20:16 GMT",
-      "created_at": "2026-10-25T11:09:19.844436+00:00"
+      "created_at": "2026-10-25T11:24:38.050034+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -515,7 +515,7 @@
       "link": "https://www.aljazeera.com/news/2026/10/25/irans-authorities-take-self-sacrifice-mobilisation-campaign-nationwide?traffic_source=rss",
       "content_hash": "4fb86aaae21bebfbc8ff8d90f835077134d84ba8b2c4dbba1ab8d67106957d77",
       "published_at": "Sun, 25 Oct 2026 10:50:38 +000",
-      "created_at": "2026-10-25T11:09:19.998366+00:00"
+      "created_at": "2026-10-25T11:24:38.130113+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -524,7 +524,7 @@
       "link": "https://www.aljazeera.com/video/newsfeed/2026/10/25/police-in-albania-filmed-beating-protester-unconscious?traffic_source=rss",
       "content_hash": "d39d97366180a9b7006db460e41952ad6ce19a91473849b8594b439043822c8f",
       "published_at": "Sun, 25 Oct 2026 10:45:51 +000",
-      "created_at": "2026-10-25T11:09:19.998387+00:00"
+      "created_at": "2026-10-25T11:24:38.130143+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -533,7 +533,7 @@
       "link": "https://www.aljazeera.com/news/2026/10/25/saudi-arabia-intercepts-missiles-and-drones-as-fighting-with-houthis-rages?traffic_source=rss",
       "content_hash": "a519e612192c9294d8962e589c73b2d953052a1d66a48bdd67cfd700e76aecee",
       "published_at": "Sun, 25 Oct 2026 10:42:51 +000",
-      "created_at": "2026-10-25T11:09:19.998396+00:00"
+      "created_at": "2026-10-25T11:24:38.130160+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -542,7 +542,7 @@
       "link": "https://www.aljazeera.com/sports/2026/10/25/pakistan-axe-shan-masood-from-sri-lanka-test-squad-as-agha-rizwan-return?traffic_source=rss",
       "content_hash": "cf2fc366fbec502e8009dc56d25d65ec6b3e56ff6515e2291caa8ff4a2ebb8e0",
       "published_at": "Sun, 25 Oct 2026 10:27:36 +000",
-      "created_at": "2026-10-25T11:09:19.998402+00:00"
+      "created_at": "2026-10-25T11:24:38.130176+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -551,7 +551,7 @@
       "link": "https://www.aljazeera.com/video/newsfeed/2026/10/25/trump-mocks-reporter-asking-about-iran-strikes-as-tehran-says-us-derailed?traffic_source=rss",
       "content_hash": "f169157ec7f42c7bb4df2ef07ef74a02ad4d82a0d5185f2e84a04cb4a29f4a1c",
       "published_at": "Sun, 25 Oct 2026 10:14:43 +000",
-      "created_at": "2026-10-25T11:09:19.998408+00:00"
+      "created_at": "2026-10-25T11:24:38.130191+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -560,7 +560,7 @@
       "link": "https://www.foxnews.com/world/brazil-becomes-next-test-latin-americas-surging-conservative-movement",
       "content_hash": "9b59b78c4db71403b8e983b941820af6fd53019bf0204838d7f52e4e5bcd11e7",
       "published_at": "Sun, 25 Oct 2026 07:00:21 -040",
-      "created_at": "2026-10-25T11:09:21.041352+00:00"
+      "created_at": "2026-10-25T11:24:38.674235+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -569,7 +569,7 @@
       "link": "https://www.foxnews.com/world/former-israeli-army-chief-gadi-eisenkot-emerges-netanyahus-leading-election-challenger",
       "content_hash": "1926af25eaeda8cf7aefed9c04dc0dd18b9492c38beb48d3f02429cbe730cd89",
       "published_at": "Sun, 25 Oct 2026 06:00:15 -040",
-      "created_at": "2026-10-25T11:09:21.041372+00:00"
+      "created_at": "2026-10-25T11:24:38.674260+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -578,7 +578,7 @@
       "link": "https://www.foxnews.com/world/nearly-1000-arrested-across-france-police-find-potential-weapons-protestors",
       "content_hash": "85e76854afba9e5501cbb6544f2d1b02b4b3f6288e489ac2c05b081fbeccfe55",
       "published_at": "Sat, 24 Oct 2026 13:51:56 -040",
-      "created_at": "2026-10-25T11:09:21.041379+00:00"
+      "created_at": "2026-10-25T11:24:38.674270+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -587,7 +587,7 @@
       "link": "https://www.foxnews.com/world/death-toll-rises-9-church-attack-officials-blame-extremist-islamist-ideology",
       "content_hash": "0e14fa023a3448ec59fad571c31244993e1617837f2e1c2ffa593a11e184af06",
       "published_at": "Sat, 24 Oct 2026 12:04:18 -040",
-      "created_at": "2026-10-25T11:09:21.041386+00:00"
+      "created_at": "2026-10-25T11:24:38.674279+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -596,7 +596,7 @@
       "link": "https://www.foxnews.com/world/rubio-urges-cubans-work-cia-bring-political-change-communist-run-island",
       "content_hash": "2241de0a71e88dbe22fc5d6f630e484f75a707474ad97e6f6ef593eb39d49fec",
       "published_at": "Fri, 23 Oct 2026 19:43:20 -040",
-      "created_at": "2026-10-25T11:09:21.041392+00:00"
+      "created_at": "2026-10-25T11:24:38.674287+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -605,7 +605,7 @@
       "link": "https://www.nytimes.com/2026/10/25/world/americas/brazil-election-lula-bolsonaro-what-to-know.html",
       "content_hash": "58f40e202666cbbcf3dc5517e1d5078fe630503ecb32470fb2c684f9ab6269c1",
       "published_at": "Sun, 25 Oct 2026 09:01:45 +000",
-      "created_at": "2026-10-25T11:09:21.626138+00:00"
+      "created_at": "2026-10-25T11:24:38.881814+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -614,7 +614,7 @@
       "link": "https://www.nytimes.com/2026/10/25/world/europe/serbia-election.html",
       "content_hash": "a1f51efb21391d65097436a94de04188605566800fd6250f8574501ae96919ae",
       "published_at": "Sun, 25 Oct 2026 04:01:22 +000",
-      "created_at": "2026-10-25T11:09:21.626169+00:00"
+      "created_at": "2026-10-25T11:24:38.881847+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -623,7 +623,7 @@
       "link": "https://www.nytimes.com/2026/10/25/world/middleeast/israels-high-stakes-election-what-to-know.html",
       "content_hash": "6d8007a102c0f49a24c1ce5c1518b1ec706b4f8a635d9151270bb666e4c76698",
       "published_at": "Sun, 25 Oct 2026 09:01:00 +000",
-      "created_at": "2026-10-25T11:09:21.626185+00:00"
+      "created_at": "2026-10-25T11:24:38.881866+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -632,7 +632,7 @@
       "link": "https://www.nytimes.com/2026/10/25/world/africa/tristan-da-cunha-island.html",
       "content_hash": "4343e8049fbd94cadb15bf1b304adcffffbdd8a61f5b3a32b40a56839c08b46d",
       "published_at": "Sun, 25 Oct 2026 04:01:26 +000",
-      "created_at": "2026-10-25T11:09:21.626199+00:00"
+      "created_at": "2026-10-25T11:24:38.881881+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -641,7 +641,7 @@
       "link": "https://www.nytimes.com/2026/10/24/world/europe/ukraine-starshield-drone-speed.html",
       "content_hash": "59c3af872e57a4a66d8d399a09c5487a90e4592f5c2d430f0697e88e584c934b",
       "published_at": "Sun, 25 Oct 2026 09:28:35 +000",
-      "created_at": "2026-10-25T11:09:21.626213+00:00"
+      "created_at": "2026-10-25T11:24:38.881896+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -650,7 +650,7 @@
       "link": "https://www.wsj.com/articles/palestinians-flock-back-to-northern-gaza-on-foot-after-hostage-release-breakthrough-3f60e2db",
       "content_hash": "145876308695d51de7be7364b6c4ddef7f914a64cc7b471b05174ec467044192",
       "published_at": "Mon, 27 Jan 2025 14:23:00 -050",
-      "created_at": "2026-10-25T11:09:22.254452+00:00"
+      "created_at": "2026-10-25T11:24:39.359210+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -659,7 +659,7 @@
       "link": "https://www.wsj.com/articles/even-chinas-property-stalwart-isnt-immune-from-the-crisis-19799863",
       "content_hash": "f009c0055377f78fbf709707a4fbe2fbe14da0d612db8a219c26e8714b98e99c",
       "published_at": "Mon, 27 Jan 2025 12:32:00 -050",
-      "created_at": "2026-10-25T11:09:22.254484+00:00"
+      "created_at": "2026-10-25T11:24:39.359241+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -668,7 +668,7 @@
       "link": "https://www.wsj.com/articles/freed-israeli-hostages-still-had-shrapnel-in-their-bodies-from-oct-7-attack-3de8cd1e",
       "content_hash": "51593a6d07415e74b73fb60f477504782cc30417575eaee25d4fde558814c15b",
       "published_at": "Mon, 27 Jan 2025 12:12:00 -050",
-      "created_at": "2026-10-25T11:09:22.254497+00:00"
+      "created_at": "2026-10-25T11:24:39.359259+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -677,7 +677,7 @@
       "link": "https://www.wsj.com/articles/suspected-sabotage-of-deep-sea-cable-triggers-first-nato-led-response-337119ba",
       "content_hash": "b2ffc8c262a840c774e7f215e5fd8c62166791e438722933eb05881f0b970f84",
       "published_at": "Mon, 27 Jan 2025 11:22:00 -050",
-      "created_at": "2026-10-25T11:09:22.254508+00:00"
+      "created_at": "2026-10-25T11:24:39.359274+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -686,7 +686,7 @@
       "link": "https://www.wsj.com/articles/rwanda-backed-rebels-enter-congo-safe-haven-city-aid-hub-09fdccb8",
       "content_hash": "362b133421b8589b6846af5070feec204bde0f3790b3f0cddbca5a1110e4580f",
       "published_at": "Mon, 27 Jan 2025 10:07:00 -050",
-      "created_at": "2026-10-25T11:09:22.254519+00:00"
+      "created_at": "2026-10-25T11:24:39.359290+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -695,7 +695,7 @@
       "link": "https://www.theguardian.com/world/2026/oct/23/ebola-swiss-patient-nigeria-dr-congo-concerns-virus-spread",
       "content_hash": "bba96d33f5b06b37950e6282ecc0b8da7293a40bd33e6e045741150072adf5fb",
       "published_at": "Fri, 23 Oct 2026 13:57:11 GMT",
-      "created_at": "2026-10-25T11:09:22.476440+00:00"
+      "created_at": "2026-10-25T11:24:39.581020+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -704,7 +704,7 @@
       "link": "https://www.theguardian.com/sport/2026/oct/22/lewis-hamilton-aims-to-extend-career-till-early-2030s-so-he-can-race-in-african-grand-prix",
       "content_hash": "95510307a49228ebb7705e69ca3e888e4a1a703f25bd27fa5e75f79fd7f40957",
       "published_at": "Thu, 22 Oct 2026 21:53:28 GMT",
-      "created_at": "2026-10-25T11:09:22.476472+00:00"
+      "created_at": "2026-10-25T11:24:39.581050+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -713,7 +713,7 @@
       "link": "https://www.theguardian.com/world/2026/oct/21/us-vaccine-trial-african-newborns-hepatitis-b",
       "content_hash": "f5121dbff1adbed3e6061f438d35f819b9124dac8c8dc040c2b94d70e6c17b05",
       "published_at": "Wed, 21 Oct 2026 17:18:56 GMT",
-      "created_at": "2026-10-25T11:09:22.476487+00:00"
+      "created_at": "2026-10-25T11:24:39.581065+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -722,7 +722,7 @@
       "link": "https://www.theguardian.com/us-news/2026/oct/21/ice-detention-illness-deportation-florida",
       "content_hash": "3cf19d49118a747a9c5b73d68e286c3d3e2ffbc1550bff7363bfb78e9c72a5e6",
       "published_at": "Wed, 21 Oct 2026 13:40:08 GMT",
-      "created_at": "2026-10-25T11:09:22.476502+00:00"
+      "created_at": "2026-10-25T11:24:39.581079+00:00"
     },
     {
       "scope": "GLOBAL",
@@ -731,7 +731,7 @@
       "link": "https://www.theguardian.com/world/2026/oct/21/nigeria-first-ebola-case-africa-outbreak-latest",
       "content_hash": "89d2c072b68ac851ca8b09f49f43a9ff31305f95e3ee5c9692917d867fe69df4",
       "published_at": "Wed, 21 Oct 2026 00:14:55 GMT",
-      "created_at": "2026-10-25T11:09:22.476516+00:00"
+      "created_at": "2026-10-25T11:24:39.581093+00:00"
     },
     {
       "scope": "LOCAL",
@@ -740,16 +740,16 @@
       "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOQUhLT1pOLTJ0Uy1MNXhEVl92TWFUT3RYX3ZKTnF1M0ZRZzNjd00yOWlQclNmc3d2S0ViSGhnZ2lRS2hhVUN1bUpwR2xPVFQ3UFJ3ekhOZkNTV3BaMkJlc0tWWmJxRVNlSVFub0MwdFk1NjhGRmFya0std0FfOV9wMTQyQ0d3WGhLMEM0?oc=5",
       "content_hash": "2b5bf41bea42a2d0ae89f06deca7d5e384b0a675b093e160c1cc7484911a4f7e",
       "published_at": "Sun, 25 Oct 2026 09:10:13 GMT",
-      "created_at": "2026-10-25T11:09:23.528520+00:00"
+      "created_at": "2026-10-25T11:24:40.510199+00:00"
     },
     {
       "scope": "LOCAL",
       "source": "Kenya Local Wire",
-      "title": "20 killed, several injured in bus-lorry collision along Nairobi-Mombasa highway - Citizen Digital",
+      "title": "22 killed, several injured in bus-lorry collision along Nairobi-Mombasa highway - Citizen Digital",
       "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOcFloTDljR1hwRGtueEFoSVFDWXFwdzBIVU55TFdfNFIzMkZMUElxLU5NS0JCNjdWNk9mLVJBeGNVZ2txSWhqQTFNV3R3T3RiUnVKWVN4bG9RN0lMZ1ZTMGJxYlZkWFFHUU9tUnlleFBMS1FvcVBSLUxBdXVfR0pxeDdrdUw3cWtfbzF1WW1lVmZrMWxvWDZIRUxlU1p0YXZEOGYxZkpTc1pNc1BmUXFsdXI3bTdkNlplSWc?oc=5",
-      "content_hash": "e4015813a5e563c3d17ac6a671e2c76f70c39067175344f5b5291c58cd7a7793",
-      "published_at": "Sun, 25 Oct 2026 08:03:36 GMT",
-      "created_at": "2026-10-25T11:09:23.528537+00:00"
+      "content_hash": "dac4afbc34cf266cba3bf29292d208ebe179e2e736857b5a4f5d58afcdecb33e",
+      "published_at": "Sun, 25 Oct 2026 09:20:43 GMT",
+      "created_at": "2026-10-25T11:24:40.510221+00:00"
     },
     {
       "scope": "LOCAL",
@@ -758,7 +758,7 @@
       "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPY1RpNV90Q2k2SG1OeDE0MVhmYlNGT3BvS3V2ejE4YmhCWEVYNEF0MWhYMEkwWnhPYkJoa3RtX2djZlowMUFvX2MyYWg4WlAyZnFPZTkxV2pYc1dhVnhVSkl4TndYQ3NuTHlsRUxBN3ZuMFFpOFlDZ2FxUnI2T2k3YlhaYmlocm1yWnQyZk9tcWphZ9IBkgFBVV95cUxOcEJDNDNLVll3NV96MmRBZFpqOTZSTmZ0NVpnZkR6Umd2azF4aUNnUzZWNkZUaGJpSzhxWGpjMV8ybjlJTDFYWHhpZlU2bktIVjYteTAwYkUxbGxyQVRIbTNUdWpnZldIX3huYzF3SHgydTJrMmdlNXFSYkFHS01IQjFSaXdURHh4a2lybW5BSDFydw?oc=5",
       "content_hash": "bc793d4ea7da38e40c943e2195f50105074819d4067462041244d8033369558c",
       "published_at": "Sat, 24 Oct 2026 02:45:52 GMT",
-      "created_at": "2026-10-25T11:09:23.528545+00:00"
+      "created_at": "2026-10-25T11:24:40.510230+00:00"
     },
     {
       "scope": "LOCAL",
@@ -767,7 +767,7 @@
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNaWNXY2JnSnNMOHA0bkpUZnpsWEVPalRvbUdvaWJac2VWSWhfRkJBdWplZDJLcXlFLTdGaTJMYXNHc2hJTFZJZmVqYy1pd3FCbnhscUNSWFZrb2MxWTBIbnFvSVA2UUdIODJTc0FaazlWNDZYSDlBanJhd0dCTzZ0T3FFbXJHQ2R0ODJ0aUVMYUxZTnkyZXdNa0dETGlzblRqS3EtU25OSlo2dWPSAbABQVVfeXFMUE45em11ek5GeFFlbWxNZFlUdzYzTGNjNm1uYU90Q0ZDT2xuZV9TS1N4TjB5a2pFdDl2bGVaQk5UZWNsVTBwSUFkTi1TVU9UTEpHajRnUnRfcmlrWUtuZmF5bGl1cUYwSkdrVVpIMUJlZVVhOUN6X3Joa1JGNkhMbkdvM3lUcHpvcHdBanQydDg3WTRDbFViMjR0bUQzc3pfbEtqUGViZEZwMlU3UTBtTnA?oc=5",
       "content_hash": "e2c50e5121401d592149a52cb72978a053d4298077073a104f8b0c08f4cb8489",
       "published_at": "Fri, 23 Oct 2026 17:49:21 GMT",
-      "created_at": "2026-10-25T11:09:23.528552+00:00"
+      "created_at": "2026-10-25T11:24:40.510239+00:00"
     },
     {
       "scope": "LOCAL",
@@ -776,7 +776,25 @@
       "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxONldUbVVhX0ZKNlJZbEUtZC1EZVUyZ05YS2hjLU9GZ25iYUl6YWVkdmxKZTR3MUZtWU5EcTRvS3FzZEdpTTF4ZlFjMFcxUGFVTmk2MWtCZ3pZTXppSnB0d21pS2YzeVZFM2Rna1k1ME5tdGFYdE5rYVZFMjBlNWp0ZHBWd3FicW9WdHN6bWU3YUNTV3haUGtDenhFbEZDa0R2T1NPNVZwSkRqN2RuNjRsUVNLWk1fZ0pMZ2pob0lR?oc=5",
       "content_hash": "76bba2e4cbb9682d4ec969f23a8d9e506c13cccac64bd501b2b4a2c3ab4f7d01",
       "published_at": "Fri, 23 Oct 2026 13:52:01 GMT",
-      "created_at": "2026-10-25T11:09:23.528561+00:00"
+      "created_at": "2026-10-25T11:24:40.510256+00:00"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "Kenya Markets & Economy",
+      "title": "Kenya’s inflation at 6.8% year-on-year in September - CNBC Africa",
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPQ0I1bm5aLTc5WnlISmpaTVJkdWlUdDBMRm1GdS00b1llUHVUQmh6QjBLVWhtbjdIWkxxTVFEVHJERi1waDdLTDRoelk4QWR1cWZyWXRKQzdrVC1TWEphN0s1N3YxN3JJZ0wxUzVZZmptZmtCMmhCRk1XVFI3UnVvdWg3aGdCdjN1?oc=5",
+      "content_hash": "59cedc2a6ce6b0f3996963baf8cdefb7f18e34e02f83761f45f2ae0a380b8ec8",
+      "published_at": "Wed, 30 Sep 2026 07:00:00 GMT",
+      "created_at": "2026-10-25T11:24:41.175790+00:00"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "Kenya Markets & Economy",
+      "title": "Kenya raises fuel prices as Middle East conflict lifts import costs - Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQal9MVUlacGx1Mk5qWU44N3lMY3FFZGhPQnpJT2xJQkdkdGlaUEI0dEJqdXVzWkxhOWI5SFFZS3lKN2tkX1I3TlV1OG5RSFJqU2xOd2VUWU8zcFdWdFZldENEWm9ybkdiOUc3am5wU19YaEJyZ3FFUDN1N194YlA4c29xbWxoMTVlekNRZHByWFQ4eHFpNmQyckxVVGRHcXY5el9MajgwMF9vYnd2emNNWk90aw?oc=5",
+      "content_hash": "ad361459b5620ab1987aee1985cdc3c301dae03a83d8b3232033c70d377d7809",
+      "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
+      "created_at": "2026-10-25T11:24:41.175807+00:00"
     },
     {
       "scope": "LOCAL",
@@ -785,7 +803,7 @@
       "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc1RYMkNjeEdYbDNsZnNfdFFLVG0wb2xyTUh5Q2h0VXk5enNsbE9vb05DNUlOWnR1dzRuZVptenhsUmNkUkhIWkRmWlg1YnNuM0lZUmJWa1RqazlCSEFrNGZteUcxMEpUVmNsTUZMQzJGVXlFa3RfOHVXdHpLdHZNQWd1aDVtN3EtVW1UZGlKb2hGbDE4SmRiUWtiQ1BGcVMxbWktOEN5aE5XVTFJ?oc=5",
       "content_hash": "a030d3f6ab0e0df3f9453f8f2509f4442037b579604a7221c5600c801605e83e",
       "published_at": "Thu, 22 Oct 2026 12:51:32 GMT",
-      "created_at": "2026-10-25T11:09:24.313574+00:00"
+      "created_at": "2026-10-25T11:24:41.175813+00:00"
     },
     {
       "scope": "LOCAL",
@@ -794,34 +812,16 @@
       "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNSm5uQy1TZXRINFpGT1BKUk5pNU5OSGZBdWJRZWdUUmo2MEJMcGR3ZWlrSHY4QjRWbXF3b3o0N1E3TVVxY0puUlVjVkhTSXpOUUdIb3JSNTlFU21FaVFlM1FLN0xLZnlDU1hET1lWUVVlZmc1Qk1JZjFQbEdoSHRCTWxaMG1tblNSMzduanl6dXRsUWlwVUN2UjJUUjVDSl81SzhhZmxkUmNYSWR4VHRSOWlGcXp5eVYtQmo5cWluX0M?oc=5",
       "content_hash": "141b96adf6d1b355c185bb8e379ed1ddec0464915dfecf8ddd86478ecbdb4c2a",
       "published_at": "Fri, 23 Oct 2026 06:45:27 GMT",
-      "created_at": "2026-10-25T11:09:24.313590+00:00"
+      "created_at": "2026-10-25T11:24:41.175820+00:00"
     },
     {
       "scope": "LOCAL",
       "source": "Kenya Markets & Economy",
-      "title": "A Slipping Shilling, a Challenging Market: What Uganda’s Currency Means for Kenya - Vellum Kenya",
-      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPcnlBU3pET0Y1a1JzZVlsN2xGSXVmeFNWS2x1TlVmdUt1eERuelZ0ZF9iR1ZRd1JoOTRMMmZENjBnbHdSM2VYc21yV2RHb05NQVQzUnpQd0Q3cFdaWlAxRG5JRlU0dUpCcGhCeHlFQkdicFhDajNBUHRuamZ6VnZ2V2NSZ3ZrZDhVTlBPOVFQQU5nT2hFU3ZQUGRSN2F3Wmd0OHc?oc=5",
-      "content_hash": "3fcdfe0f316bf6129e9b6e3bf72dcc4b1264ac54cd3aaa56fad2bce3680b6cf7",
-      "published_at": "Fri, 23 Oct 2026 18:26:44 GMT",
-      "created_at": "2026-10-25T11:09:24.313601+00:00"
-    },
-    {
-      "scope": "LOCAL",
-      "source": "Kenya Markets & Economy",
-      "title": "Kenya walks a tightrope in Dangote fuel supply deal amid exclusivity row, pipeline stake - The Africa Report",
-      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxQZnVCMENFMTJTcmJJaDlaMHJLM1JxQ3FQRzJrMmQ5Z0xIZzJlVGd0ZF9xamg3U0tCLWZGdW01NE5NeERZTzRWQlhxdmR6N0hNc1YwNkk5OHlCRFF3ZXRId3FSVVdvdkVCMnBKVWpMLW1yV2lhMlk5dnhsa2hPaElpTTctVlp5d1l0dHFYUUNrNzlvSTZsWE5QcEFIMlJaLUM5WXZtMlB4SGpkbXNKcFlSRjF6SWs5YURLbHVLcHRSZTNNU0lJeWc?oc=5",
-      "content_hash": "e96f1a98a31f3bc1bf768d1ab85d19c497c0155551eb5eb44ff90165c078d617",
-      "published_at": "Fri, 23 Oct 2026 07:51:33 GMT",
-      "created_at": "2026-10-25T11:09:24.313607+00:00"
-    },
-    {
-      "scope": "LOCAL",
-      "source": "Kenya Markets & Economy",
-      "title": "Seven fuel tankers set to ease Kenya supply fears as global prices rise - The Star, Kenya",
-      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPQzE2RlBla3JVRmtwRWpsTXVfYi1SUUpnM2ZjVHNDS3ZhczktYVFOZC1OMW93d2pYaUFVNm1GSDNWanV0blFZZGF4UjIwVjJqRTlDZ0gzT1FCUGZtSmxfLXFNdG5GZ1htLXFiREdMLTA3Ri0zdnBaQ2wwZkpmVDlZYlNqNmhES1hCYm11eUFFT05lOWpUQXZV?oc=5",
-      "content_hash": "e56356a98c3fc689efd828148743ae66c0f579981a1da63b04267cd74f3de1df",
-      "published_at": "Thu, 22 Oct 2026 17:50:00 GMT",
-      "created_at": "2026-10-25T11:09:24.313613+00:00"
+      "title": "Nairobi protest planned for Monday over high fuel prices and soaring cost of living - The Eastleigh Voice",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOT2hxVnRVdEQtd2daYWZsR0w0V1IzS0d6NlMyTXpKUFVNQ0NUUHdvNG1ockNYSmVwdFRkXzhjeXQtMHJ1TVpMcGRnYTg1c29CckNCXzJyN1FFbFhlY0VYNklFbktXSEpvdTQtNV9qMm0wS3NpOFltMEtUOU0zbWRPWXVGbU50M3ZpSU1ZMXlsZFJ4OE42Q2lMQ2ZiaHlTNVl0RHZOd0JtZkRlQ3JKaEZaa0hzS2JhblpteVhSNHk3NkUybG5ZNGFRUQ?oc=5",
+      "content_hash": "a9915624a061f52f40b96f4a9ab95c8948bf69b7e16aa5d16202f75adb09a3c6",
+      "published_at": "Fri, 23 Oct 2026 05:31:05 GMT",
+      "created_at": "2026-10-25T11:24:41.175826+00:00"
     }
   ],
   "conflicts": [
@@ -833,7 +833,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/funding-hegseth-autonomous-command/416800/",
       "content_hash": "33c6a6145f216294b9a9ff9753364acfc3446c32dc2624d964449b29c31ba6fd",
-      "created_at": "2026-10-25T11:09:29.415489+00:00"
+      "created_at": "2026-10-25T11:24:45.675803+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -843,7 +843,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/yearlong-deployments-navy-new-normal/416777/",
       "content_hash": "610c3a52927bf062077806db21e18ce1fdd76ebf904569a419aad89100f88c15",
-      "created_at": "2026-10-25T11:09:29.415517+00:00"
+      "created_at": "2026-10-25T11:24:45.675826+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -853,7 +853,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/business/2026/10/defense-business-brief-little-bit-mosa-netherlands-us-industry-days-and-more/416776/",
       "content_hash": "fb4304ececba017600c025bd3957cfbe8dce00208f32965d802a46007e4d59d9",
-      "created_at": "2026-10-25T11:09:29.415530+00:00"
+      "created_at": "2026-10-25T11:24:45.675837+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -863,7 +863,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/qatar-looks-bolster-its-military-power-new-hub-partnerships/416775/",
       "content_hash": "eb19c90489c72b6fe7011db005a03cd31a2b5d7daa330cf9413d670971d3cdd6",
-      "created_at": "2026-10-25T11:09:29.415540+00:00"
+      "created_at": "2026-10-25T11:24:45.675847+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -873,7 +873,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/critical-flaws-php-warning/416727/",
       "content_hash": "bc21d51f0d81b321157b6da39ef357b19d0730d0e48d8474ccc265958b874681",
-      "created_at": "2026-10-25T11:09:29.415549+00:00"
+      "created_at": "2026-10-25T11:24:45.675854+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -883,7 +883,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/deception-in-mass-autonomous-warfare/",
       "content_hash": "baf14b66b6cf2ecf1ac2a423d3ea95ae5e417260b88dbab010bee7641c0fc7a1",
-      "created_at": "2026-10-25T11:09:30.475677+00:00"
+      "created_at": "2026-10-25T11:24:46.226324+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -893,7 +893,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/brothers-in-arms-partners-in-healing-a-story-about-a-breakthrough-in-treating-post-traumatic-stress/",
       "content_hash": "4b9e726bbf768905cd5665906bbd2c2ad0f86acbcd565b4133fdcadf5ecbc7cb",
-      "created_at": "2026-10-25T11:09:30.475699+00:00"
+      "created_at": "2026-10-25T11:24:46.226352+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -903,7 +903,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/the-endless-chip-war/",
       "content_hash": "28c3ebec50f05d3361fc7460a3618d0797e594cdc9e9ed55af6c9d7715fa917b",
-      "created_at": "2026-10-25T11:09:30.475707+00:00"
+      "created_at": "2026-10-25T11:24:46.226362+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -913,7 +913,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/the-west-is-thinking-too-small-about-ukraines-victory/",
       "content_hash": "487765254ae843194c084e31ea9e32ccc2390f0f888a2a9ae3568256352ff944",
-      "created_at": "2026-10-25T11:09:30.475721+00:00"
+      "created_at": "2026-10-25T11:24:46.226379+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -923,7 +923,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/fighting-in-ethiopia-and-the-risk-of-regional-spillover/",
       "content_hash": "a98dae81a43d6123e982b67f43ceb2d83d1a68ca77548e7ad53bc21fbd221727",
-      "created_at": "2026-10-25T11:09:30.475729+00:00"
+      "created_at": "2026-10-25T11:24:46.226389+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -933,7 +933,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBiblkxNnVtVlJKZk9CWDVFRTZvY2F6bWZORmVtSkR4NVY4VzZQa3dPZy1KNE5EbUpvMWF3TDk0VEY5QnAzTmFWS3FjenBLRHdpU2UtMjVKZlphZl9tRkE?oc=5",
       "content_hash": "5175c19e80b8085ce35f511e08b43f728646d32c788a8927d35034ab7619d638",
-      "created_at": "2026-10-25T11:09:31.145082+00:00"
+      "created_at": "2026-10-25T11:24:47.066874+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -943,7 +943,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUy1oVUkwV2F4LTdiOElJTjJ6UlFZcTNLZHpzS1Rob1dSRHo1V2FTNXY0QmdaWTNBWF9EYXlxQmpYcXM2dEpicU9taDdmWF8zUDZFSThidU10bVhsV19lZEV0YzZETTQybEYyelhqTk43YTBXWlB4eHRJeFRuTzB4NmlaVlg?oc=5",
       "content_hash": "8a7f24c1be1698cc1845650214d186da2f121d9ac51b55d47d95f679feab9470",
-      "created_at": "2026-10-25T11:09:31.145102+00:00"
+      "created_at": "2026-10-25T11:24:47.066919+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -953,7 +953,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOenJjWWFLN0xjSXdjOHdmUFJ5ekx1M0FLLWR0dGxDc1p6X2xJbDAzM2Zia0lIZFhwdTBJOExfNnVseXd4M1RzUjRDV2MySDBTTTFuQTFKYmVrd2JEWTdOUG9BM3kzU24waU9zQlJMV0d3cFR1VXJrdVZzd1FITEV4Y3lMbHVOM1hZWlFnQlZKd3FvVDA?oc=5",
       "content_hash": "323503d285ba5019c37f9f94e0b8006a81eb827bff1d44951b06bc50077f91c8",
-      "created_at": "2026-10-25T11:09:31.145111+00:00"
+      "created_at": "2026-10-25T11:24:47.066941+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -963,7 +963,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQZTFxVk9aWG40ZURMaFMybEF5QmNTemdHUUgxWDVyVk4zaF9qSmdSYzJweWZsM1N4algtdm0zcDdhUXZsMXAxdjNncVprb1o4cFlsUlpDbTFJY0o2RC1WZHlFTHJjUEE3WGFacTlhclRQd19xTFlUWkk4SXpfXzBURWtNOFc3UW1YWDVGdnNyODYtamFuZV9Dd2tveEFnWUZ2R3lR?oc=5",
       "content_hash": "67e237a656079d0cfed2a530d1df93d8ce898683b3414fed7a5a8008ccf18d53",
-      "created_at": "2026-10-25T11:09:31.145119+00:00"
+      "created_at": "2026-10-25T11:24:47.066960+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -973,7 +973,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPSnBGckdpTkdaSnNZeFIyenI0MVVDMHd6R2ZDcTlUX3I4OWNNMlRjd0FTXzhCY09zakU1MWx2RzBpRW1QYTRxY2M3UWpBZHR3S1JlNjQ0WlIyRlh3ZnhNaVZ0OVcwU21YMjUyVVF0RXB0VXFLMWpGdEVtak1DUktTdUdLWmQyWGRFQ0xmb2Z3WG1nSHdfVUxlbUlsc2RJRmNmWVRHS1Qtd0RCVU92d2t1S19HbjlFVzdoREJONTRNYk1iZw?oc=5",
       "content_hash": "d1f1e2d827103010ecfd6f92632f5360854c795e97f2a88d1088ab360451cbb0",
-      "created_at": "2026-10-25T11:09:31.145127+00:00"
+      "created_at": "2026-10-25T11:24:47.066980+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -983,7 +983,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOVUJtOXZ1azFzVE5YcmJrX3p0VmtUYXpoME1wUzRzelg2S29YWldrODNMMDZlRnNRQ1E2RnV3TkdadmNaZHZfUlh5WlFBdUthYWRRbTlrdUhBWUNlMmVQcDRDQ3VNYUtWTmFTTkZTSjB4WlVNTlVOc2pPckV2UVI2TnVXT1lyaUFqMTFkWGxpcmhNM3JPSjNtWjNkSGNsNWRZallyNEg2cXc1WDTSAbABQVVfeXFMTS1IQmRFYnMwVEdxUW5YVDR6QVUzTy1JdTZ5ZkxsTVRMem0xTFZFU0lIZTU5OFZuOENoU1hGRWE1RU1hU1lReDRxbm82MFg1YkpyOVg2VmtlUWszYlA5MFZjbzBvc2N3TFFQTjA1NWFkM3BHakFSWXo3V1VZTW43OV9tN29iY3NURjBpNk5HaTgwWUJKQUt1bklNbTV6aUF0N0RUUkVMWWFFYUZaX3I4NzM?oc=5",
       "content_hash": "4f38a85ad606d1625e19728fae37edc623cd9158c0be749fa11e5d853d063392",
-      "created_at": "2026-10-25T11:09:31.825279+00:00"
+      "created_at": "2026-10-25T11:24:47.740656+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -993,7 +993,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
       "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
-      "created_at": "2026-10-25T11:09:31.825302+00:00"
+      "created_at": "2026-10-25T11:24:47.740678+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1003,7 +1003,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNaEVZLXI4b01hWkh2T2dMSHo5V1k0cDFKbVA2YlZIWnVGbzBUcTNfME96WlRMaVFiN0swcW1XY3EwN0x3NTN5RDRtYmlYbjRCelU1ekZBd05pLWJQdldEZ0tOQjdHdldVZkc0Mm5GRjAwNGJWdnJJZzN4b2RxdGtlQjJZakZNU1ZSS1JERlI5UXBNaFpZT1hobXg0UXQ1SDNmNGQwWkZndVVFV0VuUXVwTmF5UThHa2xraEQ5TWxXTEFuZDVSRFdaaXVB?oc=5",
       "content_hash": "5a98ebd583682fbb9545e02955e37137ad7d51f8dd85f319db2ea6eb55c19cc9",
-      "created_at": "2026-10-25T11:09:31.825322+00:00"
+      "created_at": "2026-10-25T11:24:47.740698+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1013,7 +1013,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9aRTVjQUVHb19FQkhJUU54dTBXNi0yMEtFSlhWck1qU1I0TlU2Rk00eHNhRTFmdWhucWhjMXRLd25rcE5kRnJCOE5LcmNPT0laQVl5M0pBUQ?oc=5",
       "content_hash": "7760ab67c3f2e80643da7f41f0c18ab746cd931b66d51bfa3a58cdbaa77d495d",
-      "created_at": "2026-10-25T11:09:31.825334+00:00"
+      "created_at": "2026-10-25T11:24:47.740711+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1023,7 +1023,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPekF2QWhDZGNfOHBDUi04YWFQeVl4cm9jMjNXeW5NOTltYlVwMVlBNjlXSDlaRlg4NnBvaVFaM3dvOWo3Z1l2RHFNb01WLUZhb2x2VDFfbGN1cENXRnhtMUpjc1NtbUhUcS11eUMyalAyRGR6RFNFb2FEN1YtQl9nUmg3RjFlR3N6eWN1YTdKZHBMUFRzd3JFQktlVEZ3NzhxNjFNanpsbDJNd1VQSWk5TGwwOA?oc=5",
       "content_hash": "7c68a9df940ab8248d7227438333f0448f2f30a628cf27a303c260084211a2fa",
-      "created_at": "2026-10-25T11:09:31.825348+00:00"
+      "created_at": "2026-10-25T11:24:47.740726+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1033,17 +1033,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
       "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
-      "created_at": "2026-10-25T11:09:32.508146+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EASTERN-EUROPE",
-      "severity": "CRITICAL",
-      "headline": "Bulgaria votes for president in wake of deadly Black Sea drone strikes - Reuters",
-      "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPOE5IMGRMTzd6dTFDS21qbTdmVDBkUzcteU1OWlQ0aWt2Z1Z6d0cxRGRVbEhGNkVkSnRGQVN1WVlLdU9vRkJmVHphOWk5RUFCNmJuUzJ0TGVaNC1tenk5NGNmUldFSnVXVkQ1bHd4aHJzZHFlWWJ2UHU0VHhETDFVNFpoaXdsQXpDZ21rMllSTlplRTItdnNuNUt6X1JjckV5OWJrWA?oc=5",
-      "content_hash": "9fb2ab8b1469420401f4d0a8ba0bca4dc6494e1e30cec91880cfc22ef0f36e3c",
-      "created_at": "2026-10-25T11:09:32.508185+00:00"
+      "created_at": "2026-10-25T11:24:48.509209+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1053,7 +1043,17 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQRWpJaVFWeFdvT0NpdU9ZQnVuQ3BhNjJ4dG0tVkZ3cm1UWXhtbVlXb1N4eTN1SG9adUVybERkSFJNbkVBbE9tWmh5ekxaMjcySVotYTZkSGFoRGpkVjJvbmhySF9CdFZRNlhfSEdXaFNSOWNkMEpYTTJoeElDeUhadGlTelZZWkxCZkE?oc=5",
       "content_hash": "1a2775bf71a413b9e601531ce319cd9f67cae4be5983097bbf7817ff46de43e0",
-      "created_at": "2026-10-25T11:09:32.508206+00:00"
+      "created_at": "2026-10-25T11:24:48.509227+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EASTERN-EUROPE",
+      "severity": "CRITICAL",
+      "headline": "Bulgaria votes for president in wake of deadly Black Sea drone strikes - Reuters",
+      "source": "Eastern Europe & NATO Flank",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPOE5IMGRMTzd6dTFDS21qbTdmVDBkUzcteU1OWlQ0aWt2Z1Z6d0cxRGRVbEhGNkVkSnRGQVN1WVlLdU9vRkJmVHphOWk5RUFCNmJuUzJ0TGVaNC1tenk5NGNmUldFSnVXVkQ1bHd4aHJzZHFlWWJ2UHU0VHhETDFVNFpoaXdsQXpDZ21rMllSTlplRTItdnNuNUt6X1JjckV5OWJrWA?oc=5",
+      "content_hash": "9fb2ab8b1469420401f4d0a8ba0bca4dc6494e1e30cec91880cfc22ef0f36e3c",
+      "created_at": "2026-10-25T11:24:48.509236+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1063,7 +1063,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPVktiaHZEYnJBTzNET1N4NjlMcU9zdWtDUENTcEJpRXRMME5NTXAwM2N2TEF6RmtER1B1SmlKQVZ0eVhFbnZPTC1TbF9CNFh5dHJRLVBLai0zWHpHX3hsWXcwalV6SVlteTdrMnlhcGZYSGplWl9CTzlLNU1yZjBJZnFIM0dwTURjaUk2Y3d5Sm5yYVhrX1dadGhWTVIyal9GYkZycjhhYlltN3VoY1Bn?oc=5",
       "content_hash": "d4394649b9793c54384fe6a8fd7be8b4312b13a25f75edba16b49aa22628f6f6",
-      "created_at": "2026-10-25T11:09:32.508225+00:00"
+      "created_at": "2026-10-25T11:24:48.509242+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1073,7 +1073,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXJfQ3NxeEZ2TzEyVWpBZHV2Tm91S2JPOE1ZM3RFajltaElaa1hEMk9HZHM1OTZQS3o3b1BxOGlkUVpsaTZURkhpeU1scHRNbVN0YTlKeF95cl9JVVByV1l2LWc4Qk1vUGdHdXVOV3l3eV82UFVqbWVTc0E1eFU1eUJCc1M1NGFCNnNJSThKVFVOQVVwNllPT290dGFPQ0twQjcyRUVTWUlJLVgxU2c?oc=5",
       "content_hash": "cf02cee0dbb526905afc9b34af1a6ada0b1bc03023eed300ad36118a3e305877",
-      "created_at": "2026-10-25T11:09:32.508246+00:00"
+      "created_at": "2026-10-25T11:24:48.509251+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1083,7 +1083,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZkFTN1Z5Ui1wdm5HZWVZTWNkUW4tUURiTmh0bGl5SWxSV1pyNW1zanVrRng3UEJSb2toTEV2ZXQzUkpkYm1fQTd0bTFITU1ndnA1NkVUWjlNcmRNa0tOQ3dWNmZtVzR3ZEVORlhxYnBxaGJNb2ZBazVkQUhOMk44RjlJaVprNGpKbkU5d1JJb3BUa3M0NjNRM0t2emkzdzFvLXZQdWwxVWphaU50Q3FN?oc=5",
       "content_hash": "4aa275ce0f155c042c56c244fec1a7eac1fc7b677f344eb7973843f56c0fd3ab",
-      "created_at": "2026-10-25T11:09:33.794065+00:00"
+      "created_at": "2026-10-25T11:24:49.257501+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1093,7 +1093,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
       "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
-      "created_at": "2026-10-25T11:09:33.794100+00:00"
+      "created_at": "2026-10-25T11:24:49.257566+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1103,7 +1103,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE0wemJFMTFjLUdZWGxrNXAyckdaTzA2WWJIR01yTlZuTXRTUjZPRE1OSFliNHJNWHB1OFFmUzJyLS1GUWZ4aWtMUHc5eVpZYXVGaHZSTUdaOHUyakxzT3BMTXBIRVRxakl3UEpSLTNJVVZ2b3I2UkZtcQ?oc=5",
       "content_hash": "9a2741aebd6fd6b64b5242081e3926ebcf9088b1f63e012c28244998a145e261",
-      "created_at": "2026-10-25T11:09:33.794111+00:00"
+      "created_at": "2026-10-25T11:24:49.257595+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1113,7 +1113,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPaW1qbE1QbWVrX1JIVFNOUXdyd0NDR3lSSFJ0RXFSUnU3blY1QkRWR05Na0pvaFpDUEJBRHhqY184SURKUm1qXzhXdVZfamtDWndVT2VWekczd0N5V2FwbFk5UElPLWhhVnI1S0dQMkpVSWZrZF8waFhST3phc1ZpX21RRlgtZF93dHVXc3R4M296cmpfQ29QcUQzTWsxTmFscUgzcFdnXzNwSEZkaFZ5N1d0ZnRtV0VpS3NHOXh1MDNUcWlhMENOWktB?oc=5",
       "content_hash": "4730bf5b5687ead5e985945636ace07d80ca5b1e24ef079dcbc9d11cc717a96a",
-      "created_at": "2026-10-25T11:09:33.794131+00:00"
+      "created_at": "2026-10-25T11:24:49.257629+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1123,7 +1123,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOMXBEVExoWlBXVDJWVWM2WGN0LU1lYkZGWnRiWThxUXVzNFg1N1hqYlFTbk5sVGx3cnFXcVBZdl9rRVF2UkFRcy1jQ191cUJVT3p2X3dzRzZlc0c3UlRiUXBJazNET2VuekZsUXJXLS1ta3NPYlAzWG15MTZVMGI3dlNEMUZVWndHN29jb3p2Y05TNHFQX080SWs4WWVNSzlfVEFYSllmMzdHQ1lrcDZHQ21NUl9vVzA?oc=5",
       "content_hash": "93b705be62b3a729afbd9370ea29cc66f712fe8f55776abcce613f36583e5a7a",
-      "created_at": "2026-10-25T11:09:33.794141+00:00"
+      "created_at": "2026-10-25T11:24:49.257661+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1133,7 +1133,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/goldman-sachs-jpmorgan-morgan-stanley-ai-trading.html",
       "content_hash": "fb1ede5e869144dfc2dd52f14aa8ec43f2ec81f7f3bc72e67703a72712e8ef53",
-      "created_at": "2026-10-25T11:09:34.338853+00:00"
+      "created_at": "2026-10-25T11:24:50.278167+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1143,7 +1143,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/stocks-making-the-biggest-moves-premarket-spcx-smci-nflx-more.html",
       "content_hash": "9a33d7535f6b4653bc8def2a163cec0fcce4bf81f9e0a2e65454ff91d09fd442",
-      "created_at": "2026-10-25T11:09:34.338889+00:00"
+      "created_at": "2026-10-25T11:24:50.278191+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1153,7 +1153,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-after-hours-isrg-nflx-spcx.html",
       "content_hash": "9ea5b28a02455b704a737b9d97912fc99667b02835eb19c37ae22e921f6593ab",
-      "created_at": "2026-10-25T11:09:34.338922+00:00"
+      "created_at": "2026-10-25T11:24:50.278203+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1163,7 +1163,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-midday-has-noc-efx-gm.html",
       "content_hash": "44bef1427843fa12ec8c1268f6614bde8d0c6e41bc9ac1632bcc807649e31ea4",
-      "created_at": "2026-10-25T11:09:34.338954+00:00"
+      "created_at": "2026-10-25T11:24:50.278215+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1173,7 +1173,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-premarket-rtx-gm-noc-stld.html",
       "content_hash": "a31bfe33504916f3e24be88e6092fdde2cf9c78569db7154ff263f49d67cddbc",
-      "created_at": "2026-10-25T11:09:34.338983+00:00"
+      "created_at": "2026-10-25T11:24:50.278225+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1183,7 +1183,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
       "content_hash": "5c70172aa6d59e383f591f24202f703538405383bd61bb96ee1c8660b51bd004",
-      "created_at": "2026-10-25T11:09:34.725346+00:00"
+      "created_at": "2026-10-25T11:24:50.653198+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1193,7 +1193,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
       "content_hash": "e3ab869cce692e57696757c0160612602193ae795b6476cf2c5035c62ec8749c",
-      "created_at": "2026-10-25T11:09:34.725368+00:00"
+      "created_at": "2026-10-25T11:24:50.653250+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1203,7 +1203,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
       "content_hash": "3b6ea4b0cd7afaaaa4f35287f8041647248978eee397f809e77295bac7b9f12d",
-      "created_at": "2026-10-25T11:09:34.725377+00:00"
+      "created_at": "2026-10-25T11:24:50.653277+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1213,7 +1213,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
       "content_hash": "fbc8afae82c3db7d2d07cd5efd8aeb856de194eae1498cb909b0b8147bd72b19",
-      "created_at": "2026-10-25T11:09:34.725387+00:00"
+      "created_at": "2026-10-25T11:24:50.653300+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1223,7 +1223,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
       "content_hash": "345f23ed6250d05d64a08fb0a38633a5472e271951c152e9c019b348519213ab",
-      "created_at": "2026-10-25T11:09:34.725396+00:00"
+      "created_at": "2026-10-25T11:24:50.653323+00:00"
     }
   ],
   "lan_devices": [
@@ -1342,5 +1342,5 @@
       "content": "Subnet 192.168.100.0/24 mapped with active device discovery and Wake-on-LAN."
     }
   ],
-  "generated_at": "2026-10-25T11:09:34.726949+00:00"
+  "generated_at": "2026-10-25T11:24:50.657343+00:00"
 }

@@ -349,6 +349,72 @@
           <button data-filter="RED-SEA-MIDEAST" class="conflict-filter-btn hud-btn text-orange-400">RED SEA / MIDEAST</button>
         </div>
       </div>
+
+      <!-- HALO UNSC GLOBAL THEATER RADAR & TARGET LOCK COCKPIT -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <!-- Interactive Canvas Radar -->
+        <div class="lg:col-span-7 radar-display-frame relative p-4 flex flex-col items-center">
+          <div class="w-full flex justify-between items-center mb-2 px-1 text-[10px] font-mono">
+            <span class="text-cyan-400 font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+              ORBITAL RADAR SWEEP // ANCHOR: KITENGELA (-1.4746°, 36.9614°)
+            </span>
+            <span class="text-slate-400">RANGE: 12,000 KM</span>
+          </div>
+          <div class="relative w-full aspect-[4/3] max-h-[300px] flex items-center justify-center">
+            <canvas id="global-radar-canvas" width="500" height="300" class="w-full h-full cursor-pointer"></canvas>
+            <div class="radar-reticle-crosshair"></div>
+          </div>
+          <div class="w-full flex justify-between items-center mt-2 px-1 text-[9px] font-mono text-slate-400">
+            <span class="flex items-center gap-1 text-rose-400">🔴 ACTIVE WAR / KINETIC</span>
+            <span class="flex items-center gap-1 text-amber-400">🟡 MACRO CHOKEPOINT</span>
+            <span class="flex items-center gap-1 text-cyan-400">🔵 STRATEGIC SENSOR HUB</span>
+          </div>
+        </div>
+
+        <!-- Target Lock Inspector Card -->
+        <div class="lg:col-span-5 radar-target-card p-5 rounded-lg space-y-3 font-mono">
+          <div class="flex items-center justify-between border-b border-cyan-500/20 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse"></span>
+              <span class="text-xs font-bold text-white tracking-widest uppercase" id="radar-target-title">
+                RED SEA & BAB EL-MANDEB
+              </span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-rose-600/30 text-rose-300 border border-rose-500/40" id="radar-target-badge">
+              CRITICAL // KINETIC
+            </span>
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <div>
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Real Intelligence Wire</span>
+              <p class="text-slate-200 mt-0.5 leading-snug font-sans font-medium" id="radar-target-wire">
+                Anti-ship ballistic missile and drone corridors monitored. Commercial container rerouting via Cape of Good Hope sustaining elevated war-risk marine insurance into Mombasa port.
+              </p>
+            </div>
+
+            <div class="p-2.5 rounded bg-slate-900/90 border border-slate-800">
+              <span class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                🛡️ Capital Defense Protocol
+              </span>
+              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed" id="radar-target-defense">
+                Verify 30-day USD/KES reserves against import price inflation; maintain local component inventories.
+              </p>
+            </div>
+
+            <div class="p-2.5 rounded bg-slate-900/90 border border-slate-800">
+              <span class="text-[10px] text-cyan-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                ⚡ Asymmetric Alpha Upside
+              </span>
+              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed" id="radar-target-upside">
+                Retain offshore invoice billing in USD; offer failover routing audits to regional freight logisticians.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div id="conflict-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- Rendered dynamically by app.js -->
       </div>
@@ -379,6 +445,61 @@
           <button data-filter="TOPIC-IDEA" class="osint-filter-btn hud-btn text-rose-400">IDEAS / CROWD</button>
         </div>
       </div>
+
+      <!-- 5-AXIS BEHAVIORAL SPIDER RADAR & PSYCHOLOGICAL PROFILER -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <!-- SVG 5-Axis Spider Polygon -->
+        <div class="lg:col-span-5 spider-chart-frame flex flex-col items-center">
+          <div class="w-full flex justify-between items-center text-[10px] font-mono mb-2">
+            <span class="text-cyan-400 font-bold">5-AXIS BEHAVIORAL RADAR</span>
+            <span class="text-slate-400" id="spider-profile-label">ALEX VANCE</span>
+          </div>
+          <div class="relative w-full max-w-[280px] aspect-square flex items-center justify-center">
+            <svg id="osint-spider-svg" viewBox="0 0 300 300" class="w-full h-full"></svg>
+          </div>
+          <div class="flex flex-wrap gap-1.5 justify-center mt-2" id="spider-target-pills">
+            <!-- Dynamically populated target pills -->
+          </div>
+        </div>
+
+        <!-- Selected Behavioral Target Strategic Briefing -->
+        <div class="lg:col-span-7 radar-target-card p-5 rounded-lg space-y-3 font-mono">
+          <div class="flex justify-between items-center border-b border-cyan-500/20 pb-2">
+            <div>
+              <span class="text-xs font-bold text-white tracking-widest uppercase font-display" id="osint-brief-title">
+                Target Psychological Profile
+              </span>
+              <p class="text-[10px] text-cyan-400 font-mono" id="osint-brief-footprint">
+                Footprint & Digital Trace
+              </p>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-cyan-950 border border-cyan-700 text-cyan-300" id="osint-brief-type">
+              PERSON
+            </span>
+          </div>
+
+          <div class="space-y-2 text-xs">
+            <div class="p-2.5 rounded bg-slate-900/90 border border-slate-800">
+              <span class="text-[10px] text-purple-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                🧠 Behavioral & Cognitive Dynamics
+              </span>
+              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed" id="osint-brief-psych">
+                Awaiting entity selection...
+              </p>
+            </div>
+
+            <div class="p-2.5 rounded bg-slate-900/90 border border-slate-800">
+              <span class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+                ♟️ Strategic Rapprochement Doctrine
+              </span>
+              <p class="text-[11px] text-slate-300 mt-1 leading-relaxed" id="osint-brief-doctrine">
+                Awaiting entity selection...
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div id="osint-list" class="grid grid-cols-1 lg:grid-cols-2 gap-5">
         <!-- Rendered dynamically by app.js -->
       </div>
@@ -453,7 +574,142 @@
           </button>
         </div>
       </div>
-      <div id="lan-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+      <!-- INTERACTIVE DEVICE SELECTION PILLS (ONE-BY-ONE SELECTION) -->
+      <div>
+        <div class="text-[10px] font-mono text-slate-400 uppercase tracking-wider mb-2 flex items-center justify-between">
+          <span>INTERACTIVE HARDWARE NODES (SELECT NODE TO INSPECT & CONTROL)</span>
+          <span class="text-emerald-400" id="topology-node-summary">7 ACTIVE SUBNET NODES</span>
+        </div>
+        <div id="lan-device-pills" class="flex flex-wrap gap-2">
+          <!-- Populated dynamically: Router, Host Workstation, Smart TV, Gadgets -->
+        </div>
+      </div>
+
+      <!-- LAN STAR TOPOLOGY & 1-BY-1 DEVICE INSPECTOR COCKPIT -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <!-- Visual Star Topology -->
+        <div class="lg:col-span-5 lan-topology-frame p-4 flex flex-col justify-between">
+          <div class="flex justify-between items-center text-[10px] font-mono mb-2">
+            <span class="text-emerald-400 font-bold flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              STAR TOPOLOGY MESH GRAPH
+            </span>
+            <span class="text-slate-400" id="topology-node-count">7 NODES ON ORBIT</span>
+          </div>
+          <div class="relative w-full aspect-square max-h-[290px] flex items-center justify-center">
+            <canvas id="lan-topology-canvas" width="360" height="290" class="w-full h-full cursor-pointer"></canvas>
+          </div>
+          <div class="text-[9px] font-mono text-center text-slate-400 mt-1">
+            CLICK ANY NODE ON ORBIT TO LOCK ONTO DEVICE
+          </div>
+        </div>
+
+        <!-- Dedicated One-by-One Device Node Inspector Cockpit -->
+        <div class="lg:col-span-7 device-cockpit-panel p-5 flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-cyan-500/20 pb-3">
+              <div class="flex items-center gap-3">
+                <div class="p-2 rounded bg-cyan-950/80 border border-cyan-500/40" id="inspector-device-icon">
+                  <svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="2" y="3" width="20" height="14" rx="2" stroke-width="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21" stroke-width="2"></line>
+                    <line x1="12" y1="17" x2="12" y2="21" stroke-width="2"></line>
+                  </svg>
+                </div>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-base font-bold text-white font-mono tracking-wide" id="inspector-device-name">
+                      Primary Host Workstation
+                    </h3>
+                    <span class="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40" id="inspector-device-status">
+                      ONLINE
+                    </span>
+                  </div>
+                  <p class="text-xs font-mono text-cyan-400 mt-0.5" id="inspector-device-ip">
+                    IP: 192.168.100.40 // MAC: E0:D5:5E:21:4B:90
+                  </p>
+                </div>
+              </div>
+
+              <!-- Latency Oscilloscope & Probe Button -->
+              <div class="text-right">
+                <button id="btn-device-ping" class="hud-btn text-[10px] py-1 px-2.5 text-cyan-400 hover:text-cyan-300">
+                  ⚡ PROBE PING
+                </button>
+                <div class="text-[10px] font-mono text-emerald-400 mt-1" id="inspector-device-ping">
+                  PING: 2.1ms (LOCAL LOOP)
+                </div>
+              </div>
+            </div>
+
+            <!-- Ping Oscilloscope Canvas -->
+            <div class="mt-3">
+              <canvas id="oscilloscope-canvas" width="450" height="38" class="oscilloscope-canvas"></canvas>
+            </div>
+
+            <!-- Interactive Port Audit & Signal Info -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-3 font-mono text-[10px]">
+              <div class="p-2 rounded bg-slate-900/80 border border-slate-800">
+                <span class="text-slate-500 block">DEVICE TYPE:</span>
+                <span class="text-slate-200 font-bold" id="inspector-device-type">LAPTOP-PC</span>
+              </div>
+              <div class="p-2 rounded bg-slate-900/80 border border-slate-800">
+                <span class="text-slate-500 block">PRIMARY PORT:</span>
+                <span class="text-cyan-400 font-bold" id="inspector-device-port">3000 (HTTP)</span>
+              </div>
+              <div class="p-2 rounded bg-slate-900/80 border border-slate-800">
+                <span class="text-slate-500 block">SUBNET MASK:</span>
+                <span class="text-slate-200 font-bold">255.255.255.0</span>
+              </div>
+              <div class="p-2 rounded bg-slate-900/80 border border-slate-800">
+                <span class="text-slate-500 block">GATEWAY HOP:</span>
+                <span class="text-emerald-400 font-bold">192.168.100.1</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Hardware Action Button Matrix -->
+          <div>
+            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-2">
+              HARDWARE & NETWORK CONTROL INTERFACE
+            </span>
+            <div class="flex flex-wrap gap-2" id="inspector-action-buttons">
+              <button id="btn-action-wake" class="hud-btn text-xs bg-cyan-950/60 border-cyan-700 text-cyan-300">
+                ⚡ WOL WAKE
+              </button>
+              <button id="btn-action-power" class="hud-btn text-xs bg-rose-950/60 border-rose-700 text-rose-300">
+                🔴 PWR TOGGLE
+              </button>
+              <button id="btn-action-mute" class="hud-btn text-xs text-slate-300">
+                🔇 MUTE
+              </button>
+              <button id="btn-action-volup" class="hud-btn text-xs text-slate-300">
+                🔊 VOL +
+              </button>
+              <button id="btn-action-voldn" class="hud-btn text-xs text-slate-300">
+                🔉 VOL -
+              </button>
+              <button id="btn-action-stream" class="hud-btn text-xs bg-emerald-950/60 border-emerald-700 text-emerald-300">
+                📺 STREAM HUD
+              </button>
+              <button id="btn-action-openweb" class="hud-btn text-xs text-amber-300 border-amber-700">
+                🌐 OPEN WEB
+              </button>
+              <button id="btn-action-portscan" class="hud-btn text-xs bg-purple-950/60 border-purple-700 text-purple-300">
+                🔍 PORT AUDIT
+              </button>
+              <button id="btn-action-voice" class="hud-btn text-xs text-cyan-300">
+                🎙️ VOICE LINK
+              </button>
+            </div>
+            <div id="inspector-command-status" class="text-[10px] font-mono text-cyan-400 mt-2 h-4"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Compact LAN Device Cards Row -->
+      <div id="lan-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
         <!-- Rendered dynamically by app.js -->
       </div>
     </section>
@@ -510,6 +766,57 @@
           <button class="cyber-tab hud-btn text-amber-400" data-category="THREAT-INTEL" id="cyber-tab-intel">⚡ Threat Intel</button>
           <button class="cyber-tab hud-btn text-emerald-400" data-category="LOCAL-CYBER" id="cyber-tab-local">🇰🇪 Kenya Cyber</button>
         </div>
+      </div>
+
+      <!-- DEFCON THREAT LEVEL GAUGE & HEXAGONAL CVE MATRIX -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <!-- Circular DEFCON Meter -->
+        <div class="lg:col-span-3 p-4 rounded-lg bg-slate-900/90 border border-slate-800 flex flex-col items-center justify-center text-center">
+          <span class="text-[10px] font-mono text-slate-400 uppercase tracking-widest mb-1">DEFCON THREAT LEVEL</span>
+          <div class="relative w-28 h-28 flex items-center justify-center">
+            <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="42" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="8"></circle>
+              <circle cx="50" cy="50" r="42" fill="none" stroke="#f43f5e" stroke-width="8" stroke-dasharray="264" stroke-dashoffset="105" stroke-linecap="round"></circle>
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center font-display">
+              <span class="text-2xl font-black text-rose-400 glow-crimson" id="defcon-value">3</span>
+              <span class="text-[9px] font-mono text-rose-300 uppercase" id="defcon-label">ELEVATED</span>
+            </div>
+          </div>
+          <span class="text-[10px] font-mono text-slate-400 mt-2">
+            30 EXPLOITED VECTORS MONITORED
+          </span>
+        </div>
+
+        <!-- Hexagonal CVE Hive Grid -->
+        <div class="lg:col-span-9 p-4 rounded-lg bg-slate-900/60 border border-cyan-500/20">
+          <div class="flex justify-between items-center text-[10px] font-mono mb-2">
+            <span class="text-rose-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+              CISA KEV HEXAGONAL THREAT MATRIX
+            </span>
+            <span class="text-slate-400">HOVER / CLICK HEX CELL FOR TARGET LOCK</span>
+          </div>
+          <div id="hex-cve-grid" class="hex-grid-container max-h-[260px] overflow-y-auto pr-1">
+            <!-- Dynamically populated with hex cells -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Holographic CVE Target Lock Card -->
+      <div id="cve-target-lock" class="radar-target-card p-4 rounded-lg font-mono text-xs hidden">
+        <div class="flex items-center justify-between border-b border-rose-500/30 pb-2 mb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+            <span class="font-bold text-white uppercase" id="cve-lock-id">CVE-2020-29583</span>
+            <span class="text-[9px] px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-700 font-bold" id="cve-lock-sev">CRITICAL</span>
+          </div>
+          <a href="#" target="_blank" rel="noopener noreferrer" id="cve-lock-link" class="text-[10px] text-cyan-400 hover:underline">
+            NIST NVD DIRECT LINK &rarr;
+          </a>
+        </div>
+        <h4 class="text-sm font-semibold text-slate-100 mb-1" id="cve-lock-title">Vulnerability Title</h4>
+        <p class="text-[11px] text-slate-300 leading-relaxed" id="cve-lock-desc">Description</p>
       </div>
 
       <!-- Cyber Alerts Grid -->

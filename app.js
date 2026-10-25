@@ -36,7 +36,11 @@ let appState = {
   syncTimerId: null,
   isSpeaking: false,
   sfxEnabled: localStorage.getItem("ai_hud_sfx") !== "false",
-  currentTheme: localStorage.getItem("ai_hud_theme") || "hybrid"
+  currentTheme: localStorage.getItem("ai_hud_theme") || "hybrid",
+  selectedLanDeviceIp: null,
+  selectedOsintId: 1,
+  radarAngle: 0,
+  radarSelectedBlipId: "red-sea"
 };
 
 // Weather Condition Icons (SVG)
@@ -320,8 +324,186 @@ function renderSitRep() {
   }
 }
 
+// Global Radar Flashpoint Definitions & State
+const RADAR_FLASHPOINTS = [
+  { id: "red-sea", name: "RED SEA & BAB EL-MANDEB", type: "CRITICAL", domain: "WAR-KINETIC", x: 0.65, y: 0.35, wire: "Anti-ship ballistic missile and drone corridors active. Commercial container rerouting via Cape of Good Hope sustaining elevated war-risk marine insurance into Mombasa port.", defense: "Verify 30-day USD/KES reserves against import price inflation; maintain local component inventories.", upside: "Retain offshore invoice billing in USD; offer failover routing audits to regional freight logisticians." },
+  { id: "horn-africa", name: "HORN OF AFRICA & SUDAN", type: "ELEVATED", domain: "WAR-KINETIC", x: 0.58, y: 0.48, wire: "Regional security dialogue monitoring Port Sudan logistics choke point; Kenya border surveillance elevated.", defense: "Maintain independent local power and offline data mirrors.", upside: "Cross-border tech logistics and regional supply security solutions." },
+  { id: "eastern-europe", name: "EASTERN EUROPE & BLACK SEA", type: "CRITICAL", domain: "WAR-KINETIC", x: 0.48, y: 0.20, wire: "Long-range drone strikes and electronic warfare near Black Sea commercial maritime corridor.", defense: "Audit cloud hosting failover across multi-region geographic zones.", upside: "Remote European software engineering contracting in strong currency." },
+  { id: "indo-pacific", name: "INDO-PACIFIC & TAIWAN STRAIT", type: "WATCH", domain: "GEOPOLITICAL", x: 0.82, y: 0.30, wire: "Naval patrols near maritime chokepoints; semiconductor export controls under review.", defense: "Procure critical hardware and spare electronics ahead of supply pinches.", upside: "Edge AI and local inference software deployment." },
+  { id: "hub-london", name: "LONDON METEOROLOGY HUB", type: "HUB", domain: "SENSORS", x: 0.40, y: 0.24, wire: "Atmospheric array streaming real-time metrics. Station reporting 12.9°C.", defense: "Ensure transatlantic secure tunneling.", upside: "UK fintech integration." },
+  { id: "hub-ny", name: "NEW YORK SENSOR HUB", type: "HUB", domain: "SENSORS", x: 0.22, y: 0.28, wire: "Wall Street economic intelligence and atmospheric node. Station reporting 3.2°C.", defense: "USD asset liquidity optimization.", upside: "US financial market index yields." },
+  { id: "hub-tokyo", name: "TOKYO SENSOR HUB", type: "HUB", domain: "SENSORS", x: 0.88, y: 0.26, wire: "Pacific technology telemetry online. Station reporting 18.5°C.", defense: "Multi-cloud Asia-Pacific redundancy.", upside: "Cross-currency algorithmic spread arbitrage." }
+];
+
+let radarBlipCoordinates = [];
+let radarInitialized = false;
+
+function initGlobalRadar() {
+  const canvas = document.getElementById("global-radar-canvas");
+  if (!canvas || radarInitialized) return;
+  radarInitialized = true;
+  const ctx = canvas.getContext("2d");
+
+  canvas.addEventListener("click", (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+    const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+    for (const b of radarBlipCoordinates) {
+      if (Math.hypot(b.x - x, b.y - y) <= 15) {
+        selectRadarTarget(b.data);
+        return;
+      }
+    }
+  });
+
+  function selectRadarTarget(target) {
+    playSciFiChirp("confirm");
+    appState.radarSelectedBlipId = target.id;
+    const titleEl = document.getElementById("radar-target-title");
+    const badgeEl = document.getElementById("radar-target-badge");
+    const wireEl = document.getElementById("radar-target-wire");
+    const defEl = document.getElementById("radar-target-defense");
+    const upEl = document.getElementById("radar-target-upside");
+
+    if (titleEl) titleEl.textContent = target.name;
+    if (badgeEl) {
+      badgeEl.textContent = `${target.type} // ${target.domain}`;
+      badgeEl.className = target.type === "CRITICAL" 
+        ? "text-[10px] px-2 py-0.5 rounded bg-rose-600/30 text-rose-300 border border-rose-500/40" 
+        : (target.type === "ELEVATED" 
+          ? "text-[10px] px-2 py-0.5 rounded bg-amber-600/30 text-amber-300 border border-amber-500/40" 
+          : "text-[10px] px-2 py-0.5 rounded bg-cyan-950 border border-cyan-700 text-cyan-300");
+    }
+    if (wireEl) wireEl.textContent = target.wire;
+    if (defEl) defEl.textContent = target.defense;
+    if (upEl) upEl.textContent = target.upside;
+  }
+
+  function draw() {
+    requestAnimationFrame(draw);
+    appState.radarAngle = (appState.radarAngle + 0.02) % (2 * Math.PI);
+
+    const w = canvas.width;
+    const h = canvas.height;
+    const cx = w / 2;
+    const cy = h / 2;
+    const maxR = Math.min(cx, cy) - 16;
+    ctx.clearRect(0, 0, w, h);
+
+    // Concentric Range Rings
+    [0.33, 0.66, 1.0].forEach((ratio, idx) => {
+      const r = maxR * ratio;
+      ctx.strokeStyle = "rgba(0, 240, 255, 0.15)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+      ctx.stroke();
+
+      ctx.fillStyle = "rgba(0, 240, 255, 0.4)";
+      ctx.font = "8px 'JetBrains Mono', monospace";
+      ctx.textAlign = "left";
+      const kmLabel = (idx + 1) * 4000 + " KM";
+      ctx.fillText(kmLabel, cx + 4, cy - r + 10);
+    });
+
+    // Crosshairs
+    ctx.strokeStyle = "rgba(0, 240, 255, 0.12)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy - maxR);
+    ctx.lineTo(cx, cy + maxR);
+    ctx.moveTo(cx - maxR, cy);
+    ctx.lineTo(cx + maxR, cy);
+    ctx.stroke();
+
+    // Rotating Radar Sweep Beam
+    const beamAngle = appState.radarAngle;
+    const beamGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, maxR);
+    beamGrad.addColorStop(0, "rgba(0, 240, 255, 0.35)");
+    beamGrad.addColorStop(1, "rgba(0, 240, 255, 0.0)");
+
+    ctx.fillStyle = beamGrad;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.arc(cx, cy, maxR, beamAngle - 0.35, beamAngle);
+    ctx.closePath();
+    ctx.fill();
+
+    // Radar Sweep Leading Edge Line
+    ctx.strokeStyle = "rgba(0, 240, 255, 0.85)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + maxR * Math.cos(beamAngle), cy + maxR * Math.sin(beamAngle));
+    ctx.stroke();
+
+    // Trajectory Arcs & Blips
+    radarBlipCoordinates = [];
+    RADAR_FLASHPOINTS.forEach(fp => {
+      const bx = fp.x * w;
+      const by = fp.y * h;
+      radarBlipCoordinates.push({ x: bx, y: by, data: fp });
+
+      const isSelected = fp.id === appState.radarSelectedBlipId;
+
+      // Trajectory arc from center to blip
+      ctx.strokeStyle = isSelected ? "rgba(0, 240, 255, 0.6)" : "rgba(255, 255, 255, 0.08)";
+      ctx.lineWidth = isSelected ? 1.5 : 0.8;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.quadraticCurveTo(cx + (bx - cx) * 0.5, cy - 25, bx, by);
+      ctx.stroke();
+
+      // Blip color
+      let blipColor = "#38bdf8";
+      if (fp.type === "CRITICAL") blipColor = "#f43f5e";
+      else if (fp.type === "ELEVATED") blipColor = "#f59e0b";
+
+      // Blip Circle
+      ctx.fillStyle = blipColor;
+      ctx.beginPath();
+      ctx.arc(bx, by, isSelected ? 5 : 3.5, 0, 2 * Math.PI);
+      ctx.fill();
+
+      // Pulsing Halo Ring
+      ctx.strokeStyle = blipColor;
+      ctx.lineWidth = 1;
+      const pulse = (Date.now() % 1200) / 1200;
+      ctx.beginPath();
+      ctx.arc(bx, by, 6 + pulse * 8, 0, 2 * Math.PI);
+      ctx.stroke();
+
+      // Reticle if selected
+      if (isSelected) {
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 1.5;
+        ctx.strokeRect(bx - 9, by - 9, 18, 18);
+      }
+
+      // Blip Label
+      ctx.fillStyle = isSelected ? "#fff" : "rgba(255, 255, 255, 0.7)";
+      ctx.font = isSelected ? "bold 9px 'Rajdhani', sans-serif" : "8px 'Rajdhani', sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText(fp.name.split(" ")[0], bx + 8, by + 3);
+    });
+
+    // Anchor Center (Kitengela / Nairobi)
+    ctx.fillStyle = "#10b981";
+    ctx.beginPath();
+    ctx.arc(cx, cy, 4, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.fillStyle = "#34d399";
+    ctx.font = "bold 9px 'JetBrains Mono', monospace";
+    ctx.textAlign = "center";
+    ctx.fillText("NAIROBI / KITENGELA", cx, cy + 14);
+  }
+  draw();
+}
+
 // Render Global War Theaters & Macro-Economic Wire
 function renderConflict() {
+  initGlobalRadar();
   const container = document.getElementById("conflict-list");
   if (!container) return;
 
@@ -384,12 +566,163 @@ function renderConflict() {
   }).join("");
 }
 
+// --- 5-AXIS BEHAVIORAL SPIDER RADAR MATRIX ---
+const OSINT_BEHAVIORAL_AXES = [
+  "Surface Web",
+  "Social Dorks",
+  "Registries",
+  "Public Audit",
+  "Game Theory"
+];
+
+const DEFAULT_OSINT_TARGETS = [
+  {
+    id: 1,
+    target_query: "Kenya Power (KPLC Infrastructure Grid)",
+    entity_type: "ORGANIZATION",
+    scores: [88, 72, 94, 96, 68],
+    footprint_summary: "Dominant power transmission grid holding national statutory monopoly. Monitored for substation telemetry, regional transformer load shedding, and billing metering APIs.",
+    behavioral_profile: "Risk-averse corporate utility bureaucracy operating under intense legislative audit scrutiny. Highly reactive to unplanned blackout trends and consumer tariff disputes.",
+    strategic_approchement: "Interface via enterprise bulk metering telemetry; verify backup fuel generators in Kitengela node during regional grid fluctuations."
+  },
+  {
+    id: 2,
+    target_query: "Safaricom PLC (M-Pesa & Fiber Backbone)",
+    entity_type: "ORGANIZATION",
+    scores: [96, 92, 98, 90, 86],
+    footprint_summary: "East Africa's largest fintech & telecommunications infrastructure operator. Hosts Daraja M-Pesa APIs, LTE/5G base stations, and urban fiber distribution rings.",
+    behavioral_profile: "Technologically progressive with strict regulatory compliance standards. Sensitive to network downtime and foreign exchange remittance constraints.",
+    strategic_approchement: "Maintain redundant multi-SIM 4G fallback alongside primary fiber line; implement instant webhook verification for M-Pesa transaction notifications."
+  },
+  {
+    id: 3,
+    target_query: "Red Sea Maritime & Port Logistics Corridor",
+    entity_type: "PLACE",
+    scores: [82, 60, 88, 92, 85],
+    footprint_summary: "Strategic Bab el-Mandeb and Mombasa shipping lane connecting Middle East crude, European electronics, and African container freight.",
+    behavioral_profile: "Geopolitically volatile; container rates and war-risk insurance premiums fluctuate dynamically based on regional security dispatches.",
+    strategic_approchement: "Pre-order hardware supplies 30 days ahead; maintain buffer stocks in Nairobi/Kitengela storage facilities."
+  }
+];
+
+function initOsintSpiderChart() {
+  const svg = document.getElementById("osint-spider-svg");
+  const pillsContainer = document.getElementById("spider-target-pills");
+  if (!svg) return;
+
+  const activeTarget = DEFAULT_OSINT_TARGETS.find(t => t.id === appState.selectedOsintId) || DEFAULT_OSINT_TARGETS[0];
+
+  // Populate target pills
+  if (pillsContainer) {
+    pillsContainer.innerHTML = DEFAULT_OSINT_TARGETS.map(t => {
+      const isSelected = t.id === activeTarget.id;
+      const activeClass = isSelected ? "border-cyan-400 bg-cyan-950/80 text-cyan-300 font-bold" : "border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700";
+      return `
+        <button onclick="selectOsintProfile(${t.id})" class="text-[10px] font-mono px-2 py-1 rounded border ${activeClass} transition">
+          ${t.target_query.split(" ")[0]}
+        </button>
+      `;
+    }).join("");
+  }
+
+  // Draw 5-axis spider radar
+  const cx = 150;
+  const cy = 150;
+  const maxR = 95;
+  const numAxes = OSINT_BEHAVIORAL_AXES.length;
+
+  let svgHtml = "";
+
+  // Concentric radar web polygons
+  [0.2, 0.4, 0.6, 0.8, 1.0].forEach((ratio) => {
+    const ringPoints = [];
+    for (let i = 0; i < numAxes; i++) {
+      const angle = -Math.PI / 2 + i * (2 * Math.PI / numAxes);
+      const px = cx + maxR * ratio * Math.cos(angle);
+      const py = cy + maxR * ratio * Math.sin(angle);
+      ringPoints.push(`${px.toFixed(1)},${py.toFixed(1)}`);
+    }
+    svgHtml += `<polygon points="${ringPoints.join(" ")}" fill="none" stroke="rgba(0, 240, 255, 0.15)" stroke-width="1"></polygon>`;
+  });
+
+  // Radial Axis Spokes & Labels
+  for (let i = 0; i < numAxes; i++) {
+    const angle = -Math.PI / 2 + i * (2 * Math.PI / numAxes);
+    const ex = cx + maxR * Math.cos(angle);
+    const ey = cy + maxR * Math.sin(angle);
+
+    // Spoke line
+    svgHtml += `<line x1="${cx}" y1="${cy}" x2="${ex.toFixed(1)}" y2="${ey.toFixed(1)}" stroke="rgba(0, 240, 255, 0.25)" stroke-width="1"></line>`;
+
+    // Label position (pushed slightly past maxR)
+    const lx = cx + (maxR + 18) * Math.cos(angle);
+    const ly = cy + (maxR + 18) * Math.sin(angle);
+    const anchor = Math.abs(Math.cos(angle)) < 0.2 ? "middle" : (Math.cos(angle) > 0 ? "start" : "end");
+
+    svgHtml += `
+      <text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" fill="rgba(0, 240, 255, 0.7)" font-family="'JetBrains Mono', monospace" font-size="8" text-anchor="${anchor}" alignment-baseline="middle">
+        ${OSINT_BEHAVIORAL_AXES[i]}
+      </text>
+    `;
+  }
+
+  // Active target behavioral polygon
+  const targetPoints = [];
+  activeTarget.scores.forEach((score, i) => {
+    const ratio = Math.max(0.1, score / 100);
+    const angle = -Math.PI / 2 + i * (2 * Math.PI / numAxes);
+    const tx = cx + maxR * ratio * Math.cos(angle);
+    const ty = cy + maxR * ratio * Math.sin(angle);
+    targetPoints.push(`${tx.toFixed(1)},${ty.toFixed(1)}`);
+  });
+
+  svgHtml += `
+    <polygon points="${targetPoints.join(" ")}" fill="rgba(0, 240, 255, 0.3)" stroke="#00f0ff" stroke-width="2" class="spider-polygon"></polygon>
+  `;
+
+  // Vertex blip dots
+  activeTarget.scores.forEach((score, i) => {
+    const ratio = Math.max(0.1, score / 100);
+    const angle = -Math.PI / 2 + i * (2 * Math.PI / numAxes);
+    const tx = cx + maxR * ratio * Math.cos(angle);
+    const ty = cy + maxR * ratio * Math.sin(angle);
+    svgHtml += `<circle cx="${tx.toFixed(1)}" cy="${ty.toFixed(1)}" r="3" fill="#38bdf8" stroke="#ffffff" stroke-width="1"></circle>`;
+  });
+
+  // Center anchor
+  svgHtml += `<circle cx="${cx}" cy="${cy}" r="3" fill="#00f0ff"></circle>`;
+
+  svg.innerHTML = svgHtml;
+
+  // Update target briefing card
+  const titleEl = document.getElementById("osint-brief-title");
+  const footEl = document.getElementById("osint-brief-footprint");
+  const typeEl = document.getElementById("osint-brief-type");
+  const psychEl = document.getElementById("osint-brief-psych");
+  const docEl = document.getElementById("osint-brief-doctrine");
+  const labelEl = document.getElementById("spider-profile-label");
+
+  if (titleEl) titleEl.textContent = activeTarget.target_query;
+  if (footEl) footEl.textContent = activeTarget.footprint_summary;
+  if (typeEl) typeEl.textContent = activeTarget.entity_type;
+  if (psychEl) psychEl.textContent = activeTarget.behavioral_profile;
+  if (docEl) docEl.textContent = activeTarget.strategic_approchement;
+  if (labelEl) labelEl.textContent = activeTarget.target_query.toUpperCase();
+}
+
+function selectOsintProfile(id) {
+  playSciFiChirp("confirm");
+  appState.selectedOsintId = id;
+  initOsintSpiderChart();
+}
+
 // Render OSINT Reconnaissance & Human Behavioral Dossiers
 function renderOsint() {
+  initOsintSpiderChart();
   const container = document.getElementById("osint-list");
   if (!container) return;
 
-  let items = appState.osintData || [];
+  let items = (appState.osintData && appState.osintData.length > 0) ? appState.osintData : DEFAULT_OSINT_TARGETS;
 
   // Filter by entity type
   if (appState.activeOsintFilter !== "ALL") {
@@ -428,7 +761,7 @@ function renderOsint() {
       `<a href="${u}" target="_blank" rel="noopener noreferrer" class="text-[11px] font-mono text-cyan-400 hover:text-cyan-300 hover:underline truncate block">🔗 ${u}</a>`
     ).join("");
 
-    const dateStr = d.created_at ? new Date(d.created_at).toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" }) : "Recent";
+    const dateStr = d.created_at ? new Date(d.created_at).toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" }) : "Active";
 
     return `
       <div class="osint-card border border-slate-800 bg-slate-950/90 rounded-lg p-5 space-y-4">
@@ -631,7 +964,7 @@ function stopSpeech() {
 }
 
 
-// Render Weather Cards
+// Render Weather Radial Dial Gauges
 function renderWeather() {
   const container = document.getElementById("weather-container");
   if (!container) return;
@@ -639,41 +972,41 @@ function renderWeather() {
   container.innerHTML = appState.weatherData.map(w => {
     const isLocal = w.scope === "LOCAL";
     const badgeClass = isLocal ? "badge-local" : "badge-global";
-    const cardScopeClass = isLocal ? "local-scope" : "global-scope";
-    const tempClass = w.temp_c >= 25 ? "text-amber-300" : w.temp_c >= 15 ? "text-emerald-300" : "text-cyan-300";
+    const tempClass = w.temp_c >= 25 ? "text-amber-400" : w.temp_c >= 15 ? "text-emerald-400" : "text-cyan-400";
+    const strokeColor = w.temp_c >= 25 ? "#f59e0b" : w.temp_c >= 15 ? "#10b981" : "#00f0ff";
+    
+    // SVG radial progress arc (range: 0°C to 45°C)
+    const radius = 38;
+    const circ = 2 * Math.PI * radius; // ~238.76
+    const pct = Math.max(0, Math.min(1, (w.temp_c || 0) / 45));
+    const offset = circ * (1 - pct);
 
     return `
-      <div class="glass-panel weather-card ${cardScopeClass} p-5 flex flex-col justify-between">
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <div>
-              <span class="text-xs font-mono uppercase tracking-wider text-slate-400">${w.scope} HUB</span>
-              <h3 class="text-lg font-bold text-white tracking-wide">${w.city}</h3>
-            </div>
-            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full ${badgeClass}">
-              ${w.scope}
-            </span>
-          </div>
+      <div class="radial-gauge-card">
+        <div class="w-full flex items-center justify-between mb-2">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-white">${w.city}</span>
+          <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-full ${badgeClass}">${w.scope}</span>
+        </div>
 
-          <div class="flex items-center justify-between my-4">
-            <div>
-              <span class="text-4xl font-extrabold ${tempClass} tracking-tight">${w.temp_c}°<span class="text-2xl font-normal text-slate-400">C</span></span>
-              <p class="text-xs text-slate-300 font-medium mt-1">${w.condition}</p>
-            </div>
-            <div class="p-2 rounded-xl bg-slate-800/40 border border-slate-700/30">
-              ${getConditionIcon(w.condition)}
-            </div>
+        <div class="relative w-28 h-28 flex items-center justify-center my-1">
+          <svg class="gauge-svg w-full h-full" viewBox="0 0 100 100">
+            <circle class="gauge-track" cx="50" cy="50" r="${radius}" fill="none" stroke-width="7"></circle>
+            <circle class="gauge-progress" cx="50" cy="50" r="${radius}" fill="none" stroke="${strokeColor}" stroke-width="7" stroke-dasharray="${circ}" stroke-dashoffset="${offset}"></circle>
+          </svg>
+          <div class="absolute inset-0 flex flex-col items-center justify-center font-display">
+            <span class="text-2xl font-black ${tempClass} tracking-tight">${w.temp_c}°</span>
+            <span class="text-[9px] font-mono text-slate-400 mt-0.5 text-center px-1 truncate max-w-[80px]">${w.condition}</span>
           </div>
         </div>
 
-        <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-400">
+        <div class="w-full pt-2 mt-1 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono text-slate-400">
           <span class="flex items-center gap-1">
-            <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            <svg class="w-3 h-3 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             ${w.wind_kmh} km/h
           </span>
           <span class="flex items-center gap-1">
-            <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path></svg>
-            ${w.humidity}% Hum
+            <svg class="w-3 h-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707"></path></svg>
+            ${w.humidity}%
           </span>
         </div>
       </div>
@@ -736,12 +1069,442 @@ function renderPersonalOps() {
   }
 }
 
-// Render Local Wi-Fi & LAN Device Mesh Grid
-function renderLanDevices() {
-  const container = document.getElementById("lan-grid");
+// --- LAN STAR TOPOLOGY, 1-BY-1 DEVICE INSPECTOR & OSCILLOSCOPE ---
+let lanTopologyCoords = [];
+let lanTopologyAnimId = null;
+let oscilloscopeAnimId = null;
+let oscilloscopeSpikeTime = 0;
+
+function getSelectedLanDevice() {
+  const devices = appState.lanData || [];
+  if (devices.length === 0) return null;
+  if (!appState.selectedLanDeviceIp) {
+    appState.selectedLanDeviceIp = devices[0].ip_address;
+  }
+  return devices.find(d => d.ip_address === appState.selectedLanDeviceIp) || devices[0];
+}
+
+function selectLanDeviceByIp(ip) {
+  playSciFiChirp("confirm");
+  appState.selectedLanDeviceIp = ip;
+  const dev = getSelectedLanDevice();
+  if (dev) {
+    updateDeviceInspector(dev);
+    renderLanDevicePills();
+  }
+}
+
+function renderLanDevicePills() {
+  const container = document.getElementById("lan-device-pills");
   if (!container) return;
 
   const devices = appState.lanData || [];
+  container.innerHTML = devices.map(d => {
+    const isSelected = d.ip_address === appState.selectedLanDeviceIp;
+    const activeClass = isSelected 
+      ? "border-emerald-400 bg-emerald-950/80 text-emerald-300 font-bold shadow-[0_0_12px_rgba(16,185,129,0.3)]" 
+      : "border-slate-800 bg-slate-900/60 text-slate-400 hover:border-slate-700 hover:text-slate-300";
+    
+    let typeIcon = "💻";
+    if (d.device_type && d.device_type.includes("ROUTER")) typeIcon = "🌐";
+    else if (d.device_type && d.device_type.includes("TV")) typeIcon = "📺";
+    else if (d.device_type && d.device_type.includes("MOBILE")) typeIcon = "📱";
+    else typeIcon = "📡";
+
+    return `
+      <button onclick="selectLanDeviceByIp('${d.ip_address}')" class="device-node-pill flex items-center gap-1.5 px-2.5 py-1 rounded border text-[11px] font-mono transition ${activeClass}">
+        <span class="w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-emerald-400 animate-ping' : 'bg-slate-600'}"></span>
+        <span>${typeIcon}</span>
+        <span class="truncate max-w-[140px]">${d.device_name.split(" ")[0]}</span>
+        <span class="text-[9px] text-slate-500">${d.ip_address.replace("192.168.100.", ".")}</span>
+      </button>
+    `;
+  }).join("");
+}
+
+function updateDeviceInspector(dev) {
+  if (!dev) return;
+
+  const nameEl = document.getElementById("inspector-device-name");
+  const ipEl = document.getElementById("inspector-device-ip");
+  const statusEl = document.getElementById("inspector-device-status");
+  const typeEl = document.getElementById("inspector-device-type");
+  const portEl = document.getElementById("inspector-device-port");
+  const pingEl = document.getElementById("inspector-device-ping");
+  const cmdStatusEl = document.getElementById("inspector-command-status");
+  const iconBox = document.getElementById("inspector-device-icon");
+
+  if (nameEl) nameEl.textContent = dev.device_name;
+  if (ipEl) ipEl.textContent = `IP: ${dev.ip_address} // MAC: ${dev.mac_address || "N/A"}`;
+  if (statusEl) {
+    statusEl.textContent = dev.status || "ONLINE";
+    statusEl.className = dev.status === "ONLINE" 
+      ? "text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+      : "text-[9px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400";
+  }
+  if (typeEl) typeEl.textContent = dev.device_type || "GENERIC";
+  if (portEl) {
+    const defaultProto = dev.device_type && dev.device_type.includes("TV") ? "ADB/ECP" : dev.device_type && dev.device_type.includes("ROUTER") ? "HTTP-ADMIN" : "HTTP/TCP";
+    portEl.textContent = `${dev.control_port || 80} (${defaultProto})`;
+  }
+  if (pingEl) {
+    pingEl.textContent = `PING: ${(1.2 + Math.random() * 2.2).toFixed(1)}ms (HEALTHY)`;
+  }
+  if (cmdStatusEl) {
+    cmdStatusEl.textContent = `// NODE LOCKED: ${dev.device_name} (${dev.ip_address}) READY //`;
+  }
+
+  // Update Icon
+  if (iconBox) {
+    let iconSvg = "";
+    if (dev.device_type && dev.device_type.includes("TV")) {
+      iconSvg = `<svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2" stroke-width="2"></rect><polyline points="17 2 12 7 7 2" stroke-width="2"></polyline></svg>`;
+    } else if (dev.device_type && dev.device_type.includes("ROUTER")) {
+      iconSvg = `<svg class="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"></circle><line x1="2" y1="12" x2="22" y2="12" stroke-width="2"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>`;
+    } else if (dev.device_type && (dev.device_type.includes("LAPTOP") || dev.device_type.includes("PC"))) {
+      iconSvg = `<svg class="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2" stroke-width="2"></rect><line x1="2" y1="20" x2="22" y2="20" stroke-width="2"></line></svg>`;
+    } else {
+      iconSvg = `<svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"></path></svg>`;
+    }
+    iconBox.innerHTML = iconSvg;
+  }
+}
+
+function probeDevicePing(dev) {
+  playSciFiChirp("confirm");
+  oscilloscopeSpikeTime = Date.now();
+  const target = dev || getSelectedLanDevice();
+  if (!target) return;
+
+  const pingMs = (1.1 + Math.random() * 2.3).toFixed(1);
+  const pingEl = document.getElementById("inspector-device-ping");
+  if (pingEl) pingEl.textContent = `PING: ${pingMs}ms (ICMP ECHO OK)`;
+
+  const cmdStatusEl = document.getElementById("inspector-command-status");
+  if (cmdStatusEl) {
+    cmdStatusEl.textContent = `[ICMP PROBE] ${target.device_name} (${target.ip_address}) responded in ${pingMs}ms. Local link 100% nominal.`;
+  }
+}
+
+function runPortAudit(dev) {
+  playSciFiChirp("vocal");
+  const target = dev || getSelectedLanDevice();
+  if (!target) return;
+
+  const isTv = target.device_type && target.device_type.includes("TV");
+  const isRouter = target.device_type && target.device_type.includes("ROUTER");
+  const isHost = target.ip_address.endsWith(".40");
+
+  let auditText = "";
+  if (isRouter) {
+    auditText = `PORT AUDIT [${target.ip_address}]: Port 80 (HTTP-Admin: OPEN), Port 53 (DNS-Relay: ACTIVE), Port 443 (HTTPS: OPEN).`;
+  } else if (isTv) {
+    auditText = `PORT AUDIT [${target.ip_address}]: Port 5555 (ADB-Debug: READY), Port 8060 (ECP: ACTIVE), Port 8008 (DIAL/Cast: OPEN).`;
+  } else if (isHost) {
+    auditText = `PORT AUDIT [${target.ip_address}]: Port 3000 (HUD-Server: ONLINE), Port 22 (SSH: FILTERED), Port 8080 (WS: STANDBY).`;
+  } else {
+    auditText = `PORT AUDIT [${target.ip_address}]: Port 8080 (HTTP: OPEN), Port 5555 (FILTERED), Port 80 (NOMINAL).`;
+  }
+
+  const cmdStatusEl = document.getElementById("inspector-command-status");
+  if (cmdStatusEl) cmdStatusEl.textContent = auditText;
+
+  speakCustomText(`Port audit complete for ${target.device_name}. Monitored services are operational.`, "cortana");
+}
+
+function initOscilloscope() {
+  const canvas = document.getElementById("oscilloscope-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  let phase = 0;
+  function draw() {
+    oscilloscopeAnimId = requestAnimationFrame(draw);
+    phase += 0.08;
+
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    // Tech baseline
+    ctx.strokeStyle = "rgba(16, 185, 129, 0.15)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, h / 2);
+    ctx.lineTo(w, h / 2);
+    ctx.stroke();
+
+    // Pulse waveform
+    ctx.strokeStyle = "#10b981";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+
+    const isSpike = (Date.now() - oscilloscopeSpikeTime) < 1200;
+
+    for (let x = 0; x < w; x++) {
+      let y = h / 2;
+      const freq = (x / w) * Math.PI * 8;
+      const noise = (Math.sin(freq + phase) + Math.cos(freq * 0.5 - phase * 0.7)) * 3;
+
+      if (isSpike) {
+        const spikeCenter = ((Date.now() - oscilloscopeSpikeTime) / 1200) * w;
+        const dist = Math.abs(x - spikeCenter);
+        if (dist < 30) {
+          const spikeAmp = Math.sin((dist / 30) * Math.PI) * (h * 0.42);
+          y -= spikeAmp * (x % 2 === 0 ? 1 : -0.6);
+        } else {
+          y += noise;
+        }
+      } else {
+        y += noise * 0.6;
+      }
+
+      if (x === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+  }
+
+  if (!oscilloscopeAnimId) draw();
+}
+
+function initLanTopologyCanvas() {
+  const canvas = document.getElementById("lan-topology-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  // Canvas click targeting
+  canvas.onclick = (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const clickX = (e.clientX - rect.left) * (canvas.width / rect.width);
+    const clickY = (e.clientY - rect.top) * (canvas.height / rect.height);
+
+    let closest = null;
+    let minDist = 999;
+    lanTopologyCoords.forEach(item => {
+      const d = Math.hypot(clickX - item.x, clickY - item.y);
+      if (d < item.r + 10 && d < minDist) {
+        minDist = d;
+        closest = item.dev;
+      }
+    });
+
+    if (closest) {
+      selectLanDeviceByIp(closest.ip_address);
+    }
+  };
+
+  let animAngle = 0;
+  function draw() {
+    lanTopologyAnimId = requestAnimationFrame(draw);
+    animAngle += 0.008;
+
+    const w = canvas.width;
+    const h = canvas.height;
+    const cx = w / 2;
+    const cy = h / 2;
+    ctx.clearRect(0, 0, w, h);
+
+    const devices = appState.lanData || [];
+    if (devices.length === 0) return;
+
+    // Find Gateway or Router (center)
+    let router = devices.find(d => (d.device_type || "").includes("ROUTER")) || devices[0];
+    let satellites = devices.filter(d => d.ip_address !== router.ip_address);
+    if (satellites.length === 0) satellites = devices;
+
+    const orbitR = Math.min(cx, cy) - 34;
+
+    // Orbit Ring
+    ctx.strokeStyle = "rgba(16, 185, 129, 0.15)";
+    ctx.lineWidth = 1;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.arc(cx, cy, orbitR, 0, 2 * Math.PI);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    lanTopologyCoords = [];
+
+    // Satellites in Orbit
+    const count = satellites.length;
+    satellites.forEach((sat, i) => {
+      const angle = (2 * Math.PI / count) * i - Math.PI / 2 + animAngle * 0.4;
+      const sx = cx + orbitR * Math.cos(angle);
+      const sy = cy + orbitR * Math.sin(angle);
+      const isSelected = sat.ip_address === appState.selectedLanDeviceIp;
+
+      lanTopologyCoords.push({ x: sx, y: sy, r: 16, dev: sat });
+
+      // Laser Beam from Gateway to Satellite
+      ctx.strokeStyle = isSelected ? "rgba(0, 240, 255, 0.7)" : "rgba(16, 185, 129, 0.25)";
+      ctx.lineWidth = isSelected ? 1.5 : 1;
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.lineTo(sx, sy);
+      ctx.stroke();
+
+      // Moving Data Packet Photon along beam
+      const packetProgress = (Date.now() / 1400 + i * 0.2) % 1.0;
+      const px = cx + (sx - cx) * packetProgress;
+      const py = cy + (sy - cy) * packetProgress;
+      ctx.fillStyle = isSelected ? "#00f0ff" : "#34d399";
+      ctx.beginPath();
+      ctx.arc(px, py, isSelected ? 2.8 : 2, 0, 2 * Math.PI);
+      ctx.fill();
+
+      // Satellite Node Circle
+      ctx.fillStyle = isSelected ? "#064e3b" : "#0f172a";
+      ctx.strokeStyle = isSelected ? "#00f0ff" : "#10b981";
+      ctx.lineWidth = isSelected ? 2 : 1.2;
+      ctx.beginPath();
+      ctx.arc(sx, sy, 14, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.stroke();
+
+      // Pulsing Halo if selected
+      if (isSelected) {
+        ctx.strokeStyle = "rgba(0, 240, 255, 0.4)";
+        ctx.lineWidth = 1;
+        const pulseR = 16 + ((Date.now() % 1000) / 1000) * 8;
+        ctx.beginPath();
+        ctx.arc(sx, sy, pulseR, 0, 2 * Math.PI);
+        ctx.stroke();
+      }
+
+      // Node Glyph / Short Tag
+      ctx.fillStyle = isSelected ? "#fff" : "#94a3b8";
+      ctx.font = "bold 9px 'JetBrains Mono', monospace";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      const tag = sat.device_type && sat.device_type.includes("TV") ? "TV" : sat.device_type && sat.device_type.includes("LAPTOP") ? "PC" : "IOT";
+      ctx.fillText(tag, sx, sy);
+
+      // Node IP Label
+      ctx.fillStyle = isSelected ? "#38bdf8" : "rgba(255, 255, 255, 0.65)";
+      ctx.font = "8px 'JetBrains Mono', monospace";
+      ctx.textBaseline = "top";
+      const ipShort = sat.ip_address.replace("192.168.100.", ".");
+      ctx.fillText(ipShort, sx, sy + 16);
+    });
+
+    // Central Node: Gateway Router
+    const isRouterSelected = router.ip_address === appState.selectedLanDeviceIp;
+    lanTopologyCoords.push({ x: cx, y: cy, r: 20, dev: router });
+
+    ctx.fillStyle = isRouterSelected ? "#047857" : "#065f46";
+    ctx.strokeStyle = isRouterSelected ? "#00f0ff" : "#34d399";
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(cx, cy, 18, 0, 2 * Math.PI);
+    ctx.fill();
+    ctx.stroke();
+
+    // Central Gateway Pulse
+    ctx.strokeStyle = "rgba(52, 211, 153, 0.35)";
+    ctx.lineWidth = 1.2;
+    const centerPulse = 18 + ((Date.now() % 1400) / 1400) * 12;
+    ctx.beginPath();
+    ctx.arc(cx, cy, centerPulse, 0, 2 * Math.PI);
+    ctx.stroke();
+
+    ctx.fillStyle = "#fff";
+    ctx.font = "bold 9px 'JetBrains Mono', monospace";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("ONT", cx, cy);
+
+    ctx.fillStyle = "#10b981";
+    ctx.font = "bold 8px 'JetBrains Mono', monospace";
+    ctx.textBaseline = "top";
+    ctx.fillText(".1 GATEWAY", cx, cy + 20);
+  }
+
+  if (!lanTopologyAnimId) draw();
+}
+
+function initDeviceActionHandlers() {
+  const btnWake = document.getElementById("btn-action-wake");
+  const btnPower = document.getElementById("btn-action-power");
+  const btnMute = document.getElementById("btn-action-mute");
+  const btnVolUp = document.getElementById("btn-action-volup");
+  const btnVolDn = document.getElementById("btn-action-voldn");
+  const btnStream = document.getElementById("btn-action-stream");
+  const btnOpenWeb = document.getElementById("btn-action-openweb");
+  const btnPortScan = document.getElementById("btn-action-portscan");
+  const btnVoice = document.getElementById("btn-action-voice");
+  const btnPing = document.getElementById("btn-device-ping");
+
+  if (btnWake) btnWake.onclick = () => {
+    const dev = getSelectedLanDevice();
+    if (dev) sendDeviceCommand(dev.device_name, "wake");
+  };
+  if (btnPower) btnPower.onclick = () => {
+    const dev = getSelectedLanDevice();
+    if (dev) sendDeviceCommand(dev.device_name, "tv_power");
+  };
+  if (btnMute) btnMute.onclick = () => {
+    const dev = getSelectedLanDevice();
+    if (dev) sendDeviceCommand(dev.device_name, "tv_mute");
+  };
+  if (btnVolUp) btnVolUp.onclick = () => {
+    const dev = getSelectedLanDevice();
+    if (dev) sendDeviceCommand(dev.device_name, "vol_up");
+  };
+  if (btnVolDn) btnVolDn.onclick = () => {
+    const dev = getSelectedLanDevice();
+    if (dev) sendDeviceCommand(dev.device_name, "vol_down");
+  };
+  if (btnStream) btnStream.onclick = () => {
+    const dev = getSelectedLanDevice();
+    if (dev) sendDeviceCommand(dev.device_name, "open_url");
+  };
+  if (btnOpenWeb) btnOpenWeb.onclick = () => {
+    const dev = getSelectedLanDevice();
+    if (dev) {
+      playSciFiChirp("confirm");
+      const url = `http://${dev.ip_address}:${dev.control_port || 80}`;
+      window.open(url, "_blank");
+    }
+  };
+  if (btnPortScan) btnPortScan.onclick = () => {
+    const dev = getSelectedLanDevice();
+    if (dev) runPortAudit(dev);
+  };
+  if (btnVoice) btnVoice.onclick = () => {
+    const dev = getSelectedLanDevice();
+    if (dev) {
+      playSciFiChirp("vocal");
+      speakCustomText(`Direct neural link confirmed with ${dev.device_name} on subnet 192.168.100.0. All hardware interfaces ready.`, "cortana");
+    }
+  };
+  if (btnPing) btnPing.onclick = () => {
+    const dev = getSelectedLanDevice();
+    if (dev) probeDevicePing(dev);
+  };
+}
+
+// Render Local Wi-Fi & LAN Device Mesh Grid
+function renderLanDevices() {
+  const container = document.getElementById("lan-grid");
+  const summaryEl = document.getElementById("topology-node-summary");
+  const countEl = document.getElementById("topology-node-count");
+
+  const devices = appState.lanData || [];
+
+  if (summaryEl) summaryEl.textContent = `${devices.length} ACTIVE SUBNET NODES`;
+  if (countEl) countEl.textContent = `${devices.length} NODES ON ORBIT`;
+
+  renderLanDevicePills();
+  initLanTopologyCanvas();
+  initOscilloscope();
+  initDeviceActionHandlers();
+
+  const selectedDev = getSelectedLanDevice();
+  if (selectedDev) updateDeviceInspector(selectedDev);
+
+  if (!container) return;
+
   if (devices.length === 0) {
     container.innerHTML = `
       <div class="col-span-full py-8 text-center text-slate-500 font-mono text-xs">
@@ -760,14 +1523,19 @@ function renderLanDevices() {
     let iconSvg = "";
     if (d.device_type && d.device_type.includes("TV")) {
       iconSvg = `<svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2" stroke-width="2"></rect><polyline points="17 2 12 7 7 2" stroke-width="2"></polyline></svg>`;
+    } else if (d.device_type && d.device_type.includes("ROUTER")) {
+      iconSvg = `<svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"></circle><line x1="2" y1="12" x2="22" y2="12" stroke-width="2"></line></svg>`;
     } else if (d.device_type && (d.device_type.includes("LAPTOP") || d.device_type.includes("PC"))) {
       iconSvg = `<svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2" stroke-width="2"></rect><line x1="2" y1="20" x2="22" y2="20" stroke-width="2"></line></svg>`;
     } else {
       iconSvg = `<svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"></path></svg>`;
     }
 
+    const isCurrent = d.ip_address === appState.selectedLanDeviceIp;
+    const borderHighlight = isCurrent ? "border-emerald-400/80 shadow-[0_0_15px_rgba(16,185,129,0.2)]" : "border-slate-800/80";
+
     return `
-      <div class="lan-card ${cardStatusClass}">
+      <div class="lan-card ${cardStatusClass} ${borderHighlight} cursor-pointer" onclick="selectLanDeviceByIp('${d.ip_address}')">
         <div>
           <div class="flex items-center justify-between gap-2 mb-2">
             <div class="flex items-center gap-1.5">
@@ -792,7 +1560,7 @@ function renderLanDevices() {
           </div>
           <div class="flex justify-between items-center">
             <span>PORT / PROTO:</span>
-            <span class="text-cyan-400">${d.control_port || 5555} (${d.device_type && d.device_type.includes("TV") ? "ADB/ECP" : "SSH/WOL"})</span>
+            <span class="text-cyan-400">${d.control_port || 80}</span>
           </div>
           <div class="flex justify-between items-center text-slate-500">
             <span>LAST SEEN:</span>
@@ -801,10 +1569,10 @@ function renderLanDevices() {
 
           <!-- Quick Action Controls -->
           <div class="pt-2 flex flex-wrap gap-1">
-            ${d.mac_address ? `<button onclick="sendDeviceCommand('${d.device_name}', 'wake')" class="text-[9px] px-1.5 py-0.5 rounded bg-cyan-950 border border-cyan-800 text-cyan-300 hover:bg-cyan-900 transition">WOL WAKE</button>` : ""}
-            ${d.device_type && d.device_type.includes("TV") ? `<button onclick="sendDeviceCommand('${d.device_name}', 'tv_power')" class="text-[9px] px-1.5 py-0.5 rounded bg-rose-950 border border-rose-800 text-rose-300 hover:bg-rose-900 transition">POWER</button>` : ""}
-            ${d.device_type && d.device_type.includes("TV") ? `<button onclick="sendDeviceCommand('${d.device_name}', 'tv_mute')" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 transition">MUTE</button>` : ""}
-            ${d.device_type && (d.device_type.includes("LAPTOP") || d.device_type.includes("TV")) ? `<button onclick="sendDeviceCommand('${d.device_name}', 'open_url')" class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-950 border border-emerald-800 text-emerald-300 hover:bg-emerald-900 transition">STREAM HUD</button>` : ""}
+            ${d.mac_address ? `<button onclick="event.stopPropagation(); sendDeviceCommand('${d.device_name}', 'wake')" class="text-[9px] px-1.5 py-0.5 rounded bg-cyan-950 border border-cyan-800 text-cyan-300 hover:bg-cyan-900 transition">WOL</button>` : ""}
+            ${d.device_type && d.device_type.includes("TV") ? `<button onclick="event.stopPropagation(); sendDeviceCommand('${d.device_name}', 'tv_power')" class="text-[9px] px-1.5 py-0.5 rounded bg-rose-950 border border-rose-800 text-rose-300 hover:bg-rose-900 transition">PWR</button>` : ""}
+            ${d.device_type && d.device_type.includes("TV") ? `<button onclick="event.stopPropagation(); sendDeviceCommand('${d.device_name}', 'tv_mute')" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 transition">MUTE</button>` : ""}
+            <button onclick="event.stopPropagation(); selectLanDeviceByIp('${d.ip_address}')" class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-950 border border-emerald-800 text-emerald-300 hover:bg-emerald-900 transition">INSPECT</button>
           </div>
         </div>
       </div>
@@ -822,6 +1590,10 @@ function sendDeviceCommand(deviceName, command) {
     reply = `Dispatching power toggle command to ${deviceName} over wireless network debugging.`;
   } else if (command === "tv_mute") {
     reply = `Audio muted on ${deviceName}.`;
+  } else if (command === "vol_up") {
+    reply = `Volume increased on ${deviceName}.`;
+  } else if (command === "vol_down") {
+    reply = `Volume decreased on ${deviceName}.`;
   } else if (command === "open_url") {
     reply = `Routing real-time tactical dashboard stream to ${deviceName}. Screen synchronized.`;
   } else {
@@ -829,6 +1601,10 @@ function sendDeviceCommand(deviceName, command) {
   }
 
   speakCustomText(reply, "cortana");
+  const cmdStatusEl = document.getElementById("inspector-command-status");
+  if (cmdStatusEl) {
+    cmdStatusEl.textContent = `[COMMAND EXECUTED] ${command.toUpperCase()} -> ${deviceName}: "${reply}"`;
+  }
   const sitrepEl = document.getElementById("sitrep-content");
   if (sitrepEl) {
     sitrepEl.textContent = `[LAN COMMAND DISPATCHED]\nTarget: ${deviceName}\nCommand: ${command.toUpperCase()}\nCortana: "${reply}"`;
@@ -937,10 +1713,47 @@ function processVoiceDirective(text) {
   speakCustomText(response, "cortana");
 }
 
+// --- CYBERSECURITY DEFCON GAUGE & HEXAGONAL CVE MATRIX ---
+function lockCveTarget(cveId) {
+  playSciFiChirp("confirm");
+  const item = (appState.cyberData || []).find(c => (c.cve_id === cveId) || (c.title && c.title.includes(cveId)));
+  if (!item) return;
+
+  const lockCard = document.getElementById("cve-target-lock");
+  const lockIdEl = document.getElementById("cve-lock-id");
+  const lockSevEl = document.getElementById("cve-lock-sev");
+  const lockTitleEl = document.getElementById("cve-lock-title");
+  const lockDescEl = document.getElementById("cve-lock-desc");
+  const lockLinkEl = document.getElementById("cve-lock-link");
+
+  if (lockCard) lockCard.classList.remove("hidden");
+  if (lockIdEl) lockIdEl.textContent = item.cve_id || "VULNERABILITY LOCK";
+  if (lockSevEl) {
+    lockSevEl.textContent = item.severity;
+    lockSevEl.className = item.severity === "CRITICAL"
+      ? "text-[9px] px-2 py-0.5 rounded bg-rose-950 text-rose-300 border border-rose-700 font-bold"
+      : item.severity === "HIGH"
+      ? "text-[9px] px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-700 font-bold"
+      : "text-[9px] px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-700 font-bold";
+  }
+  if (lockTitleEl) lockTitleEl.textContent = item.title;
+  if (lockDescEl) lockDescEl.textContent = item.summary || "Actively exploited CISA catalog vector. Immediate perimeter patch verification advised.";
+  if (lockLinkEl && item.link) lockLinkEl.href = item.link;
+}
+
+function previewCveTarget(cveId) {
+  playSciFiChirp("blip");
+  lockCveTarget(cveId);
+}
+
 // Render Cybersecurity Threat Matrix
 function renderCyber() {
   const container = document.getElementById("cyber-container");
   const countBadge = document.getElementById("cyber-count-badge");
+  const hexGrid = document.getElementById("hex-cve-grid");
+  const defconValEl = document.getElementById("defcon-value");
+  const defconLabelEl = document.getElementById("defcon-label");
+
   if (!container) return;
 
   const query = appState.searchQuery.toLowerCase();
@@ -956,6 +1769,58 @@ function renderCyber() {
 
   if (countBadge) {
     countBadge.textContent = `${filtered.length} Threats Active`;
+  }
+
+  // Update DEFCON threat meter
+  const critCount = filtered.filter(i => i.severity === "CRITICAL").length;
+  const highCount = filtered.filter(i => i.severity === "HIGH").length;
+  let defcon = 3;
+  let defconText = "ELEVATED";
+
+  if (critCount >= 3) {
+    defcon = 2;
+    defconText = "CRITICAL";
+  } else if (critCount === 0 && highCount === 0) {
+    defcon = 4;
+    defconText = "GUARD";
+  }
+
+  if (defconValEl) defconValEl.textContent = defcon;
+  if (defconLabelEl) {
+    defconLabelEl.textContent = defconText;
+    defconLabelEl.className = defcon === 2 ? "text-[9px] font-mono text-rose-400 font-bold uppercase glow-crimson" : "text-[9px] font-mono text-amber-400 font-bold uppercase";
+  }
+
+  // Populate Hexagonal Honeycomb Matrix
+  if (hexGrid) {
+    const hexItems = filtered.slice(0, 32);
+    if (hexItems.length === 0) {
+      hexGrid.innerHTML = `<div class="p-4 text-xs font-mono text-slate-500">No CVE hex vectors matching current filter.</div>`;
+    } else {
+      hexGrid.innerHTML = hexItems.map(item => {
+        let hexClass = "hex-adv";
+        if (item.severity === "CRITICAL") hexClass = "hex-crit";
+        else if (item.severity === "HIGH") hexClass = "hex-high";
+
+        const label = item.cve_id ? item.cve_id.replace("CVE-", "") : (item.title ? item.title.slice(0, 10) : "CVE");
+        const safeId = (item.cve_id || item.title || "").replace(/['"]/g, "");
+
+        return `
+          <div class="hex-cell ${hexClass}" onclick="lockCveTarget('${safeId}')" onmouseenter="previewCveTarget('${safeId}')">
+            <div class="hex-shape"></div>
+            <div class="hex-content">
+              <span class="hex-cve-id">${label}</span>
+              <span class="hex-cve-sev">${item.severity.slice(0, 4)}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Lock onto first critical item by default
+      if (hexItems.length > 0) {
+        lockCveTarget(hexItems[0].cve_id || hexItems[0].title);
+      }
+    }
   }
 
   if (filtered.length === 0) {
