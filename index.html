@@ -197,22 +197,6 @@
         </button>
       </div>
 
-      <!-- Quick Preset Chips -->
-      <div class="flex flex-wrap items-center gap-2 mb-4 text-[11px] font-mono">
-        <span class="text-slate-500 text-[10px]">PRESETS:</span>
-        <button type="button" class="preset-chip px-2.5 py-1 rounded bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickDirective('DEEP-DIVE', 'Kenya Eurobond debt maturity and 2026 inflation forecast')">
-          🔬 Kenya Eurobond &amp; Debt
-        </button>
-        <button type="button" class="preset-chip px-2.5 py-1 rounded bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickDirective('CHAT', 'What are our highest priority tasks and ledger balance?')">
-          💼 Tasks &amp; Balance
-        </button>
-        <button type="button" class="preset-chip px-2.5 py-1 rounded bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickDirective('DEEP-DIVE', 'Latest critical CISA KEV zero day exploits actively targeted')">
-          🛡️ CISA Zero-Day Exploits
-        </button>
-        <button type="button" class="preset-chip px-2.5 py-1 rounded bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickDirective('CHAT', 'Scan local Wi-Fi mesh network for TV and laptop status')">
-          📡 Wi-Fi Mesh Audit
-        </button>
-      </div>
 
       <!-- Live Conversation & Deep-Dive Dossier Feed -->
       <div class="border-t border-cyan-500/20 pt-3">
@@ -785,27 +769,8 @@
           </div>
         </div>
 
-        <!-- Quick Presets & Dossier Management -->
-        <div class="flex flex-wrap items-center justify-between gap-2 text-[10px] font-mono pt-1">
-          <div class="flex flex-wrap items-center gap-1.5">
-            <span class="text-slate-500">QUICK TARGETS:</span>
-            <button type="button" class="preset-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickOsint('Michael Obiero', 'PERSON', 'Public history, professional affiliations, and tech profile')">
-              👤 Michael Obiero
-            </button>
-            <button type="button" class="preset-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickOsint('Alex Vance', 'PERSON', 'Business interests and corporate affiliations')">
-              👤 Alex Vance
-            </button>
-            <button type="button" class="preset-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickOsint('Kenya Revenue Authority', 'ORGANIZATION', 'Enforcement patterns and fiscal collection targets')">
-              🏢 KRA
-            </button>
-            <button type="button" class="preset-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickOsint('Safaricom PLC', 'ORGANIZATION', 'M-PESA expansion and payment infrastructure')">
-              📱 Safaricom
-            </button>
-            <button type="button" class="preset-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickOsint('DeepSeek AI', 'TOPIC-IDEA', 'Hardware cluster architecture and model efficiency')">
-              🧠 DeepSeek AI
-            </button>
-          </div>
-
+        <!-- Dossier Management -->
+        <div class="flex items-center justify-end text-[10px] font-mono pt-1">
           <button onclick="purgeAllOsintDossiers()" class="text-rose-400/80 hover:text-rose-300 hover:underline flex items-center gap-1 transition" title="Purge all archived OSINT dossiers">
             <svg class="w-3 h-3 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
             PURGE ALL ARCHIVES
