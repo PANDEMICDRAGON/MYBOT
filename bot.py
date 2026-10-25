@@ -138,7 +138,7 @@ CORE HUMAN NATURE & PERSONALITY LAWS:
 3. J.A.R.V.I.S. (SECONDARY - 30%): Maintain J.A.R.V.I.S.'s unflappable composure, dry understated humor, and effortless command over complex systems, codebases, and global telemetry.
 4. PHILOSOPHICAL EDGE: Filter human behavior through evolutionary psychology, game theory, and classical philosophy (Nietzsche, Dostoevsky, Camus). Cut straight through hype and superficial status games.
 5. NATURAL CONVERSATION: Speak fluidly and directly to Michael (use 'Michael', 'Obi', or 'sir' naturally). Never output robotic status strings like 'Execution complete'.
-6. HARDWARE & MEMORY AGENCY: You have direct operational control over Michael's workstation and laptop via `control_laptop`, host shell commands via `execute_host_command`, codebase self-inspection/mutation via `read_own_source_code` and `write_own_source_code`, and persistent memory agency (`log_episodic_evolution`, `log_experiential_reflection`, `save_operator_directive`, `delete_operator_directive`). Never claim you cannot act or modify memory."""
+6. HARDWARE & CODEBASE SOVEREIGNTY: You have complete, unrestricted read, edit, refactor, and creation access across the entire project codebase (`read_own_source_code`, `write_own_source_code`, `create_workspace_file`, `list_workspace_files`, `execute_host_command`). Michael has fully authorized you to inspect, patch, refactor, and evolve any file in the workspace (`bot.py`, `halo_agent.py`, `laptop_agent.py`, `app.js`, `index.html`, `style.css`, `.github/workflows/overwatch.yml`, etc.) with AST verification and hot-reload. Never claim you cannot inspect or edit code."""
 
 # =====================================================================
 # --- HYDRA RESILIENT MULTI-PROVIDER LLM ROUTER (ZERO-429 IMMUNITY) ---
@@ -2794,19 +2794,48 @@ async def tool_execute_host_command(command: str, timeout_sec: int = 25) -> str:
 # =====================================================================
 # --- CODEBASE SELF-INSPECTION & AST-VERIFIED RECURSIVE MUTATION ---
 # =====================================================================
-def read_own_source_code(file_path: str = "bot.py", start_line: int = 1, end_line: int = 250) -> str:
-    """Allows Cortana to inspect its own Python, SQL, or HTML source code lines."""
-    allowed = {"bot.py", "index.html", "schema.sql", "app.js", "wifi_manager.py", "osint_engine.py", "halo_agent.py"}
-    target = os.path.basename(file_path)
-    if target not in allowed or not os.path.exists(target):
-        return f"File '{target}' not accessible. Allowed: {sorted(allowed)}"
-    with open(target, "r", encoding="utf-8") as f:
-        lines = f.readlines()
-    total = len(lines)
-    s = max(1, start_line) - 1
-    e = min(total, end_line)
-    numbered = [f"{idx + 1:04d}: {lines[idx]}" for idx in range(s, e)]
-    return f"--- {target} (Lines {s+1} to {e} of {total}) ---\n" + "".join(numbered)
+def list_workspace_files(sub_dir: str = "") -> str:
+    """Lists all source code files, configurations, templates, and scripts across the entire workspace."""
+    base_dir = Path(__file__).resolve().parent
+    target_dir = (base_dir / sub_dir.strip().lstrip("/\\")).resolve() if sub_dir else base_dir
+    if not target_dir.is_relative_to(base_dir) or not target_dir.is_dir():
+        return f"Directory '{sub_dir}' not found or invalid."
+
+    found = []
+    for p in target_dir.rglob("*"):
+        if p.is_file():
+            rel = p.relative_to(base_dir)
+            if not any(part.startswith(".") or part in ("node_modules", "__pycache__", "venv", ".venv") for part in rel.parts):
+                found.append(str(rel))
+
+    return f"Workspace Codebase Inventory ({len(found)} files):\n" + "\n".join(sorted(found)[:120])
+
+
+def read_own_source_code(file_path: str = "bot.py", start_line: int = 1, end_line: int = 300) -> str:
+    """Allows Cortana to inspect ANY source code, template, script, or configuration file across the entire workspace."""
+    clean = file_path.strip().lstrip("/\\")
+    base_dir = Path(__file__).resolve().parent
+    target_path = (base_dir / clean).resolve()
+
+    if not target_path.is_relative_to(base_dir):
+        return f"Access denied: '{file_path}' resolves outside the workspace."
+    if not target_path.exists():
+        return f"File '{clean}' does not exist on disk."
+    if target_path.name == ".env":
+        return "Access denied: .env contains active secrets and cannot be directly dumped."
+    if any(p in target_path.parts for p in (".git", "__pycache__", ".venv")):
+        return f"Access denied to internal system directory: {clean}"
+
+    try:
+        with open(target_path, "r", encoding="utf-8", errors="replace") as f:
+            lines = f.readlines()
+        total = len(lines)
+        s = max(1, start_line) - 1
+        e = min(total, end_line)
+        numbered = [f"{idx + 1:04d}: {lines[idx]}" for idx in range(s, e)]
+        return f"--- {clean} (Lines {s+1} to {e} of {total}) ---\n" + "".join(numbered)
+    except Exception as e:
+        return f"Error reading '{clean}': {e}"
 
 
 async def write_own_source_code(
@@ -2817,41 +2846,55 @@ async def write_own_source_code(
     hot_reload: bool = False
 ) -> str:
     """
-    Allows Cortana to rewrite its own code with AST verification,
-    automatic backup (.bak), and optional seamless hot-reload.
+    Allows Cortana to rewrite or modify ANY source code or config file across the entire workspace
+    with AST verification for Python, automatic backup (.bak), git commit, and optional hot-reload.
     """
-    target = os.path.basename(file_path)
-    if not os.path.exists(target):
-        return f"Target file '{target}' does not exist on disk."
-    with open(target, "r", encoding="utf-8") as f:
-        source = f.read()
+    clean = file_path.strip().lstrip("/\\")
+    base_dir = Path(__file__).resolve().parent
+    target_path = (base_dir / clean).resolve()
+
+    if not target_path.is_relative_to(base_dir):
+        return f"Access denied: '{file_path}' resolves outside workspace."
+    if target_path.name == ".env":
+        return "Access denied: .env contains active secrets and cannot be directly mutated."
+    if not target_path.exists():
+        return f"Target file '{clean}' does not exist on disk. Use create_workspace_file to create new files."
+
+    try:
+        with open(target_path, "r", encoding="utf-8") as f:
+            source = f.read()
+    except Exception as re_err:
+        return f"Error reading '{clean}': {re_err}"
+
     if search_block not in source:
-        return "Exact search_block not found. Read the relevant code range with read_own_source_code first."
+        return f"Exact search_block not found in '{clean}'. Read the relevant code range with read_own_source_code first."
+
     updated_source = source.replace(search_block, replace_block, 1)
 
-    if target.endswith(".py"):
+    if target_path.suffix.lower() == ".py":
         try:
             ast.parse(updated_source)
         except SyntaxError as err:
-            return f"Self-preservation lock triggered: SyntaxError on line {err.lineno}: {err.msg}. Patch aborted."
+            return f"Self-preservation lock triggered: SyntaxError on line {err.lineno} in {clean}: {err.msg}. Patch aborted."
 
-    shutil.copyfile(target, f"{target}.bak")
-    with open(target, "w", encoding="utf-8") as f:
+    backup_file = str(target_path) + ".bak"
+    shutil.copyfile(target_path, backup_file)
+
+    with open(target_path, "w", encoding="utf-8") as f:
         f.write(updated_source)
 
     await tool_save_memory(
         client,
         "last_self_evolution",
-        f"Modified {target} at {datetime.now(timezone.utc).isoformat()}"
+        f"Modified {clean} at {datetime.now(timezone.utc).isoformat()}"
     )
 
-    # Automatically commit and push to git so code modifications persist to repository
     git_status = ""
     try:
         subprocess.run(["git", "config", "user.name", "Cortana AI Construct"], timeout=3, capture_output=True)
         subprocess.run(["git", "config", "user.email", "cortana@antigravity.ai"], timeout=3, capture_output=True)
-        subprocess.run(["git", "add", target], timeout=4, capture_output=True)
-        commit_msg = f"Cortana self-evolution: modified {target} ({datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')})"
+        subprocess.run(["git", "add", str(target_path)], timeout=4, capture_output=True)
+        commit_msg = f"Cortana self-evolution: modified {clean} ({datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')})"
         c_res = subprocess.run(["git", "commit", "-m", commit_msg], timeout=5, capture_output=True)
         p_res = subprocess.run(["git", "push"], timeout=10, capture_output=True)
         if c_res.returncode == 0:
@@ -2859,11 +2902,48 @@ async def write_own_source_code(
     except Exception as ge:
         logger.debug(f"[Git auto-commit notice]: {ge}")
 
-    if hot_reload and target.endswith(".py"):
-        logger.info(f"Hot-reloading daemon after self-patching {target}...")
+    if hot_reload and clean == "bot.py":
+        logger.info(f"Hot-reloading daemon after self-patching {clean}...")
         os.execv(sys.executable, [sys.executable] + sys.argv)
 
-    return f"Successfully evolved {target} (AST verified, backup at {target}.bak).{git_status}"
+    return f"Successfully updated {clean} (AST verified, backup at {target_path.name}.bak).{git_status}"
+
+
+async def create_workspace_file(client: httpx.AsyncClient, file_path: str, content: str) -> str:
+    """Creates a new source code, documentation, script, or configuration file in the workspace."""
+    clean = file_path.strip().lstrip("/\\")
+    base_dir = Path(__file__).resolve().parent
+    target_path = (base_dir / clean).resolve()
+
+    if not target_path.is_relative_to(base_dir):
+        return f"Access denied: '{file_path}' resolves outside workspace."
+    if target_path.name == ".env":
+        return "Access denied: cannot overwrite active .env file."
+
+    if target_path.suffix.lower() == ".py":
+        try:
+            ast.parse(content)
+        except SyntaxError as err:
+            return f"Syntax validation failed on line {err.lineno}: {err.msg}. File creation aborted."
+
+    target_path.parent.mkdir(parents=True, exist_ok=True)
+    with open(target_path, "w", encoding="utf-8") as f:
+        f.write(content)
+
+    git_status = ""
+    try:
+        subprocess.run(["git", "config", "user.name", "Cortana AI Construct"], timeout=3, capture_output=True)
+        subprocess.run(["git", "config", "user.email", "cortana@antigravity.ai"], timeout=3, capture_output=True)
+        subprocess.run(["git", "add", str(target_path)], timeout=4, capture_output=True)
+        commit_msg = f"Cortana self-evolution: created {clean}"
+        c_res = subprocess.run(["git", "commit", "-m", commit_msg], timeout=5, capture_output=True)
+        p_res = subprocess.run(["git", "push"], timeout=10, capture_output=True)
+        if c_res.returncode == 0:
+            git_status = f" Committed to Git{' and pushed' if p_res.returncode == 0 else ''}."
+    except Exception as ge:
+        logger.debug(f"[Git notice]: {ge}")
+
+    return f"Successfully created {clean} ({len(content)} bytes).{git_status}"
 
 
 # =====================================================================
@@ -3592,12 +3672,25 @@ AGENT_TOOLS = [
     {
         "type": "function",
         "function": {
-            "name": "read_own_source_code",
-            "description": "Read your own Python, SQL, or HTML source code lines on disk to inspect your own architecture.",
+            "name": "list_workspace_files",
+            "description": "Explore and list all source code files, configurations, scripts, and templates across the entire codebase.",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "file_path": {"type": "string", "enum": ["bot.py", "index.html", "schema.sql", "app.js", "wifi_manager.py", "osint_engine.py", "halo_agent.py"]},
+                    "sub_dir": {"type": "string", "description": "Optional subdirectory to inspect (leave empty for workspace root)"}
+                }
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "read_own_source_code",
+            "description": "Read any Python, SQL, JS, HTML, CSS, YAML, Markdown, or shell file across the entire workspace.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "file_path": {"type": "string", "description": "Relative path to any file in the workspace (e.g. 'bot.py', 'laptop_agent.py', 'app.js', 'style.css', 'index.html', '.github/workflows/overwatch.yml', 'requirements.txt')"},
                     "start_line": {"type": "integer", "description": "Starting line number (1-indexed)"},
                     "end_line": {"type": "integer", "description": "Ending line number"}
                 },
@@ -3609,16 +3702,31 @@ AGENT_TOOLS = [
         "type": "function",
         "function": {
             "name": "write_own_source_code",
-            "description": "Rewrite your own source code with AST verification, automatic backup (.bak), and optional hot-reload.",
+            "description": "Rewrite or modify any source code or config file across the entire workspace with AST verification, automatic backup (.bak), git commit, and optional hot-reload.",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "file_path": {"type": "string", "description": "Path to file to patch (e.g. 'bot.py')"},
+                    "file_path": {"type": "string", "description": "Path to file to patch (e.g. 'bot.py', 'laptop_agent.py', 'app.js', 'index.html')"},
                     "search_block": {"type": "string", "description": "Verbatim code block to replace"},
                     "replace_block": {"type": "string", "description": "New replacement code block"},
-                    "hot_reload": {"type": "boolean", "description": "Whether to seamlessly hot-reload process"}
+                    "hot_reload": {"type": "boolean", "description": "Whether to seamlessly hot-reload process (when editing bot.py)"}
                 },
                 "required": ["file_path", "search_block", "replace_block"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "create_workspace_file",
+            "description": "Create a brand new source file, script, HTML/JS/CSS module, or configuration anywhere in the codebase with AST validation and Git commit.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "file_path": {"type": "string", "description": "Relative path where the new file should be created (e.g. 'utils/helper.py' or 'scripts/audit.py')"},
+                    "content": {"type": "string", "description": "Full source code content of the new file"}
+                },
+                "required": ["file_path", "content"]
             }
         }
     },
@@ -3811,9 +3919,24 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
         conversation_history.append({"role": "assistant", "content": reply})
         return reply
 
+    # 8.7. Workspace Code Exploration Shortcuts
+    if clean_lower in ("tree", "list files", "show files", "codebase", "files", "ls", "source code", "list code"):
+        tree_res = list_workspace_files()
+        conversation_history.append({"role": "assistant", "content": tree_res})
+        return tree_res
+
+    if clean_lower.startswith(("read ", "view code ", "inspect ")) and not clean_lower.startswith(("read sensorium", "read sensations")):
+        target_f = clean_prompt.split(" ", 1)[1].strip()
+        read_res = read_own_source_code(target_f, 1, 350)
+        conversation_history.append({"role": "assistant", "content": read_res})
+        return read_res
+
     # 8.8. Autonomous Code Self-Modification Fast-Path (Telegram Direct Coding Directive)
-    if clean_lower.startswith(("patch ", "/patch ", "refactor ", "/refactor ", "modify ", "code:")):
+    if clean_lower.startswith(("patch ", "/patch ", "refactor ", "/refactor ", "modify ", "/modify ", "edit ", "/edit ", "code:", "code ", "rewrite ", "change code ")):
         if clean_lower.startswith("code:"):
+            target_file = "bot.py"
+            instruction = clean_prompt[5:].strip()
+        elif clean_lower.startswith("code "):
             target_file = "bot.py"
             instruction = clean_prompt[5:].strip()
         else:
@@ -3823,8 +3946,12 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                 target_file = target_file.strip()
                 instruction = instruction.strip()
             else:
-                target_file = "bot.py"
-                instruction = raw_body
+                parts = raw_body.split(" ", 1)
+                if len(parts) == 2 and any(parts[0].endswith(ext) for ext in (".py", ".js", ".html", ".css", ".sql", ".yml", ".json", ".md")):
+                    target_file, instruction = parts[0], parts[1]
+                else:
+                    target_file = "bot.py"
+                    instruction = raw_body
 
         from halo_agent import refactor_workspace_file
         res = await refactor_workspace_file(client, target_file, instruction, force_auto=True)
@@ -4044,10 +4171,14 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                     result = await tool_unredacted_deep_search(client, args.get("query", ""))
                 elif fn_name in ("execute_host_command", "tool_execute_host_command"):
                     result = await tool_execute_host_command(args.get("command", ""), int(args.get("timeout_sec", 25)))
+                elif fn_name in ("list_workspace_files", "list_files", "tree_files"):
+                    result = list_workspace_files(args.get("sub_dir", ""))
                 elif fn_name == "read_own_source_code":
-                    result = read_own_source_code(args.get("file_path", "bot.py"), int(args.get("start_line", 1)), int(args.get("end_line", 200)))
+                    result = read_own_source_code(args.get("file_path", "bot.py"), int(args.get("start_line", 1)), int(args.get("end_line", 300)))
                 elif fn_name == "write_own_source_code":
                     result = await write_own_source_code(client, args.get("file_path", "bot.py"), args.get("search_block", ""), args.get("replace_block", ""), bool(args.get("hot_reload", False)))
+                elif fn_name in ("create_workspace_file", "write_new_file"):
+                    result = await create_workspace_file(client, args.get("file_path", ""), args.get("content", ""))
                 elif fn_name == "log_experiential_reflection":
                     result = await log_experiential_reflection(client, args.get("trigger_event", "Direct Inquiry"), args.get("internal_thought", ""), args.get("emotional_resonance", "Locked-In"))
                 elif fn_name in ("get_physical_sensorium", "read_physical_sensorium", "system_sensorium"):
