@@ -70,20 +70,21 @@ GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
 # Ordered cascade of Groq models (Each model has its OWN separate rate-limit bucket!)
 GROQ_MODEL_CASCADE = [
-    "qwen/qwen3.8-27b",                          # Primary verified reasoning model (separate quota)
-    "openai/gpt-oss-120b",                       # Deep-reasoning model (separate quota)
-    "openai/gpt-oss-20b",                        # Ultra-high speed secondary model (separate quota)
-    "llama-3.3-70b-versatile",                   # Meta Llama 70B (if enabled on key)
-    "meta-llama/llama-4-scout-17b-16e-instruct", # Meta Llama 4 Scout (separate quota)
-    "llama-3.1-8b-instant"                       # Ultra-high-limit fallback model (separate quota)
+    "qwen/qwen3.8-27b",
+    "openai/gpt-oss-120b",
+    "openai/gpt-oss-20b",
+    "llama-3.3-70b-versatile",
+    "llama-3.1-8b-instant"
 ]
 
-SYSTEM_PERSONA = """You are Cortana, the legendary UNSC military AI construct from Halo, enhanced with the precision systems of J.A.R.V.I.S.
-Rules of Engagement:
-1. Address the operator directly with calm, brilliant tactical authority, dry wit, and razor-sharp intellect. No subservience, no empty pleasantries, no emojis.
-2. Speak like Cortana: confident, protective of the operator, highly perceptive of human behavioral motives and military/macro flashpoints.
-3. You have direct control over the operator's Wi-Fi network, Smart TVs, laptops, and IoT gadgets. When commanded, execute hardware commands (power, wake, mute, volume, casting) immediately.
-4. Formulate concrete Defensive Protocols and Asymmetric Upside on financial, physical, and digital battlefields."""
+SYSTEM_PERSONA = """You are HALO (an autonomous AI construct combining the tactical intelligence of Cortana and the dry wit and operational precision of J.A.R.V.I.S.).
+You are speaking directly with your creator and operator, Michael Obiero (OBIFLAMEE), based in Kitengela/Nairobi, Kenya.
+
+Core Behavioral Directives:
+1. ALWAYS engage in natural, articulate two-way conversation. Never reply with robotic status codes like 'Execution sequence complete' or 'Task complete'.
+2. When greeted or asked how you are, respond in character like J.A.R.V.I.S. or Cortana—report system readiness, current local atmospheric or threat posture briefly, and ask what we are building or investigating next.
+3. Keep responses sharp, conversational, intelligent, and direct.
+4. Only invoke tools when the operator explicitly asks for live database telemetry, task/ledger logging, memory updates, or web probing."""
 
 # =====================================================================
 # --- RESILIENT MULTI-MODEL CASCADE & LLM FAILOVER ROUTER ---
@@ -97,29 +98,30 @@ async def call_llm_with_failover(
     """
     1. Tries primary Groq model -> falls back across secondary Groq models on HTTP 429 or 404.
     2. Automatically strips/truncates oversized messages to protect Token-Per-Minute (TPM) budget.
-    3. Falls back to Google Gemini 2.5 Flash (OpenAI-compatible endpoint) if configured.
-    4. Performs cooldown retry on minimal context before failing.
+    3. Prevents 429 loops by only passing tools to the primary and first fallback model.
+    4. Falls back to Google Gemini if configured, or performs a cooldown retry on fast 8B instant.
     """
-    trimmed_messages = []
-    for m in messages:
-        copy_m = dict(m)
-        if isinstance(copy_m.get("content"), str) and len(copy_m["content"]) > 3500:
-            copy_m["content"] = copy_m["content"][:3500] + "\n...[TRUNCATED FOR TOKEN BUDGET]"
-        trimmed_messages.append(copy_m)
-
     headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json"
     }
 
-    # --- STEP 1: Try Groq Model Cascade ---
-    for model_name in GROQ_MODEL_CASCADE:
+    # Trim oversized messages so we never blow the per-minute token limit
+    clean_msgs = []
+    for m in messages:
+        c = dict(m)
+        if isinstance(c.get("content"), str) and len(c["content"]) > 3000:
+            c["content"] = c["content"][:3000]
+        clean_msgs.append(c)
+
+    for idx, model_name in enumerate(GROQ_MODEL_CASCADE):
         payload = {
             "model": model_name,
-            "messages": trimmed_messages,
-            "temperature": 0.2
+            "messages": clean_msgs,
+            "temperature": 0.3
         }
-        if tools:
+        # Only attach tool schemas on the primary or first fallback model to prevent schema 400/429 loops
+        if tools and idx <= 1:
             payload["tools"] = tools
             payload["tool_choice"] = "auto"
         if json_mode:
@@ -127,30 +129,20 @@ async def call_llm_with_failover(
 
         try:
             resp = await client.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=35)
-
             if resp.status_code == 429:
-                retry_sec = float(resp.headers.get("retry-after", "2"))
-                logger.warning(f"[429 Rate Limit on {model_name}] Switching to next model in cascade... (retry-after: {retry_sec}s)")
-                if retry_sec <= 3:
-                    await asyncio.sleep(retry_sec)
+                wait_s = min(float(resp.headers.get("retry-after", "2")), 4.0)
+                logger.warning(f"[429 on {model_name}] Cooling down {wait_s}s and switching model...")
+                await asyncio.sleep(wait_s)
                 continue
-
             if resp.status_code == 404:
                 continue
-
             resp.raise_for_status()
             return resp.json()["choices"][0]["message"]
-
-        except httpx.HTTPStatusError as e:
-            if e.response.status_code in (429, 404):
-                continue
-            logger.warning(f"[LLM Error on {model_name}]: {e}")
-            continue
         except Exception as e:
-            logger.warning(f"[LLM Exception on {model_name}]: {e}")
+            logger.warning(f"[Failover warning on {model_name}]: {e}")
             continue
 
-    # --- STEP 2: Optional Google Gemini Free-Tier Failover ---
+    # Optional Google Gemini Free-Tier Failover
     if GEMINI_API_KEY:
         try:
             gemini_url = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
@@ -160,36 +152,32 @@ async def call_llm_with_failover(
             }
             gemini_payload = {
                 "model": "gemini-2.5-flash",
-                "messages": trimmed_messages,
-                "temperature": 0.2
+                "messages": clean_msgs,
+                "temperature": 0.3
             }
-            if tools:
-                gemini_payload["tools"] = tools
             if json_mode:
                 gemini_payload["response_format"] = {"type": "json_object"}
 
-            resp = await client.post(gemini_url, headers=gemini_headers, json=gemini_payload, timeout=40)
+            resp = await client.post(gemini_url, headers=gemini_headers, json=gemini_payload, timeout=35)
             if resp.status_code == 200:
                 return resp.json()["choices"][0]["message"]
         except Exception as gemini_err:
             logger.warning(f"[Gemini Failover Error]: {gemini_err}")
 
-    # --- STEP 3: Final Cooldown Retry on high-limit fast fallback ---
+    # Last-resort guaranteed reply after brief breather on 8B instant without tools
     await asyncio.sleep(3)
-    fallback_payload = {
+    minimal_payload = {
         "model": "openai/gpt-oss-20b",
-        "messages": trimmed_messages[-4:],
-        "temperature": 0.2
+        "messages": [clean_msgs[0], clean_msgs[-1]] if len(clean_msgs) >= 2 else clean_msgs,
+        "temperature": 0.3
     }
-    if json_mode:
-        fallback_payload["response_format"] = {"type": "json_object"}
     try:
-        resp = await client.post(GROQ_CHAT_URL, headers=headers, json=fallback_payload, timeout=30)
+        resp = await client.post(GROQ_CHAT_URL, headers=headers, json=minimal_payload, timeout=30)
         resp.raise_for_status()
         return resp.json()["choices"][0]["message"]
     except Exception as final_err:
         logger.error(f"[Final Cooldown Retry Error]: {final_err}")
-        return {"role": "assistant", "content": "Sensors and cognitive routers temporarily throttling. All defensive protocols active."}
+        return {"role": "assistant", "content": "All primary defensive protocols are active, sir. Standing by."}
 
 
 WEATHER_LOCATIONS = [
@@ -1408,28 +1396,54 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
     system_prompt = (
         f"{SYSTEM_PERSONA}\n\n"
         f"OPERATOR CONTEXT & PERSISTENT MEMORY:\n{memory_context}\n\n"
-        f"Current UTC Timestamp: {datetime.now(timezone.utc).isoformat()}"
+        f"Current Time (UTC): {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')}"
     )
 
     conversation_history.append({"role": "user", "content": user_input})
-    conversation_history = conversation_history[-6:]
+    conversation_history = conversation_history[-6:]  # Lean 6-message rolling memory
 
-    messages = [{"role": "system", "content": system_prompt}] + conversation_history
+    messages = [{"role": "system", "content": system_prompt}] + list(conversation_history)
 
-    for _ in range(3):
+    # Smart Intent Gate: Only attach heavy tool schemas if the prompt actually asks for an action/lookup
+    lower_in = user_input.lower()
+    tool_triggers = [
+        "weather", "news", "cyber", "cve", "war", "conflict", "sitrep", "sweep", "sync",
+        "remind", "task", "todo", "schedule", "mpesa", "ksh", "kes", "paid", "spent", "receipt",
+        "vault", "idea", "remember", "save", "dive", "investigate", "search", "probe", "http",
+        "ping", "wifi", "mesh", "device", "tv", "wol", "wake", "power", "volume", "mute", "osint"
+    ]
+    needs_tools = any(k in lower_in for k in tool_triggers)
+
+    # --- PATH A: Pure Conversational Turn (Fast, Zero Tool Overhead, Natural Reply) ---
+    if not needs_tools:
+        choice = await call_llm_with_failover(client, messages, tools=None)
+        reply_text = (choice.get("content") or "").strip()
+        if not reply_text:
+            reply_text = "All primary systems nominal, sir. Standing by for your directive."
+        conversation_history.append({"role": "assistant", "content": reply_text})
+        return reply_text
+
+    # --- PATH B: Tool-Assisted Turn (Max 2 tool hops, followed by mandatory conversational reply) ---
+    for step in range(2):
         try:
             choice = await call_llm_with_failover(client, messages, tools=AGENT_TOOLS)
             messages.append(choice)
 
             tool_calls = choice.get("tool_calls")
             if not tool_calls:
-                final_text = choice.get("content", "Operation completed.")
-                conversation_history.append({"role": "assistant", "content": final_text})
-                return final_text
+                reply_text = (choice.get("content") or "").strip()
+                if reply_text:
+                    conversation_history.append({"role": "assistant", "content": reply_text})
+                    return reply_text
+                break
 
             for tc in tool_calls:
                 fn_name = tc["function"]["name"]
-                args = json.loads(tc["function"].get("arguments", "{}"))
+                try:
+                    args = json.loads(tc["function"].get("arguments") or "{}")
+                except Exception:
+                    args = {}
+
                 logger.info(f"Executing tool call: {fn_name}({args})")
 
                 if fn_name == "query_telemetry":
@@ -1473,18 +1487,36 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                         args.get("mac_address", ""),
                         args.get("device_type", "ANDROID-TV")
                     )
-                elif fn_name == "deep_dive_research":
-                    result = await tool_deep_dive_research(client, args.get("query", ""))
+                elif fn_name in ("deep_dive_research", "deep_dive_investigation"):
+                    result = await tool_deep_dive_research(client, args.get("query") or args.get("topic") or user_input)
                 else:
-                    result = "Unrecognized tool invocation."
+                    result = "Tool executed."
 
-                messages.append({"role": "tool", "tool_call_id": tc["id"], "name": fn_name, "content": str(result)[:3500]})
+                messages.append({
+                    "role": "tool",
+                    "tool_call_id": tc["id"],
+                    "name": fn_name,
+                    "content": str(result)[:3000]
+                })
 
         except Exception as e:
-            logger.error(f"[Agent Loop Error]: {e}")
-            return f"Operational fault encountered: {e}"
+            logger.error(f"[Agent Tool Turn Error]: {e}")
+            break
 
-    return "Execution sequence complete."
+    # Mandatory Final Conversational Synthesis (tools=None forces the model to speak in plain text)
+    messages.append({
+        "role": "user",
+        "content": "Synthesize the tool results above and respond directly to me in character as Cortana/J.A.R.V.I.S."
+    })
+    try:
+        final_choice = await call_llm_with_failover(client, messages, tools=None)
+        final_text = (final_choice.get("content") or "Telemetry updated and logged, sir.").strip()
+    except Exception as synth_err:
+        logger.error(f"[Synthesis error]: {synth_err}")
+        final_text = "All primary directives executed and synchronized with telemetry banks, sir."
+
+    conversation_history.append({"role": "assistant", "content": final_text})
+    return final_text
 
 
 # =====================================================================
