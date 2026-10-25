@@ -48,8 +48,8 @@ if SUPABASE_URL.endswith("/rest/v1"):
 SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_KEY", "").strip()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
 SYNC_INTERVAL = int(os.getenv("SYNC_INTERVAL", "300"))
-TELEGRAM_DISPATCH_INTERVAL = int(os.getenv("TELEGRAM_DISPATCH_INTERVAL", "1200"))  # 20 minutes between routine Telegram SitReps
-LAST_TELEGRAM_DISPATCH_TIME = 0.0
+TELEGRAM_DISPATCH_INTERVAL = int(os.getenv("TELEGRAM_DISPATCH_INTERVAL", "1800"))  # 30 minutes between routine Telegram SitReps
+LAST_TELEGRAM_DISPATCH_TIME = time.time()  # Initialized to current time to ensure minimum 30-min window on startup
 
 BREAKING_KEYWORDS = [
     "breaking", "urgent", "flash", "bulletin", "critical zero-day", "exploited in the wild",
@@ -60,17 +60,17 @@ BREAKING_KEYWORDS = [
 
 def is_breaking_news_event(sitrep_data: dict, news_items: list, cyber_items: list, conflict_items: list) -> tuple[bool, str]:
     """
-    Evaluates whether the current sweep contains breaking news or critical threats
-    that warrant immediately bypassing the 20-minute dispatch threshold.
+    Evaluates whether the current sweep contains emergency breaking news or critical zero-day threats.
+    Routine elevated threat levels (HIGH) are part of daily baseline and do NOT trigger immediate dispatches.
     """
     threat = (sitrep_data.get("threat_level") or "").upper()
-    if threat in ("HIGH", "CRITICAL"):
-        return True, f"Threat posture elevated to {threat}"
-
     sitrep_text = (sitrep_data.get("sitrep") or "").lower()
-    for kw in BREAKING_KEYWORDS:
-        if kw in sitrep_text:
-            return True, f"Critical SitRep indicator: '{kw.upper()}'"
+
+    # Only genuine CRITICAL emergencies coupled with active flash indicators qualify
+    if threat == "CRITICAL":
+        for kw in BREAKING_KEYWORDS:
+            if kw in sitrep_text:
+                return True, f"CRITICAL emergency trigger: '{kw.upper()}'"
 
     for art in (news_items or [])[:10]:
         title = (art.get("title") or "").lower()
@@ -80,7 +80,7 @@ def is_breaking_news_event(sitrep_data: dict, news_items: list, cyber_items: lis
 
     for c in (cyber_items or [])[:5]:
         c_title = (c.get("title") or "").lower()
-        if any(k in c_title for k in ("zero-day", "actively exploited", "critical", "cisa kev", "emergency advisory")):
+        if any(k in c_title for k in ("zero-day", "actively exploited", "emergency advisory")):
             return True, f"Critical cyber security alert: {c.get('title')}"
 
     for conf in (conflict_items or [])[:5]:
@@ -2806,6 +2806,53 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
         conversation_history.append({"role": "assistant", "content": reply})
         return reply
 
+    # 9. On-Demand SitRep / Telemetry Update ("when I ask")
+    if clean_lower in (
+        "update", "give me an update", "send update", "sitrep", "briefing",
+        "latest update", "latest sitrep", "intel update", "tactical update",
+        "status report", "whats happening", "what's happening", "what is happening",
+        "news update", "sync", "force sync"
+    ):
+        global LAST_TELEGRAM_DISPATCH_TIME
+        LAST_TELEGRAM_DISPATCH_TIME = time.time()  # Reset 30-minute interval on on-demand request
+
+        b = LAST_SITREP_CACHE
+        if not b.get("sitrep") and SUPABASE_URL and SUPABASE_SERVICE_KEY:
+            try:
+                prev_resp = await client.get(
+                    f"{SUPABASE_URL}/rest/v1/tactical_briefings?select=*&order=created_at.desc&limit=1",
+                    headers=SUPABASE_HEADERS,
+                    timeout=8
+                )
+                if prev_resp.status_code == 200 and prev_resp.json():
+                    b.update(prev_resp.json()[0])
+            except Exception:
+                pass
+
+        if b.get("sitrep"):
+            reply = (
+                f"🛡️ *OVERWATCH SITREP (ON-DEMAND) // [{b.get('threat_level', 'ELEVATED')}]*\n\n"
+                f"1. *TACTICAL SITUATION & NEW DEVELOPMENTS:*\n{b.get('sitrep', '')}\n\n"
+                f"2. *ACTIVE THEATERS & CHOKEPOINTS:*\n{b.get('conflict_summary', '')}\n\n"
+                f"3. *SECOND-ORDER RISK FORECAST (7-30 DAYS):*\n{b.get('future_risk_forecast', '')}\n\n"
+                f"4. *DEFENSIVE PROTOCOL:*\n{b.get('defensive_protocol', '')}\n\n"
+                f"5. *ASYMMETRIC UPSIDE:*\n{b.get('asymmetric_upside', '')}"
+            )
+            conversation_history.append({"role": "assistant", "content": reply})
+            return reply
+        else:
+            force_sync_event.set()
+            sweep_res = await execute_complete_sensor_sweep(client, is_proactive=False)
+            b = sweep_res.get("sitrep", {})
+            reply = (
+                f"🛡️ *OVERWATCH SITREP (ON-DEMAND) // [{b.get('threat_level', 'ELEVATED')}]*\n\n"
+                f"1. *TACTICAL SITUATION:*\n{b.get('sitrep', '')}\n\n"
+                f"2. *ACTIVE THEATERS:*\n{b.get('conflict_summary', '')}\n\n"
+                f"3. *DEFENSIVE PROTOCOL:*\n{b.get('defensive_protocol', '')}"
+            )
+            conversation_history.append({"role": "assistant", "content": reply})
+            return reply
+
     # --- PATH A: Pure Conversational Turn (Fast, Zero Tool Overhead, Natural Reply) ---
     if not needs_tools:
         choice = await call_llm_with_failover(client, messages, tools=None)
@@ -3869,19 +3916,19 @@ async def execute_complete_sensor_sweep(client: httpx.AsyncClient, is_proactive:
         time_since_last = now_ts - LAST_TELEGRAM_DISPATCH_TIME
         should_dispatch = False
 
-        if is_breaking:
-            logger.info(f"[🚨 BREAKING NEWS DETECTED]: {breaking_reason} - Bypassing 20-minute interval and dispatching immediately!")
+        if force_sync_event.is_set():
+            logger.info("[Manual User Request / Force Sync]: Triggering Telegram dispatch on user request.")
             should_dispatch = True
-        elif force_sync_event.is_set():
-            logger.info("[Manual Force Sync]: Triggering Telegram dispatch.")
+        elif is_breaking and time_since_last >= TELEGRAM_DISPATCH_INTERVAL:
+            logger.info(f"[🚨 CRITICAL BREAKING NEWS]: {breaking_reason} - 30-minute interval satisfied. Dispatching SitRep.")
             should_dispatch = True
-        elif time_since_last >= TELEGRAM_DISPATCH_INTERVAL or LAST_TELEGRAM_DISPATCH_TIME == 0.0:
-            logger.info(f"[Routine 20-Min Interval Reached]: Elapsed {time_since_last:.0f}s >= {TELEGRAM_DISPATCH_INTERVAL}s. Dispatching SitRep.")
+        elif time_since_last >= TELEGRAM_DISPATCH_INTERVAL:
+            logger.info(f"[Routine 30-Min Interval Reached]: Elapsed {time_since_last:.0f}s >= {TELEGRAM_DISPATCH_INTERVAL}s. Dispatching SitRep.")
             should_dispatch = True
         else:
             remaining_m = int((TELEGRAM_DISPATCH_INTERVAL - time_since_last) // 60)
             remaining_s = int((TELEGRAM_DISPATCH_INTERVAL - time_since_last) % 60)
-            logger.info(f"[Telegram Standby]: Nominal conditions (no breaking news). Next routine dispatch in {remaining_m}m {remaining_s}s. Telemetry recorded silently.")
+            logger.info(f"[Telegram Standby]: 30-minute rate limit active (Next routine dispatch in {remaining_m}m {remaining_s}s). Telemetry recorded silently to Supabase.")
 
         if should_dispatch:
             try:
@@ -3922,12 +3969,12 @@ async def execute_complete_sensor_sweep(client: httpx.AsyncClient, is_proactive:
 
 async def collector_worker(client: httpx.AsyncClient):
     """
-    Executes continuous sensor sweeps (default every 5 minutes to rapidly intercept
-    breaking news events and update live telemetry), while enforcing a strict 20-minute
-    dispatch interval for routine non-breaking Telegram SitReps.
+    Executes continuous sensor sweeps (default every 5 minutes to rapidly update live
+    telemetry and Supabase), while enforcing a strict 30-minute dispatch interval for routine
+    Telegram SitReps (or instant dispatch when requested on-demand by the operator).
     """
     sweep_sleep = min(SYNC_INTERVAL, 300)
-    logger.info(f"Tactical telemetry daemon active (Sweep cycle: {sweep_sleep}s, Telegram routine cadence: {TELEGRAM_DISPATCH_INTERVAL}s)...")
+    logger.info(f"Tactical telemetry daemon active (Sweep cycle: {sweep_sleep}s, Telegram routine cadence: {TELEGRAM_DISPATCH_INTERVAL}s (30m))...")
     while True:
         try:
             await execute_complete_sensor_sweep(client, is_proactive=True)

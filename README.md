@@ -118,7 +118,8 @@ SUPABASE_URL=https://your-project.supabase.co
 SUPABASE_KEY=your_supabase_service_role_secret
 SUPABASE_ANON_KEY=your_supabase_anon_public_key
 GROQ_API_KEY=gsk_your_groq_api_key_here
-SYNC_INTERVAL=900
+SYNC_INTERVAL=300
+TELEGRAM_DISPATCH_INTERVAL=1800
 ```
 
 ---
@@ -142,6 +143,10 @@ Your phone will receive an initialization ping:
 
 You don't need rigid commands anymore; talk or speak naturally via Telegram:
 
+- **On-Demand Intelligence Updates ("when I ask")**:
+  - *"Give me an update"* / *"SitRep"* / *"Briefing"* / *"Latest update"* / *"What's happening"* -> Instantly returns the full, high-fidelity tactical intelligence briefing on demand, resetting the 30-minute broadcast timer.
+- **Disciplined Broadcast Cadence**:
+  - Routine proactive SitReps to Telegram are strictly rate-limited to **after 30 minutes** (`TELEGRAM_DISPATCH_INTERVAL=1800`). Continuous sensor sweeps (every 5 mins) silently refresh Supabase and the live Web HUD without cluttering your phone.
 - **Deep OSINT & Human Profiling**: *"Investigate Alex Vance—we have a meeting tomorrow regarding a software partnership."*  
   -> *Sweeps LinkedIn, X, GitHub, Reddit, Kenya business filings & PDFs concurrently. Computes psychological drivers, cognitive biases, and gives 3 negotiation anchors.*
 - **Crowd Psychology & Sentiment Analysis**: *"Analyze crowd psychology right now around NSE banking stocks and interest rate sentiment."*  
