@@ -5478,6 +5478,10 @@ async def telegram_poller(client: httpx.AsyncClient):
                                 pass
                         # Cortana speaks back via neural voice note on Telegram & host room speakers
                         await synthesize_and_send_voice(client, reply)
+            elif resp.status_code == 409:
+                logger.info("[Telegram Cloud Bridge Active]: 24/7 Webhook is registered on Vercel. Local poller standing by in cloud bridge mode.")
+                await asyncio.sleep(60)
+                continue
 
         except asyncio.CancelledError:
             break
