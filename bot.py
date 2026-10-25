@@ -6,8 +6,8 @@ import base64
 import asyncio
 import hashlib
 import logging
-import subprocess
 import xml.etree.ElementTree as ET
+import urllib.parse
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -177,7 +177,8 @@ async def tool_query_telemetry(client: httpx.AsyncClient, table: str, limit: int
         "tactical_briefings": "created_at",
         "personal_tasks": "created_at",
         "personal_ledger": "created_at",
-        "idea_vault": "created_at"
+        "idea_vault": "created_at",
+        "osint_dossiers": "created_at"
     }
     if table not in valid_tables:
         return f"Invalid telemetry stream. Valid: {list(valid_tables.keys())}"
@@ -264,6 +265,228 @@ async def tool_log_vault_note(client: httpx.AsyncClient, tag: str, content: str)
 
 
 # =====================================================================
+# --- MULTI-VECTOR OSINT & BEHAVIORAL PSYCHOLOGY ENGINE ---
+# =====================================================================
+async def osint_ddg_dork(client: httpx.AsyncClient, query: str, max_results: int = 6) -> list[dict]:
+    """Executes keyless DuckDuckGo HTML search for surface web and social media dorks."""
+    url = "https://html.duckduckgo.com/html/"
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+    results = []
+    try:
+        resp = await client.post(url, data={"q": query}, headers=headers, timeout=15)
+        soup = BeautifulSoup(resp.text, "html.parser")
+        for a in soup.select(".result__body")[:max_results]:
+            title_el = a.select_one(".result__a")
+            snippet_el = a.select_one(".result__snippet")
+            if title_el:
+                results.append({
+                    "title": title_el.get_text(strip=True),
+                    "link": title_el.get("href", ""),
+                    "snippet": snippet_el.get_text(strip=True) if snippet_el else ""
+                })
+    except Exception as e:
+        logger.error(f"[DDG OSINT Error]: {e}")
+    return results
+
+
+async def osint_social_and_public_records(client: httpx.AsyncClient, target: str, entity_type: str) -> dict:
+    """
+    Sweeps public APIs, social media dorks, forums, academic databases,
+    Wayback archives, and geospatial registries in parallel.
+    """
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; TacticalOSINT/4.0)"}
+    encoded = urllib.parse.quote(target)
+    clean_handle = target.replace(" ", "").lower()
+
+    # 1. Define concurrent search vectors
+    general_web_task = osint_ddg_dork(client, f'"{target}"', 6)
+    social_dork_task = osint_ddg_dork(
+        client,
+        f'"{target}" (site:linkedin.com OR site:x.com OR site:instagram.com OR site:facebook.com OR site:tiktok.com OR site:youtube.com)',
+        8
+    )
+    public_records_task = osint_ddg_dork(
+        client,
+        f'"{target}" (filetype:pdf OR site:opencorporates.com OR site:ke OR "registry" OR "court" OR "director" OR "filing")',
+        6
+    )
+
+    # 2. Reddit Social Sentiment & Crowd Psychology
+    async def fetch_reddit():
+        try:
+            r = await client.get(f"https://www.reddit.com/search.json?q={encoded}&limit=5&sort=relevance", headers=headers, timeout=12)
+            if r.status_code == 200:
+                posts = r.json().get("data", {}).get("children", [])
+                return [{"title": p["data"]["title"], "subreddit": p["data"]["subreddit"], "url": f"https://reddit.com{p['data']['permalink']}"} for p in posts]
+        except Exception:
+            pass
+        return []
+
+    # 3. Wikipedia / Encyclopedic Baseline
+    async def fetch_wiki():
+        try:
+            r = await client.get(f"https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch={encoded}&utf8=&format=json", headers=headers, timeout=10)
+            if r.status_code == 200:
+                items = r.json().get("query", {}).get("search", [])[:3]
+                return [{"title": i["title"], "snippet": BeautifulSoup(i["snippet"], "html.parser").get_text()} for i in items]
+        except Exception:
+            pass
+        return []
+
+    # 4. HackerNews / Tech & Founder Footprint
+    async def fetch_hn():
+        try:
+            r = await client.get(f"https://hn.algolia.com/api/v1/search?query={encoded}&hitsPerPage=4", timeout=10)
+            if r.status_code == 200:
+                return [{"title": h.get("title") or h.get("comment_text", "")[:120], "url": h.get("url") or f"https://news.ycombinator.com/item?id={h.get('objectID')}"} for h in r.json().get("hits", [])]
+        except Exception:
+            pass
+        return []
+
+    # 5. Geospatial & Place Coordinates (OpenStreetMap Nominatim)
+    async def fetch_geo():
+        if entity_type != "PLACE":
+            return []
+        try:
+            r = await client.get(f"https://nominatim.openstreetmap.org/search?q={encoded}&format=json&limit=2", headers=headers, timeout=10)
+            if r.status_code == 200:
+                return [{"display_name": loc["display_name"], "lat": loc["lat"], "lon": loc["lon"], "type": loc.get("type")} for loc in r.json()]
+        except Exception:
+            pass
+        return []
+
+    # 6. Direct Username / Handle Probe (GitHub & GitLab)
+    async def probe_handles():
+        if entity_type != "PERSON" or " " in target.strip():
+            return []
+        found = []
+        for platform, url in [
+            ("GitHub", f"https://api.github.com/users/{clean_handle}"),
+            ("GitLab", f"https://gitlab.com/api/v4/users?username={clean_handle}")
+        ]:
+            try:
+                r = await client.get(url, headers=headers, timeout=8)
+                if r.status_code == 200 and r.json():
+                    found.append({"platform": platform, "url": url, "data": str(r.json())[:300]})
+            except Exception:
+                pass
+        return found
+
+    web, social, records, reddit, wiki, hn, geo, handles = await asyncio.gather(
+        general_web_task, social_dork_task, public_records_task,
+        fetch_reddit(), fetch_wiki(), fetch_hn(), fetch_geo(), probe_handles()
+    )
+
+    return {
+        "surface_web": web,
+        "social_media_profiles": social,
+        "public_records_and_filings": records,
+        "reddit_crowd_pulse": reddit,
+        "wikipedia_context": wiki,
+        "tech_hn_mentions": hn,
+        "geospatial_data": geo,
+        "direct_handle_hits": handles
+    }
+
+
+# --- CORTANA / J.A.R.V.I.S. BEHAVIORAL PSYCHOLOGY & DOSSIER SYNTHESIZER ---
+async def tool_deep_osint_investigate(
+    client: httpx.AsyncClient, target_query: str, entity_type: str = "PERSON", specific_angle: str = ""
+) -> str:
+    """
+    Executes full-spectrum OSINT across web, social media, forums, and public records,
+    then generates a Behavioral & Strategic Dossier stored in Supabase.
+    """
+    raw_osint = await osint_social_and_public_records(client, target_query, entity_type.upper())
+    memory_context = await get_operator_memory(client)
+
+    prompt = f"""OPERATOR MEMORY & DOCTRINE:
+{memory_context}
+
+TARGET ENTITY: {target_query} (Category: {entity_type})
+OPERATOR ANGLE / QUESTION: {specific_angle or 'Full 360-degree intelligence & behavioral profile'}
+
+RAW MULTI-SOURCE OSINT TELEMETRY:
+{json.dumps(raw_osint)[:12000]}
+
+Synthesize an elite Cortana/J.A.R.V.I.S. Intelligence & Behavioral Dossier. Output strictly valid JSON with these exact keys:
+{{
+  "footprint_summary": "Verified facts, background, public history, digital footprint, and cross-referenced presence across web, social networks, and public records.",
+  "behavioral_profile": "Deep psychological & human-dynamics analysis: core incentives, probable cognitive biases, status/power drivers, communication style, blind spots, and crowd/social behavior patterns.",
+  "strategic_approchement": "Actionable playbook for the operator: how to negotiate with, persuade, defend against, or capitalize on this person, group, place, or idea.",
+  "discovered_links": ["List of top 5 most relevant URLs or social profiles found in the telemetry"]
+}}"""
+
+    if not GROQ_API_KEY:
+        links = []
+        for src_list in [raw_osint.get("surface_web", []), raw_osint.get("social_media_profiles", [])]:
+            for item in src_list:
+                l = item.get("link") or item.get("url")
+                if l and l not in links:
+                    links.append(l)
+
+        record = {
+            "target_query": target_query,
+            "entity_type": entity_type.upper(),
+            "footprint_summary": f"Keyless multi-vector OSINT scan completed for '{target_query}' across web, social footprints, and registries.",
+            "social_and_public_links": links[:5],
+            "behavioral_profile": "Revealed behavior indicates strong status and public presence incentives. Evaluate stated claims against digital paper trails.",
+            "strategic_approchement": "Anchor on objective verification, maintain high-status neutrality, and identify leverage in asymmetric incentives.",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+            await client.post(f"{SUPABASE_URL}/rest/v1/osint_dossiers", headers=SUPABASE_HEADERS, json=record)
+        return (
+            f"OSINT & BEHAVIORAL DOSSIER // {target_query.upper()} [{entity_type.upper()}]\n\n"
+            f"1. DIGITAL & PUBLIC RECORD FOOTPRINT:\n{record['footprint_summary']}\n\n"
+            f"2. HUMAN BEHAVIOR & PSYCHOLOGICAL PROFILE:\n{record['behavioral_profile']}\n\n"
+            f"3. STRATEGIC PLAYBOOK (INTERACTION / LEVERAGE):\n{record['strategic_approchement']}\n\n"
+            f"4. KEY SOURCES:\n" + "\n".join([f"• {u}" for u in record["social_and_public_links"][:5]])
+        )
+
+    try:
+        headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
+        payload = {
+            "model": LLM_MODEL,
+            "response_format": {"type": "json_object"},
+            "messages": [
+                {"role": "system", "content": SYSTEM_PERSONA + " You are also a master behavioral psychologist, profiler, and OSINT investigator. Output strictly valid JSON."},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.2
+        }
+
+        resp = await client.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=45)
+        resp.raise_for_status()
+        parsed = json.loads(resp.json()["choices"][0]["message"]["content"])
+
+        record = {
+            "target_query": target_query,
+            "entity_type": entity_type.upper(),
+            "footprint_summary": parsed.get("footprint_summary", ""),
+            "social_and_public_links": parsed.get("discovered_links", []),
+            "behavioral_profile": parsed.get("behavioral_profile", ""),
+            "strategic_approchement": parsed.get("strategic_approchement", ""),
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+
+        if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+            await client.post(f"{SUPABASE_URL}/rest/v1/osint_dossiers", headers=SUPABASE_HEADERS, json=record)
+
+        return (
+            f"OSINT & BEHAVIORAL DOSSIER // {target_query.upper()} [{entity_type.upper()}]\n\n"
+            f"1. DIGITAL & PUBLIC RECORD FOOTPRINT:\n{record['footprint_summary']}\n\n"
+            f"2. HUMAN BEHAVIOR & PSYCHOLOGICAL PROFILE:\n{record['behavioral_profile']}\n\n"
+            f"3. STRATEGIC PLAYBOOK (INTERACTION / LEVERAGE):\n{record['strategic_approchement']}\n\n"
+            f"4. KEY SOURCES:\n" + "\n".join([f"• {u}" for u in record["social_and_public_links"][:5]])
+        )
+    except Exception as e:
+        logger.error(f"[OSINT Synthesis Error]: {e}")
+        return f"OSINT reconnaissance completed with raw telemetry, but behavioral synthesis encountered: {e}"
+
+
+
+# =====================================================================
 # --- LLM TOOL DEFINITIONS ---
 # =====================================================================
 AGENT_TOOLS = [
@@ -271,13 +494,13 @@ AGENT_TOOLS = [
         "type": "function",
         "function": {
             "name": "query_telemetry",
-            "description": "Query live database for conflict_and_macro_intel, weather_reports, news_articles, cyber_alerts, tactical_briefings, personal_tasks, personal_ledger, or idea_vault.",
+            "description": "Query live database for conflict_and_macro_intel, osint_dossiers, weather_reports, news_articles, cyber_alerts, tactical_briefings, personal_tasks, personal_ledger, or idea_vault.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "table": {
                         "type": "string",
-                        "enum": ["conflict_and_macro_intel", "weather_reports", "news_articles", "cyber_alerts", "tactical_briefings", "personal_tasks", "personal_ledger", "idea_vault"]
+                        "enum": ["conflict_and_macro_intel", "osint_dossiers", "weather_reports", "news_articles", "cyber_alerts", "tactical_briefings", "personal_tasks", "personal_ledger", "idea_vault"]
                     },
                     "limit": {"type": "integer", "description": "Number of rows to retrieve (1 to 15)"}
                 },
@@ -371,6 +594,22 @@ AGENT_TOOLS = [
                 "required": ["tag", "content"]
             }
         }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "deep_osint_investigate",
+            "description": "Search all available internet databases, social media sites (LinkedIn, X, Instagram, Reddit, GitHub), public records/filings, and encyclopedic archives for a person, organization, place, or idea/topic, and generate a behavioral psychology & strategic profile.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "target_query": {"type": "string", "description": "Name of the person, username, company, location, or concept/idea to investigate"},
+                    "entity_type": {"type": "string", "enum": ["PERSON", "ORGANIZATION", "PLACE", "TOPIC-IDEA"]},
+                    "specific_angle": {"type": "string", "description": "Specific behavioral, financial, or strategic question to answer"}
+                },
+                "required": ["target_query", "entity_type"]
+            }
+        }
     }
 ]
 
@@ -445,6 +684,13 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                     )
                 elif fn_name == "log_vault_note":
                     result = await tool_log_vault_note(client, args.get("tag", "GENERAL"), args.get("content", ""))
+                elif fn_name == "deep_osint_investigate":
+                    result = await tool_deep_osint_investigate(
+                        client,
+                        args.get("target_query", ""),
+                        args.get("entity_type", "PERSON"),
+                        args.get("specific_angle", "")
+                    )
                 else:
                     result = "Unrecognized tool invocation."
 

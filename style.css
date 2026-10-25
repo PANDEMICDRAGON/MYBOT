@@ -469,3 +469,47 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.15);
 }
 
+/* OSINT & Behavioral Profiler Styling */
+.osint-filter-btn {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background: rgba(14, 20, 32, 0.6);
+  color: var(--text-muted);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.osint-filter-btn:hover {
+  color: var(--text-main);
+  border-color: rgba(6, 182, 212, 0.3);
+  transform: translateY(-1px);
+}
+
+.osint-filter-btn.active-filter {
+  background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(16, 185, 129, 0.25));
+  color: #fff;
+  border-color: var(--cyan-neon);
+  box-shadow: 0 0 14px rgba(6, 182, 212, 0.25);
+}
+
+.osint-card {
+  background: rgba(10, 15, 26, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.osint-card:hover {
+  border-color: rgba(6, 182, 212, 0.45);
+  background: rgba(14, 22, 38, 0.95);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+

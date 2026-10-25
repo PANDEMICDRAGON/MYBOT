@@ -197,7 +197,34 @@
       </div>
     </section>
 
-    <!-- 4. PERSONAL OPERATIONS MATRIX: TASKS, M-PESA LEDGER & VOICE VAULT -->
+    <!-- 4. OSINT RECONNAISSANCE & HUMAN BEHAVIORAL PROFILER -->
+    <section id="osint-section" class="glass-panel p-6 border-cyan-500/30 relative overflow-hidden space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800 pb-4 mb-4 gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <h2 class="text-base font-bold text-cyan-400 tracking-wide font-mono uppercase">
+              OSINT Reconnaissance & Human Behavioral Profiler
+            </h2>
+          </div>
+          <p class="text-[11px] text-slate-400 font-mono mt-1">
+            SURFACE WEB // SOCIAL MEDIA DORKS // PUBLIC RECORDS // CROWD SENTIMENT // GAME-THEORY & PSYCHOLOGY MATRIX
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-2 text-xs font-mono" id="osint-filters">
+          <button data-filter="ALL" class="osint-filter-btn px-2.5 py-1 bg-slate-800 hover:bg-slate-700 active-filter rounded text-white transition">ALL DOSSIERS</button>
+          <button data-filter="PERSON" class="osint-filter-btn px-2.5 py-1 bg-slate-800/80 hover:bg-cyan-950/60 rounded text-cyan-400 border border-cyan-900/40 transition">PEOPLE</button>
+          <button data-filter="ORGANIZATION" class="osint-filter-btn px-2.5 py-1 bg-slate-800/80 hover:bg-emerald-950/60 rounded text-emerald-400 border border-emerald-900/40 transition">ORGS</button>
+          <button data-filter="PLACE" class="osint-filter-btn px-2.5 py-1 bg-slate-800/80 hover:bg-amber-950/60 rounded text-amber-400 border border-amber-900/40 transition">PLACES</button>
+          <button data-filter="TOPIC-IDEA" class="osint-filter-btn px-2.5 py-1 bg-slate-800/80 hover:bg-rose-950/60 rounded text-rose-400 border border-rose-900/40 transition">IDEAS / CROWD</button>
+        </div>
+      </div>
+      <div id="osint-list" class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+    </section>
+
+    <!-- 5. PERSONAL OPERATIONS MATRIX: TASKS, M-PESA LEDGER & VOICE VAULT -->
     <section id="personal-ops-section" class="space-y-4">
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
         <div>

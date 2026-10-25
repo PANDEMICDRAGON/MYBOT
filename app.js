@@ -21,12 +21,14 @@ let appState = {
   newsData: [],
   cyberData: [],
   conflictData: [],
+  osintData: [],
   tasksData: [],
   ledgerData: [],
   vaultData: [],
   activeNewsFilter: "ALL",   // ALL | LOCAL | GLOBAL
   activeCyberFilter: "ALL",  // ALL | CVE-KEV | THREAT-INTEL | LOCAL-CYBER
   activeConflictFilter: "ALL", // ALL | WAR-KINETIC | MACRO-ECONOMIC | EAST-AFRICA | RED-SEA-MIDEAST
+  activeOsintFilter: "ALL",    // ALL | PERSON | ORGANIZATION | PLACE | TOPIC-IDEA
   searchQuery: "",
   lastSyncTime: null,
   nextSyncSeconds: 60,
@@ -125,6 +127,64 @@ const DEMO_CONFLICT = [
     created_at: new Date(Date.now() - 1000 * 60 * 240).toISOString()
   }
 ];
+
+const DEMO_OSINT = [
+  {
+    id: 1,
+    target_query: "Alex Vance (Fintech Founder)",
+    entity_type: "PERSON",
+    footprint_summary: "Founder of payments gateway operating in Nairobi & London. Active presence on LinkedIn and GitHub with 48 public repositories in Go and Rust. Director filings identified on OpenCorporates; speaker at Africa Tech Summit 2024.",
+    social_and_public_links: [
+      "https://github.com/alexvance",
+      "https://linkedin.com/in/alexvance-fintech",
+      "https://news.ycombinator.com/user?id=avance"
+    ],
+    behavioral_profile: "Status-driven technologist who values architectural purity over raw business velocity. Exhibits confirmation bias toward decentralized rails. Revealed behavior: Highly responsive to deep technical inquiries, avoids bureaucratic enterprise sales cycles.",
+    strategic_approchement: "Approach from an engineering-first frame. Validate architectural elegance before discussing commercial terms. Anchor negotiations on developer mindshare and API latency advantages.",
+    created_at: new Date(Date.now() - 1000 * 60 * 35).toISOString()
+  },
+  {
+    id: 2,
+    target_query: "Nairobi Silicon Savannah Hubs",
+    entity_type: "ORGANIZATION",
+    footprint_summary: "Coalition of regional tech incubators and venture co-working spaces across Westlands and Kilimani. 140+ active startup cohorts; partnerships with Safaricom Spark Fund and regional angel networks.",
+    social_and_public_links: [
+      "https://siliconsavannah.ke",
+      "https://twitter.com/SiliconSavannah",
+      "https://opencorporates.com/companies/ke"
+    ],
+    behavioral_profile: "Institutional herd behavior strongly influenced by global venture funding cycles. High sensitivity to local regulatory shifts (CBK fintech sandbox rules, KRA digital taxation).",
+    strategic_approchement: "Position solutions as compliance and operational efficiency hedges. Offer pilot workshops to key ecosystem gatekeepers to leverage social proof.",
+    created_at: new Date(Date.now() - 1000 * 60 * 90).toISOString()
+  },
+  {
+    id: 3,
+    target_query: "Kitengela Mixed Commercial Corridor",
+    entity_type: "PLACE",
+    footprint_summary: "Rapidly expanding peri-urban transport and commercial axis connecting Namanga Highway to Nairobi metropolitan logistics zones. High density of hardware retail, agro-processing, and light industrial developments.",
+    social_and_public_links: [
+      "https://www.openstreetmap.org/relation/nominatim-kitengela",
+      "https://en.wikipedia.org/wiki/Kitengela"
+    ],
+    behavioral_profile: "Pragmatic, cash-flow centric merchant culture. Decision-making driven by short payback horizons, direct utility, and word-of-mouth reputation.",
+    strategic_approchement: "Structure transactions in clear milestone payments; prioritize local relationship capital and reliable on-ground physical presence over digital-only sales.",
+    created_at: new Date(Date.now() - 1000 * 60 * 180).toISOString()
+  },
+  {
+    id: 4,
+    target_query: "East Africa Subsea Cable Redundancy Sentiment",
+    entity_type: "TOPIC-IDEA",
+    footprint_summary: "Spike in technical community discussions across HackerNews, Reddit r/kenya, and Twitter following recent Red Sea fiber disruptions. Demand shifting toward local multi-cloud caching and independent satellite backups.",
+    social_and_public_links: [
+      "https://news.ycombinator.com/item?id=cables-east-africa",
+      "https://reddit.com/r/kenya"
+    ],
+    behavioral_profile: "Risk-aversion cycle in enterprise IT buyers. Panic-driven budget reallocation toward local disaster recovery and offline-first software architectures.",
+    strategic_approchement: "Package offline-first data synchronization, edge database caches, and local DNS redundancy as immediate retainer services for regional businesses.",
+    created_at: new Date(Date.now() - 1000 * 60 * 300).toISOString()
+  }
+];
+
 
 
 const DEMO_WEATHER = [
@@ -265,6 +325,7 @@ async function fetchTelemetryData() {
     appState.newsData = DEMO_NEWS;
     appState.cyberData = DEMO_CYBER;
     appState.conflictData = DEMO_CONFLICT;
+    appState.osintData = DEMO_OSINT;
     appState.tasksData = DEMO_TASKS;
     appState.ledgerData = DEMO_LEDGER;
     appState.vaultData = DEMO_VAULT;
@@ -281,6 +342,7 @@ async function fetchTelemetryData() {
     renderPersonalOps();
     renderNews();
     renderConflict();
+    renderOsint();
     if (refreshIcon) refreshIcon.classList.remove("spin-anim");
     return;
   }
@@ -291,12 +353,13 @@ async function fetchTelemetryData() {
   };
 
   try {
-    const [sitrepRes, weatherRes, cyberRes, newsRes, conflictRes, tasksRes, ledgerRes, vaultRes] = await Promise.all([
+    const [sitrepRes, weatherRes, cyberRes, newsRes, conflictRes, osintRes, tasksRes, ledgerRes, vaultRes] = await Promise.all([
       fetch(`${appState.supabaseUrl}/rest/v1/tactical_briefings?select=*&order=created_at.desc&limit=1`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/weather_reports?select=*&order=scope.desc`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/cyber_alerts?select=*&order=created_at.desc&limit=25`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/news_articles?select=*&order=created_at.desc&limit=25`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/conflict_and_macro_intel?select=*&order=created_at.desc&limit=30`, { headers }),
+      fetch(`${appState.supabaseUrl}/rest/v1/osint_dossiers?select=*&order=created_at.desc&limit=12`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/personal_tasks?completed=eq.false&select=*&order=created_at.desc&limit=8`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/personal_ledger?select=*&order=created_at.desc&limit=8`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/idea_vault?select=*&order=created_at.desc&limit=8`, { headers })
@@ -324,6 +387,7 @@ async function fetchTelemetryData() {
     appState.cyberData = cyberRes.ok ? await cyberRes.json() : DEMO_CYBER;
     appState.newsData = newsRes.ok ? await newsRes.json() : DEMO_NEWS;
     appState.conflictData = conflictRes.ok ? await conflictRes.json() : DEMO_CONFLICT;
+    appState.osintData = osintRes.ok ? await osintRes.json() : DEMO_OSINT;
     appState.tasksData = tasksRes.ok ? await tasksRes.json() : DEMO_TASKS;
     appState.ledgerData = ledgerRes.ok ? await ledgerRes.json() : DEMO_LEDGER;
     appState.vaultData = vaultRes.ok ? await vaultRes.json() : DEMO_VAULT;
@@ -339,6 +403,7 @@ async function fetchTelemetryData() {
     renderPersonalOps();
     renderNews();
     renderConflict();
+    renderOsint();
   } catch (err) {
     console.error("Telemetry sync error:", err);
     if (connectionBadge) {
@@ -351,6 +416,7 @@ async function fetchTelemetryData() {
     renderPersonalOps();
     renderNews();
     renderConflict();
+    renderOsint();
   } finally {
     if (refreshIcon) refreshIcon.classList.remove("spin-anim");
     resetCountdown();
@@ -450,6 +516,82 @@ function renderConflict() {
         <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-800/60 text-[11px] font-mono text-slate-400">
           <span class="text-slate-400">${item.source}</span>
           <span class="text-slate-500">${item.domain}</span>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+// Render OSINT Reconnaissance & Human Behavioral Dossiers
+function renderOsint() {
+  const container = document.getElementById("osint-list");
+  if (!container) return;
+
+  let items = appState.osintData || [];
+
+  // Filter by entity type
+  if (appState.activeOsintFilter !== "ALL") {
+    items = items.filter(d => (d.entity_type || "").toUpperCase() === appState.activeOsintFilter.toUpperCase());
+  }
+
+  // Filter by search query
+  if (appState.searchQuery && appState.searchQuery.trim()) {
+    const q = appState.searchQuery.toLowerCase();
+    items = items.filter(d =>
+      (d.target_query && d.target_query.toLowerCase().includes(q)) ||
+      (d.entity_type && d.entity_type.toLowerCase().includes(q)) ||
+      (d.footprint_summary && d.footprint_summary.toLowerCase().includes(q)) ||
+      (d.behavioral_profile && d.behavioral_profile.toLowerCase().includes(q)) ||
+      (d.strategic_approchement && d.strategic_approchement.toLowerCase().includes(q))
+    );
+  }
+
+  if (items.length === 0) {
+    container.innerHTML = `
+      <div class="col-span-full py-8 text-center text-slate-500 font-mono text-xs">
+        No OSINT dossiers archived for filter [${appState.activeOsintFilter}]. Command J.A.R.V.I.S. on Telegram to investigate a target.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = items.map(d => {
+    let typeBadgeClass = "bg-cyan-950/80 border-cyan-700/60 text-cyan-300";
+    if (d.entity_type === "ORGANIZATION") typeBadgeClass = "bg-emerald-950/80 border-emerald-700/60 text-emerald-300";
+    else if (d.entity_type === "PLACE") typeBadgeClass = "bg-amber-950/80 border-amber-700/60 text-amber-300";
+    else if (d.entity_type === "TOPIC-IDEA") typeBadgeClass = "bg-rose-950/80 border-rose-700/60 text-rose-300";
+
+    const links = Array.isArray(d.social_and_public_links) ? d.social_and_public_links : [];
+    const linksHtml = links.slice(0, 4).map(u =>
+      `<a href="${u}" target="_blank" rel="noopener noreferrer" class="text-[11px] font-mono text-cyan-400 hover:text-cyan-300 hover:underline truncate block">🔗 ${u}</a>`
+    ).join("");
+
+    const dateStr = d.created_at ? new Date(d.created_at).toLocaleDateString([], { month: "short", day: "numeric", year: "numeric" }) : "Recent";
+
+    return `
+      <div class="osint-card border border-slate-800 bg-slate-950/90 rounded-lg p-5 space-y-4">
+        <div class="flex justify-between items-center border-b border-slate-800/80 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded border ${typeBadgeClass}">${d.entity_type}</span>
+            <h3 class="text-sm font-bold text-white uppercase tracking-wide font-mono">${d.target_query}</h3>
+          </div>
+          <span class="text-[11px] font-mono text-slate-500">${dateStr}</span>
+        </div>
+
+        <div class="space-y-3 text-xs">
+          <div>
+            <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider block">1. OSINT & Public Record Footprint</span>
+            <p class="text-slate-300 leading-relaxed mt-1 font-sans">${d.footprint_summary}</p>
+          </div>
+          <div class="bg-amber-950/20 border-l-2 border-amber-400 p-3 rounded-r">
+            <span class="text-[10px] font-mono font-bold text-amber-400 uppercase tracking-wider block">2. Behavioral & Psychological Profile</span>
+            <p class="text-slate-200 leading-relaxed mt-1 font-sans">${d.behavioral_profile}</p>
+          </div>
+          <div class="bg-emerald-950/20 border-l-2 border-emerald-400 p-3 rounded-r">
+            <span class="text-[10px] font-mono font-bold text-emerald-400 uppercase tracking-wider block">3. Strategic Playbook & Interaction Leverage</span>
+            <p class="text-slate-200 leading-relaxed mt-1 font-sans">${d.strategic_approchement || 'N/A'}</p>
+          </div>
+          ${linksHtml ? `<div class="pt-2 border-t border-slate-800/60 space-y-1"><span class="text-[10px] font-mono font-bold text-slate-500 uppercase block">Discovered Nodes & Footprint:</span>${linksHtml}</div>` : ""}
         </div>
       </div>
     `;
@@ -887,6 +1029,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Setup OSINT Dossier Filter tabs
+  document.querySelectorAll(".osint-filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".osint-filter-btn").forEach(b => b.classList.remove("active-filter"));
+      btn.classList.add("active-filter");
+      appState.activeOsintFilter = btn.getAttribute("data-filter");
+      renderOsint();
+    });
+  });
+
   // Setup Search
   const searchInput = document.getElementById("telemetry-search-input");
   if (searchInput) {
@@ -895,6 +1047,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderNews();
       renderCyber();
       renderConflict();
+      renderOsint();
     });
   }
 

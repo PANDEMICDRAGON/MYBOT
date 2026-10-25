@@ -140,6 +140,14 @@ Your phone will receive an initialization ping:
 
 You don't need rigid commands anymore; talk or speak naturally via Telegram:
 
+- **Deep OSINT & Human Profiling**: *"Investigate Alex Vance—we have a meeting tomorrow regarding a software partnership."*  
+  -> *Sweeps LinkedIn, X, GitHub, Reddit, Kenya business filings & PDFs concurrently. Computes psychological drivers, cognitive biases, and gives 3 negotiation anchors.*
+- **Crowd Psychology & Sentiment Analysis**: *"Analyze crowd psychology right now around NSE banking stocks and interest rate sentiment."*  
+  -> *Scans Reddit, HN, X dorks, and financial media to diagnose FOMO vs. capitulation and compute contrarian positioning.*
+- **Geospatial Reconnaissance**: *"Run a deep dive on Kitengela Commercial Corridor and its strategic value."*  
+  -> *Queries OpenStreetMap Nominatim, local infrastructure data, and economic drivers.*
+- **Negotiation & Message Deconstruction**: *"Why is this person acting defensive in these messages? [Forwarded text]"*  
+  -> *Cross-references against behavioral psychology & negotiation doctrine in `bot_memory`, decoding status drivers and crafting frame-control responses.*
 - **War & Macro Query**: *"Give me the latest Red Sea war impact on Kenya shipping and how to position my NSE portfolio."*  
   -> *Queries live `conflict_and_macro_intel` and synthesizes defensive & asymmetric financial maneuvers.*
 - **Voice Memo**: Hold the mic and say: *"Remind me to push the Docker containers tomorrow at 10 AM EAT."*  
