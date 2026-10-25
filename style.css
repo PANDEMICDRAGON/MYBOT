@@ -124,6 +124,66 @@ body {
   transform: translateX(4px);
 }
 
+/* Cyber Threat Matrix Card */
+.cyber-card {
+  position: relative;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgba(18, 12, 16, 0.65);
+  border: 1px solid rgba(244, 63, 94, 0.18);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cyber-card:hover {
+  background: rgba(28, 16, 22, 0.85);
+  border-color: rgba(244, 63, 94, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -8px rgba(244, 63, 94, 0.25);
+}
+
+.cyber-card.critical-sev {
+  border-left: 3px solid #f43f5e;
+}
+
+.cyber-card.high-sev {
+  border-left: 3px solid #f59e0b;
+}
+
+.cyber-card.advisory-sev {
+  border-left: 3px solid #38bdf8;
+}
+
+/* Badges */
+.badge-critical {
+  background: rgba(244, 63, 94, 0.18);
+  color: #f43f5e;
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  box-shadow: 0 0 10px rgba(244, 63, 94, 0.2);
+}
+
+.badge-high {
+  background: rgba(245, 158, 11, 0.18);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.badge-advisory {
+  background: rgba(56, 189, 248, 0.15);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+}
+
+.cve-pill {
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(159, 18, 57, 0.35);
+  color: #fda4af;
+  border: 1px solid rgba(225, 29, 72, 0.4);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
 /* Badges */
 .badge-local {
   background: rgba(16, 185, 129, 0.15);

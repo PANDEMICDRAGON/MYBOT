@@ -51,7 +51,7 @@ WEATHER_LOCATIONS = [
     {"city": "Tokyo", "scope": "GLOBAL", "lat": 35.6762, "lon": 139.6503},
 ]
 
-# RSS Feed Registry (Local + Global Hubs)
+# RSS Feed Registry (Local + Global News)
 NEWS_FEEDS = [
     {
         "source": "Kenya Local News",
@@ -69,6 +69,27 @@ NEWS_FEEDS = [
         "url": "https://www.aljazeera.com/xml/rss/all.xml"
     }
 ]
+
+# Cybersecurity Intelligence Feeds (Threat Intel & Local Cyber)
+CYBER_RSS_FEEDS = [
+    {
+        "source": "The Hacker News",
+        "category": "THREAT-INTEL",
+        "url": "https://feeds.feedburner.com/TheHackersNews"
+    },
+    {
+        "source": "BleepingComputer",
+        "category": "THREAT-INTEL",
+        "url": "https://www.bleepingcomputer.com/feed/"
+    },
+    {
+        "source": "Kenya Cyber Monitor",
+        "category": "LOCAL-CYBER",
+        "url": "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(cybersecurity+OR+cyberattack+OR+ransomware+OR+%22data+breach%22+OR+KE-CIRT)&hl=en-KE&gl=KE&ceid=KE:en"
+    }
+]
+
+CISA_KEV_URL = "https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
 
 # WMO Weather Condition Mappings
 WMO_CODES = {
@@ -88,12 +109,12 @@ force_sync_event = asyncio.Event()
 # =====================================================================
 # --- AI EXTENSION HOOK (MODULAR LLM INTEGRATION POINT) ---
 # =====================================================================
-async def process_headline(title: str) -> str:
+async def process_text(text: str) -> str:
     """
-    Pass-through for news headlines.
-    When ready, plug in Gemini or Groq to summarize, categorize, or translate.
+    Pass-through hook for news, headlines, and threat descriptions.
+    When ready, connect Gemini or Groq to summarize, categorize, or translate.
     """
-    return title.strip()
+    return text.strip()
 
 
 # =====================================================================
@@ -178,7 +199,7 @@ async def sync_news(client: httpx.AsyncClient) -> list[dict]:
         logger.warning("Supabase credentials not set, skipping news sync.")
         return new_articles
 
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) TelemetryCollector/1.0"}
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) TelemetryCollector/2.0"}
     logger.info("Scanning RSS feeds for fresh news...")
 
     for feed in NEWS_FEEDS:
@@ -187,20 +208,19 @@ async def sync_news(client: httpx.AsyncClient) -> list[dict]:
             resp.raise_for_status()
             root = ET.fromstring(resp.content)
 
-            # Process top 8 items per feed
-            for item in root.findall(".//item")[:8]:
+            for item in root.findall(".//item")[:6]:
                 raw_title = item.findtext("title") or "Untitled"
                 link = item.findtext("link") or ""
                 pub_date = item.findtext("pubDate") or ""
 
-                title = await process_headline(raw_title)
+                title = await process_text(raw_title)
                 content_hash = hashlib.sha256(f"{title}{link}".encode("utf-8")).hexdigest()
 
                 # Deduplication check against Supabase
                 check_url = f"{SUPABASE_URL}/rest/v1/news_articles?content_hash=eq.{content_hash}&select=id"
                 check_resp = await client.get(check_url, headers=SUPABASE_HEADERS, timeout=15)
                 if check_resp.status_code == 200 and len(check_resp.json()) > 0:
-                    continue  # Article already recorded
+                    continue  # Already recorded
 
                 article = {
                     "scope": feed["scope"],
@@ -230,6 +250,128 @@ async def sync_news(client: httpx.AsyncClient) -> list[dict]:
 
 
 # =====================================================================
+# --- CYBERSECURITY ENGINE (CISA KEV JSON + THREAT INTEL RSS) ---
+# =====================================================================
+async def sync_cyber_alerts(client: httpx.AsyncClient) -> list[dict]:
+    """Ingests CISA Known Exploited Vulnerabilities and threat intel feeds."""
+    new_alerts = []
+    if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
+        logger.warning("Supabase credentials not set, skipping cyber alerts sync.")
+        return new_alerts
+
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) CyberTelemetry/2.0"}
+    logger.info("Syncing cybersecurity threat intelligence & CISA KEV...")
+
+    # 1. Fetch CISA Known Exploited Vulnerabilities (KEV) Catalog
+    try:
+        resp = await client.get(CISA_KEV_URL, headers=headers, timeout=25)
+        resp.raise_for_status()
+        vulns = resp.json().get("vulnerabilities", [])
+        # Sort by dateAdded descending and inspect top 8 entries
+        vulns.sort(key=lambda x: x.get("dateAdded", ""), reverse=True)
+
+        for v in vulns[:8]:
+            cve_id = v.get("cveID", "UNKNOWN-CVE")
+            vendor = v.get("vendorProject", "")
+            product = v.get("product", "")
+            name = v.get("vulnerabilityName", "")
+            short_desc = v.get("shortDescription", "")
+            ransomware = v.get("knownRansomwareCampaignUse", "Unknown")
+
+            severity = "CRITICAL" if ransomware == "Known" else "HIGH"
+            title = f"{cve_id}: {vendor} {product} - {name}"
+            link = f"https://nvd.nist.gov/vuln/detail/{cve_id}"
+            content_hash = hashlib.sha256(cve_id.encode("utf-8")).hexdigest()
+
+            # Deduplication check
+            check_url = f"{SUPABASE_URL}/rest/v1/cyber_alerts?content_hash=eq.{content_hash}&select=id"
+            check_resp = await client.get(check_url, headers=SUPABASE_HEADERS, timeout=15)
+            if check_resp.status_code == 200 and len(check_resp.json()) > 0:
+                continue
+
+            alert = {
+                "category": "CVE-KEV",
+                "source": "CISA KEV",
+                "cve_id": cve_id,
+                "severity": severity,
+                "title": await process_text(title),
+                "summary": short_desc[:300],
+                "link": link,
+                "content_hash": content_hash,
+                "published_at": v.get("dateAdded", ""),
+                "created_at": datetime.now(timezone.utc).isoformat()
+            }
+
+            insert_resp = await client.post(
+                f"{SUPABASE_URL}/rest/v1/cyber_alerts",
+                headers=SUPABASE_HEADERS,
+                json=alert,
+                timeout=15
+            )
+            if insert_resp.status_code == 201:
+                new_alerts.append(alert)
+                logger.info(f"🚨 New CISA CVE recorded: {cve_id} ({severity})")
+    except Exception as e:
+        logger.error(f"[CISA KEV Error]: {e}")
+
+    # 2. Fetch Cybersecurity RSS Feeds (The Hacker News, BleepingComputer, Kenya Cyber)
+    for feed in CYBER_RSS_FEEDS:
+        try:
+            resp = await client.get(feed["url"], headers=headers, timeout=20)
+            resp.raise_for_status()
+            root = ET.fromstring(resp.content)
+
+            for item in root.findall(".//item")[:6]:
+                raw_title = item.findtext("title") or "Untitled"
+                link = item.findtext("link") or ""
+                pub_date = item.findtext("pubDate") or ""
+
+                title = await process_text(raw_title)
+                content_hash = hashlib.sha256(f"{title}{link}".encode("utf-8")).hexdigest()
+
+                check_url = f"{SUPABASE_URL}/rest/v1/cyber_alerts?content_hash=eq.{content_hash}&select=id"
+                check_resp = await client.get(check_url, headers=SUPABASE_HEADERS, timeout=15)
+                if check_resp.status_code == 200 and len(check_resp.json()) > 0:
+                    continue
+
+                lower_t = title.lower()
+                if any(k in lower_t for k in ["zero-day", "0-day", "ransomware", "critical", "rce", "actively exploited"]):
+                    severity = "CRITICAL"
+                elif any(k in lower_t for k in ["breach", "vulnerability", "malware", "cve-", "backdoor", "exploit"]):
+                    severity = "HIGH"
+                else:
+                    severity = "ADVISORY"
+
+                alert = {
+                    "category": feed["category"],
+                    "source": feed["source"],
+                    "cve_id": None,
+                    "severity": severity,
+                    "title": title,
+                    "summary": None,
+                    "link": link,
+                    "content_hash": content_hash,
+                    "published_at": pub_date[:30],
+                    "created_at": datetime.now(timezone.utc).isoformat()
+                }
+
+                insert_resp = await client.post(
+                    f"{SUPABASE_URL}/rest/v1/cyber_alerts",
+                    headers=SUPABASE_HEADERS,
+                    json=alert,
+                    timeout=15
+                )
+                if insert_resp.status_code == 201:
+                    new_alerts.append(alert)
+                    logger.info(f"⚡ New Cyber alert recorded: [{severity}] {title[:60]}...")
+        except Exception as e:
+            logger.error(f"[Cyber RSS Error - {feed['source']}]: {e}")
+
+    logger.info(f"Cyber telemetry scan complete ({len(new_alerts)} new alerts recorded).")
+    return new_alerts
+
+
+# =====================================================================
 # --- TELEGRAM COMMAND HANDLER ---
 # =====================================================================
 async def handle_command(client: httpx.AsyncClient, cmd_text: str):
@@ -239,15 +381,29 @@ async def handle_command(client: httpx.AsyncClient, cmd_text: str):
 
     if cmd in ("/start", "/help"):
         msg = (
-            "🛰️ *Telemetry Bot: Local & Global News & Weather*\n\n"
+            "🛰️ *Telemetry Bot: News, Weather & Cyber Command*\n\n"
             "*Commands:*\n"
+            "• `/cyber` — Latest CVEs & threat intelligence\n"
             "• `/weather` — Real-time weather snapshot (Local & Global)\n"
-            "• `/local` — Latest local news headlines\n"
-            "• `/global` — Latest world news headlines\n"
+            "• `/local` — Latest Kenya news dispatches\n"
+            "• `/global` — Latest world news dispatches\n"
             "• `/sync` — Trigger immediate telemetry update\n"
-            "• `/status` — System health and uptime metrics"
+            "• `/status` — System health and database metrics"
         )
         await send_telegram(client, msg)
+
+    elif cmd == "/cyber":
+        try:
+            url = f"{SUPABASE_URL}/rest/v1/cyber_alerts?select=*&order=created_at.desc&limit=6"
+            resp = await client.get(url, headers=SUPABASE_HEADERS, timeout=15)
+            rows = resp.json()
+            if not rows:
+                await send_telegram(client, "No cyber alerts recorded yet. Run /sync to populate.")
+                return
+            lines = [f"• *[{r['severity']}]* ({r['source']}) {r['title']}\n  🔗 {r['link']}" for r in rows]
+            await send_telegram(client, "🛡️ *Latest Cybersecurity Intelligence:*\n\n" + "\n\n".join(lines))
+        except Exception as e:
+            await send_telegram(client, f"❌ Failed to fetch cyber alerts: {e}")
 
     elif cmd == "/weather":
         try:
@@ -276,7 +432,7 @@ async def handle_command(client: httpx.AsyncClient, cmd_text: str):
             await send_telegram(client, f"❌ Failed to fetch news: {e}")
 
     elif cmd == "/sync":
-        await send_telegram(client, "⚡ Manual telemetry sync triggered...")
+        await send_telegram(client, "⚡ Manual telemetry sync triggered across all streams...")
         force_sync_event.set()
 
     elif cmd == "/status":
@@ -284,18 +440,21 @@ async def handle_command(client: httpx.AsyncClient, cmd_text: str):
         try:
             w_resp = await client.get(f"{SUPABASE_URL}/rest/v1/weather_reports?select=city", headers=SUPABASE_HEADERS, timeout=10)
             n_resp = await client.get(f"{SUPABASE_URL}/rest/v1/news_articles?select=id", headers=SUPABASE_HEADERS, timeout=10)
+            c_resp = await client.get(f"{SUPABASE_URL}/rest/v1/cyber_alerts?select=id", headers=SUPABASE_HEADERS, timeout=10)
             w_count = len(w_resp.json()) if w_resp.status_code == 200 else "N/A"
             n_count = len(n_resp.json()) if n_resp.status_code == 200 else "N/A"
+            c_count = len(c_resp.json()) if c_resp.status_code == 200 else "N/A"
         except Exception:
-            w_count, n_count = "N/A", "N/A"
+            w_count, n_count, c_count = "N/A", "N/A", "N/A"
 
         await send_telegram(
             client,
-            f"📊 *Telemetry Status*\n"
+            f"📊 *Telemetry System Status*\n"
             f"• State: ONLINE (24/7 Long Polling)\n"
             f"• Uptime: {uptime_min} minutes\n"
             f"• Weather Stations: {w_count}\n"
             f"• Archived News: {n_count}\n"
+            f"• Cyber Threat Records: {c_count}\n"
             f"• Auto-Sync Interval: {SYNC_INTERVAL}s"
         )
 
@@ -340,29 +499,32 @@ async def telegram_poller(client: httpx.AsyncClient):
 # --- CONTINUOUS COLLECTOR WORKER LOOP ---
 # =====================================================================
 async def collector_worker(client: httpx.AsyncClient):
-    """24/7 Worker: updates weather, ingests news, and dispatches Telegram notifications."""
+    """24/7 Worker: updates weather, news, cyber threats, and dispatches Telegram notifications."""
     logger.info(f"Collector worker active (Cycle: {SYNC_INTERVAL}s)...")
     while True:
         weather_data = await sync_weather(client)
         new_articles = await sync_news(client)
+        new_cyber = await sync_cyber_alerts(client)
 
-        # Notify via Telegram if new articles or first cycle
-        if new_articles:
-            local_new = [a for a in new_articles if a["scope"] == "LOCAL"]
-            global_new = [a for a in new_articles if a["scope"] == "GLOBAL"]
-
+        # Notify via Telegram if new articles or cyber threats discovered
+        if new_articles or new_cyber:
             local_weather = [w for w in weather_data if w["scope"] == "LOCAL"]
             w_summary = " | ".join([f"{w['city']}: {w['temp_c']}°C ({w['condition']})" for w in local_weather])
-
             msg_parts = [f"🌤️ *LOCAL WEATHER CONDITIONS*\n{w_summary if w_summary else 'Updating...'}\n"]
 
-            if local_new:
-                items = "\n".join([f"• [{a['source']}] {a['title']}\n  🔗 {a['link']}" for a in local_new[:4]])
-                msg_parts.append(f"🇰🇪 *NEW LOCAL HEADLINES ({len(local_new)}):*\n{items}\n")
+            if new_cyber:
+                c_items = "\n".join([f"• [{c['severity']}] {c['title']}\n  🔗 {c['link']}" for c in new_cyber[:4]])
+                msg_parts.append(f"🛡️ *CYBERSECURITY THREAT ALERTS ({len(new_cyber)}):*\n{c_items}\n")
 
+            local_new = [a for a in new_articles if a["scope"] == "LOCAL"]
+            if local_new:
+                items = "\n".join([f"• [{a['source']}] {a['title']}\n  🔗 {a['link']}" for a in local_new[:3]])
+                msg_parts.append(f"🇰🇪 *LOCAL HEADLINES ({len(local_new)}):*\n{items}\n")
+
+            global_new = [a for a in new_articles if a["scope"] == "GLOBAL"]
             if global_new:
-                items = "\n".join([f"• [{a['source']}] {a['title']}\n  🔗 {a['link']}" for a in global_new[:4]])
-                msg_parts.append(f"🌐 *NEW GLOBAL HEADLINES ({len(global_new)}):*\n{items}\n")
+                items = "\n".join([f"• [{a['source']}] {a['title']}\n  🔗 {a['link']}" for a in global_new[:3]])
+                msg_parts.append(f"🌐 *GLOBAL HEADLINES ({len(global_new)}):*\n{items}\n")
 
             await send_telegram(client, "\n".join(msg_parts))
 
@@ -388,7 +550,7 @@ async def main():
     limits = httpx.Limits(max_keepalive_connections=10, max_connections=20)
     async with httpx.AsyncClient(follow_redirects=True, limits=limits) as client:
         if TELEGRAM_TOKEN and AUTHORIZED_CHAT_ID:
-            await send_telegram(client, "🚀 *Telemetry Bot Online* — Monitoring Local & Global News + Weather 24/7.")
+            await send_telegram(client, "🚀 *Telemetry Bot Online* — Monitoring Weather, News & Cyber Threats 24/7.")
 
         tasks = [
             asyncio.create_task(telegram_poller(client)),
