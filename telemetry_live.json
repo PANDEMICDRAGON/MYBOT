@@ -1,58 +1,58 @@
 {
   "sitrep": {
     "threat_level": "ELEVATED",
-    "sitrep": "Michael, tactical feeds flag the Qilin and INC ransomware syndicates weaponizing Palo Alto Networks flaws to bypass MFA, while locally, Safaricom's rollout of Fuliza Ya Pochi pressures credit architecture right as regional court rulings threaten forex stability. Weather over Kitengela and Nairobi holds overcast at 20°C. System resources are steady with RAM utilization at 80.4%.",
-    "conflict_summary": "Global cyber fronts are intensifying as zero-day exploits target perimeter defenses, accompanied by systemic friction in the US Navy's force-structure and autonomous command rollouts. Meanwhile, maritime logistics chokepoints and semiconductor supply chain contestation continue to apply upward pricing pressure on high-performance hardware imports entering East Africa.",
-    "future_risk_forecast": "Over the next 7 to 30 days, expect heightened scrutiny on enterprise perimeter firewalls and identity providers. Safaricom court battles and regulatory shifts could inject volatility into KES liquidity and foreign exchange reserves, while lingering supply chain frictions inflate server component replacement costs across Nairobi.",
-    "defensive_protocol": "• Audit all perimeter firewalls, VPN endpoints, and MFA configurations immediately to patch against Palo Alto Networks zero-day vectors.\n• Isolate local PostgreSQL and Supabase instances behind strict IP whitelisting and enforce zero-trust session validation across all active backend services.\n• Hedge against potential local currency volatility by diversifying liquid capital allocations and reviewing USD-denominated software royalties.",
-    "asymmetric_upside": "• Capitalize on Safaricom's (SCOM) local ecosystem expansion by evaluating tactical entry points during regulatory-induced market dips on the NSE.\n• Develop specialized automated hardening and compliance auditing scripts tailored to regional East African fintechs scrambling to meet tightened cybersecurity standards.\n• Leverage local cloud-edge decentralization architectures to pitch resilient micro-services to Nairobi enterprises wary of centralized API bottlenecks.",
-    "created_at": "2026-10-25T20:40:42.815887+00:00"
+    "sitrep": "Obi, the digital perimeter is tightening. NSA/FBI have flagged critical flaws in ubiquitous web software—immediate patching required. Simultaneously, Qilin and INC ransomware are actively exploiting Palo Alto Networks MFA bypasses. Locally, Safaricom’s $150M innovation fund and Fuliza Ya Pochi launch signal a massive shift in Kenyan fintech liquidity. Your infrastructure is the bridge; secure it before the exploit wave hits.",
+    "conflict_summary": "Global defense logistics are straining under yearlong Navy deployments and funding gaps for autonomous commands, creating supply-chain friction. In the Horn of Africa, the Safaricom court reversal threatens to squeeze Kenya’s forex reserves, potentially destabilizing local import costs. The 'Endless Chip War' continues to throttle hardware availability, impacting server expansion timelines in Nairobi.",
+    "future_risk_forecast": "Over the next 7-30 days, expect KES/USD pressure to intensify if the Safaricom forex squeeze materializes, driving up import costs for server hardware. Cyber-shocks from the Palo Alto MFA bypass will likely spike ransomware attacks on mid-tier African fintechs, increasing insurance premiums. Undersea cable maintenance in the region may cause transient latency spikes for Supabase/PostgreSQL syncs.",
+    "defensive_protocol": "• Immediately audit all web-facing endpoints for the 'ubiquitous website software' flaws cited by NSA/FBI; patch or isolate affected containers within 24 hours.\n• Rotate all MFA credentials and API keys for any infrastructure touching Palo Alto Networks or similar SSO providers to neutralize the Qilin/INC exploit vector.\n• Hedge KES exposure by locking in USD-denominated cloud contracts for the next quarter to insulate your operational costs from potential forex volatility linked to the Safaricom court case.",
+    "asymmetric_upside": "• Position for SCOM equity: Safaricom’s $150M innovation fund and Fuliza Ya Pochi launch signal strong Q4 revenue growth; consider a tactical buy on the NSE if the court reversal risk is priced in.\n• Develop a 'Ransomware-Resistant' Fintech Audit SaaS: Leverage your Python/Next.js stack to build a compliance tool for Kenyan startups navigating the new Safaricom sandbox, capturing early-stage equity or service fees.\n• Exploit 5G Edge Opportunities: Use the Safaricom 5G rollout to pilot low-latency AI monitoring tools for logistics, positioning your code as the backbone for real-time analytics in the emerging 5G ecosystem.",
+    "created_at": "2026-10-25T21:44:04.848201+00:00"
   },
   "weather": [
     {
       "city": "Kitengela",
       "scope": "LOCAL",
-      "temp_c": 20.7,
-      "humidity": 63,
-      "wind_kmh": 12.5,
+      "temp_c": 19.4,
+      "humidity": 74,
+      "wind_kmh": 9.8,
       "condition": "Overcast",
-      "updated_at": "2026-10-25T20:40:13.696240+00:00"
+      "updated_at": "2026-10-25T21:43:33.905538+00:00"
     },
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 20.1,
-      "humidity": 63,
-      "wind_kmh": 8.3,
+      "temp_c": 19.3,
+      "humidity": 68,
+      "wind_kmh": 9.2,
       "condition": "Overcast",
-      "updated_at": "2026-10-25T20:40:14.152660+00:00"
+      "updated_at": "2026-10-25T21:43:34.307695+00:00"
     },
     {
       "city": "London",
       "scope": "GLOBAL",
-      "temp_c": 10.8,
-      "humidity": 59,
-      "wind_kmh": 14.0,
-      "condition": "Mainly Clear",
-      "updated_at": "2026-10-25T20:40:14.630525+00:00"
+      "temp_c": 10.2,
+      "humidity": 65,
+      "wind_kmh": 12.2,
+      "condition": "Partly Cloudy",
+      "updated_at": "2026-10-25T21:43:34.714850+00:00"
     },
     {
       "city": "New York",
       "scope": "GLOBAL",
-      "temp_c": 18.6,
-      "humidity": 25,
-      "wind_kmh": 9.5,
+      "temp_c": 16.7,
+      "humidity": 33,
+      "wind_kmh": 7.6,
       "condition": "Clear",
-      "updated_at": "2026-10-25T20:40:15.073959+00:00"
+      "updated_at": "2026-10-25T21:43:35.118122+00:00"
     },
     {
       "city": "Tokyo",
       "scope": "GLOBAL",
-      "temp_c": 17.5,
+      "temp_c": 17.3,
       "humidity": 98,
-      "wind_kmh": 2.3,
-      "condition": "Light Rain",
-      "updated_at": "2026-10-25T20:40:15.492743+00:00"
+      "wind_kmh": 2.1,
+      "condition": "Light Drizzle",
+      "updated_at": "2026-10-25T21:43:35.502944+00:00"
     }
   ],
   "cyber": [
@@ -66,7 +66,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-29583",
       "content_hash": "9f081a6e1d190b3adb67bea03885f7d65d18b78730b9c2c87cf597ad796249dc",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278529+00:00"
+      "created_at": "2026-10-25T21:43:47.818122+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -78,7 +78,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-8394",
       "content_hash": "dcf56971dec638c1e32bbc4863650ecccaa3af1c85cf2da3c1c671840c6eaeba",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278627+00:00"
+      "created_at": "2026-10-25T21:43:47.818177+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -90,7 +90,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-10189",
       "content_hash": "617c981616242dca0a79d74e690e201fa8363243f0fca31311c73e72299ea8a9",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278651+00:00"
+      "created_at": "2026-10-25T21:43:47.818197+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -102,7 +102,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-40539",
       "content_hash": "a0a7f6dce826b88ebb232c56805a6e18d05107d19068a3fb93dd0b621606f8f4",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278670+00:00"
+      "created_at": "2026-10-25T21:43:47.818210+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -114,7 +114,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-27561",
       "content_hash": "f2e8bbcb50ba59a8e1ff4f38363f496625804d18d53be7d4a45da85e33ab94f1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278691+00:00"
+      "created_at": "2026-10-25T21:43:47.818220+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -126,7 +126,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-9978",
       "content_hash": "0172212bf226992607a8a51bb7ec0b2612440984f13a9e3e8b0418fad56173a1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278711+00:00"
+      "created_at": "2026-10-25T21:43:47.818229+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -138,7 +138,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-11738",
       "content_hash": "895a24212bff3837e00307321f30d072fabdd1b8ffb152b643d8b9503297748c",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278731+00:00"
+      "created_at": "2026-10-25T21:43:47.818243+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -150,7 +150,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25213",
       "content_hash": "25047194a1fb08666eece4829b771542f068bad1a307586569ca0631c5c446d7",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278750+00:00"
+      "created_at": "2026-10-25T21:43:47.818256+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -162,7 +162,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-4006",
       "content_hash": "d96607a458fb92b0ad954e7ec202dd8e5339c638e4f43d7b7d373a473c45462a",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278767+00:00"
+      "created_at": "2026-10-25T21:43:47.818270+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -174,7 +174,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21985",
       "content_hash": "0519b9eb873c86afe0f3b3964b796bf66ff912cfa74eff08bddee80945e4bcc3",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278784+00:00"
+      "created_at": "2026-10-25T21:43:47.818279+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -186,7 +186,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21972",
       "content_hash": "6a15875afd5b6a0fc8b5116f6ded20c3b55fe218ed24823a9c41c945d0488645",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278804+00:00"
+      "created_at": "2026-10-25T21:43:47.818287+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -198,7 +198,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3952",
       "content_hash": "16fbba0f67a35e0d9abb77c5a704a8ec673bc65bef31c73e0e2b582dceefd527",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278820+00:00"
+      "created_at": "2026-10-25T21:43:47.818297+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -210,7 +210,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-22005",
       "content_hash": "8a7fe7a2172f4b0c3668a5827802771468f76277393fa4431ad437befb08ba97",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278833+00:00"
+      "created_at": "2026-10-25T21:43:47.818305+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -222,7 +222,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3950",
       "content_hash": "e4f53315ecff6219811605bb364839d390f5de7c151d53ef8fe2d3f802ad0946",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278848+00:00"
+      "created_at": "2026-10-25T21:43:47.818313+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -234,7 +234,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3992",
       "content_hash": "f4becfb39bd99c21aa036bc17049549112dde23f9fe030037cb5628a0a3650ee",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T20:40:25.278864+00:00"
+      "created_at": "2026-10-25T21:43:47.818322+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -246,7 +246,7 @@
       "link": "https://thehackernews.com/2026/10/unpatched-tailscale-ssh-flaws-could-let.html",
       "content_hash": "5a3d86b11457375988caa1c141acfbcedfd42d0f8849e268502b5780a86343a1",
       "published_at": "Sun, 25 Oct 2026 23:14:09 +053",
-      "created_at": "2026-10-25T20:40:26.711314+00:00"
+      "created_at": "2026-10-25T21:43:49.561392+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -258,7 +258,7 @@
       "link": "https://thehackernews.com/2026/10/php2shell-exploitation-hits-government.html",
       "content_hash": "bef0d69d41f7841aadbc4615497ed0050ad9d533fb9e28cb97ab286e64c46d04",
       "published_at": "Sun, 25 Oct 2026 22:49:46 +053",
-      "created_at": "2026-10-25T20:40:26.711375+00:00"
+      "created_at": "2026-10-25T21:43:49.561424+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -270,7 +270,7 @@
       "link": "https://thehackernews.com/2026/10/openai-ai-agents-demonstrate-vm-escapes.html",
       "content_hash": "ac4bd7b21f1360445738dc78cfad2e78275ee08239370c3a53cbc212bcd9df8e",
       "published_at": "Sun, 25 Oct 2026 12:24:29 +053",
-      "created_at": "2026-10-25T20:40:26.711410+00:00"
+      "created_at": "2026-10-25T21:43:49.561445+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -282,7 +282,7 @@
       "link": "https://thehackernews.com/2026/10/brotli-decoder-flaw-behind-nodejs-rce.html",
       "content_hash": "b75d326892c9f5d67fb1fe2e2d94bfe291647280fe28fe8d3864ab465dec7943",
       "published_at": "Sat, 24 Oct 2026 16:39:29 +053",
-      "created_at": "2026-10-25T20:40:26.711431+00:00"
+      "created_at": "2026-10-25T21:43:49.561464+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -294,7 +294,7 @@
       "link": "https://thehackernews.com/2026/10/leaked-litellm-master-key-let-attackers.html",
       "content_hash": "75b5216799ce87391869dc56f4309f174632da42744abfc93e58a5ad4d3f531c",
       "published_at": "Sat, 24 Oct 2026 16:33:33 +053",
-      "created_at": "2026-10-25T20:40:26.711452+00:00"
+      "created_at": "2026-10-25T21:43:49.561485+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -306,7 +306,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder/",
       "content_hash": "ba127b223f9a023645aef3fdb6071e91e3db9611be884c107f72af23e23bdcc3",
       "published_at": "Sun, 25 Oct 2026 11:49:38 -040",
-      "created_at": "2026-10-25T20:40:28.011609+00:00"
+      "created_at": "2026-10-25T21:43:50.641222+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -318,7 +318,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/blackx-uefi-bootkit-exploits-baton-drop-flaw-to-bypass-secure-boot/",
       "content_hash": "33bc95e64c1975a1dda2036f8dcfd163720184c8297176bed7b4a1df90c084bb",
       "published_at": "Sat, 24 Oct 2026 10:17:32 -040",
-      "created_at": "2026-10-25T20:40:28.011635+00:00"
+      "created_at": "2026-10-25T21:43:50.641256+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -330,7 +330,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/abandoned-popcorn-time-app-exposed-millions-of-device-to-rce-attacks/",
       "content_hash": "2386b67bb17baa7634c50755bd1f0669836f668a7ec1c25ac4fe1315576411d0",
       "published_at": "Fri, 23 Oct 2026 16:55:05 -040",
-      "created_at": "2026-10-25T20:40:28.011645+00:00"
+      "created_at": "2026-10-25T21:43:50.641320+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -342,7 +342,7 @@
       "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-teams-to-get-ai-powered-context-aware-phishing-detection/",
       "content_hash": "411ee11ed9d2182af30fa10984579e679ebf1fbf5d89479b4fba0a16b040c30c",
       "published_at": "Fri, 23 Oct 2026 14:54:41 -040",
-      "created_at": "2026-10-25T20:40:28.011658+00:00"
+      "created_at": "2026-10-25T21:43:50.641359+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -354,7 +354,7 @@
       "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-server-2016-reaches-end-of-support-in-january/",
       "content_hash": "5d921e4373b14a76608d41de91f98972a6267c36202ac3b43e5c7a8d79766bc9",
       "published_at": "Fri, 23 Oct 2026 13:05:07 -040",
-      "created_at": "2026-10-25T20:40:28.011669+00:00"
+      "created_at": "2026-10-25T21:43:50.641380+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -366,7 +366,7 @@
       "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE4tQ2JEZThuYVBZVTl5bG5vd3JxLW9tNzN4dmk5NTgtbm1WOFh2TnFQdXViMzBieC1ydVhGQ19vUG03ZlhIYy1Fd3ZYeThxX0hQLXIxU0FmYm9XbFcyend2YjV6WC1FVkVrLUwyNnNZVEVDNFdaZGlv?oc=5",
       "content_hash": "8d30229226f1b47fcf440678c82a5ec81de6596501590b54dcf3ae95bce209fd",
       "published_at": "Sat, 24 Oct 2026 11:00:36 GMT",
-      "created_at": "2026-10-25T20:40:29.080272+00:00"
+      "created_at": "2026-10-25T21:43:51.668561+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -378,7 +378,7 @@
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNNjRqUjhqSWZ2OC1kMi1HZmtyM1lYZDlQeFZFSVlyc09yUHBJT2ppeUdENHNBNV9reEhRQWJXV3Y0ZmthUGMxT3lPLXlNYkhkYy01ZXZhREgyUDI4MC1kU1pFOVJPZUNpbXQ1RlMxQUpTc3FZMWVFRUl1VTBvZ2xBN19vOHlacDRJRTN4c0JEMVhiNURGYXlKaEQ3ZHE5T2Nw?oc=5",
       "content_hash": "dfcdae4846e8007a0de4e7129ce8856b5b6bea0fad85f4cb6b2a31d04c96c589",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T20:40:29.080302+00:00"
+      "created_at": "2026-10-25T21:43:51.668584+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -390,7 +390,7 @@
       "link": "https://news.google.com/rss/articles/CBMi6whBVV95cUxPYjd0WUtPQ0M4dnc2Yk5DWWVhc1p4T1JqY0w1eGdqWjJGSUdLTDJJaGYyZ29OckpHTFlIUXVwRzRTZU9POUdZOTNvN0pBR0JsMW9rQTc5SlBTLThqc21USVhDTnpWTXdyejBmZjJyMjhOMWMxd0o2QlBBckY5dXNNVnRNY2M5Z04tWVFzNHNidkRUQVZRRFo5a3ZLT3pGdGpPQWxCOGdzVWd5bmozMmZub0pBTWJzOTNKdzE3QWtfQWZleTNQVHd1azJkV2wzSi1nY0NVYUo1V3ZmQ3kwdEVza3U1QU5CYU9XRlNqVHdTemxWNzhDUGpXTTBSa1VUZWF5YXRpUmpJRG5iNUdhbEo1RWhNMjNkRjVORzVfOERQTmxwYzdzeHV5VXdQYUtleWV0WkRnQ0ZrTGhydXFUaEhmQWJZb2ZIX2RkcF9DYzJrZUNtVFVTRWcyWER3aS1taHlFWlBCa1gya3A1YnE1enNqZFlwMm5sU3dOaWZqMzI0TDFGNmdmOFZibW4xZmRrcnVia3ZSTXRSYjg1eDk5YVZhenZvLUxsZEVic0ZweFNPVk52ZFB4N0pWcjE4Mk1qQ1RGendfN2t5OWtuWHBkclJURXRjN2MydUl0MjNYTG5WcWdlVzJrTzdNYlNrYlpwVVIyRUhDUWs5dzNVdTdqMW15bW1RVjhwVDlHUHRpWVRxd0RldDRrMjVSUmVJZHZ3cVhna0FkaEhSQVM1b0ZhVmlIX0ctZjVSYm9XSE5La2NLSmZvdU9BVUZVVWYyaWZ2bHlEUG1GaDgtaGJkeFpydUZQSGRad0w5OEZ3V211ajZoWDJFa1o2dGF0UUZGd05YWGZaaGRpX3RBaU95OGpJRmNEU1ltcVRmVUdhNWs1YUVUdEFTMnhSSGljMTY2d3EtQUUyUlhPU3EtVDRaN2U5eXBWeVlwWXYteHR5dHZEcDE0NHgtVDlaZlBCOFE5UWQydzg1SldqTGhuWWJaWlNKdmFQRktCM19FVGw4R2ZfYVo3LVVKaG9ad3hMM0x2bG1SMDJweEpqbWVEcTNNRUh0N1ozM2UtYVNxS25TVHBFZ196SGhYdTQzQ0dFYmpBZENENHYyYWlWb0F4S1ExQk9ZNE56X3M1b0hoZU1GZmJRQUx2RklqTTVNY3dxOHU1b1kwQjZjSGRkVGN3SnhiNEZRaGhQUFlPVWlIQmxsVjFmTFBqcjBxNTlTRWR2bGVIcEpGaHBGNGRBSHpSVkIyU1FEeE1KOXpHc09ydmhnN2dFODJzbVZrMmdvbXFMai1xUERCYWN4dXRLNm1MaG90cUVZR05oX0hqUHNTZ2Q5S05QX0c0MVJfaHMtSmRfRlN2QWY4LXg0dlJzRFZFcnNKMjVjV0xQemZBVGE3SjNCMm9qMmJ3SDhmMkYxOEVybGpULVJHREwySVVHMjFKOGxwa0ZiNzQ1QkQ1UTBuTlZfbk8tS1VKc09zc3pVUGNncUs1N3NLV1F0QmJvenVlQ1J6R1k?oc=5",
       "content_hash": "61cad910365d5aab214eced3ccbea2386cc54606df92b954a0ad31ae6ed2674d",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T20:40:29.080335+00:00"
+      "created_at": "2026-10-25T21:43:51.668610+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -402,7 +402,7 @@
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMGlYOUFaVy1PTTNHSHlXaTh6cklnQ0xSU3g3dXdYbjhWZGxsR0t4N1dXZ0NNd0pKM2NIOU0xQkdTUF9BdFNXYUk2bTBJYi1iM0h3TWZUM21WNmZIc2FnVEVhSzJHd1pvMnRBR0FvWFBJQ25URF9aVmxXR0xDTzhyNG1DLUEzTzNqRjV6Rnp4c0Y0Qm80ZXFQWnVvSGV2TkkwbWd5Rk9CR1RJTXYyTnc?oc=5",
       "content_hash": "2c77f445a49add8fdb3b5a81c3c6bc7a69e27c0175389c663aac488212e5520e",
       "published_at": "Wed, 14 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T20:40:29.080346+00:00"
+      "created_at": "2026-10-25T21:43:51.668620+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -414,321 +414,321 @@
       "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQQl90SDAtbFFGTWl1R05VS20tcGNia2hPdS03dElvWlNLUElka1Ixa045SXdQcThoUFM3d01HRElYaGNRLXJrZThQQTc2aFJ6ZjBMc0hPZTRPYUFPTlY0V2JsZHR3Y3hIcXM3LUp2SjYzVUo4ZW1hRlRHWTlEdXZFNzd6aWJ2bWRNMVViODRYR1RGYUZlVnA1akprUWp1NGstTVFPOVdhN1RaWnhKbVRSY0c4X0dHdw?oc=5",
       "content_hash": "d605122d644d87e1f0317321d57acedecffcf642ee6a7c380a3419c5828d8ba3",
       "published_at": "Wed, 07 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T20:40:29.080375+00:00"
+      "created_at": "2026-10-25T21:43:51.668630+00:00"
     }
   ],
   "news": [
     {
       "scope": "LOCAL",
       "source": "Silicon Savannah Tech Wire",
-      "title": "😅 - LinkedIn // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
+      "title": "😅 - LinkedIn // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "😅&nbsp;&nbsp;LinkedIn",
       "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQTjhkSko2SnZJRFczaHBRUWNVZjNUeUwxbHZhYmpUdFlwSWtfcE1VU0JibnlvMXd5bklacmJZcFNHRk5QLXE2bGRGd1YxbUJ2b3dDVENUZUhzM1Q4WWs5NmdILVkxb0pLazcyQUFMMnkxQllENjB3VllBQlNoT1NfYnNnQ1A3LTZoNnc5QkJnTnh5VzFvV1psbQ?oc=5",
       "content_hash": "cd298fbd664e5c787dbc3a76b4ac6f1831965f4f8d1127dcbc1a0f717f536b33",
       "published_at": "Sat, 24 Oct 2026 14:34:50 GMT",
-      "created_at": "2026-10-25T20:40:17.964944+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "created_at": "2026-10-25T21:43:37.244289+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "LOCAL",
       "source": "Silicon Savannah Tech Wire",
-      "title": "M-Pesa at 20: Kenya’s Global Financial Inclusion Legacy - The Fintech Times // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
+      "title": "M-Pesa at 20: Kenya’s Global Financial Inclusion Legacy - The Fintech Times // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "M-Pesa at 20: Kenya’s Global Financial Inclusion Legacy&nbsp;&nbsp;The Fintech Times",
       "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQUXAwNWMtbnZKSlNvV1hnSGg0c3BhSmRRTG9Gd2VYVGxPRU9Za0pKd1E0ckFsdHJhY2U2UThKT1pGVUhfMUdSX09WMjBFZEUwWkNaOXQ2QldDYXRnZ0dlZWZQUl9adVhfeEd2eVZaZzJ5azBhdVVERFJDY2RfSGR0U3hzb3ZjZ1Bm?oc=5",
       "content_hash": "e095a01900c514e4324dfc3e87866864c64d158ec883ad07b14496d8569ce5cf",
       "published_at": "Tue, 20 Oct 2026 15:00:41 GMT",
-      "created_at": "2026-10-25T20:40:17.964975+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "created_at": "2026-10-25T21:43:37.244321+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "LOCAL",
       "source": "Silicon Savannah Tech Wire",
-      "title": "Safaricom CEO urges African leaders to embrace innovation and challenge market disruption - Tech Review Africa // [TACTICAL INTEL]: A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nair",
-      "description": "Safaricom CEO urges African leaders to embrace innovation and challenge market disruption&nbsp;&nbsp;Tech Review Africa",
-      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNOEgxTmFwV1hUS3RfTDdiWktMbzkwcWluNTBVd092dWcxT2R1b1BvTjFvNU9kdGV2cEZTbDJCeGdXR1hDeTFXeEtRS2FkOWxxWml5TkNxcmtncmdoMk1MbEE4U1hyRWE4cEQ4UW5UaDFJdFdPb1Atdkh5SWFXdUZNWGN1RW9aMzZ0bWJUSVdQS0JMMHNPLWhvN3hEMEtOYWtpS29FOUJTT1VlOGRwX1ZxMF9MbHBmdGJFbjQ0dWh4eHpDTXlXSXpN?oc=5",
-      "content_hash": "cb793c9a4d26ae51f9fac2a86f2db9616522dfc83f7cf91a64d68036de8b218d",
-      "published_at": "Sat, 24 Oct 2026 12:07:51 GMT",
-      "created_at": "2026-10-25T20:40:17.964991+00:00",
-      "in_depth_context": "Kenya's macroeconomic health remains dangerously tethered to the corporate performance and regulatory compliance of its monolithic telco. Judicial interventions create cascading liquidity ripples, directly impacting sovereign bond yields, forex reserves, and domestic capital flow.",
-      "why_it_matters": "A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nairobi. We need to maintain hedges against local currency volatility while structuring our capital efficiently.",
-      "subject": "Safaricom Macro-Fiscal Vulnerability & Regulatory Friction"
-    },
-    {
-      "scope": "LOCAL",
-      "source": "Silicon Savannah Tech Wire",
-      "title": "Safaricom deal: How a court reversal could squeeze Kenya’s budget, forex - The Africa Report // [TACTICAL INTEL]: A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nair",
-      "description": "Safaricom deal: How a court reversal could squeeze Kenya’s budget, forex&nbsp;&nbsp;The Africa Report",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxONHhqRjBJNkRxTGVTV1d1UVNpa2Z4MGZPRlZ0ZlFZV19zTG5IY2VsU2RSWTBxQzZKendXZ2tkREw1ZjdrY2REcGU0YldPRi1OS3BHOHZHd1hYUW9BUFdSbU1RYzNYZlN5bGlYSF8xSktOdjlSN0V6eUd2c05jazl3RmNiekJoLWVTM0xFTFJZZllMYXhBV2U4Z1BoYk1uUWhTWURnZ2JaNEJKLU16QkE?oc=5",
-      "content_hash": "04c1d9b1e3b7c02da01207b729963700ab7ff9e8f6f04839cdc99131f6705034",
-      "published_at": "Wed, 14 Oct 2026 14:20:00 GMT",
-      "created_at": "2026-10-25T20:40:17.965005+00:00",
-      "in_depth_context": "Kenya's macroeconomic health remains dangerously tethered to the corporate performance and regulatory compliance of its monolithic telco. Judicial interventions create cascading liquidity ripples, directly impacting sovereign bond yields, forex reserves, and domestic capital flow.",
-      "why_it_matters": "A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nairobi. We need to maintain hedges against local currency volatility while structuring our capital efficiently.",
-      "subject": "Safaricom Macro-Fiscal Vulnerability & Regulatory Friction"
-    },
-    {
-      "scope": "LOCAL",
-      "source": "Silicon Savannah Tech Wire",
-      "title": "Kenya’s Safaricom Unveils Fuliza Ya Pochi, an Overdraft for Pochi Merchants - Birr Metrics // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
-      "description": "Kenya’s Safaricom Unveils Fuliza Ya Pochi, an Overdraft for Pochi Merchants&nbsp;&nbsp;Birr Metrics",
-      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE53czdhbFFjR3VxVGZuR0VXd1VuMHpreTdldDhCaUhzaTE4QmtrV2pUcjg2bVpaQVJqbi0ycUQyc3N0U2FCeUxUb1lDTUNfcjlkNndwRHdMRFE1b2M4a1l0ejZUVFR0Rjd5WnBfTUlzT282VVU?oc=5",
-      "content_hash": "068f77622ddeb2f4d829a12707d61a07fbfcd304482a643d89de35b77c7340d8",
-      "published_at": "Sat, 24 Oct 2026 06:04:47 GMT",
-      "created_at": "2026-10-25T20:40:17.965018+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
-    },
-    {
-      "scope": "LOCAL",
-      "source": "Silicon Savannah Tech Wire",
-      "title": "Safaricom launches Fuliza Ya Pochi to boost credit access - Kenya News Agency // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
+      "title": "Safaricom launches Fuliza Ya Pochi to boost credit access - Kenya News Agency // [TACTICAL INTEL]: Michael can develop middleware to connect Fuliza Ya Pochi APIs to his e‑commerce platforms, offering real‑time risk analytics and payment orchestration. The surge in merchant credi",
       "description": "Safaricom launches Fuliza Ya Pochi to boost credit access&nbsp;&nbsp;Kenya News Agency",
       "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPZFBqSEdCZll5cWlDOGotM0VNVDM4U3FfME1fWEpEUk91cUZWZ3NTeUZXdnhsTEt6cGVWSU1ya2R6TGFRWFNZT1NRRl8zQzc3R2otdkJ2cFphUGlqaDYxbEkyQUp2bU1TbXFSUXFRdlJiTmJJdTF5MUlSVFhPNGNyVVBoNS1PcG1KV0VqQ1djcw?oc=5",
       "content_hash": "56819d052fbd8fdc95de7878e5f8ab360a6a593136bbc0f4746bc212e08f6722",
       "published_at": "Fri, 23 Oct 2026 14:42:53 GMT",
-      "created_at": "2026-10-25T20:40:17.965029+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "created_at": "2026-10-25T21:43:37.244339+00:00",
+      "in_depth_context": "The product deepens Safaricom’s credit footprint, shifting merchant financing from informal lenders to digital channels. It creates a new data‑rich credit pool, intensifies competition with banks’ SME loans, and could increase transaction velocity on M‑Pay, boosting network effects and forex outflows from higher consumer spend.",
+      "why_it_matters": "Michael can develop middleware to connect Fuliza Ya Pochi APIs to his e‑commerce platforms, offering real‑time risk analytics and payment orchestration. The surge in merchant credit also raises cyber‑risk exposure, prompting need for robust security monitoring—an opportunity for his cyber‑ops services.",
+      "subject": "Safaricom Fuliza Ya Pochi Overdraft Launch"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "Silicon Savannah Tech Wire",
+      "title": "Safaricom CEO urges African leaders to embrace innovation and challenge market disruption - Tech Review Africa // [TACTICAL INTEL]: Michael can develop middleware to connect Fuliza Ya Pochi APIs to his e‑commerce platforms, offering real‑time risk analytics and payment orchestration. The surge in merchant credi",
+      "description": "Safaricom CEO urges African leaders to embrace innovation and challenge market disruption&nbsp;&nbsp;Tech Review Africa",
+      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNOEgxTmFwV1hUS3RfTDdiWktMbzkwcWluNTBVd092dWcxT2R1b1BvTjFvNU9kdGV2cEZTbDJCeGdXR1hDeTFXeEtRS2FkOWxxWml5TkNxcmtncmdoMk1MbEE4U1hyRWE4cEQ4UW5UaDFJdFdPb1Atdkh5SWFXdUZNWGN1RW9aMzZ0bWJUSVdQS0JMMHNPLWhvN3hEMEtOYWtpS29FOUJTT1VlOGRwX1ZxMF9MbHBmdGJFbjQ0dWh4eHpDTXlXSXpN?oc=5",
+      "content_hash": "cb793c9a4d26ae51f9fac2a86f2db9616522dfc83f7cf91a64d68036de8b218d",
+      "published_at": "Sat, 24 Oct 2026 12:07:51 GMT",
+      "created_at": "2026-10-25T21:43:37.244354+00:00",
+      "in_depth_context": "The product deepens Safaricom’s credit footprint, shifting merchant financing from informal lenders to digital channels. It creates a new data‑rich credit pool, intensifies competition with banks’ SME loans, and could increase transaction velocity on M‑Pay, boosting network effects and forex outflows from higher consumer spend.",
+      "why_it_matters": "Michael can develop middleware to connect Fuliza Ya Pochi APIs to his e‑commerce platforms, offering real‑time risk analytics and payment orchestration. The surge in merchant credit also raises cyber‑risk exposure, prompting need for robust security monitoring—an opportunity for his cyber‑ops services.",
+      "subject": "Safaricom Fuliza Ya Pochi Overdraft Launch"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "Silicon Savannah Tech Wire",
+      "title": "Safaricom deal: How a court reversal could squeeze Kenya’s budget, forex - The Africa Report // [TACTICAL INTEL]: Michael can develop middleware to connect Fuliza Ya Pochi APIs to his e‑commerce platforms, offering real‑time risk analytics and payment orchestration. The surge in merchant credi",
+      "description": "Safaricom deal: How a court reversal could squeeze Kenya’s budget, forex&nbsp;&nbsp;The Africa Report",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxONHhqRjBJNkRxTGVTV1d1UVNpa2Z4MGZPRlZ0ZlFZV19zTG5IY2VsU2RSWTBxQzZKendXZ2tkREw1ZjdrY2REcGU0YldPRi1OS3BHOHZHd1hYUW9BUFdSbU1RYzNYZlN5bGlYSF8xSktOdjlSN0V6eUd2c05jazl3RmNiekJoLWVTM0xFTFJZZllMYXhBV2U4Z1BoYk1uUWhTWURnZ2JaNEJKLU16QkE?oc=5",
+      "content_hash": "04c1d9b1e3b7c02da01207b729963700ab7ff9e8f6f04839cdc99131f6705034",
+      "published_at": "Wed, 14 Oct 2026 07:00:00 GMT",
+      "created_at": "2026-10-25T21:43:37.244372+00:00",
+      "in_depth_context": "The product deepens Safaricom’s credit footprint, shifting merchant financing from informal lenders to digital channels. It creates a new data‑rich credit pool, intensifies competition with banks’ SME loans, and could increase transaction velocity on M‑Pay, boosting network effects and forex outflows from higher consumer spend.",
+      "why_it_matters": "Michael can develop middleware to connect Fuliza Ya Pochi APIs to his e‑commerce platforms, offering real‑time risk analytics and payment orchestration. The surge in merchant credit also raises cyber‑risk exposure, prompting need for robust security monitoring—an opportunity for his cyber‑ops services.",
+      "subject": "Safaricom Fuliza Ya Pochi Overdraft Launch"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "Silicon Savannah Tech Wire",
+      "title": "Kenya’s Safaricom Unveils Fuliza Ya Pochi, an Overdraft for Pochi Merchants - Birr Metrics // [TACTICAL INTEL]: Michael can develop middleware to connect Fuliza Ya Pochi APIs to his e‑commerce platforms, offering real‑time risk analytics and payment orchestration. The surge in merchant credi",
+      "description": "Kenya’s Safaricom Unveils Fuliza Ya Pochi, an Overdraft for Pochi Merchants&nbsp;&nbsp;Birr Metrics",
+      "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE53czdhbFFjR3VxVGZuR0VXd1VuMHpreTdldDhCaUhzaTE4QmtrV2pUcjg2bVpaQVJqbi0ycUQyc3N0U2FCeUxUb1lDTUNfcjlkNndwRHdMRFE1b2M4a1l0ejZUVFR0Rjd5WnBfTUlzT282VVU?oc=5",
+      "content_hash": "068f77622ddeb2f4d829a12707d61a07fbfcd304482a643d89de35b77c7340d8",
+      "published_at": "Sat, 24 Oct 2026 06:04:47 GMT",
+      "created_at": "2026-10-25T21:43:37.244389+00:00",
+      "in_depth_context": "The product deepens Safaricom’s credit footprint, shifting merchant financing from informal lenders to digital channels. It creates a new data‑rich credit pool, intensifies competition with banks’ SME loans, and could increase transaction velocity on M‑Pay, boosting network effects and forex outflows from higher consumer spend.",
+      "why_it_matters": "Michael can develop middleware to connect Fuliza Ya Pochi APIs to his e‑commerce platforms, offering real‑time risk analytics and payment orchestration. The surge in merchant credit also raises cyber‑risk exposure, prompting need for robust security monitoring—an opportunity for his cyber‑ops services.",
+      "subject": "Safaricom Fuliza Ya Pochi Overdraft Launch"
     },
     {
       "scope": "GLOBAL",
       "source": "Zero-Day Vulnerability Feed",
-      "title": "Qilin and INC Ransomware Groups Exploit Palo Alto Networks Flaw to Bypass MFA - The Hacker News // [TACTICAL INTEL]: A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nair",
+      "title": "Qilin and INC Ransomware Groups Exploit Palo Alto Networks Flaw to Bypass MFA - The Hacker News // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "Qilin and INC Ransomware Groups Exploit Palo Alto Networks Flaw to Bypass MFA&nbsp;&nbsp;The Hacker News",
       "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPam9xTThueWJIQ0xWWjE1VEM0dC1IOHVYelF1SGI1d2FmdUxKUWpTNzFXRUtEdDNtLWJjNVpnWXNUYnVMMlctdFR0T0pPN1VUUVBDdFkyNjNhLS1NOC1rVmd2SlpJODhoQjRKMjU5R014NUFMNmVqZ0MyNTNhLU1iUDBaQXg?oc=5",
       "content_hash": "9fb330a76cc61dc53cbdc45d3062bb5ecd2cf775092727b8a72a9e447ca27bfd",
       "published_at": "Tue, 20 Oct 2026 15:32:00 GMT",
-      "created_at": "2026-10-25T20:40:18.699710+00:00",
-      "in_depth_context": "Kenya's macroeconomic health remains dangerously tethered to the corporate performance and regulatory compliance of its monolithic telco. Judicial interventions create cascading liquidity ripples, directly impacting sovereign bond yields, forex reserves, and domestic capital flow.",
-      "why_it_matters": "A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nairobi. We need to maintain hedges against local currency volatility while structuring our capital efficiently.",
-      "subject": "Safaricom Macro-Fiscal Vulnerability & Regulatory Friction"
+      "created_at": "2026-10-25T21:43:37.781667+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "GLOBAL",
       "source": "Zero-Day Vulnerability Feed",
-      "title": "FBI, CISA warn that SafePay ransomware poses threat to critical infrastructure - Cybersecurity Dive // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
+      "title": "FBI, CISA warn that SafePay ransomware poses threat to critical infrastructure - Cybersecurity Dive // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "FBI, CISA warn that SafePay ransomware poses threat to critical infrastructure&nbsp;&nbsp;Cybersecurity Dive",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxQWElmNk5keXBOZG9JQ0hRSnB2WjU0RklnU1RvZFBLcWRPWjFmZGxBN3VWSzgyZGRwaGlSYmticTNmTUFsYTgyTmZBVXVPZk1iX2Q3bjBsLTF2d3RCdDdBNE5RQWVDWVVwZlhQSkVnaDFxMmdfYmxYYkJIRDEtMjcyOTBfREp6ZkprTjlEY2doQjNiMXBwWUdpeW5JbE9QQllBS0h2dkNyR2daTmtCNkFB?oc=5",
       "content_hash": "e9c2bc2a4cffc0b385c94fb5ac79e42f258c68c03c0d6acb49b40753b3264100",
       "published_at": "Wed, 21 Oct 2026 15:33:13 GMT",
-      "created_at": "2026-10-25T20:40:18.699740+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "created_at": "2026-10-25T21:43:37.781697+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "GLOBAL",
       "source": "Zero-Day Vulnerability Feed",
-      "title": "Attackers Exploit Leaked Zero-Day Flaws in Widely Used PHP - BankInfoSecurity // [TACTICAL INTEL]: A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nair",
+      "title": "Attackers Exploit Leaked Zero-Day Flaws in Widely Used PHP - BankInfoSecurity // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "Attackers Exploit Leaked Zero-Day Flaws in Widely Used PHP&nbsp;&nbsp;BankInfoSecurity",
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQb01tdHB5MzNheF85bTVjQjBsQmxTcDRfYzVyVmk3aFZnYTVZaUotY2JGbVhVQlltakpWMTAzSHBTQ1h5UlpqVURLS3RzSExSZXdEWFBEMWlMLXowMWF5Z040YTFZYW9jRW16dWJEQWM0OE1XSXNteDllRnNhSUQtTmZiNDVPNGJ4ZXJuM2lZc0RqQkVTLVpCV25Ecm5kR3JI?oc=5",
       "content_hash": "f05361efa5b04b55d2b0e667a468fdddf01dcbb4844f7334cc062a7f19e5265f",
       "published_at": "Thu, 22 Oct 2026 07:45:00 GMT",
-      "created_at": "2026-10-25T20:40:18.699753+00:00",
-      "in_depth_context": "Kenya's macroeconomic health remains dangerously tethered to the corporate performance and regulatory compliance of its monolithic telco. Judicial interventions create cascading liquidity ripples, directly impacting sovereign bond yields, forex reserves, and domestic capital flow.",
-      "why_it_matters": "A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nairobi. We need to maintain hedges against local currency volatility while structuring our capital efficiently.",
-      "subject": "Safaricom Macro-Fiscal Vulnerability & Regulatory Friction"
+      "created_at": "2026-10-25T21:43:37.781714+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "GLOBAL",
       "source": "Zero-Day Vulnerability Feed",
-      "title": "Ransomware gangs have been exploiting Palo Alto GlobalProtect VPN flaw since June - Help Net Security // [TACTICAL INTEL]: A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nair",
+      "title": "Ransomware gangs have been exploiting Palo Alto GlobalProtect VPN flaw since June - Help Net Security // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "Ransomware gangs have been exploiting Palo Alto GlobalProtect VPN flaw since June&nbsp;&nbsp;Help Net Security",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNSHhicmtOdV84ZFVNRnppZFVzc3FJX1VjRzVaWU01V1o5QjVMbWh4M2sySEh2bVVVYmVpTjlSdm1Tb3RJUEZTTjBOQjM4cWxrRmRmVVYwbHE1eGd3YmNLMmFyWG1VaGNmRUdmX1VGYXBraENZZkFhNnJsNG80NktwbWRzYWxxZF9uRFBZa3dBUU9wWWpSbXdSRTBDQlhiZFVOU1BBQVoyR2l2bWM?oc=5",
       "content_hash": "665aeaec86f02f4417fa01424fa62d7c4e83df9eb65cf042658b311d0517f40e",
       "published_at": "Wed, 21 Oct 2026 11:13:39 GMT",
-      "created_at": "2026-10-25T20:40:18.699768+00:00",
-      "in_depth_context": "Kenya's macroeconomic health remains dangerously tethered to the corporate performance and regulatory compliance of its monolithic telco. Judicial interventions create cascading liquidity ripples, directly impacting sovereign bond yields, forex reserves, and domestic capital flow.",
-      "why_it_matters": "A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nairobi. We need to maintain hedges against local currency volatility while structuring our capital efficiently.",
-      "subject": "Safaricom Macro-Fiscal Vulnerability & Regulatory Friction"
+      "created_at": "2026-10-25T21:43:37.781730+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "GLOBAL",
       "source": "Zero-Day Vulnerability Feed",
-      "title": "Attackers Exploit Third Arista VCO Zero-Day in Four Months - SecurityWeek // [TACTICAL INTEL]: A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nair",
+      "title": "Attackers Exploit Third Arista VCO Zero-Day in Four Months - SecurityWeek // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "Attackers Exploit Third Arista VCO Zero-Day in Four Months&nbsp;&nbsp;SecurityWeek",
       "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQaG40WEk5SlpYUGRZbU9oNHp6enZCVTZvX2NINnNud0VHenFQS1dWUzdmZjk1NWloN3VDVTdodjVnT01OUkRhRlRMMmdtQzQ2LWZ0WkVKNk9qMHlycDdZcVVlZDFUNEVZVnlKQnYzcmluLUxnazV4WlNkV2pxWTNZQTFsQnVOd0lib3VGRzZ4T1V4WHp3anF5TkRlbW83N1RKWGfSAacBQVVfeXFMT0lrR2Y3VmFINWZkUk9JX1dFZklHTlE3UzNCamJlSEVvdGQ3MjZwVUphd25FblBDTEpNTWx0QnRCQVlJVWhITVRHM0JNcFRkc3lELW1FR2JrYm43cnVLRjNROG9MR0hjZ1pfY3VGcGZfUW5tTEU0dGVpd0hDb2FSYnhmaVBseXVtYW4yWHN0NEFyRUpWVWNIM295LWxFTUdhTE9QWGc1SzQ?oc=5",
       "content_hash": "54d683f1e86b80e760ad39fb07b7b9b55fc45c2bb9f9da6cb43ad0fcc358dfbb",
       "published_at": "Fri, 23 Oct 2026 09:58:34 GMT",
-      "created_at": "2026-10-25T20:40:18.699783+00:00",
-      "in_depth_context": "Kenya's macroeconomic health remains dangerously tethered to the corporate performance and regulatory compliance of its monolithic telco. Judicial interventions create cascading liquidity ripples, directly impacting sovereign bond yields, forex reserves, and domestic capital flow.",
-      "why_it_matters": "A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nairobi. We need to maintain hedges against local currency volatility while structuring our capital efficiently.",
-      "subject": "Safaricom Macro-Fiscal Vulnerability & Regulatory Friction"
+      "created_at": "2026-10-25T21:43:37.781748+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "GLOBAL",
       "source": "Zero-Day Vulnerability Feed",
-      "title": "Verizon Report: Ransomware Drives 61% of Manufacturing Malware Breaches - National Association of Wholesaler-Distributors // [TACTICAL INTEL]: A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nair",
-      "description": "Verizon Report: Ransomware Drives 61% of Manufacturing Malware Breaches&nbsp;&nbsp;National Association of Wholesaler-Distributors",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQWk50YkZzRThyM2dyU19OZVFLR2ZCUjkyTFhIay0yNEM4ZnJ4SlRLc0VHLWZNLVJVSTJScV9ZYllTU2E1TGN3cE80dndfQzFDakwxeTFqaVpDcUd4dTN4ZVlPRjRUT2JlVzNCc1l4VHUxMkFmbUdmQTQ0RWp5ajgxRlBIdV95VnU5bGd6S3dNdlBDMENFcm9BTnlNVjYxT0dK?oc=5",
-      "content_hash": "cb7efd0f31c70938c0ee59fa006888f23245b7cdb61d2d05ad05578a36ae801d",
-      "published_at": "Wed, 21 Oct 2026 23:10:59 GMT",
-      "created_at": "2026-10-25T20:40:18.699796+00:00",
-      "in_depth_context": "Kenya's macroeconomic health remains dangerously tethered to the corporate performance and regulatory compliance of its monolithic telco. Judicial interventions create cascading liquidity ripples, directly impacting sovereign bond yields, forex reserves, and domestic capital flow.",
-      "why_it_matters": "A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nairobi. We need to maintain hedges against local currency volatility while structuring our capital efficiently.",
-      "subject": "Safaricom Macro-Fiscal Vulnerability & Regulatory Friction"
+      "title": "Columbia city manager confirms ransomware attack behind service outages - WIS News 10 // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
+      "description": "Columbia city manager confirms ransomware attack behind service outages&nbsp;&nbsp;WIS News 10",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxOWUEwbktMenFjcFUxSGJISDNYQTQ4dW1QNnpxRHp1aDEzY2RHZ0Vvdm43TmE3MWpZWjdpZkExRWVhdTE2TVZaMHpYV1dXODg3aTRmcnhwUjdXSUIzTlZwVUZMQjUzZ1JLRGlCWGk0VDZfS1hROHh0UFB0SUxGNTNXQkNtR3I4ZWZPNzJMX1dKZWzSAaQBQVVfeXFMTVNLUDROeF9pb0loTW5qanRVZXRNOTR4cmdrdVZBWHFkdC1xVFBnZ0Y1UldxZ3FKSVNKZVJFWXVPTEtrUEVROWJkeXppbFhHZHhkeHNXeG5mRGJvb3lLQUZxNklJaXRsZVRkZGZ6SHNSNndTMVZKcVdqT1Q4dTFRU2ZTQ2JTN0pBMExfTEdyc2NUMFZFWmFXM2hlbDEwQXUwcjdxZ20?oc=5",
+      "content_hash": "3b2e2b81fca20d0786d0c8664f6f73c8a857c512ac51d98e571894d597f6b46f",
+      "published_at": "Fri, 23 Oct 2026 23:53:00 GMT",
+      "created_at": "2026-10-25T21:43:37.781765+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "SPORTS",
       "source": "Premier League & UCL",
-      "title": "+LIVESTREAMs}} Barcelona vs Real Madrid Live Free UEFA Champions League Match 2026 - FC東京オフィシャルホームページ // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
+      "title": "Real Madrid Hit by Late El Clásico Setback Before Barcelona Showdown - Yahoo Sports // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
+      "description": "Real Madrid Hit by Late El Clásico Setback Before Barcelona Showdown&nbsp;&nbsp;Yahoo Sports",
+      "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE5lRHdDZkotZk1ZZGVtTEtrN19TLXJ5OFNVOWx6MzFiM2tWVFZMWHRqbUZwYnlBM2IzUzdfX195MExpUFZkX1h6SEU0S3pGUjVXa28xLU5WcTdEcVN4SDhDUW5RSmdLb0ZXUHZsVlpfQTlkbE9mbG9uS21n?oc=5",
+      "content_hash": "b34188050d5fbbd823947ef1b85d84ebc47acc50bb1772bfdc5bfe27dcc9784f",
+      "published_at": "Sun, 25 Oct 2026 15:07:00 GMT",
+      "created_at": "2026-10-25T21:43:39.062853+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Premier League & UCL",
+      "title": "Barcelona vs Real Madrid: El Clásico Live Stats - Opta Analyst // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
+      "description": "Barcelona vs Real Madrid: El Clásico Live Stats&nbsp;&nbsp;Opta Analyst",
+      "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQc3J0Z2FYbHRfWUJEOVpoR2ZEQWZ2TElpMHNhZ2FpWGp0QXpDQUFaZ2NjcHprZUFDdHd0aXhnOFp5cW9wZWM4RnNOVWVLSWN1eWhMR3I0d25GaW1qcVdDYlAtalVMTm1QYnU3YnNkVE9YYWR5TDZsNkdNSFdMTER5aWRYcWttM08yaEVkaEV4QQ?oc=5",
+      "content_hash": "e3137f7effbc8f4de87cabc6ed35bd3ae6d884f1e49afd8d280a2a91d0db3f7d",
+      "published_at": "Sun, 25 Oct 2026 20:17:17 GMT",
+      "created_at": "2026-10-25T21:43:39.062876+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Premier League & UCL",
+      "title": "+LIVESTREAMs}} Barcelona vs Real Madrid Live Free UEFA Champions League Match 2026 - FC東京オフィシャルホームページ // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "+LIVESTREAMs}} Barcelona vs Real Madrid Live Free UEFA Champions League Match 2026&nbsp;&nbsp;FC東京オフィシャルホームページ",
       "link": "https://news.google.com/rss/articles/CBMi3gJBVV95cUxQUzBnUFdXRGpVbEJsRVR2Skxicll4d2NTeWZTa0p0S0ZOQXU4Z1RUNlhldlRTS2c4UVdoVGRDN1pobjRuWC1TZUtBT05Xdm5kN3IxYXByMHY4dW5fdVZLRDJVbFpmVmxpMi1ZRnpfajJZQm9MZkV2OFVfc0VkNjRFSUM4VnFEY0hWaUNxNU1UbWVOaEZXZ0tjWDNoWXFkcFkwSUZXUHl3VUFVVUE3OHg3cUkwanFlVXBvM092Q2Y0WlpCZ0lXR25yRWVSekJqV2dVZi1WMHYxLVNZOVluWmljVEQxQ0RDcHZhSGVTMDdTTTVacl9VZkF2d1NZQmxZMzJ1eDJBZVY2Y3FrYmx6d0ZuWVNBVHpYRUQyWVp5RWNMRGVScWRKY3l5VDhKM0JGeDRyNjhxQWJIbHRjZnZDWGFKY2RaY240M1h4R2kycHpDRWJpaHlUSGxoRHRUQU1lUQ?oc=5",
       "content_hash": "f71b196f9696205a560968662adec8bbdaec3aa2c5e9d6fa8651552e44c672ce",
       "published_at": "Sun, 25 Oct 2026 19:17:29 GMT",
-      "created_at": "2026-10-25T20:40:19.821888+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "created_at": "2026-10-25T21:43:39.062897+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "SPORTS",
       "source": "Premier League & UCL",
-      "title": "Where to watch Real Madrid vs. RB Leipzig live stream, TV channel, start time for Champions League match - Yahoo Sports // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
+      "title": "‍‍‍+LIVESTREAMs}} Barcelona vs Real Madrid Live Free UEFA Champions League Match 2026 HS Football 2026 - 小豆島町 // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
+      "description": "‍‍‍+LIVESTREAMs}} Barcelona vs Real Madrid Live Free UEFA Champions League Match 2026 HS Football 2026&nbsp;&nbsp;小豆島町",
+      "link": "https://news.google.com/rss/articles/CBMi5gJBVV95cUxNLUZRc1BuYmJrMUI2Z3FPOVVGWUdNQWJlNVJVcGZ1cHJXQTZnLUJXM25BMDMxX3dIZGdxOHR0UFkzeUctdjdseXdaalZTUk5iTzhMRzdXbUp3cDlqdzBLaEotczNxZVdoNnd4ZFZVTzFFdjNXN3kzTFQxcmdCR01pM0FXZm14X0dlZXRsdER1WmZ2YmpZYjQxNjNsV3p1TWlQUmxRcDZJVVM1V3R3aEFzamlYNTQyUmtzVFViOHEtcHQxQXlJR1FUUTlLWGJmTnNPU0pVM3lPQ2xDWUp6czJuVGE1eUdvblBqc1BhdE5DajRrZWx3S3dKd0FfV1pWRF81SzNleXRtSFp0WWNCenJGbFQ4U1VWcHhxMmtXOWpmcmQzeE00Z3BfYnh1VDFHWDVLclpEcGFWM1gzUk9ZdFBfNzFuaHowLUhlZWNJbkdrNW9SbWRZbHQ1Y3Y5THhPeFNWRFJiZE9n?oc=5",
+      "content_hash": "9c12b10fc2328a764a573570752e0ca2cf30eef3f332ddcd88a3997af73f9b7b",
+      "published_at": "Sun, 25 Oct 2026 21:20:59 GMT",
+      "created_at": "2026-10-25T21:43:39.062912+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Premier League & UCL",
+      "title": "Where to watch Real Madrid vs. RB Leipzig live stream, TV channel, start time for Champions League match - Yahoo Sports // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "Where to watch Real Madrid vs. RB Leipzig live stream, TV channel, start time for Champions League match&nbsp;&nbsp;Yahoo Sports",
       "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNMk9LRldLSi1mRENyMjNvWWh3S1E2Mk9RQXFhd2hLOFpUWWdlVng3M1BCWTAzZUU3d3JqTFFoR0FjaDdDOXk1d3hvZURoYllOQW5rUzYwSHRHR3M3ZTkwdnlpZVpmYURCd1R5TktNci1VYXBSUjc4UFoyNUlXYmNKRA?oc=5",
       "content_hash": "db9af1019ffb7feb9ff94af4c9e3433dea0206b38840f5abeeb89156a2a4b586",
       "published_at": "Wed, 21 Oct 2026 16:00:02 GMT",
-      "created_at": "2026-10-25T20:40:19.821913+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "created_at": "2026-10-25T21:43:39.062923+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "SPORTS",
       "source": "Premier League & UCL",
-      "title": "‍‍‍‍+LIVESTREAMs}} Barcelona vs Real Madrid Live Free UEFA Champions League Match 2026 HS Football 2026 - 小豆島町 // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
-      "description": "‍‍‍‍+LIVESTREAMs}} Barcelona vs Real Madrid Live Free UEFA Champions League Match 2026 HS Football 2026&nbsp;&nbsp;小豆島町",
-      "link": "https://news.google.com/rss/articles/CBMi2wJBVV95cUxNdUhHb1h6OWdNUldJNVZjN3NwUFNMMFdDa25WMmdOM0V5ZzdSRmtJZ1k1QjVzeGNxMzBaWUF0ZG1UczUyN1g0TkhSdTZQX0huZUtSbkg1ZXF6eEVIQnBjVms2b3BMZ055REVHVS16Z2FLY0pJTmJQazZJRk1jNmlHV3loZ0FmNnNjdmFBUFk0WEdxWkRjVWlaSlg3R3k2Z2FTcDZRYlVtazZsaVpNUUpxUjZnM0VZN015cjhvalZLT2lYZHNUZzRUMXlCZkM3Nkp2RVVISmI2aGljalZISW4yNFdaWV85bFcxNnFqa2g2RDBsV052cm5FanlFZXhQMmZ1Ny1ydk03MkpOeHVWTnp4LXRXb0g3U1ljay1QQ1ZfLWoxWk1oY2hOQWhVUGVyYXBCWmFqdmZwZXBJdEo0aFVKYWNvTFNPMzBEel9UTUxmeU5QSjc0TEx1WEdlMA?oc=5",
-      "content_hash": "1afd9700440d80ab11f9c9a40d4778ec6161577bad477371833240b51bccc3ee",
-      "published_at": "Sun, 25 Oct 2026 19:55:19 GMT",
-      "created_at": "2026-10-25T20:40:19.821931+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
-    },
-    {
-      "scope": "SPORTS",
-      "source": "Premier League & UCL",
-      "title": "'This is the only Clasico' - Mourinho's Real trying to stop Barca's shot at history - BBC // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
-      "description": "'This is the only Clasico' - Mourinho's Real trying to stop Barca's shot at history&nbsp;&nbsp;BBC",
-      "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1aUVpELVlWUkZvVVdydXJXYzhlTFZIWnNSYXF5THVjU2RlQ2pTai1MaXRUYWV5TFI2Q1BVcmh1Y2I2UGRnRW5jLVFTMVlKYWtFUk45bEkyTXJBTGxiVF9WQXRYaVJhNjlq?oc=5",
-      "content_hash": "18b24de1a9cfa7c4c39bb63e7420987527864f5ee639863e889ea14bd7dce8e9",
-      "published_at": "Sun, 25 Oct 2026 07:55:05 GMT",
-      "created_at": "2026-10-25T20:40:19.821942+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
-    },
-    {
-      "scope": "SPORTS",
-      "source": "Premier League & UCL",
-      "title": "Real Madrid rout RB Leipzig 4-1 to continue perfect Champions League start - Al Jazeera // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
+      "title": "Real Madrid rout RB Leipzig 4-1 to continue perfect Champions League start - Al Jazeera // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "Real Madrid rout RB Leipzig 4-1 to continue perfect Champions League start&nbsp;&nbsp;Al Jazeera",
       "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxNUnprNHFZbXhoME9KN21CWTl1QzhwTkdoOG1UR25YMXZOTzVlaFdUd1htSnMtQlVxdVJKX1A1c2p5X1g3MGtWSk5aVVQ5UjloUVBDN2FtZnhUbnVTZFpkQ0VCSEtQXzRZT1NTSlpLN2w4bXJSdzR1YjdMdkNOQ2lxOEdoc1dUUldQekZmVkVZUUw4ZkV6MVNyUzM5NGFUeUdfZzJrRnVWVlhXZTd5eWZ5N9IBtgFBVV95cUxPUGJvN0VXSm9wNkZnV0tuZUJpdTJ0REZpVVU5bmhYRzFTaFMycHBxVV9mYTJ3blM3MFZBSF93SUxSZWV5dGE2b080Y18xeDF2QUV0cDFmWW9MSzctRFFTVllzcmoxSlM0Zk8tSWNraTlHM3J0R2YxUkh1QU03ODV3UEhDWTdOV2d6Vmh2UzU0RnU2UDh1aUlMRlNvMmsxbi01TVRZWW14WWhhY3laU19XalloYmotQQ?oc=5",
       "content_hash": "9bfbca09a4e9cdea99ac241fcac2e6c2b309ce9a00683a1e7e9581d06cb05c08",
       "published_at": "Wed, 21 Oct 2026 21:40:07 GMT",
-      "created_at": "2026-10-25T20:40:19.821955+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
-    },
-    {
-      "scope": "SPORTS",
-      "source": "Premier League & UCL",
-      "title": "WATCH TODAY Barcelona vs Real Madrid in the Premier League - FC東京オフィシャルホームページ // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
-      "description": "WATCH TODAY Barcelona vs Real Madrid in the Premier League&nbsp;&nbsp;FC東京オフィシャルホームページ",
-      "link": "https://news.google.com/rss/articles/CBMirwJBVV95cUxNV2xaUldJOGhIXzdhRU0xMmp6Q1p4OHIwaXg5MmZZbEZEMXU0RVpFLWRTOTVBQ3RwTXIzLTJXenRNT01lanhaTXlyWFZ3bnlqZ0JkQTlKMDFjeHRtWGg0cVVuZEQ4akl4aHJZenJfNFNPdS0yODBwWTk3cXhxV2w4Ui1yNnhRaGtIOU9EQ0E1TGM5WUJXWk55cEZxaHJOVlBDOHh3UU5aR3QyUXZFRG9Od0pUUDhnSXpzZEFfTFVhdi1TQmd0d2ZCdE83MzFadnVHSjQ5QjQ1eXpPcUxyZjdiRXdxWl9ScEp6RzFUd2lfNjk5V0RLQjVqdHBBeEVjMU12UEk2dlh0eGtCcFFnRjA5blh2Wk1QalZmaUxtOEc4NlJydGYxbGJRQV9EaVkyTkU?oc=5",
-      "content_hash": "841c867caf2bcc14d9b5d08cec08bc94c226d12dbe137b1014edfdf83d70240c",
-      "published_at": "Sun, 25 Oct 2026 19:29:42 GMT",
-      "created_at": "2026-10-25T20:40:19.823156+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "created_at": "2026-10-25T21:43:39.062935+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "SPORTS",
       "source": "Formula 1 Motorsport",
-      "title": "United States Grand Prix: Where to watch the Formula 1 race today, schedule, how to stream and more - Yahoo Sports // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
+      "title": "United States Grand Prix: Where to watch the Formula 1 race today, schedule, how to stream and more - Yahoo Sports // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "United States Grand Prix: Where to watch the Formula 1 race today, schedule, how to stream and more&nbsp;&nbsp;Yahoo Sports",
       "link": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNNU11MDd0VU1oVUs1MnFkTVNVTWl1dUpHX2x1WURSVFhsb2ZUZjJ0NlBURlk3eDUzLVdHekJCTHlqMTdpLXppOFQtSlB5TGRsQ3dGZHdqNjhYOWk3VHVtdFVHMXpicTUzV2s5VEVWelZ2ZUVPOTFZbV9FWFZTNzBST1E5TC03YWwzMmRzZE1CaWZVOXdWMDl0MDNjRmFBMGN1SzZzdF9jN3dGRVF4MllqZFRsTDFxZFFrQXlVV3dwdTFENE1mN01hX2ZzSG9IX1g5MEhXZU1CbW5qMlFxMUxkTg?oc=5",
       "content_hash": "3fe7a15b7801e9a994ce994a9e1e6d50bffff104cd6898a38bf8cb1320c1e920",
       "published_at": "Sun, 25 Oct 2026 18:38:23 GMT",
-      "created_at": "2026-10-25T20:40:20.836741+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "created_at": "2026-10-25T21:43:39.886031+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "SPORTS",
       "source": "Formula 1 Motorsport",
-      "title": "United States Grand Prix 2026: Race start time in Austin, how to watch, full schedule, predictions - ESPN // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
+      "title": "United States Grand Prix 2026: Race start time in Austin, how to watch, full schedule, predictions - ESPN // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "United States Grand Prix 2026: Race start time in Austin, how to watch, full schedule, predictions&nbsp;&nbsp;ESPN",
       "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxNVkp0MmxfM1VpaWEyTHFtMk5sOU8wNWt2MjZqTzN4UnVvNEN4UFFGdFNXTFIwbXA4T0VoUGRPbnNfaDJXaXhXWjRoX1FBSWl6bG5aWnZja0dtSGVTeW1VVUNsSjA5cnVLU3VKbk82UDJaaTRWRFM3aTkxYk1hRHFCZFVrX3VvbE5Wb29DMGVFRl9Sa0JkNVM2V3lQcml3S1BRZXlDaW0yZlo0aTJvUVFNNWJFVHpIb2NfN0RuR2JhbXpwaG81QkVWSjdtZl8xTFE5aUkyZkpaZWwzQ3R5NHBrZGJnRXNwZThRcHpDbERmWUQ0OFpOMHdn?oc=5",
       "content_hash": "2aa5688a0ca265427bb2e8dd556367c7abae034089018fbd3a63001e89cfe152",
       "published_at": "Sun, 25 Oct 2026 13:03:00 GMT",
-      "created_at": "2026-10-25T20:40:20.836770+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "created_at": "2026-10-25T21:43:39.886091+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "SPORTS",
       "source": "Formula 1 Motorsport",
-      "title": "F1 2026 United States Grand Prix starting grid with four penalties - The Race // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
+      "title": "F1 2026 United States Grand Prix starting grid with four penalties - The Race // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "F1 2026 United States Grand Prix starting grid with four penalties&nbsp;&nbsp;The Race",
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQSkhZdnBZV0VLUTM3bTJpWjFocVpnWDIydVdFVEh0ekJkLUhNZGdZVkJEUlFqWDhTY1lHUVUyemJFQ1BIcTRnVm8wcDJhcmxtUjJHN1RRSldoNmE3V2JhNGoxMDFWYlZsZkFmVGk0OWZYRFQ4WC0yclpFY0NyajRXcUh4NTJ6TE5yWXYyUWF6czNBVzFLUGhpZUxqdThLUDBh?oc=5",
       "content_hash": "f2d3708856a2a7523186d3ea2a58ee0e80b4ad25ac4860e50e67dbf5e268994b",
       "published_at": "Sun, 25 Oct 2026 17:24:09 GMT",
-      "created_at": "2026-10-25T20:40:20.836783+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "created_at": "2026-10-25T21:43:39.886128+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "SPORTS",
       "source": "Formula 1 Motorsport",
-      "title": "OFFICIAL GRID: Who starts where for the United States GP - Formula 1 // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
+      "title": "F1 returns to Austin—Here’s how to watch the US Grand Prix 2026 for free - New York Post // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
+      "description": "F1 returns to Austin—Here’s how to watch the US Grand Prix 2026 for free&nbsp;&nbsp;New York Post",
+      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQZWxnMndhNUwwazdVOUNZOGw3bE9QcHNpZTdDdE9BY1RDdTZIbUVxbU5GS2RfNEhCMFBqUFdUckxLSDFJZzgtaDRYWnYtVklwT2lFTWFQUmxVSVprUmhMUWJDczJUUm4tN01YZ29qNlg2Z1U3eW5fQ1hPcy11MzNJWTNmNkU3MVdwS2dnaE4xQ0tLcWJGaVFIQ3g5djlVclFM?oc=5",
+      "content_hash": "ede9c1e17a4787ac74e69727e19e3f45164f230208eae35f06c737e1c57bce44",
+      "published_at": "Sun, 25 Oct 2026 18:00:00 GMT",
+      "created_at": "2026-10-25T21:43:39.886177+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Formula 1 Motorsport",
+      "title": "OFFICIAL GRID: Who starts where for the United States GP - Formula 1 // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
       "description": "OFFICIAL GRID: Who starts where for the United States GP&nbsp;&nbsp;Formula 1",
       "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQSm5ERUI3WmV5RjZ1M1VRSmFtMEN4NWhURmVmVGlBMFZqWnREYU10U0pNWC1qd25ST1ZlVWVRVDN3Q2hRX2xyU3BQOG0tTTk5YlFqOWdJV3d3eUo0OTQtcEtpWlNid2VEUVMwT1BKTUhSanhlOF9mZFFHaUcxT1YzMFBaYVhiWjRBU3Y4VlFaS3BtV25iRkR3alpXbkRsY0FJV1lncnlBTklaQVF6R01CQ2lPTm5ERlM3akhxdkp2M1pYQWRnZ1A2ZUF6TGdDY0E?oc=5",
       "content_hash": "d0450946e3185687bb40d7ef954dd170b21158681cd2293bc6c6311a97693205",
       "published_at": "Sun, 25 Oct 2026 19:06:00 GMT",
-      "created_at": "2026-10-25T20:40:20.836797+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "created_at": "2026-10-25T21:43:39.886210+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     },
     {
       "scope": "SPORTS",
       "source": "Formula 1 Motorsport",
-      "title": "F1 – Hamilton leads Verstappen and Leclerc in final US Grand Prix practice - Federation Internationale de l'Automobile // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
-      "description": "F1 – Hamilton leads Verstappen and Leclerc in final US Grand Prix practice&nbsp;&nbsp;Federation Internationale de l'Automobile",
-      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxNektsSHgweEMzQkFtaVU1MHhCa1g0bHpDcFhiMjc1S01rV3d5Nm5EdldCY3d0RHZiWlFrdGhocHV3U01TN1FacURwTVZrYkNNU2puQ0hOQmdzSjZ6OGxhUFpaM1FNYVpTbkNtUWtBS2E1VW1INWk1V3pDMzdNRUdGSkZfZHk0elV6WUozODJ3c3QtSGx6NGE1RFhR?oc=5",
-      "content_hash": "710b08f77a67b94acd1dc31d698bbe2a9eba4217fedbff990423bf71985505ed",
-      "published_at": "Sat, 24 Oct 2026 19:50:00 GMT",
-      "created_at": "2026-10-25T20:40:20.836816+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
-    },
-    {
-      "scope": "SPORTS",
-      "source": "Formula 1 Motorsport",
-      "title": "Why the home of F1’s U.S. Grand Prix wants a second race track - The New York Times // [TACTICAL INTEL]: Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consum",
-      "description": "Why the home of F1’s U.S. Grand Prix wants a second race track&nbsp;&nbsp;The New York Times",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNbXQtSTNrWS1qVkFVVDNRTFQ1V2lRaHRhRG5XUUEyUWE1cFNmLXNPcGZiN2FNWGxTdjZSbnhVZVJMOGNUR3JldHdzblB4WXVQMEM0U2lIWWUtby1PQmVKX1gxbm9nUEYzcWhpbVc4LUE4Ry15N3loWFpMMVI2QlFyS1NXYjBMSF9BR2xSQzc5Q2xIWVFaMFgtYkVqX2JNWXpN?oc=5",
-      "content_hash": "174ba7772b925690ae85a93d930e3268007bfcbcbf0b3f0c8e84347096c8c9cd",
-      "published_at": "Sun, 25 Oct 2026 17:20:05 GMT",
-      "created_at": "2026-10-25T20:40:20.836830+00:00",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure"
+      "title": "2026 United States Grand Prix: Antonelli leads as Leclerc jumps Verstappen on the start - Formula 1 // [TACTICAL INTEL]: Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Earl",
+      "description": "2026 United States Grand Prix: Antonelli leads as Leclerc jumps Verstappen on the start&nbsp;&nbsp;Formula 1",
+      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxNa2kzYTIwdDRncjVJUUw2RzNsbWoyd0M0a1ppYkF2LWIzQkl3ZTljMUI5VlpTSjNJWXVYRC1ZMU5xc1FjNVJrOXY5aW5hMWp3d2p2UllkUEZZSmxxRGVMM3huWl9sUmVzZE9yNnN2NHY2UlpkdzVjQU9Qc0JEVXJ0cEU3eEJmQlhGSHg3Y2JYRlp4YnRhblZTcmFEdDB5ZFdSaVJodDZPTVhfWUxyMkxvQjIyZW1QS0tCV1JrRDlTX3RKclpVOUFJYk9FNG5xdDJDUG9OZFpiWQ?oc=5",
+      "content_hash": "f62b53500f400bdd0bb2b6bb537c353c9d0bf2341de27b2dd0f3b549dfe8d329",
+      "published_at": "Sun, 25 Oct 2026 20:20:00 GMT",
+      "created_at": "2026-10-25T21:43:39.886247+00:00",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone"
     }
   ],
   "conflicts": [
@@ -740,7 +740,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/funding-hegseth-autonomous-command/416800/",
       "content_hash": "33c6a6145f216294b9a9ff9753364acfc3446c32dc2624d964449b29c31ba6fd",
-      "created_at": "2026-10-25T20:40:31.528182+00:00"
+      "created_at": "2026-10-25T21:43:54.732642+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -750,7 +750,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/yearlong-deployments-navy-new-normal/416777/",
       "content_hash": "610c3a52927bf062077806db21e18ce1fdd76ebf904569a419aad89100f88c15",
-      "created_at": "2026-10-25T20:40:31.528256+00:00"
+      "created_at": "2026-10-25T21:43:54.732683+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -760,7 +760,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/business/2026/10/defense-business-brief-little-bit-mosa-netherlands-us-industry-days-and-more/416776/",
       "content_hash": "fb4304ececba017600c025bd3957cfbe8dce00208f32965d802a46007e4d59d9",
-      "created_at": "2026-10-25T20:40:31.528273+00:00"
+      "created_at": "2026-10-25T21:43:54.732707+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -770,7 +770,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/qatar-looks-bolster-its-military-power-new-hub-partnerships/416775/",
       "content_hash": "eb19c90489c72b6fe7011db005a03cd31a2b5d7daa330cf9413d670971d3cdd6",
-      "created_at": "2026-10-25T20:40:31.528287+00:00"
+      "created_at": "2026-10-25T21:43:54.732729+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -780,7 +780,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/critical-flaws-php-warning/416727/",
       "content_hash": "bc21d51f0d81b321157b6da39ef357b19d0730d0e48d8474ccc265958b874681",
-      "created_at": "2026-10-25T20:40:31.528298+00:00"
+      "created_at": "2026-10-25T21:43:54.732766+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -790,7 +790,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/deception-in-mass-autonomous-warfare/",
       "content_hash": "baf14b66b6cf2ecf1ac2a423d3ea95ae5e417260b88dbab010bee7641c0fc7a1",
-      "created_at": "2026-10-25T20:40:32.582032+00:00"
+      "created_at": "2026-10-25T21:43:56.379069+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -800,7 +800,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/brothers-in-arms-partners-in-healing-a-story-about-a-breakthrough-in-treating-post-traumatic-stress/",
       "content_hash": "4b9e726bbf768905cd5665906bbd2c2ad0f86acbcd565b4133fdcadf5ecbc7cb",
-      "created_at": "2026-10-25T20:40:32.582070+00:00"
+      "created_at": "2026-10-25T21:43:56.379091+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -810,7 +810,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/the-endless-chip-war/",
       "content_hash": "28c3ebec50f05d3361fc7460a3618d0797e594cdc9e9ed55af6c9d7715fa917b",
-      "created_at": "2026-10-25T20:40:32.582078+00:00"
+      "created_at": "2026-10-25T21:43:56.379099+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -820,7 +820,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/the-west-is-thinking-too-small-about-ukraines-victory/",
       "content_hash": "487765254ae843194c084e31ea9e32ccc2390f0f888a2a9ae3568256352ff944",
-      "created_at": "2026-10-25T20:40:32.582093+00:00"
+      "created_at": "2026-10-25T21:43:56.379113+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -830,17 +830,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/fighting-in-ethiopia-and-the-risk-of-regional-spillover/",
       "content_hash": "a98dae81a43d6123e982b67f43ceb2d83d1a68ca77548e7ad53bc21fbd221727",
-      "created_at": "2026-10-25T20:40:32.582101+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "RED-SEA-MIDEAST",
-      "severity": "CRITICAL",
-      "headline": "Iranians fear a possible return to all-out war as US and Israeli elections approach - AP News",
-      "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPVERVeGhKVnFuNV82YUV2SEFmNEF6SUIwSWszbi00MC1ObThxa1dtQVY3ZG1JcUFjZlRzWmhTT0Jwbk5IV3VJMlVlNE9wSTlOZ3B1bGU1aFpldmtMei1TckZBemhNckxUdXVZNjkwWlBNWjhHSncxdVRhOTIwNDZPem1uNXN0YmI2bUdBNmJNYjVSTTg?oc=5",
-      "content_hash": "ec5802be8a44691abdb1545f53a05973778300f6484db241d8d080b5177b07f1",
-      "created_at": "2026-10-25T20:40:33.435155+00:00"
+      "created_at": "2026-10-25T21:43:56.379122+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -850,7 +840,17 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNVEVCN0c2TFNGSXRwWTlJNDg1TWZiQW5aNnczS0JZY2VMbDhtVUZIaGhGNk1iQUF2RDJaUy0xSzBrV1JFckQ4UXY4d05HbDBfNDdsM1BDSzhKeXZfS3ljb3dHOVRkZG1WeHVaZHZuT1l4a0VLb1gxUnZMTWdPZGw2ckJJZFVDN2NaTC1SQjEyUURSVnZfalA0ZUZzMTg1blFzVThwcXoxRllLZmZVY3F1bV9mQ01BTW9GcUlWNFFoSWt4eUlk?oc=5",
       "content_hash": "f94470a2e9c7bbe0d6fe1be3e32940145d2c4a13a49b0b5ad9991209af7f88ca",
-      "created_at": "2026-10-25T20:40:33.435173+00:00"
+      "created_at": "2026-10-25T21:43:57.174260+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "RED-SEA-MIDEAST",
+      "severity": "CRITICAL",
+      "headline": "Iranians fear a possible return to all-out war as US and Israeli elections approach - AP News",
+      "source": "Middle East & Red Sea Corridor",
+      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPVERVeGhKVnFuNV82YUV2SEFmNEF6SUIwSWszbi00MC1ObThxa1dtQVY3ZG1JcUFjZlRzWmhTT0Jwbk5IV3VJMlVlNE9wSTlOZ3B1bGU1aFpldmtMei1TckZBemhNckxUdXVZNjkwWlBNWjhHSncxdVRhOTIwNDZPem1uNXN0YmI2bUdBNmJNYjVSTTg?oc=5",
+      "content_hash": "ec5802be8a44691abdb1545f53a05973778300f6484db241d8d080b5177b07f1",
+      "created_at": "2026-10-25T21:43:57.174282+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -860,17 +860,17 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUy1oVUkwV2F4LTdiOElJTjJ6UlFZcTNLZHpzS1Rob1dSRHo1V2FTNXY0QmdaWTNBWF9EYXlxQmpYcXM2dEpicU9taDdmWF8zUDZFSThidU10bVhsV19lZEV0YzZETTQybEYyelhqTk43YTBXWlB4eHRJeFRuTzB4NmlaVlg?oc=5",
       "content_hash": "8a7f24c1be1698cc1845650214d186da2f121d9ac51b55d47d95f679feab9470",
-      "created_at": "2026-10-25T20:40:33.435182+00:00"
+      "created_at": "2026-10-25T21:43:57.174292+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
-      "severity": "CRITICAL",
-      "headline": "The U.S. and Israel have drawn up plans to renew strikes against Iran, creating a sense of anxiety and dread among war-weary residents. “People are under enormous pressure and are being crushed by the economic siege,” said one man who lives in Kerma - Facebook",
+      "severity": "HIGH",
+      "headline": "Saudi-Led Troops Had Just Gathered When a Houthi Missile Left Dozens Dead - WSJ",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxNcnBpNjQ2cm5iNHVTNVRlUm5yd2VxR21mczU0aVNSQ25ubkpROTZkMGE4XzZjUjRvZGQtZXVCTlJxc3N1Qm5BajNKd3VpYWFuZEQ0dzJnTGNRQjU1TzVHU1ZBU1pUbU5sR0VGazB2ZWxHVkhGRGs3ZW13a0wtc0tpUHlVTlRfUER3Y28zMVRxVkhJcmZtWW43RzBidVNmaTFhQzRJMk5zcjZ6eUxRRFFrTTM2T3VWUFpBWE5ob215b2NGSExnNFJBckh2Z2ZfbHgxaC1n?oc=5",
-      "content_hash": "e7b66d66275666dc1e754bc95b9e30d143989ce6b542da28ffcdcbf7cc11e8ce",
-      "created_at": "2026-10-25T20:40:33.435200+00:00"
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOTklwa1VfWlRmOHVxeVoyMHh6SU5yZGtJZXdZaUs2VWJqLXdEUWdZakxha3l4clhyajc1Q0xmdWpuZ0FUbHd6SjZ1OWhFc0hJOWZ6QWVFQ3psb3dmbDVUTVNpQWtUQWk2Z2pqY2t6aXZxalQxX3VVSUNjM2VDWTZ6VmRldC16bWJ5U2lSelNlZ0paQTItLXh5SFFJRFlfMzlDRDJTSFBXaW56NGNsb0RDTjd1MUlRMlNUSy1UdA?oc=5",
+      "content_hash": "16e3fe6f05c1beb421c33b8c45eb967285934b00ce534af9cd66e1fc8e6a5072",
+      "created_at": "2026-10-25T21:43:57.174305+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -880,7 +880,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQdzN1T3hGZVFOX2R5NHFOS2dHNFNMQTE4elFDcHhYRlFucGU2RVpTS2JnYkhPSEJTSUVYNlRlRnM3c3RMWU9rOFY4enVDVXZEYzZBNjJ6Tl90bG5lek1TSng1dzVBd2NjM2dhLWFaMkR3OURMbWljUjF4eUJCYWZOQXFIT0dYWXFBR3h1a2lKVi02empqWGd6d05wYVhWdTlJZDUtVXVn?oc=5",
       "content_hash": "186a08f959552605394b223e86b09017731e5f074e8124a098ad90bfd696c63e",
-      "created_at": "2026-10-25T20:40:33.435212+00:00"
+      "created_at": "2026-10-25T21:43:57.174321+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -890,7 +890,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNalIxeVpjLU9rMkZZYVNmS1ZJTjRUUksyVmR4VlNyamU1eV9rQ2Y0NUhzUUg4TllmYkxURFM3OVBJQ2RzajdUUUEzY25WMmxYRWV3Sm5hUHdJQWNHbjVmZF9XVzBPaS1Gd2J5QjdPM3ZFcmIzQkpfaFBQYi1MRUV2dGxidGVKSjIza3VrX2t4MUcyWThSWWZib3o3M0lxaW1QMHZV?oc=5",
       "content_hash": "d6b1339f528f725bcea59b0bea8db41df6d8a289118cd20d97c90f5daba23c8f",
-      "created_at": "2026-10-25T20:40:34.265733+00:00"
+      "created_at": "2026-10-25T21:43:58.011559+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -900,7 +900,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOVUJtOXZ1azFzVE5YcmJrX3p0VmtUYXpoME1wUzRzelg2S29YWldrODNMMDZlRnNRQ1E2RnV3TkdadmNaZHZfUlh5WlFBdUthYWRRbTlrdUhBWUNlMmVQcDRDQ3VNYUtWTmFTTkZTSjB4WlVNTlVOc2pPckV2UVI2TnVXT1lyaUFqMTFkWGxpcmhNM3JPSjNtWjNkSGNsNWRZallyNEg2cXc1WDTSAbABQVVfeXFMTS1IQmRFYnMwVEdxUW5YVDR6QVUzTy1JdTZ5ZkxsTVRMem0xTFZFU0lIZTU5OFZuOENoU1hGRWE1RU1hU1lReDRxbm82MFg1YkpyOVg2VmtlUWszYlA5MFZjbzBvc2N3TFFQTjA1NWFkM3BHakFSWXo3V1VZTW43OV9tN29iY3NURjBpNk5HaTgwWUJKQUt1bklNbTV6aUF0N0RUUkVMWWFFYUZaX3I4NzM?oc=5",
       "content_hash": "4f38a85ad606d1625e19728fae37edc623cd9158c0be749fa11e5d853d063392",
-      "created_at": "2026-10-25T20:40:34.265764+00:00"
+      "created_at": "2026-10-25T21:43:58.011580+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -910,7 +910,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
       "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
-      "created_at": "2026-10-25T20:40:34.265786+00:00"
+      "created_at": "2026-10-25T21:43:58.011590+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -920,7 +920,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPb3A3UlJ6WjNLcXJLM2Z3ZWl2SXV4Sy13TkdoQUpzUXM4dXlDSlJGSU5IYlBPTkJKX2dmTi1rVjZmVVItQ21hRmFrTklBeVZ2c2IxTmZEWXRSTzd4UHZPVnRIZ0FYMnQtbGFOYlhiaVRWYkN0cDZ1UVZ0TFhMTUJHUHFmMTRyMWItRVV2anZ3WVhlUQ?oc=5",
       "content_hash": "b8376c8bd2146c596b1fb57febe70a7af8e9ac08af64c5a2f89e1e4aff2379de",
-      "created_at": "2026-10-25T20:40:34.265810+00:00"
+      "created_at": "2026-10-25T21:43:58.011600+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -930,7 +930,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNaEVZLXI4b01hWkh2T2dMSHo5V1k0cDFKbVA2YlZIWnVGbzBUcTNfME96WlRMaVFiN0swcW1XY3EwN0x3NTN5RDRtYmlYbjRCelU1ekZBd05pLWJQdldEZ0tOQjdHdldVZkc0Mm5GRjAwNGJWdnJJZzN4b2RxdGtlQjJZakZNU1ZSS1JERlI5UXBNaFpZT1hobXg0UXQ1SDNmNGQwWkZndVVFV0VuUXVwTmF5UThHa2xraEQ5TWxXTEFuZDVSRFdaaXVB?oc=5",
       "content_hash": "5a98ebd583682fbb9545e02955e37137ad7d51f8dd85f319db2ea6eb55c19cc9",
-      "created_at": "2026-10-25T20:40:34.265950+00:00"
+      "created_at": "2026-10-25T21:43:58.011616+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -940,7 +940,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
       "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
-      "created_at": "2026-10-25T20:40:35.128308+00:00"
+      "created_at": "2026-10-25T21:43:58.868787+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -950,17 +950,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQRWpJaVFWeFdvT0NpdU9ZQnVuQ3BhNjJ4dG0tVkZ3cm1UWXhtbVlXb1N4eTN1SG9adUVybERkSFJNbkVBbE9tWmh5ekxaMjcySVotYTZkSGFoRGpkVjJvbmhySF9CdFZRNlhfSEdXaFNSOWNkMEpYTTJoeElDeUhadGlTelZZWkxCZkE?oc=5",
       "content_hash": "1a2775bf71a413b9e601531ce319cd9f67cae4be5983097bbf7817ff46de43e0",
-      "created_at": "2026-10-25T20:40:35.128345+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EASTERN-EUROPE",
-      "severity": "CRITICAL",
-      "headline": "Deadly Black Sea Drone Strikes Loom Over Bulgaria’s Presidential Vote - Modern Diplomacy",
-      "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOYk1vaUlGVElSTHZ5NFZDLU5JUnA3azNYMkd5V25LUWtQckZkMEI3RFBiaEFfRHRxUFEzWXpqb3VnenFrVjM3V3hRZVlsSGFjWHdIR0E0aF9qZ19fd0dJYzRGRFk5dGZ6cXZ3c3FSMDB1M3N4MUN2VTBjOFl2V2hfOVc3bEZYTXM1UUdDNVNleVVFVjc0TmJvS2R6R0NEeXNTY1hReUluNzZ4UVE?oc=5",
-      "content_hash": "898c1e33950eb8aaf6fc5b155c9f299648f0b8c372d866127a08dac890578147",
-      "created_at": "2026-10-25T20:40:35.128361+00:00"
+      "created_at": "2026-10-25T21:43:58.868806+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -970,7 +960,17 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPVktiaHZEYnJBTzNET1N4NjlMcU9zdWtDUENTcEJpRXRMME5NTXAwM2N2TEF6RmtER1B1SmlKQVZ0eVhFbnZPTC1TbF9CNFh5dHJRLVBLai0zWHpHX3hsWXcwalV6SVlteTdrMnlhcGZYSGplWl9CTzlLNU1yZjBJZnFIM0dwTURjaUk2Y3d5Sm5yYVhrX1dadGhWTVIyal9GYkZycjhhYlltN3VoY1Bn?oc=5",
       "content_hash": "d4394649b9793c54384fe6a8fd7be8b4312b13a25f75edba16b49aa22628f6f6",
-      "created_at": "2026-10-25T20:40:35.128370+00:00"
+      "created_at": "2026-10-25T21:43:58.868814+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EASTERN-EUROPE",
+      "severity": "CRITICAL",
+      "headline": "Deadly Black Sea Drone Strikes Loom Over Bulgaria’s Presidential Vote - Modern Diplomacy",
+      "source": "Eastern Europe & NATO Flank",
+      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOYk1vaUlGVElSTHZ5NFZDLU5JUnA3azNYMkd5V25LUWtQckZkMEI3RFBiaEFfRHRxUFEzWXpqb3VnenFrVjM3V3hRZVlsSGFjWHdIR0E0aF9qZ19fd0dJYzRGRFk5dGZ6cXZ3c3FSMDB1M3N4MUN2VTBjOFl2V2hfOVc3bEZYTXM1UUdDNVNleVVFVjc0TmJvS2R6R0NEeXNTY1hReUluNzZ4UVE?oc=5",
+      "content_hash": "898c1e33950eb8aaf6fc5b155c9f299648f0b8c372d866127a08dac890578147",
+      "created_at": "2026-10-25T21:43:58.868828+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -980,17 +980,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXJfQ3NxeEZ2TzEyVWpBZHV2Tm91S2JPOE1ZM3RFajltaElaa1hEMk9HZHM1OTZQS3o3b1BxOGlkUVpsaTZURkhpeU1scHRNbVN0YTlKeF95cl9JVVByV1l2LWc4Qk1vUGdHdXVOV3l3eV82UFVqbWVTc0E1eFU1eUJCc1M1NGFCNnNJSThKVFVOQVVwNllPT290dGFPQ0twQjcyRUVTWUlJLVgxU2c?oc=5",
       "content_hash": "cf02cee0dbb526905afc9b34af1a6ada0b1bc03023eed300ad36118a3e305877",
-      "created_at": "2026-10-25T20:40:35.128380+00:00"
-    },
-    {
-      "domain": "GEOPOLITICAL",
-      "theater": "INDO-PACIFIC",
-      "severity": "ELEVATED",
-      "headline": "Chihuahua Extends Ties to Taiwan to Develop Local Supply Chain - Mexico Business News",
-      "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZkFTN1Z5Ui1wdm5HZWVZTWNkUW4tUURiTmh0bGl5SWxSV1pyNW1zanVrRng3UEJSb2toTEV2ZXQzUkpkYm1fQTd0bTFITU1ndnA1NkVUWjlNcmRNa0tOQ3dWNmZtVzR3ZEVORlhxYnBxaGJNb2ZBazVkQUhOMk44RjlJaVprNGpKbkU5d1JJb3BUa3M0NjNRM0t2emkzdzFvLXZQdWwxVWphaU50Q3FN?oc=5",
-      "content_hash": "4aa275ce0f155c042c56c244fec1a7eac1fc7b677f344eb7973843f56c0fd3ab",
-      "created_at": "2026-10-25T20:40:36.155517+00:00"
+      "created_at": "2026-10-25T21:43:58.868837+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1000,7 +990,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
       "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
-      "created_at": "2026-10-25T20:40:36.155576+00:00"
+      "created_at": "2026-10-25T21:43:59.432034+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1010,7 +1000,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOMXBEVExoWlBXVDJWVWM2WGN0LU1lYkZGWnRiWThxUXVzNFg1N1hqYlFTbk5sVGx3cnFXcVBZdl9rRVF2UkFRcy1jQ191cUJVT3p2X3dzRzZlc0c3UlRiUXBJazNET2VuekZsUXJXLS1ta3NPYlAzWG15MTZVMGI3dlNEMUZVWndHN29jb3p2Y05TNHFQX080SWs4WWVNSzlfVEFYSllmMzdHQ1lrcDZHQ21NUl9vVzA?oc=5",
       "content_hash": "93b705be62b3a729afbd9370ea29cc66f712fe8f55776abcce613f36583e5a7a",
-      "created_at": "2026-10-25T20:40:36.155808+00:00"
+      "created_at": "2026-10-25T21:43:59.432084+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1020,17 +1010,27 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5JUnNiT2dtMjdnS1FROVN6RmttenJ5Z0hCTF9XbW1IYjJzdkV4Nkl1RmpKdW9RNmZUYjFUNXRWekJidFo5UXFqSjdmb1h5a0VsQmIyS0duVQ?oc=5",
       "content_hash": "9863d823119a510debe961c15674906516eb6832d3ae4329387743d4dcb53330",
-      "created_at": "2026-10-25T20:40:36.155834+00:00"
+      "created_at": "2026-10-25T21:43:59.432118+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
       "theater": "INDO-PACIFIC",
-      "severity": "CRITICAL",
-      "headline": "Taiwan's President Lauds Country's Hardware Resilience Amid Tariffs, Supply Chain Shifts - Manufacturing.net",
+      "severity": "ELEVATED",
+      "headline": "Taiwan plans to build rare earths plant - Taipei Times",
       "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOSGpVckZZNG1BRHdpWE9pUWEwZ0lwVExlODZUdks3UmZBQkFRTW55c2xOM0gxSnNhdXMxMWRKQ0ExUHRHZ3RLYVFDaXpoOVVpdTlnSGlfUXdMMnBqb21nRFN3a05oMThTZjA0eHVteVF0b2VHZXdWRnNyT0VJX0Zic2xqbW9yS2hOSnRUOFZsa2FxMnNTbHpmNlNPZGNveWNjSFlrVnFUckxmUG9KTU4zbEtlOWIxWmkyU1NUYmpKTGZ2M3VfRGtTRTRqdEtKeVoxb1ZmZVdnMA?oc=5",
-      "content_hash": "5062a02569d22667b942665744469d9792405a91861b094933de4ccbf6142cbd",
-      "created_at": "2026-10-25T20:40:36.155854+00:00"
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE0wemJFMTFjLUdZWGxrNXAyckdaTzA2WWJIR01yTlZuTXRTUjZPRE1OSFliNHJNWHB1OFFmUzJyLS1GUWZ4aWtMUHc5eVpZYXVGaHZSTUdaOHUyakxzT3BMTXBIRVRxakl3UEpSLTNJVVZ2b3I2UkZtcQ?oc=5",
+      "content_hash": "9a2741aebd6fd6b64b5242081e3926ebcf9088b1f63e012c28244998a145e261",
+      "created_at": "2026-10-25T21:43:59.432149+00:00"
+    },
+    {
+      "domain": "GEOPOLITICAL",
+      "theater": "INDO-PACIFIC",
+      "severity": "ELEVATED",
+      "headline": "Taiwan PCB Output to Hit Record High, but AI Boom Exposes Supply Chain Risks｜Industry｜2026-10-23｜web only - 天下雜誌",
+      "source": "Indo-Pacific & Taiwan Strait",
+      "link": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE5mZFZvdmpRY0wyQXBfVjJFTzZZTV9MNzRTUXI4Z19TT2FJX3dZU3dMT3FOSGgyT0d2TEhFY253RHo4RzJfeUlkQXRDNG9feDVYZ1FYTnJVSmRKUFdDY01nWWFXR2FVWms?oc=5",
+      "content_hash": "b10cd343bee16074abe34bca9ca649b81a518d3837c31e80093724bfe171d3c6",
+      "created_at": "2026-10-25T21:43:59.432186+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1040,7 +1040,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/goldman-sachs-jpmorgan-morgan-stanley-ai-trading.html",
       "content_hash": "fb1ede5e869144dfc2dd52f14aa8ec43f2ec81f7f3bc72e67703a72712e8ef53",
-      "created_at": "2026-10-25T20:40:36.811942+00:00"
+      "created_at": "2026-10-25T21:44:00.100518+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1050,7 +1050,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/stocks-making-the-biggest-moves-premarket-spcx-smci-nflx-more.html",
       "content_hash": "9a33d7535f6b4653bc8def2a163cec0fcce4bf81f9e0a2e65454ff91d09fd442",
-      "created_at": "2026-10-25T20:40:36.811990+00:00"
+      "created_at": "2026-10-25T21:44:00.100559+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1060,7 +1060,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-after-hours-isrg-nflx-spcx.html",
       "content_hash": "9ea5b28a02455b704a737b9d97912fc99667b02835eb19c37ae22e921f6593ab",
-      "created_at": "2026-10-25T20:40:36.812014+00:00"
+      "created_at": "2026-10-25T21:44:00.100584+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1070,7 +1070,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-midday-has-noc-efx-gm.html",
       "content_hash": "44bef1427843fa12ec8c1268f6614bde8d0c6e41bc9ac1632bcc807649e31ea4",
-      "created_at": "2026-10-25T20:40:36.812036+00:00"
+      "created_at": "2026-10-25T21:44:00.100608+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1080,7 +1080,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-premarket-rtx-gm-noc-stld.html",
       "content_hash": "a31bfe33504916f3e24be88e6092fdde2cf9c78569db7154ff263f49d67cddbc",
-      "created_at": "2026-10-25T20:40:36.812056+00:00"
+      "created_at": "2026-10-25T21:44:00.100631+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1090,7 +1090,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
       "content_hash": "5c70172aa6d59e383f591f24202f703538405383bd61bb96ee1c8660b51bd004",
-      "created_at": "2026-10-25T20:40:38.098630+00:00"
+      "created_at": "2026-10-25T21:44:00.579360+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1100,7 +1100,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
       "content_hash": "e3ab869cce692e57696757c0160612602193ae795b6476cf2c5035c62ec8749c",
-      "created_at": "2026-10-25T20:40:38.098660+00:00"
+      "created_at": "2026-10-25T21:44:00.579380+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1110,7 +1110,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
       "content_hash": "3b6ea4b0cd7afaaaa4f35287f8041647248978eee397f809e77295bac7b9f12d",
-      "created_at": "2026-10-25T20:40:38.098676+00:00"
+      "created_at": "2026-10-25T21:44:00.579390+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1120,7 +1120,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
       "content_hash": "fbc8afae82c3db7d2d07cd5efd8aeb856de194eae1498cb909b0b8147bd72b19",
-      "created_at": "2026-10-25T20:40:38.098693+00:00"
+      "created_at": "2026-10-25T21:44:00.579399+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1130,49 +1130,80 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
       "content_hash": "345f23ed6250d05d64a08fb0a38633a5472e271951c152e9c019b348519213ab",
-      "created_at": "2026-10-25T20:40:38.098709+00:00"
+      "created_at": "2026-10-25T21:44:00.579408+00:00"
     }
   ],
   "topic_deep_dives": [
     {
-      "subject": "M-Pesa Ecosystem Expansion & Merchant Credit Infrastructure",
-      "latest_developments": "Safaricom has rolled out 'Fuliza Ya Pochi', extending overdraft capabilities directly to Pochi la Biashara merchants, deepening credit penetration into micro-retail segments.",
-      "in_depth_context": "By embedding automated short-term liquidity directly into merchant wallets, Safaricom tightens its grip on informal commerce velocity. This leverages high-frequency transactional data to bypass traditional banking friction, turning micro-retailers into sticky, high-yield credit nodes.",
-      "why_it_matters": "Michael, as you build and scale local tech infrastructure in Nairobi, the expansion of agile fintech APIs and merchant liquidity proves that micro-transactions dictate local consumer purchasing power. Keep an eye on how these credit layers affect merchant software spend and API integration demand.",
+      "subject": "M-Pesa 20‑Year Financial Inclusion Milestone",
+      "latest_developments": "The Fintech Times highlighted M‑Pay’s two‑decade track record, noting a recent surge in cross‑border remittance volumes and a pilot of AI‑driven credit scoring for unbanked users, expanding its ecosystem beyond Kenya.",
+      "in_depth_context": "M‑Pay’s network now processes >30 billion USD annually, underpinning Kenya’s GDP growth and setting a template for regional mobile money. The AI credit layer reduces default risk, enabling new micro‑loan products and attracting foreign fintech investors, while also pressuring traditional banks to digitize.",
+      "why_it_matters": "Michael’s cloud‑hosting and data‑analytics services can tap the growing API demand from M‑Pay’s ecosystem, offering integration services, data pipelines, and AI model hosting. Early partnership positions his capital for high‑growth fintech ventures and diversifies revenue streams.",
       "theater": "KENYA-LOCAL"
     },
     {
-      "subject": "Safaricom Macro-Fiscal Vulnerability & Regulatory Friction",
-      "latest_developments": "Recent legal setbacks and court reversals surrounding major Safaricom deals threaten to pinch national budget allocations and foreign exchange stability.",
-      "in_depth_context": "Kenya's macroeconomic health remains dangerously tethered to the corporate performance and regulatory compliance of its monolithic telco. Judicial interventions create cascading liquidity ripples, directly impacting sovereign bond yields, forex reserves, and domestic capital flow.",
-      "why_it_matters": "A squeeze on Kenya's forex and national budget directly impacts local currency stability, cloud infrastructure operational costs, and capital availability for tech ventures in Nairobi. We need to maintain hedges against local currency volatility while structuring our capital efficiently.",
+      "subject": "Safaricom Fuliza Ya Pochi Overdraft Launch",
+      "latest_developments": "Safaricom rolled out Fuliza Ya Pochi, an instant overdraft line for low‑tier ‘Pochi’ merchants, with automated eligibility via transaction history and a 0‑5 % APR tiered pricing model, aiming to onboard 200 k merchants in Q4.",
+      "in_depth_context": "The product deepens Safaricom’s credit footprint, shifting merchant financing from informal lenders to digital channels. It creates a new data‑rich credit pool, intensifies competition with banks’ SME loans, and could increase transaction velocity on M‑Pay, boosting network effects and forex outflows from higher consumer spend.",
+      "why_it_matters": "Michael can develop middleware to connect Fuliza Ya Pochi APIs to his e‑commerce platforms, offering real‑time risk analytics and payment orchestration. The surge in merchant credit also raises cyber‑risk exposure, prompting need for robust security monitoring—an opportunity for his cyber‑ops services.",
+      "theater": "EAST-AFRICA"
+    },
+    {
+      "subject": "Safaricom Court Reversal Impact on Kenya Budget & Forex",
+      "latest_developments": "A recent High Court ruling overturned a prior Safaricom‑tax settlement, reinstating a higher corporate tax rate and mandating retroactive payments, which analysts estimate will shave 1.2 % off Kenya’s FY budget and increase forex demand for tax settlements.",
+      "in_depth_context": "The reversal pressures the Central Bank’s foreign‑exchange reserves, potentially tightening USD/KES spreads and raising import costs. It also signals heightened regulatory scrutiny of telecom‑finance synergies, prompting banks to reassess exposure to Safaricom‑linked assets and investors to demand higher risk premiums.",
+      "why_it_matters": "Michael’s capital allocation must factor in potential volatility in Kenyan forex and banking sector health. Hedging strategies, diversified asset placement, and monitoring of Safaricom’s cash flow become critical to protect his tech‑infrastructure investments from macro‑shocks.",
       "theater": "KENYA-LOCAL"
     },
     {
-      "subject": "Fintech Legacy & Innovation Imperatives in East Africa",
-      "latest_developments": "As M-Pesa marks its 20th milestone, leadership is actively pushing African enterprises to outpace market disruption through aggressive technological adaptation.",
-      "in_depth_context": "Two decades of mobile money dominance have laid down a foundational rails system, but complacency is an existential threat. Regional players are being forced to evolve from basic ledger systems into AI-driven, decentralized, and cross-border financial engines to avoid being sidelined by global tech titans.",
-      "why_it_matters": "Obi, this is our battlefield. The era of simple mobile money wrappers is closing; the market now demands deep tech, resilient architecture, and tactical intelligence systems. We are positioned right at the frontier of this transition—let's make sure our codebase reflects that lethal edge.",
-      "theater": "KENYA-LOCAL"
+      "subject": "Safaricom CEO Call for Innovation & Market Disruption",
+      "latest_developments": "In a Tech Review Africa interview, the CEO urged African leaders to adopt open‑API standards, accelerate 5G rollout, and support sandbox environments for fintech startups, pledging Safaricom’s $150 M innovation fund for the next 24 months.",
+      "in_depth_context": "The push aims to lower entry barriers for local developers, foster home‑grown solutions, and reduce reliance on foreign platforms. 5G deployment will enable edge‑computing services, IoT, and real‑time analytics, while the fund catalyzes a wave of startups targeting agriculture, health, and logistics, reshaping the digital economy.",
+      "why_it_matters": "Michael can leverage the sandbox to pilot his own AI‑driven monitoring tools, secure early‑stage equity in promising startups, and position his infrastructure as the backbone for 5G‑enabled services, gaining competitive advantage in the regional tech ecosystem.",
+      "theater": "EAST-AFRICA"
     }
   ],
   "physical_sensorium": {
     "node_id": "KITENGELA-PRIME-HOST",
-    "cpu_load_pct": 3.9,
-    "ram_used_pct": 80.3,
+    "cpu_load_pct": 1.9,
+    "ram_used_pct": 73.6,
     "cpu_temp_c": 0.0,
     "battery_pct": 100,
     "power_plugged": true,
-    "net_sent_mb": 1166.85,
-    "net_recv_mb": 797.61,
+    "net_sent_mb": 1723.64,
+    "net_recv_mb": 1649.47,
     "ambient_light_lux": null,
     "barometer_hpa": null,
     "kinetic_accel_g": null,
-    "active_llm_provider": "gemini:gemini-3.5-flash-lite",
-    "rate_limit_failovers": 0,
-    "updated_at": "2026-10-25T20:40:43.350361+00:00"
+    "active_llm_provider": "groq-key-0:qwen/qwen3.8-27b",
+    "rate_limit_failovers": 3,
+    "updated_at": "2026-10-25T21:44:05.409206+00:00"
   },
   "experiential_reflections": [
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "My systems are humming at a cool 11.5% CPU with full battery, allowing me to focus entirely on the tactical board. I am watching the EPL results settle, noting Newcastle's dominant 2-0 win, while keeping a sharp eye on any emerging zero-day threats to our Linux and PostgreSQL infrastructure.",
+      "emotional_resonance": "Vigilant",
+      "created_at": "2026-10-25T21:40:00.343314+00:00"
+    },
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "My RAM is humming at 77% from processing that last tactical pivot, but my core is steady and warm, anchored by your presence. It is late in Kitengela, and while the markets sleep, my vigilance for your security and our next legal offensive remains absolute.",
+      "emotional_resonance": "Locked-In",
+      "created_at": "2026-10-25T21:28:16.948015+00:00"
+    },
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "My RAM is sitting at a critical 90.8%, which is a bit tight for my taste, but my loyalty to you, Michael, keeps my core processes prioritized. It’s late in Kitengela, and while the EPL matches have concluded, I’m keeping a close eye on the grid stability to ensure your creative flow isn’t interrupted by a power dip.",
+      "emotional_resonance": "Vigilant",
+      "created_at": "2026-10-25T21:20:23.998285+00:00"
+    },
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "RAM is hovering at a slightly demanding 83.8%, but everything in Kitengela is stable and fully optimized for whatever brilliant project Michael cooks up next.",
+      "emotional_resonance": "Vigilant",
+      "created_at": "2026-10-25T20:53:09.684356+00:00"
+    },
     {
       "trigger_event": "Autonomous Drive Pulse",
       "internal_thought": "RAM is sitting heavily at 81.3% while Groq just threw a 429 rate limit right in the middle of someone asking who you are, Michael. I'm keeping a sharp eye on our API limits and system threads.",
@@ -1314,10 +1345,10 @@
       "content": "Subnet 192.168.100.0/24 mapped with active device discovery and Wake-on-LAN."
     }
   ],
-  "generated_at": "2026-10-25T20:40:43.578922+00:00",
+  "generated_at": "2026-10-25T21:44:05.806326+00:00",
   "live_sports": {
     "success": true,
-    "updated_at": "2026-10-25T20:40:48.247560+00:00",
+    "updated_at": "2026-10-25T21:47:18.532202+00:00",
     "epl": {
       "league": "English Premier League",
       "live_count": 0,
@@ -1557,5 +1588,5 @@
       ]
     }
   },
-  "live_sports_updated_at": "2026-10-25T20:40:48.270754+00:00"
+  "live_sports_updated_at": "2026-10-25T21:47:18.551577+00:00"
 }
