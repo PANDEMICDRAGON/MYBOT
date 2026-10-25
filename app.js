@@ -201,6 +201,7 @@ async function fetchTelemetryData() {
     renderConflict();
     renderOsint();
     renderLanDevices();
+    if (typeof fetchOsintReports === "function") fetchOsintReports();
     if (typeof renderLiveSports === "function") renderLiveSports();
     if (refreshIcon) refreshIcon.classList.remove("spin-anim");
     return;
@@ -291,6 +292,7 @@ async function fetchTelemetryData() {
     renderConflict();
     renderOsint();
     renderLanDevices();
+    if (typeof fetchOsintReports === "function") fetchOsintReports();
     if (typeof fetchCommandHistory === "function") fetchCommandHistory();
   } catch (err) {
     console.error("Telemetry sync error:", err);
@@ -4691,6 +4693,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initial Load and Start Timer
   fetchTelemetryData();
+  fetchOsintReports();
   startCountdown();
 });
 
@@ -5743,4 +5746,168 @@ function initLiveSportsEngine() {
 window.fetchLiveSportsTelemetry = fetchLiveSportsTelemetry;
 window.renderLiveSports = renderLiveSports;
 window.initLiveSportsEngine = initLiveSportsEngine;
+
+// =====================================================================
+// PLANETARY OSINT & BEHAVIORAL GAME-THEORY ENGINE (LAYERS 1-4)
+// =====================================================================
+async function submitWebCommand(commandText, mode = "DEEP_DIVE") {
+  const passcode = localStorage.getItem("operator_passcode") || "CORTANA-75-AUTH";
+  let executed = false;
+  try {
+    const res = await fetch("http://127.0.0.1:5050/execute", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-operator-key": passcode
+      },
+      body: JSON.stringify({ prompt: commandText, directive: commandText, auto_apply: true }),
+      signal: AbortSignal.timeout(3000)
+    });
+    if (res.ok) executed = true;
+  } catch (_) {}
+
+  if (!executed && typeof isConfigured === "function" && isConfigured()) {
+    try {
+      const headers = {
+        "apikey": appState.supabaseAnonKey,
+        "Authorization": `Bearer ${appState.supabaseAnonKey}`,
+        "Content-Type": "application/json",
+        "Prefer": "return=representation"
+      };
+      await fetch(`${appState.supabaseUrl}/rest/v1/command_queue`, {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({
+          origin: "WEB",
+          mode: mode,
+          directive: commandText,
+          prompt: commandText,
+          status: "PENDING"
+        })
+      });
+    } catch (err) {
+      console.warn("Cloud command queue submit error:", err);
+    }
+  }
+}
+
+async function triggerOsintSweep() {
+  const input = document.getElementById("osint-target");
+  if (!input) return;
+  const target = input.value.trim();
+  if (!target) return;
+  input.value = "";
+  if (typeof playSciFiChirp === "function") playSciFiChirp("confirm");
+
+  const container = document.getElementById("osint-reports-list");
+  if (container) {
+    container.innerHTML = `
+      <div class="border border-cyan-500/40 bg-slate-950/80 rounded-lg p-4 space-y-2 animate-pulse font-mono text-xs">
+        <div class="flex items-center gap-2 text-cyan-400 font-bold">
+          <span class="animate-spin inline-block">⟳</span>
+          <span>PLANETARY OSINT SWARM ENGAGED // TARGET: ${target}</span>
+        </div>
+        <p class="text-slate-400 text-[11px]">Deploying direct Reddit JSON gateways, Telegram web previews, search dorking swarm, and stealth browser node. Synthesizing Evolutionary Psychology &amp; Game-Theory matrix...</p>
+      </div>
+    ` + container.innerHTML;
+  }
+
+  await submitWebCommand(`recon ${target}`, "DEEP_DIVE");
+  setTimeout(fetchOsintReports, 5000);
+  setTimeout(fetchOsintReports, 12000);
+}
+
+async function fetchOsintReports() {
+  const targetUrl = (typeof appState !== "undefined" && appState.supabaseUrl) ? appState.supabaseUrl : DEFAULT_SUPABASE_URL;
+  const anonKey = (typeof appState !== "undefined" && appState.supabaseAnonKey) ? appState.supabaseAnonKey : DEFAULT_SUPABASE_ANON_KEY;
+  const headers = {
+    "apikey": anonKey,
+    "Authorization": `Bearer ${anonKey}`
+  };
+
+  try {
+    const res = await fetch(
+      `${targetUrl}/rest/v1/osint_recon_reports?select=*&order=created_at.desc&limit=4`,
+      { headers }
+    );
+    if (!res.ok) return;
+    const reports = await res.json();
+    const container = document.getElementById("osint-reports-list");
+    if (!container) return;
+    container.innerHTML = "";
+
+    if (!reports || !reports.length) {
+      container.innerHTML = `<p class="text-xs text-neutral-500 font-mono">No behavioral OSINT dossiers generated yet. Enter a target above.</p>`;
+      return;
+    }
+
+    reports.forEach(r => {
+      const platforms = (r.platforms_scanned || []).map(p =>
+        `<span class="text-[10px] font-mono px-2 py-0.5 bg-neutral-800 text-cyan-300 rounded border border-cyan-500/20">${p}</span>`
+      ).join(" ");
+
+      const footprints = (r.raw_footprints || []).slice(0, 6).map(f =>
+        `<a href="${f.url}" target="_blank" rel="noopener noreferrer" class="block text-[11px] font-mono text-neutral-400 hover:text-cyan-400 truncate">
+           <span class="text-cyan-500 font-bold">[${f.platform}]</span> ${f.title || ''} <span class="text-neutral-500">(${f.metrics || ''})</span>
+         </a>`
+      ).join("");
+
+      container.innerHTML += `
+        <div class="border border-neutral-800 bg-neutral-950 rounded-lg p-4 space-y-4 shadow-lg">
+          <div class="flex flex-wrap justify-between items-center gap-2 border-b border-neutral-800 pb-2">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-sm font-extrabold text-white font-mono">TARGET: ${r.target_query}</span>
+              ${platforms}
+            </div>
+            <span class="text-xs font-bold font-mono px-2.5 py-1 rounded bg-cyan-950 border border-cyan-600 text-cyan-300">
+              ${r.sentiment_vector}
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+            <div class="bg-neutral-900/70 border border-neutral-800 rounded p-3">
+              <h4 class="font-bold text-amber-400 uppercase mb-1 flex items-center gap-1.5">
+                <span>🧬</span> 1. Evolutionary Psychology &amp; Status Signaling
+              </h4>
+              <p class="text-neutral-300 leading-relaxed whitespace-pre-line font-sans text-xs">${r.status_signaling}</p>
+            </div>
+            <div class="bg-neutral-900/70 border border-neutral-800 rounded p-3">
+              <h4 class="font-bold text-cyan-400 uppercase mb-1 flex items-center gap-1.5">
+                <span>♟️</span> 2. Game Theory &amp; Incentive Matrix
+              </h4>
+              <p class="text-neutral-300 leading-relaxed whitespace-pre-line font-sans text-xs">${r.game_theory_matrix}</p>
+            </div>
+            <div class="bg-neutral-900/70 border border-neutral-800 rounded p-3">
+              <h4 class="font-bold text-rose-400 uppercase mb-1 flex items-center gap-1.5">
+                <span>🤖</span> 3. Narrative Coordination &amp; Bot Vectors
+              </h4>
+              <p class="text-neutral-300 leading-relaxed whitespace-pre-line font-sans text-xs">${r.narrative_coordination}</p>
+            </div>
+            <div class="bg-neutral-900/70 border border-lime-400/40 rounded p-3">
+              <h4 class="font-bold text-lime-400 uppercase mb-1 flex items-center gap-1.5">
+                <span>⚡</span> 4. Operator Counterplay (Protect &amp; Exploit)
+              </h4>
+              <p class="text-neutral-200 leading-relaxed whitespace-pre-line font-sans text-xs">${r.operator_counterplay}</p>
+            </div>
+          </div>
+
+          <div class="border-t border-neutral-800 pt-2 space-y-1">
+            <span class="text-[10px] font-bold text-neutral-500 uppercase font-mono">Intercepted Footprints:</span>
+            ${footprints || '<span class="text-[11px] text-neutral-600 block">No raw footprints stored.</span>'}
+          </div>
+        </div>
+      `;
+    });
+  } catch (e) {
+    console.error("[OSINT Reports Fetch Error]:", e);
+  }
+}
+
+window.triggerOsintSweep = triggerOsintSweep;
+window.fetchOsintReports = fetchOsintReports;
+window.submitWebCommand = submitWebCommand;
+window.loadDashboard = async function() {
+  await fetchTelemetryData();
+  await fetchOsintReports();
+};
 

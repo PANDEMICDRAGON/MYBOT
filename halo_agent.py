@@ -319,6 +319,26 @@ async def execute_directive_router(client: httpx.AsyncClient, prompt: str, auto_
             {"role": "user", "content": f"Directive: {clean}\nLive Hardware Telemetry: {mesh_report}"}
         ])
 
+    if lower.startswith(("recon ", "/recon ", "osint ", "decode ")):
+        target_q = clean.split(" ", 1)[1].strip()
+        from osint_engine import run_planetary_recon
+        r = await run_planetary_recon(
+            client,
+            target_query=target_q,
+            llm_caller=call_llm,
+            supabase_url=SUPABASE_URL,
+            supabase_headers=SUPABASE_HEADERS
+        )
+        return (
+            f"PLANETARY OSINT & BEHAVIORAL DOSSIER // TARGET: {r['target_query']}\n"
+            f"PLATFORMS: {', '.join(r['platforms_scanned'])}\n"
+            f"SENTIMENT VECTOR: {r['sentiment_vector']}\n\n"
+            f"1. EVOLUTIONARY PSYCHOLOGY & STATUS SIGNALING:\n{r['status_signaling']}\n\n"
+            f"2. GAME THEORY & INCENTIVE MATRIX:\n{r['game_theory_matrix']}\n\n"
+            f"3. NARRATIVE COORDINATION & BOT DETECTION:\n{r['narrative_coordination']}\n\n"
+            f"4. OPERATOR COUNTERPLAY (PROTECT & EXPLOIT):\n{r['operator_counterplay']}"
+        )
+
     return await call_llm(client, [
         {"role": "system", "content": f"You are HALO (Cortana/J.A.R.V.I.S. construct) running locally inside {WORKSPACE_ROOT}. Respond directly and concisely."},
         {"role": "user", "content": clean}

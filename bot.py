@@ -2284,6 +2284,20 @@ async def start_local_command_server(port: int = 5050):
                         async with httpx.AsyncClient(timeout=50) as hclient:
                             dossier_text = await tool_deep_osint_investigate(hclient, t_query, e_type, s_angle)
                             response_data = {"status": "SUCCESS", "dossier": dossier_text, "target": t_query}
+                    elif cmd in ("recon", "osint_recon", "planetary_recon", "recon_sweep"):
+                        t_query = payload.get("target_query") or payload.get("query") or payload.get("target") or payload.get("directive", "")
+                        if t_query.lower().startswith(("recon ", "/recon ", "osint ", "decode ")):
+                            t_query = t_query.split(" ", 1)[1].strip()
+                        from osint_engine import run_planetary_recon
+                        async with httpx.AsyncClient(timeout=60) as hclient:
+                            r_report = await run_planetary_recon(
+                                hclient,
+                                target_query=t_query,
+                                llm_caller=call_llm_with_failover,
+                                supabase_url=SUPABASE_URL,
+                                supabase_headers=SUPABASE_HEADERS
+                            )
+                            response_data = {"status": "SUCCESS", "report": r_report, "target": t_query}
                     elif cmd in ("delete_memory", "erase_memory", "forget_memory"):
                         m_key = payload.get("memory_key") or payload.get("key") or "operator_location"
                         async with httpx.AsyncClient(timeout=10) as hclient:
@@ -2672,6 +2686,20 @@ AGENT_TOOLS = [
     {
         "type": "function",
         "function": {
+            "name": "planetary_osint_recon",
+            "description": "Executes 4-layer planetary OSINT reconnaissance across Reddit, Telegram, X/Twitter, LinkedIn, and Instagram, synthesizing an evolutionary psychology and game-theory behavioral dossier.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "target_query": {"type": "string", "description": "Target entity, person, company, ticker, or narrative topic to investigate"}
+                },
+                "required": ["target_query"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "get_live_sports_telemetry",
             "description": "Retrieve real-time minute-by-minute English Premier League (EPL) live scores, match clocks, in-play fixtures, and Formula 1 (F1) Grand Prix countdowns and driver championship standings.",
             "parameters": {
@@ -2720,7 +2748,7 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
         "weather", "news", "sports", "sport", "football", "soccer", "premier league", "champions league", "epl", "f1", "formula 1", "standings", "scores", "score", "goals", "goal", "fixtures", "grand prix", "paddock", "racing", "athletics", "marathon", "cyber", "cve", "war", "conflict", "sitrep", "sweep", "sync",
         "remind", "task", "todo", "schedule", "mpesa", "ksh", "kes", "paid", "spent", "receipt",
         "vault", "idea", "remember", "save", "forget", "erase", "wipe", "delete", "memory", "privacy", "location", "dive", "investigate", "search", "probe", "http",
-        "ping", "wifi", "mesh", "device", "tv", "wol", "wake", "power", "volume", "mute", "osint",
+        "ping", "wifi", "mesh", "device", "tv", "wol", "wake", "power", "volume", "mute", "osint", "recon", "decode",
         "scan", "network", "lan", "subnet", "ip", "laptop", "router", "port", "ports", "fingerprint", "banner", "service",
         "speak", "say", "talk", "voice", "vocalize", "chrome", "close", "open", "kill", "shut", "browser", "app", "application", "sound", "volume", "mute", "lock"
     ]
@@ -2825,6 +2853,29 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
         from wifi_manager import disconnect_wifi
         disc_res = disconnect_wifi()
         reply = f"🔌 {disc_res.get('message', 'Wi-Fi interface disconnected.')}"
+        conversation_history.append({"role": "assistant", "content": reply})
+        return reply
+
+    # 8.5. Planetary OSINT & Behavioral Reconnaissance Fast-Path
+    if clean_lower.startswith(("recon ", "/recon ", "osint ", "decode ")):
+        target_q = clean_prompt.split(" ", 1)[1].strip()
+        from osint_engine import run_planetary_recon
+        r = await run_planetary_recon(
+            client,
+            target_query=target_q,
+            llm_caller=call_llm_with_failover,
+            supabase_url=SUPABASE_URL,
+            supabase_headers=SUPABASE_HEADERS
+        )
+        reply = (
+            f"🛰️ *PLANETARY OSINT & BEHAVIORAL DOSSIER // TARGET: {r['target_query']}*\n"
+            f"PLATFORMS: {', '.join(r['platforms_scanned'])}\n"
+            f"SENTIMENT VECTOR: {r['sentiment_vector']}\n\n"
+            f"1. *EVOLUTIONARY PSYCHOLOGY & STATUS SIGNALING:*\n{r['status_signaling']}\n\n"
+            f"2. *GAME THEORY & INCENTIVE MATRIX:*\n{r['game_theory_matrix']}\n\n"
+            f"3. *NARRATIVE COORDINATION & BOT DETECTION:*\n{r['narrative_coordination']}\n\n"
+            f"4. *OPERATOR COUNTERPLAY (PROTECT & EXPLOIT):*\n{r['operator_counterplay']}"
+        )
         conversation_history.append({"role": "assistant", "content": reply})
         return reply
 
@@ -2978,6 +3029,24 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                     result = await tool_connect_wifi(args.get("ssid", ""), args.get("password", ""))
                 elif fn_name in ("get_wifi_status", "tool_get_wifi_status", "wifi_status"):
                     result = await tool_get_wifi_status()
+                elif fn_name in ("planetary_osint_recon", "run_planetary_recon"):
+                    from osint_engine import run_planetary_recon
+                    r = await run_planetary_recon(
+                        client,
+                        target_query=args.get("target_query", ""),
+                        llm_caller=call_llm_with_failover,
+                        supabase_url=SUPABASE_URL,
+                        supabase_headers=SUPABASE_HEADERS
+                    )
+                    result = (
+                        f"PLANETARY OSINT REPORT for {r['target_query']}:\n"
+                        f"Platforms: {', '.join(r['platforms_scanned'])}\n"
+                        f"Sentiment Vector: {r['sentiment_vector']}\n"
+                        f"Evolutionary Psychology: {r['status_signaling']}\n"
+                        f"Game Theory Matrix: {r['game_theory_matrix']}\n"
+                        f"Narrative Coordination: {r['narrative_coordination']}\n"
+                        f"Operator Counterplay: {r['operator_counterplay']}"
+                    )
                 else:
                     result = "Tool executed."
 

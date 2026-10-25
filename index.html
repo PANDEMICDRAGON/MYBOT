@@ -867,6 +867,36 @@
       </div>
     </section>
 
+    <!-- ===================================================================
+         PLANETARY OSINT // BEHAVIORAL & GAME-THEORY DECODER
+         =================================================================== -->
+    <section id="planetary-osint-section" class="draggable-hud-panel bg-neutral-900/90 border border-cyan-500/40 rounded-lg p-5 shadow-xl relative" draggable="true" data-panel-id="planetary-osint-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // PLANETARY OSINT &amp; BEHAVIORAL GAME-THEORY DECODER ]</span>
+        </div>
+        <span class="drag-hint">PLANETARY-OSINT-V4</span>
+      </div>
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-neutral-800 pb-3 mb-4 gap-3">
+        <div>
+          <h2 class="text-base font-bold text-cyan-400 tracking-wider font-display">PLANETARY OSINT // BEHAVIORAL &amp; GAME-THEORY DECODER</h2>
+          <p class="text-[11px] text-neutral-400 font-mono">INTERCEPTS: X // REDDIT // LINKEDIN // INSTAGRAM // TELEGRAM // STEALTH PLAYWRIGHT</p>
+        </div>
+        <div class="flex gap-2 w-full sm:w-auto">
+          <input id="osint-target" type="text" placeholder="Target person, ticker, narrative, or URL..."
+                 onkeydown="if(event.key==='Enter') triggerOsintSweep()"
+                 class="flex-1 sm:w-64 text-xs bg-neutral-950 border border-neutral-700 rounded px-3 py-1.5 text-white focus:border-cyan-400 outline-none font-mono" />
+          <button onclick="triggerOsintSweep()"
+                  class="text-xs px-4 py-1.5 bg-cyan-400 hover:bg-cyan-300 text-black font-extrabold rounded transition font-mono">
+            RECON
+          </button>
+        </div>
+      </div>
+
+      <div id="osint-reports-list" class="space-y-6"></div>
+    </section>
+
 
     <!-- ===================================================================
          4. STAR TREK LCARS, TOTAL RECALL SYNAPSE & INSURGENT DIVERGENCE OPS
