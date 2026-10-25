@@ -2092,6 +2092,9 @@ function initDeviceActionHandlers() {
   const btnVolDn = document.getElementById("btn-action-voldn");
   const btnStream = document.getElementById("btn-action-stream");
   const btnOpenWeb = document.getElementById("btn-action-openweb");
+  const btnSpeak = document.getElementById("btn-action-speak");
+  const btnOpenChrome = document.getElementById("btn-action-openchrome");
+  const btnCloseChrome = document.getElementById("btn-action-closechrome");
   const btnPortScan = document.getElementById("btn-action-portscan");
   const btnVoice = document.getElementById("btn-action-voice");
   const btnPing = document.getElementById("btn-device-ping");
@@ -2121,6 +2124,22 @@ function initDeviceActionHandlers() {
   if (btnStream) btnStream.onclick = () => {
     const dev = getSelectedLanDevice();
     if (dev) sendDeviceCommand(dev.device_name, "open_url", "http://192.168.100.40:3000");
+  };
+  if (btnSpeak) btnSpeak.onclick = () => {
+    const dev = getSelectedLanDevice();
+    const devName = dev ? dev.device_name : "Primary Host Workstation";
+    const phrase = prompt(`Text to speak aloud on ${devName}:`, "Cortana neural construct active on workstation.");
+    if (phrase) sendDeviceCommand(devName, "speak", phrase);
+  };
+  if (btnOpenChrome) btnOpenChrome.onclick = () => {
+    const dev = getSelectedLanDevice();
+    const devName = dev ? dev.device_name : "Primary Host Workstation";
+    sendDeviceCommand(devName, "open_chrome");
+  };
+  if (btnCloseChrome) btnCloseChrome.onclick = () => {
+    const dev = getSelectedLanDevice();
+    const devName = dev ? dev.device_name : "Primary Host Workstation";
+    sendDeviceCommand(devName, "close_chrome");
   };
   if (btnOpenWeb) btnOpenWeb.onclick = () => {
     const dev = getSelectedLanDevice();
@@ -2382,6 +2401,12 @@ async function sendDeviceCommand(deviceName, command, param = "") {
         reply = `Volume decreased on ${deviceName}.`;
       } else if (command === "open_url") {
         reply = `Tactical HUD streaming URL routed to ${deviceName}. Screen synchronized.`;
+      } else if (command === "speak") {
+        reply = data.result || `Vocalized aloud on ${deviceName}: "${param}"`;
+      } else if (command === "open_chrome") {
+        reply = data.result || `Google Chrome opened on ${deviceName}.`;
+      } else if (command === "close_chrome") {
+        reply = data.result || `Google Chrome terminated on ${deviceName}.`;
       } else {
         reply = `Directive '${command.toUpperCase()}' executed on ${deviceName} by bot daemon.`;
       }
@@ -2413,6 +2438,12 @@ async function sendDeviceCommand(deviceName, command, param = "") {
     reply = `Volume decreased on ${deviceName}.`;
   } else if (command === "open_url") {
     reply = `Routing real-time tactical dashboard stream to ${deviceName}. Screen synchronized.`;
+  } else if (command === "speak") {
+    reply = `Vocalizing aloud on ${deviceName}: "${param || 'Construct active'}"`;
+  } else if (command === "open_chrome") {
+    reply = `Opening Google Chrome on ${deviceName}...`;
+  } else if (command === "close_chrome") {
+    reply = `Closing Google Chrome on ${deviceName}...`;
   } else {
     reply = `Directive ${command.toUpperCase()} executed on ${deviceName}.`;
   }
@@ -3805,7 +3836,16 @@ function initTerminalController() {
     chipsContainer.querySelectorAll("button[data-quick]").forEach(chip => {
       chip.onclick = () => {
         const action = chip.getAttribute("data-quick");
-        if (action === "ping-host") {
+        if (action === "laptop-speak") {
+          const phrase = prompt("Enter text to speak aloud on laptop:", "Cortana neural construct active on workstation.");
+          if (phrase) {
+            dispatchTerminalDirective(`speak ${phrase}`, false);
+          }
+        } else if (action === "laptop-open-chrome") {
+          dispatchTerminalDirective("open chrome", false);
+        } else if (action === "laptop-close-chrome") {
+          dispatchTerminalDirective("close chrome", false);
+        } else if (action === "ping-host") {
           probeDevicePing({ device_name: "Primary Host Workstation", ip_address: "192.168.100.40" });
         } else if (action === "scan-tv") {
           runPortAudit({ device_name: "Samsung Neo QLED 4K Smart TV", ip_address: "192.168.100.105" });

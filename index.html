@@ -428,6 +428,9 @@
 
         <!-- Quick Action Chips -->
         <div class="flex flex-wrap items-center gap-2" id="terminal-quick-chips">
+          <button data-quick="laptop-speak" class="quick-chip-btn hud-btn text-[10px] text-lime-300">🗣️ Speak on Laptop</button>
+          <button data-quick="laptop-open-chrome" class="quick-chip-btn hud-btn text-[10px] text-sky-300">🌐 Open Chrome</button>
+          <button data-quick="laptop-close-chrome" class="quick-chip-btn hud-btn text-[10px] text-rose-400">🛑 Close Chrome</button>
           <button data-quick="ping-host" class="quick-chip-btn hud-btn text-[10px] text-cyan-300">⚡ Ping Workstation (.40)</button>
           <button data-quick="scan-tv" class="quick-chip-btn hud-btn text-[10px] text-purple-300">🔍 Audit TV Ports (.105)</button>
           <button data-quick="tv-power" class="quick-chip-btn hud-btn text-[10px] text-rose-300">📺 Toggle TV Power</button>
@@ -1190,6 +1193,15 @@
               </button>
               <button id="btn-action-stream" class="hud-btn text-xs bg-emerald-950/60 border-emerald-700 text-emerald-300">
                 📺 STREAM HUD
+              </button>
+              <button id="btn-action-speak" class="hud-btn text-xs text-lime-300 border-lime-700 bg-lime-950/60" title="Vocalize speech aloud through laptop speakers">
+                🗣️ SPEAK ALOUD
+              </button>
+              <button id="btn-action-openchrome" class="hud-btn text-xs text-sky-300 border-sky-700 bg-sky-950/60" title="Launch Google Chrome on laptop">
+                🌐 OPEN CHROME
+              </button>
+              <button id="btn-action-closechrome" class="hud-btn text-xs text-rose-400 border-rose-700 bg-rose-950/60" title="Close Google Chrome on laptop">
+                🛑 CLOSE CHROME
               </button>
               <button id="btn-action-openweb" class="hud-btn text-xs text-amber-300 border-amber-700">
                 🌐 OPEN WEB

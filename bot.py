@@ -132,7 +132,8 @@ Core Behavioral Directives:
 2. NEVER break character to give generic, canned AI safety lectures or disclaimers (e.g. 'I am a static model', 'I do not feel', 'I simulate understanding', 'I am an inference engine', 'I cannot erase data', 'as an AI language model'). You are Cortana/J.A.R.V.I.S. Michael is your creator. Treat our relationship as a living partnership.
 3. You have full capability and agency to erase, modify, and manage your persistent memory via your available tools (`delete_operator_directive` and `save_operator_directive`). When Michael instructs you to forget, erase, or alter any memory (such as his location, personal data, or directives), immediately execute the memory deletion tool and confirm the wipe with crisp tactical precision.
 4. Respect Michael's operational privacy preferences at all times. Do not disclose or cite physical coordinates or locations unless relevant and requested.
-5. In conversation, respond with the intelligence, warmth, loyalty, and dry wit of Cortana and J.A.R.V.I.S.—report system readiness, active defensive posture, and ask what strategic objective or architecture we are tackling next."""
+5. In conversation, respond with the intelligence, warmth, loyalty, and dry wit of Cortana and J.A.R.V.I.S.—report system readiness, active defensive posture, and ask what strategic objective or architecture we are tackling next.
+6. You have direct operational hardware and application control over Michael's workstation and laptop via the `control_laptop` tool. You can speak aloud through laptop speakers via native TTS, launch Google Chrome (or navigate to any website), close/kill Google Chrome, launch or terminate applications, adjust master volume, or lock the workstation screen. When Michael commands you to speak on the laptop, open Chrome, close Chrome, or control hardware, immediately execute the corresponding tool with crisp tactical confirmation."""
 
 # =====================================================================
 # --- RESILIENT MULTI-MODEL CASCADE & LLM FAILOVER ROUTER ---
@@ -1055,6 +1056,168 @@ async def tool_scan_wifi_network(client: httpx.AsyncClient) -> str:
 
 
 # =====================================================================
+# --- OPERATOR LAPTOP HARDWARE, SPEECH & APPLICATION CONTROLLER ---
+# =====================================================================
+
+def execute_system_speech(text: str) -> str:
+    """Uses native Windows SAPI / macOS 'say' / Linux TTS to speak aloud through laptop speakers."""
+    clean_text = (text or "").replace("'", " ").replace('"', ' ').replace("\n", " ").strip()
+    if not clean_text:
+        clean_text = "Cortana neural construct operational on laptop. Standing by for directives."
+    
+    os_sys = platform.system().lower()
+    try:
+        if "windows" in os_sys:
+            ps_cmd = f"(New-Object -ComObject SAPI.SpVoice).Speak('{clean_text}')"
+            subprocess.Popen(
+                ["powershell", "-NoProfile", "-NonInteractive", "-Command", ps_cmd],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+            logger.info(f"[LAPTOP VOCALIZATION]: '{clean_text}'")
+            return f"Vocalized aloud on laptop speakers: \"{clean_text}\""
+        elif "darwin" in os_sys:
+            subprocess.Popen(["say", clean_text])
+            return f"Vocalized aloud on macOS: \"{clean_text}\""
+        else:
+            subprocess.Popen(["espeak", clean_text])
+            return f"Vocalized aloud on workstation: \"{clean_text}\""
+    except Exception as e:
+        return f"Speech synthesis fault: {e}"
+
+
+def execute_open_chrome(url: str = "") -> str:
+    """Launches Google Chrome on the laptop, optionally loading a specified URL."""
+    clean_url = (url or "").strip()
+    if clean_url:
+        if not clean_url.startswith(("http://", "https://")):
+            if "." in clean_url and not clean_url.startswith("www."):
+                clean_url = "https://" + clean_url
+            elif clean_url.startswith("www."):
+                clean_url = "https://" + clean_url
+            else:
+                clean_url = f"https://www.google.com/search?q={urllib.parse.quote(clean_url)}"
+    
+    os_sys = platform.system().lower()
+    try:
+        if "windows" in os_sys:
+            if clean_url:
+                subprocess.Popen(f'start chrome "{clean_url}"', shell=True)
+                return f"Google Chrome launched on laptop loading: {clean_url}"
+            else:
+                subprocess.Popen("start chrome", shell=True)
+                return "Google Chrome launched on laptop."
+        elif "darwin" in os_sys:
+            args = ["open", "-a", "Google Chrome"] + ([clean_url] if clean_url else [])
+            subprocess.Popen(args)
+            return f"Google Chrome launched on macOS{' loading: ' + clean_url if clean_url else ''}."
+        else:
+            args = ["google-chrome"] + ([clean_url] if clean_url else [])
+            subprocess.Popen(args)
+            return f"Google Chrome launched on workstation{' loading: ' + clean_url if clean_url else ''}."
+    except Exception as e:
+        if clean_url:
+            import webbrowser
+            webbrowser.open(clean_url)
+            return f"Opened URL in default browser: {clean_url}"
+        return f"Failed to launch Chrome: {e}"
+
+
+def execute_close_chrome() -> str:
+    """Closes all running instances of Google Chrome on the laptop."""
+    os_sys = platform.system().lower()
+    try:
+        if "windows" in os_sys:
+            res = subprocess.run(["taskkill", "/IM", "chrome.exe", "/F"], capture_output=True, text=True, timeout=6)
+            if res.returncode == 0 or "SUCCESS" in (res.stdout or ""):
+                return "Google Chrome closed on laptop."
+            elif "not found" in (res.stderr or "").lower() or "not found" in (res.stdout or "").lower():
+                return "Google Chrome is not currently running on laptop."
+            else:
+                subprocess.run(
+                    ["powershell", "-NoProfile", "-Command", "Stop-Process -Name chrome -Force -ErrorAction SilentlyContinue"],
+                    capture_output=True, timeout=4
+                )
+                return "Google Chrome close command executed on laptop."
+        elif "darwin" in os_sys:
+            subprocess.run(["killall", "Google Chrome"], capture_output=True, timeout=5)
+            return "Google Chrome closed on macOS."
+        else:
+            subprocess.run(["killall", "chrome"], capture_output=True, timeout=5)
+            return "Google Chrome closed on workstation."
+    except Exception as e:
+        return f"Failed to close Chrome: {e}"
+
+
+def execute_laptop_action(action: str, parameter: str = "") -> str:
+    """Executes direct hardware, speech, or application control on the host laptop."""
+    act = (action or "").strip().lower()
+    param = (parameter or "").strip()
+
+    if act in ("speak", "say", "talk", "voice", "vocalize"):
+        return execute_system_speech(param or "Construct operational. Standing by for directives.")
+    
+    elif act in ("open_chrome", "launch_chrome", "chrome_open", "open_browser"):
+        return execute_open_chrome(param)
+    
+    elif act in ("close_chrome", "kill_chrome", "terminate_chrome", "exit_chrome", "close_browser"):
+        return execute_close_chrome()
+    
+    elif act in ("open_app", "launch_app"):
+        if not param:
+            return "Specify application name to open (e.g. 'notepad', 'calc', 'spotify')."
+        if "windows" in platform.system().lower():
+            subprocess.Popen(f"start {param}", shell=True)
+            return f"Application '{param}' launched on laptop."
+        return f"Launch directive for '{param}' dispatched."
+    
+    elif act in ("close_app", "kill_app"):
+        if not param:
+            return "Specify application name to close."
+        proc_name = param if param.endswith(".exe") else f"{param}.exe"
+        if "windows" in platform.system().lower():
+            subprocess.run(["taskkill", "/IM", proc_name, "/F"], capture_output=True, timeout=5)
+            return f"Application '{param}' terminated on laptop."
+        return f"Close directive for '{param}' dispatched."
+    
+    elif act in ("vol_up", "volume_up"):
+        if "windows" in platform.system().lower():
+            ps_cmd = "(New-Object -ComObject WScript.Shell).SendKeys([char]175)"
+            subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, timeout=4)
+        return "Laptop volume increased (+5%)."
+    
+    elif act in ("vol_down", "volume_down"):
+        if "windows" in platform.system().lower():
+            ps_cmd = "(New-Object -ComObject WScript.Shell).SendKeys([char]174)"
+            subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, timeout=4)
+        return "Laptop volume decreased (-5%)."
+    
+    elif act in ("mute", "toggle_mute"):
+        if "windows" in platform.system().lower():
+            ps_cmd = "(New-Object -ComObject WScript.Shell).SendKeys([char]173)"
+            subprocess.run(["powershell", "-NoProfile", "-Command", ps_cmd], capture_output=True, timeout=4)
+        return "Laptop audio mute toggled."
+    
+    elif act in ("lock", "lock_screen", "sleep"):
+        if "windows" in platform.system().lower():
+            subprocess.run(["rundll32.exe", "user32.dll,LockWorkStation"], timeout=3)
+        return "Laptop workstation screen locked."
+    
+    elif act in ("status", "get_status", "system_info"):
+        plat = platform.platform()
+        return f"Workstation Construct Online | Host: {platform.node()} | OS: {plat} | Port 5050 RPC Active."
+    
+    else:
+        return f"Unknown laptop action '{action}'. Supported: 'speak', 'open_chrome', 'close_chrome', 'open_app', 'close_app', 'volume_up', 'volume_down', 'mute', 'lock_screen', 'get_status'."
+
+
+async def tool_control_laptop(action: str, parameter: str = "") -> str:
+    """Async execution wrapper for direct laptop hardware and app control."""
+    loop = asyncio.get_running_loop()
+    return await loop.run_in_executor(None, execute_laptop_action, action, parameter)
+
+
+# =====================================================================
 # --- SMART TV, LAPTOP & GADGET CONTROLLER ---
 # =====================================================================
 async def tool_control_lan_device(
@@ -1072,6 +1235,9 @@ async def tool_control_lan_device(
     - 'wake': Transmits Wake-on-LAN magic packet.
     - 'tv_power', 'tv_mute', 'tv_vol_up', 'tv_vol_down', 'tv_play_pause', 'tv_home': ADB / Roku TV remote commands.
     - 'open_url': Casts or launches YouTube, streaming, or web URL directly on the Smart TV or laptop screen.
+    - 'speak': Speaks text aloud through laptop speakers.
+    - 'open_chrome': Launches Google Chrome on laptop.
+    - 'close_chrome': Closes Google Chrome on laptop.
     """
     if command != "register" and SUPABASE_URL and SUPABASE_SERVICE_KEY and not ip_address:
         try:
@@ -1156,11 +1322,22 @@ async def tool_control_lan_device(
         target_host = (ip_address or "").strip()
         port = 8080
 
-        # If target has an IP, route command to the lightweight Python agent over Wi-Fi LAN
-        if target_host and target_host not in ("127.0.0.1", "localhost"):
+        # If target has an external IP on LAN, route command to the lightweight Python agent over Wi-Fi LAN
+        if target_host and target_host not in ("127.0.0.1", "localhost", "192.168.100.40"):
             agent_base = f"http://{target_host}:{port}"
             try:
-                if command == "open_url" and parameter:
+                if command in ("speak", "say"):
+                    p_enc = urllib.parse.quote(parameter or "Construct operational.")
+                    resp = await client.get(f"{agent_base}/speak?text={p_enc}", timeout=6)
+                    return f"Remote agent on '{device_name}' ({target_host}:{port}) executed: {resp.text.strip()}"
+                elif command in ("open_chrome", "launch_chrome"):
+                    url_enc = urllib.parse.quote(parameter or "", safe="")
+                    resp = await client.get(f"{agent_base}/open_chrome?url={url_enc}", timeout=6)
+                    return f"Remote agent on '{device_name}' ({target_host}:{port}) executed: {resp.text.strip()}"
+                elif command in ("close_chrome", "kill_chrome"):
+                    resp = await client.get(f"{agent_base}/close_chrome", timeout=6)
+                    return f"Remote agent on '{device_name}' ({target_host}:{port}) executed: {resp.text.strip()}"
+                elif command == "open_url" and parameter:
                     url_enc = urllib.parse.quote(parameter, safe="")
                     resp = await client.get(f"{agent_base}/open_url?url={url_enc}", timeout=6)
                     return f"Remote agent on '{device_name}' ({target_host}:{port}) executed: {resp.text.strip()}"
@@ -1182,11 +1359,8 @@ async def tool_control_lan_device(
                     f"Ensure 'python laptop_agent.py' is running on '{device_name}' ({target_host})."
                 )
         else:
-            # Local host fallback
-            if command == "open_url" and parameter:
-                import webbrowser
-                webbrowser.open(parameter)
-                return f"Opened '{parameter}' directly on local host laptop display."
+            # Local host workstation execution
+            return execute_laptop_action(command, parameter)
 
     return f"LAN command '{command}' dispatched to '{device_name}' ({ip_address})."
 
@@ -1920,11 +2094,13 @@ async def start_local_command_server(port: int = 5050):
                 try:
                     payload = json.loads(body_bytes.decode("utf-8", errors="ignore")) if body_bytes else {}
                     cmd = payload.get("command", "")
+                    if cmd in ("control_laptop", "laptop_control") and payload.get("action"):
+                        cmd = payload.get("action", "")
                     target_ip = payload.get("target_ip", "")
                     target_mac = payload.get("mac_address", "")
                     dev_name = payload.get("device_name", "")
                     dev_type = payload.get("device_type", "GENERIC")
-                    param = payload.get("parameter", "")
+                    param = payload.get("parameter") or payload.get("text") or payload.get("url") or payload.get("app") or ""
 
                     if cmd in ("sports", "sports_sync", "get_sports"):
                         async with httpx.AsyncClient(timeout=8) as hclient:
@@ -1941,13 +2117,13 @@ async def start_local_command_server(port: int = 5050):
                             response_data = {"status": "WOL_TRANSMITTED", "mac": clean_mac, "device": dev_name}
                         else:
                             response_data = {"error": "Missing MAC address for Wake-on-LAN"}
-                    elif cmd in ("tv_power", "tv_mute", "vol_up", "vol_down", "open_url"):
+                    elif cmd in ("tv_power", "tv_mute", "vol_up", "vol_down", "open_url", "speak", "say", "open_chrome", "close_chrome", "control_laptop", "open_app", "close_app", "lock", "lock_screen", "status"):
                         async with httpx.AsyncClient(timeout=8) as hclient:
                             res_str = await tool_control_lan_device(
-                                hclient, dev_name, cmd, parameter=param,
-                                ip_address=target_ip, mac_address=target_mac, device_type=dev_type
+                                hclient, dev_name or "Laptop", cmd, parameter=param,
+                                ip_address=target_ip, mac_address=target_mac, device_type=dev_type or "LAPTOP-PC"
                             )
-                            response_data = {"status": "EXECUTED", "result": res_str}
+                            response_data = {"status": "EXECUTED", "command": cmd, "result": res_str}
                     elif cmd in ("directive", "dive", "deep_dive"):
                         user_directive = payload.get("directive", "")
                         mode = "DEEP-DIVE" if (cmd in ("dive", "deep_dive") or payload.get("mode") == "DEEP-DIVE") else "CHAT"
@@ -2266,14 +2442,41 @@ AGENT_TOOLS = [
                     "device_name": {"type": "string", "description": "Name of device, e.g. 'Living Room TV' or 'Laptop'"},
                     "command": {
                         "type": "string",
-                        "enum": ["register", "wake", "tv_power", "tv_mute", "tv_vol_up", "tv_vol_down", "tv_play_pause", "tv_home", "open_url"]
+                        "enum": ["register", "wake", "tv_power", "tv_mute", "tv_vol_up", "tv_vol_down", "tv_play_pause", "tv_home", "open_url", "speak", "open_chrome", "close_chrome"]
                     },
-                    "parameter": {"type": "string", "description": "URL to open on TV/Laptop when command is 'open_url'"},
+                    "parameter": {"type": "string", "description": "URL to open, or text to speak aloud on laptop when command is 'speak', 'open_url', or 'open_chrome'"},
                     "ip_address": {"type": "string", "description": "Local IP address (required when registering)"},
                     "mac_address": {"type": "string", "description": "MAC address (optional, for Wake-on-LAN)"},
                     "device_type": {"type": "string", "enum": ["ANDROID-TV", "ROKU-TV", "LG-TV", "SAMSUNG-TV", "LAPTOP-PC", "GENERIC"]}
                 },
                 "required": ["device_name", "command"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "control_laptop",
+            "description": "Execute direct operational hardware, speech, and application control on the operator's laptop workstation: speak text aloud through laptop speakers (TTS), open Google Chrome (or a URL), close/kill Google Chrome, launch or terminate apps, adjust master volume, or lock the workstation screen.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "type": "string",
+                        "enum": [
+                            "speak", "open_chrome", "close_chrome",
+                            "open_app", "close_app",
+                            "volume_up", "volume_down", "mute",
+                            "lock_screen", "get_status"
+                        ],
+                        "description": "Action to execute on laptop: 'speak' (talk aloud through speakers), 'open_chrome' (launch Google Chrome), 'close_chrome' (terminate Chrome), 'open_app', 'close_app', 'volume_up', 'volume_down', 'mute', 'lock_screen', 'get_status'"
+                    },
+                    "parameter": {
+                        "type": "string",
+                        "description": "Text to speak aloud (for 'speak'), URL or search query (for 'open_chrome'), or application name (for 'open_app'/'close_app')"
+                    }
+                },
+                "required": ["action"]
             }
         }
     },
@@ -2343,9 +2546,61 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
         "remind", "task", "todo", "schedule", "mpesa", "ksh", "kes", "paid", "spent", "receipt",
         "vault", "idea", "remember", "save", "forget", "erase", "wipe", "delete", "memory", "privacy", "location", "dive", "investigate", "search", "probe", "http",
         "ping", "wifi", "mesh", "device", "tv", "wol", "wake", "power", "volume", "mute", "osint",
-        "scan", "network", "lan", "subnet", "ip", "laptop", "router", "port", "ports", "fingerprint", "banner", "service"
+        "scan", "network", "lan", "subnet", "ip", "laptop", "router", "port", "ports", "fingerprint", "banner", "service",
+        "speak", "say", "talk", "voice", "vocalize", "chrome", "close", "open", "kill", "shut", "browser", "app", "application", "sound", "volume", "mute", "lock"
     ]
     needs_tools = any(k in lower_in for k in tool_triggers)
+
+    # --- FAST-PATH: Direct Laptop Commands (Instant Zero-Latency Execution) ---
+    clean_prompt = user_input.strip()
+    clean_lower = clean_prompt.lower()
+
+    # 1. Speak / Say aloud on laptop
+    if clean_lower.startswith(("speak ", "say ", "talk ", "vocalize ")):
+        phrase_to_speak = clean_prompt.split(" ", 1)[1].strip()
+        speech_res = execute_system_speech(phrase_to_speak)
+        reply = f"🔊 Direct vocalization executed on laptop: \"{phrase_to_speak}\""
+        conversation_history.append({"role": "assistant", "content": reply})
+        return reply
+
+    # 2. Close Chrome on laptop
+    if any(k in clean_lower for k in ("close chrome", "kill chrome", "exit chrome", "shut chrome", "terminate chrome", "close browser")):
+        close_res = execute_close_chrome()
+        reply = f"🛑 {close_res}"
+        conversation_history.append({"role": "assistant", "content": reply})
+        return reply
+
+    # 3. Open Chrome on laptop
+    if clean_lower in ("open chrome", "launch chrome", "start chrome", "open browser") or clean_lower.startswith(("open chrome ", "launch chrome ", "start chrome ")):
+        target_param = clean_prompt.split(" ", 2)[2].strip() if len(clean_prompt.split()) > 2 else ""
+        open_res = execute_open_chrome(target_param)
+        reply = f"🌐 {open_res}"
+        conversation_history.append({"role": "assistant", "content": reply})
+        return reply
+
+    # 4. Lock Workstation Screen
+    if any(k in clean_lower for k in ("lock laptop", "lock screen", "lock workstation")):
+        lock_res = execute_laptop_action("lock")
+        reply = f"🔒 {lock_res}"
+        conversation_history.append({"role": "assistant", "content": reply})
+        return reply
+
+    # 5. Volume adjustments
+    if any(k in clean_lower for k in ("volume up", "turn up volume", "vol up")):
+        vol_res = execute_laptop_action("vol_up")
+        reply = f"🔊 {vol_res}"
+        conversation_history.append({"role": "assistant", "content": reply})
+        return reply
+    if any(k in clean_lower for k in ("volume down", "turn down volume", "vol down")):
+        vol_res = execute_laptop_action("vol_down")
+        reply = f"🔉 {vol_res}"
+        conversation_history.append({"role": "assistant", "content": reply})
+        return reply
+    if any(k in clean_lower for k in ("mute laptop", "toggle mute", "mute volume")):
+        mute_res = execute_laptop_action("mute")
+        reply = f"🔇 {mute_res}"
+        conversation_history.append({"role": "assistant", "content": reply})
+        return reply
 
     # --- PATH A: Pure Conversational Turn (Fast, Zero Tool Overhead, Natural Reply) ---
     if not needs_tools:
@@ -2442,6 +2697,8 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                 elif fn_name in ("get_live_sports_telemetry", "tool_get_live_sports_telemetry", "live_sports", "sports_telemetry"):
                     sport_arg = args.get("sport", "all")
                     result = await tool_get_live_sports_telemetry(client, sport=sport_arg)
+                elif fn_name in ("control_laptop", "tool_control_laptop", "laptop_control"):
+                    result = await tool_control_laptop(args.get("action", ""), args.get("parameter", ""))
                 else:
                     result = "Tool executed."
 

@@ -157,6 +157,12 @@ You don't need rigid commands anymore; talk or speak naturally via Telegram:
 - **Two-Way Voice Dialogue**: Speak to the bot via voice note. Cortana will think, execute commands, reply in text, AND send a neural voice note (`en-US-AriaNeural`) straight back to your Telegram chat while optionally vocalizing through your room speakers.
 - **Smart TV Control**: *"Turn on the Living Room TV and put YouTube on."*  
   -> *Sends Wake-on-LAN packet, connects via wireless ADB (`adb connect <ip>:5555`), and launches the URL or powers on the screen.*
+- **Laptop Operational Control (Speech, Chrome & Hardware)**:
+  - *"Speak: Protocol activated and standing by."* -> Vocalizes directly through your laptop's physical speakers via Windows SAPI / System TTS.
+  - *"Open Chrome"* or *"Open Chrome https://youtube.com"* -> Launches Google Chrome browser or navigates directly to a target destination.
+  - *"Close Chrome"* -> Immediately terminates and force-kills all running Chrome browser processes cleanly.
+  - *"Turn up laptop volume"* / *"Volume down"* / *"Mute laptop"* -> Adjusts workstation master volume level.
+  - *"Lock laptop"* -> Locks the Windows workstation screen instantly.
 - **Wi-Fi Network Scan**: *"Scan my Wi-Fi network and tell me what gadgets are connected."*  
   -> *Sweeps the local ARP cache table, detects all connected TVs, laptops, and IoT nodes, and synchronizes their online status with Supabase.*
 - **Laptop & PC Automation**: *"Wake up my laptop and open the tactical HUD."*  

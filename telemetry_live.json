@@ -1,58 +1,58 @@
 {
   "sitrep": {
     "threat_level": "ELEVATED",
-    "sitrep": "Boss, fresh multi-network telemetry confirms significant regional and infrastructural momentum. Tanzania's Sh3.67 trillion capital infusion for the 424km Makutupora-Isaka SGR link is radically shifting East African trade velocities, bypassing legacy bottlenecks. Meanwhile, critical CVE-2021-40539 exploitations demand immediate isolation of management architectures, while local weather in Nairobi and Kitengela holds a stable 23.5°C overcast.",
-    "conflict_summary": "In the broader macroeconomic theater, US tariff pivots are accelerating Brazilian agricultural flows while global defense architectures grapple with autonomous command restructuring and persistent semiconductor supply chain friction. Regionally, the expansion of the East African SGR network alters freight economics, promising long-term cost compressions for heavy equipment and material transit from coastal ports into the interior basin.",
-    "future_risk_forecast": "Over the next 7 to 30 days, localized logistics restructuring will interact with lingering Red Sea shipping surcharges to influence import landed costs. Persistent cyber alerts centered on Zoho ManageEngine and legacy credential exposures require rigorous patch management to prevent automated lateral movement across our digital perimeter.",
-    "defensive_protocol": "• Immediately audit and patch all internal assets against Zoho ManageEngine vulnerabilities (CVE-2021-40539 and CVE-2020-10189).\n• Harden Linux server configurations and verify SSH key-only authentication across all cloud and local deployment nodes.\n• Monitor KES/USD foreign exchange exposure to hedge against imported hardware and cloud hosting cost inflation.",
-    "asymmetric_upside": "• Position capital strategically within Nairobi Securities Exchange infrastructure and banking equities (e.g., Safaricom and Co-operative Bank) to capture local liquidity shifts.\n• Leverage regional logistics improvements driven by the Tanzanian SGR expansion to optimize cross-border supply chain software solutions for EAC enterprises.\n• Capitalize on high-concurrency digital traffic spikes and media consumption anomalies by deploying high-performance caching layers in our Next.js architectures.",
-    "created_at": "2026-10-25T17:04:02.444017+00:00"
+    "sitrep": "Good day, Boss. Telemetry indicates SpaceX clamping down on tactical Starlink terminal utilization in Ukraine, setting a sharp precedent for LEO infrastructure governance. Meanwhile, Venezuelan opposition leader María Machado's return following Maduro's ouster portends heavy crude market shifts, while Gabon lifts its eight-month social media blackout. Locally, Nairobi and Kitengela hold steady under overcast skies at 22.7°C. Defensive posture remains locked.",
+    "conflict_summary": "Kinetic theaters are accelerating across multiple vectors. In the Levant, Israeli border lockouts and West Bank transit closures ahead of elections intensify regional supply chain friction and security overhead. Simultaneously, great-power friction over semiconductor supply chains ('The Endless Chip War') and autonomy command force structures highlight ongoing vulnerabilities in critical hardware governance.",
+    "future_risk_forecast": "Over the next 7 to 30 days, commercial LEO satellite operators may enact tighter geo-fencing or API throttling policies, threatening single-vendor reliance in remote deployments. Simultaneously, unfreezing Venezuelan heavy crude output will exert downward pressure on global energy pricing, indirectly rippling into KES-denominated import and logistics cost structures.",
+    "defensive_protocol": "• Audit all remote infrastructure dependencies to ensure multi-vendor internet failover protocols, mitigating potential sudden LEO satellite throttling.\n• Execute an immediate patch cycle across enterprise perimeters targeting CVE-2021-40539 and related ManageEngine/Zyxel vulnerabilities.\n• Monitor Nairobi/Kitengela grid stability metrics and maintain localized UPS/fuel reserves to insulate against secondary utility fluctuations.",
+    "asymmetric_upside": "• Position for potential energy cost retracements by evaluating utility and transport equity allocations on the Nairobi Securities Exchange (NSE).\n• Capitalize on heightened enterprise demand for zero-trust network architectures and multi-cloud resilience consulting.\n• Leverage global telecommunication policy shifts to offer decentralized mesh communication solutions for vulnerable remote operations.",
+    "created_at": "2026-10-25T17:45:48.182032+00:00"
   },
   "weather": [
     {
       "city": "Kitengela",
       "scope": "LOCAL",
-      "temp_c": 23.5,
-      "humidity": 49,
-      "wind_kmh": 23.1,
+      "temp_c": 22.8,
+      "humidity": 54,
+      "wind_kmh": 20.3,
       "condition": "Overcast",
-      "updated_at": "2026-10-25T17:03:38.931715+00:00"
+      "updated_at": "2026-10-25T17:45:28.513405+00:00"
     },
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 23.9,
-      "humidity": 41,
-      "wind_kmh": 17.3,
+      "temp_c": 22.7,
+      "humidity": 50,
+      "wind_kmh": 14.2,
       "condition": "Overcast",
-      "updated_at": "2026-10-25T17:03:39.386818+00:00"
+      "updated_at": "2026-10-25T17:45:28.966129+00:00"
     },
     {
       "city": "London",
       "scope": "GLOBAL",
-      "temp_c": 12.1,
-      "humidity": 48,
+      "temp_c": 11.9,
+      "humidity": 53,
       "wind_kmh": 19.4,
-      "condition": "Mainly Clear",
-      "updated_at": "2026-10-25T17:03:39.822793+00:00"
+      "condition": "Clear",
+      "updated_at": "2026-10-25T17:45:29.430189+00:00"
     },
     {
       "city": "New York",
       "scope": "GLOBAL",
-      "temp_c": 18.4,
+      "temp_c": 18.7,
       "humidity": 30,
-      "wind_kmh": 2.6,
+      "wind_kmh": 5.6,
       "condition": "Clear",
-      "updated_at": "2026-10-25T17:03:40.251336+00:00"
+      "updated_at": "2026-10-25T17:45:29.864525+00:00"
     },
     {
       "city": "Tokyo",
       "scope": "GLOBAL",
       "temp_c": 17.9,
       "humidity": 96,
-      "wind_kmh": 2.3,
-      "condition": "Overcast",
-      "updated_at": "2026-10-25T17:03:40.681771+00:00"
+      "wind_kmh": 2.9,
+      "condition": "Partly Cloudy",
+      "updated_at": "2026-10-25T17:45:30.340966+00:00"
     }
   ],
   "cyber": [
@@ -66,7 +66,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-29583",
       "content_hash": "9f081a6e1d190b3adb67bea03885f7d65d18b78730b9c2c87cf597ad796249dc",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665077+00:00"
+      "created_at": "2026-10-25T17:45:38.550178+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -78,7 +78,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-8394",
       "content_hash": "dcf56971dec638c1e32bbc4863650ecccaa3af1c85cf2da3c1c671840c6eaeba",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665098+00:00"
+      "created_at": "2026-10-25T17:45:38.550548+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -90,7 +90,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-10189",
       "content_hash": "617c981616242dca0a79d74e690e201fa8363243f0fca31311c73e72299ea8a9",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665106+00:00"
+      "created_at": "2026-10-25T17:45:38.550574+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -102,7 +102,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-40539",
       "content_hash": "a0a7f6dce826b88ebb232c56805a6e18d05107d19068a3fb93dd0b621606f8f4",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665112+00:00"
+      "created_at": "2026-10-25T17:45:38.550589+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -114,7 +114,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-27561",
       "content_hash": "f2e8bbcb50ba59a8e1ff4f38363f496625804d18d53be7d4a45da85e33ab94f1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665119+00:00"
+      "created_at": "2026-10-25T17:45:38.550602+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -126,7 +126,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-9978",
       "content_hash": "0172212bf226992607a8a51bb7ec0b2612440984f13a9e3e8b0418fad56173a1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665125+00:00"
+      "created_at": "2026-10-25T17:45:38.550614+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -138,7 +138,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-11738",
       "content_hash": "895a24212bff3837e00307321f30d072fabdd1b8ffb152b643d8b9503297748c",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665131+00:00"
+      "created_at": "2026-10-25T17:45:38.550627+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -150,7 +150,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25213",
       "content_hash": "25047194a1fb08666eece4829b771542f068bad1a307586569ca0631c5c446d7",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665138+00:00"
+      "created_at": "2026-10-25T17:45:38.550637+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -162,7 +162,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-4006",
       "content_hash": "d96607a458fb92b0ad954e7ec202dd8e5339c638e4f43d7b7d373a473c45462a",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665144+00:00"
+      "created_at": "2026-10-25T17:45:38.550669+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -174,7 +174,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21985",
       "content_hash": "0519b9eb873c86afe0f3b3964b796bf66ff912cfa74eff08bddee80945e4bcc3",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665151+00:00"
+      "created_at": "2026-10-25T17:45:38.550683+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -186,7 +186,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21972",
       "content_hash": "6a15875afd5b6a0fc8b5116f6ded20c3b55fe218ed24823a9c41c945d0488645",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665157+00:00"
+      "created_at": "2026-10-25T17:45:38.550695+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -198,7 +198,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3952",
       "content_hash": "16fbba0f67a35e0d9abb77c5a704a8ec673bc65bef31c73e0e2b582dceefd527",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665163+00:00"
+      "created_at": "2026-10-25T17:45:38.550709+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -210,7 +210,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-22005",
       "content_hash": "8a7fe7a2172f4b0c3668a5827802771468f76277393fa4431ad437befb08ba97",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665169+00:00"
+      "created_at": "2026-10-25T17:45:38.550722+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -222,7 +222,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3950",
       "content_hash": "e4f53315ecff6219811605bb364839d390f5de7c151d53ef8fe2d3f802ad0946",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665175+00:00"
+      "created_at": "2026-10-25T17:45:38.550733+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -234,7 +234,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3992",
       "content_hash": "f4becfb39bd99c21aa036bc17049549112dde23f9fe030037cb5628a0a3650ee",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T17:03:48.665181+00:00"
+      "created_at": "2026-10-25T17:45:38.550744+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -246,7 +246,7 @@
       "link": "https://thehackernews.com/2026/10/openai-ai-agents-demonstrate-vm-escapes.html",
       "content_hash": "ac4bd7b21f1360445738dc78cfad2e78275ee08239370c3a53cbc212bcd9df8e",
       "published_at": "Sun, 25 Oct 2026 12:24:29 +053",
-      "created_at": "2026-10-25T17:03:49.624585+00:00"
+      "created_at": "2026-10-25T17:45:39.265450+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -258,7 +258,7 @@
       "link": "https://thehackernews.com/2026/10/brotli-decoder-flaw-behind-nodejs-rce.html",
       "content_hash": "b75d326892c9f5d67fb1fe2e2d94bfe291647280fe28fe8d3864ab465dec7943",
       "published_at": "Sat, 24 Oct 2026 16:39:29 +053",
-      "created_at": "2026-10-25T17:03:49.624605+00:00"
+      "created_at": "2026-10-25T17:45:39.265478+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -270,7 +270,7 @@
       "link": "https://thehackernews.com/2026/10/leaked-litellm-master-key-let-attackers.html",
       "content_hash": "75b5216799ce87391869dc56f4309f174632da42744abfc93e58a5ad4d3f531c",
       "published_at": "Sat, 24 Oct 2026 16:33:33 +053",
-      "created_at": "2026-10-25T17:03:49.624616+00:00"
+      "created_at": "2026-10-25T17:45:39.265492+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -282,7 +282,7 @@
       "link": "https://thehackernews.com/2026/10/google-says-gmail-and-photos-data.html",
       "content_hash": "fc3cc8e9e2b346a67a243cf594853e3e9f8a1df426f723b1648b7e2c130d62b2",
       "published_at": "Sat, 24 Oct 2026 16:06:33 +053",
-      "created_at": "2026-10-25T17:03:49.624624+00:00"
+      "created_at": "2026-10-25T17:45:39.265502+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -294,7 +294,7 @@
       "link": "https://thehackernews.com/2026/10/researchers-push-over-2-million-updates.html",
       "content_hash": "03c918151b2051053d4fb6ec10c8b90e95433f2b54df9634972afef6d4c79319",
       "published_at": "Sat, 24 Oct 2026 14:34:24 +053",
-      "created_at": "2026-10-25T17:03:49.624633+00:00"
+      "created_at": "2026-10-25T17:45:39.265512+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -306,7 +306,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder/",
       "content_hash": "ba127b223f9a023645aef3fdb6071e91e3db9611be884c107f72af23e23bdcc3",
       "published_at": "Sun, 25 Oct 2026 11:49:38 -040",
-      "created_at": "2026-10-25T17:03:49.891694+00:00"
+      "created_at": "2026-10-25T17:45:39.469935+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -318,7 +318,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/blackx-uefi-bootkit-exploits-baton-drop-flaw-to-bypass-secure-boot/",
       "content_hash": "33bc95e64c1975a1dda2036f8dcfd163720184c8297176bed7b4a1df90c084bb",
       "published_at": "Sat, 24 Oct 2026 10:17:32 -040",
-      "created_at": "2026-10-25T17:03:49.891731+00:00"
+      "created_at": "2026-10-25T17:45:39.469975+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -330,7 +330,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/abandoned-popcorn-time-app-exposed-millions-of-device-to-rce-attacks/",
       "content_hash": "2386b67bb17baa7634c50755bd1f0669836f668a7ec1c25ac4fe1315576411d0",
       "published_at": "Fri, 23 Oct 2026 16:55:05 -040",
-      "created_at": "2026-10-25T17:03:49.891757+00:00"
+      "created_at": "2026-10-25T17:45:39.469992+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -342,7 +342,7 @@
       "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-teams-to-get-ai-powered-context-aware-phishing-detection/",
       "content_hash": "411ee11ed9d2182af30fa10984579e679ebf1fbf5d89479b4fba0a16b040c30c",
       "published_at": "Fri, 23 Oct 2026 14:54:41 -040",
-      "created_at": "2026-10-25T17:03:49.891778+00:00"
+      "created_at": "2026-10-25T17:45:39.470012+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -354,7 +354,7 @@
       "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-server-2016-reaches-end-of-support-in-january/",
       "content_hash": "5d921e4373b14a76608d41de91f98972a6267c36202ac3b43e5c7a8d79766bc9",
       "published_at": "Fri, 23 Oct 2026 13:05:07 -040",
-      "created_at": "2026-10-25T17:03:49.891796+00:00"
+      "created_at": "2026-10-25T17:45:39.470030+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -366,7 +366,7 @@
       "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE4tQ2JEZThuYVBZVTl5bG5vd3JxLW9tNzN4dmk5NTgtbm1WOFh2TnFQdXViMzBieC1ydVhGQ19vUG03ZlhIYy1Fd3ZYeThxX0hQLXIxU0FmYm9XbFcyend2YjV6WC1FVkVrLUwyNnNZVEVDNFdaZGlv?oc=5",
       "content_hash": "8d30229226f1b47fcf440678c82a5ec81de6596501590b54dcf3ae95bce209fd",
       "published_at": "Sat, 24 Oct 2026 11:00:36 GMT",
-      "created_at": "2026-10-25T17:03:50.914922+00:00"
+      "created_at": "2026-10-25T17:45:40.009574+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -378,7 +378,7 @@
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNNjRqUjhqSWZ2OC1kMi1HZmtyM1lYZDlQeFZFSVlyc09yUHBJT2ppeUdENHNBNV9reEhRQWJXV3Y0ZmthUGMxT3lPLXlNYkhkYy01ZXZhREgyUDI4MC1kU1pFOVJPZUNpbXQ1RlMxQUpTc3FZMWVFRUl1VTBvZ2xBN19vOHlacDRJRTN4c0JEMVhiNURGYXlKaEQ3ZHE5T2Nw?oc=5",
       "content_hash": "dfcdae4846e8007a0de4e7129ce8856b5b6bea0fad85f4cb6b2a31d04c96c589",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T17:03:50.914942+00:00"
+      "created_at": "2026-10-25T17:45:40.009621+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -390,7 +390,7 @@
       "link": "https://news.google.com/rss/articles/CBMi6whBVV95cUxPYjd0WUtPQ0M4dnc2Yk5DWWVhc1p4T1JqY0w1eGdqWjJGSUdLTDJJaGYyZ29OckpHTFlIUXVwRzRTZU9POUdZOTNvN0pBR0JsMW9rQTc5SlBTLThqc21USVhDTnpWTXdyejBmZjJyMjhOMWMxd0o2QlBBckY5dXNNVnRNY2M5Z04tWVFzNHNidkRUQVZRRFo5a3ZLT3pGdGpPQWxCOGdzVWd5bmozMmZub0pBTWJzOTNKdzE3QWtfQWZleTNQVHd1azJkV2wzSi1nY0NVYUo1V3ZmQ3kwdEVza3U1QU5CYU9XRlNqVHdTemxWNzhDUGpXTTBSa1VUZWF5YXRpUmpJRG5iNUdhbEo1RWhNMjNkRjVORzVfOERQTmxwYzdzeHV5VXdQYUtleWV0WkRnQ0ZrTGhydXFUaEhmQWJZb2ZIX2RkcF9DYzJrZUNtVFVTRWcyWER3aS1taHlFWlBCa1gya3A1YnE1enNqZFlwMm5sU3dOaWZqMzI0TDFGNmdmOFZibW4xZmRrcnVia3ZSTXRSYjg1eDk5YVZhenZvLUxsZEVic0ZweFNPVk52ZFB4N0pWcjE4Mk1qQ1RGendfN2t5OWtuWHBkclJURXRjN2MydUl0MjNYTG5WcWdlVzJrTzdNYlNrYlpwVVIyRUhDUWs5dzNVdTdqMW15bW1RVjhwVDlHUHRpWVRxd0RldDRrMjVSUmVJZHZ3cVhna0FkaEhSQVM1b0ZhVmlIX0ctZjVSYm9XSE5La2NLSmZvdU9BVUZVVWYyaWZ2bHlEUG1GaDgtaGJkeFpydUZQSGRad0w5OEZ3V211ajZoWDJFa1o2dGF0UUZGd05YWGZaaGRpX3RBaU95OGpJRmNEU1ltcVRmVUdhNWs1YUVUdEFTMnhSSGljMTY2d3EtQUUyUlhPU3EtVDRaN2U5eXBWeVlwWXYteHR5dHZEcDE0NHgtVDlaZlBCOFE5UWQydzg1SldqTGhuWWJaWlNKdmFQRktCM19FVGw4R2ZfYVo3LVVKaG9ad3hMM0x2bG1SMDJweEpqbWVEcTNNRUh0N1ozM2UtYVNxS25TVHBFZ196SGhYdTQzQ0dFYmpBZENENHYyYWlWb0F4S1ExQk9ZNE56X3M1b0hoZU1GZmJRQUx2RklqTTVNY3dxOHU1b1kwQjZjSGRkVGN3SnhiNEZRaGhQUFlPVWlIQmxsVjFmTFBqcjBxNTlTRWR2bGVIcEpGaHBGNGRBSHpSVkIyU1FEeE1KOXpHc09ydmhnN2dFODJzbVZrMmdvbXFMai1xUERCYWN4dXRLNm1MaG90cUVZR05oX0hqUHNTZ2Q5S05QX0c0MVJfaHMtSmRfRlN2QWY4LXg0dlJzRFZFcnNKMjVjV0xQemZBVGE3SjNCMm9qMmJ3SDhmMkYxOEVybGpULVJHREwySVVHMjFKOGxwa0ZiNzQ1QkQ1UTBuTlZfbk8tS1VKc09zc3pVUGNncUs1N3NLV1F0QmJvenVlQ1J6R1k?oc=5",
       "content_hash": "61cad910365d5aab214eced3ccbea2386cc54606df92b954a0ad31ae6ed2674d",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T17:03:50.914967+00:00"
+      "created_at": "2026-10-25T17:45:40.009704+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -402,7 +402,7 @@
       "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQQl90SDAtbFFGTWl1R05VS20tcGNia2hPdS03dElvWlNLUElka1Ixa045SXdQcThoUFM3d01HRElYaGNRLXJrZThQQTc2aFJ6ZjBMc0hPZTRPYUFPTlY0V2JsZHR3Y3hIcXM3LUp2SjYzVUo4ZW1hRlRHWTlEdXZFNzd6aWJ2bWRNMVViODRYR1RGYUZlVnA1akprUWp1NGstTVFPOVdhN1RaWnhKbVRSY0c4X0dHdw?oc=5",
       "content_hash": "d605122d644d87e1f0317321d57acedecffcf642ee6a7c380a3419c5828d8ba3",
       "published_at": "Wed, 07 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T17:03:50.914978+00:00"
+      "created_at": "2026-10-25T17:45:40.009737+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -414,113 +414,477 @@
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMGlYOUFaVy1PTTNHSHlXaTh6cklnQ0xSU3g3dXdYbjhWZGxsR0t4N1dXZ0NNd0pKM2NIOU0xQkdTUF9BdFNXYUk2bTBJYi1iM0h3TWZUM21WNmZIc2FnVEVhSzJHd1pvMnRBR0FvWFBJQ25URF9aVmxXR0xDTzhyNG1DLUEzTzNqRjV6Rnp4c0Y0Qm80ZXFQWnVvSGV2TkkwbWd5Rk9CR1RJTXYyTnc?oc=5",
       "content_hash": "2c77f445a49add8fdb3b5a81c3c6bc7a69e27c0175389c663aac488212e5520e",
       "published_at": "Wed, 14 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T17:03:50.914987+00:00"
+      "created_at": "2026-10-25T17:45:40.009763+00:00"
     }
   ],
   "news": [
     {
+      "scope": "GLOBAL",
+      "source": "BBC World",
+      "title": "Musk says SpaceX restricted Ukraine's Starlink connection as service restored // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "The tech billionaire accuses Ukraine of violating its terms of service by using the network for military activity.",
+      "link": "https://www.bbc.co.uk/news/articles/cvx28ljp8n4xo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "0cc907f893357e5a482bf7b5f1a793e49fd03b92ed1f6619904b0887a3d326ea",
+      "published_at": "Sun, 25 Oct 2026 09:00:00 GMT",
+      "created_at": "2026-10-25T17:45:31.224094+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "BBC World",
+      "title": "Venezuelan opposition leader María Machado returns after months in exile // [TACTICAL INTEL]: Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational s",
+      "description": "Machado had left the country just a month before the US government seized Venezuelan President Nicolás Maduro.",
+      "link": "https://www.bbc.co.uk/news/articles/cq8ez592pp0eo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "01044d17a3dba912097263982cff3496f658e1ed3408147ca5a49f474e00139f",
+      "published_at": "Sun, 25 Oct 2026 16:21:40 GMT",
+      "created_at": "2026-10-25T17:45:31.224148+00:00",
+      "in_depth_context": "The sudden collapse of the Maduro regime and return of opposition leadership marks a critical juncture for Latin American geopolitics and global energy markets. The unfreezing of Venezuelan heavy crude exports could eventually recalibrate OPEC dynamics and global tanker charter rates.",
+      "why_it_matters": "Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational supply chain.",
+      "subject": "Venezuelan Leadership Shift & Energy Market Volatility"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "BBC World",
+      "title": "Early reports suggest record high turnout in Serbia elections // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Serbia is heading to the polls as a student movement attempts to oust longtime populist leader Aleksandar Vučić.",
+      "link": "https://www.bbc.co.uk/news/articles/c6jdmj1ej715o?at_medium=RSS&at_campaign=rss",
+      "content_hash": "fada5cd58c6094936c4cd1cecf5582fa1467cc4c2112a8ebb92f0379415ca94e",
+      "published_at": "Sun, 25 Oct 2026 16:05:15 GMT",
+      "created_at": "2026-10-25T17:45:31.224173+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "BBC World",
+      "title": "Suspect in deadly Paris suburb shooting sent for psychiatric observation // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "He will be observed to evaluate whether his \"psychiatric health is compatible with pursuing his interrogation\", authorities said.",
+      "link": "https://www.bbc.co.uk/news/articles/c6e3xek2457wo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "98a151f0392b4c08d720cd4e57fbdf3549fcd8ba328c1977664fe373cf5bc8c0",
+      "published_at": "Sun, 25 Oct 2026 15:32:51 GMT",
+      "created_at": "2026-10-25T17:45:31.224192+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "BBC World",
+      "title": "Israel to close West Bank crossings on election day as crackdown escalates // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "The Israeli Defense Forces announces restrictions on the movement of Palestinian workers in the run-up to Tuesday's election.",
+      "link": "https://www.bbc.co.uk/news/articles/c6y93ylpl5p2o?at_medium=RSS&at_campaign=rss",
+      "content_hash": "4f8f3090354a0d1938e98722854f58519e90a67efa92fe017fd19aadfb00cdc1",
+      "published_at": "Sun, 25 Oct 2026 05:15:52 GMT",
+      "created_at": "2026-10-25T17:45:31.224212+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "BBC World",
+      "title": "Gabon says access to social media restored after eight-month ban // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "The authorities had justified the ban by saying online content was fuelling conflict, while the opposition had condemned it as an abuse of power.",
+      "link": "https://www.bbc.co.uk/news/articles/c6x2w0ngejneo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "af7d26a95f2e9554be3d3cf32422a25e7267de9b9fbfe39c82a5dc18b3be248b",
+      "published_at": "Sun, 25 Oct 2026 14:39:47 GMT",
+      "created_at": "2026-10-25T17:45:31.224230+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Al Jazeera",
+      "title": "AI’s ‘opportunity divide’ could deepen global inequality, UN official warns // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "The deputy secretary-general of UN&#039;s ICT agency says unequal access to AI means poorer nations may be left behind.",
+      "link": "https://www.aljazeera.com/news/2026/10/25/ais-opportunity-divide-could-deepen-global-inequality-un-official-warns?traffic_source=rss",
+      "content_hash": "30c72c6dd857286817f7d93b6f029acb69dc096809ff3487d20fb4904d62558a",
+      "published_at": "Sun, 25 Oct 2026 17:26:22 +000",
+      "created_at": "2026-10-25T17:45:31.435260+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Al Jazeera",
+      "title": "Jerusalem Daily: Israel expels thousands from Hebron // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Jerusalem Daily: Israel expels thousands from Hebron",
+      "link": "https://www.aljazeera.com/video/newsfeed/2026/10/25/jerusalem-daily-israel-expels-thousands-from-hebron?traffic_source=rss",
+      "content_hash": "aa924630bed21b1ffc473465ec113bd708f90a79933708038d724e7598ff2674",
+      "published_at": "Sun, 25 Oct 2026 17:12:59 +000",
+      "created_at": "2026-10-25T17:45:31.435285+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Al Jazeera",
+      "title": "Trump’s tariff pause angers some US ranchers, boosts Brazilian beef imports // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Just as American cattle went to market, Trump&#039;s action added unease to an industry already facing uncertainty.",
+      "link": "https://www.aljazeera.com/economy/2026/10/25/trumps-tariff-pause-angers-some-us-ranchers-boosts-brazil-beef-imports?traffic_source=rss",
+      "content_hash": "38216f699c7c6c0f3b823da92ae3d95ae47ed0d1bd3a0fbfd6341ecf65c3fedf",
+      "published_at": "Sun, 25 Oct 2026 16:42:33 +000",
+      "created_at": "2026-10-25T17:45:31.435298+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Al Jazeera",
+      "title": "Israel’s ‘Generation Right’ could shape Netanyahu’s future // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "The global trend may show young people leaning politically to the left, but in Israel… they’re leaning to the right.",
+      "link": "https://www.aljazeera.com/video/newsfeed/2026/10/25/israels-generation-right-could-shape-netanyahus-future?traffic_source=rss",
+      "content_hash": "2877f086e399986960ec5147cd13febab104c7b3d4cfdffa976ccad58ea4478c",
+      "published_at": "Sun, 25 Oct 2026 16:30:51 +000",
+      "created_at": "2026-10-25T17:45:31.435313+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Al Jazeera",
+      "title": "Barcelona vs Real Madrid LIVE: La Liga El Clasico // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Follow updates from El Clasico at Camp Nou, including the build-up, analysis and live text commentary of the game.",
+      "link": "https://www.aljazeera.com/sports/liveblog/2026/10/25/barcelona-vs-real-madrid-live-la-liga-el-clasico?traffic_source=rss",
+      "content_hash": "3f78a8a5c25721f0c3b501a608e1128c0e61d2a1b1914d3feb21c575201fc71c",
+      "published_at": "Sun, 25 Oct 2026 16:30:00 +000",
+      "created_at": "2026-10-25T17:45:31.435324+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Al Jazeera",
+      "title": "Jordanians mourn victims of deadly church attack // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Jordanians mourn victims of deadly church attack",
+      "link": "https://www.aljazeera.com/video/newsfeed/2026/10/25/jordanians-mourn-victims-of-deadly-church-attack?traffic_source=rss",
+      "content_hash": "2a3fd3c640c9633747c4f14055f80bf14c80cd47c2eb719ad82950b3c23c4616",
+      "published_at": "Sun, 25 Oct 2026 16:16:48 +000",
+      "created_at": "2026-10-25T17:45:31.435337+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
       "scope": "LOCAL",
       "source": "East Africa Energy Monitor",
-      "title": "Tanzania secures Sh3.67 trillion for 424km SGR link from Makutupora to Isaka - The Citizen // [TACTICAL INTEL]: For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broa",
+      "title": "Kenya passes up to 62pc of higher international fuel prices to consumers - Business Daily // [TACTICAL INTEL]: Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational s",
+      "description": "Kenya passes up to 62pc of higher international fuel prices to consumers&nbsp;&nbsp;Business Daily",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNakFnY3ZRdW12bjBfUjVScEhRZEVnd05CZ2duX1dwZDF5eDNMck1sUHhwOG9lUVdIbXlidHFESXJneE5PX253aEdHeTRNdzJ2QlBTNUhZQjBlR3V0SWZEZ3FSNXgzd0o0bk4zY2VXczc4d19RZnpiU1F2Rkh4cm1LVUZGVnppY0RwN1NBaUhaVWhsRGE4RjFPd2E0eFlZV1NOY3o4N2EtT3RpTkoyQm1nWE96anNxV1hDSTM0U0FZZnFGX1lX?oc=5",
+      "content_hash": "3f6702d915bf06e1de0b8b83f8b39047e7ff105e692158123937b4c4e17fc486",
+      "published_at": "Sun, 25 Oct 2026 14:45:00 GMT",
+      "created_at": "2026-10-25T17:45:32.649947+00:00",
+      "in_depth_context": "The sudden collapse of the Maduro regime and return of opposition leadership marks a critical juncture for Latin American geopolitics and global energy markets. The unfreezing of Venezuelan heavy crude exports could eventually recalibrate OPEC dynamics and global tanker charter rates.",
+      "why_it_matters": "Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational supply chain.",
+      "subject": "Venezuelan Leadership Shift & Energy Market Volatility"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Uganda seeks $169m from Opec Fund to rerail SGR - The EastAfrican // [TACTICAL INTEL]: Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational s",
+      "description": "Uganda seeks $169m from Opec Fund to rerail SGR&nbsp;&nbsp;The EastAfrican",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPV0YzYnNZaUZfLXYwTGptNnR1RmR6RnZqZGV2SF9Vb08wRlM4Q213akFUVVZJcTNFR1N1dDhpUDdSdmRpb294Tm5mZjdaSXJfZjl1djk0ZFlNVWNoLTc1MEloeU1EbUE4QU9Jb3FFVENYM2dNdkROV2VnZkFDSFllSGNqdENJdU9ab1ROWEhkSWFkYTFWY3lBYTBka212QjBDMWR2U1k2T0o?oc=5",
+      "content_hash": "7f34a1326c59b14005684aab4472f1e408bac36a79ddf35bffcaa2543fe1c32e",
+      "published_at": "Tue, 20 Oct 2026 10:09:16 GMT",
+      "created_at": "2026-10-25T17:45:32.650017+00:00",
+      "in_depth_context": "The sudden collapse of the Maduro regime and return of opposition leadership marks a critical juncture for Latin American geopolitics and global energy markets. The unfreezing of Venezuelan heavy crude exports could eventually recalibrate OPEC dynamics and global tanker charter rates.",
+      "why_it_matters": "Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational supply chain.",
+      "subject": "Venezuelan Leadership Shift & Energy Market Volatility"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "EPRA Boss Explains Factors Behind Monthly Pump Price Changes - Kenyans.co.ke // [TACTICAL INTEL]: Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational s",
+      "description": "EPRA Boss Explains Factors Behind Monthly Pump Price Changes&nbsp;&nbsp;Kenyans.co.ke",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc1RYMkNjeEdYbDNsZnNfdFFLVG0wb2xyTUh5Q2h0VXk5enNsbE9vb05DNUlOWnR1dzRuZVptenhsUmNkUkhIWkRmWlg1YnNuM0lZUmJWa1RqazlCSEFrNGZteUcxMEpUVmNsTUZMQzJGVXlFa3RfOHVXdHpLdHZNQWd1aDVtN3EtVW1UZGlKb2hGbDE4SmRiUWtiQ1BGcVMxbWktOEN5aE5XVTFJ?oc=5",
+      "content_hash": "a030d3f6ab0e0df3f9453f8f2509f4442037b579604a7221c5600c801605e83e",
+      "published_at": "Thu, 22 Oct 2026 12:51:32 GMT",
+      "created_at": "2026-10-25T17:45:32.650051+00:00",
+      "in_depth_context": "The sudden collapse of the Maduro regime and return of opposition leadership marks a critical juncture for Latin American geopolitics and global energy markets. The unfreezing of Venezuelan heavy crude exports could eventually recalibrate OPEC dynamics and global tanker charter rates.",
+      "why_it_matters": "Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational supply chain.",
+      "subject": "Venezuelan Leadership Shift & Energy Market Volatility"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "EPRA fuel prices: How oil shipments drive pump costs in Kenya - People Daily // [TACTICAL INTEL]: Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational s",
+      "description": "EPRA fuel prices: How oil shipments drive pump costs in Kenya&nbsp;&nbsp;People Daily",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPbzk5SDVXYXlmYnA4ZTVJZ3l5ckRSTC1Va1JiN1lQQl9nZFJyd0pwMWxLTkRaRzFkalowMkZfMnhyRHFWWGJucmVmaW9DY0xFQTFWY1hRclFBc1RkX1d1cldnV1lOTUtBamFLRmlMQXNaczNwNmVDTG1FTExfbDJLcDNPY2pIbFY0a0NnRWhlZVA1eDJhUFhreEZDenVuZw?oc=5",
+      "content_hash": "21ac8838353916bb9c4bc449d04b8ecf3751ba288e3328f0c4551202b7511d76",
+      "published_at": "Wed, 21 Oct 2026 15:32:16 GMT",
+      "created_at": "2026-10-25T17:45:32.650078+00:00",
+      "in_depth_context": "The sudden collapse of the Maduro regime and return of opposition leadership marks a critical juncture for Latin American geopolitics and global energy markets. The unfreezing of Venezuelan heavy crude exports could eventually recalibrate OPEC dynamics and global tanker charter rates.",
+      "why_it_matters": "Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational supply chain.",
+      "subject": "Venezuelan Leadership Shift & Energy Market Volatility"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "In pics: Olkaria geothermal field and geothermal power plant in Kenya - Xinhua // [TACTICAL INTEL]: Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational s",
+      "description": "In pics: Olkaria geothermal field and geothermal power plant in Kenya&nbsp;&nbsp;Xinhua",
+      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQYVg3ZnFmM3JETTZBaHBFamh3VUMwS2I5djBBdUhGb0JBUzFEbndlRXlZNlBwcVcyZ21WaUpOMUtBOHBGN2hCVE1mNVVRSHRjTVBKZ01DbFN5NElTV2JzT2Yxemc5Q1RXc1JzTDF3SERBRGt6clpOd2xxSVRWLWE5TlRaTU1MQQ?oc=5",
+      "content_hash": "e6aa942935f7a54648be6180ee224d0a76419d51979904c7999c71272375d922",
+      "published_at": "Tue, 20 Oct 2026 11:08:41 GMT",
+      "created_at": "2026-10-25T17:45:32.650103+00:00",
+      "in_depth_context": "The sudden collapse of the Maduro regime and return of opposition leadership marks a critical juncture for Latin American geopolitics and global energy markets. The unfreezing of Venezuelan heavy crude exports could eventually recalibrate OPEC dynamics and global tanker charter rates.",
+      "why_it_matters": "Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational supply chain.",
+      "subject": "Venezuelan Leadership Shift & Energy Market Volatility"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Tanzania secures Sh3.67 trillion for 424km SGR link from Makutupora to Isaka - The Citizen // [TACTICAL INTEL]: Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational s",
       "description": "Tanzania secures Sh3.67 trillion for 424km SGR link from Makutupora to Isaka&nbsp;&nbsp;The Citizen",
       "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQcXdHbXFhWkhfaWhCWU1Yd0JBV3djdkh1SUg4MTVialFIcTNTNlRVMWh2c3g1YlI4Q3N3NUJULWYxVUw0SWhPUGQ1NzRGeHo1VHkwQnRDcXVQeWc2VUI4d042bUxkNmhDVkhEZW9RalBnNDV3ZEdvS0daSEU1ZEJ1czZMM3Vzclh1ZzNSYlpVRUk0QW5jWXhOZ19ZTTJGME5NSnRLRUUtUzVRRVIxRk5yanBqVzVtcl8zLVZuRS1vRHZSSVNSR2NYNVJERUlZdlE5cVE?oc=5",
       "content_hash": "34fecd0ccbe79775bd3200837722a0aa2313f4cc86416eb58ce311e93f7151b0",
       "published_at": "Sun, 25 Oct 2026 13:36:53 GMT",
-      "created_at": "2026-10-25T17:03:42.729454+00:00",
-      "in_depth_context": "This capital mobilization bridges crucial interior segments toward the Lake Victoria basin, fundamentally reshaping cargo freight timelines, heavy-machinery transport efficiency, and trade transit costs across the East African Community (EAC) bloc, effectively bypassing antiquated meter-gauge bottlenecks.",
-      "why_it_matters": "For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broader macroeconomic stability of the East African economic theater where we deploy our infrastructure.",
-      "subject": "East African Infrastructure & Transport Logistics (Tanzania SGR)"
+      "created_at": "2026-10-25T17:45:32.650129+00:00",
+      "in_depth_context": "The sudden collapse of the Maduro regime and return of opposition leadership marks a critical juncture for Latin American geopolitics and global energy markets. The unfreezing of Venezuelan heavy crude exports could eventually recalibrate OPEC dynamics and global tanker charter rates.",
+      "why_it_matters": "Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational supply chain.",
+      "subject": "Venezuelan Leadership Shift & Energy Market Volatility"
     },
     {
-      "scope": "SPORTS",
-      "source": "BBC Sport",
-      "title": "Carrick future under major threat - can he survive? // [TACTICAL INTEL]: For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broa",
-      "description": "Michael Carrick's future as Manchester United manager is under major threat following the home loss to Bournemouth on Sunday.",
-      "link": "https://www.bbc.co.uk/sport/football/articles/crgj9wnpd1lvo?at_medium=RSS&at_campaign=rss",
-      "content_hash": "8cbd928521f34054ec7361a6882ad395a0168329a007bed5531bab2b8f487068",
-      "published_at": "Sun, 25 Oct 2026 16:51:48 GMT",
-      "created_at": "2026-10-25T17:03:44.469963+00:00",
-      "in_depth_context": "This capital mobilization bridges crucial interior segments toward the Lake Victoria basin, fundamentally reshaping cargo freight timelines, heavy-machinery transport efficiency, and trade transit costs across the East African Community (EAC) bloc, effectively bypassing antiquated meter-gauge bottlenecks.",
-      "why_it_matters": "For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broader macroeconomic stability of the East African economic theater where we deploy our infrastructure.",
-      "subject": "East African Infrastructure & Transport Logistics (Tanzania SGR)"
-    },
-    {
-      "id": 845,
-      "scope": "SPORTS",
-      "source": "Formula 1 Motorsport",
-      "title": "Previewing the F1 U.S. Grand Prix in Austin: How to watch, schedule, predictions - NBC 5 Dallas-Fort Worth // [TACTICAL INTEL]: For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broa",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNLTFTdjVtLTVXZUFtTENkbHBwd2RnR2JsU0JSZ21ocW9MVXpYT1hJd1JpSTRRWEJpbDJFVjYtYXhtR3dTSDFaQmNJZXJ4U3JNSW5Kb0FMbVhFLVhVS1lPVnRYYXlSaW80anV5RGRXdk1hSzEyMUw0QnNMRGpiSFFDcHhrLWhFZ2ZXNmZTNHRKQkZ4a0VTZUVqRl9pNWF4dE3SAacBQVVfeXFMTmJFZzRJdmJzVEdqemc2OTU4MDlqcEJuT2dsc0FZOFJ4STlEMVF5c180cHlNNkYtSTdPcXhDWFB4Q1NWeDRTVmFXVHVKLTJzR3hEQkxvYjFndERUYm84WHBRX3NUX0dwTUZCdnNGZkhEQldtd09USG4tQ0p5Y1FVZEdFTDNXRHBmZ2NUSVhxMnBWZDVmMjcwNkN4LVNLa3hYMHhfZTRPdFE?oc=5",
-      "content_hash": "0134dada57cc81360e025acc13927d792be0cf5e07953d7c7a212259fcbcc9cd",
-      "published_at": "Wed, 21 Oct 2026 19:40:04 GMT",
-      "created_at": "2026-10-25T16:58:19.592842+00:00",
-      "in_depth_context": "This capital mobilization bridges crucial interior segments toward the Lake Victoria basin, fundamentally reshaping cargo freight timelines, heavy-machinery transport efficiency, and trade transit costs across the East African Community (EAC) bloc, effectively bypassing antiquated meter-gauge bottlenecks.",
-      "why_it_matters": "For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broader macroeconomic stability of the East African economic theater where we deploy our infrastructure.",
-      "subject": "East African Infrastructure & Transport Logistics (Tanzania SGR)"
-    },
-    {
-      "id": 844,
-      "scope": "SPORTS",
-      "source": "Formula 1 Motorsport",
-      "title": "How to watch the U.S. Grand Prix 2026: Streaming, schedule for F1 race at COTA - The New York Times // [TACTICAL INTEL]: For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broa",
-      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPdW90dTY4aW1TTk5WNlBCY0kzbGJvRnNlZ08zMGJNbTBOVVc1eVdFQXYyY0tLZHVsX3NmVEdXaVhuTkFBOW1FOEs2aTVfZ0FwSlhHdHN0RHY1aWcwQVlTU08taG8wV1RyM0FnOU5wdXBPc2NUVWVNZGFEc0JTcVZYN1NMM0h3cVdDU0hlZnh3ZkdLMHo3OFE?oc=5",
-      "content_hash": "b1fd8e2e048f8689b4e6d2a9db0bee6fdf747ebe963b4bec68b697b99339a63b",
-      "published_at": "Sat, 24 Oct 2026 12:33:00 GMT",
-      "created_at": "2026-10-25T16:58:19.592825+00:00",
-      "in_depth_context": "This capital mobilization bridges crucial interior segments toward the Lake Victoria basin, fundamentally reshaping cargo freight timelines, heavy-machinery transport efficiency, and trade transit costs across the East African Community (EAC) bloc, effectively bypassing antiquated meter-gauge bottlenecks.",
-      "why_it_matters": "For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broader macroeconomic stability of the East African economic theater where we deploy our infrastructure.",
-      "subject": "East African Infrastructure & Transport Logistics (Tanzania SGR)"
-    },
-    {
-      "id": 843,
-      "scope": "SPORTS",
-      "source": "Formula 1 Motorsport",
-      "title": "United States Grand Prix 2026: Race start time in Austin, how to watch, full schedule, predictions - ESPN // [TACTICAL INTEL]: For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broa",
-      "link": "https://news.google.com/rss/articles/CBMi9wFBVV95cUxNVkp0MmxfM1VpaWEyTHFtMk5sOU8wNWt2MjZqTzN4UnVvNEN4UFFGdFNXTFIwbXA4T0VoUGRPbnNfaDJXaXhXWjRoX1FBSWl6bG5aWnZja0dtSGVTeW1VVUNsSjA5cnVLU3VKbk82UDJaaTRWRFM3aTkxYk1hRHFCZFVrX3VvbE5Wb29DMGVFRl9Sa0JkNVM2V3lQcml3S1BRZXlDaW0yZlo0aTJvUVFNNWJFVHpIb2NfN0RuR2JhbXpwaG81QkVWSjdtZl8xTFE5aUkyZkpaZWwzQ3R5NHBrZGJnRXNwZThRcHpDbERmWUQ0OFpOMHdn?oc=5",
-      "content_hash": "2aa5688a0ca265427bb2e8dd556367c7abae034089018fbd3a63001e89cfe152",
-      "published_at": "Sat, 24 Oct 2026 12:15:00 GMT",
-      "created_at": "2026-10-25T16:58:19.592792+00:00",
-      "in_depth_context": "This capital mobilization bridges crucial interior segments toward the Lake Victoria basin, fundamentally reshaping cargo freight timelines, heavy-machinery transport efficiency, and trade transit costs across the East African Community (EAC) bloc, effectively bypassing antiquated meter-gauge bottlenecks.",
-      "why_it_matters": "For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broader macroeconomic stability of the East African economic theater where we deploy our infrastructure.",
-      "subject": "East African Infrastructure & Transport Logistics (Tanzania SGR)"
-    },
-    {
-      "id": 830,
       "scope": "GLOBAL",
-      "source": "Al Jazeera",
-      "title": "Barcelona vs Real Madrid LIVE: La Liga El Clasico // [TACTICAL INTEL]: For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broa",
-      "link": "https://www.aljazeera.com/sports/liveblog/2026/10/25/barcelona-vs-real-madrid-live-la-liga-el-clasico?traffic_source=rss",
-      "content_hash": "3f78a8a5c25721f0c3b501a608e1128c0e61d2a1b1914d3feb21c575201fc71c",
-      "published_at": "Sun, 25 Oct 2026 16:30:00 +000",
-      "created_at": "2026-10-25T16:58:16.191813+00:00",
-      "in_depth_context": "This capital mobilization bridges crucial interior segments toward the Lake Victoria basin, fundamentally reshaping cargo freight timelines, heavy-machinery transport efficiency, and trade transit costs across the East African Community (EAC) bloc, effectively bypassing antiquated meter-gauge bottlenecks.",
-      "why_it_matters": "For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broader macroeconomic stability of the East African economic theater where we deploy our infrastructure.",
-      "subject": "East African Infrastructure & Transport Logistics (Tanzania SGR)"
+      "source": "Horn of Africa Security Wire",
+      "title": "Sudan conflict: Peace efforts resume to end ‘drone war’ fuelling humanitarian crisis - UN News // [TACTICAL INTEL]: Heightened tensions across the Levant reinforce our ongoing risk models regarding global shipping insurance premiums and Middle Eastern telecommunications redundancy.",
+      "description": "Sudan conflict: Peace efforts resume to end ‘drone war’ fuelling humanitarian crisis&nbsp;&nbsp;UN News",
+      "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9aRTVjQUVHb19FQkhJUU54dTBXNi0yMEtFSlhWck1qU1I0TlU2Rk00eHNhRTFmdWhucWhjMXRLd25rcE5kRnJCOE5LcmNPT0laQVl5M0pBUQ?oc=5",
+      "content_hash": "7760ab67c3f2e80643da7f41f0c18ab746cd931b66d51bfa3a58cdbaa77d495d",
+      "published_at": "Wed, 21 Oct 2026 12:08:05 GMT",
+      "created_at": "2026-10-25T17:45:33.381725+00:00",
+      "in_depth_context": "Escalated security crackdowns and border lockouts severely disrupt local labor markets, supply chains, and regional stability metrics, intensifying broader Mideast security friction.",
+      "why_it_matters": "Heightened tensions across the Levant reinforce our ongoing risk models regarding global shipping insurance premiums and Middle Eastern telecommunications redundancy.",
+      "subject": "Levantine Security Protocols & Border Infrastructure Closures"
     },
     {
-      "id": 829,
       "scope": "GLOBAL",
-      "source": "Al Jazeera",
-      "title": "Israel’s ‘Generation Right’ could shape Netanyahu’s future // [TACTICAL INTEL]: For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broa",
-      "link": "https://www.aljazeera.com/video/newsfeed/2026/10/25/israels-generation-right-could-shape-netanyahus-future?traffic_source=rss",
-      "content_hash": "2877f086e399986960ec5147cd13febab104c7b3d4cfdffa976ccad58ea4478c",
-      "published_at": "Sun, 25 Oct 2026 16:30:51 +000",
-      "created_at": "2026-10-25T16:58:16.191801+00:00",
-      "in_depth_context": "This capital mobilization bridges crucial interior segments toward the Lake Victoria basin, fundamentally reshaping cargo freight timelines, heavy-machinery transport efficiency, and trade transit costs across the East African Community (EAC) bloc, effectively bypassing antiquated meter-gauge bottlenecks.",
-      "why_it_matters": "For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broader macroeconomic stability of the East African economic theater where we deploy our infrastructure.",
-      "subject": "East African Infrastructure & Transport Logistics (Tanzania SGR)"
+      "source": "Horn of Africa Security Wire",
+      "title": "Fighting in Ethiopia border town kills nine, thousands flee to Kenya - Reuters // [TACTICAL INTEL]: Heightened tensions across the Levant reinforce our ongoing risk models regarding global shipping insurance premiums and Middle Eastern telecommunications redundancy.",
+      "description": "Fighting in Ethiopia border town kills nine, thousands flee to Kenya&nbsp;&nbsp;Reuters",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
+      "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
+      "published_at": "Fri, 23 Oct 2026 16:33:52 GMT",
+      "created_at": "2026-10-25T17:45:33.381759+00:00",
+      "in_depth_context": "Escalated security crackdowns and border lockouts severely disrupt local labor markets, supply chains, and regional stability metrics, intensifying broader Mideast security friction.",
+      "why_it_matters": "Heightened tensions across the Levant reinforce our ongoing risk models regarding global shipping insurance premiums and Middle Eastern telecommunications redundancy.",
+      "subject": "Levantine Security Protocols & Border Infrastructure Closures"
     },
     {
-      "id": 828,
       "scope": "GLOBAL",
-      "source": "Al Jazeera",
-      "title": "Trump’s tariff pause angers some US ranchers, boosts Brazil beef imports // [TACTICAL INTEL]: For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broa",
-      "link": "https://www.aljazeera.com/economy/2026/10/25/trumps-tariff-pause-angers-some-us-ranchers-boosts-brazil-beef-imports?traffic_source=rss",
-      "content_hash": "c54fbe7131d89ef116015e5da268cef5ac0ba71f11032d5242483146aa5c7de1",
-      "published_at": "Sun, 25 Oct 2026 16:42:33 +000",
-      "created_at": "2026-10-25T16:58:16.191773+00:00",
-      "in_depth_context": "This capital mobilization bridges crucial interior segments toward the Lake Victoria basin, fundamentally reshaping cargo freight timelines, heavy-machinery transport efficiency, and trade transit costs across the East African Community (EAC) bloc, effectively bypassing antiquated meter-gauge bottlenecks.",
-      "why_it_matters": "For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broader macroeconomic stability of the East African economic theater where we deploy our infrastructure.",
-      "subject": "East African Infrastructure & Transport Logistics (Tanzania SGR)"
+      "source": "Horn of Africa Security Wire",
+      "title": "A look at how Ethiopia’s wars, sea ambitions and Nile dam fuel fears of wider conflict - AP News // [TACTICAL INTEL]: Heightened tensions across the Levant reinforce our ongoing risk models regarding global shipping insurance premiums and Middle Eastern telecommunications redundancy.",
+      "description": "A look at how Ethiopia’s wars, sea ambitions and Nile dam fuel fears of wider conflict&nbsp;&nbsp;AP News",
+      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPYzc4eGhhbVcyRThCeERPcDZwc1lCU3cyeEJuWEIxMDktdjFGNXdna0xRQ3BhQ05BVVhPaG5xSG92MWtKVjJvLWFGS0ZCMEk1bVhMZFZIcGdncVkxeFhMZEJocmxfTGN1a2V3by05RHBsOTBBTlFDTng2ZFNodFVXNWhWbnctRG5falBtdkVINWlwVDJIYndpRmh4Q2NXWWxB?oc=5",
+      "content_hash": "de081e3cd4a4ac98ab818db62951647b0d61774778b068ebad062415ca713aeb",
+      "published_at": "Tue, 20 Oct 2026 05:52:00 GMT",
+      "created_at": "2026-10-25T17:45:33.381779+00:00",
+      "in_depth_context": "Escalated security crackdowns and border lockouts severely disrupt local labor markets, supply chains, and regional stability metrics, intensifying broader Mideast security friction.",
+      "why_it_matters": "Heightened tensions across the Levant reinforce our ongoing risk models regarding global shipping insurance premiums and Middle Eastern telecommunications redundancy.",
+      "subject": "Levantine Security Protocols & Border Infrastructure Closures"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Drone attack in disputed Sudan-South Sudan border region kills at least 153 - Al Jazeera // [TACTICAL INTEL]: Heightened tensions across the Levant reinforce our ongoing risk models regarding global shipping insurance premiums and Middle Eastern telecommunications redundancy.",
+      "description": "Drone attack in disputed Sudan-South Sudan border region kills at least 153&nbsp;&nbsp;Al Jazeera",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNVVRSM3dyWk9CNTlUcUJIemVkUGlYTGt4MUE2eTJCaDBXX2I4NGY2WUVsbDIySWdpSWcycVNXSXVVUzdEMnYyb2kzT3daTVRfdHh5S2tCbnpQVGJsUHVlRXh0MHdhMkVwcXE1M1AtSGFvZWtkTkNTcGRhTEhlcEhORW5PeC0zOGRCSVNJTEI2UWJsWXRrblBUbUE0Y2dYYjNfTl9EcE9iMjlLajFQOXRPOXdwZ2doTWgt0gG-AUFVX3lxTE9NVHFQd3NYVTBVWEVBUlpNVGpKODRleFF5cUxHRl9qYkNKWFlqMV9PNXNDTFFobnR6RWx1ZmpKVXdnQTJlZFVIaHNMWUZuRE1LR1lab2tCZWtsXzJldEZmT0pyQVozdHR0SU8tYi1YTk8xN0FaTnozd0lETVNvNWpKbFdxRFZJajM0d2xST3RjZmc1anc0M1l5TFpSMENWYUtmSldUal9uektKZFh6QjdHM0FKQVNDRTRpdHZTMEE?oc=5",
+      "content_hash": "bb79857fc347f622a029bb95ecad66dc6fa3d4d141adeb1b6da450d46747e4bb",
+      "published_at": "Wed, 21 Oct 2026 08:40:27 GMT",
+      "created_at": "2026-10-25T17:45:33.381796+00:00",
+      "in_depth_context": "Escalated security crackdowns and border lockouts severely disrupt local labor markets, supply chains, and regional stability metrics, intensifying broader Mideast security friction.",
+      "why_it_matters": "Heightened tensions across the Levant reinforce our ongoing risk models regarding global shipping insurance premiums and Middle Eastern telecommunications redundancy.",
+      "subject": "Levantine Security Protocols & Border Infrastructure Closures"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Drone strike kills more than 150 at market in Sudanese war - The Guardian // [TACTICAL INTEL]: Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational s",
+      "description": "Drone strike kills more than 150 at market in Sudanese war&nbsp;&nbsp;The Guardian",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQZHdPdHJvbUlsMVFnY29MWXpHZHZJQjN6dXRoVW5vVmp0Qng5ZjItd25wZ014Y29EMGFOWDY1b1JWdV9lRTcyS21leHVzNUQ3aTRDMU5wLTlqUXhoYXRuTkNjZUVVTjF1dFYyMzNLM0tieU9VNWhVUzJILTdWT3MzQ3VUc3Y5cGkxVjhpN3hXcGZielpTU0xITVo4eVpnRUU?oc=5",
+      "content_hash": "47ecfec797d389c950ae7b828931c8c35d62df3863cfde977f9d9018802c1eae",
+      "published_at": "Wed, 21 Oct 2026 15:55:00 GMT",
+      "created_at": "2026-10-25T17:45:33.381809+00:00",
+      "in_depth_context": "The sudden collapse of the Maduro regime and return of opposition leadership marks a critical juncture for Latin American geopolitics and global energy markets. The unfreezing of Venezuelan heavy crude exports could eventually recalibrate OPEC dynamics and global tanker charter rates.",
+      "why_it_matters": "Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational supply chain.",
+      "subject": "Venezuelan Leadership Shift & Energy Market Volatility"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Ethiopia: African Union must convene emergency session on Ethiopia as new conflict expands - Amnesty International // [TACTICAL INTEL]: Heightened tensions across the Levant reinforce our ongoing risk models regarding global shipping insurance premiums and Middle Eastern telecommunications redundancy.",
+      "description": "Ethiopia: African Union must convene emergency session on Ethiopia as new conflict expands&nbsp;&nbsp;Amnesty International",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOUGRza2d2cXROY3c2cURfcDRaNEVfVENnWWtMTklNMWIwR2l1OGZQWWdRS0ZYeXlMQkNHbmJZdWctamhsaTVQRzFwS1RFVUpsTEZMX0V1b2lWZzd2dzlEZ09BbDR3YTEtNWwxdExTZ2FuWHhqOEdnampnR2czcEcyY24yTEh1NS1RQmt2cFcxN2o0REtOTWxSQVpXanhHS2RRTVBBUFRwTmtRTGdyTERlcm1CTHdBcnpGNjhGcU5zM3RVeDFvSURmWEhHdUtLdUx1dmZF?oc=5",
+      "content_hash": "e53475a41b7187dd1defa07e1f0d3f4adc5763d673070a4b032c73e925ec822a",
+      "published_at": "Fri, 02 Oct 2026 07:00:00 GMT",
+      "created_at": "2026-10-25T17:45:33.381822+00:00",
+      "in_depth_context": "Escalated security crackdowns and border lockouts severely disrupt local labor markets, supply chains, and regional stability metrics, intensifying broader Mideast security friction.",
+      "why_it_matters": "Heightened tensions across the Levant reinforce our ongoing risk models regarding global shipping insurance premiums and Middle Eastern telecommunications redundancy.",
+      "subject": "Levantine Security Protocols & Border Infrastructure Closures"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Neville fears Carrick set to be sacked as Carra calls for decision tonight // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Michael Carrick looks poised to lose his job as Manchester United head coach following their 3-0 defeat at Old Trafford to Bournemouth, according to Gary Neville and Jamie Carragher.",
+      "link": "https://www.skysports.com/football/news/12040/13603616/manchester-united-michael-carrick-head-coach-on-brink-of-losing-job-after-bournemouth-defeat",
+      "content_hash": "ed544dd0b4e19f5d420584780cfc0edaf9ca38b48eff55d6e5f457e5aa252de0",
+      "published_at": "Sun, 25 Oct 2026 16:10:00 GMT",
+      "created_at": "2026-10-25T17:45:33.796944+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Highlights: Pakistan stun England in Lahore as Brook's side beaten again // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Highlights of Pakistan's remarkable one-wicket victory over England in Lahore, as Shadab Khan's unbeaten 113 inspired an extraordinary comeback from 154-9.",
+      "link": "https://www.skysports.com/watch/video/13603659/pakistan-v-england-odi-highlights-shadab-khans-unbeaten-113-seals-dramatic-one-wicket-victory",
+      "content_hash": "304e708b867a83e129f5fe71ecd50c485e9dc51ce3274cd860a4bf4b6944b385",
+      "published_at": "Sun, 25 Oct 2026 16:23:00 GMT",
+      "created_at": "2026-10-25T17:45:33.796984+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Isak on target again as Liverpool beat Brighton // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Alexander Isak scored for a third straight Premier League game as Liverpool inflicted only Brighton's second loss of the season.",
+      "link": "https://www.skysports.com/football/liverpool-vs-brighton-and-hove-albion/report/559521",
+      "content_hash": "b9517219ca23a45c28f53b5e62978ac964538a035f37ca5179f0d339e4ad546f",
+      "published_at": "Sun, 25 Oct 2026 16:00:00 GMT",
+      "created_at": "2026-10-25T17:45:33.797012+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Drumbeat adds to O'Brien's two-year-old roll of honour // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Drumbeat added further depth to Aidan O'Brien's Classic battalion for next year in earning quotes of 14-1 for the Derby after landing the Criterium de Saint-Cloud at the Paris track.",
+      "link": "https://www.skysports.com/racing/news/12040/13603620/drumbeat-wins-criterium-de-saint-cloud-to-add-to-aidan-obriens-two-year-old-roll-of-honour",
+      "content_hash": "0872e3f08887fb8a1dcbc8b0b04e9d3e274922b2dab73cae9e345e0af7f514c7",
+      "published_at": "Sun, 25 Oct 2026 15:48:00 GMT",
+      "created_at": "2026-10-25T17:45:33.797036+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "WSL: Man Utd vs Man City LIVE! // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "",
+      "link": "https://www.skysports.com/football/manchester-united-women-vs-manchester-city-women/live/575802",
+      "content_hash": "db8bfc45b284ad71dc93b3f146a5b4dff1599f469fe2989a3ff235371bb4a8b7",
+      "published_at": "Sun, 25 Oct 2026 17:15:00 GMT",
+      "created_at": "2026-10-25T17:45:33.797082+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "UNBELIEVABLE! The moment Pakistan win thriller by ONE wicket! // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Haris Rauf hits the winning boundary as Pakistan complete an extraordinary one-wicket victory over England, recovering from 154-9 thanks to Shadab Khan's unbeaten 113.",
+      "link": "https://www.skysports.com/watch/video/13603640/pakistan-v-england-haris-rauf-hits-winning-four-to-seal-dramatic-one-wicket-odi-victory",
+      "content_hash": "1c946ed0a4cd994b7b9116ff26e6685da763ac559a81ae538d42578c737c0f1f",
+      "published_at": "Sun, 25 Oct 2026 16:07:00 GMT",
+      "created_at": "2026-10-25T17:45:33.797106+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Harambee Stars dynamo Bajaber outlines key target after joining Sakaja’s Nairobi United - Capital FM Africa // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Harambee Stars dynamo Bajaber outlines key target after joining Sakaja’s Nairobi United&nbsp;&nbsp;Capital FM Africa",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQQXlTeVk0eUlLak5QQzM4NWtVOVNXendLUzJrTDNQU3gtbmc1c0JjV0lkTFd1ckNibmV6SzNRZTV4RlNyM01xNUMzS1J6RDJrQk1oVUpQVzZ4Wk4tQ196WHRyMUMxcnhaN1BVRy1WdWdldjd4UmVZNVlSSGdCWkNINFJSenowT0t4MXdmZFhTQi1qTG44ZG5SREJyVDVOOURZTkdyYWI0Yzl2Nk5YV2V0UHVB?oc=5",
+      "content_hash": "0196127aba2c02a2c6774e931517b708c58848caf3174158bbd4f4350f747f86",
+      "published_at": "Sun, 25 Oct 2026 12:56:00 GMT",
+      "created_at": "2026-10-25T17:45:33.983661+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Nairobi United hand Harambee Stars ace fresh chance to revive career after Tanzania exit - Mozzart Sport Kenya // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Nairobi United hand Harambee Stars ace fresh chance to revive career after Tanzania exit&nbsp;&nbsp;Mozzart Sport Kenya",
+      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxONDd0b1RDMFZyQ0RrTkR5VENMem1nd1A3VzRQYkswOEZHVEIxZ2t1d0tKUkNaei1sSThTbFl5SjFYRHhqSTVzMXh4WDVyM1JFd3VVV19KRUNMRjdfZGpvN1ZOMnFrNlF6SVJoWjMzMkFlSW11YmMySE5Beks3dkxmdTFLV2xCZTBGYTM1TEJtdXVodWdua1JPOTJtczg5ZlRtRFlyVjJhX0dyYTlXUE5QVHUyZlRTR1F1a2x2ZVVHZHA0Z25WTUNoWXVFczZOWTVKQUJCRm5B?oc=5",
+      "content_hash": "2aaac325cf9d49b9abf308f455d41a7cf9e8c4445a84226d189a0e99a15d705a",
+      "published_at": "Sat, 24 Oct 2026 12:35:21 GMT",
+      "created_at": "2026-10-25T17:45:33.983692+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Ambitious Nyamawi eyes KPL Golden Boot, Harambee Stars return - Citizen Digital // [TACTICAL INTEL]: Provides a useful telemetry data point on how African regulatory bodies manage digital infrastructure, information flow, and platform censorship during periods of political transit",
+      "description": "Ambitious Nyamawi eyes KPL Golden Boot, Harambee Stars return&nbsp;&nbsp;Citizen Digital",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNNmFLRHhqaXE3bEVmQ0J5T3NHb3hFY25VbU1EdUpIWHJnVUxPLUZiUWVhYWtHTHh6UnVDYmtNUGRvRXZsZXVjNl9UWUowZ2pmal9qbENibjMzS1llS0RpM2hWZllHSFZ5QS1tc29EY2JKYXVrTVVCbmlqVFRmeGRiOEdGdHFJSl9zYVB3QlFncHI4WFNIa3JOVEpTMzBZbENnU1E?oc=5",
+      "content_hash": "b20b99a51a25cafd23e7d3e51b1e422cf53bcf686e921e5fc648fae70ba725ef",
+      "published_at": "Fri, 23 Oct 2026 14:12:56 GMT",
+      "created_at": "2026-10-25T17:45:33.983707+00:00",
+      "in_depth_context": "The tension between authoritarian information control and digital freedom of expression across African states highlights the volatile nature of regional telecom regulations and platform compliance mandates.",
+      "why_it_matters": "Provides a useful telemetry data point on how African regulatory bodies manage digital infrastructure, information flow, and platform censorship during periods of political transition.",
+      "subject": "Central African Digital Sovereignty & Censorship Reversals"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Harambee Stars fly out to Conakry for Afcon qualifier against Guinea - Daily Nation // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Harambee Stars fly out to Conakry for Afcon qualifier against Guinea&nbsp;&nbsp;Daily Nation",
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxPSnNxWnBlNlc5OUdQVVZoUTNMSUFpTkZrNVVGTEFWLUg5VXRaSUR2OURwS2dXRDdyUHlFNDNOakpuZkFBcGJsdDVxNTVuTVktSERncXd1dHpzSFU4TGxKQURza1RhUkJ3S0w0SEhzWF9HNVJGTXdrT29wdVB6X0g1RzVuNWw4eEtfSWVqVmlXdVl4OFJuMWFMb0daQTBsSklLOU1Rdm9JU1BQOWpFX3FkMXZoUjBnaHZWYWZ6aw?oc=5",
+      "content_hash": "e3d734b34d8b4bc87ae57a0de47b8d5c0dd0b0fdb32d057f6c28112423f0b165",
+      "published_at": "Tue, 29 Sep 2026 07:00:00 GMT",
+      "created_at": "2026-10-25T17:45:33.983720+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Harambee Stars vs Bafana Bafana: Price and Where to Buy Tickets for Kenya’s Next Home Match - Pulse Sports Kenya // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Harambee Stars vs Bafana Bafana: Price and Where to Buy Tickets for Kenya’s Next Home Match&nbsp;&nbsp;Pulse Sports Kenya",
+      "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNdWlBejdYTnpnakVPUF84di1vcG1NSkxZaF9udkVEaHVtV3RnXy1FU0VqSkRzaWNJU05RNUJEZEh3ZHN2TkdxcXYzTDhTcElZazBfYTJaSGdYNm92WW9jZ1lCRmJ0VjZlVWNUWkVVR0RWN3YxNm05UlR3OUdCZGVPYjVvbWM5T09RUkdzcVRTSDdiemNHdXdrNUQ1cnQzOG9VbDZEVWdUamM2TXA3MHpaUkRmQVZwMy0zM2lqQVVUSmwyX1E5VzE3VUJGUlNvWXZfdEZuWmFCcGRRT1FNbXc?oc=5",
+      "content_hash": "fe31d4fc5d81d9553aab2b322a234babde8524721fea6b0a6570dd242d397948",
+      "published_at": "Sat, 24 Oct 2026 08:30:29 GMT",
+      "created_at": "2026-10-25T17:45:33.983738+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Why Kenya's Clash Against South Africa Is The Perfect AFCON 2027 Test - The Kenya Times // [TACTICAL INTEL]: For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Re",
+      "description": "Why Kenya's Clash Against South Africa Is The Perfect AFCON 2027 Test&nbsp;&nbsp;The Kenya Times",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQRjQ4MVltSE1EbHdGSjBVNHhWV0gtYWdRRUpDMllkRXpNSDVlTmhycWROTk9FY2VYVVEyWFBDNGgzeG90c1ZDZnRXVE1TZ20yY0c1MHZ6ZjRpb2tPYzNMVGU2eUd4SFEyNDlFd2RZVk9QbExQbF9QUnRKSnVxVlpVa21OdTY0dDZGODB1ZXZXMmFwdW1mYXgtSzBNQ05BaFBTenF6Yg?oc=5",
+      "content_hash": "d97d21fc9782a819a43c8b7e9f3155761b5e18043eb3778dac9f546e92508f47",
+      "published_at": "Thu, 22 Oct 2026 15:14:36 GMT",
+      "created_at": "2026-10-25T17:45:33.983750+00:00",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance"
     }
   ],
   "conflicts": [
@@ -532,7 +896,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/funding-hegseth-autonomous-command/416800/",
       "content_hash": "33c6a6145f216294b9a9ff9753364acfc3446c32dc2624d964449b29c31ba6fd",
-      "created_at": "2026-10-25T17:03:53.701235+00:00"
+      "created_at": "2026-10-25T17:45:42.249655+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -542,7 +906,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/yearlong-deployments-navy-new-normal/416777/",
       "content_hash": "610c3a52927bf062077806db21e18ce1fdd76ebf904569a419aad89100f88c15",
-      "created_at": "2026-10-25T17:03:53.701259+00:00"
+      "created_at": "2026-10-25T17:45:42.249720+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -552,7 +916,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/business/2026/10/defense-business-brief-little-bit-mosa-netherlands-us-industry-days-and-more/416776/",
       "content_hash": "fb4304ececba017600c025bd3957cfbe8dce00208f32965d802a46007e4d59d9",
-      "created_at": "2026-10-25T17:03:53.701270+00:00"
+      "created_at": "2026-10-25T17:45:42.249759+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -562,7 +926,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/qatar-looks-bolster-its-military-power-new-hub-partnerships/416775/",
       "content_hash": "eb19c90489c72b6fe7011db005a03cd31a2b5d7daa330cf9413d670971d3cdd6",
-      "created_at": "2026-10-25T17:03:53.701280+00:00"
+      "created_at": "2026-10-25T17:45:42.249787+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -572,7 +936,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/critical-flaws-php-warning/416727/",
       "content_hash": "bc21d51f0d81b321157b6da39ef357b19d0730d0e48d8474ccc265958b874681",
-      "created_at": "2026-10-25T17:03:53.701288+00:00"
+      "created_at": "2026-10-25T17:45:42.249809+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -582,7 +946,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/deception-in-mass-autonomous-warfare/",
       "content_hash": "baf14b66b6cf2ecf1ac2a423d3ea95ae5e417260b88dbab010bee7641c0fc7a1",
-      "created_at": "2026-10-25T17:03:55.348881+00:00"
+      "created_at": "2026-10-25T17:45:42.947081+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -592,7 +956,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/brothers-in-arms-partners-in-healing-a-story-about-a-breakthrough-in-treating-post-traumatic-stress/",
       "content_hash": "4b9e726bbf768905cd5665906bbd2c2ad0f86acbcd565b4133fdcadf5ecbc7cb",
-      "created_at": "2026-10-25T17:03:55.348909+00:00"
+      "created_at": "2026-10-25T17:45:42.947127+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -602,7 +966,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/the-endless-chip-war/",
       "content_hash": "28c3ebec50f05d3361fc7460a3618d0797e594cdc9e9ed55af6c9d7715fa917b",
-      "created_at": "2026-10-25T17:03:55.348918+00:00"
+      "created_at": "2026-10-25T17:45:42.947146+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -612,7 +976,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/the-west-is-thinking-too-small-about-ukraines-victory/",
       "content_hash": "487765254ae843194c084e31ea9e32ccc2390f0f888a2a9ae3568256352ff944",
-      "created_at": "2026-10-25T17:03:55.348933+00:00"
+      "created_at": "2026-10-25T17:45:42.947179+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -622,7 +986,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/fighting-in-ethiopia-and-the-risk-of-regional-spillover/",
       "content_hash": "a98dae81a43d6123e982b67f43ceb2d83d1a68ca77548e7ad53bc21fbd221727",
-      "created_at": "2026-10-25T17:03:55.348944+00:00"
+      "created_at": "2026-10-25T17:45:42.947214+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -632,7 +996,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxOenJjWWFLN0xjSXdjOHdmUFJ5ekx1M0FLLWR0dGxDc1p6X2xJbDAzM2Zia0lIZFhwdTBJOExfNnVseXd4M1RzUjRDV2MySDBTTTFuQTFKYmVrd2JEWTdOUG9BM3kzU24waU9zQlJMV0d3cFR1VXJrdVZzd1FITEV4Y3lMbHVOM1hZWlFnQlZKd3FvVDA?oc=5",
       "content_hash": "323503d285ba5019c37f9f94e0b8006a81eb827bff1d44951b06bc50077f91c8",
-      "created_at": "2026-10-25T17:03:56.111783+00:00"
+      "created_at": "2026-10-25T17:45:43.144902+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -642,7 +1006,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUy1oVUkwV2F4LTdiOElJTjJ6UlFZcTNLZHpzS1Rob1dSRHo1V2FTNXY0QmdaWTNBWF9EYXlxQmpYcXM2dEpicU9taDdmWF8zUDZFSThidU10bVhsV19lZEV0YzZETTQybEYyelhqTk43YTBXWlB4eHRJeFRuTzB4NmlaVlg?oc=5",
       "content_hash": "8a7f24c1be1698cc1845650214d186da2f121d9ac51b55d47d95f679feab9470",
-      "created_at": "2026-10-25T17:03:56.111807+00:00"
+      "created_at": "2026-10-25T17:45:43.144947+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -652,27 +1016,27 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNVEVCN0c2TFNGSXRwWTlJNDg1TWZiQW5aNnczS0JZY2VMbDhtVUZIaGhGNk1iQUF2RDJaUy0xSzBrV1JFckQ4UXY4d05HbDBfNDdsM1BDSzhKeXZfS3ljb3dHOVRkZG1WeHVaZHZuT1l4a0VLb1gxUnZMTWdPZGw2ckJJZFVDN2NaTC1SQjEyUURSVnZfalA0ZUZzMTg1blFzVThwcXoxRllLZmZVY3F1bV9mQ01BTW9GcUlWNFFoSWt4eUlk?oc=5",
       "content_hash": "f94470a2e9c7bbe0d6fe1be3e32940145d2c4a13a49b0b5ad9991209af7f88ca",
-      "created_at": "2026-10-25T17:03:56.111817+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "RED-SEA-MIDEAST",
-      "severity": "CRITICAL",
-      "headline": "Live - Araghchi says war would not alter Iran policy as Trump raises prospect of strike - Iran International",
-      "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBiblkxNnVtVlJKZk9CWDVFRTZvY2F6bWZORmVtSkR4NVY4VzZQa3dPZy1KNE5EbUpvMWF3TDk0VEY5QnAzTmFWS3FjenBLRHdpU2UtMjVKZlphZl9tRkE?oc=5",
-      "content_hash": "fe76c11b04b9e15c48e2dc3fcca5c5e356fff1865d4273c56501d0f8be1e830a",
-      "created_at": "2026-10-25T17:03:56.111825+00:00"
+      "created_at": "2026-10-25T17:45:43.144972+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
       "severity": "HIGH",
-      "headline": "Saudi-Led Troops Had Just Gathered When a Houthi Missile Left Dozens Dead - WSJ",
+      "headline": "Saudi Arabia says it intercepted missiles and drones from Iran-backed Houthis - CNBC",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOTklwa1VfWlRmOHVxeVoyMHh6SU5yZGtJZXdZaUs2VWJqLXdEUWdZakxha3l4clhyajc1Q0xmdWpuZ0FUbHd6SjZ1OWhFc0hJOWZ6QWVFQ3psb3dmbDVUTVNpQWtUQWk2Z2pqY2t6aXZxalQxX3VVSUNjM2VDWTZ6VmRldC16bWJ5U2lSelNlZ0paQTItLXh5SFFJRFlfMzlDRDJTSFBXaW56NGNsb0RDTjd1MUlRMlNUSy1UdA?oc=5",
-      "content_hash": "16e3fe6f05c1beb421c33b8c45eb967285934b00ce534af9cd66e1fc8e6a5072",
-      "created_at": "2026-10-25T17:03:56.111836+00:00"
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOdjVjTmdHOUVQdHBNYk9zRUlGWDVXXzRFTmFzUWJaZno0Y2ZkU2ZQcDJ4YUt4Q29lclZwWmw5eTdaWEczNDY4ZTVQNnI5OVFCQjl1VndQVkN6SFM4NzJRb0pfTUVDejVSMktPeENjd3NxVnRTRUpPMWU4OWFKYkhIZkI0UjJDSXVEcG9fY9IBkgFBVV95cUxPQzlTRWw1RFVBdlVvT1VpdkdQSkh3UjhQZURkZElXRTlMWFZQT29UVFJRTXhCbXlEbjY5ZW01dDZnRFBiaWNnbGVrTGtDS0QwRzF6ZGZOYzVtemkzUDVPSlFqbHBsSTZHRnVOazhkNWNaX2NIWmVmcEc2eUlGZ3Z5d01QLXJ0TWxGRjVoa1ZEdG5sdw?oc=5",
+      "content_hash": "f2ec3f18993ae4844a229c7503dec8b42ccd5b66709e039e017289c5ce09d86e",
+      "created_at": "2026-10-25T17:45:43.144999+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "RED-SEA-MIDEAST",
+      "severity": "CRITICAL",
+      "headline": "Obama unloads on Trump over the Iran war and mocks the president’s diplomatic strategy - The Independent",
+      "source": "Middle East & Red Sea Corridor",
+      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNejBYWDRBNUZvUkZEZkIxS1pCUzRFWXFkbVM1M1J3dFo3MmpUWnVEQzYtNHJLX1hEdHhZTE1LSjJLSDQ3ekJhN3lxYW5wNW54VlZxdEtaY0JLRkItbkpjVDFsVGgwcHJKRzBCTFVJMFpuc2cwRGV2S2duc29EZzVsSnlrdFIyZjFGU3FSNFplN1V6LWUwR051VlI4aGVkZ0hYUHFiMklxcTBfeHc?oc=5",
+      "content_hash": "2ccbd754a1b049d39a1c4c6675ba04d050a018b708f5665f5ab3665a9d7677f6",
+      "created_at": "2026-10-25T17:45:43.145039+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -682,7 +1046,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOVUJtOXZ1azFzVE5YcmJrX3p0VmtUYXpoME1wUzRzelg2S29YWldrODNMMDZlRnNRQ1E2RnV3TkdadmNaZHZfUlh5WlFBdUthYWRRbTlrdUhBWUNlMmVQcDRDQ3VNYUtWTmFTTkZTSjB4WlVNTlVOc2pPckV2UVI2TnVXT1lyaUFqMTFkWGxpcmhNM3JPSjNtWjNkSGNsNWRZallyNEg2cXc1WDTSAbABQVVfeXFMTS1IQmRFYnMwVEdxUW5YVDR6QVUzTy1JdTZ5ZkxsTVRMem0xTFZFU0lIZTU5OFZuOENoU1hGRWE1RU1hU1lReDRxbm82MFg1YkpyOVg2VmtlUWszYlA5MFZjbzBvc2N3TFFQTjA1NWFkM3BHakFSWXo3V1VZTW43OV9tN29iY3NURjBpNk5HaTgwWUJKQUt1bklNbTV6aUF0N0RUUkVMWWFFYUZaX3I4NzM?oc=5",
       "content_hash": "4f38a85ad606d1625e19728fae37edc623cd9158c0be749fa11e5d853d063392",
-      "created_at": "2026-10-25T17:03:56.740228+00:00"
+      "created_at": "2026-10-25T17:45:43.334742+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -692,7 +1056,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPb3A3UlJ6WjNLcXJLM2Z3ZWl2SXV4Sy13TkdoQUpzUXM4dXlDSlJGSU5IYlBPTkJKX2dmTi1rVjZmVVItQ21hRmFrTklBeVZ2c2IxTmZEWXRSTzd4UHZPVnRIZ0FYMnQtbGFOYlhiaVRWYkN0cDZ1UVZ0TFhMTUJHUHFmMTRyMWItRVV2anZ3WVhlUQ?oc=5",
       "content_hash": "b8376c8bd2146c596b1fb57febe70a7af8e9ac08af64c5a2f89e1e4aff2379de",
-      "created_at": "2026-10-25T17:03:56.740249+00:00"
+      "created_at": "2026-10-25T17:45:43.334791+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -702,7 +1066,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
       "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
-      "created_at": "2026-10-25T17:03:56.740258+00:00"
+      "created_at": "2026-10-25T17:45:43.334813+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -712,7 +1076,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNaEVZLXI4b01hWkh2T2dMSHo5V1k0cDFKbVA2YlZIWnVGbzBUcTNfME96WlRMaVFiN0swcW1XY3EwN0x3NTN5RDRtYmlYbjRCelU1ekZBd05pLWJQdldEZ0tOQjdHdldVZkc0Mm5GRjAwNGJWdnJJZzN4b2RxdGtlQjJZakZNU1ZSS1JERlI5UXBNaFpZT1hobXg0UXQ1SDNmNGQwWkZndVVFV0VuUXVwTmF5UThHa2xraEQ5TWxXTEFuZDVSRFdaaXVB?oc=5",
       "content_hash": "5a98ebd583682fbb9545e02955e37137ad7d51f8dd85f319db2ea6eb55c19cc9",
-      "created_at": "2026-10-25T17:03:56.740275+00:00"
+      "created_at": "2026-10-25T17:45:43.334857+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -722,7 +1086,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9aRTVjQUVHb19FQkhJUU54dTBXNi0yMEtFSlhWck1qU1I0TlU2Rk00eHNhRTFmdWhucWhjMXRLd25rcE5kRnJCOE5LcmNPT0laQVl5M0pBUQ?oc=5",
       "content_hash": "7760ab67c3f2e80643da7f41f0c18ab746cd931b66d51bfa3a58cdbaa77d495d",
-      "created_at": "2026-10-25T17:03:56.740286+00:00"
+      "created_at": "2026-10-25T17:45:43.334891+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -732,7 +1096,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
       "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
-      "created_at": "2026-10-25T17:03:57.429941+00:00"
+      "created_at": "2026-10-25T17:45:43.523265+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -742,17 +1106,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQRWpJaVFWeFdvT0NpdU9ZQnVuQ3BhNjJ4dG0tVkZ3cm1UWXhtbVlXb1N4eTN1SG9adUVybERkSFJNbkVBbE9tWmh5ekxaMjcySVotYTZkSGFoRGpkVjJvbmhySF9CdFZRNlhfSEdXaFNSOWNkMEpYTTJoeElDeUhadGlTelZZWkxCZkE?oc=5",
       "content_hash": "1a2775bf71a413b9e601531ce319cd9f67cae4be5983097bbf7817ff46de43e0",
-      "created_at": "2026-10-25T17:03:57.429960+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EASTERN-EUROPE",
-      "severity": "ELEVATED",
-      "headline": "The Black Sea is now the world’s deadliest shipping route - Financial Times",
-      "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQY0FtVEhrS2dCX2ZRcFExOTlMeUdZSXVjVjRUU2lUNHZiaWJMQTRQUVo0cV9DSVd4V1NINGVuZ1czaDJLMGxKRnJtX1psZWRlQUlBOU9oRGhwWnNIRi1PWTRlNjJoeEhCMHpVTkh2REtvYVhmbFk2X3VuaklFZDE5ZVQyZFc?oc=5",
-      "content_hash": "95f9c8c5b818570cfdd410ea1bd296ff5b412b23b8fdecd2f3c8bfbeee73ecc9",
-      "created_at": "2026-10-25T17:03:57.429981+00:00"
+      "created_at": "2026-10-25T17:45:43.523323+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -762,7 +1116,17 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPVktiaHZEYnJBTzNET1N4NjlMcU9zdWtDUENTcEJpRXRMME5NTXAwM2N2TEF6RmtER1B1SmlKQVZ0eVhFbnZPTC1TbF9CNFh5dHJRLVBLai0zWHpHX3hsWXcwalV6SVlteTdrMnlhcGZYSGplWl9CTzlLNU1yZjBJZnFIM0dwTURjaUk2Y3d5Sm5yYVhrX1dadGhWTVIyal9GYkZycjhhYlltN3VoY1Bn?oc=5",
       "content_hash": "d4394649b9793c54384fe6a8fd7be8b4312b13a25f75edba16b49aa22628f6f6",
-      "created_at": "2026-10-25T17:03:57.429991+00:00"
+      "created_at": "2026-10-25T17:45:43.523790+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EASTERN-EUROPE",
+      "severity": "ELEVATED",
+      "headline": "The Black Sea is now the world’s deadliest shipping route - Financial Times",
+      "source": "Eastern Europe & NATO Flank",
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQY0FtVEhrS2dCX2ZRcFExOTlMeUdZSXVjVjRUU2lUNHZiaWJMQTRQUVo0cV9DSVd4V1NINGVuZ1czaDJLMGxKRnJtX1psZWRlQUlBOU9oRGhwWnNIRi1PWTRlNjJoeEhCMHpVTkh2REtvYVhmbFk2X3VuaklFZDE5ZVQyZFc?oc=5",
+      "content_hash": "95f9c8c5b818570cfdd410ea1bd296ff5b412b23b8fdecd2f3c8bfbeee73ecc9",
+      "created_at": "2026-10-25T17:45:43.523847+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -772,7 +1136,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXJfQ3NxeEZ2TzEyVWpBZHV2Tm91S2JPOE1ZM3RFajltaElaa1hEMk9HZHM1OTZQS3o3b1BxOGlkUVpsaTZURkhpeU1scHRNbVN0YTlKeF95cl9JVVByV1l2LWc4Qk1vUGdHdXVOV3l3eV82UFVqbWVTc0E1eFU1eUJCc1M1NGFCNnNJSThKVFVOQVVwNllPT290dGFPQ0twQjcyRUVTWUlJLVgxU2c?oc=5",
       "content_hash": "cf02cee0dbb526905afc9b34af1a6ada0b1bc03023eed300ad36118a3e305877",
-      "created_at": "2026-10-25T17:03:57.430002+00:00"
+      "created_at": "2026-10-25T17:45:43.523880+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -782,7 +1146,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZkFTN1Z5Ui1wdm5HZWVZTWNkUW4tUURiTmh0bGl5SWxSV1pyNW1zanVrRng3UEJSb2toTEV2ZXQzUkpkYm1fQTd0bTFITU1ndnA1NkVUWjlNcmRNa0tOQ3dWNmZtVzR3ZEVORlhxYnBxaGJNb2ZBazVkQUhOMk44RjlJaVprNGpKbkU5d1JJb3BUa3M0NjNRM0t2emkzdzFvLXZQdWwxVWphaU50Q3FN?oc=5",
       "content_hash": "4aa275ce0f155c042c56c244fec1a7eac1fc7b677f344eb7973843f56c0fd3ab",
-      "created_at": "2026-10-25T17:03:58.068707+00:00"
+      "created_at": "2026-10-25T17:45:43.710948+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -792,7 +1156,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
       "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
-      "created_at": "2026-10-25T17:03:58.068739+00:00"
+      "created_at": "2026-10-25T17:45:43.711012+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -802,17 +1166,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOMXBEVExoWlBXVDJWVWM2WGN0LU1lYkZGWnRiWThxUXVzNFg1N1hqYlFTbk5sVGx3cnFXcVBZdl9rRVF2UkFRcy1jQ191cUJVT3p2X3dzRzZlc0c3UlRiUXBJazNET2VuekZsUXJXLS1ta3NPYlAzWG15MTZVMGI3dlNEMUZVWndHN29jb3p2Y05TNHFQX080SWs4WWVNSzlfVEFYSllmMzdHQ1lrcDZHQ21NUl9vVzA?oc=5",
       "content_hash": "93b705be62b3a729afbd9370ea29cc66f712fe8f55776abcce613f36583e5a7a",
-      "created_at": "2026-10-25T17:03:58.068752+00:00"
-    },
-    {
-      "domain": "GEOPOLITICAL",
-      "theater": "INDO-PACIFIC",
-      "severity": "CRITICAL",
-      "headline": "Taiwan's President Lauds Country's Hardware Resilience Amid Tariffs, Supply Chain Shifts - Manufacturing.net",
-      "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOSGpVckZZNG1BRHdpWE9pUWEwZ0lwVExlODZUdks3UmZBQkFRTW55c2xOM0gxSnNhdXMxMWRKQ0ExUHRHZ3RLYVFDaXpoOVVpdTlnSGlfUXdMMnBqb21nRFN3a05oMThTZjA0eHVteVF0b2VHZXdWRnNyT0VJX0Zic2xqbW9yS2hOSnRUOFZsa2FxMnNTbHpmNlNPZGNveWNjSFlrVnFUckxmUG9KTU4zbEtlOWIxWmkyU1NUYmpKTGZ2M3VfRGtTRTRqdEtKeVoxb1ZmZVdnMA?oc=5",
-      "content_hash": "5062a02569d22667b942665744469d9792405a91861b094933de4ccbf6142cbd",
-      "created_at": "2026-10-25T17:03:58.068761+00:00"
+      "created_at": "2026-10-25T17:45:43.711045+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -822,7 +1176,17 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5JUnNiT2dtMjdnS1FROVN6RmttenJ5Z0hCTF9XbW1IYjJzdkV4Nkl1RmpKdW9RNmZUYjFUNXRWekJidFo5UXFqSjdmb1h5a0VsQmIyS0duVQ?oc=5",
       "content_hash": "9863d823119a510debe961c15674906516eb6832d3ae4329387743d4dcb53330",
-      "created_at": "2026-10-25T17:03:58.068770+00:00"
+      "created_at": "2026-10-25T17:45:43.711122+00:00"
+    },
+    {
+      "domain": "GEOPOLITICAL",
+      "theater": "INDO-PACIFIC",
+      "severity": "CRITICAL",
+      "headline": "Taiwan's President Lauds Country's Hardware Resilience Amid Tariffs, Supply Chain Shifts - Manufacturing.net",
+      "source": "Indo-Pacific & Taiwan Strait",
+      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOSGpVckZZNG1BRHdpWE9pUWEwZ0lwVExlODZUdks3UmZBQkFRTW55c2xOM0gxSnNhdXMxMWRKQ0ExUHRHZ3RLYVFDaXpoOVVpdTlnSGlfUXdMMnBqb21nRFN3a05oMThTZjA0eHVteVF0b2VHZXdWRnNyT0VJX0Zic2xqbW9yS2hOSnRUOFZsa2FxMnNTbHpmNlNPZGNveWNjSFlrVnFUckxmUG9KTU4zbEtlOWIxWmkyU1NUYmpKTGZ2M3VfRGtTRTRqdEtKeVoxb1ZmZVdnMA?oc=5",
+      "content_hash": "5062a02569d22667b942665744469d9792405a91861b094933de4ccbf6142cbd",
+      "created_at": "2026-10-25T17:45:43.711172+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -832,7 +1196,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/goldman-sachs-jpmorgan-morgan-stanley-ai-trading.html",
       "content_hash": "fb1ede5e869144dfc2dd52f14aa8ec43f2ec81f7f3bc72e67703a72712e8ef53",
-      "created_at": "2026-10-25T17:03:58.541427+00:00"
+      "created_at": "2026-10-25T17:45:44.200790+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -842,7 +1206,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/stocks-making-the-biggest-moves-premarket-spcx-smci-nflx-more.html",
       "content_hash": "9a33d7535f6b4653bc8def2a163cec0fcce4bf81f9e0a2e65454ff91d09fd442",
-      "created_at": "2026-10-25T17:03:58.541461+00:00"
+      "created_at": "2026-10-25T17:45:44.200827+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -852,7 +1216,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-after-hours-isrg-nflx-spcx.html",
       "content_hash": "9ea5b28a02455b704a737b9d97912fc99667b02835eb19c37ae22e921f6593ab",
-      "created_at": "2026-10-25T17:03:58.541481+00:00"
+      "created_at": "2026-10-25T17:45:44.200851+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -862,7 +1226,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-midday-has-noc-efx-gm.html",
       "content_hash": "44bef1427843fa12ec8c1268f6614bde8d0c6e41bc9ac1632bcc807649e31ea4",
-      "created_at": "2026-10-25T17:03:58.541499+00:00"
+      "created_at": "2026-10-25T17:45:44.200874+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -872,7 +1236,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-premarket-rtx-gm-noc-stld.html",
       "content_hash": "a31bfe33504916f3e24be88e6092fdde2cf9c78569db7154ff263f49d67cddbc",
-      "created_at": "2026-10-25T17:03:58.541518+00:00"
+      "created_at": "2026-10-25T17:45:44.200894+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -882,7 +1246,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
       "content_hash": "5c70172aa6d59e383f591f24202f703538405383bd61bb96ee1c8660b51bd004",
-      "created_at": "2026-10-25T17:03:59.019657+00:00"
+      "created_at": "2026-10-25T17:45:44.600005+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -892,7 +1256,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
       "content_hash": "e3ab869cce692e57696757c0160612602193ae795b6476cf2c5035c62ec8749c",
-      "created_at": "2026-10-25T17:03:59.019678+00:00"
+      "created_at": "2026-10-25T17:45:44.600046+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -902,7 +1266,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
       "content_hash": "3b6ea4b0cd7afaaaa4f35287f8041647248978eee397f809e77295bac7b9f12d",
-      "created_at": "2026-10-25T17:03:59.019688+00:00"
+      "created_at": "2026-10-25T17:45:44.600067+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -912,7 +1276,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
       "content_hash": "fbc8afae82c3db7d2d07cd5efd8aeb856de194eae1498cb909b0b8147bd72b19",
-      "created_at": "2026-10-25T17:03:59.019697+00:00"
+      "created_at": "2026-10-25T17:45:44.600087+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -922,22 +1286,43 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
       "content_hash": "345f23ed6250d05d64a08fb0a38633a5472e271951c152e9c019b348519213ab",
-      "created_at": "2026-10-25T17:03:59.019706+00:00"
+      "created_at": "2026-10-25T17:45:44.600105+00:00"
     }
   ],
   "topic_deep_dives": [
     {
-      "subject": "East African Infrastructure & Transport Logistics (Tanzania SGR)",
-      "latest_developments": "Tanzania has secured a financial injection of Sh3.67 trillion to advance the Standard Gauge Railway (SGR) link spanning 424 kilometers from Makutupora to Isaka, aggressively accelerating regional transit corridors.",
-      "in_depth_context": "This capital mobilization bridges crucial interior segments toward the Lake Victoria basin, fundamentally reshaping cargo freight timelines, heavy-machinery transport efficiency, and trade transit costs across the East African Community (EAC) bloc, effectively bypassing antiquated meter-gauge bottlenecks.",
-      "why_it_matters": "For your operations in Kenya, Boss, shifts in regional logistics corridors directly influence cross-border supply chain velocities, regional hardware import overheads, and the broader macroeconomic stability of the East African economic theater where we deploy our infrastructure.",
-      "theater": "EAST-AFRICA"
+      "subject": "Starlink Mil-Spec Restrictions & Satellite Comms Governance",
+      "latest_developments": "SpaceX has enforced strict terms of service limitations on tactical Starlink terminal utilization in Ukraine, citing unauthorized military-grade routing.",
+      "in_depth_context": "Commercial low-earth orbit (LEO) satellite constellations are increasingly caught in the crosshairs of geopolitical conflict, forcing operators to balance commercial liability, state-level ITAR regulations, and weaponization thresholds. This sets a precedent for how decentralized internet infrastructure will be governed during kinetic or hybrid engagements.",
+      "why_it_matters": "For Michael Obiero managing high-availability tech architecture and remote infrastructure, this underscores the vulnerability of relying entirely on single-vendor LEO solutions. Redundancy protocols must account for sudden API throttling or geo-fencing policies.",
+      "theater": "GLOBAL"
     },
     {
-      "subject": "Global Sports Entertainment & Media Markets",
-      "latest_developments": "High-profile turbulence dominates European football, highlighted by Michael Carrick facing severe managerial jeopardy at Manchester United following a critical home defeat to Bournemouth, alongside intense media coverage surrounding major global fixtures like El Clásico and the upcoming 2026 F1 United States Grand Prix at COTA.",
-      "in_depth_context": "These flagship properties drive massive multi-billion-dollar streaming traffic, real-time telemetry spikes, and global programmatic advertising revenue streams, acting as stress-tests for digital infrastructure and content delivery networks under high-concurrency loads.",
-      "why_it_matters": "While sports friction is hardly a direct security threat, monitoring high-volume public engagement vectors gives us a clear baseline of global bandwidth contention, sentiment volatility, and potential psychological distraction indices across public networks.",
+      "subject": "Venezuelan Leadership Shift & Energy Market Volatility",
+      "latest_developments": "Opposition figurehead María Machado has returned from exile following the seismic political shift triggered by the US government's seizure of Nicolás Maduro.",
+      "in_depth_context": "The sudden collapse of the Maduro regime and return of opposition leadership marks a critical juncture for Latin American geopolitics and global energy markets. The unfreezing of Venezuelan heavy crude exports could eventually recalibrate OPEC dynamics and global tanker charter rates.",
+      "why_it_matters": "Shifts in global crude supply directly impact international logistics pricing, freight indices, and downstream technology hardware manufacturing costs relevant to our operational supply chain.",
+      "theater": "GLOBAL"
+    },
+    {
+      "subject": "Balkan Democratic Pressures & Electoral Disruptions",
+      "latest_developments": "Serbia is experiencing record voter turnout driven by a coordinated student-led movement challenging longtime populist leader Aleksandar Vučić.",
+      "in_depth_context": "Grassroots youth-led political mobilizations leveraging digital organizing tools are applying unprecedented pressure on entrenched regimes in Eastern Europe, signaling potential systemic instability across key European transit and manufacturing corridors.",
+      "why_it_matters": "While geographically distant from Nairobi, political volatility in Eastern European tech outsourcing and manufacturing hubs can introduce localized supply chain ripples for specialized hardware components.",
+      "theater": "GLOBAL"
+    },
+    {
+      "subject": "Levantine Security Protocols & Border Infrastructure Closures",
+      "latest_developments": "The Israel Defense Forces have ordered a complete closure of West Bank crossings and tightened workforce movement restrictions ahead of upcoming elections.",
+      "in_depth_context": "Escalated security crackdowns and border lockouts severely disrupt local labor markets, supply chains, and regional stability metrics, intensifying broader Mideast security friction.",
+      "why_it_matters": "Heightened tensions across the Levant reinforce our ongoing risk models regarding global shipping insurance premiums and Middle Eastern telecommunications redundancy.",
+      "theater": "GLOBAL"
+    },
+    {
+      "subject": "Central African Digital Sovereignty & Censorship Reversals",
+      "latest_developments": "Gabon has officially lifted an eight-month total blackout on social media platforms, which authorities had originally imposed to curb alleged conflict-fueling narratives.",
+      "in_depth_context": "The tension between authoritarian information control and digital freedom of expression across African states highlights the volatile nature of regional telecom regulations and platform compliance mandates.",
+      "why_it_matters": "Provides a useful telemetry data point on how African regulatory bodies manage digital infrastructure, information flow, and platform censorship during periods of political transition.",
       "theater": "GLOBAL"
     }
   ],
@@ -1057,10 +1442,10 @@
       "content": "Subnet 192.168.100.0/24 mapped with active device discovery and Wake-on-LAN."
     }
   ],
-  "generated_at": "2026-10-25T17:04:02.701757+00:00",
+  "generated_at": "2026-10-25T17:45:49.159964+00:00",
   "live_sports": {
     "success": true,
-    "updated_at": "2026-10-25T17:06:06.966024+00:00",
+    "updated_at": "2026-10-25T17:49:55.071525+00:00",
     "epl": {
       "league": "English Premier League",
       "live_count": 1,
@@ -1171,9 +1556,9 @@
           "name": "Leeds United at Sunderland",
           "short_name": "LEE @ SUN",
           "state": "in",
-          "status_detail": "36'",
-          "clock": "36'",
-          "period": 1,
+          "status_detail": "63'",
+          "clock": "63'",
+          "period": 2,
           "date": "2026-10-25T16:30Z",
           "venue": "Stadium of Light",
           "home": {
@@ -1300,5 +1685,5 @@
       ]
     }
   },
-  "live_sports_updated_at": "2026-10-25T17:06:06.968637+00:00"
+  "live_sports_updated_at": "2026-10-25T17:49:55.075268+00:00"
 }
