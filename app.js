@@ -48,7 +48,11 @@ let appState = {
   selectedLanDeviceIp: null,
   selectedOsintId: 1,
   radarAngle: 0,
-  radarSelectedBlipId: "red-sea"
+  radarSelectedBlipId: "red-sea",
+  liveSports: null,
+  sportsFilter: "ALL", // ALL | EPL | F1
+  sportsCountdown: 60,
+  sportsTimerId: null
 };
 
 // Weather Condition Icons (SVG)
@@ -158,6 +162,10 @@ async function fetchLiveTelemetryFile() {
       if (Array.isArray(data.tasks) && data.tasks.length > 0) appState.tasksData = data.tasks;
       if (Array.isArray(data.ledger) && data.ledger.length > 0) appState.ledgerData = data.ledger;
       if (Array.isArray(data.vault) && data.vault.length > 0) appState.vaultData = data.vault;
+      if (data.live_sports) {
+        appState.liveSports = data.live_sports;
+        if (typeof renderLiveSports === "function") renderLiveSports();
+      }
     }
   } catch (err) {
     console.warn("Live telemetry file error:", err);
@@ -175,6 +183,7 @@ async function fetchTelemetryData() {
     console.info("Ingesting 100% real live planetary, cyber, and network telemetry...");
     await fetchLiveTelemetryFile();
     await fetchLiveWeatherDirect();
+    if (typeof fetchLiveSportsTelemetry === "function") fetchLiveSportsTelemetry();
     appState.lastSyncTime = new Date();
     
     if (connectionBadge) {
@@ -191,6 +200,7 @@ async function fetchTelemetryData() {
     renderConflict();
     renderOsint();
     renderLanDevices();
+    if (typeof renderLiveSports === "function") renderLiveSports();
     if (refreshIcon) refreshIcon.classList.remove("spin-anim");
     return;
   }
@@ -4118,6 +4128,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize Telegram Poller & Holographic Notification Toast
   initTelegramEventListener();
 
+  // Initialize Realtime EPL & F1 Sports Radar (By-the-Minute)
+  initLiveSportsEngine();
+
   // Setup Persona Theme Switchers
   const btnHybrid = document.getElementById("btn-theme-hybrid");
   if (btnHybrid) btnHybrid.addEventListener("click", () => { applyTheme("hybrid"); playSciFiChirp("confirm"); });
@@ -4986,3 +4999,332 @@ window.triggerSubjectDeepDive = async function(subject, source) {
     }
   }
 };
+
+
+// ==========================================================================
+// REALTIME EPL & F1 LIVE SPORTS TELEMETRY ENGINE (BY-THE-MINUTE)
+// ==========================================================================
+
+async function fetchLiveSportsTelemetry() {
+  const spinIcon = document.getElementById("sports-spin-icon");
+  if (spinIcon) spinIcon.classList.add("spin-anim");
+
+  let fetchedData = null;
+
+  // 1. First probe local command daemon on port 5050 (fastest, local network)
+  try {
+    const localRes = await fetch("http://127.0.0.1:5050/api/sports", {
+      signal: AbortSignal.timeout(1800)
+    });
+    if (localRes.ok) {
+      fetchedData = await localRes.json();
+    }
+  } catch (_) {
+    // Local daemon not on this origin or port blocked, fall through
+  }
+
+  // 2. Second probe Vercel serverless /api/sports
+  if (!fetchedData || !fetchedData.success) {
+    try {
+      const apiRes = await fetch("/api/sports?t=" + Date.now(), {
+        signal: AbortSignal.timeout(6000)
+      });
+      if (apiRes.ok) {
+        fetchedData = await apiRes.json();
+      }
+    } catch (_) {}
+  }
+
+  // 3. Fallback to cached telemetry_live.json if network is offline
+  if (!fetchedData || !fetchedData.success) {
+    if (appState.liveSports) {
+      fetchedData = appState.liveSports;
+    }
+  }
+
+  if (fetchedData && fetchedData.success) {
+    appState.liveSports = fetchedData;
+    renderLiveSports();
+  }
+
+  if (spinIcon) {
+    setTimeout(() => spinIcon.classList.remove("spin-anim"), 500);
+  }
+}
+
+function renderLiveSports() {
+  const data = appState.liveSports;
+  if (!data) return;
+
+  const liveBadge = document.getElementById("sports-live-epl-badge");
+  const eplMatchesContainer = document.getElementById("sports-epl-matches-container");
+  const eplSubhead = document.getElementById("epl-status-subhead");
+  const f1NextCard = document.getElementById("f1-next-race-card");
+  const f1StandingsContainer = document.getElementById("f1-standings-container");
+  const eplCol = document.getElementById("sports-epl-column");
+  const f1Col = document.getElementById("sports-f1-column");
+
+  // Handle Tab Filtering layout
+  if (eplCol && f1Col) {
+    if (appState.sportsFilter === "EPL") {
+      eplCol.className = "lg:col-span-12 space-y-4";
+      eplCol.style.display = "block";
+      f1Col.style.display = "none";
+    } else if (appState.sportsFilter === "F1") {
+      f1Col.className = "lg:col-span-12 space-y-4";
+      f1Col.style.display = "block";
+      eplCol.style.display = "none";
+    } else {
+      eplCol.className = "lg:col-span-7 space-y-4";
+      f1Col.className = "lg:col-span-5 space-y-4";
+      eplCol.style.display = "block";
+      f1Col.style.display = "block";
+    }
+  }
+
+  // 1. Render EPL Matches
+  const epl = data.epl || {};
+  const matches = epl.matches || [];
+  const liveCount = epl.live_count || 0;
+
+  if (liveBadge) {
+    if (liveCount > 0) {
+      liveBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-rose-500 animate-ping inline-block mr-1"></span> ${liveCount} MATCHES IN-PLAY`;
+      liveBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/50 font-bold";
+    } else {
+      liveBadge.textContent = "0 MATCHES IN-PLAY (STANDBY)";
+      liveBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700";
+    }
+  }
+
+  if (eplSubhead) {
+    eplSubhead.textContent = `Matchday Total: ${matches.length} | Synced ${new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}`;
+  }
+
+  if (eplMatchesContainer) {
+    if (matches.length === 0) {
+      eplMatchesContainer.innerHTML = `
+        <div class="p-8 text-center text-xs font-mono text-slate-500 bg-slate-900/50 rounded border border-slate-800 col-span-full">
+          No Premier League fixtures scheduled for current matchday window.
+        </div>
+      `;
+    } else {
+      eplMatchesContainer.innerHTML = matches.map(m => {
+        const isLive = m.state === "in";
+        const isPost = m.state === "post";
+        const isPre = m.state === "pre";
+
+        let statusPill = "";
+        if (isLive) {
+          statusPill = `
+            <span class="inline-flex items-center gap-1 text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 border border-rose-500/60 animate-pulse">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+              LIVE ${m.clock ? m.clock : "IN-PLAY"}
+            </span>
+          `;
+        } else if (isPost) {
+          statusPill = `<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700">🏁 FT</span>`;
+        } else {
+          let kickoff = "Upcoming";
+          if (m.date) {
+            try {
+              const d = new Date(m.date);
+              kickoff = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+            } catch (_) {}
+          }
+          statusPill = `<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-cyan-950/70 text-cyan-300 border border-cyan-500/30">⏱️ ${kickoff}</span>`;
+        }
+
+        const scoreHome = isPre ? "-" : (m.home?.score || "0");
+        const scoreAway = isPre ? "-" : (m.away?.score || "0");
+
+        return `
+          <div class="sports-match-card ${isLive ? "is-live" : ""} flex flex-col justify-between">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[9px] font-mono text-slate-500 uppercase truncate max-w-[120px]">${m.short_name || "EPL"}</span>
+              ${statusPill}
+            </div>
+
+            <!-- Teams & Center Scoreboard -->
+            <div class="grid grid-cols-12 items-center py-1 gap-1">
+              <!-- Home -->
+              <div class="col-span-5 flex items-center gap-2 min-w-0">
+                <img src="${m.home?.logo}" alt="${m.home?.name}" class="team-crest-img flex-shrink-0" onerror="this.style.display='none'">
+                <span class="text-xs font-bold text-white truncate" title="${m.home?.name}">
+                  ${m.home?.short || m.home?.name || "Home"}
+                </span>
+              </div>
+
+              <!-- Score -->
+              <div class="col-span-2 text-center">
+                <div class="font-mono font-black text-base sm:text-lg text-white glow-cyan tracking-wider">
+                  ${scoreHome}<span class="text-xs text-slate-500 mx-0.5">:</span>${scoreAway}
+                </div>
+              </div>
+
+              <!-- Away -->
+              <div class="col-span-5 flex items-center justify-end gap-2 min-w-0">
+                <span class="text-xs font-bold text-white truncate text-right" title="${m.away?.name}">
+                  ${m.away?.short || m.away?.name || "Away"}
+                </span>
+                <img src="${m.away?.logo}" alt="${m.away?.name}" class="team-crest-img flex-shrink-0" onerror="this.style.display='none'">
+              </div>
+            </div>
+
+            <!-- Footer: Venue & Detail -->
+            <div class="mt-2 pt-2 border-t border-slate-800/80 flex items-center justify-between text-[9px] font-mono text-slate-500">
+              <span class="truncate max-w-[140px]">🏟️ ${m.venue || "Premier League"}</span>
+              <span class="text-slate-400">${m.status_detail || (isLive ? "Match in Progress" : "Scheduled")}</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+  }
+
+  // 2. Render F1 Next Race
+  const f1 = data.f1 || {};
+  const nextRace = f1.next_race;
+  if (f1NextCard) {
+    if (!nextRace) {
+      f1NextCard.innerHTML = `
+        <div class="text-xs font-mono text-slate-500 text-center py-4">
+          Season hiatus / Grand Prix telemetry currently synchronizing.
+        </div>
+      `;
+    } else {
+      const raceName = nextRace.race_name || "Formula 1 Grand Prix";
+      const season = nextRace.season || "";
+      const round = nextRace.round || "";
+      const circ = nextRace.circuit || {};
+      const circName = circ.name || "Grand Prix Circuit";
+      const loc = [circ.locality, circ.country].filter(Boolean).join(", ");
+      const raceDateStr = nextRace.date ? (nextRace.date + (nextRace.time ? `T${nextRace.time}` : "T13:00:00Z")) : null;
+
+      let countdownDisplay = "FLAG DROP PENDING";
+      if (raceDateStr) {
+        try {
+          const diffMs = new Date(raceDateStr).getTime() - Date.now();
+          if (diffMs > 0) {
+            const days = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diffMs / (1000 * 60 * 60)) % 24);
+            const mins = Math.floor((diffMs / (1000 * 60)) % 60);
+            countdownDisplay = `T-MINUS ${days}d ${hours}h ${mins}m`;
+          } else {
+            countdownDisplay = "RACE WEEKEND IN PROGRESS";
+          }
+        } catch (_) {}
+      }
+
+      f1NextCard.innerHTML = `
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[9px] font-mono font-bold px-2 py-0.5 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40">
+            ROUND ${round} // ${season}
+          </span>
+          <span class="text-[10px] font-mono text-amber-300 font-bold tracking-wider animate-pulse">
+            ⏱️ ${countdownDisplay}
+          </span>
+        </div>
+        <h4 class="text-sm sm:text-base font-bold text-white font-display tracking-wide glow-rose">
+          ${raceName}
+        </h4>
+        <div class="mt-1 flex items-center gap-1.5 text-xs text-slate-300 font-mono">
+          <span>🏁 ${circName}</span>
+        </div>
+        <div class="mt-1 flex items-center justify-between text-[10px] font-mono text-slate-400">
+          <span>📍 ${loc}</span>
+          <span>📅 ${nextRace.date || "Upcoming"}</span>
+        </div>
+      `;
+    }
+  }
+
+  // 3. Render F1 Standings Leaderboard
+  const standings = f1.standings || [];
+  if (f1StandingsContainer) {
+    if (standings.length === 0) {
+      f1StandingsContainer.innerHTML = `
+        <div class="text-xs font-mono text-slate-500 text-center py-3">
+          Standings table loading from FIA telemetry feed...
+        </div>
+      `;
+    } else {
+      f1StandingsContainer.innerHTML = standings.map((d, idx) => {
+        const posClass = idx === 0 ? "pos-p1" : idx === 1 ? "pos-p2" : idx === 2 ? "pos-p3" : "pos-default";
+        return `
+          <div class="f1-standing-row">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="pos-badge ${posClass}">P${d.position}</span>
+              <div class="truncate min-w-0">
+                <span class="font-bold text-white text-[11px]">${d.driver}</span>
+                <span class="text-[9px] text-slate-400 ml-1">(${d.code || d.nationality})</span>
+                <span class="text-[9px] text-rose-400/80 block truncate">${d.team}</span>
+              </div>
+            </div>
+            <div class="text-right flex-shrink-0">
+              <span class="font-bold text-amber-300 text-xs">${d.points}</span>
+              <span class="text-[9px] text-slate-400">pts</span>
+              <span class="text-[9px] text-slate-500 block">${d.wins}W</span>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+  }
+}
+
+function startSportsCountdown() {
+  if (appState.sportsTimerId) clearInterval(appState.sportsTimerId);
+  appState.sportsCountdown = 60;
+  updateSportsCountdownDisplay();
+
+  appState.sportsTimerId = setInterval(() => {
+    appState.sportsCountdown -= 1;
+    if (appState.sportsCountdown <= 0) {
+      appState.sportsCountdown = 60;
+      fetchLiveSportsTelemetry();
+    }
+    updateSportsCountdownDisplay();
+  }, 1000);
+}
+
+function updateSportsCountdownDisplay() {
+  const countEl = document.getElementById("sports-countdown");
+  if (countEl) {
+    countEl.textContent = `${appState.sportsCountdown}s`;
+  }
+}
+
+function initLiveSportsEngine() {
+  // 1. Setup filter tabs
+  document.querySelectorAll(".sports-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      playSciFiChirp("blip");
+      document.querySelectorAll(".sports-tab").forEach(t => t.classList.remove("active"));
+      tab.classList.add("active");
+      appState.sportsFilter = tab.getAttribute("data-filter") || "ALL";
+      renderLiveSports();
+    });
+  });
+
+  // 2. Setup manual Rez button
+  const rezBtn = document.getElementById("btn-refresh-sports");
+  if (rezBtn) {
+    rezBtn.addEventListener("click", () => {
+      playSciFiChirp("confirm");
+      appState.sportsCountdown = 60;
+      updateSportsCountdownDisplay();
+      fetchLiveSportsTelemetry();
+    });
+  }
+
+  // 3. Start minute-by-minute countdown & initial fetch
+  startSportsCountdown();
+  fetchLiveSportsTelemetry();
+}
+
+// Global window exposure
+window.fetchLiveSportsTelemetry = fetchLiveSportsTelemetry;
+window.renderLiveSports = renderLiveSports;
+window.initLiveSportsEngine = initLiveSportsEngine;
+

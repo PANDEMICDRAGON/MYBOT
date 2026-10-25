@@ -1551,6 +1551,112 @@
 
 
     <!-- ===================================================================
+         REALTIME EPL & F1 LIVE SPORTS TELEMETRY (BY-THE-MINUTE)
+         =================================================================== -->
+    <section id="sports-section" class="draggable-hud-panel hud-panel hud-panel-chamfer p-5 sm:p-6 relative space-y-6 border border-amber-500/40 bg-slate-950/90 shadow-2xl" draggable="true" data-panel-id="sports-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // REALTIME EPL & F1 SPORTS TELEMETRY ]</span>
+        </div>
+        <span class="drag-hint">SPORTS-RADAR</span>
+      </div>
+
+      <!-- Header & Minute-by-Minute Live Sync Controls -->
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-amber-500/20 pb-4">
+        <div>
+          <div class="flex items-center gap-2.5 flex-wrap">
+            <h2 class="text-xs font-mono font-bold tracking-widest text-amber-400 uppercase flex items-center gap-2">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500"></span>
+              </span>
+              Realtime Sports Radar
+            </h2>
+            <span id="sports-sync-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+              ⚡ LIVE 60S SYNC: <span id="sports-countdown" class="font-bold text-amber-200">60s</span>
+            </span>
+            <span id="sports-live-epl-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
+              SYNCHRONIZING RADAR...
+            </span>
+          </div>
+          <p class="text-base sm:text-lg font-bold text-white tracking-wide font-display mt-0.5">
+            Premier League In-Play Telemetry & Formula 1 Paddock
+          </p>
+        </div>
+
+        <!-- Filter / Tab Controls & Manual Rez Button -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="flex items-center bg-slate-900/90 border border-amber-500/30 rounded p-1 gap-1">
+            <button class="sports-tab hud-btn active text-[10px] py-1 px-2.5" data-filter="ALL" id="sports-tab-all">ALL INTEL</button>
+            <button class="sports-tab hud-btn text-cyan-400 text-[10px] py-1 px-2.5" data-filter="EPL" id="sports-tab-epl">⚽ EPL MATCHES</button>
+            <button class="sports-tab hud-btn text-rose-400 text-[10px] py-1 px-2.5" data-filter="F1" id="sports-tab-f1">🏎️ F1 PADDOCK</button>
+          </div>
+          <button id="btn-refresh-sports" class="hud-btn text-[10px] py-1 px-3 text-amber-300 border-amber-500/40 hover:bg-amber-500/20 flex items-center gap-1.5 transition" title="Force instant sports telemetry pull">
+            <span class="inline-block transform transition-transform" id="sports-spin-icon">⟳</span>
+            <span>REZ DATA</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Sports Grid (EPL on one side / F1 on the other) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left: EPL Matches Live Grid (7 cols) -->
+        <div id="sports-epl-column" class="lg:col-span-7 space-y-4">
+          <div class="flex items-center justify-between border-b border-cyan-500/20 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-base">⚽</span>
+              <h3 class="text-xs font-mono font-bold tracking-widest text-cyan-300 uppercase">English Premier League In-Play Scoreboard</h3>
+            </div>
+            <span id="epl-status-subhead" class="text-[10px] font-mono text-cyan-400/80">Updating live...</span>
+          </div>
+          
+          <div id="sports-epl-matches-container" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <!-- Dynamic Match Cards injected here -->
+            <div class="p-6 text-center text-xs font-mono text-slate-500 bg-slate-900/50 rounded border border-slate-800 col-span-full">
+              Loading live Premier League fixtures and match clocks...
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: F1 Grand Prix & Standings (5 cols) -->
+        <div id="sports-f1-column" class="lg:col-span-5 space-y-4">
+          <div class="flex items-center justify-between border-b border-rose-500/20 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="text-base">🏎️</span>
+              <h3 class="text-xs font-mono font-bold tracking-widest text-rose-400 uppercase">Formula 1 Championship</h3>
+            </div>
+            <span id="f1-next-badge" class="text-[10px] font-mono text-rose-300">FIA Paddock Sync</span>
+          </div>
+
+          <!-- Next Grand Prix Countdown Card -->
+          <div id="f1-next-race-card" class="f1-paddock-card p-4 rounded-lg relative overflow-hidden border border-rose-500/30 bg-slate-900/80">
+            <div class="text-xs font-mono text-slate-400">Loading next Grand Prix telemetry...</div>
+          </div>
+
+          <!-- F1 Drivers Championship Leaderboard -->
+          <div class="bg-slate-900/60 border border-slate-800 rounded-lg p-3.5 space-y-2.5">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+              <span class="text-[10px] font-mono font-bold tracking-wider text-slate-300 uppercase flex items-center gap-1.5">
+                <span>🏆</span>
+                <span>World Drivers Championship (Top 10)</span>
+              </span>
+              <span class="text-[9px] font-mono text-slate-500">PTS // WINS</span>
+            </div>
+            <div id="f1-standings-container" class="space-y-1.5 font-mono text-xs">
+              <div class="p-4 text-center text-xs font-mono text-slate-500">
+                Loading official driver standings...
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ===================================================================
          9. GLOBAL INFORMATION WIRE
          =================================================================== -->
     <section id="news-section" class="draggable-hud-panel space-y-6" draggable="true" data-panel-id="news-section">

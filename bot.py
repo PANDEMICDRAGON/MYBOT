@@ -1481,6 +1481,314 @@ async def tool_port_scan_and_fingerprint(
     )
 
 
+# =====================================================================
+# --- REALTIME EPL & F1 LIVE SPORTS TELEMETRY ENGINE (BY-THE-MINUTE) ---
+# =====================================================================
+LAST_EPL_SCORES = {}
+CURRENT_SPORTS_CACHE = {}
+
+async def fetch_live_sports_telemetry(client: httpx.AsyncClient = None) -> dict:
+    """
+    Ingests live minute-by-minute English Premier League (EPL) and Formula 1 (F1)
+    telemetry from ESPN and Jolpica/Ergast API endpoints.
+    """
+    global CURRENT_SPORTS_CACHE
+    should_close = False
+    if client is None:
+        client = httpx.AsyncClient(timeout=8.0, headers={"User-Agent": "CortanaJARVIS-Sports/2.0"})
+        should_close = True
+
+    try:
+        epl_matches = []
+        f1_next = None
+        f1_standings = []
+
+        # 1. Fetch ESPN Premier League Scoreboard
+        try:
+            epl_resp = await client.get(
+                "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard",
+                timeout=7.0
+            )
+            if epl_resp.status_code == 200:
+                epl_data = epl_resp.json()
+                for ev in epl_data.get("events", []):
+                    comp = (ev.get("competitions") or [{}])[0]
+                    teams = comp.get("competitors", [])
+                    home = next((t for t in teams if t.get("homeAway") == "home"), {})
+                    away = next((t for t in teams if t.get("homeAway") == "away"), {})
+                    status_obj = ev.get("status", {})
+                    type_obj = status_obj.get("type", {})
+
+                    epl_matches.append({
+                        "id": str(ev.get("id", "")),
+                        "name": ev.get("name", ""),
+                        "short_name": ev.get("shortName", ""),
+                        "state": type_obj.get("state", "pre"),  # 'in' = live, 'pre' = upcoming, 'post' = FT
+                        "status_detail": type_obj.get("detail") or type_obj.get("description") or "Scheduled",
+                        "clock": status_obj.get("displayClock", ""),
+                        "period": status_obj.get("period", 0),
+                        "date": ev.get("date", ""),
+                        "venue": (comp.get("venue") or {}).get("fullName", ""),
+                        "home": {
+                            "name": (home.get("team") or {}).get("displayName", "Home"),
+                            "short": (home.get("team") or {}).get("shortDisplayName", "Home"),
+                            "abbr": (home.get("team") or {}).get("abbreviation", "H"),
+                            "score": str(home.get("score") or "0"),
+                            "logo": (home.get("team") or {}).get("logo") or f"https://a.espncdn.com/i/teamlogos/soccer/500/{home.get('id', '')}.png"
+                        },
+                        "away": {
+                            "name": (away.get("team") or {}).get("displayName", "Away"),
+                            "short": (away.get("team") or {}).get("shortDisplayName", "Away"),
+                            "abbr": (away.get("team") or {}).get("abbreviation", "A"),
+                            "score": str(away.get("score") or "0"),
+                            "logo": (away.get("team") or {}).get("logo") or f"https://a.espncdn.com/i/teamlogos/soccer/500/{away.get('id', '')}.png"
+                        }
+                    })
+        except Exception as e_epl:
+            logger.debug(f"[Live Sports] EPL fetch error: {e_epl}")
+
+        # 2. Fetch F1 Next Race
+        try:
+            f1_next_resp = await client.get(
+                "https://api.jolpi.ca/ergast/f1/current/next.json",
+                timeout=7.0
+            )
+            if f1_next_resp.status_code == 200:
+                f1_data = f1_next_resp.json()
+                races = (((f1_data.get("MRData") or {}).get("RaceTable") or {}).get("Races") or [])
+                if races:
+                    r = races[0]
+                    circ = r.get("Circuit") or {}
+                    loc = circ.get("Location") or {}
+                    f1_next = {
+                        "race_name": r.get("raceName", "Grand Prix"),
+                        "season": r.get("season", ""),
+                        "round": r.get("round", ""),
+                        "date": r.get("date", ""),
+                        "time": r.get("time", ""),
+                        "circuit": {
+                            "name": circ.get("circuitName", ""),
+                            "locality": loc.get("locality", ""),
+                            "country": loc.get("country", "")
+                        }
+                    }
+        except Exception as e_f1n:
+            logger.debug(f"[Live Sports] F1 next race fetch error: {e_f1n}")
+
+        # 3. Fetch F1 Driver Standings (Top 10)
+        try:
+            f1_st_resp = await client.get(
+                "https://api.jolpi.ca/ergast/f1/current/driverStandings.json",
+                timeout=7.0
+            )
+            if f1_st_resp.status_code == 200:
+                st_data = f1_st_resp.json()
+                lists = (((st_data.get("MRData") or {}).get("StandingsTable") or {}).get("StandingsLists") or [])
+                if lists:
+                    drivers = lists[0].get("DriverStandings") or []
+                    for d in drivers[:10]:
+                        drv = d.get("Driver") or {}
+                        consts = d.get("Constructors") or []
+                        f1_standings.append({
+                            "position": str(d.get("position", "")),
+                            "points": str(d.get("points", "0")),
+                            "wins": str(d.get("wins", "0")),
+                            "driver": f"{drv.get('givenName', '')} {drv.get('familyName', '')}".strip(),
+                            "code": drv.get("code", ""),
+                            "nationality": drv.get("nationality", ""),
+                            "team": (consts[0].get("name") if consts else "Constructor")
+                        })
+        except Exception as e_f1s:
+            logger.debug(f"[Live Sports] F1 standings fetch error: {e_f1s}")
+
+        live_epl_count = sum(1 for m in epl_matches if m.get("state") == "in")
+
+        sports_payload = {
+            "success": True,
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+            "epl": {
+                "league": "English Premier League",
+                "live_count": live_epl_count,
+                "total_count": len(epl_matches),
+                "matches": epl_matches
+            },
+            "f1": {
+                "next_race": f1_next,
+                "standings": f1_standings
+            }
+        }
+        CURRENT_SPORTS_CACHE = sports_payload
+        return sports_payload
+    finally:
+        if should_close:
+            await client.aclose()
+
+
+async def tool_get_live_sports_telemetry(client: httpx.AsyncClient, sport: str = "all") -> str:
+    """
+    Synthesizes real-time EPL scores, in-play clocks, and F1 Grand Prix telemetry
+    into a high-signal tactical brief for Cortana / J.A.R.V.I.S.
+    """
+    data = await fetch_live_sports_telemetry(client)
+    sport_lower = (sport or "all").lower()
+    sections = []
+
+    # EPL Section
+    if sport_lower in ("all", "epl", "premier league", "football", "soccer"):
+        epl = data.get("epl", {})
+        matches = epl.get("matches", [])
+        live_count = epl.get("live_count", 0)
+
+        epl_lines = [f"⚽ **ENGLISH PREMIER LEAGUE TELEMETRY** (In-Play Live: {live_count})"]
+        if not matches:
+            epl_lines.append("• No fixtures currently active on matchday schedule.")
+        else:
+            for m in matches:
+                h = m.get("home", {})
+                a = m.get("away", {})
+                state = m.get("state")
+                clock = m.get("clock")
+                venue = m.get("venue")
+
+                if state == "in":
+                    status_badge = f"🔴 **[LIVE - {clock}]**"
+                elif state == "post":
+                    status_badge = f"🏁 **[FT]**"
+                else:
+                    date_raw = m.get("date", "")
+                    status_badge = f"⏱️ **[Upcoming: {date_raw[11:16]} UTC]**" if len(date_raw) >= 16 else "⏱️ **[Upcoming]**"
+
+                score_str = f"**{h.get('name')} {h.get('score')} - {a.get('score')} {a.get('name')}**"
+                v_str = f" @ {venue}" if venue else ""
+                epl_lines.append(f"• {status_badge} {score_str}{v_str}")
+
+        sections.append("\n".join(epl_lines))
+
+    # F1 Section
+    if sport_lower in ("all", "f1", "formula 1", "racing", "motorsport"):
+        f1 = data.get("f1", {})
+        next_race = f1.get("next_race")
+        standings = f1.get("standings", [])
+
+        f1_lines = ["🏎️ **FORMULA 1 MOTORSPORT TELEMETRY**"]
+        if next_race:
+            circ = next_race.get("circuit", {})
+            f1_lines.append(
+                f"• **Next Grand Prix:** {next_race.get('race_name')} (Round {next_race.get('round')})\n"
+                f"  Circuit: {circ.get('name')} ({circ.get('locality')}, {circ.get('country')})\n"
+                f"  Race Date: {next_race.get('date')} {next_race.get('time') or ''} UTC"
+            )
+
+        if standings:
+            f1_lines.append("\n🏆 **Driver World Championship Standings (Top 5):**")
+            for d in standings[:5]:
+                f1_lines.append(
+                    f"  P{d.get('position')}: **{d.get('driver')}** ({d.get('team')}) — {d.get('points')} pts ({d.get('wins')} wins)"
+                )
+
+        sections.append("\n".join(f1_lines))
+
+    return "\n\n".join(sections) if sections else "Sports telemetry nominal. No active events matched query."
+
+
+async def live_sports_poller(client: httpx.AsyncClient):
+    """
+    Continuous 60-second real-time sports telemetry loop.
+    Enforces minute-by-minute freshness for EPL matches & F1 telemetry,
+    detects in-play EPL goal events, and dispatches instant Telegram goal alerts!
+    """
+    global LAST_EPL_SCORES, CURRENT_SPORTS_CACHE
+    logger.info("⚡ Minute-by-Minute Live Sports Telemetry Radar ACTIVE (60s loop)...")
+
+    while True:
+        try:
+            sports_data = await fetch_live_sports_telemetry(client)
+            epl = sports_data.get("epl", {})
+            matches = epl.get("matches", [])
+
+            # Check for live EPL goals
+            for m in matches:
+                m_id = m.get("id")
+                state = m.get("state")
+                h = m.get("home", {})
+                a = m.get("away", {})
+
+                try:
+                    h_score = int(h.get("score") or 0)
+                    a_score = int(a.get("score") or 0)
+                except ValueError:
+                    continue
+
+                h_name = h.get("name", "Home")
+                a_name = a.get("away", "Away")
+                clock = m.get("clock") or "In-Play"
+                venue = m.get("venue") or "Premier League Ground"
+
+                if m_id in LAST_EPL_SCORES:
+                    prev = LAST_EPL_SCORES[m_id]
+                    prev_h = prev.get("home_score", 0)
+                    prev_a = prev.get("away_score", 0)
+
+                    # Only notify on score increments during active live match (state == 'in')
+                    if state == "in" and (h_score > prev_h or a_score > prev_a):
+                        scoring_team = h_name if h_score > prev_h else a_name
+                        goal_alert = (
+                            f"⚽ *[LIVE EPL GOAL // MINUTE {clock}]*\n\n"
+                            f"🎯 *GOAL!* {scoring_team} finds the back of the net!\n"
+                            f"📊 *{h_name} {h_score} — {a_score} {a_name}*\n"
+                            f"⏱️ Match Clock: *{clock}*\n"
+                            f"🏟️ Venue: _{venue}_\n\n"
+                            f"⚡ _Realtime 60s Telemetry Feed_"
+                        )
+                        logger.info(f"⚽ LIVE EPL GOAL DETECTED: {h_name} {h_score} - {a_score} {a_name} ({clock})")
+                        await send_telegram(client, goal_alert)
+
+                LAST_EPL_SCORES[m_id] = {
+                    "home_score": h_score,
+                    "away_score": a_score,
+                    "state": state,
+                    "clock": clock
+                }
+
+            # Update telemetry_live.json with latest sports snapshot
+            try:
+                live_path = Path(__file__).resolve().parent / "telemetry_live.json"
+                if live_path.exists():
+                    existing = {}
+                    try:
+                        with open(live_path, "r", encoding="utf-8") as f:
+                            existing = json.load(f)
+                    except Exception:
+                        pass
+                    existing["live_sports"] = sports_data
+                    existing["live_sports_updated_at"] = datetime.now(timezone.utc).isoformat()
+                    with open(live_path, "w", encoding="utf-8") as f:
+                        json.dump(existing, f, indent=2, ensure_ascii=False)
+            except Exception as e_json:
+                logger.debug(f"[Live Sports JSON persist error]: {e_json}")
+
+            # Persist to Supabase bot_memory if available
+            if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+                try:
+                    await client.post(
+                        f"{SUPABASE_URL}/rest/v1/bot_memory",
+                        headers={**SUPABASE_HEADERS, "Prefer": "resolution=merge-duplicates"},
+                        json={
+                            "memory_key": "live_sports_telemetry",
+                            "directive": json.dumps(sports_data),
+                            "updated_at": datetime.now(timezone.utc).isoformat()
+                        },
+                        timeout=7.0
+                    )
+                except Exception:
+                    pass
+
+        except Exception as e_loop:
+            logger.debug(f"[Live Sports Loop Cycle Error]: {e_loop}")
+
+        await asyncio.sleep(60)  # Minute-by-minute cadence!
+
+
 async def start_local_command_server(port: int = 5050):
     """
     Lightweight async HTTP server running on port 5050.
@@ -1532,7 +1840,12 @@ async def start_local_command_server(port: int = 5050):
 
             response_data = {"status": "ok"}
 
-            if path == "/api/status" and method == "GET":
+            if path in ("/api/sports", "/api/sports/") or path.startswith("/api/sports?"):
+                if not CURRENT_SPORTS_CACHE:
+                    async with httpx.AsyncClient(timeout=8) as hclient:
+                        await fetch_live_sports_telemetry(hclient)
+                response_data = CURRENT_SPORTS_CACHE
+            elif path == "/api/status" and method == "GET":
                 response_data = {
                     "status": "ONLINE",
                     "daemon": "Cortana / J.A.R.V.I.S. Command Construct",
@@ -1550,7 +1863,10 @@ async def start_local_command_server(port: int = 5050):
                     dev_type = payload.get("device_type", "GENERIC")
                     param = payload.get("parameter", "")
 
-                    if cmd == "ping":
+                    if cmd in ("sports", "sports_sync", "get_sports"):
+                        async with httpx.AsyncClient(timeout=8) as hclient:
+                            response_data = await fetch_live_sports_telemetry(hclient)
+                    elif cmd == "ping":
                         response_data = await real_ping_device(target_ip)
                     elif cmd in ("port_scan", "fingerprint", "port_audit"):
                         profile = payload.get("profile") or payload.get("port_profile") or "standard"
@@ -1889,6 +2205,23 @@ AGENT_TOOLS = [
                 "required": ["query"]
             }
         }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_live_sports_telemetry",
+            "description": "Retrieve real-time minute-by-minute English Premier League (EPL) live scores, match clocks, in-play fixtures, and Formula 1 (F1) Grand Prix countdowns and driver championship standings.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "sport": {
+                        "type": "string",
+                        "enum": ["all", "epl", "f1"],
+                        "description": "Filter by sport ('epl', 'f1', or 'all')"
+                    }
+                }
+            }
+        }
     }
 ]
 
@@ -1921,7 +2254,7 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
     # Smart Intent Gate: Only attach heavy tool schemas if the prompt actually asks for an action/lookup
     lower_in = user_input.lower()
     tool_triggers = [
-        "weather", "news", "sports", "sport", "football", "soccer", "premier league", "champions league", "athletics", "marathon", "f1", "formula 1", "cyber", "cve", "war", "conflict", "sitrep", "sweep", "sync",
+        "weather", "news", "sports", "sport", "football", "soccer", "premier league", "champions league", "epl", "f1", "formula 1", "standings", "scores", "score", "goals", "goal", "fixtures", "grand prix", "paddock", "racing", "athletics", "marathon", "cyber", "cve", "war", "conflict", "sitrep", "sweep", "sync",
         "remind", "task", "todo", "schedule", "mpesa", "ksh", "kes", "paid", "spent", "receipt",
         "vault", "idea", "remember", "save", "dive", "investigate", "search", "probe", "http",
         "ping", "wifi", "mesh", "device", "tv", "wol", "wake", "power", "volume", "mute", "osint",
@@ -2019,6 +2352,9 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                     )
                 elif fn_name in ("deep_dive_research", "deep_dive_investigation"):
                     result = await tool_deep_dive_research(client, args.get("query") or args.get("topic") or user_input)
+                elif fn_name in ("get_live_sports_telemetry", "tool_get_live_sports_telemetry", "live_sports", "sports_telemetry"):
+                    sport_arg = args.get("sport", "all")
+                    result = await tool_get_live_sports_telemetry(client, sport=sport_arg)
                 else:
                     result = "Tool executed."
 
@@ -3094,6 +3430,7 @@ async def main():
             asyncio.create_task(web_command_poller(client)),
             asyncio.create_task(collector_worker(client)),
             asyncio.create_task(reminder_worker(client)),
+            asyncio.create_task(live_sports_poller(client)),
             asyncio.create_task(start_local_command_server(5050))
         ]
 
