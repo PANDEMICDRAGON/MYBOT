@@ -2084,6 +2084,268 @@ function initLanTopologyCanvas() {
   if (!lanTopologyAnimId) draw();
 }
 
+// =====================================================================
+// TACTICAL WI-FI RECONNAISSANCE & CONNECTION MATRIX
+// =====================================================================
+let currentTargetConnectSsid = "";
+
+function openWifiScanner() {
+  playSciFiChirp("confirm");
+  const modal = document.getElementById("wifi-scanner-modal");
+  if (!modal) return;
+  modal.classList.add("active");
+
+  // Wire close buttons
+  const btnClose = document.getElementById("btn-close-wifi-scanner");
+  const btnDismiss = document.getElementById("btn-dismiss-wifi-scanner");
+  if (btnClose) btnClose.onclick = () => modal.classList.remove("active");
+  if (btnDismiss) btnDismiss.onclick = () => modal.classList.remove("active");
+
+  const btnRescan = document.getElementById("btn-rescan-wifis");
+  if (btnRescan) btnRescan.onclick = () => runWifiScan();
+
+  const btnCancelDrawer = document.getElementById("btn-cancel-connect-drawer");
+  if (btnCancelDrawer) {
+    btnCancelDrawer.onclick = () => {
+      const drawer = document.getElementById("wifi-connect-drawer");
+      if (drawer) drawer.style.display = "none";
+    };
+  }
+
+  const btnConfirmConnect = document.getElementById("btn-confirm-connect-wifi");
+  if (btnConfirmConnect) {
+    btnConfirmConnect.onclick = () => {
+      const pwdInput = document.getElementById("wifi-connect-password-input");
+      const pwd = pwdInput ? pwdInput.value : "";
+      if (currentTargetConnectSsid) {
+        executeWifiConnect(currentTargetConnectSsid, pwd);
+      }
+    };
+  }
+
+  // Update current connection & scan
+  updateCurrentWifiCard();
+  runWifiScan();
+}
+
+async function updateCurrentWifiCard() {
+  const ssidEl = document.getElementById("wifi-active-ssid");
+  const badgeEl = document.getElementById("wifi-active-badge");
+  const detailsEl = document.getElementById("wifi-active-details");
+
+  try {
+    const res = await fetch("http://localhost:5050/api/command", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ command: "current_wifi" })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (ssidEl) ssidEl.textContent = data.ssid || "DISCONNECTED";
+      if (badgeEl) {
+        badgeEl.textContent = data.connected ? "CONNECTED" : "OFFLINE";
+        badgeEl.className = data.connected
+          ? "text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+          : "text-[9px] px-1.5 py-0.2 rounded bg-rose-500/20 text-rose-300 border border-rose-500/40";
+      }
+      if (detailsEl) {
+        detailsEl.innerHTML = `<span>Band: ${data.band || "N/A"}</span> &bull; <span>Channel: ${data.channel || "N/A"}</span> &bull; <span>Signal: ${data.signal || 0}%</span> &bull; <span>Interface: ${data.interface || "Wi-Fi"}</span>`;
+      }
+      return;
+    }
+  } catch (e) {
+    console.debug("current_wifi error:", e);
+  }
+}
+
+async function runWifiScan() {
+  const statusBadge = document.getElementById("wifi-scan-status-badge");
+  const spinner = document.getElementById("wifi-scan-spinner");
+  const container = document.getElementById("wifi-networks-container");
+  const countEl = document.getElementById("wifi-networks-count");
+
+  if (statusBadge) {
+    statusBadge.textContent = "SCANNING RF...";
+    statusBadge.className = "text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-950 border border-emerald-400 text-emerald-300 font-bold uppercase animate-pulse";
+  }
+  if (spinner) spinner.style.display = "inline-block";
+
+  if (typeof logToTerminal === "function") {
+    logToTerminal("HUD", "[WI-FI SCAN] Dispatched RF spectrum sweep on local Wi-Fi interface (netsh)...");
+  }
+
+  try {
+    const res = await fetch("http://localhost:5050/api/command", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ command: "scan_wifi" })
+    });
+
+    if (res.ok) {
+      const data = await res.json();
+      const networks = data.networks || [];
+      if (countEl) countEl.textContent = `${networks.length} VISIBLE NETWORKS`;
+      if (statusBadge) {
+        statusBadge.textContent = "SWEEP NOMINAL";
+        statusBadge.className = "text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-950 border border-emerald-500/60 text-emerald-300 font-bold uppercase";
+      }
+      if (spinner) spinner.style.display = "none";
+
+      renderWifiNetworks(networks);
+      if (typeof logToTerminal === "function") {
+        logToTerminal("LAN", `[WI-FI DISCOVERY] Found ${networks.length} nearby access points on 2.4/5GHz.`);
+      }
+      return;
+    }
+  } catch (err) {
+    console.warn("Direct port 5050 scan_wifi failed:", err);
+  }
+
+  if (spinner) spinner.style.display = "none";
+  if (statusBadge) {
+    statusBadge.textContent = "STANDBY";
+    statusBadge.className = "text-[9px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-400 font-bold uppercase";
+  }
+  if (container) {
+    container.innerHTML = `
+      <div class="py-6 text-center text-slate-400 font-mono text-xs border border-dashed border-slate-800 rounded">
+        Direct local daemon unreachable at :5050. Ensure 'bot.py' is running on the workstation to query local RF hardware.
+      </div>
+    `;
+  }
+}
+
+function renderWifiNetworks(networks) {
+  const container = document.getElementById("wifi-networks-container");
+  if (!container) return;
+
+  if (!networks || networks.length === 0) {
+    container.innerHTML = `<div class="py-6 text-center text-slate-500 font-mono text-xs">No Wi-Fi access points discovered.</div>`;
+    return;
+  }
+
+  container.innerHTML = networks.map(n => {
+    const isConn = n.is_connected;
+    const isSecured = n.is_secured;
+    const sig = n.signal || 0;
+    const barColor = sig >= 60 ? "bg-emerald-400" : sig >= 35 ? "bg-cyan-400" : "bg-amber-400";
+    const borderStyle = isConn ? "border-emerald-500 bg-emerald-950/40" : "border-slate-800 bg-slate-900/60 hover:border-slate-700";
+    const safeSsid = (n.ssid || "").replace(/'/g, "\\'");
+
+    return `
+      <div class="p-3 rounded border ${borderStyle} flex flex-wrap items-center justify-between gap-2 text-xs font-mono transition">
+        <div class="flex items-center gap-3">
+          <div class="text-base">${isConn ? "🟢" : isSecured ? "🔒" : "🔓"}</div>
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-white text-sm">${escapeHtml(n.ssid)}</span>
+              ${isConn ? `<span class="text-[9px] px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">LINKED</span>` : ""}
+              <span class="text-[9px] px-1 py-0.2 rounded bg-slate-800 text-slate-400">${n.band || "2.4G"}</span>
+            </div>
+            <div class="text-[10px] text-slate-400 flex items-center gap-2 mt-0.5">
+              <span>Channel: ${n.channel || "-"}</span> &bull; 
+              <span>${n.auth || "WPA2"}</span> &bull; 
+              <span class="text-slate-500 font-mono text-[9px]">${n.bssid || ""}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <!-- Signal Bar -->
+          <div class="text-right w-24">
+            <div class="text-[10px] font-bold text-slate-300 mb-1">${sig}%</div>
+            <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+              <div class="${barColor} h-full" style="width: ${sig}%"></div>
+            </div>
+          </div>
+
+          <!-- Connect Button -->
+          <div>
+            ${isConn 
+              ? `<button disabled class="text-[10px] font-bold px-3 py-1.5 rounded bg-emerald-950 border border-emerald-500 text-emerald-300 opacity-80 cursor-default">CONNECTED</button>`
+              : `<button onclick="promptWifiConnect('${safeSsid}', ${isSecured})" class="hud-btn text-[10px] font-bold py-1.5 px-3 text-cyan-300 bg-cyan-950/80 border-cyan-600 hover:text-white shadow-[0_0_8px_rgba(0,240,255,0.25)]">CONNECT 🔑</button>`
+            }
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+function promptWifiConnect(ssid, isSecured) {
+  playSciFiChirp("confirm");
+  currentTargetConnectSsid = ssid;
+  const drawer = document.getElementById("wifi-connect-drawer");
+  const targetLabel = document.getElementById("wifi-connect-target-ssid");
+  const pwdInput = document.getElementById("wifi-connect-password-input");
+  const feedback = document.getElementById("wifi-connect-feedback");
+
+  if (targetLabel) targetLabel.textContent = ssid;
+  if (feedback) feedback.textContent = isSecured ? "Enter passphrase to authenticate." : "Open network. Leave password blank.";
+  if (pwdInput) {
+    pwdInput.value = "";
+    pwdInput.focus();
+  }
+  if (drawer) {
+    drawer.style.display = "block";
+    drawer.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }
+}
+
+async function executeWifiConnect(ssid, password) {
+  const feedback = document.getElementById("wifi-connect-feedback");
+  const btn = document.getElementById("btn-confirm-connect-wifi");
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "CONNECTING...";
+  }
+  if (feedback) feedback.textContent = `Transmitting WLAN credentials for '${ssid}'... validating association...`;
+
+  if (typeof logToTerminal === "function") {
+    logToTerminal("HUD", `[WI-FI CONNECTION] Initiating 4-way WPA handshake with '${ssid}'...`);
+  }
+
+  try {
+    const res = await fetch("http://localhost:5050/api/command", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        command: "connect_wifi",
+        ssid: ssid,
+        password: password
+      })
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "AUTHENTICATE & LINK";
+      }
+      if (data.status === "SUCCESS") {
+        playSciFiChirp("confirm");
+        if (feedback) feedback.textContent = `✅ ${data.message}`;
+        speakCustomText(`Connected to Wi-Fi network ${ssid}. Link established.`, "cortana");
+        setTimeout(() => {
+          const drawer = document.getElementById("wifi-connect-drawer");
+          if (drawer) drawer.style.display = "none";
+          updateCurrentWifiCard();
+          runWifiScan();
+        }, 2000);
+      } else {
+        if (feedback) feedback.textContent = `⚠️ ${data.message || data.error}`;
+      }
+      return;
+    }
+  } catch (e) {
+    if (feedback) feedback.textContent = `Error reaching command microserver: ${e}`;
+  }
+
+  if (btn) {
+    btn.disabled = false;
+    btn.textContent = "AUTHENTICATE & LINK";
+  }
+}
+
 function initDeviceActionHandlers() {
   const btnWake = document.getElementById("btn-action-wake");
   const btnPower = document.getElementById("btn-action-power");
@@ -2153,6 +2415,11 @@ function initDeviceActionHandlers() {
     const dev = getSelectedLanDevice();
     openPortScanner(dev ? dev.ip_address : "192.168.100.1", dev ? dev.device_name : "Subnet Target", true);
   };
+
+  const btnWifiScan = document.getElementById("btn-action-wifiscan");
+  const btnWifiConnect = document.getElementById("btn-action-wificonnect");
+  if (btnWifiScan) btnWifiScan.onclick = () => openWifiScanner();
+  if (btnWifiConnect) btnWifiConnect.onclick = () => openWifiScanner();
 
   const btnOpenPortScanner = document.getElementById("btn-open-port-scanner");
   if (btnOpenPortScanner) btnOpenPortScanner.onclick = () => {
@@ -3836,7 +4103,11 @@ function initTerminalController() {
     chipsContainer.querySelectorAll("button[data-quick]").forEach(chip => {
       chip.onclick = () => {
         const action = chip.getAttribute("data-quick");
-        if (action === "laptop-speak") {
+        if (action === "wifi-scan") {
+          openWifiScanner();
+        } else if (action === "wifi-connect") {
+          openWifiScanner();
+        } else if (action === "laptop-speak") {
           const phrase = prompt("Enter text to speak aloud on laptop:", "Cortana neural construct active on workstation.");
           if (phrase) {
             dispatchTerminalDirective(`speak ${phrase}`, false);

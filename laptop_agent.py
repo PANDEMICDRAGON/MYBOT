@@ -268,6 +268,48 @@ class RemoteControlHandler(BaseHTTPRequestHandler):
             self.wfile.write(b"Workstation locked.")
             return
 
+        # 12. Scan Nearby Wi-Fi
+        if path in ("/scan_wifi", "/wifi_scan"):
+            print("[DIRECTIVE] Scanning nearby Wi-Fi networks")
+            try:
+                from wifi_manager import scan_nearby_wifis
+                nets = scan_nearby_wifis()
+                self._send_cors_headers(200, content_type="application/json")
+                self.wfile.write(json.dumps(nets).encode("utf-8"))
+            except Exception as e:
+                self._send_cors_headers(500, content_type="application/json")
+                self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+            return
+
+        # 13. Connect Wi-Fi
+        if path in ("/connect_wifi", "/wifi_connect"):
+            ssid_list = query.get("ssid", [])
+            pwd_list = query.get("password", []) or query.get("pass", [])
+            target_ssid = urllib.parse.unquote(ssid_list[0]) if ssid_list else ""
+            pwd = urllib.parse.unquote(pwd_list[0]) if pwd_list else ""
+            print(f"[DIRECTIVE] Connecting to Wi-Fi: {target_ssid}")
+            try:
+                from wifi_manager import connect_wifi
+                res = connect_wifi(target_ssid, pwd)
+                self._send_cors_headers(200, content_type="application/json")
+                self.wfile.write(json.dumps(res).encode("utf-8"))
+            except Exception as e:
+                self._send_cors_headers(500, content_type="application/json")
+                self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+            return
+
+        # 14. Wi-Fi Status
+        if path in ("/wifi_status", "/current_wifi"):
+            try:
+                from wifi_manager import get_current_wifi
+                cur = get_current_wifi()
+                self._send_cors_headers(200, content_type="application/json")
+                self.wfile.write(json.dumps(cur).encode("utf-8"))
+            except Exception as e:
+                self._send_cors_headers(500, content_type="application/json")
+                self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+            return
+
         # Default 404
         self._send_cors_headers(404)
         self.wfile.write(b"Directive not recognized by remote agent.")

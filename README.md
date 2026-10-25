@@ -157,14 +157,20 @@ You don't need rigid commands anymore; talk or speak naturally via Telegram:
 - **Two-Way Voice Dialogue**: Speak to the bot via voice note. Cortana will think, execute commands, reply in text, AND send a neural voice note (`en-US-AriaNeural`) straight back to your Telegram chat while optionally vocalizing through your room speakers.
 - **Smart TV Control**: *"Turn on the Living Room TV and put YouTube on."*  
   -> *Sends Wake-on-LAN packet, connects via wireless ADB (`adb connect <ip>:5555`), and launches the URL or powers on the screen.*
+- **Nearby Wi-Fi Reconnaissance & RF Spectrum Scan**:
+  - *"Scan nearby wifis"* / *"View nearby wifis"* / *"Show available wifi networks"* -> Performs an in-flight RF sweep across 2.4 GHz, 5 GHz and 6 GHz bands. Returns a formatted tactical matrix detailing visible SSIDs, signal percentages, signal bars, channels, radio types (802.11ax/ac/n), and security standards (WPA2-Personal/WPA3/Open).
+- **Authenticated Wi-Fi Association**:
+  - *"Connect to wifi Olalo-5G with password 2011@Olalo"* or *"Connect wifi \"MyNetwork\" \"secretKey\""* -> Dynamically generates a native Windows WLAN XML profile conforming to Microsoft networking schemas, associates the interface, verifies 4-way WPA handshake completion, and purges temporary credential artifacts.
+  - *"What wifi am I connected to?"* / *"Wifi status"* -> Retrieves live adapter telemetry including connected SSID, BSSID, RSSI/Signal %, radio channel, and Rx/Tx data link rates.
+  - *"Disconnect wifi"* -> Gracefully unbinds the active WLAN interface.
+- **Wi-Fi Network Device Sweep**: *"Scan my Wi-Fi network and tell me what gadgets are connected."*  
+  -> *Sweeps the local ARP cache table, detects all connected TVs, laptops, and IoT nodes, and synchronizes their online status with Supabase.*
 - **Laptop Operational Control (Speech, Chrome & Hardware)**:
   - *"Speak: Protocol activated and standing by."* -> Vocalizes directly through your laptop's physical speakers via Windows SAPI / System TTS.
   - *"Open Chrome"* or *"Open Chrome https://youtube.com"* -> Launches Google Chrome browser or navigates directly to a target destination.
   - *"Close Chrome"* -> Immediately terminates and force-kills all running Chrome browser processes cleanly.
   - *"Turn up laptop volume"* / *"Volume down"* / *"Mute laptop"* -> Adjusts workstation master volume level.
   - *"Lock laptop"* -> Locks the Windows workstation screen instantly.
-- **Wi-Fi Network Scan**: *"Scan my Wi-Fi network and tell me what gadgets are connected."*  
-  -> *Sweeps the local ARP cache table, detects all connected TVs, laptops, and IoT nodes, and synchronizes their online status with Supabase.*
 - **Laptop & PC Automation**: *"Wake up my laptop and open the tactical HUD."*  
   -> *Transmits WoL magic packet to the PC's MAC address and launches the command.*
 - **Receipt / M-Pesa Photo**: Send a photo of a restaurant receipt or M-Pesa screenshot.  
@@ -213,6 +219,45 @@ Direct COM hook into your laptop's physical sound card (via in-process `win32com
    from speak import speak, speak_async
    speak("Audio driver online and hooked directly into sound card.")
    ```
+
+
+---
+
+## 📡 RF Spectrum Wi-Fi Reconnaissance & Authenticated Connection (`wifi_manager.py`)
+
+The construct includes a dedicated physical-layer 802.11 Wi-Fi management subsystem capable of in-flight radio frequency reconnaissance, cryptographic profile synthesis, and association handshakes:
+
+### 1. In-Flight Spectrum Scanning
+- Queries physical WLAN adapters via native `netsh wlan show networks mode=bssid`.
+- De-duplicates and parses multi-BSSID mesh beacons, radio spectrum bands (2.4 GHz vs 5 GHz vs 6 GHz), RF channels, encryption algorithms (CCMP/TKIP/GCMP), and signal RSSI percentages.
+- Computes tactical visual indicators: `🟢 Connected`, `🔒 Secured`, `🔓 Open`, plus 4-stage signal strength bars (`📶 4/4 Excellent`, `3/4 Good`, `2/4 Fair`, `1/4 Weak`).
+
+### 2. Authenticated Association & Handshake Verification
+- Synthesizes dynamic Microsoft WLAN profile XML schemas (`http://www.microsoft.com/networking/WLAN/profile/v1`) with tailored `WPA2PSK` / `WPA3` / `Open` key material.
+- Injects profile into Windows WLAN service via `netsh wlan add profile`.
+- Initiates association handshake with 20-second state polling loop to verify the 4-way WPA cryptographic exchange.
+- Automatically and securely deletes temporary XML profile artifacts from disk immediately upon registration.
+
+### 3. CLI Command Suite
+```powershell
+# In-flight spectrum scan (prints formatted ASCII tactical matrix)
+.\.venv\Scripts\python wifi_manager.py scan
+
+# Check active link status, BSSID, RSSI %, band & link rates
+.\.venv\Scripts\python wifi_manager.py status
+
+# Associate to target network with passphrase
+.\.venv\Scripts\python wifi_manager.py connect "Olalo-5G" "2011@Olalo"
+
+# Disconnect WLAN interface
+.\.venv\Scripts\python wifi_manager.py disconnect
+```
+
+### 4. Live Cyber HUD Modal (`#wifi-scanner-modal`)
+- **Radar Laser Sweep Animation**: High-tech visual scanner overlay when refreshing spectrum.
+- **Active Connection Card**: Real-time connected SSID, band, signal badge, and link status.
+- **One-Click Connect Drawer**: Click any discovered network to pop up the association drawer, enter the password (with instant show/hide toggle), and trigger authenticated connection in real time.
+- **Quick Access**: Triggered directly via `📡 Scan Nearby Wi-Fi` or `🔑 Connect Wi-Fi` terminal chips or the Device Inspector action matrix.
 
 ---
 

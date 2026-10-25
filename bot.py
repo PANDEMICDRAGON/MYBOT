@@ -1231,8 +1231,33 @@ def execute_laptop_action(action: str, parameter: str = "") -> str:
         plat = platform.platform()
         return f"Workstation Construct Online | Host: {platform.node()} | OS: {plat} | Port 5050 RPC Active."
     
+    elif act in ("scan_wifi", "wifi_scan", "nearby_wifi", "nearby_wifis"):
+        from wifi_manager import scan_nearby_wifis, format_wifi_scan_table
+        nets = scan_nearby_wifis()
+        return format_wifi_scan_table(nets)
+    
+    elif act in ("connect_wifi", "wifi_connect"):
+        parts = param.split(None, 1)
+        ssid_target = parts[0] if parts else ""
+        pwd = parts[1] if len(parts) > 1 else ""
+        from wifi_manager import connect_wifi
+        res = connect_wifi(ssid_target, pwd)
+        return res.get("message") or str(res)
+
+    elif act in ("wifi_status", "current_wifi"):
+        from wifi_manager import get_current_wifi
+        cur = get_current_wifi()
+        if cur.get("connected"):
+            return f"Connected to '{cur.get('ssid')}' ({cur.get('signal')}%, {cur.get('band')}, Channel {cur.get('channel')})."
+        return "Workstation Wi-Fi is disconnected."
+
+    elif act in ("disconnect_wifi", "wifi_disconnect"):
+        from wifi_manager import disconnect_wifi
+        res = disconnect_wifi()
+        return res.get("message", "Wi-Fi disconnected.")
+
     else:
-        return f"Unknown laptop action '{action}'. Supported: 'speak', 'open_chrome', 'close_chrome', 'open_app', 'close_app', 'volume_up', 'volume_down', 'mute', 'lock_screen', 'get_status'."
+        return f"Unknown laptop action '{action}'. Supported: 'speak', 'open_chrome', 'close_chrome', 'scan_wifi', 'connect_wifi', 'wifi_status', 'open_app', 'close_app', 'volume_up', 'volume_down', 'mute', 'lock_screen', 'get_status'."
 
 
 async def tool_control_laptop(action: str, parameter: str = "") -> str:
@@ -1387,6 +1412,55 @@ async def tool_control_lan_device(
             return execute_laptop_action(command, parameter)
 
     return f"LAN command '{command}' dispatched to '{device_name}' ({ip_address})."
+
+
+# =====================================================================
+# --- TACTICAL WI-FI RECONNAISSANCE & CONNECTION ENGINES ---
+# =====================================================================
+async def tool_scan_nearby_wifis() -> str:
+    """Discovers nearby 2.4G & 5G Wi-Fi access points and returns a tactical table."""
+    try:
+        from wifi_manager import scan_nearby_wifis, format_wifi_scan_table
+        loop = asyncio.get_running_loop()
+        nets = await loop.run_in_executor(None, scan_nearby_wifis)
+        return format_wifi_scan_table(nets)
+    except Exception as e:
+        return f"Wi-Fi RF spectrum scan fault: {e}"
+
+
+async def tool_connect_wifi(ssid: str, password: str = "") -> str:
+    """Connects workstation Wi-Fi adapter to a target SSID using the specified passphrase."""
+    try:
+        from wifi_manager import connect_wifi
+        loop = asyncio.get_running_loop()
+        res = await loop.run_in_executor(None, connect_wifi, ssid, password)
+        if res.get("status") == "SUCCESS":
+            return f"✅ {res.get('message')}"
+        else:
+            return f"⚠️ [{res.get('status')}]: {res.get('message') or res.get('error')}"
+    except Exception as e:
+        return f"Wi-Fi connection error: {e}"
+
+
+async def tool_get_wifi_status() -> str:
+    """Returns current active Wi-Fi connection and signal telemetry."""
+    try:
+        from wifi_manager import get_current_wifi
+        loop = asyncio.get_running_loop()
+        cur = await loop.run_in_executor(None, get_current_wifi)
+        if cur.get("connected"):
+            return (
+                f"📡 ACTIVE WI-FI CONNECTION:\n"
+                f"• SSID: {cur.get('ssid')}\n"
+                f"• Signal: {cur.get('signal')}%\n"
+                f"• Band: {cur.get('band')} (Channel {cur.get('channel')})\n"
+                f"• Interface: {cur.get('interface')}\n"
+                f"• Security: {cur.get('auth')}\n"
+                f"• Link Speed: Rx {cur.get('rx_rate')} / Tx {cur.get('tx_rate')}"
+            )
+        return "Workstation Wi-Fi adapter is currently disconnected."
+    except Exception as e:
+        return f"Wi-Fi status query fault: {e}"
 
 
 # =====================================================================
@@ -2134,6 +2208,30 @@ async def start_local_command_server(port: int = 5050):
                     elif cmd in ("port_scan", "fingerprint", "port_audit"):
                         profile = payload.get("profile") or payload.get("port_profile") or "standard"
                         response_data = await execute_port_scan_audit(target_ip, profile)
+                    elif cmd in ("scan_wifi", "wifi_scan", "nearby_wifi", "nearby_wifis"):
+                        from wifi_manager import scan_nearby_wifis, format_wifi_scan_table
+                        loop = asyncio.get_running_loop()
+                        nets = await loop.run_in_executor(None, scan_nearby_wifis)
+                        response_data = {
+                            "status": "SUCCESS",
+                            "networks": nets,
+                            "formatted": format_wifi_scan_table(nets)
+                        }
+                    elif cmd in ("connect_wifi", "wifi_connect"):
+                        target_ssid = payload.get("ssid") or param
+                        pwd = payload.get("password") or payload.get("passphrase") or ""
+                        from wifi_manager import connect_wifi
+                        loop = asyncio.get_running_loop()
+                        conn_res = await loop.run_in_executor(None, connect_wifi, target_ssid, pwd)
+                        response_data = conn_res
+                    elif cmd in ("current_wifi", "wifi_status"):
+                        from wifi_manager import get_current_wifi
+                        loop = asyncio.get_running_loop()
+                        response_data = await loop.run_in_executor(None, get_current_wifi)
+                    elif cmd in ("disconnect_wifi", "wifi_disconnect"):
+                        from wifi_manager import disconnect_wifi
+                        loop = asyncio.get_running_loop()
+                        response_data = await loop.run_in_executor(None, disconnect_wifi)
                     elif cmd == "wol":
                         if target_mac:
                             clean_mac = target_mac.replace("-", ":").upper()
@@ -2507,6 +2605,37 @@ AGENT_TOOLS = [
     {
         "type": "function",
         "function": {
+            "name": "scan_nearby_wifis",
+            "description": "Perform an RF spectrum sweep to view all nearby 2.4 GHz, 5 GHz & 6 GHz Wi-Fi Access Points, signal strengths, security types (WPA2, WPA3, Open), channels, and active connection status.",
+            "parameters": {"type": "object", "properties": {}}
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "connect_wifi",
+            "description": "Connect the workstation Wi-Fi adapter to a nearby Wi-Fi network using the specified SSID and password/passphrase.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "ssid": {"type": "string", "description": "SSID name of the Wi-Fi network to connect to"},
+                    "password": {"type": "string", "description": "WPA2/WPA3 password or passphrase (leave blank for open networks)"}
+                },
+                "required": ["ssid"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "get_wifi_status",
+            "description": "Query the current active Wi-Fi connection, BSSID, signal strength, channel, band, and link speed.",
+            "parameters": {"type": "object", "properties": {}}
+        }
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "deep_dive_research",
             "description": "Execute an autonomous multi-source web search and deep-dive investigation on any topic, company, war, technology, or economic event.",
             "parameters": {
@@ -2626,6 +2755,57 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
         conversation_history.append({"role": "assistant", "content": reply})
         return reply
 
+    # 6. Wi-Fi: Scan nearby Wi-Fi Access Points
+    if any(k in clean_lower for k in ("scan wifi", "view wifi", "view nearby wifi", "view nearby wifis", "show wifi", "show nearby wifi", "show nearby wifis", "list wifi", "list nearby wifi", "list nearby wifis", "nearby wifi", "nearby wifis", "wifi scan", "wifis nearby", "visible wifi", "available wifi")):
+        scan_table = await tool_scan_nearby_wifis()
+        conversation_history.append({"role": "assistant", "content": scan_table})
+        return scan_table
+
+    # 7. Wi-Fi: Connect to Wi-Fi with password
+    if clean_lower.startswith(("connect wifi", "connect to wifi", "join wifi")):
+        rest = clean_prompt
+        for prefix in ("connect to wifi", "connect wifi", "join wifi"):
+            if clean_lower.startswith(prefix):
+                rest = clean_prompt[len(prefix):].strip()
+                break
+        ssid_val = ""
+        pwd_val = ""
+        quoted = re.findall(r'"([^"]*)"', rest)
+        if len(quoted) >= 2:
+            ssid_val, pwd_val = quoted[0], quoted[1]
+        elif len(quoted) == 1:
+            ssid_val = quoted[0]
+            pwd_val = rest.replace(f'"{ssid_val}"', '').replace("with password", "").replace("password", "").strip()
+        else:
+            m = re.search(r"^(.*?)(?:\s+with\s+password\s+|\s+password\s+|\s+pass\s+)(.*)$", rest, re.IGNORECASE)
+            if m:
+                ssid_val = m.group(1).strip()
+                pwd_val = m.group(2).strip()
+            else:
+                tokens = rest.split(None, 1)
+                ssid_val = tokens[0] if tokens else ""
+                pwd_val = tokens[1] if len(tokens) > 1 else ""
+
+        if not ssid_val:
+            reply = "Specify target Wi-Fi SSID. Example: `connect wifi \"Olalo-5G\" \"2011@Olalo\"`"
+        else:
+            reply = await tool_connect_wifi(ssid_val, pwd_val)
+        conversation_history.append({"role": "assistant", "content": reply})
+        return reply
+
+    # 8. Wi-Fi: Status & Disconnect
+    if clean_lower in ("wifi status", "current wifi", "what wifi", "check wifi", "active wifi"):
+        status_res = await tool_get_wifi_status()
+        conversation_history.append({"role": "assistant", "content": status_res})
+        return status_res
+
+    if clean_lower in ("disconnect wifi", "disconnect from wifi", "drop wifi"):
+        from wifi_manager import disconnect_wifi
+        disc_res = disconnect_wifi()
+        reply = f"🔌 {disc_res.get('message', 'Wi-Fi interface disconnected.')}"
+        conversation_history.append({"role": "assistant", "content": reply})
+        return reply
+
     # --- PATH A: Pure Conversational Turn (Fast, Zero Tool Overhead, Natural Reply) ---
     if not needs_tools:
         choice = await call_llm_with_failover(client, messages, tools=None)
@@ -2723,6 +2903,12 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                     result = await tool_get_live_sports_telemetry(client, sport=sport_arg)
                 elif fn_name in ("control_laptop", "tool_control_laptop", "laptop_control"):
                     result = await tool_control_laptop(args.get("action", ""), args.get("parameter", ""))
+                elif fn_name in ("scan_nearby_wifis", "tool_scan_nearby_wifis", "view_nearby_wifis"):
+                    result = await tool_scan_nearby_wifis()
+                elif fn_name in ("connect_wifi", "tool_connect_wifi", "wifi_connect"):
+                    result = await tool_connect_wifi(args.get("ssid", ""), args.get("password", ""))
+                elif fn_name in ("get_wifi_status", "tool_get_wifi_status", "wifi_status"):
+                    result = await tool_get_wifi_status()
                 else:
                     result = "Tool executed."
 
