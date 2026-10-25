@@ -19,6 +19,7 @@ import random
 import webbrowser
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+import threading
 import psutil
 
 # Ensure UTF-8 output on Windows consoles
@@ -920,32 +921,124 @@ Synthesize an elite Cortana/J.A.R.V.I.S. Intelligence & Behavioral Dossier. Outp
 # =====================================================================
 # --- NEURAL VOICE SYNTHESIS (CORTANA HALO VOICE ENGINE) ---
 # =====================================================================
+def sanitize_text_for_speech(text: str) -> str:
+    """
+    Cleanses text before text-to-speech synthesis:
+    - Strips code blocks and inline backticks
+    - Converts markdown links [text](url) to plain text
+    - Completely strips square brackets and their contents: [soft laugh], [chuckles], [SITREP], [WIN]
+    - Completely strips asterisk stage directions / emote cues: *[soft laugh]*, *soft laugh*, *chuckles*, *sighs*
+    - Strips parenthetical stage directions: (soft laugh), (chuckles), (sighs), etc.
+    - Strips markdown formatting (*, #, _, ~, >, •, |)
+    - Strips emojis and miscellaneous non-verbal symbols so TTS never pronounces emoji names or symbols
+    - Normalizes spacing and punctuation
+    """
+    if not text:
+        return ""
+
+    s = str(text)
+    # 1. Remove markdown code blocks and inline code
+    s = re.sub(r'```.*?```', '', s, flags=re.DOTALL)
+    s = re.sub(r'`.*?`', '', s)
+
+    # 2. Convert markdown links [Title](http...) to just Title
+    s = re.sub(r'\[([^\]]+)\]\(https?://[^\)]+\)', r'\1', s)
+
+    # 3. Remove raw URLs
+    s = re.sub(r'https?://\S+', '', s)
+
+    # 4. Remove stage directions / emote cues in asterisks: *[soft laugh]*, *soft laugh*, *chuckles*, *sighs*
+    s = re.sub(r'\*\[?[a-zA-Z\s]+?\]?\*', '', s)
+
+    # 5. Remove square brackets and EVERYTHING inside them: [soft laugh], [chuckles], [SITREP], [WIN], etc.
+    s = re.sub(r'\[.*?\]', '', s)
+
+    # 6. Remove parenthetical stage directions / audio cues
+    s = re.sub(r'\((?:soft laugh|chuckles|giggles|smiles|sighs|whispers|laughs|winks|clears throat|pause|chuckle|giggle|sigh|soft tone)[^)]*?\)', '', s, flags=re.IGNORECASE)
+
+    # 7. Remove remaining markdown markers: bold, italic, headers, bullet points, pipes
+    s = re.sub(r'[*#_~>•|]', '', s)
+
+    # 8. Remove emojis and miscellaneous non-verbal symbols
+    s = re.sub(r'[\U00010000-\U0010ffff]', '', s)
+    s = re.sub(r'[\u2600-\u27bf\ufe0f]', '', s)
+
+    # 9. Clean up spacing and punctuation glitches
+    s = re.sub(r'\s+([,.:;?!])', r'\1', s)
+    s = " ".join(s.split()).strip()
+    return s[:4000]
+
+
 def play_local_audio_file(filepath: str):
-    """Plays audio on host device via available OS media engines without blocking asyncio loop."""
-    try:
-        if shutil.which("mpv"):
-            subprocess.Popen(["mpv", "--no-terminal", "--really-quiet", filepath])
-        elif shutil.which("ffplay"):
-            subprocess.Popen(["ffplay", "-nodisp", "-autoexit", "-loglevel", "quiet", filepath])
-        elif platform.system().lower() == "windows":
-            escaped_path = filepath.replace("\\", "\\\\").replace("'", "''")
-            ps_cmd = (
-                f"Add-Type -AssemblyName PresentationCore; "
-                f"$m = New-Object System.Windows.Media.MediaPlayer; "
-                f"$m.Open([System.Uri]'{escaped_path}'); "
-                f"$m.Play(); "
-                f"Start-Sleep -Seconds 12"
-            )
-            subprocess.Popen(["powershell", "-NoProfile", "-NonInteractive", "-Command", ps_cmd])
-        elif shutil.which("termux-media-player"):
-            subprocess.Popen(["termux-media-player", "play", filepath])
-    except Exception as e:
-        logger.warning(f"Local audio playback skipped: {e}")
+    """
+    Plays audio on host device (laptop) via available OS media engines.
+    Uses native Windows winmm MCI to query the exact millisecond duration of the file
+    and play to completion in a daemon thread without premature cutoff.
+    """
+    abs_path = os.path.abspath(filepath)
+    os_sys = platform.system().lower()
+
+    def _play_worker():
+        try:
+            if shutil.which("mpv"):
+                subprocess.run(["mpv", "--no-terminal", "--really-quiet", abs_path])
+                return
+            elif shutil.which("ffplay"):
+                subprocess.run(["ffplay", "-nodisp", "-autoexit", "-loglevel", "quiet", abs_path])
+                return
+            elif "windows" in os_sys:
+                # Primary: Native Windows winmm MCI for exact millisecond duration playback
+                try:
+                    import ctypes
+                    winmm = ctypes.windll.winmm
+                    alias = f"cortana_voice_{int(time.time() * 1000)}"
+                    winmm.mciSendStringW(f'close {alias}', None, 0, None)
+                    open_cmd = f'open "{abs_path}" type mpegvideo alias {alias}'
+                    if winmm.mciSendStringW(open_cmd, None, 0, None) == 0:
+                        buf = ctypes.create_unicode_buffer(128)
+                        winmm.mciSendStringW(f"status {alias} length", buf, 128, None)
+                        duration_ms = int(buf.value) if buf.value.isdigit() else 0
+                        duration_sec = (duration_ms / 1000.0) if duration_ms > 0 else 30.0
+
+                        winmm.mciSendStringW(f"play {alias}", None, 0, None)
+                        time.sleep(duration_sec + 0.5)
+                        winmm.mciSendStringW(f"close {alias}", None, 0, None)
+                        return
+                except Exception as e_mci:
+                    logger.debug(f"winmm MCI playback notice: {e_mci}")
+
+                # Secondary: PowerShell MediaPlayer with dynamic duration detection
+                escaped_path = abs_path.replace("\\", "\\\\").replace("'", "''")
+                ps_cmd = (
+                    f"Add-Type -AssemblyName PresentationCore; "
+                    f"$m = New-Object System.Windows.Media.MediaPlayer; "
+                    f"$m.Open([System.Uri]'{escaped_path}'); "
+                    f"$t = 0; while (-not $m.NaturalDuration.HasTimeSpan -and $t -lt 50) {{ Start-Sleep -Milliseconds 100; $t++ }}; "
+                    f"if ($m.NaturalDuration.HasTimeSpan) {{ $sec = [math]::Ceiling($m.NaturalDuration.TimeSpan.TotalSeconds) + 2 }} else {{ $sec = 60 }}; "
+                    f"$m.Play(); "
+                    f"Start-Sleep -Seconds $sec; "
+                    f"$m.Close()"
+                )
+                subprocess.run(
+                    ["powershell", "-NoProfile", "-NonInteractive", "-Command", ps_cmd],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL
+                )
+            elif "darwin" in os_sys:
+                subprocess.run(["afplay", abs_path])
+            elif shutil.which("termux-media-player"):
+                subprocess.run(["termux-media-player", "play", abs_path])
+            else:
+                subprocess.run(["aplay", abs_path])
+        except Exception as e:
+            logger.warning(f"Local audio playback exception: {e}")
+
+    threading.Thread(target=_play_worker, daemon=True).start()
 
 
 async def send_cortana_voice_telegram(client: httpx.AsyncClient, text: str):
     """Synthesizes Cortana's response using Microsoft Neural Female TTS and sends it as a Telegram voice note."""
-    clean_speech = text.replace("*", "").replace("#", "").replace("`", "").strip()[:900]
+    clean_speech = sanitize_text_for_speech(text)
     if not clean_speech:
         return
 
@@ -972,18 +1065,12 @@ async def send_cortana_voice_telegram(client: httpx.AsyncClient, text: str):
 async def synthesize_and_send_voice(client: httpx.AsyncClient, text: str):
     """
     Synthesizes speech using Microsoft Neural TTS (edge-tts) in Cortana's Halo voice (en-US-AriaNeural),
-    pushes a playable voice note to Telegram (sendVoice), and optionally plays it on local room speakers.
+    pushes a playable voice note to Telegram (sendVoice), and plays it fully on local room speakers without cutoff.
     """
     if not text or not text.strip():
         return
 
-    clean_speech = text
-    clean_speech = re.sub(r'```.*?```', '', clean_speech, flags=re.DOTALL)
-    clean_speech = re.sub(r'`.*?`', '', clean_speech)
-    clean_speech = re.sub(r'https?://\S+', '', clean_speech)
-    clean_speech = re.sub(r'[*#_~>•\[\]()]', '', clean_speech)
-    clean_speech = " ".join(clean_speech.split())[:1200]
-
+    clean_speech = sanitize_text_for_speech(text)
     if not clean_speech:
         return
 
@@ -1006,7 +1093,7 @@ async def synthesize_and_send_voice(client: httpx.AsyncClient, text: str):
             files = {"voice": ("cortana_speech.mp3", audio_bytes, "audio/mpeg")}
             data = {"chat_id": str(AUTHORIZED_CHAT_ID)}
             try:
-                await client.post(url, data=data, files=files, timeout=25)
+                await client.post(url, data=data, files=files, timeout=30)
             except Exception as e:
                 logger.error(f"[Telegram Voice Send Error]: {e}")
 
@@ -1213,11 +1300,11 @@ def execute_system_speech(text: str) -> str:
     if any(k in raw_str for k in ["429 Too Many Requests", "Operational fault encountered", "Client error '429'", "rate limit", "rate_limit"]):
         clean_text = "Michael, the primary neural quota is cooling down from a telemetry sweep. Switching to the secondary model now."
     else:
-        clean_text = re.sub(r"https?://\S+", "", raw_str).strip()
+        clean_text = sanitize_text_for_speech(raw_str)
         clean_text = clean_text.replace("'", " ").replace('"', ' ').replace("\n", " ").strip()
 
     if not clean_text:
-        clean_text = "Cortana neural construct operational on laptop. Standing by for directives."
+        clean_text = "Cortana neural construct operational on laptop. Standing by for directives, handsome."
     
     os_sys = platform.system().lower()
     try:

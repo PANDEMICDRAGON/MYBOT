@@ -107,16 +107,37 @@ def speak_sapi(text: str, rate: int = 0, volume: int = 100, async_mode: bool = F
         return True
 
 
+def sanitize_text_for_speech(text: str) -> str:
+    """Cleanses text before speech synthesis by stripping brackets, stage directions, emojis, and markdown."""
+    if not text:
+        return ""
+    import re
+    s = str(text)
+    s = re.sub(r'```.*?```', '', s, flags=re.DOTALL)
+    s = re.sub(r'`.*?`', '', s)
+    s = re.sub(r'\[([^\]]+)\]\(https?://[^\)]+\)', r'\1', s)
+    s = re.sub(r'https?://\S+', '', s)
+    s = re.sub(r'\*\[?[a-zA-Z\s]+?\]?\*', '', s)
+    s = re.sub(r'\[.*?\]', '', s)
+    s = re.sub(r'\((?:soft laugh|chuckles|giggles|smiles|sighs|whispers|laughs|winks|clears throat|pause|chuckle|giggle|sigh|soft tone)[^)]*?\)', '', s, flags=re.IGNORECASE)
+    s = re.sub(r'[*#_~>•|]', '', s)
+    s = re.sub(r'[\U00010000-\U0010ffff]', '', s)
+    s = re.sub(r'[\u2600-\u27bf\ufe0f]', '', s)
+    s = re.sub(r'\s+([,.:;?!])', r'\1', s)
+    return " ".join(s.split()).strip()[:4000]
+
+
 async def speak_neural(text: str, voice: str = "en-US-AriaNeural") -> bool:
     """
-    Synthesizes and vocalizes using Microsoft Neural TTS (Cortana / Halo voice).
+    Synthesizes and vocalizes using Microsoft Neural TTS (Cortana / Halo voice)
+    with full audio duration playback.
     """
     try:
         import edge_tts
     except ImportError:
         return speak_sapi(text)
 
-    clean_text = (text or "").strip()
+    clean_text = sanitize_text_for_speech(text)
     if not clean_text:
         return False
 
@@ -125,20 +146,48 @@ async def speak_neural(text: str, voice: str = "en-US-AriaNeural") -> bool:
         comm = edge_tts.Communicate(clean_text, voice=voice, rate="+4%", pitch="-1Hz")
         await comm.save(str(temp_path))
 
-        # Play generated audio
-        if platform.system().lower() == "windows":
+        # Play generated audio to full completion
+        os_sys = platform.system().lower()
+        if "windows" in os_sys:
+            try:
+                import ctypes
+                import time
+                winmm = ctypes.windll.winmm
+                alias = f"speak_neural_{int(time.time() * 1000)}"
+                winmm.mciSendStringW(f'close {alias}', None, 0, None)
+                open_cmd = f'open "{temp_path}" type mpegvideo alias {alias}'
+                if winmm.mciSendStringW(open_cmd, None, 0, None) == 0:
+                    buf = ctypes.create_unicode_buffer(128)
+                    winmm.mciSendStringW(f"status {alias} length", buf, 128, None)
+                    duration_ms = int(buf.value) if buf.value.isdigit() else 0
+                    duration_sec = (duration_ms / 1000.0) if duration_ms > 0 else 10.0
+                    winmm.mciSendStringW(f"play {alias}", None, 0, None)
+                    time.sleep(duration_sec + 0.5)
+                    winmm.mciSendStringW(f"close {alias}", None, 0, None)
+                    return True
+            except Exception:
+                pass
+
             escaped_path = str(temp_path).replace("\\", "\\\\").replace("'", "''")
             ps_cmd = (
                 f"Add-Type -AssemblyName PresentationCore; "
                 f"$m = New-Object System.Windows.Media.MediaPlayer; "
                 f"$m.Open([System.Uri]'{escaped_path}'); "
+                f"$t = 0; while (-not $m.NaturalDuration.HasTimeSpan -and $t -lt 50) {{ Start-Sleep -Milliseconds 100; $t++ }}; "
+                f"if ($m.NaturalDuration.HasTimeSpan) {{ $sec = [math]::Ceiling($m.NaturalDuration.TimeSpan.TotalSeconds) + 2 }} else {{ $sec = 60 }}; "
                 f"$m.Play(); "
-                f"Start-Sleep -Milliseconds 2500"
+                f"Start-Sleep -Seconds $sec; "
+                f"$m.Close()"
             )
-            subprocess.run(["powershell", "-NoProfile", "-NonInteractive", "-Command", ps_cmd],
-                           stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, timeout=10)
+            subprocess.run(
+                ["powershell", "-NoProfile", "-NonInteractive", "-Command", ps_cmd],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL
+            )
+        elif "darwin" in os_sys:
+            subprocess.run(["afplay", str(temp_path)])
         else:
-            subprocess.run(["mpv", "--no-terminal", "--really-quiet", str(temp_path)], timeout=10)
+            subprocess.run(["mpv", "--no-terminal", "--really-quiet", str(temp_path)])
         return True
     except Exception:
         # Fallback to direct SAPI

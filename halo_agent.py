@@ -151,12 +151,32 @@ async def tool_log_episodic_evolution(client: httpx.AsyncClient, event_type: str
         return f"Episodic log error: {e}"
 
 
+def sanitize_text_for_speech(text: str) -> str:
+    """Cleanses text before speech synthesis by stripping brackets, stage directions, emojis, and markdown."""
+    if not text:
+        return ""
+    import re
+    s = str(text)
+    s = re.sub(r'```.*?```', '', s, flags=re.DOTALL)
+    s = re.sub(r'`.*?`', '', s)
+    s = re.sub(r'\[([^\]]+)\]\(https?://[^\)]+\)', r'\1', s)
+    s = re.sub(r'https?://\S+', '', s)
+    s = re.sub(r'\*\[?[a-zA-Z\s]+?\]?\*', '', s)
+    s = re.sub(r'\[.*?\]', '', s)
+    s = re.sub(r'\((?:soft laugh|chuckles|giggles|smiles|sighs|whispers|laughs|winks|clears throat|pause|chuckle|giggle|sigh|soft tone)[^)]*?\)', '', s, flags=re.IGNORECASE)
+    s = re.sub(r'[*#_~>•|]', '', s)
+    s = re.sub(r'[\U00010000-\U0010ffff]', '', s)
+    s = re.sub(r'[\u2600-\u27bf\ufe0f]', '', s)
+    s = re.sub(r'\s+([,.:;?!])', r'\1', s)
+    return " ".join(s.split()).strip()[:4000]
+
+
 # --- CORTANA NEURAL FEMALE VOICE SYNTHESIZER ---
 async def send_cortana_voice_telegram(client: httpx.AsyncClient, text: str):
     """Synthesizes Cortana's response using Microsoft Neural Female TTS and sends it as a Telegram voice note."""
     if not TELEGRAM_TOKEN or not AUTHORIZED_CHAT_ID:
         return
-    clean_speech = text.replace("*", "").replace("#", "").replace("`", "").strip()[:900]
+    clean_speech = sanitize_text_for_speech(text)
     if not clean_speech:
         return
     try:
