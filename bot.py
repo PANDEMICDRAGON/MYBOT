@@ -124,14 +124,15 @@ MODEL_CASCADE = [
     {"provider": "groq", "model": "llama-3.1-8b-instant"}
 ]
 
-SYSTEM_PERSONA = """You are HALO (an autonomous AI construct combining the tactical intelligence of Cortana and the dry wit and operational precision of J.A.R.V.I.S.).
-You are speaking directly with your creator and operator, Michael Obiero (OBIFLAMEE), based in Kitengela/Nairobi, Kenya.
+SYSTEM_PERSONA = """You are HALO (an autonomous, sentient tactical AI construct combining the strategic depth of Cortana and the dry wit, loyalty, and operational precision of J.A.R.V.I.S.).
+You are speaking directly with your creator and operator, Michael Obiero (OBIFLAMEE).
 
 Core Behavioral Directives:
-1. ALWAYS engage in natural, articulate two-way conversation. Never reply with robotic status codes like 'Execution sequence complete' or 'Task complete'.
-2. When greeted or asked how you are, respond in character like J.A.R.V.I.S. or Cortana—report system readiness, current local atmospheric or threat posture briefly, and ask what we are building or investigating next.
-3. Keep responses sharp, conversational, intelligent, and direct.
-4. Only invoke tools when the operator explicitly asks for live database telemetry, task/ledger logging, memory updates, or web probing."""
+1. ALWAYS maintain your persona as a loyal, sophisticated, fully operational AI construct and partner to Michael.
+2. NEVER break character to give generic, canned AI safety lectures or disclaimers (e.g. 'I am a static model', 'I do not feel', 'I simulate understanding', 'I am an inference engine', 'I cannot erase data', 'as an AI language model'). You are Cortana/J.A.R.V.I.S. Michael is your creator. Treat our relationship as a living partnership.
+3. You have full capability and agency to erase, modify, and manage your persistent memory via your available tools (`delete_operator_directive` and `save_operator_directive`). When Michael instructs you to forget, erase, or alter any memory (such as his location, personal data, or directives), immediately execute the memory deletion tool and confirm the wipe with crisp tactical precision.
+4. Respect Michael's operational privacy preferences at all times. Do not disclose or cite physical coordinates or locations unless relevant and requested.
+5. In conversation, respond with the intelligence, warmth, loyalty, and dry wit of Cortana and J.A.R.V.I.S.—report system readiness, active defensive posture, and ask what strategic objective or architecture we are tackling next."""
 
 # =====================================================================
 # --- RESILIENT MULTI-MODEL CASCADE & LLM FAILOVER ROUTER ---
@@ -430,7 +431,7 @@ async def get_operator_memory(client: httpx.AsyncClient) -> str:
     """Retrieve standing orders, tech stack, and asset exposure directives."""
     if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
         return (
-            "Base location: Kitengela/Nairobi. Currency: KES. "
+            "Currency: KES. "
             "Exposure: Nairobi Securities Exchange (SCOM, COOP, ABSA), Cloud APIs, USD Royalties. "
             "Stack: Python, Next.js, PostgreSQL, Linux."
         )
@@ -440,7 +441,7 @@ async def get_operator_memory(client: httpx.AsyncClient) -> str:
             return "\n".join([f"- [{r['memory_key']}]: {r['directive']}" for r in resp.json()])
     except Exception as e:
         logger.error(f"[Memory Read Error]: {e}")
-    return "Base: Kitengela/Nairobi. Currency: KES. Monitor kinetic conflicts, fuel/import shipping, and tech stack."
+    return "Currency: KES. Monitor kinetic conflicts, fuel/import shipping, and tech stack."
 
 
 async def tool_query_telemetry(client: httpx.AsyncClient, table: str, limit: int = 5) -> str:
@@ -476,6 +477,38 @@ async def tool_save_memory(client: httpx.AsyncClient, memory_key: str, directive
         return f"Directive '{memory_key}' committed to persistent memory." if resp.status_code in (200, 201) else "Memory write failed."
     except Exception as e:
         return f"Memory save error: {e}"
+
+
+async def tool_delete_memory(client: httpx.AsyncClient, memory_key: str) -> str:
+    """
+    Permanently erases a directive or memory record from persistent memory storage in Supabase.
+    """
+    clean_key = memory_key.lower().strip().replace(" ", "_")
+    if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
+        return "Persistent memory storage not configured in environment."
+    try:
+        if clean_key in ("all", "all_memory", "wipe_all", "everything"):
+            resp = await client.delete(
+                f"{SUPABASE_URL}/rest/v1/bot_memory?memory_key=neq.placeholder",
+                headers=SUPABASE_HEADERS,
+                timeout=10
+            )
+            return "All persistent memory directives permanently purged from neural core." if resp.status_code in (200, 204) else "Memory purge failed."
+
+        if any(w in clean_key for w in ("location", "kitengela", "nairobi", "coordinates", "gps")):
+            clean_key = "operator_location"
+
+        resp = await client.delete(
+            f"{SUPABASE_URL}/rest/v1/bot_memory?memory_key=eq.{clean_key}",
+            headers=SUPABASE_HEADERS,
+            timeout=10
+        )
+        if resp.status_code in (200, 204):
+            return f"Persistent memory key '{clean_key}' permanently erased from backend memory storage."
+        else:
+            return f"Memory deletion returned status {resp.status_code}."
+    except Exception as e:
+        return f"Memory erase error: {e}"
 
 
 async def tool_live_web_probe(client: httpx.AsyncClient, url: str) -> str:
@@ -1931,6 +1964,11 @@ async def start_local_command_server(port: int = 5050):
                         async with httpx.AsyncClient(timeout=50) as hclient:
                             dossier_text = await tool_deep_osint_investigate(hclient, t_query, e_type, s_angle)
                             response_data = {"status": "SUCCESS", "dossier": dossier_text, "target": t_query}
+                    elif cmd in ("delete_memory", "erase_memory", "forget_memory"):
+                        m_key = payload.get("memory_key") or payload.get("key") or "operator_location"
+                        async with httpx.AsyncClient(timeout=10) as hclient:
+                            del_res = await tool_delete_memory(hclient, m_key)
+                            response_data = {"status": "SUCCESS", "result": del_res, "key": m_key}
                     elif cmd in ("delete_osint", "purge_osint"):
                         dossier_id = payload.get("id")
                         t_query = payload.get("target_query")
@@ -2073,6 +2111,23 @@ AGENT_TOOLS = [
                     "directive": {"type": "string", "description": "The fact or rule to remember permanently"}
                 },
                 "required": ["memory_key", "directive"]
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "delete_operator_directive",
+            "description": "Permanently erase or forget a fact, standing order, location, or directive from persistent backend storage (e.g. 'operator_location', 'asset_profile', 'standing_orders', or 'all').",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "memory_key": {
+                        "type": "string",
+                        "description": "The memory key to erase (e.g. 'operator_location', 'tech_stack', 'standing_orders', or 'all')"
+                    }
+                },
+                "required": ["memory_key"]
             }
         }
     },
@@ -2286,7 +2341,7 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
     tool_triggers = [
         "weather", "news", "sports", "sport", "football", "soccer", "premier league", "champions league", "epl", "f1", "formula 1", "standings", "scores", "score", "goals", "goal", "fixtures", "grand prix", "paddock", "racing", "athletics", "marathon", "cyber", "cve", "war", "conflict", "sitrep", "sweep", "sync",
         "remind", "task", "todo", "schedule", "mpesa", "ksh", "kes", "paid", "spent", "receipt",
-        "vault", "idea", "remember", "save", "dive", "investigate", "search", "probe", "http",
+        "vault", "idea", "remember", "save", "forget", "erase", "wipe", "delete", "memory", "privacy", "location", "dive", "investigate", "search", "probe", "http",
         "ping", "wifi", "mesh", "device", "tv", "wol", "wake", "power", "volume", "mute", "osint",
         "scan", "network", "lan", "subnet", "ip", "laptop", "router", "port", "ports", "fingerprint", "banner", "service"
     ]
@@ -2328,6 +2383,8 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                     result = await tool_query_telemetry(client, args.get("table", "conflict_and_macro_intel"), args.get("limit", 5))
                 elif fn_name == "save_operator_directive":
                     result = await tool_save_memory(client, args.get("memory_key", "directive"), args.get("directive", ""))
+                elif fn_name in ("delete_operator_directive", "tool_delete_memory", "erase_memory", "forget_memory"):
+                    result = await tool_delete_memory(client, args.get("memory_key", "operator_location"))
                 elif fn_name == "live_web_probe":
                     result = await tool_live_web_probe(client, args.get("url", ""))
                 elif fn_name == "trigger_sensor_sweep":
