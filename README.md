@@ -57,6 +57,7 @@ graph TD
 | **Voice Idea Vault** | `idea_vault` table | Instant spoken logging for code snippets, song lyrics, or project architectures. |
 | **Vocal Web HUD** | `window.speechSynthesis` | Web dashboard that reads newly synthesized SitRep briefings aloud with one click. |
 | **Wi-Fi Cyber Scanner** | Async Socket & Banner Fingerprint | Dedicated multi-port scanner auditing 20-35 services on Wi-Fi devices (Google Cast, Roku, ADB, HTTP, SSH) across mobile and desktop. |
+| **Secure Local CLI & Workspace Bridge** | `halo_agent.py` (Gemini + Groq) | Dual-listener daemon (Port 5050 + Supabase command_queue) for zero-latency local code refactoring, colorized unified diffs, path-sandboxed writes, and git stash + syntax rollback safety. |
 | **High-Tech Typography Matrix** | Google Fonts + CSS Engine | Replaces cramped legacy fonts with movie-grade Oxanium display headers, Plus Jakarta Sans & Inter hyper-crisp body text, Space Grotesk HUD labels, JetBrains Mono telemetry, and an interactive 6-preset selector (Quantum, Stark, Cortana, Minimalist, Night City, Retro). |
 
 ---
@@ -66,6 +67,10 @@ graph TD
 ```
 MYBOT/
 ├── bot.py                    # 24/7 Cortana / J.A.R.V.I.S. cognitive daemon & tool executor
+├── halo_agent.py             # Autonomous principal systems engineer & local workspace bridge (CLI + Port 5050)
+├── wifi_manager.py           # 802.11 RF spectrum scanning and authenticated association engine
+├── speak.py                  # Direct physical audio driver & terminal TTS bridge
+├── laptop_agent.py           # Remote workstation hardware listener
 ├── core_bot.py               # Baseline custom web collector bot
 ├── test_cyber_telemetry.py   # Test utility for CISA KEV JSON & Threat feeds
 ├── test_weather_news.py      # Test utility for Open-Meteo & RSS feeds
@@ -281,6 +286,36 @@ The construct includes a dedicated physical-layer 802.11 Wi-Fi management subsys
    - Enable Wake-on-LAN (WoL) in BIOS/adapter properties.
    - Tell Cortana:  
      *"Register my Main Laptop as a LAPTOP-PC at 192.168.1.10 with MAC AA:BB:CC:DD:EE:FF."*
+
+---
+
+## ⚡ HALO Workspace Bridge & Local CLI Daemon (`halo_agent.py`)
+
+Option 2 architectural implementation: an autonomous principal systems engineer and secure local CLI/workspace bridge connecting your terminal, desktop browser, and mobile devices directly to your files:
+
+### 1. Three Ways to Execute Refactors & Directives
+
+#### A. Instant Terminal CLI (Interactive Unified Diff + Confirmation)
+Run directly inside your project directory to inspect colorized diffs and confirm `[y/N]` before modifying any file on disk:
+```powershell
+.\.venv\Scripts\python halo_agent.py "patch src/components/Dashboard.tsx : memoize heavy state selectors and remove redundant re-renders"
+```
+
+#### B. Autonomous Zero-Prompt Mode (`HALO_AUTO_APPLY=1`)
+Start the background daemon with auto-apply enabled so remote directives from your phone or Web HUD automatically create a non-destructive git stash + snapshot backup, apply the patch, verify syntax, and report the diff back:
+```powershell
+$env:HALO_AUTO_APPLY="1"
+.\.venv\Scripts\python halo_agent.py
+```
+
+#### C. Dual-Route Web HUD Dispatcher (`dispatchDirective`)
+Your live Web HUD automatically tries the local daemon bridge (`http://127.0.0.1:5050/execute`) first for zero-latency execution on desktop, and automatically routes through the Supabase `command_queue` table when you are on your mobile phone without port forwarding.
+
+### 2. Core Architectural Mechanics
+- **Path-Sandboxed Security**: Restricts all read/write operations to `WORKSPACE_ROOT` via `Path.resolve().is_relative_to()` to block directory traversal (`../`) and unauthorized system file access.
+- **Git Stash + Snapshot Backup Engine**: Creates timestamped backups in `.halo_backups/` and non-destructive `git stash create` entries prior to touching files.
+- **Syntax Verification Rollback**: Runs automated syntax checks (`py_compile` for Python, `node --check` for JavaScript) post-write and restores the backup snapshot automatically if compilation fails.
+- **Resilient Model Cascade**: Seamlessly falls back from Google Gemini Flash/Pro to Groq Qwen/Llama on rate limits or API spikes.
 
 ---
 

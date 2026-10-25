@@ -5,6 +5,7 @@ __pycache__/
 bot.log
 .DS_Store
 .vercel
+.halo_backups/
 *.mp3
 
 

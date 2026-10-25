@@ -4031,34 +4031,93 @@ async function dispatchTerminalDirective(directiveText, broadcastTelegram = true
     return;
   }
 
-  // General natural language cognitive directive to Groq 120B reasoning construct
-  logToTerminal("HUD", `[TRANSMITTING TO 120B CONSTRUCT] Routing directive to local daemon on port 5050...`);
+async function dispatchDirective(promptText, mode = "CHAT") {
+  const passcode = localStorage.getItem("operator_passcode") || localStorage.getItem("cortana_passcode") || "CORTANA-75-AUTH";
 
+  // 1. Try Fast Local Daemon Bridge (Port 5050 /execute) when on Desktop
   try {
-    const res = await fetch("http://localhost:5050/api/command", {
+    const localRes = await fetch("http://127.0.0.1:5050/execute", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-operator-key": passcode
+      },
+      body: JSON.stringify({ prompt: promptText, directive: promptText, auto_apply: true }),
+      signal: AbortSignal.timeout(2500)
+    });
+    if (localRes.ok) {
+      const data = await localRes.json();
+      return data.response;
+    }
+  } catch (_) {
+    // Port 5050 unreachable (e.g. mobile browser) -> fallback to Supabase command_queue
+  }
+
+  // 1b. Try alternative /api/command on port 5050 if on desktop
+  try {
+    const altRes = await fetch("http://127.0.0.1:5050/api/command", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         command: "directive",
-        directive: text,
-        broadcast_telegram: broadcastTelegram
-      })
+        directive: promptText,
+        prompt: promptText,
+        broadcast_telegram: true
+      }),
+      signal: AbortSignal.timeout(2500)
     });
-    if (res.ok) {
-      const data = await res.json();
-      const reply = data.response || "Directive executed.";
-      logToTerminal("BOT", reply);
-      speakCustomText(reply, "cortana");
-      return;
+    if (altRes.ok) {
+      const data = await altRes.json();
+      return data.response;
     }
-  } catch (err) {
-    console.warn("Direct port 5050 RPC error, using cognitive fallback:", err);
+  } catch (_) {}
+
+  // 2. Cloud Queue Bridge (Picked up within 2s by halo_agent.py / bot.py polling Supabase)
+  const supaUrl = appState.supabaseUrl || localStorage.getItem("cortana_supabase_url") || "";
+  const supaKey = appState.supabaseAnonKey || localStorage.getItem("cortana_supabase_key") || "";
+  if (!supaUrl || !supaKey) {
+    throw new Error("Supabase credentials unconfigured and local port 5050 unreachable.");
   }
 
-  // Cloud Supabase & local cognitive fallback
-  const fallbackReply = `Directive received. Tactical telemetry indicates all 7 subnet nodes and planetary defense sensors are nominal.`;
-  logToTerminal("BOT", fallbackReply);
-  speakCustomText(fallbackReply, "cortana");
+  const supaRes = await fetch(`${supaUrl}/rest/v1/command_queue`, {
+    method: "POST",
+    headers: {
+      "apikey": supaKey,
+      "Authorization": `Bearer ${supaKey}`,
+      "Content-Type": "application/json",
+      "Prefer": "return=representation"
+    },
+    body: JSON.stringify({
+      origin: "WEB",
+      mode: mode,
+      prompt: promptText,
+      directive: promptText,
+      status: "PENDING",
+      passcode: passcode
+    })
+  });
+
+  if (!supaRes.ok) {
+    throw new Error("Supabase command_queue rejected request. Verify RLS policy and passcode.");
+  }
+  return "Directive queued in Supabase command_queue. Awaiting halo_agent.py execution...";
+}
+window.dispatchDirective = dispatchDirective;
+
+  // General natural language cognitive directive to HALO / Cortana construct
+  logToTerminal("HUD", `[TRANSMITTING TO HALO CONSTRUCT] Routing directive via local daemon / Supabase bridge...`);
+
+  try {
+    const reply = await dispatchDirective(text, "CHAT");
+    logToTerminal("BOT", reply);
+    speakCustomText(reply, "cortana");
+    return;
+  } catch (err) {
+    console.warn("Dual-route dispatch error, using fallback notice:", err);
+    const fallbackReply = `Directive queued. Ensure halo_agent.py or bot.py daemon is active on the workstation.`;
+    logToTerminal("BOT", fallbackReply);
+    speakCustomText(fallbackReply, "cortana");
+  }
 }
 
 function initTerminalController() {
@@ -4732,10 +4791,36 @@ async function submitWebDirective() {
   appState.commandQueueHistory.unshift(optimisticItem);
   renderCommandHistoryItems(appState.commandQueueHistory);
 
-  let success = false;
+  // 1. Try Fast Local Daemon Bridge (Port 5050 /execute) first for zero-latency execution
+  try {
+    const localRes = await fetch("http://127.0.0.1:5050/execute", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-operator-key": passcode || "CORTANA-75-AUTH"
+      },
+      body: JSON.stringify({ prompt: directive, directive: directive, auto_apply: true }),
+      signal: AbortSignal.timeout(2500)
+    });
+    if (localRes.ok) {
+      const data = await localRes.json();
+      optimisticItem.status = "COMPLETED";
+      optimisticItem.response = data.response || "Directive executed successfully.";
+      optimisticItem.completed_at = new Date().toISOString();
+      inputEl.value = "";
+      success = true;
+      if (typeof playSciFiChirp === "function") playSciFiChirp("vocal");
+      if (typeof speakCustomText === "function") {
+        speakCustomText(data.response || "Local neural construct execution complete.", "cortana");
+      }
+      renderCommandHistoryItems(appState.commandQueueHistory);
+    }
+  } catch (_) {
+    // Port 5050 unreachable (e.g. mobile browser) -> proceeds to Supabase command_queue
+  }
 
-  // Route 1: Supabase Asynchronous Command Bus (if configured)
-  if (typeof isConfigured === "function" && isConfigured()) {
+  // 2. Cloud Queue Bridge (Supabase command_queue) - Picked up within 2s by halo_agent.py / bot.py
+  if (!success && typeof isConfigured === "function" && isConfigured()) {
     try {
       const headers = {
         "apikey": appState.supabaseAnonKey,
@@ -4754,6 +4839,7 @@ async function submitWebDirective() {
           origin: "WEB",
           mode: mode,
           directive: directive,
+          prompt: directive,
           status: "PENDING"
         })
       });
@@ -4762,7 +4848,7 @@ async function submitWebDirective() {
         success = true;
         inputEl.value = "";
         if (typeof speakCustomText === "function") {
-          speakCustomText(`Directive queued for neural execution. Mode: ${mode}.`, "cortana");
+          speakCustomText(`Directive queued in cloud bus. Mode: ${mode}.`, "cortana");
         }
         await fetchCommandHistory();
         if (!activeCommandPoll) {
@@ -4777,7 +4863,7 @@ async function submitWebDirective() {
     }
   }
 
-  // Route 1b: Serverless Proxy Uplink (/api/command) - Bridges mobile Web HUD to Supabase
+  // 3. Serverless Proxy Uplink (/api/command)
   if (!success) {
     try {
       btn.innerHTML = `<span class="inline-block animate-spin mr-1">⟳</span> CLOUD BRIDGE...`;
@@ -4788,6 +4874,7 @@ async function submitWebDirective() {
           origin: "WEB",
           mode: mode,
           directive: directive,
+          prompt: directive,
           passcode: passcode
         })
       });
@@ -4796,64 +4883,25 @@ async function submitWebDirective() {
         success = true;
         inputEl.value = "";
         if (typeof speakCustomText === "function") {
-          speakCustomText(`Directive queued for neural execution. Mode: ${mode}.`, "cortana");
+          speakCustomText(`Directive queued via proxy. Mode: ${mode}.`, "cortana");
         }
         await fetchCommandHistory();
         if (!activeCommandPoll) {
           activeCommandPoll = setInterval(fetchCommandHistory, 2000);
         }
-      } else {
-        const proxyErr = await proxyRes.json().catch(() => ({}));
-        console.warn("/api/command uplink failed:", proxyRes.status, proxyErr);
       }
     } catch (proxyErr) {
       console.warn("/api/command endpoint unreachable:", proxyErr);
     }
   }
 
-  // Route 2: Fallback to Local Bot Daemon RPC (Port 5050 - only attempted if running on desktop localhost)
-  const isLocalHost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
-  if (!success && isLocalHost) {
-    try {
-      btn.innerHTML = `<span class="inline-block animate-spin mr-1">⟳</span> LOCAL UPLINK...`;
-      const localRes = await fetch("http://localhost:5050/api/command", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          command: mode === "DEEP-DIVE" ? "dive" : "directive",
-          origin: "WEB",
-          mode: mode,
-          directive: directive,
-          passcode: passcode,
-          broadcast_telegram: true
-        })
-      });
-
-      if (localRes.ok) {
-        const data = await localRes.json();
-        optimisticItem.status = "COMPLETED";
-        optimisticItem.response = data.response || "Directive executed successfully.";
-        optimisticItem.completed_at = new Date().toISOString();
-        inputEl.value = "";
-        success = true;
-        if (typeof playSciFiChirp === "function") playSciFiChirp("vocal");
-        if (typeof speakCustomText === "function") {
-          speakCustomText("Local neural construct synthesis complete.", "cortana");
-        }
-        renderCommandHistoryItems(appState.commandQueueHistory);
-      }
-    } catch (localErr) {
-      console.warn("Local daemon uncontactable:", localErr);
-    }
-  }
-
-  // If both failed (e.g. offline simulation fallback)
+  // Fallback notice if all channels unreachable
   if (!success) {
     setTimeout(() => {
       optimisticItem.status = "COMPLETED";
-      optimisticItem.response = `[OFFLINE SIMULATION]: Received directive "${directive}". Local bot daemon (port 5050) or Supabase command_queue table required for live autonomous execution.`;
+      optimisticItem.response = `[HALO BRIDGE STANDBY]: Received directive "${directive}". Start 'python halo_agent.py' or 'python bot.py' on workstation to bridge execution.`;
       renderCommandHistoryItems(appState.commandQueueHistory);
-    }, 1500);
+    }, 1200);
   }
 
   btn.innerHTML = originalBtnHtml;

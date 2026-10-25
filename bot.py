@@ -2180,6 +2180,28 @@ async def start_local_command_server(port: int = 5050):
                     async with httpx.AsyncClient(timeout=8) as hclient:
                         await fetch_live_sports_telemetry(hclient)
                 response_data = CURRENT_SPORTS_CACHE
+            elif path in ("/health", "/api/health") and method == "GET":
+                response_data = {
+                    "status": "ONLINE",
+                    "service": "HALO Workspace Daemon",
+                    "workspace": os.getcwd(),
+                    "port": port
+                }
+            elif path in ("/execute", "/api/execute") and method == "POST":
+                try:
+                    payload = json.loads(body_bytes.decode("utf-8", errors="ignore")) if body_bytes else {}
+                    passcode = headers.get("x-operator-key") or payload.get("passcode", "")
+                    if passcode and passcode != "CORTANA-75-AUTH":
+                        response_data = {"status": "ERROR", "response": "Unauthorized passcode."}
+                    else:
+                        prompt_str = payload.get("prompt") or payload.get("directive", "")
+                        auto_flag = bool(payload.get("auto_apply", False))
+                        from halo_agent import execute_directive_router
+                        async with httpx.AsyncClient() as hclient:
+                            reply = await execute_directive_router(hclient, prompt_str, auto_apply=auto_flag)
+                        response_data = {"status": "COMPLETED", "response": reply}
+                except Exception as ex:
+                    response_data = {"status": "ERROR", "response": f"Execution error: {ex}"}
             elif path == "/api/status" and method == "GET":
                 response_data = {
                     "status": "ONLINE",
