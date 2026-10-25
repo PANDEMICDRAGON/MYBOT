@@ -43,6 +43,8 @@ load_dotenv(dotenv_path=env_path)
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN", "").strip()
 AUTHORIZED_CHAT_ID_RAW = os.getenv("TELEGRAM_CHAT_ID", "").strip()
 SUPABASE_URL = os.getenv("SUPABASE_URL", "").strip().rstrip("/")
+if SUPABASE_URL.endswith("/rest/v1"):
+    SUPABASE_URL = SUPABASE_URL[:-8].rstrip("/")
 SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_KEY", "").strip()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
 SYNC_INTERVAL = int(os.getenv("SYNC_INTERVAL", "900"))
@@ -1266,7 +1268,7 @@ async def check_due_tasks(client: httpx.AsyncClient):
     if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
         return
     try:
-        now_iso = datetime.now(timezone.utc).isoformat()
+        now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
         url = f"{SUPABASE_URL}/rest/v1/personal_tasks?completed=eq.false&notified=eq.false&due_at=lte.{now_iso}&select=*"
         resp = await client.get(url, headers=SUPABASE_HEADERS, timeout=10)
         if resp.status_code == 200:

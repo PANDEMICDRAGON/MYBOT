@@ -4,12 +4,19 @@
  * Web Speech API vocalization, and persistent local configuration.
  */
 
-const DEFAULT_SUPABASE_URL = "https://your-project.supabase.co";
-const DEFAULT_SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const DEFAULT_SUPABASE_URL = "https://vutamfqgckrzsnbcgrne.supabase.co";
+const DEFAULT_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1dGFtZnFnY2tyenNuYmNncm5lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTI5MjE1NzAsImV4cCI6MjEwODQ5NzU3MH0.e--tBZmxGOk21c9bXMjqgz8S_B_nKGc5M6-Vqa5EH-4";
+
+function getCleanSupabaseUrl() {
+  let url = localStorage.getItem("telemetry_supabase_url") || DEFAULT_SUPABASE_URL;
+  url = url.trim().replace(/\/$/, "");
+  if (url.endsWith("/rest/v1")) url = url.slice(0, -8).replace(/\/$/, "");
+  return url;
+}
 
 // State
 let appState = {
-  supabaseUrl: localStorage.getItem("telemetry_supabase_url") || DEFAULT_SUPABASE_URL,
+  supabaseUrl: getCleanSupabaseUrl(),
   supabaseAnonKey: localStorage.getItem("telemetry_supabase_anon") || DEFAULT_SUPABASE_ANON_KEY,
   sitrepText: "",
   sitrepThreat: "NOMINAL",
