@@ -32,7 +32,10 @@ let appState = {
   searchQuery: "",
   lastSyncTime: null,
   nextSyncSeconds: 60,
-  syncTimerId: null
+  syncTimerId: null,
+  isSpeaking: false,
+  sfxEnabled: localStorage.getItem("ai_hud_sfx") !== "false",
+  currentTheme: localStorage.getItem("ai_hud_theme") || "hybrid"
 };
 
 // Weather Condition Icons (SVG)
@@ -598,7 +601,112 @@ function renderOsint() {
   }).join("");
 }
 
-// Web Speech API Vocalization (Cortana / J.A.R.V.I.S. Audio Synthesizer)
+// --- SCI-FI AUDIO SFX SYNTHESIZER (WEB AUDIO API - ZERO EXTERNAL ASSETS) ---
+let audioCtx = null;
+function playSciFiChirp(type = "blip") {
+  if (!appState.sfxEnabled) return;
+  try {
+    if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.state === "suspended") audioCtx.resume();
+
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    const now = audioCtx.currentTime;
+    if (type === "blip") {
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(880, now);
+      osc.frequency.exponentialRampToValueAtTime(1760, now + 0.08);
+      gain.gain.setValueAtTime(0.06, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } else if (type === "confirm") {
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(1040, now + 0.12);
+      gain.gain.setValueAtTime(0.08, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+      osc.start(now);
+      osc.stop(now + 0.12);
+    } else if (type === "vocal") {
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.linearRampToValueAtTime(880, now + 0.2);
+      gain.gain.setValueAtTime(0.1, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+      osc.start(now);
+      osc.stop(now + 0.22);
+    }
+  } catch (e) {
+    // AudioContext restricted or unsupported
+  }
+}
+
+// --- DUAL MULTI-FREQUENCY AUDIO WAVEFORM VISUALIZER ---
+let waveformAnimId = null;
+function initWaveformVisualizer() {
+  const canvas = document.getElementById("waveform-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+  let step = 0;
+
+  function draw() {
+    waveformAnimId = requestAnimationFrame(draw);
+    step += 0.06;
+
+    const w = canvas.width;
+    const h = canvas.height;
+    ctx.clearRect(0, 0, w, h);
+
+    // Tech Grid Centerline
+    ctx.strokeStyle = "rgba(0, 240, 255, 0.15)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, h / 2);
+    ctx.lineTo(w, h / 2);
+    ctx.stroke();
+
+    const numBars = 44;
+    const barWidth = Math.floor((w - (numBars * 3)) / numBars);
+    const speaking = appState.isSpeaking;
+
+    for (let i = 0; i < numBars; i++) {
+      const freq = (i / numBars) * Math.PI * 3.5;
+      const baseWave = Math.sin(freq + step) * 0.5 + 0.5;
+      const secondaryWave = Math.cos((i * 0.4) - step * 1.8) * 0.25;
+
+      let barHeight = (baseWave + secondaryWave) * (h * 0.45);
+      if (speaking) {
+        barHeight = barHeight * 1.7 + Math.random() * (h * 0.4);
+      } else {
+        barHeight = Math.max(4, barHeight * 0.6);
+      }
+      barHeight = Math.min(h - 6, barHeight);
+
+      const x = i * (barWidth + 3) + 4;
+      const y = (h - barHeight) / 2;
+
+      const grad = ctx.createLinearGradient(0, y, 0, y + barHeight);
+      if (speaking) {
+        grad.addColorStop(0, "rgba(255, 45, 85, 0.95)");
+        grad.addColorStop(0.5, "rgba(0, 240, 255, 0.95)");
+        grad.addColorStop(1, "rgba(168, 85, 247, 0.95)");
+      } else {
+        grad.addColorStop(0, "rgba(0, 240, 255, 0.8)");
+        grad.addColorStop(1, "rgba(0, 255, 213, 0.3)");
+      }
+
+      ctx.fillStyle = grad;
+      ctx.fillRect(x, y, barWidth, barHeight);
+    }
+  }
+  draw();
+}
+
+// --- CORTANA / J.A.R.V.I.S. VOCAL SYNTHESIZER ---
 function speakSitrep() {
   if (!("speechSynthesis" in window)) {
     alert("Speech synthesis is not supported on this browser.");
@@ -623,6 +731,23 @@ function speakSitrep() {
   const preferredVoice = voices.find(v => v.lang.includes("en-US") || v.lang.includes("en-GB") || v.name.includes("Google") || v.name.includes("Samantha"));
   if (preferredVoice) utterance.voice = preferredVoice;
 
+  utterance.onstart = () => {
+    appState.isSpeaking = true;
+    const label = document.getElementById("vocal-status-label");
+    if (label) label.textContent = "// STREAMING VOCAL MATRIX // CORTANA / J.A.R.V.I.S. SITREP ACTIVE //";
+    const btn = document.getElementById("btn-vocalize-sitrep");
+    if (btn) btn.classList.add("speaking");
+    playSciFiChirp("vocal");
+  };
+
+  utterance.onend = utterance.onerror = () => {
+    appState.isSpeaking = false;
+    const label = document.getElementById("vocal-status-label");
+    if (label) label.textContent = "// STANDBY: READY FOR VOCAL & SENSOR STREAM //";
+    const btn = document.getElementById("btn-vocalize-sitrep");
+    if (btn) btn.classList.remove("speaking");
+  };
+
   window.speechSynthesis.speak(utterance);
 }
 
@@ -630,6 +755,12 @@ function stopSpeech() {
   if ("speechSynthesis" in window) {
     window.speechSynthesis.cancel();
   }
+  appState.isSpeaking = false;
+  const label = document.getElementById("vocal-status-label");
+  if (label) label.textContent = "// STANDBY: READY FOR VOCAL & SENSOR STREAM //";
+  const btn = document.getElementById("btn-vocalize-sitrep");
+  if (btn) btn.classList.remove("speaking");
+  playSciFiChirp("blip");
 }
 
 
@@ -987,10 +1118,59 @@ async function saveSettings() {
   }
 }
 
+// --- PERSONA THEME MANAGEMENT ---
+function applyTheme(themeName) {
+  appState.currentTheme = themeName;
+  localStorage.setItem("ai_hud_theme", themeName);
+  document.body.classList.remove("theme-jarvis", "theme-cortana");
+  if (themeName === "jarvis") document.body.classList.add("theme-jarvis");
+  else if (themeName === "cortana") document.body.classList.add("theme-cortana");
+
+  document.getElementById("btn-theme-hybrid")?.classList.toggle("active", themeName === "hybrid");
+  document.getElementById("btn-theme-jarvis")?.classList.toggle("active", themeName === "jarvis");
+  document.getElementById("btn-theme-cortana")?.classList.toggle("active", themeName === "cortana");
+}
+
 // Event Listeners Setup
 document.addEventListener("DOMContentLoaded", () => {
   updateClock();
   setInterval(updateClock, 1000);
+
+  // Apply saved persona theme
+  applyTheme(appState.currentTheme);
+
+  // Initialize Canvas Waveform Visualizer
+  initWaveformVisualizer();
+
+  // Setup Persona Theme Switchers
+  const btnHybrid = document.getElementById("btn-theme-hybrid");
+  if (btnHybrid) btnHybrid.addEventListener("click", () => { applyTheme("hybrid"); playSciFiChirp("confirm"); });
+
+  const btnJarvis = document.getElementById("btn-theme-jarvis");
+  if (btnJarvis) btnJarvis.addEventListener("click", () => { applyTheme("jarvis"); playSciFiChirp("confirm"); });
+
+  const btnCortana = document.getElementById("btn-theme-cortana");
+  if (btnCortana) btnCortana.addEventListener("click", () => { applyTheme("cortana"); playSciFiChirp("confirm"); });
+
+  // Setup Audio SFX Toggle
+  const sfxBtn = document.getElementById("btn-toggle-sfx");
+  const sfxIndicator = document.getElementById("sfx-indicator");
+  function updateSfxButton() {
+    if (sfxBtn) {
+      const textSpan = sfxBtn.querySelector("span:last-child");
+      if (textSpan) textSpan.textContent = appState.sfxEnabled ? "SFX: ON" : "SFX: OFF";
+      if (sfxIndicator) sfxIndicator.className = appState.sfxEnabled ? "w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" : "w-1.5 h-1.5 rounded-full bg-slate-500 inline-block";
+    }
+  }
+  updateSfxButton();
+  if (sfxBtn) {
+    sfxBtn.addEventListener("click", () => {
+      appState.sfxEnabled = !appState.sfxEnabled;
+      localStorage.setItem("ai_hud_sfx", appState.sfxEnabled);
+      updateSfxButton();
+      if (appState.sfxEnabled) playSciFiChirp("confirm");
+    });
+  }
 
   // Setup Vocalizer buttons
   const vocalizeBtn = document.getElementById("btn-vocalize-sitrep");
@@ -1002,6 +1182,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Setup News tabs
   document.querySelectorAll(".news-tab").forEach(tab => {
     tab.addEventListener("click", () => {
+      playSciFiChirp("blip");
       document.querySelectorAll(".news-tab").forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
       appState.activeNewsFilter = tab.getAttribute("data-scope");
@@ -1012,6 +1193,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Setup Cyber tabs
   document.querySelectorAll(".cyber-tab").forEach(tab => {
     tab.addEventListener("click", () => {
+      playSciFiChirp("blip");
       document.querySelectorAll(".cyber-tab").forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
       appState.activeCyberFilter = tab.getAttribute("data-category");
@@ -1022,6 +1204,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Setup Conflict & Macro Theater tabs
   document.querySelectorAll(".conflict-filter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
+      playSciFiChirp("blip");
       document.querySelectorAll(".conflict-filter-btn").forEach(b => b.classList.remove("active-filter"));
       btn.classList.add("active-filter");
       appState.activeConflictFilter = btn.getAttribute("data-filter");
@@ -1032,6 +1215,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Setup OSINT Dossier Filter tabs
   document.querySelectorAll(".osint-filter-btn").forEach(btn => {
     btn.addEventListener("click", () => {
+      playSciFiChirp("blip");
       document.querySelectorAll(".osint-filter-btn").forEach(b => b.classList.remove("active-filter"));
       btn.classList.add("active-filter");
       appState.activeOsintFilter = btn.getAttribute("data-filter");
@@ -1055,19 +1239,20 @@ document.addEventListener("DOMContentLoaded", () => {
   const refreshBtn = document.getElementById("btn-refresh");
   if (refreshBtn) {
     refreshBtn.addEventListener("click", () => {
+      playSciFiChirp("confirm");
       fetchTelemetryData();
     });
   }
 
   // Settings Modal Handlers
   const settingsBtn = document.getElementById("btn-settings");
-  if (settingsBtn) settingsBtn.addEventListener("click", openSettingsModal);
+  if (settingsBtn) settingsBtn.addEventListener("click", () => { playSciFiChirp("blip"); openSettingsModal(); });
 
   const closeSettingsBtn = document.getElementById("btn-close-settings");
-  if (closeSettingsBtn) closeSettingsBtn.addEventListener("click", closeSettingsModal);
+  if (closeSettingsBtn) closeSettingsBtn.addEventListener("click", () => { playSciFiChirp("blip"); closeSettingsModal(); });
 
   const saveSettingsBtn = document.getElementById("btn-save-settings");
-  if (saveSettingsBtn) saveSettingsBtn.addEventListener("click", saveSettings);
+  if (saveSettingsBtn) saveSettingsBtn.addEventListener("click", () => { playSciFiChirp("confirm"); saveSettings(); });
 
   // Initial Load and Start Timer
   fetchTelemetryData();
