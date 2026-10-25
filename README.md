@@ -1,123 +1,141 @@
-# 24/7 Web Collector Bot (No VPS, No Domain Required)
+# 🛰️ 24/7 Autonomous News & Weather Bot + Live Vercel Dashboard
 
-A resilient, continuous web scraping, deduplication, and notification bot built in Python. It features long polling via Telegram (allowing two-way command & control without any public domain or open ports), deduplication and storage in Supabase PostgreSQL, and modular hooks prepared for future AI model integration.
+A complete, resilient pipeline that gathers **local and global weather** and **local and global news**, deduplicates items, pushes real-time mobile notifications via **Telegram Long Polling**, and displays everything on a stunning cyber-telemetry **Vercel web dashboard**.
 
 ---
 
-## 🏗️ Architecture Overview
+## 🏛️ System Architecture
 
 ```mermaid
 graph TD
-    User([Telegram App on Phone/Desktop]) <-->|Long Polling Commands & Alerts| Bot[core_bot.py Orchestrator]
-    Bot -->|Periodic or On-Demand Scrape| Target[Target Websites]
-    Target -->|Raw HTML / Data| Bot
-    Bot -->|Hash Deduplication & Archival| DB[(Supabase PostgreSQL)]
-    Bot -.->|Modular AI Processing Hook| AI[Future AI / LLM Model]
+    subgraph Data Collection Engines
+        Meteo[Open-Meteo API<br/>Zero API Key Required] -->|Weather JSON| Bot[bot.py Daemon<br/>24/7 Long Polling]
+        Feeds[XML RSS Feeds<br/>Google News, BBC, Al Jazeera] -->|Headlines & Links| Bot
+    end
+
+    subgraph Processing & State
+        Bot -->|Upsert Weather| DB[(Supabase PostgreSQL)]
+        Bot -->|SHA-256 Deduplicate & Insert| DB
+    end
+
+    subgraph Two-Way Delivery & Viewing
+        Bot -->|Push Alerts & Interactive Commands| Phone[📱 Telegram App on Phone]
+        DB -->|Public Read-Only anon RLS| Web[🌐 Vercel Web Dashboard<br/>index.html]
+        Web --> Phone
+    end
 ```
 
-1. **Extraction**: `httpx` and `BeautifulSoup4` extract elements using CSS selectors.
-2. **Deduplication**: Content is normalized and hashed with SHA-256. Only **new or modified** records trigger alerts and store data in Supabase.
-3. **Control & Delivery**: Telegram Long Polling (`getUpdates`) allows running on local PCs, Termux (Android), or scheduled cloud runners without a VPS or domain.
-4. **AI-Ready Hook**: Contains a dedicated `process_extracted_data()` function ready for Gemini, Groq, or Claude integration.
+- **Weather Engine**: Queries Open-Meteo for exact coordinates (Local: Kitengela, Nairobi; Global: London, New York, Tokyo) without API keys.
+- **News Engine**: Ingests structured XML RSS feeds from Google News Kenya, BBC World, and Al Jazeera, hashing titles and links with SHA-256 to prevent duplicate alerts.
+- **Telegram Bot**: Long-polls for interactive commands (`/weather`, `/local`, `/global`, `/sync`, `/status`) and pushes instant notifications to your phone.
+- **Vercel Web Dashboard**: Sleek, glassmorphic dark-mode dashboard displaying live meteorological cards, real-time news dispatches, search filtering, and auto-refresh.
 
 ---
 
-## 📁 Project Structure
+## 📁 Repository Structure
 
 ```
 MYBOT/
-├── .env.example              # Template for API keys and configuration
-├── .gitignore                # Excludes .env, .venv, and logs from git
-├── requirements.txt          # Python dependencies
-├── schema.sql                # Supabase database schema for targets & records
-├── core_bot.py               # Main 24/7 async bot engine & Telegram controller
-├── test_local.py             # Offline test script to verify scraping on any URL
-└── .github/
-    └── workflows/
-        └── bot_cron.yml      # (Optional) GitHub Actions workflow for zero-cost cloud runs
+├── bot.py                    # 24/7 News & Weather telemetry bot daemon
+├── core_bot.py               # General custom web collector bot (any CSS selector)
+├── test_weather_news.py      # Instant test script for Open-Meteo & RSS feeds
+├── test_local.py             # Instant test script for custom CSS scraper
+├── schema.sql                # Supabase PostgreSQL schema with RLS policies
+├── .env.example              # Environment variables template
+├── vercel.json               # Vercel deployment configuration
+├── index.html                # Telemetry Web Dashboard
+├── style.css                 # Cyber-telemetry CSS design system
+├── app.js                    # Frontend data engine, filtering & settings modal
+└── requirements.txt          # Python dependencies (httpx, beautifulsoup4, python-dotenv)
 ```
 
 ---
 
-## 🚀 Quick Setup Guide
+## ⚡ Quick Setup & Launch
 
 ### 1. Database Setup (Supabase)
-1. Create a free account at [Supabase](https://supabase.com).
-2. Create a new project.
-3. In the left menu, open **SQL Editor** -> **New Query**.
-4. Copy and paste the contents of [`schema.sql`](schema.sql) and click **Run**.
-5. Go to **Project Settings** -> **API**:
-   - Copy **Project URL** -> `SUPABASE_URL`
-   - Copy **service_role secret key** (revealed under Project API Keys) -> `SUPABASE_KEY`
+1. Go to [Supabase](https://supabase.com) and create or open your project.
+2. In the left sidebar, click **SQL Editor** -> **New Query**.
+3. Copy the contents of [`schema.sql`](schema.sql) and click **Run**.
+4. Go to **Project Settings** -> **API**:
+   - **Project URL** -> `SUPABASE_URL`
+   - **service_role secret key** -> `SUPABASE_KEY` (Used strictly by Python bot)
+   - **anon public key** -> `SUPABASE_ANON_KEY` (Used by Vercel web dashboard)
 
 ---
 
 ### 2. Telegram Bot Setup
 1. Open Telegram and search for [@BotFather](https://t.me/BotFather).
-2. Send `/newbot`, choose a name and username, and copy the **HTTP API Token** -> `TELEGRAM_TOKEN`.
-3. Search for [@userinfobot](https://t.me/userinfobot) on Telegram, click Start, and copy your numeric `Id` -> `TELEGRAM_CHAT_ID`.
-4. Send a message like `/start` directly to your new bot to initialize the conversation.
+2. Send `/newbot`, follow the prompts, and copy your **HTTP API Token**.
+3. Message [@userinfobot](https://t.me/userinfobot) to get your numeric **Chat ID**.
+4. Send `/start` to your newly created bot to initialize it.
 
 ---
 
-### 3. Configure Local `.env`
+### 3. Local Environment Configuration
 Copy `.env.example` to `.env`:
 ```bash
 cp .env.example .env
 ```
-Open `.env` and fill in your values:
+Update `.env` with your credentials:
 ```env
 TELEGRAM_TOKEN=123456789:ABCdefGHIjklMNOpqrSTUvwxYZ
 TELEGRAM_CHAT_ID=123456789
 SUPABASE_URL=https://your-project.supabase.co
-SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
-SCRAPE_INTERVAL=300
+SUPABASE_KEY=your_supabase_service_role_secret
+SUPABASE_ANON_KEY=your_supabase_anon_public_key
+SYNC_INTERVAL=900
 ```
 
 ---
 
-### 4. Test Extraction Offline First
-Before running the 24/7 daemon, test that scraping and deduplication work on your machine:
-```bash
-.\.venv\Scripts\python test_local.py https://news.ycombinator.com .titleline
+### 4. Test Feeds Offline
+Verify that your system can fetch weather and news feeds directly:
+```powershell
+.\.venv\Scripts\python test_weather_news.py
 ```
 
 ---
 
-### 5. Run the 24/7 Collector Bot
-Start the daemon locally:
-```bash
-.\.venv\Scripts\python core_bot.py
+### 5. Launch the 24/7 Bot
+Start the background daemon:
+```powershell
+.\.venv\Scripts\python bot.py
 ```
-Once initialized, your Telegram bot will message you:
-> `🚀 Core Bot daemon initialized. Send /help for commands.`
+Your phone will receive an initialization ping from your bot!
+You can interact with it at any time using:
+- `/weather` — Instant weather conditions across all cities
+- `/local` — Top 5 latest local news headlines
+- `/global` — Top 5 latest global news headlines
+- `/sync` — Force an immediate scrape & notification cycle
+- `/status` — View uptime and telemetry status
 
 ---
 
-## 📱 Telegram Bot Commands
+## 🌐 Deploy Web Dashboard to Vercel
 
-| Command | Usage | Description |
-| :--- | :--- | :--- |
-| `/help` | `/help` | View all available bot commands |
-| `/add` | `/add <url> [css_selector]` | Add a new target to monitor (default selector is `title`) |
-| `/list` | `/list` | List all active monitoring targets |
-| `/remove` | `/remove <id>` | Delete a target by ID |
-| `/run` | `/run` | Trigger an immediate scrape cycle across all targets |
-| `/status` | `/status` | View uptime, active targets count, and intervals |
+### Option A: Via GitHub (Recommended)
+1. Push this repository to GitHub:
+   ```bash
+   git add .
+   git commit -m "Deploy News & Weather Bot and Dashboard"
+   git branch -M main
+   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+   git push -u origin main
+   ```
+2. Log in to [Vercel](https://vercel.com) and click **Add New...** -> **Project**.
+3. Select your repository and click **Deploy**.
+4. Vercel automatically detects `index.html` and [`vercel.json`](vercel.json) and gives you a free live URL (e.g. `https://mybot.vercel.app`)!
 
-### Example Command Sequence in Telegram:
-1. `/add https://news.ycombinator.com .titleline`
-2. `/run` (instantly receives the top stories)
-3. `/run` again (nothing sent because the SHA-256 hash hasn't changed!)
+### Option B: Deploy via Vercel CLI
+```powershell
+npx -y vercel
+```
+Follow the interactive prompts to link and deploy in seconds.
 
----
-
-## ☁️ 24/7 Hosting Options (Without a VPS)
-
-1. **Local PC / Laptop**: Run `python core_bot.py` in the background (or as a Windows Service / PM2).
-2. **Android via Termux**: Install Python and run via `tmux` or `nohup` on an old phone connected to Wi-Fi.
-3. **GitHub Actions (Cloud)**:
-   - Push this repo to GitHub.
-   - Go to **Settings** -> **Secrets and variables** -> **Actions**.
-   - Add `TELEGRAM_TOKEN`, `TELEGRAM_CHAT_ID`, `SUPABASE_URL`, and `SUPABASE_KEY`.
-   - The workflow [`.github/workflows/bot_cron.yml`](.github/workflows/bot_cron.yml) will run every 15 minutes automatically.
+### Connecting the Dashboard to Supabase:
+Once your Vercel site is live:
+1. Open your Vercel site in any browser.
+2. Click the **Settings (⚙️)** button in the top navigation bar.
+3. Enter your **Supabase URL** and **Anon Public Key**.
+4. Click **Save & Connect**. Your credentials will be saved locally in your browser, connecting your live dashboard directly to your Supabase tables!
