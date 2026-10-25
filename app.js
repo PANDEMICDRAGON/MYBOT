@@ -2601,984 +2601,315 @@ function initHolodeckParticles() {
   }
 }
 
-function switchHolodeckSimulation(simName, triggerAudio = true) {
-  if (!HOLODECK_SIM_CONFIG[simName]) return;
-  holodeckState.activeSim = simName;
+// ==========================================================================
+// SIMULTANEOUS MULTI-FRANCHISE CANVASES ENGINE
+// (Prometheus LIDAR, Terminator T-800, God's Eye Satellite, Total Recall Rekall)
+// ==========================================================================
 
-  const cfg = HOLODECK_SIM_CONFIG[simName];
-
-  // Update DOM header info
-  const titleEl = document.getElementById("holodeck-active-title");
-  if (titleEl) {
-    titleEl.innerHTML = `<span class="text-cyan-400">HOLO-DECK</span> // <span class="text-amber-400">${cfg.title}</span>`;
-  }
-  const tagEl = document.getElementById("holodeck-tag");
-  if (tagEl) tagEl.textContent = cfg.tag;
-  const subEl = document.getElementById("holodeck-active-subtitle");
-  if (subEl) subEl.textContent = cfg.subtitle;
-
-  // Update corner telemetry
-  const tlEl = document.getElementById("holodeck-tl-data");
-  if (tlEl) tlEl.innerHTML = cfg.tl.replace(/\n/g, "<br>");
-  const trEl = document.getElementById("holodeck-tr-data");
-  if (trEl) trEl.innerHTML = cfg.tr.replace(/\n/g, "<br>");
-  const blEl = document.getElementById("holodeck-bl-data");
-  if (blEl) blEl.innerHTML = cfg.bl.replace(/\n/g, "<br>");
-  const brEl = document.getElementById("holodeck-br-data");
-  if (brEl) brEl.innerHTML = cfg.br.replace(/\n/g, "<br>");
-
-  // Update footer action buttons
-  const act1Btn = document.getElementById("btn-holodeck-action-1");
-  if (act1Btn) act1Btn.textContent = cfg.action1;
-  const act2Btn = document.getElementById("btn-holodeck-action-2");
-  if (act2Btn) act2Btn.textContent = cfg.action2;
-
-  // Update active tab buttons
-  document.querySelectorAll(".holodeck-tab-btn").forEach(btn => {
-    btn.classList.toggle("active", btn.getAttribute("data-sim") === simName);
-  });
-
-  if (triggerAudio) {
-    playSciFiChirp("confirm", simName);
-  }
-}
-
-function drawHolodeckSimulation() {
-  const canvas = document.getElementById("holodeck-canvas");
+// 1. Prometheus Weyland-Yutani 3D LIDAR Contour Scan
+let weylandLidarStep = 0;
+function initPrometheusLidar() {
+  const canvas = document.getElementById("weyland-lidar-canvas");
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
-  const w = canvas.width;
-  const h = canvas.height;
-  const cx = w / 2;
-  const cy = h / 2;
-
-  holodeckState.simStep += 0.03;
-  const step = holodeckState.simStep;
-  const mx = holodeckState.mouseX;
-  const my = holodeckState.mouseY;
-
-  // Motion blur trail backdrop
-  ctx.fillStyle = "rgba(4, 9, 20, 0.28)";
-  ctx.fillRect(0, 0, w, h);
-
-  // Background perspective grid
-  ctx.strokeStyle = "rgba(0, 240, 255, 0.05)";
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  for (let x = 0; x < w; x += 40) {
-    ctx.moveTo(x, 0); ctx.lineTo(x, h);
+  
+  if (!holodeckState.particles || holodeckState.particles.length === 0) {
+    initHolodeckParticles();
   }
-  for (let y = 0; y < h; y += 40) {
-    ctx.moveTo(0, y); ctx.lineTo(w, y);
-  }
-  ctx.stroke();
 
-  // Active Simulation Renderer
-  const sim = holodeckState.activeSim;
+  function draw() {
+    if (!document.getElementById("weyland-lidar-canvas")) return;
+    const w = canvas.width;
+    const h = canvas.height;
+    const cx = w / 2;
+    const cy = h / 2;
 
-  if (sim === "prometheus") {
-    // 1. PROMETHEUS: 3D Rotating LIDAR Point Cloud & 3 Orbiting Pups
-    ctx.save();
-    const rotY = step * 0.4 + mx * 1.5;
-    const rotX = my * 0.8;
+    weylandLidarStep += 0.02;
 
-    holodeckState.particles.forEach(p => {
-      // 3D rotation
+    ctx.fillStyle = "rgba(4, 12, 18, 0.35)";
+    ctx.fillRect(0, 0, w, h);
+
+    // Grid lines
+    ctx.strokeStyle = "rgba(56, 189, 248, 0.08)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let x = 0; x < w; x += 30) { ctx.moveTo(x, 0); ctx.lineTo(x, h); }
+    for (let y = 0; y < h; y += 25) { ctx.moveTo(0, y); ctx.lineTo(w, y); }
+    ctx.stroke();
+
+    // 3D Particles
+    const rotY = weylandLidarStep * 0.4;
+    holodeckState.particles.slice(0, 140).forEach(p => {
       let x1 = p.x * Math.cos(rotY) - p.z * Math.sin(rotY);
       let z1 = p.x * Math.sin(rotY) + p.z * Math.cos(rotY);
-      let y1 = p.y * Math.cos(rotX) - z1 * Math.sin(rotX);
-      let z2 = p.y * Math.sin(rotX) + z1 * Math.cos(rotX);
+      const fov = 300;
+      const scale = fov / (fov + z1 + 120);
+      const px = cx + x1 * scale * 1.3;
+      const py = cy + p.y * scale * 0.7;
 
-      const fov = 420;
-      const scale = fov / (fov + z2);
-      const px = cx + x1 * scale;
-      const py = cy + y1 * scale;
-      const alpha = Math.max(0.15, Math.min(1, (z2 + 150) / 300));
-
-      ctx.fillStyle = p.baseColor;
-      ctx.globalAlpha = alpha;
+      ctx.fillStyle = p.baseColor || "#38bdf8";
+      ctx.globalAlpha = Math.max(0.2, Math.min(1, (z1 + 150) / 300));
       ctx.beginPath();
-      ctx.arc(px, py, p.size * scale, 0, 2 * Math.PI);
+      ctx.arc(px, py, (p.size || 1.5) * scale, 0, 2 * Math.PI);
       ctx.fill();
     });
+    ctx.globalAlpha = 1;
 
-    // 3 Orbiting LIDAR "Pup" Drones
-    for (let i = 0; i < 3; i++) {
-      const droneAngle = step * 1.2 + (i * (2 * Math.PI / 3));
-      const dx = cx + Math.cos(droneAngle) * 220;
-      const dy = cy + Math.sin(droneAngle * 1.5) * 80;
+    // Orbiting LIDAR Pup Drone
+    const droneAngle = weylandLidarStep * 1.4;
+    const dx = cx + Math.cos(droneAngle) * (w * 0.38);
+    const dy = cy + Math.sin(droneAngle * 1.5) * 45;
 
-      // Laser scanning cone
-      ctx.strokeStyle = "rgba(239, 68, 68, 0.4)";
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.moveTo(dx, dy);
-      ctx.lineTo(cx + Math.cos(step * 2 + i) * 60, cy + Math.sin(step * 2 + i) * 50);
-      ctx.stroke();
-
-      // Drone sphere
-      ctx.fillStyle = "#ef4444";
-      ctx.shadowColor = "#ef4444";
-      ctx.shadowBlur = 15;
-      ctx.beginPath();
-      ctx.arc(dx, dy, 6, 0, 2 * Math.PI);
-      ctx.fill();
-      ctx.shadowBlur = 0;
-
-      ctx.fillStyle = "#fecaca";
-      ctx.font = "9px 'JetBrains Mono'";
-      ctx.fillText(`PUP-0${i + 1}`, dx + 10, dy - 6);
-    }
-    ctx.restore();
-
-  } else if (sim === "starwars") {
-    // 2. STAR WARS: Death Star Trench Run & Target Computer Diamond Reticle
-    ctx.save();
-    const trenchDepth = 600;
-    const speed = (step * 350) % 100;
-
-    // Perspective wireframe corridor
-    ctx.strokeStyle = "rgba(34, 197, 94, 0.6)";
-    ctx.lineWidth = 1.5;
-
-    for (let z = 0; z < trenchDepth; z += 90) {
-      const dist = (z - speed + trenchDepth) % trenchDepth;
-      const factor = 120 / (dist + 80);
-      const hw = 380 * factor;
-      const hh = 260 * factor;
-      ctx.strokeRect(cx - hw, cy - hh, hw * 2, hh * 2);
-    }
-
-    // Converging vanishing lines
-    ctx.beginPath();
-    ctx.moveTo(0, 0); ctx.lineTo(cx - 20, cy - 20);
-    ctx.moveTo(w, 0); ctx.lineTo(cx + 20, cy - 20);
-    ctx.moveTo(0, h); ctx.lineTo(cx - 20, cy + 20);
-    ctx.moveTo(w, h); ctx.lineTo(cx + 20, cy + 20);
-    ctx.stroke();
-
-    // Central targeting computer diamond reticle
-    const reticleX = cx + mx * 80;
-    const reticleY = cy + my * 60;
-    ctx.strokeStyle = "#facc15";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(reticleX, reticleY - 26);
-    ctx.lineTo(reticleX + 26, reticleY);
-    ctx.lineTo(reticleX, reticleY + 26);
-    ctx.lineTo(reticleX - 26, reticleY);
-    ctx.closePath();
-    ctx.stroke();
-
-    // Horizontal tracking lead bars
-    const barOffset = 35 + Math.sin(step * 4) * 15;
-    ctx.beginPath();
-    ctx.moveTo(reticleX - barOffset - 40, reticleY); ctx.lineTo(reticleX - barOffset, reticleY);
-    ctx.moveTo(reticleX + barOffset, reticleY); ctx.lineTo(reticleX + barOffset + 40, reticleY);
-    ctx.stroke();
-
-    // Exhaust port distance readout
-    const distMeters = Math.max(10, Math.floor(2400 - (step * 80) % 2300));
-    ctx.fillStyle = "#22c55e";
-    ctx.font = "bold 11px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText(`EXHAUST PORT // DIST: ${distMeters} METERS`, cx, cy + 85);
-    ctx.fillText(`LOCK: TRACKING LEAD COMPUTATION`, cx, cy + 102);
-    ctx.restore();
-
-  } else if (sim === "halo") {
-    // 3. HALO: UNSC Spartan-II Visor, 25m Motion Radar & Cortana Avatar
-    ctx.save();
-    // Curved Visor Hex Brackets
-    ctx.strokeStyle = "rgba(234, 179, 8, 0.4)";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(40, 30, w - 80, h - 60);
-
-    // 25-meter Motion Tracker Radar
-    const rx = 160;
-    const ry = cy + 40;
-    const rRadius = 90;
-
-    ctx.strokeStyle = "rgba(0, 240, 255, 0.45)";
-    ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.arc(rx, ry, rRadius, 0, 2 * Math.PI); ctx.stroke();
-    ctx.beginPath(); ctx.arc(rx, ry, rRadius * 0.6, 0, 2 * Math.PI); ctx.stroke();
-
-    // Radar sweep
-    const sweepAngle = step * 2.2;
-    ctx.strokeStyle = "rgba(0, 240, 255, 0.8)";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(rx, ry);
-    ctx.lineTo(rx + Math.cos(sweepAngle) * rRadius, ry + Math.sin(sweepAngle) * rRadius);
-    ctx.stroke();
-
-    // Hostile Covenant Blips (Red) & Friendly (Yellow)
-    const blips = [
-      { x: rx + 45, y: ry - 25, color: "#ef4444", label: "ELITE" },
-      { x: rx - 35, y: ry + 40, color: "#ef4444", label: "GRUNT" },
-      { x: rx + 15, y: ry + 55, color: "#ef4444", label: "JACKAL" },
-      { x: rx - 20, y: ry - 30, color: "#facc15", label: "CHIEF" }
-    ];
-    blips.forEach(b => {
-      ctx.fillStyle = b.color;
-      ctx.beginPath(); ctx.arc(b.x + Math.sin(step + b.x) * 3, b.y + Math.cos(step + b.y) * 3, 4, 0, 2 * Math.PI); ctx.fill();
-    });
-
-    // Cortana Holographic Avatar Matrix (Right Pod)
-    const cxCortana = w - 180;
-    const cyCortana = cy;
-    for (let ring = 1; ring <= 4; ring++) {
-      ctx.strokeStyle = ring % 2 === 0 ? "rgba(192, 132, 252, 0.8)" : "rgba(56, 189, 248, 0.7)";
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.ellipse(cxCortana, cyCortana, ring * 22, ring * 12, step * (ring % 2 === 0 ? 1 : -1), 0, 2 * Math.PI);
-      ctx.stroke();
-    }
-    ctx.fillStyle = "#c084fc";
-    ctx.font = "bold 10px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText("CORTANA // UNSC AI", cxCortana, cyCortana + 70);
-
-    // Shield Bar
-    ctx.fillStyle = "rgba(56, 189, 248, 0.2)";
-    ctx.fillRect(cx - 150, 45, 300, 14);
-    ctx.fillStyle = "#00f0ff";
-    ctx.fillRect(cx - 148, 47, 296, 10);
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "bold 9px 'JetBrains Mono'";
-    ctx.fillText("SPARTAN SHIELDS: 100% OVERCHARGED", cx, 55);
-    ctx.restore();
-
-  } else if (sim === "jarvis") {
-    // 4. J.A.R.V.I.S.: Stark Industries Arc Reactor & Multi-Ring Rotational Gimbal
-    ctx.save();
-    // Central Arc Reactor Core
-    const arcRadius = 85;
-    const coreGrad = ctx.createRadialGradient(cx, cy, 10, cx, cy, arcRadius);
-    coreGrad.addColorStop(0, "#ffffff");
-    coreGrad.addColorStop(0.3, "#00e5ff");
-    coreGrad.addColorStop(0.7, "#0077b6");
-    coreGrad.addColorStop(1, "transparent");
-    ctx.fillStyle = coreGrad;
-    ctx.beginPath(); ctx.arc(cx, cy, arcRadius, 0, 2 * Math.PI); ctx.fill();
-
-    // 3 Concentric Gimbal Rings with tick marks
-    for (let r = 1; r <= 3; r++) {
-      const radius = 95 + r * 35;
-      const angle = step * (r === 2 ? -1.4 : 1.2);
-      ctx.strokeStyle = r === 2 ? "#fbbf24" : "#00e5ff";
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.arc(cx, cy, radius, angle, angle + Math.PI * 1.5);
-      ctx.stroke();
-
-      // Tick marks
-      const numTicks = 12 * r;
-      for (let t = 0; t < numTicks; t++) {
-        const tickAngle = (t / numTicks) * 2 * Math.PI + angle;
-        const tx1 = cx + Math.cos(tickAngle) * radius;
-        const ty1 = cy + Math.sin(tickAngle) * radius;
-        const tx2 = cx + Math.cos(tickAngle) * (radius + 6);
-        const ty2 = cy + Math.sin(tickAngle) * (radius + 6);
-        ctx.beginPath(); ctx.moveTo(tx1, ty1); ctx.lineTo(tx2, ty2); ctx.stroke();
-      }
-    }
-
-    // Plasma arcs
-    ctx.strokeStyle = "#ffffff";
+    ctx.strokeStyle = "rgba(239, 68, 68, 0.45)";
     ctx.lineWidth = 1;
-    for (let a = 0; a < 6; a++) {
-      const arcAngle = step * 3 + a * (Math.PI / 3);
-      ctx.beginPath();
-      ctx.moveTo(cx, cy);
-      ctx.lineTo(cx + Math.cos(arcAngle) * (40 + Math.random() * 30), cy + Math.sin(arcAngle) * (40 + Math.random() * 30));
-      ctx.stroke();
-    }
-
-    ctx.fillStyle = "#00e5ff";
-    ctx.font = "bold 10px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText("STARK ARC REACTOR // 12.4 GW/SEC", cx, cy + 130);
-    ctx.restore();
-
-  } else if (sim === "totalrecall") {
-    // 5. TOTAL RECALL: Rekall Synaptic Memory Injector & Encephalogram Waveforms
-    ctx.save();
-    const channels = [
-      { name: "ALPHA (7-13 Hz)", color: "#00f2fe", offset: -60, freq: 0.08, amp: 22 },
-      { name: "BETA (14-30 Hz)", color: "#e879f9", offset: -20, freq: 0.16, amp: 16 },
-      { name: "THETA (4-7 Hz)", color: "#fb923c", offset: 20, freq: 0.05, amp: 26 },
-      { name: "DELTA (0.5-4 Hz)", color: "#34d399", offset: 60, freq: 0.02, amp: 32 }
-    ];
-
-    channels.forEach(ch => {
-      ctx.strokeStyle = ch.color;
-      ctx.lineWidth = 1.8;
-      ctx.beginPath();
-      for (let x = 60; x < w - 60; x += 4) {
-        // Occasional synaptic memory injection spikes
-        const spike = Math.abs(x - ((step * 180) % (w - 120) + 60)) < 30 ? Math.sin(x * 0.4) * 45 : 0;
-        const y = cy + ch.offset + Math.sin(x * ch.freq + step * 3) * ch.amp + spike;
-        if (x === 60) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-
-      ctx.fillStyle = ch.color;
-      ctx.font = "bold 9px 'JetBrains Mono'";
-      ctx.textAlign = "left";
-      ctx.fillText(ch.name, 65, cy + ch.offset - 12);
-    });
-
-    // Rekall Cartridge Bar
-    ctx.fillStyle = "rgba(232, 121, 249, 0.2)";
-    ctx.fillRect(cx - 160, h - 45, 320, 16);
-    ctx.fillStyle = "#e879f9";
-    ctx.fillRect(cx - 158, h - 43, 280, 12);
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "bold 9px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText("EGO TRIP: SECRET AGENT ON MARS — 88% INJECTED", cx, h - 34);
-    ctx.restore();
-
-  } else if (sim === "bladerunner") {
-    // 6. BLADE RUNNER: Voight-Kampff Biometric Iris & Empathy Dilation Scanner
-    ctx.save();
-    // Eye position follows mouse smoothly
-    const eyeX = cx + mx * 35;
-    const eyeY = cy - 20 + my * 25;
-
-    // Eyeball Sclera
-    ctx.strokeStyle = "rgba(245, 158, 11, 0.45)";
-    ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.ellipse(eyeX, eyeY, 130, 80, 0, 0, 2 * Math.PI);
+    ctx.moveTo(dx, dy);
+    ctx.lineTo(cx, cy + 15);
     ctx.stroke();
 
-    // Iris (Amber / Gold Tyrell Corp Hue)
-    const irisGrad = ctx.createRadialGradient(eyeX, eyeY, 15, eyeX, eyeY, 65);
-    irisGrad.addColorStop(0, "#d97706");
-    irisGrad.addColorStop(0.5, "#f59e0b");
-    irisGrad.addColorStop(0.9, "#78350f");
-    irisGrad.addColorStop(1, "#1c1917");
-    ctx.fillStyle = irisGrad;
-    ctx.beginPath(); ctx.arc(eyeX, eyeY, 60, 0, 2 * Math.PI); ctx.fill();
-
-    // Iris muscle fibers
-    ctx.strokeStyle = "rgba(253, 224, 71, 0.35)";
-    ctx.lineWidth = 1;
-    for (let f = 0; f < 36; f++) {
-      const fa = f * (Math.PI / 18);
-      ctx.beginPath();
-      ctx.moveTo(eyeX + Math.cos(fa) * 20, eyeY + Math.sin(fa) * 20);
-      ctx.lineTo(eyeX + Math.cos(fa) * 58, eyeY + Math.sin(fa) * 58);
-      ctx.stroke();
-    }
-
-    // Pupil (contracts & dilates dynamically)
-    const pupilRadius = 18 + Math.sin(step * 2) * 6 + (Math.abs(mx) + Math.abs(my)) * 8;
-    ctx.fillStyle = "#000000";
-    ctx.beginPath(); ctx.arc(eyeX, eyeY, pupilRadius, 0, 2 * Math.PI); ctx.fill();
-
-    // Optical reflection highlight
-    ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
-    ctx.beginPath(); ctx.arc(eyeX - 8, eyeY - 8, 4, 0, 2 * Math.PI); ctx.fill();
-
-    // Capillary blush cardiogram below eye
-    ctx.strokeStyle = "#dc2626";
-    ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    for (let x = cx - 180; x < cx + 180; x += 4) {
-      const pulse = Math.abs((x - cx) % 60) < 10 ? Math.sin((x - cx) * 0.3) * 18 : 0;
-      const y = h - 55 + Math.sin(x * 0.05 + step * 4) * 4 - pulse;
-      if (x === cx - 180) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-
-    ctx.fillStyle = "#f59e0b";
-    ctx.font = "bold 10px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText("VOIGHT-KAMPFF EMATHY TEST // INVOLUNTARY CAPILLARY RESPONSE: NORMAL", cx, h - 22);
-    ctx.restore();
-
-  } else if (sim === "minorityreport") {
-    // 7. MINORITY REPORT: Pre-Crime 3-Precog Psychic Timeline Scrubber
-    ctx.save();
-    // 3 Precog waves
-    const precogs = [
-      { name: "AGATHA", color: "#bae6fd", offset: -35, speed: 1.8 },
-      { name: "ARTHUR", color: "#7dd3fc", offset: 0, speed: 1.2 },
-      { name: "DASHIELL", color: "#93c5fd", offset: 35, speed: 1.5 }
-    ];
-
-    precogs.forEach(p => {
-      ctx.strokeStyle = p.color;
-      ctx.lineWidth = 1.8;
-      ctx.beginPath();
-      for (let x = 60; x < w - 60; x += 5) {
-        // Red spike in future timeline
-        const futureSpike = (x > w - 240 && x < w - 160) ? Math.sin((x - (w - 200)) * 0.15) * 45 : 0;
-        const y = cy + p.offset + Math.sin(x * 0.03 + step * p.speed) * 18 - futureSpike;
-        if (x === 60) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-
-      ctx.fillStyle = p.color;
-      ctx.font = "9px 'JetBrains Mono'";
-      ctx.textAlign = "left";
-      ctx.fillText(`PRECOG: ${p.name}`, 65, cy + p.offset - 10);
-    });
-
-    // Timeline scrubber scrub-head (user controllable with mouse)
-    const scrubX = Math.max(80, Math.min(w - 80, cx + mx * (w / 2 - 100)));
-    ctx.strokeStyle = "#ffffff";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(scrubX, 40); ctx.lineTo(scrubX, h - 40); ctx.stroke();
-
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(scrubX - 25, 30, 50, 14);
-    ctx.fillStyle = "#020712";
-    ctx.font = "bold 9px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText("SCRUB", scrubX, 41);
-
-    // Red murder marker
     ctx.fillStyle = "#ef4444";
-    ctx.beginPath(); ctx.arc(w - 200, cy, 14, 0, 2 * Math.PI); ctx.fill();
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "bold 8px 'JetBrains Mono'";
-    ctx.fillText("MURDER", w - 200, cy + 3);
-    ctx.restore();
-
-  } else if (sim === "pacificrim") {
-    // 8. PACIFIC RIM: PPDC Jaeger Drift Neural Handshake & Kaiju Sonar
-    ctx.save();
-    // Dual EEG Sine Channels (Left Pilot Raleigh / Right Pilot Mako)
-    const driftPhase = Math.sin(step * 0.5) * 0.2; // Slowly aligns to 0
-
-    ctx.strokeStyle = "#00d2ff";
-    ctx.lineWidth = 2;
     ctx.beginPath();
-    for (let x = 60; x < cx - 40; x += 4) {
-      const y = cy - 40 + Math.sin(x * 0.08 + step * 3) * 24;
-      if (x === 60) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-
-    ctx.strokeStyle = "#f59e0b";
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    for (let x = 60; x < cx - 40; x += 4) {
-      const y = cy + 40 + Math.sin(x * 0.08 + step * 3 + driftPhase) * 24;
-      if (x === 60) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-
-    // Central Drift Coherence Dial
-    ctx.strokeStyle = "rgba(6, 182, 212, 0.6)";
-    ctx.lineWidth = 3;
-    ctx.beginPath(); ctx.arc(cx, cy, 65, 0, 2 * Math.PI); ctx.stroke();
-
-    // Needle locking into top
-    const needleAngle = -Math.PI / 2 + driftPhase * 0.5;
-    ctx.strokeStyle = "#38bdf8";
-    ctx.lineWidth = 3;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy);
-    ctx.lineTo(cx + Math.cos(needleAngle) * 55, cy + Math.sin(needleAngle) * 55);
-    ctx.stroke();
-
-    ctx.fillStyle = "#00f0ff";
-    ctx.font = "bold 11px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText("DRIFT: 99.6% ALIGNED", cx, cy + 90);
-
-    // Kaiju Breach Sonar (Right Pod)
-    const kx = w - 160;
-    const ky = cy;
-    ctx.strokeStyle = "rgba(225, 29, 72, 0.5)";
-    ctx.beginPath(); ctx.arc(kx, ky, 65, 0, 2 * Math.PI); ctx.stroke();
-    ctx.beginPath(); ctx.arc(kx, ky, 40, 0, 2 * Math.PI); ctx.stroke();
-    ctx.fillStyle = "#ef4444";
-    ctx.beginPath(); ctx.arc(kx + Math.sin(step) * 25, ky + Math.cos(step) * 20, 8, 0, 2 * Math.PI); ctx.fill();
-    ctx.fillText("CAT-V // SLATTERN", kx, ky + 85);
-    ctx.restore();
-
-  } else if (sim === "insurgent") {
-    // 9. INSURGENT: Erudite 5-Axis Cognitive Divergence Aptitude Matrix
-    ctx.save();
-    const factions = [
-      { name: "ABNEGATION", score: 0.94 },
-      { name: "AMITY", score: 0.88 },
-      { name: "CANDOR", score: 0.91 },
-      { name: "DAUNTLESS", score: 0.97 },
-      { name: "ERUDITE", score: 0.99 }
-    ];
-
-    const radarR = 100;
-    // Draw concentric pentagons
-    for (let lvl = 1; lvl <= 4; lvl++) {
-      ctx.strokeStyle = "rgba(59, 130, 246, 0.25)";
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      for (let i = 0; i < 5; i++) {
-        const a = (i * 2 * Math.PI) / 5 - Math.PI / 2;
-        const px = cx + Math.cos(a) * (radarR * (lvl / 4));
-        const py = cy + Math.sin(a) * (radarR * (lvl / 4));
-        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-      }
-      ctx.closePath();
-      ctx.stroke();
-    }
-
-    // Filled Divergence Aptitude Polygon
-    ctx.fillStyle = "rgba(139, 92, 246, 0.35)";
-    ctx.strokeStyle = "#8b5cf6";
-    ctx.lineWidth = 2.5;
-    ctx.beginPath();
-    for (let i = 0; i < 5; i++) {
-      const a = (i * 2 * Math.PI) / 5 - Math.PI / 2;
-      const r = radarR * factions[i].score * (0.95 + Math.sin(step * 2 + i) * 0.05);
-      const px = cx + Math.cos(a) * r;
-      const py = cy + Math.sin(a) * r;
-      if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-    }
-    ctx.closePath();
+    ctx.arc(dx, dy, 4, 0, 2 * Math.PI);
     ctx.fill();
+
+    ctx.fillStyle = "#38bdf8";
+    ctx.font = "8px 'JetBrains Mono', monospace";
+    ctx.fillText("PUP-01 // SCANNING", dx + 6, dy - 4);
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+}
+
+// 2. Terminator Genisys Cyberdyne Systems T-800 Optical HUD
+let t800Step = 0;
+function initTerminatorOptical() {
+  const canvas = document.getElementById("t800-optical-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  function draw() {
+    if (!document.getElementById("t800-optical-canvas")) return;
+    const w = canvas.width;
+    const h = canvas.height;
+    const cx = w / 2;
+    const cy = h / 2;
+
+    t800Step += 0.03;
+
+    ctx.fillStyle = "rgba(18, 4, 6, 0.4)";
+    ctx.fillRect(0, 0, w, h);
+
+    // Crimson Scanline Grid
+    ctx.strokeStyle = "rgba(239, 68, 68, 0.15)";
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    for (let y = 0; y < h; y += 12) {
+      ctx.moveTo(0, y); ctx.lineTo(w, y);
+    }
     ctx.stroke();
 
-    // Axis Labels
-    factions.forEach((f, i) => {
-      const a = (i * 2 * Math.PI) / 5 - Math.PI / 2;
-      const lx = cx + Math.cos(a) * (radarR + 25);
-      const ly = cy + Math.sin(a) * (radarR + 25);
-      ctx.fillStyle = "#60a5fa";
-      ctx.font = "bold 9px 'JetBrains Mono'";
-      ctx.textAlign = "center";
-      ctx.fillText(`${f.name} (${Math.round(f.score * 100)}%)`, lx, ly);
-    });
-
-    ctx.fillStyle = "#ec4899";
-    ctx.font = "bold 11px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText("CLASSIFICATION: 100% DIVERGENT (BOX KEY VERIFIED)", cx, h - 25);
-    ctx.restore();
-
-  } else if (sim === "tron") {
-    // 10. TRON: LEGACY: The Grid Infinite Perspective Plane & Rotating Identity Disc
-    ctx.save();
-    // Vanishing Grid floor
-    const horizonY = cy - 20;
-    ctx.strokeStyle = "rgba(0, 240, 255, 0.5)";
-    ctx.lineWidth = 1.2;
-
-    // Perspective lines
-    for (let x = -200; x <= w + 200; x += 60) {
-      ctx.beginPath();
-      ctx.moveTo(cx + (x - cx) * 0.1, horizonY);
-      ctx.lineTo(x, h);
-      ctx.stroke();
-    }
-    // Horizontal receding lines
-    for (let z = 1; z <= 8; z++) {
-      const y = horizonY + Math.pow(z / 8, 2) * (h - horizonY);
-      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
-    }
-
-    // Rotating 12-segment Identity Disc in center
-    const discR = 75;
-    ctx.strokeStyle = "#00f0ff";
-    ctx.lineWidth = 4;
-    ctx.beginPath(); ctx.arc(cx, horizonY - 30, discR, 0, 2 * Math.PI); ctx.stroke();
-    ctx.strokeStyle = "#ff8800";
+    // Moving Scan Bar
+    const scanY = (t800Step * 80) % h;
+    ctx.strokeStyle = "rgba(255, 0, 50, 0.6)";
     ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.arc(cx, horizonY - 30, discR * 0.6, 0, 2 * Math.PI); ctx.stroke();
-
-    for (let s = 0; s < 12; s++) {
-      const sa = step * 1.5 + (s * Math.PI) / 6;
-      ctx.beginPath();
-      ctx.moveTo(cx + Math.cos(sa) * discR * 0.6, horizonY - 30 + Math.sin(sa) * discR * 0.6);
-      ctx.lineTo(cx + Math.cos(sa) * discR, horizonY - 30 + Math.sin(sa) * discR);
-      ctx.stroke();
-    }
-
-    ctx.fillStyle = "#00f0ff";
-    ctx.font = "bold 11px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText("THE GRID // KEVIN FLYNN IDENTITY DISC", cx, h - 20);
-    ctx.restore();
-
-  } else if (sim === "robocop") {
-    // 11. ROBOCOP: OmniCorp OCP Crime Prevention Unit 001 Tactical Reticle
-    ctx.save();
-    // Green CRT Scanline texture
-    ctx.fillStyle = "rgba(16, 185, 129, 0.08)";
-    for (let y = 0; y < h; y += 4) {
-      ctx.fillRect(0, y, w, 1);
-    }
-
-    // 3 Target Acquisition Boxes
-    const targets = [
-      { x: cx - 180 + Math.sin(step) * 40, y: cy - 20, w: 90, h: 120, id: "SUSPECT-01", threat: "HIGH" },
-      { x: cx + 120 + Math.cos(step * 0.8) * 30, y: cy - 40, w: 80, h: 110, id: "SUSPECT-02", threat: "ELEVATED" }
-    ];
-
-    targets.forEach(t => {
-      ctx.strokeStyle = "#10b981";
-      ctx.lineWidth = 1.5;
-      ctx.strokeRect(t.x, t.y, t.w, t.h);
-
-      ctx.fillStyle = "#34d399";
-      ctx.font = "bold 9px 'JetBrains Mono'";
-      ctx.fillText(`${t.id} // ${t.threat}`, t.x, t.y - 6);
-      ctx.fillText("DIST: 14.2m", t.x, t.y + t.h + 12);
-    });
-
-    // Central primary targeting reticle
-    const tx = cx + mx * 60;
-    const ty = cy + my * 40;
-    ctx.strokeStyle = "#ef4444";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(tx - 30, ty - 30, 60, 60);
     ctx.beginPath();
-    ctx.moveTo(tx - 45, ty); ctx.lineTo(tx + 45, ty);
-    ctx.moveTo(tx, ty - 45); ctx.lineTo(tx, ty + 45);
+    ctx.moveTo(0, scanY); ctx.lineTo(w, scanY);
     ctx.stroke();
 
-    // 4 Prime Directives OSD
-    ctx.fillStyle = "#10b981";
-    ctx.font = "9px 'JetBrains Mono'";
-    ctx.textAlign = "left";
-    ctx.fillText("DIR 1: SERVE PUBLIC TRUST [OK]", 40, 45);
-    ctx.fillText("DIR 2: PROTECT INNOCENT   [OK]", 40, 60);
-    ctx.fillText("DIR 3: UPHOLD THE LAW     [OK]", 40, 75);
-    ctx.fillText("DIR 4: [CLASSIFIED]       [LOCKED]", 40, 90);
-    ctx.restore();
-
-  } else if (sim === "godseye") {
-    // 12. FURIOUS 7: Ramsey's God's Eye Global Satellite Triangulator
-    ctx.save();
-    // Rotating Wireframe Globe
-    const globeR = 100;
-    ctx.strokeStyle = "rgba(0, 255, 136, 0.45)";
-    ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.arc(cx, cy, globeR, 0, 2 * Math.PI); ctx.stroke();
-
-    for (let lat = -2; lat <= 2; lat++) {
-      ctx.beginPath();
-      ctx.ellipse(cx, cy + lat * 30, Math.sqrt(Math.max(0, globeR * globeR - Math.pow(lat * 30, 2))), 16, 0, 0, 2 * Math.PI);
-      ctx.stroke();
-    }
-
-    // 4 Orbiting Satellites with triangulation beams converging on target
-    const targetX = cx + Math.sin(step * 0.4) * 40;
-    const targetY = cy + Math.cos(step * 0.4) * 25;
-
-    for (let s = 0; s < 4; s++) {
-      const sa = step * 0.8 + (s * Math.PI) / 2;
-      const sx = cx + Math.cos(sa) * 190;
-      const sy = cy + Math.sin(sa * 1.2) * 90;
-
-      ctx.fillStyle = "#00ff88";
-      ctx.fillRect(sx - 4, sy - 4, 8, 8);
-
-      ctx.strokeStyle = "rgba(0, 255, 136, 0.35)";
-      ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(targetX, targetY); ctx.stroke();
-    }
-
-    // Pinpoint target crosshair
-    ctx.strokeStyle = "#ff2d55";
+    // Reticle Target Box
+    const tx = cx + Math.sin(t800Step * 0.8) * 30;
+    const ty = cy + Math.cos(t800Step * 0.6) * 15;
+    ctx.strokeStyle = "#ff0033";
     ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.arc(targetX, targetY, 12, 0, 2 * Math.PI); ctx.stroke();
-    ctx.fillStyle = "#ff2d55";
-    ctx.font = "bold 9px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText("GOD'S EYE LOCK: NAIROBI / KITENGELA (-1.2921, 36.8219)", cx, h - 25);
-    ctx.restore();
+    ctx.strokeRect(tx - 35, ty - 30, 70, 60);
 
-  } else if (sim === "startrek") {
-    // 13. STAR TREK: Starfleet LCARS Warp Core Antimatter Reactor & Shields
-    ctx.save();
-    // Vertical Warp Core Column
-    const coreW = 60;
-    const coreH = 220;
-    const topY = cy - coreH / 2;
-
-    ctx.strokeStyle = "#ff9900";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(cx - coreW / 2, topY, coreW, coreH);
-
-    // Matter Stream (Blue descending)
-    for (let y = topY; y < cy; y += 14) {
-      const streamY = (y + step * 60) % (coreH / 2) + topY;
-      ctx.fillStyle = "#9999ff";
-      ctx.fillRect(cx - coreW / 2 + 6, streamY, coreW - 12, 6);
-    }
-
-    // Antimatter Stream (Orange/Red ascending)
-    for (let y = cy; y < topY + coreH; y += 14) {
-      const streamY = cy + (coreH / 2) - ((y - cy + step * 60) % (coreH / 2));
-      ctx.fillStyle = "#ff9900";
-      ctx.fillRect(cx - coreW / 2 + 6, streamY, coreW - 12, 6);
-    }
-
-    // Dilithium Crystal Intermix Matrix
-    ctx.fillStyle = "#ffffff";
-    ctx.shadowColor = "#ffffff";
-    ctx.shadowBlur = 18;
-    ctx.beginPath(); ctx.arc(cx, cy, 18, 0, 2 * Math.PI); ctx.fill();
-    ctx.shadowBlur = 0;
-
-    // 4-Quadrant Deflector Shields (Right Pod)
-    const sx = w - 180;
-    const sy = cy;
-    ctx.strokeStyle = "#cc99cc";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(sx - 50, sy - 50, 100, 100);
-    ctx.fillStyle = "#ffcc00";
-    ctx.font = "bold 9px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText("FORE: 100%", sx, sy - 60);
-    ctx.fillText("AFT: 100%", sx, sy + 70);
-    ctx.fillText("PORT: 100%", sx - 80, sy);
-    ctx.fillText("STBD: 100%", sx + 80, sy);
-
-    ctx.fillStyle = "#ff9900";
-    ctx.fillText("WARP CORE: 9.6 FACTOR // LCARS NCC-1701-D", cx, h - 22);
-    ctx.restore();
-
-  } else if (sim === "hitman") {
-    // 14. HITMAN: ICA Agent 47 Satellite Assassination Overwatch
-    ctx.save();
-    // Sniper Reticle
-    const sx = cx + mx * 80;
-    const sy = cy + my * 50;
-
-    ctx.strokeStyle = "#e11d48";
-    ctx.lineWidth = 2;
-    ctx.beginPath(); ctx.arc(sx, sy, 70, 0, 2 * Math.PI); ctx.stroke();
-
-    // Mil-dots
+    // Crosshair ticks
     ctx.beginPath();
-    ctx.moveTo(sx - 110, sy); ctx.lineTo(sx + 110, sy);
-    ctx.moveTo(sx, sy - 110); ctx.lineTo(sx, sy + 110);
-    ctx.stroke();
-
-    for (let d = -4; d <= 4; d++) {
-      if (d === 0) continue;
-      ctx.beginPath();
-      ctx.moveTo(sx + d * 15, sy - 4); ctx.lineTo(sx + d * 15, sy + 4);
-      ctx.moveTo(sx - 4, sy + d * 15); ctx.lineTo(sx + 4, sy + d * 15);
-      ctx.stroke();
-    }
-
-    // Target waypoint route
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
-    ctx.setLineDash([4, 4]);
-    ctx.beginPath();
-    ctx.moveTo(sx - 140, sy + 80);
-    ctx.lineTo(sx, sy);
-    ctx.lineTo(sx + 120, sy - 60);
-    ctx.stroke();
-    ctx.setLineDash([]);
-
-    // Suspicion Bar
-    ctx.fillStyle = "rgba(225, 29, 72, 0.2)";
-    ctx.fillRect(cx - 160, h - 45, 320, 14);
-    ctx.fillStyle = "#e11d48";
-    ctx.fillRect(cx - 158, h - 43, 40, 10);
-    ctx.fillStyle = "#ffffff";
-    ctx.font = "bold 9px 'JetBrains Mono'";
-    ctx.textAlign = "center";
-    ctx.fillText("STATUS: UNNOTICED // SILENT ASSASSIN [BARCODE: 640509-040147]", cx, h - 22);
-    ctx.restore();
-
-  } else if (sim === "terminator") {
-    // 15. TERMINATOR: Cyberdyne / Skynet T-800 Optical Threat HUD
-    ctx.save();
-    // Red Monochrome CRT Raster
-    ctx.fillStyle = "rgba(239, 68, 68, 0.1)";
-    for (let y = 0; y < h; y += 3) {
-      ctx.fillRect(0, y, w, 1);
-    }
-
-    // Streaming Hex Disassembly Stream (Left Margin)
-    ctx.fillStyle = "#f87171";
-    ctx.font = "9px 'JetBrains Mono'";
-    ctx.textAlign = "left";
-    const hexCodes = [
-      "0x7FFE0412 48 89 5C 24 08",
-      "0x7FFE0418 48 89 6C 24 10",
-      "0x7FFE041E 48 89 74 24 18",
-      "0x7FFE0424 57 48 83 EC 20",
-      "0x7FFE042A 48 8B D9 E8 A1",
-      "0x7FFE0430 48 85 C0 74 12",
-      "0x7FFE0436 48 8B 0D 43 21"
-    ];
-    hexCodes.forEach((code, idx) => {
-      ctx.fillText(code, 40, 60 + idx * 16);
-    });
-
-    // Primary Target Acquisition Box
-    const tx = cx + mx * 50;
-    const ty = cy + my * 40;
-    ctx.strokeStyle = "#ef4444";
-    ctx.lineWidth = 2.5;
-    ctx.strokeRect(tx - 65, ty - 65, 130, 130);
-
-    // Bounding tick marks
-    ctx.beginPath();
-    ctx.moveTo(tx - 80, ty); ctx.lineTo(tx - 65, ty);
-    ctx.moveTo(tx + 65, ty); ctx.lineTo(tx + 80, ty);
-    ctx.moveTo(tx, ty - 80); ctx.lineTo(tx, ty - 65);
-    ctx.moveTo(tx, ty + 65); ctx.lineTo(tx, ty + 80);
+    ctx.moveTo(tx - 45, ty); ctx.lineTo(tx - 35, ty);
+    ctx.moveTo(tx + 35, ty); ctx.lineTo(tx + 45, ty);
+    ctx.moveTo(tx, ty - 40); ctx.lineTo(tx, ty - 30);
+    ctx.moveTo(tx, ty + 30); ctx.lineTo(tx, ty + 40);
     ctx.stroke();
 
     ctx.fillStyle = "#ff0033";
-    ctx.font = "bold 11px 'JetBrains Mono'";
+    ctx.font = "bold 9px 'JetBrains Mono', monospace";
     ctx.textAlign = "center";
-    ctx.fillText("TARGET: HUMAN // THREAT: 98.7%", tx, ty - 75);
-    ctx.fillText("ANALYSIS: TERMINATION AUTHORIZED", tx, ty + 85);
-    ctx.restore();
+    ctx.fillText("TARGET: ZERO-DAY // THREAT: 99.1%", tx, ty - 36);
+    ctx.fillText("DEFCON LEVEL 3 // ARMED", tx, ty + 45);
+
+    requestAnimationFrame(draw);
   }
+  requestAnimationFrame(draw);
+}
 
-  // Draw Central Focal Crosshair
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.25)";
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(cx - 15, cy); ctx.lineTo(cx + 15, cy);
-  ctx.moveTo(cx, cy - 15); ctx.lineTo(cx, cy + 15);
-  ctx.stroke();
+// 3. Furious 7 Ramsey God's Eye Satellite Triangulation
+let godsEyeStep = 0;
+function initGodsEyeTriangulation() {
+  const canvas = document.getElementById("godseye-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
 
-  // Coordinate readout update
-  const coordsEl = document.getElementById("holodeck-coords");
-  if (coordsEl) {
-    coordsEl.textContent = `AZIMUTH: ${(mx * 180).toFixed(1)}° | PITCH: ${(my * 90).toFixed(1)}° | TELEMETRY: 60 FPS`;
+  const satellites = [
+    { name: "SAT-ALPHA", speed: 0.008, rad: 0.85, phase: 0 },
+    { name: "SAT-BRAVO", speed: 0.012, rad: 0.72, phase: 1.2 },
+    { name: "SAT-CHARLIE", speed: 0.009, rad: 0.60, phase: 2.8 },
+    { name: "SAT-DELTA", speed: 0.015, rad: 0.90, phase: 4.1 },
+    { name: "SAT-ECHO", speed: 0.011, rad: 0.78, phase: 5.3 }
+  ];
+
+  function draw() {
+    if (!document.getElementById("godseye-canvas")) return;
+    const w = canvas.width;
+    const h = canvas.height;
+    const cx = w / 2;
+    const cy = h / 2 + 10;
+
+    godsEyeStep += 0.03;
+
+    ctx.fillStyle = "rgba(4, 14, 8, 0.35)";
+    ctx.fillRect(0, 0, w, h);
+
+    // Earth Curve Arc
+    ctx.strokeStyle = "rgba(0, 255, 136, 0.25)";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.arc(cx, cy + 180, 220, Math.PI * 1.15, Math.PI * 1.85);
+    ctx.stroke();
+
+    // Target Location on Ground
+    const targetX = cx + Math.sin(godsEyeStep * 0.4) * 40;
+    const targetY = cy - 20;
+
+    // Satellites orbiting & triangulation beams
+    satellites.forEach(sat => {
+      const angle = (godsEyeStep * sat.speed * 20 + sat.phase) % (2 * Math.PI);
+      const rx = (w * 0.42) * sat.rad;
+      const ry = 45 * sat.rad;
+      const sx = cx + Math.cos(angle) * rx;
+      const sy = cy - 50 + Math.sin(angle) * ry;
+
+      // Triangulation vector beam
+      ctx.strokeStyle = "rgba(0, 255, 136, 0.25)";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(sx, sy);
+      ctx.lineTo(targetX, targetY);
+      ctx.stroke();
+
+      // Satellite blip
+      ctx.fillStyle = "#00ff88";
+      ctx.beginPath();
+      ctx.arc(sx, sy, 3, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.fillStyle = "rgba(0, 255, 136, 0.8)";
+      ctx.font = "7px 'JetBrains Mono', monospace";
+      ctx.fillText(sat.name, sx + 5, sy - 3);
+    });
+
+    // Biometric Target Box
+    ctx.strokeStyle = "#00ff88";
+    ctx.lineWidth = 1.5;
+    ctx.strokeRect(targetX - 18, targetY - 18, 36, 36);
+
+    ctx.fillStyle = "#ffffff";
+    ctx.font = "bold 8px 'JetBrains Mono', monospace";
+    ctx.textAlign = "center";
+    ctx.fillText("FACIAL RECON: 99.4%", targetX, targetY - 22);
+    ctx.fillText("LOC: KITENGELA", targetX, targetY + 28);
+
+    requestAnimationFrame(draw);
   }
+  requestAnimationFrame(draw);
+}
 
-  requestAnimationFrame(drawHolodeckSimulation);
+// 4. Total Recall Rekall Neural Synapse Matrix
+let rekallStep = 0;
+function initRekallSynapse() {
+  const canvas = document.getElementById("rekall-synapse-canvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d");
+
+  const nodes = [
+    { x: 0.12, y: 0.5, label: "M-PESA", color: "#10b981" },
+    { x: 0.32, y: 0.3, label: "TASK-01", color: "#f59e0b" },
+    { x: 0.50, y: 0.65, label: "CORE REKALL", color: "#a855f7" },
+    { x: 0.70, y: 0.35, label: "VOICE VAULT", color: "#06b6d4" },
+    { x: 0.88, y: 0.55, label: "USD LEDGER", color: "#3b82f6" }
+  ];
+
+  function draw() {
+    if (!document.getElementById("rekall-synapse-canvas")) return;
+    const w = canvas.width;
+    const h = canvas.height;
+
+    rekallStep += 0.03;
+
+    ctx.fillStyle = "rgba(12, 6, 20, 0.35)";
+    ctx.fillRect(0, 0, w, h);
+
+    // Draw Synaptic Connections
+    ctx.lineWidth = 1.5;
+    for (let i = 0; i < nodes.length - 1; i++) {
+      const n1 = nodes[i];
+      const n2 = nodes[i + 1];
+      const x1 = n1.x * w;
+      const y1 = n1.y * h + Math.sin(rekallStep + i) * 6;
+      const x2 = n2.x * w;
+      const y2 = n2.y * h + Math.cos(rekallStep + i) * 6;
+
+      ctx.strokeStyle = "rgba(168, 85, 247, 0.35)";
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+
+      // Pulse traveling along synapse
+      const pulseT = (rekallStep * 1.5 + i * 0.4) % 1;
+      const px = x1 + (x2 - x1) * pulseT;
+      const py = y1 + (y2 - y1) * pulseT;
+      ctx.fillStyle = "#ffffff";
+      ctx.beginPath();
+      ctx.arc(px, py, 2, 0, 2 * Math.PI);
+      ctx.fill();
+    }
+
+    // Draw Synapse Nodes
+    nodes.forEach((n, idx) => {
+      const nx = n.x * w;
+      const ny = n.y * h + Math.sin(rekallStep + idx) * 6;
+
+      ctx.fillStyle = n.color;
+      ctx.beginPath();
+      ctx.arc(nx, ny, 5, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
+      ctx.beginPath();
+      ctx.arc(nx, ny, 8, 0, 2 * Math.PI);
+      ctx.stroke();
+
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "8px 'JetBrains Mono', monospace";
+      ctx.textAlign = "center";
+      ctx.fillText(n.label, nx, ny - 10);
+    });
+
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+}
+
+function initSimultaneousSciFiCanvases() {
+  initPrometheusLidar();
+  initTerminatorOptical();
+  initGodsEyeTriangulation();
+  initRekallSynapse();
 }
 
 function initHolodeckEngine() {
-  initHolodeckParticles();
-
-  const canvas = document.getElementById("holodeck-canvas");
-  if (!canvas) return;
-
-  // Track mouse coordinates over canvas
-  canvas.addEventListener("mousemove", (e) => {
-    const rect = canvas.getBoundingClientRect();
-    holodeckState.mouseX = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    holodeckState.mouseY = ((e.clientY - rect.top) / rect.height) * 2 - 1;
-  });
-
-  canvas.addEventListener("click", () => {
-    playSciFiChirp("confirm", holodeckState.activeSim);
-    holodeckState.simStep += 0.5;
-  });
-
-  // Simulator tab buttons
-  document.querySelectorAll(".holodeck-tab-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const sim = btn.getAttribute("data-sim");
-      switchHolodeckSimulation(sim, true);
-    });
-  });
-
-  // Prev / Next / Auto-cycle buttons
-  const prevBtn = document.getElementById("btn-holodeck-prev");
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      const idx = SIM_KEYS.indexOf(holodeckState.activeSim);
-      const prevIdx = (idx - 1 + SIM_KEYS.length) % SIM_KEYS.length;
-      switchHolodeckSimulation(SIM_KEYS[prevIdx], true);
-    });
-  }
-
-  const nextBtn = document.getElementById("btn-holodeck-next");
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      const idx = SIM_KEYS.indexOf(holodeckState.activeSim);
-      const nextIdx = (idx + 1) % SIM_KEYS.length;
-      switchHolodeckSimulation(SIM_KEYS[nextIdx], true);
-    });
-  }
-
-  const cycleBtn = document.getElementById("btn-holodeck-cycle");
-  if (cycleBtn) {
-    cycleBtn.addEventListener("click", () => {
-      holodeckState.autoCycle = !holodeckState.autoCycle;
-      cycleBtn.classList.toggle("active", holodeckState.autoCycle);
-      cycleBtn.textContent = holodeckState.autoCycle ? "⟳ CYCLE: ON (14s)" : "⟳ CYCLE: OFF";
-      playSciFiChirp("blip");
-
-      if (holodeckState.autoCycle) {
-        if (holodeckState.cycleIntervalId) clearInterval(holodeckState.cycleIntervalId);
-        holodeckState.cycleIntervalId = setInterval(() => {
-          const idx = SIM_KEYS.indexOf(holodeckState.activeSim);
-          const nextIdx = (idx + 1) % SIM_KEYS.length;
-          switchHolodeckSimulation(SIM_KEYS[nextIdx], true);
-        }, 14000);
-      } else {
-        if (holodeckState.cycleIntervalId) clearInterval(holodeckState.cycleIntervalId);
-      }
-    });
-  }
-
-  // Interactive buttons
-  const interactBtn = document.getElementById("btn-holodeck-interact");
-  if (interactBtn) {
-    interactBtn.addEventListener("click", () => {
-      playSciFiChirp("confirm", holodeckState.activeSim);
-      holodeckState.simStep += 1.2;
-      logToTerminal("BOT", `[SENSOR PULSE] Broadcasted diagnostic probe across ${holodeckState.activeSim.toUpperCase()} matrix.`);
-    });
-  }
-
-  const action1Btn = document.getElementById("btn-holodeck-action-1");
-  if (action1Btn) {
-    action1Btn.addEventListener("click", () => {
-      playSciFiChirp("confirm", holodeckState.activeSim);
-      holodeckState.simStep += 0.8;
-      logToTerminal("BOT", `[ACTION ENGAGED] Executed ${action1Btn.textContent} on holographic telemetry.`);
-    });
-  }
-
-  const action2Btn = document.getElementById("btn-holodeck-action-2");
-  if (action2Btn) {
-    action2Btn.addEventListener("click", () => {
-      playSciFiChirp("confirm", holodeckState.activeSim);
-      holodeckState.simStep += 0.8;
-      logToTerminal("BOT", `[AUDIT EXECUTED] ${action2Btn.textContent} verified.`);
-    });
-  }
-
-  const voiceBtn = document.getElementById("btn-holodeck-voice");
-  if (voiceBtn) {
-    voiceBtn.addEventListener("click", () => {
-      const cfg = HOLODECK_SIM_CONFIG[holodeckState.activeSim];
-      if (cfg && cfg.vocalPhrase) {
-        speakCustomText(cfg.vocalPhrase, "cortana");
-        logToTerminal("BOT", `[VOCAL TELEMETRY] "${cfg.vocalPhrase}"`);
-      }
-    });
-  }
-
-  // Connect Universe Dropdown
-  const themeSelect = document.getElementById("universe-theme-select");
-  if (themeSelect) {
-    themeSelect.addEventListener("change", (e) => {
-      applyTheme(e.target.value);
-    });
-  }
-
-  // Initial simulation activation
-  switchHolodeckSimulation(appState.currentTheme !== "omni" && HOLODECK_SIM_CONFIG[appState.currentTheme] ? appState.currentTheme : "prometheus", false);
-  requestAnimationFrame(drawHolodeckSimulation);
+  initSimultaneousSciFiCanvases();
 }
 
 // ==========================================================================

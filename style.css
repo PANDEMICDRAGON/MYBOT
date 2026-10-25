@@ -1857,11 +1857,162 @@ body.theme-starwars .hud-panel {
 }
 
 /* INSURGENT ERUDITE MODE: Sterile Cobalt & Pentagonal Symmetry */
-body.theme-insurgent .hud-panel {
-  border: 1px solid rgba(59, 130, 246, 0.45);
+/* ==========================================================================
+   SIMULTANEOUS MULTI-FRANCHISE MOVIE PANELS (AUTHENTIC SCI-FI INTEGRATION)
+   ========================================================================== */
+
+/* 1. PROMETHEUS (WEYLAND-YUTANI ATMOSPHERIC EXPEDITION) */
+.franchise-prometheus {
+  border: 1px solid rgba(56, 189, 248, 0.45) !important;
+  background: linear-gradient(135deg, rgba(6, 18, 34, 0.95), rgba(3, 10, 20, 0.96)) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(56, 189, 248, 0.15) !important;
+  border-radius: 6px;
+  position: relative;
+}
+.franchise-prometheus::before {
+  content: "WEYLAND-YUTANI // LV-223 SURVEY";
+  position: absolute;
+  top: 4px;
+  right: 14px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #38bdf8;
+  letter-spacing: 0.15em;
+  opacity: 0.7;
+}
+
+/* 2. STAR WARS & PACIFIC RIM (DEATH STAR VECTOR RETICLE & PPDC JAEGER WAR ROOM) */
+.franchise-starwars-pacificrim {
+  border: 2px solid rgba(34, 197, 94, 0.45) !important;
+  background: linear-gradient(135deg, rgba(4, 16, 10, 0.95), rgba(3, 8, 18, 0.96)) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(34, 197, 94, 0.2) !important;
+  border-radius: 4px;
+  position: relative;
+}
+.franchise-starwars-pacificrim::before {
+  content: "DEATH STAR VECTOR // PPDC JAEGER WAR ROOM";
+  position: absolute;
+  top: 4px;
+  right: 14px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #22c55e;
+  letter-spacing: 0.15em;
+  opacity: 0.75;
+}
+
+/* 3. ROBOCOP & TERMINATOR (OCP 001 DIRECTIVE & CYBERDYNE T-800 OPTICAL SCANNER) */
+.franchise-robocop-terminator {
+  border: 1px solid rgba(239, 68, 68, 0.55) !important;
+  background: linear-gradient(135deg, rgba(20, 4, 6, 0.96), rgba(6, 12, 8, 0.95)) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 30px rgba(239, 68, 68, 0.22) !important;
+  border-radius: 3px;
+  position: relative;
+}
+.franchise-robocop-terminator::before {
+  content: "OCP UNIT 001 // CYBERDYNE T-800 TARGETING";
+  position: absolute;
+  top: 4px;
+  right: 14px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #ef4444;
+  letter-spacing: 0.15em;
+  opacity: 0.8;
+}
+
+/* 4. TRON: LEGACY (THE GRID OBSIDIAN & IDENTITY DISC OS) */
+.franchise-tron {
+  border: 1px solid #00f0ff !important;
+  background: #000000 !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 240, 255, 0.3), inset 0 0 20px rgba(0, 240, 255, 0.08) !important;
+  border-radius: 0 !important;
+  position: relative;
+}
+.franchise-tron::before {
+  content: "THE GRID // SYSTEM OPERATING KERNEL";
+  position: absolute;
+  top: 4px;
+  right: 14px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #00f0ff;
+  letter-spacing: 0.18em;
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.8);
+}
+
+/* 5. BLADE RUNNER & MINORITY REPORT (VOIGHT-KAMPFF IRIS & PRE-CRIME TEMPORAL) */
+.franchise-bladerunner-minorityreport {
+  border: 1px solid rgba(245, 158, 11, 0.45) !important;
+  background: linear-gradient(135deg, rgba(22, 14, 4, 0.95), rgba(8, 20, 36, 0.92)) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(245, 158, 11, 0.22) !important;
   border-radius: 8px;
-  background: rgba(8, 14, 38, 0.92);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(59, 130, 246, 0.22);
+  position: relative;
+  backdrop-filter: blur(20px);
+}
+.franchise-bladerunner-minorityreport::before {
+  content: "VOIGHT-KAMPFF IRIS // PRE-CRIME TEMPORAL RING";
+  position: absolute;
+  top: 4px;
+  right: 14px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #f59e0b;
+  letter-spacing: 0.15em;
+  opacity: 0.75;
+}
+
+/* 6. STAR TREK LCARS, TOTAL RECALL & INSURGENT (CURVED ARCHITECTURE & REKALL SYNAPSE) */
+.franchise-startrek-totalrecall {
+  border-left: 16px solid #ff9900 !important;
+  border-top: 3px solid #ff9900 !important;
+  border-right: 1px solid #cc99cc !important;
+  border-bottom: 1px solid #9999ff !important;
+  border-radius: 0 28px 0 0 !important;
+  background: linear-gradient(135deg, rgba(12, 6, 20, 0.96), rgba(6, 4, 12, 0.98)) !important;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.85), 0 0 25px rgba(255, 153, 0, 0.2) !important;
+  position: relative;
+}
+.franchise-startrek-totalrecall::before {
+  content: "STARFLEET LCARS // REKALL SYNAPSE MATRIX";
+  position: absolute;
+  top: 4px;
+  right: 16px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #ffaa55;
+  letter-spacing: 0.18em;
+  opacity: 0.85;
+}
+
+/* 7. FURIOUS 7 GOD'S EYE & HITMAN AGENT 47 (SATELLITE TRIANGULATION & ICA RETICLE) */
+.franchise-godseye-hitman {
+  border: 1px solid rgba(0, 255, 136, 0.4) !important;
+  border-left: 5px solid #e11d48 !important;
+  background: linear-gradient(135deg, rgba(4, 14, 8, 0.96), rgba(12, 12, 12, 0.98)) !important;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(0, 255, 136, 0.18) !important;
+  border-radius: 4px;
+  position: relative;
+}
+.franchise-godseye-hitman::before {
+  content: "GOD'S EYE SATELLITE // ICA 640509-040147";
+  position: absolute;
+  top: 4px;
+  right: 14px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #34d399;
+  letter-spacing: 0.15em;
+  opacity: 0.8;
+}
+
+/* Animate slow rotation for Tron Identity Disc */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 12s linear infinite;
 }
 
 
