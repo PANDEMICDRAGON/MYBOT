@@ -1181,6 +1181,29 @@ async def collector_worker(client: httpx.AsyncClient):
             break
 
 
+async def cli_interactive_session():
+    """Interactive command-line session for testing Cortana / J.A.R.V.I.S. and OSINT directly in terminal."""
+    print("=" * 65)
+    print("🛰️ CORTANA // J.A.R.V.I.S. INTERACTIVE CONSOLE ACTIVE")
+    print("Type your directive or target to investigate. Type 'exit' to quit.")
+    print("=" * 65)
+    limits = httpx.Limits(max_keepalive_connections=10, max_connections=20)
+    async with httpx.AsyncClient(follow_redirects=True, limits=limits) as client:
+        while True:
+            try:
+                user_msg = input("\n[OPERATOR] > ").strip()
+                if not user_msg:
+                    continue
+                if user_msg.lower() in ["exit", "quit", "q"]:
+                    print("Standing down console.")
+                    break
+                print("\n[AI CORE] Synthesizing telemetry and executing multi-vector sweeps...")
+                response = await run_agent_turn(client, user_msg)
+                print(f"\n[CORTANA // J.A.R.V.I.S.]\n{response}\n")
+            except (KeyboardInterrupt, EOFError):
+                break
+
+
 # =====================================================================
 # --- MAIN APPLICATION ENTRYPOINT ---
 # =====================================================================
@@ -1207,6 +1230,9 @@ async def main():
 
 if __name__ == "__main__":
     try:
-        asyncio.run(main())
+        if "--cli" in sys.argv:
+            asyncio.run(cli_interactive_session())
+        else:
+            asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
         logger.info("Shutdown complete.")
