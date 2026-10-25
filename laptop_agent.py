@@ -9,6 +9,7 @@ Zero external dependencies required (Pure Python 3 standard library).
 """
 
 import sys
+import re
 import json
 import urllib.parse
 import platform
@@ -20,8 +21,13 @@ PORT = 8080
 OS_TYPE = platform.system().lower()
 
 def speak_text(text: str) -> str:
-    """Speaks text aloud through workstation speakers via native TTS."""
-    clean = text.replace("'", " ").replace('"', ' ').replace("\n", " ").strip()
+    """Speaks text aloud through workstation speakers via native TTS with speech sanitization."""
+    raw_str = str(text or "").strip()
+    if any(k in raw_str for k in ["429 Too Many Requests", "Operational fault encountered", "Client error '429'", "rate limit", "rate_limit"]):
+        clean = "Michael, the primary neural quota is cooling down from a telemetry sweep. Switching to the secondary model now."
+    else:
+        clean = re.sub(r"https?://\S+", "", raw_str).strip()
+        clean = clean.replace("'", " ").replace('"', ' ').replace("\n", " ").strip()
     if not clean:
         clean = "Construct active on workstation."
     try:

@@ -1,0 +1,82 @@
+name: 24/7 Overwatch Self-Chaining Runner
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Backup trigger every 6 hours if a chain ever drops
+    - cron: '0 */6 * * *'
+
+permissions:
+  actions: write
+  contents: write
+
+jobs:
+  overwatch-daemon:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout Master Codebase
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install System & Python Dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg libasound2-dev
+          pip install -r requirements.txt
+
+      - name: Run 5h50m Self-Chaining Autonomous Daemon
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          GROQ_API_KEYS: ${{ secrets.GROQ_API_KEYS }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          SYNC_INTERVAL: 300
+          CONSTRUCT_VOICE: "en-GB-RyanNeural"
+          GITHUB_REF_NAME: ${{ github.ref_name }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO_NAME: ${{ github.repository }}
+        run: |
+          python -c "
+          import os, sys, time, asyncio, httpx, subprocess
+
+          # Launch bot.py as background process
+          proc = subprocess.Popen([sys.executable, 'bot.py'])
+          print(f'[Overwatch Runner] bot.py launched with PID {proc.pid}. Running 5h 50m operational window...')
+
+          # Run for 21,000 seconds (5 hours 50 minutes)
+          time.sleep(21000)
+
+          # Trigger next workflow run via GitHub API before terminating
+          repo = os.getenv('REPO_NAME')
+          token = os.getenv('GITHUB_TOKEN')
+          ref_name = os.getenv('GITHUB_REF_NAME') or 'master'
+          if repo and token:
+              headers = {
+                  'Authorization': f'Bearer {token}',
+                  'Accept': 'application/vnd.github.v3+json'
+              }
+              url = f'https://api.github.com/repos/{repo}/actions/workflows/overwatch.yml/dispatches'
+              try:
+                  with httpx.Client() as client:
+                      r = client.post(url, headers=headers, json={'ref': ref_name}, timeout=15)
+                      print(f'[Overwatch Runner] Self-chain dispatched on branch {ref_name}: {r.status_code}')
+              except Exception as e:
+                  print(f'[Overwatch Runner Error]: {e}')
+
+          # Cleanly terminate process
+          proc.terminate()
+          try:
+              proc.wait(timeout=10)
+          except Exception:
+              proc.kill()
+          "

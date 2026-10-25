@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  cortana-overwatch:
+    build: .
+    container_name: cortana_overwatch_daemon
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - .:/app
+    ports:
+      - "5050:5050"
+      - "8080:8080"

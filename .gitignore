@@ -10,3 +10,4 @@ bot.log
 
 
 .vercel
+*.bak

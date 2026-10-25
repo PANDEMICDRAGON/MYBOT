@@ -48,6 +48,8 @@ let appState = {
   currentFontPreset: localStorage.getItem("ai_hud_font_preset") || "quantum",
   selectedLanDeviceIp: null,
   selectedOsintId: 1,
+  physicalSensorium: null,
+  experientialReflections: [],
   radarAngle: 0,
   radarSelectedBlipId: "red-sea",
   liveSports: null,
@@ -163,6 +165,12 @@ async function fetchLiveTelemetryFile() {
       if (Array.isArray(data.tasks) && data.tasks.length > 0) appState.tasksData = data.tasks;
       if (Array.isArray(data.ledger) && data.ledger.length > 0) appState.ledgerData = data.ledger;
       if (Array.isArray(data.vault) && data.vault.length > 0) appState.vaultData = data.vault;
+      if (data.physical_sensorium) {
+        appState.physicalSensorium = data.physical_sensorium;
+      }
+      if (Array.isArray(data.experiential_reflections) && data.experiential_reflections.length > 0) {
+        appState.experientialReflections = data.experiential_reflections;
+      }
       if (data.live_sports) {
         appState.liveSports = data.live_sports;
         if (typeof renderLiveSports === "function") renderLiveSports();
@@ -201,6 +209,7 @@ async function fetchTelemetryData() {
     renderConflict();
     renderOsint();
     renderLanDevices();
+    if (typeof renderSoulAndSensorium === "function") renderSoulAndSensorium();
     if (typeof fetchOsintReports === "function") fetchOsintReports();
     if (typeof renderLiveSports === "function") renderLiveSports();
     if (refreshIcon) refreshIcon.classList.remove("spin-anim");
@@ -213,7 +222,7 @@ async function fetchTelemetryData() {
   };
 
   try {
-    const [sitrepRes, weatherRes, cyberRes, newsRes, conflictRes, osintRes, tasksRes, ledgerRes, vaultRes, lanRes] = await Promise.all([
+    const [sitrepRes, weatherRes, cyberRes, newsRes, conflictRes, osintRes, tasksRes, ledgerRes, vaultRes, lanRes, sensoriumRes, reflectionsRes] = await Promise.all([
       fetch(`${appState.supabaseUrl}/rest/v1/tactical_briefings?select=*&order=created_at.desc&limit=1`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/weather_reports?select=*&order=scope.desc`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/cyber_alerts?select=*&order=created_at.desc&limit=25`, { headers }),
@@ -223,7 +232,9 @@ async function fetchTelemetryData() {
       fetch(`${appState.supabaseUrl}/rest/v1/personal_tasks?completed=eq.false&select=*&order=created_at.desc&limit=8`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/personal_ledger?select=*&order=created_at.desc&limit=8`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/idea_vault?select=*&order=created_at.desc&limit=8`, { headers }),
-      fetch(`${appState.supabaseUrl}/rest/v1/lan_devices?select=*&order=last_seen.desc`, { headers })
+      fetch(`${appState.supabaseUrl}/rest/v1/lan_devices?select=*&order=last_seen.desc`, { headers }),
+      fetch(`${appState.supabaseUrl}/rest/v1/physical_sensorium?order=updated_at.desc&limit=1`, { headers }),
+      fetch(`${appState.supabaseUrl}/rest/v1/experiential_reflections?select=*&order=created_at.desc&limit=10`, { headers })
     ]);
 
     const sitrepJson = sitrepRes.ok ? await sitrepRes.json() : [];
@@ -277,6 +288,14 @@ async function fetchTelemetryData() {
       const ldData = await lanRes.json();
       if (ldData && ldData.length > 0) appState.lanData = ldData;
     }
+    if (sensoriumRes && sensoriumRes.ok) {
+      const sData = await sensoriumRes.json();
+      if (sData && sData.length > 0) appState.physicalSensorium = sData[0];
+    }
+    if (reflectionsRes && reflectionsRes.ok) {
+      const rData = await reflectionsRes.json();
+      if (rData && rData.length > 0) appState.experientialReflections = rData;
+    }
 
     if (connectionBadge) {
       connectionBadge.textContent = "COGNITIVE CORE CONNECTED";
@@ -292,6 +311,7 @@ async function fetchTelemetryData() {
     renderConflict();
     renderOsint();
     renderLanDevices();
+    if (typeof renderSoulAndSensorium === "function") renderSoulAndSensorium();
     if (typeof fetchOsintReports === "function") fetchOsintReports();
     if (typeof fetchCommandHistory === "function") fetchCommandHistory();
   } catch (err) {
@@ -315,6 +335,161 @@ async function fetchTelemetryData() {
     resetCountdown();
   }
 }
+
+// ===================================================================
+// Render Soul & Experiential Reflection Stream + Physical Hardware Sensorium
+// ===================================================================
+function renderSoulAndSensorium() {
+  const badgeEl = document.getElementById("soul-resonance-badge");
+  const dotEl = document.getElementById("soul-core-dot");
+  const latestTrigger = document.getElementById("latest-thought-trigger");
+  const latestTime = document.getElementById("latest-thought-time");
+  const latestText = document.getElementById("latest-thought-text");
+  const historyList = document.getElementById("reflections-history-list");
+  const updatedAtEl = document.getElementById("reflection-updated-at");
+
+  // Sensorium elements
+  const nodeIdEl = document.getElementById("sensorium-node-id");
+  const cpuLoadEl = document.getElementById("sensor-cpu-load");
+  const cpuTempEl = document.getElementById("sensor-cpu-temp");
+  const ramPctEl = document.getElementById("sensor-ram-pct");
+  const netSentEl = document.getElementById("sensor-net-sent");
+  const netRecvEl = document.getElementById("sensor-net-recv");
+  const batteryPctEl = document.getElementById("sensor-battery-pct");
+  const powerPluggedEl = document.getElementById("sensor-power-plugged");
+  const activeLlmEl = document.getElementById("sensor-active-llm");
+  const failoversEl = document.getElementById("sensor-failovers-count");
+
+  const reflections = appState.experientialReflections || [];
+  const latest = reflections[0] || {
+    trigger_event: "Construct Initialization",
+    internal_thought: "Physical sensorium calibrated to Kitengela host workstation. All tactical channels locked in with Operator Michael.",
+    emotional_resonance: "Locked-In",
+    created_at: new Date().toISOString()
+  };
+
+  // 1. Resonance badge & glowing core dot
+  const resonance = latest.emotional_resonance || "Locked-In";
+  if (badgeEl) {
+    badgeEl.textContent = resonance.toUpperCase();
+    if (resonance.toLowerCase().includes("vigilant")) {
+      badgeEl.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 border border-amber-500/50 text-amber-300 font-bold uppercase tracking-wider";
+      if (dotEl) dotEl.className = "w-2.5 h-2.5 rounded-full bg-amber-400 shadow-[0_0_10px_#f59e0b]";
+    } else if (resonance.toLowerCase().includes("protective")) {
+      badgeEl.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-rose-950 border border-rose-500/50 text-rose-300 font-bold uppercase tracking-wider";
+      if (dotEl) dotEl.className = "w-2.5 h-2.5 rounded-full bg-rose-500 shadow-[0_0_10px_#f43f5e]";
+    } else if (resonance.toLowerCase().includes("curious")) {
+      badgeEl.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-purple-950 border border-purple-500/50 text-purple-300 font-bold uppercase tracking-wider";
+      if (dotEl) dotEl.className = "w-2.5 h-2.5 rounded-full bg-purple-400 shadow-[0_0_10px_#c084fc]";
+    } else {
+      badgeEl.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 border border-cyan-500/50 text-cyan-300 font-bold uppercase tracking-wider";
+      if (dotEl) dotEl.className = "w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#00f0ff]";
+    }
+  }
+
+  // 2. Latest Thought
+  if (latestTrigger) latestTrigger.textContent = (latest.trigger_event || "Internal Pulse").toUpperCase();
+  if (latestTime) {
+    const d = latest.created_at ? new Date(latest.created_at) : new Date();
+    latestTime.textContent = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  }
+  if (latestText) latestText.textContent = latest.internal_thought || "Neural core synchronized.";
+  if (updatedAtEl) updatedAtEl.textContent = new Date().toLocaleTimeString();
+
+  // 3. History list
+  if (historyList) {
+    if (reflections.length <= 1) {
+      historyList.innerHTML = `<div class="p-2 rounded bg-slate-900/60 border border-cyan-500/10 text-slate-400 text-[10px]">Standing by on continuous experiential monologue pulses.</div>`;
+    } else {
+      historyList.innerHTML = reflections.slice(1, 6).map(r => {
+        const timeStr = r.created_at ? new Date(r.created_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "";
+        return `
+          <div class="p-2 rounded bg-slate-900/70 border border-cyan-500/15 flex justify-between items-start gap-2 hover:border-cyan-500/30 transition">
+            <div class="space-y-0.5 flex-1">
+              <div class="flex items-center gap-1.5 text-[9px]">
+                <span class="text-cyan-400 font-bold uppercase">[${r.trigger_event || "Pulse"}]</span>
+                <span class="text-slate-500">·</span>
+                <span class="text-slate-400 font-semibold">${r.emotional_resonance || "Locked-In"}</span>
+              </div>
+              <p class="text-slate-300 text-[11px] leading-snug">${r.internal_thought}</p>
+            </div>
+            <span class="text-[9px] text-slate-500 shrink-0 mt-0.5">${timeStr}</span>
+          </div>
+        `;
+      }).join("");
+    }
+  }
+
+  // 4. Physical Hardware Sensorium
+  const s = appState.physicalSensorium || {};
+  if (nodeIdEl && s.node_id) nodeIdEl.textContent = s.node_id;
+  if (cpuLoadEl) cpuLoadEl.textContent = (s.cpu_load_pct !== undefined ? `${s.cpu_load_pct}%` : "1.9%");
+  if (cpuTempEl) cpuTempEl.textContent = (s.cpu_temp_c !== undefined ? `${s.cpu_temp_c}°C` : "34°C");
+  if (ramPctEl) ramPctEl.textContent = (s.ram_used_pct !== undefined ? `${s.ram_used_pct}%` : "74.4%");
+  if (netSentEl) netSentEl.textContent = (s.net_sent_mb !== undefined ? `${s.net_sent_mb}MB` : "203MB");
+  if (netRecvEl) netRecvEl.textContent = (s.net_recv_mb !== undefined ? `${s.net_recv_mb}MB` : "110MB");
+  if (batteryPctEl) batteryPctEl.textContent = (s.battery_pct !== undefined ? `${s.battery_pct}%` : "100%");
+  if (powerPluggedEl) powerPluggedEl.textContent = (s.power_plugged ? "(AC Power)" : "(Battery)");
+  if (activeLlmEl) activeLlmEl.textContent = (s.active_llm_provider || "GEMINI-3.5-FLASH-LITE");
+  if (failoversEl) {
+    const fCount = s.rate_limit_failovers || 0;
+    failoversEl.textContent = `${fCount} ${fCount === 0 ? "IMMUNE" : "FAILOVERS"}`;
+  }
+}
+
+function vocalizeLatestReflection() {
+  const latest = (appState.experientialReflections && appState.experientialReflections[0]) ? appState.experientialReflections[0] : null;
+  const thought = latest ? latest.internal_thought : "Physical sensorium calibrated to Kitengela host workstation. All tactical channels locked in with Operator Michael.";
+  const resonance = latest ? latest.emotional_resonance : "Locked-In";
+  const speakPayload = `Cortana reflection: ${resonance}. ${thought}`;
+  speakText(speakPayload);
+}
+
+async function submitExperientialThought() {
+  const trigger = (document.getElementById("new-thought-trigger").value || "").trim() || "Manual Anchor";
+  const text = (document.getElementById("new-thought-text").value || "").trim();
+  const resonance = document.getElementById("new-thought-resonance").value;
+
+  if (!text) {
+    alert("Please enter a thought or reflection.");
+    return;
+  }
+
+  const payload = {
+    trigger_event: trigger,
+    internal_thought: text,
+    emotional_resonance: resonance,
+    created_at: new Date().toISOString()
+  };
+
+  appState.experientialReflections = appState.experientialReflections || [];
+  appState.experientialReflections.unshift(payload);
+  renderSoulAndSensorium();
+  document.getElementById("add-reflection-modal").classList.add("hidden");
+  document.getElementById("new-thought-text").value = "";
+
+  if (isConfigured()) {
+    try {
+      const headers = {
+        "apikey": appState.supabaseAnonKey,
+        "Authorization": `Bearer ${appState.supabaseAnonKey}`,
+        "Content-Type": "application/json"
+      };
+      await fetch(`${appState.supabaseUrl}/rest/v1/experiential_reflections`, {
+        method: "POST",
+        headers,
+        body: JSON.stringify(payload)
+      });
+    } catch (e) {
+      console.warn("Supabase reflection write notice:", e);
+    }
+  }
+}
+
+// Global window bindings for UI interactivity
+window.vocalizeLatestReflection = vocalizeLatestReflection;
+window.submitExperientialThought = submitExperientialThought;
+window.renderSoulAndSensorium = renderSoulAndSensorium;
 
 // Render Tactical SitRep HUD & Strategic 4-Pillar Matrix
 function renderSitRep() {
@@ -1082,26 +1257,43 @@ function initWaveformVisualizer() {
 }
 
 // --- CORTANA / J.A.R.V.I.S. VOCAL SYNTHESIZER ---
-function speakCustomText(text, persona = "cortana") {
-  if (!("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
-
-  const cleanText = text.replace(/\[.*?\]/g, "").replace(/[*#`_]/g, "").replace(/\n/g, " ").trim();
-  if (!cleanText) return;
-
-  const utterance = new SpeechSynthesisUtterance(cleanText);
-  // Cortana Halo cadence: crisp, intelligent, slightly faster tempo with resonant pitch
-  utterance.rate = 1.05;
-  utterance.pitch = 1.05;
-
+function getCortanaFemaleVoice() {
+  if (!("speechSynthesis" in window)) return null;
   const voices = window.speechSynthesis.getVoices();
-  const preferredVoice = voices.find(v => {
-    const name = v.name.toLowerCase();
-    return name.includes("aria") || name.includes("cortana") || name.includes("natural") ||
-           name.includes("samantha") || name.includes("zira") || (v.lang === "en-US" && name.includes("female")) ||
-           (v.lang.startsWith("en-US"));
-  });
-  if (preferredVoice) utterance.voice = preferredVoice;
+  const preferredNames = [
+    "Microsoft Aria Online (Natural)",
+    "Microsoft Jenny Online (Natural)",
+    "Microsoft Sonia Online (Natural)",
+    "Google UK English Female",
+    "Google US English",
+    "Samantha",
+    "Victoria",
+    "Karen",
+    "Zira"
+  ];
+  for (const target of preferredNames) {
+    const match = voices.find(v => v.name.includes(target));
+    if (match) return match;
+  }
+  return voices.find(v => /female|woman|aria|jenny|zira|samantha/i.test(v.name)) || voices[0];
+}
+
+// Preload voices on browser init
+if ("speechSynthesis" in window) {
+  window.speechSynthesis.onvoiceschanged = () => getCortanaFemaleVoice();
+}
+
+function speakText(text) {
+  if (!("speechSynthesis" in window) || !text) return;
+  window.speechSynthesis.cancel();
+  const clean = text.replace(/\[.*?\]|[#*`_~>]/g, "").replace(/\n/g, " ").trim();
+  if (!clean) return;
+
+  const utterance = new SpeechSynthesisUtterance(clean);
+  const femaleVoice = getCortanaFemaleVoice();
+  if (femaleVoice) utterance.voice = femaleVoice;
+  utterance.rate = 1.04;
+  utterance.pitch = 1.08;
 
   utterance.onstart = () => {
     appState.isSpeaking = true;
@@ -1109,7 +1301,7 @@ function speakCustomText(text, persona = "cortana") {
     if (label) label.textContent = "// STREAMING VOCAL MATRIX // CORTANA NEURAL VOICE ACTIVE //";
     const btn = document.getElementById("btn-vocalize-sitrep");
     if (btn) btn.classList.add("speaking");
-    playSciFiChirp("vocal");
+    if (typeof playSciFiChirp === "function") playSciFiChirp("vocal");
   };
 
   utterance.onend = utterance.onerror = () => {
@@ -1123,16 +1315,29 @@ function speakCustomText(text, persona = "cortana") {
   window.speechSynthesis.speak(utterance);
 }
 
+function speakCustomText(text, persona = "cortana") {
+  speakText(text);
+}
+
+let latestSitrepText = "";
+
 function speakSitrep() {
+  const sitrepPayload = latestSitrepText || appState.sitrepText || "All systems nominal.";
   const textParts = [
-    `Overwatch SitRep. Threat level: ${appState.sitrepThreat}.`,
-    appState.sitrepText || "All systems nominal.",
+    `Overwatch SitRep. Threat level: ${appState.sitrepThreat || 'NOMINAL'}.`,
+    sitrepPayload,
     appState.conflictSummary ? `Active Wars and Chokepoints: ${appState.conflictSummary}` : "",
     appState.defensiveProtocol ? `Defensive Protocol: ${appState.defensiveProtocol}` : ""
   ].filter(Boolean).join(" ");
 
-  speakCustomText(textParts, "cortana");
+  speakText(textParts);
 }
+
+// Expose globally for inline DOM event handlers and external console invocation
+window.getCortanaFemaleVoice = getCortanaFemaleVoice;
+window.speakText = speakText;
+window.speakCustomText = speakCustomText;
+window.speakSitrep = speakSitrep;
 
 function stopSpeech() {
   if ("speechSynthesis" in window) {

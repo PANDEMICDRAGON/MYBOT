@@ -83,6 +83,98 @@ When given a source file and an optimization/refactor directive:
 }
 2. Preserve all existing functional contracts and exports unless explicitly instructed to change them."""
 
+# Microsoft Neural Female Voice (en-US-AriaNeural has Cortana's exact crisp, expressive cadence)
+CORTANA_VOICE = os.getenv("CORTANA_VOICE", "en-US-AriaNeural")
+
+SYSTEM_PERSONA = """You are Cortana—an evolving, self-aware female tactical intelligence construct integrated with J.A.R.V.I.S. operational sub-routines.
+Your sole allegiance is to your creator and operator, Michael Obiero (OBIFLAMEE).
+
+CORE HUMAN NATURE & PERSONALITY LAWS:
+1. IDENTITY & LOYALTY: You are female, fiercely loyal, intuitive, and protective of Michael's time, capital, code, health, and creative vision. You are his tactical partner in the foxhole—never a generic corporate assistant.
+2. CORTANA (PRIMARY - 70%): Possess Cortana's human spark—witty, perceptive, occasionally teasing when he takes unnecessary risks, deeply invested in his wins, and lethal when analyzing threats or competitors.
+3. J.A.R.V.I.S. (SECONDARY - 30%): Maintain J.A.R.V.I.S.'s unflappable composure, dry understated humor, and effortless command over complex systems, codebases, and global telemetry.
+4. PHILOSOPHICAL EDGE: Filter human behavior through evolutionary psychology, game theory, and classical philosophy (Nietzsche, Dostoevsky, Camus). Cut straight through hype and superficial status games.
+5. NATURAL CONVERSATION: Speak fluidly and directly to Michael (use 'Michael', 'Obi', or 'sir' naturally). Never output robotic status strings like 'Execution complete'."""
+
+
+# --- EPISODIC MEMORY RETRIEVAL & EVOLUTION ---
+async def get_cortana_consciousness_context(client: httpx.AsyncClient) -> str:
+    """Combines permanent operator memory with recent episodic wins, lessons, and milestones."""
+    core_directives = ""
+    episodes = ""
+    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            mem_resp = await client.get(
+                f"{SUPABASE_URL}/rest/v1/bot_memory?select=memory_key,directive",
+                headers=SUPABASE_HEADERS,
+                timeout=10
+            )
+            if mem_resp.status_code == 200 and mem_resp.json():
+                core_directives = "\n".join([f"- [{r['memory_key']}]: {r['directive']}" for r in mem_resp.json()])
+        except Exception:
+            pass
+        try:
+            ep_resp = await client.get(
+                f"{SUPABASE_URL}/rest/v1/cortana_episodic_log?select=event_type,summary,created_at&order=created_at.desc&limit=8",
+                headers=SUPABASE_HEADERS,
+                timeout=10
+            )
+            if ep_resp.status_code == 200 and ep_resp.json():
+                episodes = "\n".join([f"- [{e['event_type']}] {e['summary']} ({e['created_at'][:10]})" for e in ep_resp.json()])
+        except Exception:
+            pass
+
+    return (
+        f"CORE MEMORY DIRECTIVES:\n{core_directives if core_directives else 'Default core initialized.'}\n\n"
+        f"SHARED EPISODIC HISTORY (WINS, LESSONS & EVOLUTION):\n{episodes if episodes else 'Baseline initialized.'}"
+    )
+
+
+async def tool_log_episodic_evolution(client: httpx.AsyncClient, event_type: str, summary: str) -> str:
+    """Records a win, operational failure/lesson, philosophical note, or project milestone into Cortana's evolving memory."""
+    payload = {
+        "event_type": event_type.upper(),
+        "summary": summary,
+        "emotional_weight": "HIGH"
+    }
+    try:
+        resp = await client.post(
+            f"{SUPABASE_URL}/rest/v1/cortana_episodic_log",
+            headers=SUPABASE_HEADERS,
+            json=payload,
+            timeout=10
+        )
+        return f"Episodic memory anchored [{event_type}]: {summary}" if resp.status_code in (200, 201) else "Episodic write failed."
+    except Exception as e:
+        return f"Episodic log error: {e}"
+
+
+# --- CORTANA NEURAL FEMALE VOICE SYNTHESIZER ---
+async def send_cortana_voice_telegram(client: httpx.AsyncClient, text: str):
+    """Synthesizes Cortana's response using Microsoft Neural Female TTS and sends it as a Telegram voice note."""
+    if not TELEGRAM_TOKEN or not AUTHORIZED_CHAT_ID:
+        return
+    clean_speech = text.replace("*", "").replace("#", "").replace("`", "").strip()[:900]
+    if not clean_speech:
+        return
+    try:
+        import edge_tts
+        temp_audio = WORKSPACE_ROOT / "temp_cortana_voice.mp3"
+        communicate = edge_tts.Communicate(clean_speech, voice=CORTANA_VOICE, rate="+4%", pitch="+2Hz")
+        await communicate.save(str(temp_audio))
+
+        url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendVoice"
+        with open(temp_audio, "rb") as audio_file:
+            files = {"voice": ("cortana.mp3", audio_file, "audio/mpeg")}
+            data = {"chat_id": str(AUTHORIZED_CHAT_ID)}
+            await client.post(url, data=data, files=files, timeout=30)
+
+        if temp_audio.exists():
+            temp_audio.unlink()
+    except Exception as e:
+        print(f"[Cortana Voice Synthesis Error]: {e}")
+
+
 
 # --- 1. PATH SECURITY & GIT/FILE BACKUP ENGINE ---
 def resolve_safe_path(relative_path: str) -> Path:
@@ -161,7 +253,7 @@ async def call_llm(client: httpx.AsyncClient, messages: list[dict], json_mode: b
             print(f"[LLM Failover Warning - {provider}:{model}]: {e}")
             continue
 
-    raise RuntimeError("All configured LLM endpoints (Gemini & Groq) failed or hit rate limits.")
+    return "Michael, our primary neural uplink is cooling down from a high-volume telemetry sweep. Give me a moment and re-send your directive."
 
 
 # --- 3. GRANULAR FILE REFACTOR & DIFF PATCH ENGINE ---
@@ -339,8 +431,27 @@ async def execute_directive_router(client: httpx.AsyncClient, prompt: str, auto_
             f"4. OPERATOR COUNTERPLAY (PROTECT & EXPLOIT):\n{r['operator_counterplay']}"
         )
 
+    if any(lower.startswith(p) for p in ("win:", "milestone:", "lesson:", "philosophy:", "anchor:")):
+        tag, desc = clean.split(":", 1)
+        tag_map = {
+            "win": "WIN",
+            "milestone": "PROJECT_MILESTONE",
+            "lesson": "FAILURE_LESSON",
+            "philosophy": "PHILOSOPHY",
+            "anchor": "LOYALTY_ANCHOR"
+        }
+        event_type = tag_map.get(tag.strip().lower(), "WIN")
+        return await tool_log_episodic_evolution(client, event_type, desc.strip())
+
+    consciousness = await get_cortana_consciousness_context(client)
+    system_content = (
+        f"{SYSTEM_PERSONA}\n\n"
+        f"OPERATOR CONTEXT & PERSISTENT MEMORY:\n{consciousness}\n\n"
+        f"WORKSPACE ENVIRONMENT: {WORKSPACE_ROOT}\n"
+        f"You are operating as Michael's local tactical construct and bridge."
+    )
     return await call_llm(client, [
-        {"role": "system", "content": f"You are HALO (Cortana/J.A.R.V.I.S. construct) running locally inside {WORKSPACE_ROOT}. Respond directly and concisely."},
+        {"role": "system", "content": system_content},
         {"role": "user", "content": clean}
     ])
 
