@@ -45,6 +45,7 @@ let appState = {
   isSpeaking: false,
   sfxEnabled: localStorage.getItem("ai_hud_sfx") !== "false",
   currentTheme: localStorage.getItem("ai_hud_theme") || "hybrid",
+  currentFontPreset: localStorage.getItem("ai_hud_font_preset") || "quantum",
   selectedLanDeviceIp: null,
   selectedOsintId: 1,
   radarAngle: 0,
@@ -3047,6 +3048,52 @@ function applyTheme(themeName) {
 }
 
 // ==========================================================================
+// HIGH-TECH TYPOGRAPHY PRESETS MATRIX
+// ==========================================================================
+const ALL_FONT_PRESET_CLASSES = [
+  "font-preset-quantum", "font-preset-stark", "font-preset-halo",
+  "font-preset-minimal", "font-preset-cyberpunk", "font-preset-retro"
+];
+
+const FONT_PRESET_CONFIG = {
+  quantum: { title: "QUANTUM APEX", subtitle: "Oxanium + Plus Jakarta Sans", display: "Oxanium", body: "Plus Jakarta Sans" },
+  stark: { title: "STARK J.A.R.V.I.S.", subtitle: "Orbitron + Plus Jakarta Sans", display: "Orbitron", body: "Plus Jakarta Sans" },
+  halo: { title: "UNSC CORTANA", subtitle: "Oxanium + Inter", display: "Oxanium", body: "Inter" },
+  minimal: { title: "SILICON MINIMALIST", subtitle: "Inter Pure Precision", display: "Inter", body: "Inter" },
+  cyberpunk: { title: "NIGHT CITY CYBER", subtitle: "Orbitron + Space Grotesk", display: "Orbitron", body: "Space Grotesk" },
+  retro: { title: "CLASSIC RETRO HUD", subtitle: "Orbitron + Rajdhani Arcade", display: "Orbitron", body: "Rajdhani" }
+};
+
+function applyFontPreset(presetKey, shouldPersist = true) {
+  if (!presetKey) presetKey = "quantum";
+  appState.currentFontPreset = presetKey;
+  if (shouldPersist) {
+    localStorage.setItem("ai_hud_font_preset", presetKey);
+  }
+
+  // Strip existing font preset classes
+  ALL_FONT_PRESET_CLASSES.forEach(cls => document.body.classList.remove(cls));
+
+  // Add target class
+  document.body.classList.add(`font-preset-${presetKey}`);
+
+  // Sync font preset select dropdown if present
+  const fontSelect = document.getElementById("font-preset-select");
+  if (fontSelect && fontSelect.value !== presetKey) {
+    fontSelect.value = presetKey;
+  }
+
+  // Audio feedback & terminal logging
+  if (shouldPersist) {
+    playSciFiChirp("blip");
+    if (typeof logToTerminal === "function") {
+      const cfg = FONT_PRESET_CONFIG[presetKey] || { title: presetKey.toUpperCase(), subtitle: "" };
+      logToTerminal("HUD", `Typography matrix calibrated to [${cfg.title} // ${cfg.subtitle}]. High-fidelity subpixel rendering active.`);
+    }
+  }
+}
+
+// ==========================================================================
 // CINEMA FUI MULTIVERSE HOLO-DECK ENGINE (15 SCI-FI SIMULATORS)
 // ==========================================================================
 const HOLODECK_SIM_CONFIG = {
@@ -4113,6 +4160,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // Apply saved persona theme
   applyTheme(appState.currentTheme);
 
+  // Apply saved typography preset
+  applyFontPreset(appState.currentFontPreset, false);
+  const fontSelect = document.getElementById("font-preset-select");
+  if (fontSelect) {
+    fontSelect.value = appState.currentFontPreset;
+    fontSelect.addEventListener("change", (e) => {
+      applyFontPreset(e.target.value, true);
+    });
+  }
+
   // Initialize Canvas Waveform Visualizer
   initWaveformVisualizer();
 
@@ -4615,7 +4672,7 @@ function renderCommandHistoryItems(items) {
           <span class="text-cyan-400 select-none">&gt;</span>
           <span>${escapeHtml(item.directive)}</span>
         </p>
-        <div class="text-xs text-slate-300 whitespace-pre-line leading-relaxed font-sans pl-3 border-l-2 ${isDeep ? 'border-rose-500/50' : 'border-cyan-500/40'}">
+        <div class="text-xs sm:text-[13px] text-slate-200 whitespace-pre-line leading-relaxed font-body pl-3 border-l-2 ${isDeep ? 'border-rose-500/50' : 'border-cyan-500/40'}">
           ${formattedResponse}
         </div>
         ${sourcesHtml}

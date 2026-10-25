@@ -3,7 +3,7 @@
    Designed for High-Impact Sci-Fi Aesthetics: Stark Industries + UNSC Cortana
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=JetBrains+Mono:wght@300;400;500;700;800&family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;800;900&family=Oxanium:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Rajdhani:wght@500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 /* --- COLOR MATRIX & CSS VARIABLES --- */
 :root {
@@ -43,10 +43,12 @@
   --text-dim: #64748b;
   --text-glow: 0 0 10px rgba(0, 240, 255, 0.6);
 
-  --font-display: 'Orbitron', -apple-system, sans-serif;
-  --font-hud: 'Rajdhani', -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-ui: 'Chakra Petch', sans-serif;
+  /* High-Tech Sci-Fi Typography Matrix */
+  --font-display: 'Oxanium', 'Orbitron', system-ui, -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-hud: 'Space Grotesk', 'Rajdhani', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --font-ui: 'Plus Jakarta Sans', 'Chakra Petch', sans-serif;
 }
 
 /* ==========================================================================
@@ -374,8 +376,18 @@ body.theme-cortana {
   box-sizing: border-box;
 }
 
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 body {
-  font-family: var(--font-hud);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   background-color: var(--bg-space);
   color: var(--text-primary);
   min-height: 100vh;
@@ -389,7 +401,13 @@ body {
     radial-gradient(circle at 90% 80%, var(--hud-violet-dim) 0%, transparent 50%);
   background-size: 32px 32px, 32px 32px, 100% 100%, 100% 100%, 100% 100%;
   background-attachment: fixed;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  line-height: 1.55;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Movie Hologram Scanline & Vignette Overlay */
@@ -432,17 +450,92 @@ body {
   100% { transform: translateY(105vh); opacity: 0; }
 }
 
-/* Typography Helpers */
-.font-display { font-family: var(--font-display); }
-.font-hud { font-family: var(--font-hud); }
-.font-mono { font-family: var(--font-mono); }
-.font-ui { font-family: var(--font-ui); }
+/* Typography Helpers & Precision Scaling */
+.font-display { 
+  font-family: var(--font-display); 
+  letter-spacing: 0.04em;
+}
+.font-body { 
+  font-family: var(--font-body); 
+  letter-spacing: 0.01em;
+}
+.font-hud { 
+  font-family: var(--font-hud); 
+  letter-spacing: 0.025em;
+}
+.font-mono { 
+  font-family: var(--font-mono); 
+  font-feature-settings: "zero", "ss01", "ss02";
+  letter-spacing: -0.01em;
+}
+.font-ui { 
+  font-family: var(--font-ui); 
+  letter-spacing: 0.015em;
+}
 
 .glow-cyan { text-shadow: 0 0 12px var(--hud-cyan); }
 .glow-amber { text-shadow: 0 0 12px var(--hud-amber); }
 .glow-crimson { text-shadow: 0 0 12px var(--hud-crimson); }
 .glow-emerald { text-shadow: 0 0 12px var(--hud-emerald); }
 .glow-violet { text-shadow: 0 0 12px var(--hud-violet); }
+
+/* ==========================================================================
+   INTERACTIVE TYPOGRAPHY PRESETS MATRIX
+   ========================================================================== */
+
+/* 1. QUANTUM APEX (Default) - Ultra-crisp modern cybernetic */
+body.font-preset-quantum {
+  --font-display: 'Oxanium', 'Orbitron', system-ui, -apple-system, sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-hud: 'Space Grotesk', 'Rajdhani', -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+  --font-ui: 'Plus Jakarta Sans', 'Chakra Petch', sans-serif;
+}
+
+/* 2. STARK INDUSTRIES - Mark VII Arc Reactor Holographic HUD */
+body.font-preset-stark {
+  --font-display: 'Orbitron', 'Oxanium', system-ui, sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif;
+  --font-hud: 'Chakra Petch', 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-ui: 'Chakra Petch', sans-serif;
+}
+
+/* 3. UNSC CORTANA - Tactical Military-grade Precision */
+body.font-preset-halo {
+  --font-display: 'Oxanium', 'Orbitron', system-ui, sans-serif;
+  --font-body: 'Inter', 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-hud: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-ui: 'Space Grotesk', sans-serif;
+}
+
+/* 4. SILICON MINIMALIST - Apple VisionOS / Clean Precision */
+body.font-preset-minimal {
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-hud: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-ui: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* 5. NIGHT CITY CYBER - Blade Runner / Cyberpunk Tech-Noir */
+body.font-preset-cyberpunk {
+  --font-display: 'Orbitron', monospace;
+  --font-body: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+  --font-hud: 'Rajdhani', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-ui: 'Space Grotesk', sans-serif;
+}
+
+/* 6. CLASSIC RETRO HUD - 1990s Aerospace Arcade */
+body.font-preset-retro {
+  --font-display: 'Orbitron', sans-serif;
+  --font-body: 'Rajdhani', sans-serif;
+  --font-hud: 'Rajdhani', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-ui: 'Chakra Petch', sans-serif;
+}
 
 /* --- SCI-FI HUD PANEL ARCHITECTURE (FUI CHAMFERS & TECH BRACKETS) --- */
 .hud-panel {
@@ -1427,9 +1520,11 @@ body.desktop-mode-active .draggable-hud-panel.panel-focused {
   max-height: 320px;
   overflow-y: auto;
   font-family: var(--font-mono);
-  font-size: 11px;
-  line-height: 1.6;
+  font-size: 11.5px;
+  line-height: 1.65;
+  letter-spacing: 0.005em;
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
 }
 
 #terminal-log-stream::-webkit-scrollbar {
@@ -1451,9 +1546,10 @@ body.desktop-mode-active .draggable-hud-panel.panel-focused {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  padding: 3px 6px;
+  padding: 4px 6px;
   border-radius: 4px;
   transition: background 0.15s ease;
+  font-family: var(--font-mono);
 }
 
 .terminal-entry:hover {
@@ -1567,7 +1663,7 @@ body.desktop-mode-active .draggable-hud-panel.panel-focused {
 }
 
 .hud-toast-body {
-  font-family: var(--font-hud);
+  font-family: var(--font-body);
   font-size: 12px;
   line-height: 1.5;
   color: #e2e8f0;
