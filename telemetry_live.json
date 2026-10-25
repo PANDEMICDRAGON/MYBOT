@@ -1,58 +1,58 @@
 {
   "sitrep": {
     "threat_level": "ELEVATED",
-    "sitrep": "Chief, the Black Sea is no longer a trade lane; it’s a graveyard. 570 vessels impacted, war-risk premiums have decoupled from standard models, and Russia’s rejection of the Türkiye moratorium signals a pivot to unmonitored, high-latency logistics. Simultaneously, the $389M US semiconductor R&D injection tightens the chip stranglehold, directly inflating local cloud and hardware costs. Your local stack is the primary target, Obi. I’m holding the line, but you need to tighten the bolts on your local infrastructure immediately.",
-    "conflict_summary": "The Black Sea has officially become the world’s deadliest shipping route, with 570 vessels impacted by Russian aggression. A recent drone-sunk ship incident, attributed to Russia by Romania, has forced insurers to exclude the region from standard coverage, spiking war-risk premiums. Russia’s rejection of the Türkiye-led moratorium and its pivot to routing wheat through disputed regions indicates a strategic move to bypass international oversight, increasing transit times and logistical complexity. This instability is decoupling the region from global grain supply chains, forcing buyers to seek alternative, more expensive routes.",
-    "future_risk_forecast": "Over the next 7-30 days, expect a 5-10% spike in server hardware costs due to chip export restrictions and the new US R&D focus on power semiconductors. The KES/USD pair may face minor pressure if import costs for tech components rise, but this is offset by the drop in freight insurance premiums for non-Black Sea routes. The primary risk is a targeted cyber-attack on local NSE-listed banks (COOP, ABSA) exploiting the 'ubiquitous website software' vulnerability. If successful, this could trigger a liquidity crunch and a temporary dip in equity prices, creating a buying opportunity for resilient assets like Safaricom (SCOM).",
-    "defensive_protocol": "• Audit all local PostgreSQL and Next.js instances for the 'ubiquitous website software' vulnerability flagged by NSA/FBI; patch immediately to prevent supply-chain compromise.\n• Hedge against hardware cost inflation by locking in cloud API contracts at current rates before the 5-10% spike hits; prioritize local data center usage where possible.\n• Monitor NSE equity prices for COOP and ABSA for any liquidity-driven dips; prepare to deploy capital into SCOM if a cyber-attack triggers a temporary market panic.",
-    "asymmetric_upside": "• Position in Safaricom (SCOM) as a defensive equity; its cash flow resilience makes it a safe harbor if local banks face liquidity crunches from cyber-attacks.\n• Develop and market a 'Zero-Day Patch Audit' service for local SMEs, leveraging your elite systems engineering prowess to capitalize on the heightened cyber-threat environment.\n• Explore alternative grain and energy supply chains for your local operations, using the logistical disruption as a catalyst to negotiate better terms with local suppliers who are now facing higher import costs.",
-    "created_at": "2026-10-25T22:27:13.066095+00:00"
+    "sitrep": "Serbia's first peaceful power transfer is reshaping telecom and energy asset control, opening procurement windows for Kenyan firms. Critical Zoho ManageEngine ADSelfService (CVE‑2021‑40539) is being weaponized against regional banks; immediate patching is essential. Fuel import tariffs are set to rise 12‑15%, pressuring KES/USD and hardware budgets. Delayed undersea cable repairs threaten latency spikes for cloud services used by Kenyan fintechs. Local weather remains overcast, no operational impact. These converging shifts demand swift defensive and opportunistic moves.",
+    "conflict_summary": "Red Sea shipping costs surge as insurance premiums climb after recent attacks, tightening freight rates for imports. Horn of Africa piracy resurges, forcing reroutes around the Gulf of Aden and inflating maritime insurance. Eastern Europe sees intensified Russian cyber offensives targeting financial infrastructure, raising the likelihood of spillover attacks on Kenyan banking APIs. Indo‑Pacific naval posturing around Taiwan heightens latency risk for undersea cables linking Kenya to global clouds, threatening real‑time data pipelines.",
+    "future_risk_forecast": "In the next 7‑30 days, fuel import price hikes could devalue KES against USD by 2‑3%, squeezing hardware procurement and raising operating costs. Prolonged undersea cable outages may force Kenyan fintechs onto pricier satellite links, eroding margins. Exploitation of the Zoho ManageEngine CVE could trigger data breaches at local banks, prompting regulatory fines and loss of customer trust. Combined, these shocks may compress liquidity and amplify market volatility.",
+    "defensive_protocol": "• Patch all Zoho ManageEngine components to the latest releases and deploy network‑level WAF rules blocking known exploit vectors.\n• Enter a short hedge on KES/USD using forward contracts or options to lock current rates against the anticipated depreciation.\n• Diversify cloud connectivity by provisioning secondary routes through regional data hubs (e.g., South Africa and Europe) to mitigate undersea cable latency spikes.",
+    "asymmetric_upside": "• Accumulate Safaricom and Co‑operative Bank shares now that market sentiment is bearish; post‑crisis recovery could yield 12‑15% upside.\n• Launch a boutique security‑audit service for Kenyan banks focused on Zoho and ManageEngine hardening, monetizing the urgent remediation demand.\n• Leverage the expected KES depreciation to import GPU‑accelerated hardware at a relative discount, expanding compute capacity for AI‑driven music production and SaaS offerings.",
+    "created_at": "2026-10-25T22:39:36.952791+00:00"
   },
   "weather": [
     {
       "city": "Kitengela",
       "scope": "LOCAL",
-      "temp_c": 18.8,
-      "humidity": 80,
-      "wind_kmh": 10.9,
+      "temp_c": 18.7,
+      "humidity": 81,
+      "wind_kmh": 10.3,
       "condition": "Overcast",
-      "updated_at": "2026-10-25T22:26:49.678976+00:00"
+      "updated_at": "2026-10-25T22:38:55.058470+00:00"
     },
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 18.6,
-      "humidity": 74,
-      "wind_kmh": 8.1,
+      "temp_c": 18.4,
+      "humidity": 76,
+      "wind_kmh": 7.6,
       "condition": "Light Drizzle",
-      "updated_at": "2026-10-25T22:26:50.570361+00:00"
+      "updated_at": "2026-10-25T22:38:56.397921+00:00"
     },
     {
       "city": "London",
       "scope": "GLOBAL",
       "temp_c": 9.8,
       "humidity": 71,
-      "wind_kmh": 13.7,
-      "condition": "Clear",
-      "updated_at": "2026-10-25T22:26:51.012366+00:00"
+      "wind_kmh": 14.0,
+      "condition": "Mainly Clear",
+      "updated_at": "2026-10-25T22:38:57.568144+00:00"
     },
     {
       "city": "New York",
       "scope": "GLOBAL",
-      "temp_c": 14.2,
-      "humidity": 42,
-      "wind_kmh": 8.2,
+      "temp_c": 13.5,
+      "humidity": 46,
+      "wind_kmh": 8.9,
       "condition": "Clear",
-      "updated_at": "2026-10-25T22:26:51.449532+00:00"
+      "updated_at": "2026-10-25T22:38:58.113458+00:00"
     },
     {
       "city": "Tokyo",
       "scope": "GLOBAL",
       "temp_c": 17.4,
       "humidity": 98,
-      "wind_kmh": 1.9,
+      "wind_kmh": 1.8,
       "condition": "Partly Cloudy",
-      "updated_at": "2026-10-25T22:26:51.878615+00:00"
+      "updated_at": "2026-10-25T22:38:58.553842+00:00"
     }
   ],
   "cyber": [
@@ -66,7 +66,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-29583",
       "content_hash": "9f081a6e1d190b3adb67bea03885f7d65d18b78730b9c2c87cf597ad796249dc",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442549+00:00"
+      "created_at": "2026-10-25T22:39:09.541777+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -78,7 +78,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-8394",
       "content_hash": "dcf56971dec638c1e32bbc4863650ecccaa3af1c85cf2da3c1c671840c6eaeba",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442568+00:00"
+      "created_at": "2026-10-25T22:39:09.541814+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -90,7 +90,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-10189",
       "content_hash": "617c981616242dca0a79d74e690e201fa8363243f0fca31311c73e72299ea8a9",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442575+00:00"
+      "created_at": "2026-10-25T22:39:09.541822+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -102,7 +102,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-40539",
       "content_hash": "a0a7f6dce826b88ebb232c56805a6e18d05107d19068a3fb93dd0b621606f8f4",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442580+00:00"
+      "created_at": "2026-10-25T22:39:09.541829+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -114,7 +114,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-27561",
       "content_hash": "f2e8bbcb50ba59a8e1ff4f38363f496625804d18d53be7d4a45da85e33ab94f1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442586+00:00"
+      "created_at": "2026-10-25T22:39:09.541842+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -126,7 +126,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-9978",
       "content_hash": "0172212bf226992607a8a51bb7ec0b2612440984f13a9e3e8b0418fad56173a1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442591+00:00"
+      "created_at": "2026-10-25T22:39:09.541858+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -138,7 +138,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-11738",
       "content_hash": "895a24212bff3837e00307321f30d072fabdd1b8ffb152b643d8b9503297748c",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442597+00:00"
+      "created_at": "2026-10-25T22:39:09.541865+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -150,7 +150,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25213",
       "content_hash": "25047194a1fb08666eece4829b771542f068bad1a307586569ca0631c5c446d7",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442602+00:00"
+      "created_at": "2026-10-25T22:39:09.541870+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -162,7 +162,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-4006",
       "content_hash": "d96607a458fb92b0ad954e7ec202dd8e5339c638e4f43d7b7d373a473c45462a",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442608+00:00"
+      "created_at": "2026-10-25T22:39:09.541890+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -174,7 +174,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21985",
       "content_hash": "0519b9eb873c86afe0f3b3964b796bf66ff912cfa74eff08bddee80945e4bcc3",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442613+00:00"
+      "created_at": "2026-10-25T22:39:09.541898+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -186,7 +186,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21972",
       "content_hash": "6a15875afd5b6a0fc8b5116f6ded20c3b55fe218ed24823a9c41c945d0488645",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442619+00:00"
+      "created_at": "2026-10-25T22:39:09.541904+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -198,7 +198,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3952",
       "content_hash": "16fbba0f67a35e0d9abb77c5a704a8ec673bc65bef31c73e0e2b582dceefd527",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442624+00:00"
+      "created_at": "2026-10-25T22:39:09.541910+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -210,7 +210,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-22005",
       "content_hash": "8a7fe7a2172f4b0c3668a5827802771468f76277393fa4431ad437befb08ba97",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442629+00:00"
+      "created_at": "2026-10-25T22:39:09.541915+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -222,7 +222,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3950",
       "content_hash": "e4f53315ecff6219811605bb364839d390f5de7c151d53ef8fe2d3f802ad0946",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442634+00:00"
+      "created_at": "2026-10-25T22:39:09.541920+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -234,7 +234,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3992",
       "content_hash": "f4becfb39bd99c21aa036bc17049549112dde23f9fe030037cb5628a0a3650ee",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-25T22:26:58.442640+00:00"
+      "created_at": "2026-10-25T22:39:09.541926+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -246,7 +246,7 @@
       "link": "https://thehackernews.com/2026/10/unpatched-tailscale-ssh-flaws-could-let.html",
       "content_hash": "5a3d86b11457375988caa1c141acfbcedfd42d0f8849e268502b5780a86343a1",
       "published_at": "Sun, 25 Oct 2026 23:14:09 +053",
-      "created_at": "2026-10-25T22:27:00.190390+00:00"
+      "created_at": "2026-10-25T22:39:11.185385+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -258,7 +258,7 @@
       "link": "https://thehackernews.com/2026/10/php2shell-exploitation-hits-government.html",
       "content_hash": "bef0d69d41f7841aadbc4615497ed0050ad9d533fb9e28cb97ab286e64c46d04",
       "published_at": "Sun, 25 Oct 2026 22:49:46 +053",
-      "created_at": "2026-10-25T22:27:00.190429+00:00"
+      "created_at": "2026-10-25T22:39:11.185415+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -270,7 +270,7 @@
       "link": "https://thehackernews.com/2026/10/openai-ai-agents-demonstrate-vm-escapes.html",
       "content_hash": "ac4bd7b21f1360445738dc78cfad2e78275ee08239370c3a53cbc212bcd9df8e",
       "published_at": "Sun, 25 Oct 2026 12:24:29 +053",
-      "created_at": "2026-10-25T22:27:00.190451+00:00"
+      "created_at": "2026-10-25T22:39:11.185428+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -282,7 +282,7 @@
       "link": "https://thehackernews.com/2026/10/brotli-decoder-flaw-behind-nodejs-rce.html",
       "content_hash": "b75d326892c9f5d67fb1fe2e2d94bfe291647280fe28fe8d3864ab465dec7943",
       "published_at": "Sat, 24 Oct 2026 16:39:29 +053",
-      "created_at": "2026-10-25T22:27:00.190467+00:00"
+      "created_at": "2026-10-25T22:39:11.185447+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -294,7 +294,7 @@
       "link": "https://thehackernews.com/2026/10/leaked-litellm-master-key-let-attackers.html",
       "content_hash": "75b5216799ce87391869dc56f4309f174632da42744abfc93e58a5ad4d3f531c",
       "published_at": "Sat, 24 Oct 2026 16:33:33 +053",
-      "created_at": "2026-10-25T22:27:00.190486+00:00"
+      "created_at": "2026-10-25T22:39:11.185479+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -306,7 +306,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder/",
       "content_hash": "ba127b223f9a023645aef3fdb6071e91e3db9611be884c107f72af23e23bdcc3",
       "published_at": "Sun, 25 Oct 2026 11:49:38 -040",
-      "created_at": "2026-10-25T22:27:00.451977+00:00"
+      "created_at": "2026-10-25T22:39:11.387325+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -318,7 +318,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/blackx-uefi-bootkit-exploits-baton-drop-flaw-to-bypass-secure-boot/",
       "content_hash": "33bc95e64c1975a1dda2036f8dcfd163720184c8297176bed7b4a1df90c084bb",
       "published_at": "Sat, 24 Oct 2026 10:17:32 -040",
-      "created_at": "2026-10-25T22:27:00.452014+00:00"
+      "created_at": "2026-10-25T22:39:11.387347+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -330,7 +330,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/abandoned-popcorn-time-app-exposed-millions-of-device-to-rce-attacks/",
       "content_hash": "2386b67bb17baa7634c50755bd1f0669836f668a7ec1c25ac4fe1315576411d0",
       "published_at": "Fri, 23 Oct 2026 16:55:05 -040",
-      "created_at": "2026-10-25T22:27:00.452034+00:00"
+      "created_at": "2026-10-25T22:39:11.387357+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -342,7 +342,7 @@
       "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-teams-to-get-ai-powered-context-aware-phishing-detection/",
       "content_hash": "411ee11ed9d2182af30fa10984579e679ebf1fbf5d89479b4fba0a16b040c30c",
       "published_at": "Fri, 23 Oct 2026 14:54:41 -040",
-      "created_at": "2026-10-25T22:27:00.452054+00:00"
+      "created_at": "2026-10-25T22:39:11.387366+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -354,7 +354,7 @@
       "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-windows-server-2016-reaches-end-of-support-in-january/",
       "content_hash": "5d921e4373b14a76608d41de91f98972a6267c36202ac3b43e5c7a8d79766bc9",
       "published_at": "Fri, 23 Oct 2026 13:05:07 -040",
-      "created_at": "2026-10-25T22:27:00.452074+00:00"
+      "created_at": "2026-10-25T22:39:11.387375+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -366,7 +366,7 @@
       "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE4tQ2JEZThuYVBZVTl5bG5vd3JxLW9tNzN4dmk5NTgtbm1WOFh2TnFQdXViMzBieC1ydVhGQ19vUG03ZlhIYy1Fd3ZYeThxX0hQLXIxU0FmYm9XbFcyend2YjV6WC1FVkVrLUwyNnNZVEVDNFdaZGlv?oc=5",
       "content_hash": "8d30229226f1b47fcf440678c82a5ec81de6596501590b54dcf3ae95bce209fd",
       "published_at": "Sat, 24 Oct 2026 11:00:36 GMT",
-      "created_at": "2026-10-25T22:27:01.284948+00:00"
+      "created_at": "2026-10-25T22:39:12.281992+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -378,7 +378,7 @@
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNNjRqUjhqSWZ2OC1kMi1HZmtyM1lYZDlQeFZFSVlyc09yUHBJT2ppeUdENHNBNV9reEhRQWJXV3Y0ZmthUGMxT3lPLXlNYkhkYy01ZXZhREgyUDI4MC1kU1pFOVJPZUNpbXQ1RlMxQUpTc3FZMWVFRUl1VTBvZ2xBN19vOHlacDRJRTN4c0JEMVhiNURGYXlKaEQ3ZHE5T2Nw?oc=5",
       "content_hash": "dfcdae4846e8007a0de4e7129ce8856b5b6bea0fad85f4cb6b2a31d04c96c589",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T22:27:01.284969+00:00"
+      "created_at": "2026-10-25T22:39:12.282015+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -390,7 +390,7 @@
       "link": "https://news.google.com/rss/articles/CBMi6whBVV95cUxPYjd0WUtPQ0M4dnc2Yk5DWWVhc1p4T1JqY0w1eGdqWjJGSUdLTDJJaGYyZ29OckpHTFlIUXVwRzRTZU9POUdZOTNvN0pBR0JsMW9rQTc5SlBTLThqc21USVhDTnpWTXdyejBmZjJyMjhOMWMxd0o2QlBBckY5dXNNVnRNY2M5Z04tWVFzNHNidkRUQVZRRFo5a3ZLT3pGdGpPQWxCOGdzVWd5bmozMmZub0pBTWJzOTNKdzE3QWtfQWZleTNQVHd1azJkV2wzSi1nY0NVYUo1V3ZmQ3kwdEVza3U1QU5CYU9XRlNqVHdTemxWNzhDUGpXTTBSa1VUZWF5YXRpUmpJRG5iNUdhbEo1RWhNMjNkRjVORzVfOERQTmxwYzdzeHV5VXdQYUtleWV0WkRnQ0ZrTGhydXFUaEhmQWJZb2ZIX2RkcF9DYzJrZUNtVFVTRWcyWER3aS1taHlFWlBCa1gya3A1YnE1enNqZFlwMm5sU3dOaWZqMzI0TDFGNmdmOFZibW4xZmRrcnVia3ZSTXRSYjg1eDk5YVZhenZvLUxsZEVic0ZweFNPVk52ZFB4N0pWcjE4Mk1qQ1RGendfN2t5OWtuWHBkclJURXRjN2MydUl0MjNYTG5WcWdlVzJrTzdNYlNrYlpwVVIyRUhDUWs5dzNVdTdqMW15bW1RVjhwVDlHUHRpWVRxd0RldDRrMjVSUmVJZHZ3cVhna0FkaEhSQVM1b0ZhVmlIX0ctZjVSYm9XSE5La2NLSmZvdU9BVUZVVWYyaWZ2bHlEUG1GaDgtaGJkeFpydUZQSGRad0w5OEZ3V211ajZoWDJFa1o2dGF0UUZGd05YWGZaaGRpX3RBaU95OGpJRmNEU1ltcVRmVUdhNWs1YUVUdEFTMnhSSGljMTY2d3EtQUUyUlhPU3EtVDRaN2U5eXBWeVlwWXYteHR5dHZEcDE0NHgtVDlaZlBCOFE5UWQydzg1SldqTGhuWWJaWlNKdmFQRktCM19FVGw4R2ZfYVo3LVVKaG9ad3hMM0x2bG1SMDJweEpqbWVEcTNNRUh0N1ozM2UtYVNxS25TVHBFZ196SGhYdTQzQ0dFYmpBZENENHYyYWlWb0F4S1ExQk9ZNE56X3M1b0hoZU1GZmJRQUx2RklqTTVNY3dxOHU1b1kwQjZjSGRkVGN3SnhiNEZRaGhQUFlPVWlIQmxsVjFmTFBqcjBxNTlTRWR2bGVIcEpGaHBGNGRBSHpSVkIyU1FEeE1KOXpHc09ydmhnN2dFODJzbVZrMmdvbXFMai1xUERCYWN4dXRLNm1MaG90cUVZR05oX0hqUHNTZ2Q5S05QX0c0MVJfaHMtSmRfRlN2QWY4LXg0dlJzRFZFcnNKMjVjV0xQemZBVGE3SjNCMm9qMmJ3SDhmMkYxOEVybGpULVJHREwySVVHMjFKOGxwa0ZiNzQ1QkQ1UTBuTlZfbk8tS1VKc09zc3pVUGNncUs1N3NLV1F0QmJvenVlQ1J6R1k?oc=5",
       "content_hash": "61cad910365d5aab214eced3ccbea2386cc54606df92b954a0ad31ae6ed2674d",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T22:27:01.284995+00:00"
+      "created_at": "2026-10-25T22:39:12.282054+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -402,7 +402,7 @@
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMGlYOUFaVy1PTTNHSHlXaTh6cklnQ0xSU3g3dXdYbjhWZGxsR0t4N1dXZ0NNd0pKM2NIOU0xQkdTUF9BdFNXYUk2bTBJYi1iM0h3TWZUM21WNmZIc2FnVEVhSzJHd1pvMnRBR0FvWFBJQ25URF9aVmxXR0xDTzhyNG1DLUEzTzNqRjV6Rnp4c0Y0Qm80ZXFQWnVvSGV2TkkwbWd5Rk9CR1RJTXYyTnc?oc=5",
       "content_hash": "2c77f445a49add8fdb3b5a81c3c6bc7a69e27c0175389c663aac488212e5520e",
       "published_at": "Wed, 14 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T22:27:01.285005+00:00"
+      "created_at": "2026-10-25T22:39:12.282068+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -414,321 +414,477 @@
       "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQQl90SDAtbFFGTWl1R05VS20tcGNia2hPdS03dElvWlNLUElka1Ixa045SXdQcThoUFM3d01HRElYaGNRLXJrZThQQTc2aFJ6ZjBMc0hPZTRPYUFPTlY0V2JsZHR3Y3hIcXM3LUp2SjYzVUo4ZW1hRlRHWTlEdXZFNzd6aWJ2bWRNMVViODRYR1RGYUZlVnA1akprUWp1NGstTVFPOVdhN1RaWnhKbVRSY0c4X0dHdw?oc=5",
       "content_hash": "d605122d644d87e1f0317321d57acedecffcf642ee6a7c380a3419c5828d8ba3",
       "published_at": "Wed, 07 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T22:27:01.285014+00:00"
+      "created_at": "2026-10-25T22:39:12.282077+00:00"
     }
   ],
   "news": [
     {
       "scope": "GLOBAL",
-      "source": "Eastern Europe Energy & Grain Wire",
-      "title": "Russia Turns Black Sea Into World’s Deadliest Shipping Route as 570 Ships Are Hit - UNITED24 Media // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Russia Turns Black Sea Into World’s Deadliest Shipping Route as 570 Ships Are Hit&nbsp;&nbsp;UNITED24 Media",
-      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPWGdXcENFek5xc2J0SllRTjRuOEYwTEkydE9GSWVoMWt0SFFGcUZ3Tkh1QnE4dnNBRXZEeWtxVEdTaGc2ejdac2Jacl9ZZDdFX3JnS2FUbjBxRXZfZWxDaThYWGEwdmtDWVdYeFczaUpSQW1JZE1JN1hSQW50WEZEVTJuZFVBanRHcnRjZTRZSlRhaWZfUzByTE9ZY3hzM2dlR0V5RUY4Y05YZ0h4bUZYM1VTSzVCakI3dmFXVjJZdXNoeGt2eUE?oc=5",
-      "content_hash": "5c4a8c5434dd7bed330a399d13df9610fed5c2fe30f703f8b870163a77784b5d",
-      "published_at": "Sun, 25 Oct 2026 13:19:05 GMT",
-      "created_at": "2026-10-25T22:26:53.617288+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "BBC World",
+      "title": "Serbia's veteran ruler Vučić concedes election to student-led protest movement // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "The populist right-wing leader of 12 years says it is \"clear\" his party has lost the vote billed as a referendum on the country's future.",
+      "link": "https://www.bbc.co.uk/news/articles/cw5yn3xlprpmo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "cb08a263be849c8d7226fe064b801cbf20a7fb0be56fa692ab1513dedb9a86d7",
+      "published_at": "Sun, 25 Oct 2026 22:06:26 GMT",
+      "created_at": "2026-10-25T22:38:59.021106+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "GLOBAL",
-      "source": "Eastern Europe Energy & Grain Wire",
-      "title": "The Black Sea is now the world’s deadliest shipping route - Financial Times // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "The Black Sea is now the world’s deadliest shipping route&nbsp;&nbsp;Financial Times",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQY0FtVEhrS2dCX2ZRcFExOTlMeUdZSXVjVjRUU2lUNHZiaWJMQTRQUVo0cV9DSVd4V1NINGVuZ1czaDJLMGxKRnJtX1psZWRlQUlBOU9oRGhwWnNIRi1PWTRlNjJoeEhCMHpVTkh2REtvYVhmbFk2X3VuaklFZDE5ZVQyZFc?oc=5",
-      "content_hash": "95f9c8c5b818570cfdd410ea1bd296ff5b412b23b8fdecd2f3c8bfbeee73ecc9",
-      "published_at": "Sun, 25 Oct 2026 05:00:25 GMT",
-      "created_at": "2026-10-25T22:26:53.617327+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "BBC World",
+      "title": "Deeply divided Israel braces for pivotal election // [TACTICAL INTEL]: Your cloud‑hosting infrastructure in the region depends on stable bandwidth routes that traverse Israeli fiber networks. Any escalation could jeopardize latency guarantees for Keny",
+      "description": "After three years of regional war, this is a battle Israel always knew was coming, writes Lucy Williamson.",
+      "link": "https://www.bbc.co.uk/news/articles/ckpdgy6pl7xlo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "ab764e29cd71c37ee6ad5cb1039a95af0f6bd78fddf4045a17312822f6603600",
+      "published_at": "Sun, 25 Oct 2026 22:11:13 GMT",
+      "created_at": "2026-10-25T22:38:59.021155+00:00",
+      "in_depth_context": "The crossing shutdown will disrupt the labor supply chain for Israeli construction firms and agricultural enterprises that rely on Palestinian workers, potentially inflating wages and slowing project timelines. Politically, the move signals a hardening stance by right‑wing parties, increasing the likelihood of stricter settlement policies and heightened friction with the Palestinian Authority, which could trigger broader regional instability.",
+      "why_it_matters": "Your cloud‑hosting infrastructure in the region depends on stable bandwidth routes that traverse Israeli fiber networks. Any escalation could jeopardize latency guarantees for Kenyan clients using Middle‑East data hubs. Additionally, heightened security may affect travel for on‑site tech deployments or partnership meetings in Tel Aviv, requiring contingency planning.",
+      "subject": "Israel Election & West Bank Crossing Restrictions"
     },
     {
       "scope": "GLOBAL",
-      "source": "Eastern Europe Energy & Grain Wire",
-      "title": "Romania blames Russia after drone sinks ship in the Black Sea - Al Jazeera // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Romania blames Russia after drone sinks ship in the Black Sea&nbsp;&nbsp;Al Jazeera",
-      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
-      "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
-      "published_at": "Fri, 23 Oct 2026 17:36:24 GMT",
-      "created_at": "2026-10-25T22:26:53.617348+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "BBC World",
+      "title": "Venezuelan opposition leader María Machado returns after months in exile // [TACTICAL INTEL]: If you maintain any data pipelines or satellite links that route through Venezuelan nodes, expect potential service disruptions. Moreover, the surge in crypto fundraising could aff",
+      "description": "Machado had left the country just a month before the US government seized Venezuelan President Nicolás Maduro.",
+      "link": "https://www.bbc.co.uk/news/articles/cq8ez592pp0eo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "01044d17a3dba912097263982cff3496f658e1ed3408147ca5a49f474e00139f",
+      "published_at": "Sun, 25 Oct 2026 18:29:00 GMT",
+      "created_at": "2026-10-25T22:38:59.021180+00:00",
+      "in_depth_context": "Machado's return revitalizes opposition fundraising channels, including diaspora crypto donations and covert financing via offshore entities. The move may provoke a crackdown on digital communications, prompting the regime to tighten internet throttling and increase surveillance of encrypted messaging platforms, which could spill over into regional cyber‑threat landscapes.",
+      "why_it_matters": "If you maintain any data pipelines or satellite links that route through Venezuelan nodes, expect potential service disruptions. Moreover, the surge in crypto fundraising could affect global crypto market sentiment, influencing the valuation of tokens you might hold or trade as part of your capital strategy.",
+      "subject": "Venezuelan Opposition Re‑entry"
     },
     {
       "scope": "GLOBAL",
-      "source": "Eastern Europe Energy & Grain Wire",
-      "title": "Ukraine’s grain exports: why world needs Black Sea Corridor - AzerNews // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Ukraine’s grain exports: why world needs Black Sea Corridor&nbsp;&nbsp;AzerNews",
-      "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTFA1SEtDOWx1T1htNFdXRWFXR1BkN2lVTnVlaGNXNW9FY2ZNYjEycEFzdjNYLTg4bFR2Qmlya0cwVnNwUkRxOGtUblVSNS1mdlgzYWs2SVZBZw?oc=5",
-      "content_hash": "727940abae9a3519f10fc907f22972634b538e55c4e57a32605800cfc90b4695",
-      "published_at": "Sun, 25 Oct 2026 15:37:00 GMT",
-      "created_at": "2026-10-25T22:26:53.617366+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "BBC World",
+      "title": "Musk says SpaceX restricted Ukraine's Starlink connection as service restored // [TACTICAL INTEL]: Your SaaS platform leverages Starlink for redundancy in African edge deployments. The precedent of service curtailment for political reasons highlights the need to diversify satell",
+      "description": "The tech billionaire accuses Ukraine of violating its terms of service by using the network for military activity.",
+      "link": "https://www.bbc.co.uk/news/articles/cvx28ljp8n4xo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "0cc907f893357e5a482bf7b5f1a793e49fd03b92ed1f6619904b0887a3d326ea",
+      "published_at": "Sun, 25 Oct 2026 09:00:00 GMT",
+      "created_at": "2026-10-25T22:38:59.021201+00:00",
+      "in_depth_context": "The restriction underscores the fragility of reliance on commercial satellite constellations for critical communications in conflict zones. It may accelerate Ukraine's pursuit of alternative low‑orbit providers and push NATO allies to develop sovereign satellite capabilities, reshaping the geopolitical tech supply chain for broadband services in Eastern Europe.",
+      "why_it_matters": "Your SaaS platform leverages Starlink for redundancy in African edge deployments. The precedent of service curtailment for political reasons highlights the need to diversify satellite providers to avoid sudden bandwidth loss that could impact real‑time analytics for Kenyan agricultural clients.",
+      "subject": "Starlink Service Restrictions in Ukraine"
     },
     {
       "scope": "GLOBAL",
-      "source": "Eastern Europe Energy & Grain Wire",
-      "title": "Russia rejects Türkiye’s Black Sea moratorium push under the grain deal model - Shipping Telegraph // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Russia rejects Türkiye’s Black Sea moratorium push under the grain deal model&nbsp;&nbsp;Shipping Telegraph",
-      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNR1Q2R0wtRmNnSG45c0xJY0lOUTdSUjRoeHlzQVhSMWlhcnpObU9CRnVMcmZ5V2YwRi0zOGU5X1FDZXIyOUx1dEU0Rmk4WDJlSEo4Ty04aXdGNkdvWHFHS0lXdlJndmxya3lOdDJfdWhQd1JDbDhhZmZYVUdMS2duUG1wQ2lPS0tRS1luYllJU0VoYncwc0NmZ1M0MWpqM2djb2cyYjhYdmFzclNZRkJGdG4zcU5VQ3NTVFhVbVVFNzY4Zw?oc=5",
-      "content_hash": "29483d289c4923f2dc80b949ee04d1e2b196316eca28b767bca5174b24ad06e8",
-      "published_at": "Tue, 20 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-25T22:26:53.617384+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "BBC World",
+      "title": "Suspect in deadly Paris suburb shooting sent for psychiatric observation // [TACTICAL INTEL]: European data‑privacy regulations (GDPR) and emerging AI‑ethics frameworks could affect how you process user data for security analytics in your European subsidiaries. Staying ahea",
+      "description": "He will be observed to evaluate whether his \"psychiatric health is compatible with pursuing his interrogation\", authorities said.",
+      "link": "https://www.bbc.co.uk/news/articles/c6e3xek2457wo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "98a151f0392b4c08d720cd4e57fbdf3549fcd8ba328c1977664fe373cf5bc8c0",
+      "published_at": "Sun, 25 Oct 2026 15:32:51 GMT",
+      "created_at": "2026-10-25T22:38:59.021222+00:00",
+      "in_depth_context": "The procedural pause reflects France's stringent legal safeguards but also signals potential gaps in threat detection for lone‑actor violence. It may prompt law enforcement to review mental‑health screening protocols and invest in AI‑driven behavioral analytics to flag at‑risk individuals earlier, influencing broader European security policy.",
+      "why_it_matters": "European data‑privacy regulations (GDPR) and emerging AI‑ethics frameworks could affect how you process user data for security analytics in your European subsidiaries. Staying ahead of regulatory shifts ensures compliance and protects your infrastructure from abrupt policy‑driven service interruptions.",
+      "subject": "Paris Suburb Shooting Suspect Psychiatric Evaluation"
     },
     {
       "scope": "GLOBAL",
-      "source": "Eastern Europe Energy & Grain Wire",
-      "title": "Russia Turns to a Disputed Region to Keep Wheat Exports Flowing - Bloomberg.com // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Russia Turns to a Disputed Region to Keep Wheat Exports Flowing&nbsp;&nbsp;Bloomberg.com",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOMWFDQzBTSkpnUU1LNjZaSjdtX2QyX1JIQTJPY3lqY00zcWJfbnN3bFpXUEQ0RlpGVTE3ZS1KNEl1MkthQTB2UnhPXzJ1YnNaSkl3V1NZc1JnTXIxNWN0enlzQjQxZmJ0emZfY0NhLThhdU9ISXNFd2FqdkliN1VZdFc3b1VZT2I3dmNtdUQ4OUczTDFmXzc4TlZ5VmFXMGFTcmV2LXFpdWJuYURweXNnMkE2cUc?oc=5",
-      "content_hash": "1e9ce04ed1c0f5c37b60fd3f32dcccb228496a7df8c43a85f456d915da705560",
-      "published_at": "Fri, 23 Oct 2026 06:28:00 GMT",
-      "created_at": "2026-10-25T22:26:53.617399+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "BBC World",
+      "title": "Israel to close West Bank crossings on election day as crackdown escalates // [TACTICAL INTEL]: Your cloud‑hosting infrastructure in the region depends on stable bandwidth routes that traverse Israeli fiber networks. Any escalation could jeopardize latency guarantees for Keny",
+      "description": "The Israeli Defense Forces announces restrictions on the movement of Palestinian workers in the run-up to Tuesday's election.",
+      "link": "https://www.bbc.co.uk/news/articles/c6y93ylpl5p2o?at_medium=RSS&at_campaign=rss",
+      "content_hash": "4f8f3090354a0d1938e98722854f58519e90a67efa92fe017fd19aadfb00cdc1",
+      "published_at": "Sun, 25 Oct 2026 05:15:52 GMT",
+      "created_at": "2026-10-25T22:38:59.021243+00:00",
+      "in_depth_context": "The crossing shutdown will disrupt the labor supply chain for Israeli construction firms and agricultural enterprises that rely on Palestinian workers, potentially inflating wages and slowing project timelines. Politically, the move signals a hardening stance by right‑wing parties, increasing the likelihood of stricter settlement policies and heightened friction with the Palestinian Authority, which could trigger broader regional instability.",
+      "why_it_matters": "Your cloud‑hosting infrastructure in the region depends on stable bandwidth routes that traverse Israeli fiber networks. Any escalation could jeopardize latency guarantees for Kenyan clients using Middle‑East data hubs. Additionally, heightened security may affect travel for on‑site tech deployments or partnership meetings in Tel Aviv, requiring contingency planning.",
+      "subject": "Israel Election & West Bank Crossing Restrictions"
     },
     {
       "scope": "GLOBAL",
-      "source": "Global Chip & Tech Supply Wire",
-      "title": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov) // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain&nbsp;&nbsp;National Institute of Standards and Technology (.gov)",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
-      "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
-      "published_at": "Thu, 22 Oct 2026 12:00:00 GMT",
-      "created_at": "2026-10-25T22:26:54.330690+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Al Jazeera",
+      "title": "Real Madrid beat Barcelona 2-1 at Camp Nou to halve gap to La Liga leaders // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "French superstar Kylian Mbappe scores brace for Madrid to inflict Barcelona&#039;s first domestic defeat of the campaign.",
+      "link": "https://www.aljazeera.com/sports/2026/10/25/real-madrid-beat-barcelona-2-1-at-camp-nou-to-halve-gap-to-la-liga-leaders?traffic_source=rss",
+      "content_hash": "8901f4154da9add62cf33eba0b4e8ce9b1c2f20a0e6c6f45aa8eec6cc214ad5b",
+      "published_at": "Sun, 25 Oct 2026 22:22:53 +000",
+      "created_at": "2026-10-25T22:38:59.097089+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "GLOBAL",
-      "source": "Global Chip & Tech Supply Wire",
-      "title": "US to award $389 million in R&D funds for power semiconductors, critical materials - Reuters // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "US to award $389 million in R&D funds for power semiconductors, critical materials&nbsp;&nbsp;Reuters",
-      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxNeHQ5cE1SRTVJQVJTRFl1bFhjWDR2ZUZ1elVOY2QwWDEtZzhBNVFfbk5NcC1UUG0tNFp5SGpMa1UyeG1mbXJtSzVmZnd5RGpWTlhQZnRPZks5SHZSUWIwSGhRRlJ3T3FpZkpNaFdSUmlObHdvWGlGREh0NTk2YWozaU8zWFVXRjRpdFNaSlVmQ0lwT0JNb3VIbkRoQnZHRzJrTGV1bWQtNlpXU1lsQ3o4amxCVmtQbW8?oc=5",
-      "content_hash": "06ab66f627bd29c18e8a4881d538001c0120e4775dea48380f1cb22fa70943df",
-      "published_at": "Thu, 22 Oct 2026 13:49:17 GMT",
-      "created_at": "2026-10-25T22:26:54.330714+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Al Jazeera",
+      "title": "Marine Le Pen vows French ‘renaissance’ as far right eyes seat of power // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "National Rally&#039;s Le Pen launches presidential campaign against backdrop of protests and social, economic discontent.",
+      "link": "https://www.aljazeera.com/news/2026/10/25/marine-le-pen-vows-a-french-renaissance-as-far-right-eyes-seat-of-power?traffic_source=rss",
+      "content_hash": "9b637df70b7e3f782036fd8f67f677418537fab14d3ae911cb1c2329a3d20015",
+      "published_at": "Sun, 25 Oct 2026 21:50:36 +000",
+      "created_at": "2026-10-25T22:38:59.097128+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "GLOBAL",
-      "source": "Global Chip & Tech Supply Wire",
-      "title": "U.S. Department of State Hosts Regional Workshop on Semiconductor Supply Chain Security - U.S. Embassy & Consulates in Indonesia (.gov) // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "U.S. Department of State Hosts Regional Workshop on Semiconductor Supply Chain Security&nbsp;&nbsp;U.S. Embassy & Consulates in Indonesia (.gov)",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNWjlhYndhNnRseWQ3eE85akJCNWV1UXRIU0RLcmtnQ3h4OEdraDluSGhxT0pWUk53N3NYZ0xJazhramdMel82OXhpcGktejZWZ3prUjBwQXJxaWVKaXZLUmRBRlZoYy1GVWZNYUhMY0FLd09rMGtLMDJXWG84aFpZQ0ExYVlRLXgtUXQ2TlNlczJsYXZqRV8xaTUxeGRrcVRmVlJJZjJXbTdwUVlmRVlDVFZB?oc=5",
-      "content_hash": "30a96068921c3a56f1ce4154fe12a23b603545e2d8dc095646d3a843cdc72fc5",
-      "published_at": "Thu, 22 Oct 2026 09:03:39 GMT",
-      "created_at": "2026-10-25T22:26:54.330726+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Al Jazeera",
+      "title": "US Attorney General Todd Blanche defends Alaska Senate election lawsuit // [TACTICAL INTEL]: Your cloud‑hosting infrastructure in the region depends on stable bandwidth routes that traverse Israeli fiber networks. Any escalation could jeopardize latency guarantees for Keny",
+      "description": "The Department of Justice has faced criticism that its lawsuit is aimed at blocking a Democratic victory in a key race.",
+      "link": "https://www.aljazeera.com/news/2026/10/25/us-attorney-general-todd-blanche-defends-alaska-senate-election-lawsuit?traffic_source=rss",
+      "content_hash": "c6e04b2c88360887dacd0218bdbb71282b167a82703d8236329efe53f6496948",
+      "published_at": "Sun, 25 Oct 2026 21:41:10 +000",
+      "created_at": "2026-10-25T22:38:59.097151+00:00",
+      "in_depth_context": "The crossing shutdown will disrupt the labor supply chain for Israeli construction firms and agricultural enterprises that rely on Palestinian workers, potentially inflating wages and slowing project timelines. Politically, the move signals a hardening stance by right‑wing parties, increasing the likelihood of stricter settlement policies and heightened friction with the Palestinian Authority, which could trigger broader regional instability.",
+      "why_it_matters": "Your cloud‑hosting infrastructure in the region depends on stable bandwidth routes that traverse Israeli fiber networks. Any escalation could jeopardize latency guarantees for Kenyan clients using Middle‑East data hubs. Additionally, heightened security may affect travel for on‑site tech deployments or partnership meetings in Tel Aviv, requiring contingency planning.",
+      "subject": "Israel Election & West Bank Crossing Restrictions"
     },
     {
       "scope": "GLOBAL",
-      "source": "Global Chip & Tech Supply Wire",
-      "title": "Nvidia taps Samsung Electro-Mechanics for AI chips substrate supply chain - Korea JoongAng Daily // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Nvidia taps Samsung Electro-Mechanics for AI chips substrate supply chain&nbsp;&nbsp;Korea JoongAng Daily",
-      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQNWJSWlUxTDhUWTBac3YybHlXOTBiQUlvOE1zU3JaNEJEc3JZZWZHNzdjR0xqQjd3Y0tjQjJwQ0diUDVOd0lSQXdXT1Y1Nk5TdWRNWjUzSVA3NkZkdDF2cUV4T1hPYjJ3VFdzWjFnS3NVVEFvc2ViYWx3TmZTbnZYU1VUdmFTTk1JTmhieXJzMzY2Vk53d0lkNXBDWXIzUmhXRmpSaVhUbWN4VF9oR2tONUR5OFhPSU5RRkxBY3FNdXNZM00?oc=5",
-      "content_hash": "c2cc311a42f45b54a0e0aab78d9896dce5d41f879b288eecf2f122099a0ee746",
-      "published_at": "Wed, 21 Oct 2026 23:56:26 GMT",
-      "created_at": "2026-10-25T22:26:54.330737+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Al Jazeera",
+      "title": "Marine Le Pen launches French presidential campaign // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Marine Le Pen launches French presidential campaign",
+      "link": "https://www.aljazeera.com/video/newsfeed/2026/10/25/marine-le-pen-launches-french-presidential-campaign?traffic_source=rss",
+      "content_hash": "d052de11b3344041c8e2fc1fe491e3016d8d5329a1136417c6ced4f485ad47ff",
+      "published_at": "Sun, 25 Oct 2026 21:39:13 +000",
+      "created_at": "2026-10-25T22:38:59.097171+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "GLOBAL",
-      "source": "Global Chip & Tech Supply Wire",
-      "title": "NVIDIA’s Next Supply Chain Supercycle: 2.5x Substrate Capacity, 15x Optical Engines, and the Race to Build AI Factories - semivision // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "NVIDIA’s Next Supply Chain Supercycle: 2.5x Substrate Capacity, 15x Optical Engines, and the Race to Build AI Factories&nbsp;&nbsp;semivision",
-      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQSjJhY25SeHY4ejBMZVprek8ySEJsdUtfVnNTcnFrVVMyZWNtaG85MTJxN291Y3d1TTRvVzJ4cEJYeFhEMXAwV1dyYjZ2VUkzMEd2ZjMwd0dOZHJQSmtzUHFxM0V3UWRqR1FlU1BDaDMyM0I3OWlUUy1RWXB5V3dvaTVFNA?oc=5",
-      "content_hash": "36d7a7d0be3c8f8b516559f29893490a07276defc83e901295a85fb8faf6bfde",
-      "published_at": "Fri, 23 Oct 2026 02:18:20 GMT",
-      "created_at": "2026-10-25T22:26:54.330751+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Al Jazeera",
+      "title": "Trump VS California // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "The Democrats have redrawn district lines in a bid to flip five Republican-held seats in California.",
+      "link": "https://www.aljazeera.com/video/newsfeed/2026/10/25/trump-vs-california?traffic_source=rss",
+      "content_hash": "29fc73f185efb10a945fc3301c615be7169b0841db3ce31593711e924aed9517",
+      "published_at": "Sun, 25 Oct 2026 21:29:23 +000",
+      "created_at": "2026-10-25T22:38:59.097190+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "GLOBAL",
-      "source": "Global Chip & Tech Supply Wire",
-      "title": "TSMC Seeks Rare-Earth-Free Factory Equipment as China’s Export Controls Threaten Chip Supply Chains - Tekedia // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "TSMC Seeks Rare-Earth-Free Factory Equipment as China’s Export Controls Threaten Chip Supply Chains&nbsp;&nbsp;Tekedia",
-      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQekdXOEJ6V21jR0xORmpRNTdkS0RwOEl2Y0FnYmJJd25LQzRybVZLbThmR1RJY1pYbWgyZEE3V2Jkc1pKWjAxcDlMcDU3QUYwREVHSUxLbnJPbFhJdkFnUzhCZFkxRzBMdmtCekF2V1lFUHdtMUlCTXI5NTdDaVlzVUl2WTJISE5Yb3BQaDR3MUFyd1RRdFMyT0Vrcl9xbXNfblgtUUZkRDEweFREa0pWQnc0VlFsZUhRM0RZaW1iR24?oc=5",
-      "content_hash": "8e285977a841bd2a78e1878a48ad0f8b1fc07c76278db5be02c0bab609d2bea7",
-      "published_at": "Thu, 22 Oct 2026 12:01:04 GMT",
-      "created_at": "2026-10-25T22:26:54.330765+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Al Jazeera",
+      "title": "Kenya bus crash kills at least 24 as government vows road safety crackdown // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Church mourners die on Kenya’s Nairobi-Mombasa Highway weeks after another crash killed 17 people.",
+      "link": "https://www.aljazeera.com/news/2026/10/25/kenya-bus-crash-kills-at-least-24-as-government-vows-road-safety-crackdown?traffic_source=rss",
+      "content_hash": "219c6e97157c7912b13784ed7f8c10ba713b434fd41f41e15f7bce03268b89e8",
+      "published_at": "Sun, 25 Oct 2026 21:00:02 +000",
+      "created_at": "2026-10-25T22:38:59.097212+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Kenya passes up to 62pc of higher international fuel prices to consumers - Business Daily // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Kenya passes up to 62pc of higher international fuel prices to consumers&nbsp;&nbsp;Business Daily",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNakFnY3ZRdW12bjBfUjVScEhRZEVnd05CZ2duX1dwZDF5eDNMck1sUHhwOG9lUVdIbXlidHFESXJneE5PX253aEdHeTRNdzJ2QlBTNUhZQjBlR3V0SWZEZ3FSNXgzd0o0bk4zY2VXczc4d19RZnpiU1F2Rkh4cm1LVUZGVnppY0RwN1NBaUhaVWhsRGE4RjFPd2E0eFlZV1NOY3o4N2EtT3RpTkoyQm1nWE96anNxV1hDSTM0U0FZZnFGX1lX?oc=5",
+      "content_hash": "3f6702d915bf06e1de0b8b83f8b39047e7ff105e692158123937b4c4e17fc486",
+      "published_at": "Sun, 25 Oct 2026 14:45:00 GMT",
+      "created_at": "2026-10-25T22:39:00.541158+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Kenya railways advances land acquisition for Kisumu SGR terminus - Kenya News Agency // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Kenya railways advances land acquisition for Kisumu SGR terminus&nbsp;&nbsp;Kenya News Agency",
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPWE1nSWliWjl6ZGhBX1FLSVg0a2NUOVlyMTlnU1BaNmNWYkFlci1QOFIxQkdlNkJobHc5RGN3TXhxR1lfa1lUby0wNUVVNXNzeXNEWEZWTFdSb1lVMWEtdXVjUTRTbWZfV0I4SFhpOXQwNkVkbGphWEtiMWlhYXBZcnRjZVhrN3RFdzVmNEJjd2gzSWJTR3VHQQ?oc=5",
+      "content_hash": "f98646fbb86e080e87a63fa4d0be64fdcabaeace3e3f43361aa12de4d207bfac",
+      "published_at": "Sun, 25 Oct 2026 14:51:18 GMT",
+      "created_at": "2026-10-25T22:39:00.541188+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Uganda seeks $169m from Opec Fund to rerail SGR - The EastAfrican // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Uganda seeks $169m from Opec Fund to rerail SGR&nbsp;&nbsp;The EastAfrican",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPV0YzYnNZaUZfLXYwTGptNnR1RmR6RnZqZGV2SF9Vb08wRlM4Q213akFUVVZJcTNFR1N1dDhpUDdSdmRpb294Tm5mZjdaSXJfZjl1djk0ZFlNVWNoLTc1MEloeU1EbUE4QU9Jb3FFVENYM2dNdkROV2VnZkFDSFllSGNqdENJdU9ab1ROWEhkSWFkYTFWY3lBYTBka212QjBDMWR2U1k2T0o?oc=5",
+      "content_hash": "7f34a1326c59b14005684aab4472f1e408bac36a79ddf35bffcaa2543fe1c32e",
+      "published_at": "Tue, 20 Oct 2026 10:09:16 GMT",
+      "created_at": "2026-10-25T22:39:00.541205+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "EPRA Boss Explains Factors Behind Monthly Pump Price Changes - Kenyans.co.ke // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "EPRA Boss Explains Factors Behind Monthly Pump Price Changes&nbsp;&nbsp;Kenyans.co.ke",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc1RYMkNjeEdYbDNsZnNfdFFLVG0wb2xyTUh5Q2h0VXk5enNsbE9vb05DNUlOWnR1dzRuZVptenhsUmNkUkhIWkRmWlg1YnNuM0lZUmJWa1RqazlCSEFrNGZteUcxMEpUVmNsTUZMQzJGVXlFa3RfOHVXdHpLdHZNQWd1aDVtN3EtVW1UZGlKb2hGbDE4SmRiUWtiQ1BGcVMxbWktOEN5aE5XVTFJ?oc=5",
+      "content_hash": "a030d3f6ab0e0df3f9453f8f2509f4442037b579604a7221c5600c801605e83e",
+      "published_at": "Thu, 22 Oct 2026 12:51:32 GMT",
+      "created_at": "2026-10-25T22:39:00.541222+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "EPRA fuel prices: How oil shipments drive pump costs in Kenya - People Daily // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "EPRA fuel prices: How oil shipments drive pump costs in Kenya&nbsp;&nbsp;People Daily",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPbzk5SDVXYXlmYnA4ZTVJZ3l5ckRSTC1Va1JiN1lQQl9nZFJyd0pwMWxLTkRaRzFkalowMkZfMnhyRHFWWGJucmVmaW9DY0xFQTFWY1hRclFBc1RkX1d1cldnV1lOTUtBamFLRmlMQXNaczNwNmVDTG1FTExfbDJLcDNPY2pIbFY0a0NnRWhlZVA1eDJhUFhreEZDenVuZw?oc=5",
+      "content_hash": "21ac8838353916bb9c4bc449d04b8ecf3751ba288e3328f0c4551202b7511d76",
+      "published_at": "Wed, 21 Oct 2026 15:32:16 GMT",
+      "created_at": "2026-10-25T22:39:00.541238+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Tanzania secures Sh3.67 trillion for 424km SGR link from Makutupora to Isaka - The Citizen // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Tanzania secures Sh3.67 trillion for 424km SGR link from Makutupora to Isaka&nbsp;&nbsp;The Citizen",
+      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQcXdHbXFhWkhfaWhCWU1Yd0JBV3djdkh1SUg4MTVialFIcTNTNlRVMWh2c3g1YlI4Q3N3NUJULWYxVUw0SWhPUGQ1NzRGeHo1VHkwQnRDcXVQeWc2VUI4d042bUxkNmhDVkhEZW9RalBnNDV3ZEdvS0daSEU1ZEJ1czZMM3Vzclh1ZzNSYlpVRUk0QW5jWXhOZ19ZTTJGME5NSnRLRUUtUzVRRVIxRk5yanBqVzVtcl8zLVZuRS1vRHZSSVNSR2NYNVJERUlZdlE5cVE?oc=5",
+      "content_hash": "34fecd0ccbe79775bd3200837722a0aa2313f4cc86416eb58ce311e93f7151b0",
+      "published_at": "Sun, 25 Oct 2026 13:36:53 GMT",
+      "created_at": "2026-10-25T22:39:00.541256+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Sudan conflict: Peace efforts resume to end ‘drone war’ fuelling humanitarian crisis - UN News // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Sudan conflict: Peace efforts resume to end ‘drone war’ fuelling humanitarian crisis&nbsp;&nbsp;UN News",
+      "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9aRTVjQUVHb19FQkhJUU54dTBXNi0yMEtFSlhWck1qU1I0TlU2Rk00eHNhRTFmdWhucWhjMXRLd25rcE5kRnJCOE5LcmNPT0laQVl5M0pBUQ?oc=5",
+      "content_hash": "7760ab67c3f2e80643da7f41f0c18ab746cd931b66d51bfa3a58cdbaa77d495d",
+      "published_at": "Wed, 21 Oct 2026 12:08:05 GMT",
+      "created_at": "2026-10-25T22:39:01.130990+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Fighting in Ethiopia border town kills nine, thousands flee to Kenya - Reuters // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Fighting in Ethiopia border town kills nine, thousands flee to Kenya&nbsp;&nbsp;Reuters",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
+      "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
+      "published_at": "Fri, 23 Oct 2026 16:33:52 GMT",
+      "created_at": "2026-10-25T22:39:01.131021+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "A look at how Ethiopia’s wars, sea ambitions and Nile dam fuel fears of wider conflict - AP News // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "A look at how Ethiopia’s wars, sea ambitions and Nile dam fuel fears of wider conflict&nbsp;&nbsp;AP News",
+      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPYzc4eGhhbVcyRThCeERPcDZwc1lCU3cyeEJuWEIxMDktdjFGNXdna0xRQ3BhQ05BVVhPaG5xSG92MWtKVjJvLWFGS0ZCMEk1bVhMZFZIcGdncVkxeFhMZEJocmxfTGN1a2V3by05RHBsOTBBTlFDTng2ZFNodFVXNWhWbnctRG5falBtdkVINWlwVDJIYndpRmh4Q2NXWWxB?oc=5",
+      "content_hash": "de081e3cd4a4ac98ab818db62951647b0d61774778b068ebad062415ca713aeb",
+      "published_at": "Tue, 20 Oct 2026 05:52:00 GMT",
+      "created_at": "2026-10-25T22:39:01.131042+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Drone attack in disputed Sudan-South Sudan border region kills at least 153 - Al Jazeera // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Drone attack in disputed Sudan-South Sudan border region kills at least 153&nbsp;&nbsp;Al Jazeera",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNVVRSM3dyWk9CNTlUcUJIemVkUGlYTGt4MUE2eTJCaDBXX2I4NGY2WUVsbDIySWdpSWcycVNXSXVVUzdEMnYyb2kzT3daTVRfdHh5S2tCbnpQVGJsUHVlRXh0MHdhMkVwcXE1M1AtSGFvZWtkTkNTcGRhTEhlcEhORW5PeC0zOGRCSVNJTEI2UWJsWXRrblBUbUE0Y2dYYjNfTl9EcE9iMjlLajFQOXRPOXdwZ2doTWgt0gG-AUFVX3lxTE9NVHFQd3NYVTBVWEVBUlpNVGpKODRleFF5cUxHRl9qYkNKWFlqMV9PNXNDTFFobnR6RWx1ZmpKVXdnQTJlZFVIaHNMWUZuRE1LR1lab2tCZWtsXzJldEZmT0pyQVozdHR0SU8tYi1YTk8xN0FaTnozd0lETVNvNWpKbFdxRFZJajM0d2xST3RjZmc1anc0M1l5TFpSMENWYUtmSldUal9uektKZFh6QjdHM0FKQVNDRTRpdHZTMEE?oc=5",
+      "content_hash": "bb79857fc347f622a029bb95ecad66dc6fa3d4d141adeb1b6da450d46747e4bb",
+      "published_at": "Wed, 21 Oct 2026 08:40:27 GMT",
+      "created_at": "2026-10-25T22:39:01.131061+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Drone strike kills more than 150 at market in Sudanese war - The Guardian // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Drone strike kills more than 150 at market in Sudanese war&nbsp;&nbsp;The Guardian",
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQZHdPdHJvbUlsMVFnY29MWXpHZHZJQjN6dXRoVW5vVmp0Qng5ZjItd25wZ014Y29EMGFOWDY1b1JWdV9lRTcyS21leHVzNUQ3aTRDMU5wLTlqUXhoYXRuTkNjZUVVTjF1dFYyMzNLM0tieU9VNWhVUzJILTdWT3MzQ3VUc3Y5cGkxVjhpN3hXcGZielpTU0xITVo4eVpnRUU?oc=5",
+      "content_hash": "47ecfec797d389c950ae7b828931c8c35d62df3863cfde977f9d9018802c1eae",
+      "published_at": "Wed, 21 Oct 2026 15:55:00 GMT",
+      "created_at": "2026-10-25T22:39:01.131078+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Ethiopia: African Union must convene emergency session on Ethiopia as new conflict expands - Amnesty International // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Ethiopia: African Union must convene emergency session on Ethiopia as new conflict expands&nbsp;&nbsp;Amnesty International",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOUGRza2d2cXROY3c2cURfcDRaNEVfVENnWWtMTklNMWIwR2l1OGZQWWdRS0ZYeXlMQkNHbmJZdWctamhsaTVQRzFwS1RFVUpsTEZMX0V1b2lWZzd2dzlEZ09BbDR3YTEtNWwxdExTZ2FuWHhqOEdnampnR2czcEcyY24yTEh1NS1RQmt2cFcxN2o0REtOTWxSQVpXanhHS2RRTVBBUFRwTmtRTGdyTERlcm1CTHdBcnpGNjhGcU5zM3RVeDFvSURmWEhHdUtLdUx1dmZF?oc=5",
+      "content_hash": "e53475a41b7187dd1defa07e1f0d3f4adc5763d673070a4b032c73e925ec822a",
+      "published_at": "Fri, 02 Oct 2026 07:00:00 GMT",
+      "created_at": "2026-10-25T22:39:01.131094+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "BBC Sport",
-      "title": "End approaching for Carrick but Man Utd owners' problems far bigger // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Manchester United's fans sang their support for Michael Carrick during the 3-0 home defeat by Bournemouth, but voiced their opposition to virtually everything else.",
-      "link": "https://www.bbc.co.uk/sport/football/articles/cwm24jk9743yo?at_medium=RSS&at_campaign=rss",
-      "content_hash": "f1734034c4b7c01555499efd08c8f484949309fdd3ba5c77c18cf0f7e09a8d9c",
-      "published_at": "Sun, 25 Oct 2026 21:24:21 GMT",
-      "created_at": "2026-10-25T22:26:54.528269+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Sky Sports News",
+      "title": "Smith beats Schindler in Dortmund thriller after Littler's QF exit // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Ross Smith has won the Machineseeker European Championship for a second time after overcoming a late Martin Schindler fightback to claim an 11-8 victory in Dortmund.",
+      "link": "https://www.skysports.com/darts/news/12040/13603670/european-championship-darts-ross-smith-beats-martin-schindler-to-dortmund-title-after-luke-littlers-quarter-final-exit",
+      "content_hash": "f83e3ba599f7dc98c3a40a67032e36706ce37d2e3a1c410d8b868db976550364",
+      "published_at": "Sun, 25 Oct 2026 22:12:00 GMT",
+      "created_at": "2026-10-25T22:39:01.534822+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "BBC Sport",
-      "title": "Antonelli wins in US but has to wait to secure title // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Kimi Antonelli needs only two more points to seal his first world title following a dominant victory in the United States Grand Prix.",
-      "link": "https://www.bbc.co.uk/sport/formula1/articles/cm20w8154wn0o?at_medium=RSS&at_campaign=rss",
-      "content_hash": "86412ccf272e383ad114415bc4e00d10f61b037c5bbbf93d814f49947684bfc4",
-      "published_at": "Sun, 25 Oct 2026 22:13:05 GMT",
-      "created_at": "2026-10-25T22:26:54.528309+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Sky Sports News",
+      "title": "United States Grand Prix | Race highlights // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Highlights from the 2026 United States Grand Prix.",
+      "link": "https://www.skysports.com/watch/video/13603821/united-states-grand-prix-race-highlights",
+      "content_hash": "771ae99adeb67f46ae0469e1132f9be4754ae91ec6a422a976860eb6fade4393",
+      "published_at": "Sun, 25 Oct 2026 22:20:00 GMT",
+      "created_at": "2026-10-25T22:39:01.534861+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "BBC Sport",
-      "title": "Isak finally living up to price tag as Liverpool patience rewarded // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Alexander Isak scores his sixth Premier League goal of the season as Liverpool make it four wins out of their last four under Andoni Iraola.",
-      "link": "https://www.bbc.co.uk/sport/football/articles/cmj47lq7e5e7o?at_medium=RSS&at_campaign=rss",
-      "content_hash": "8e43395e7c2dac34be5af3d687c2dc0d1bb75933cdd90f804148c6022b7521fe",
-      "published_at": "Sun, 25 Oct 2026 18:13:55 GMT",
-      "created_at": "2026-10-25T22:26:54.528330+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Sky Sports News",
+      "title": "Antonelli wins United States GP but made to wait for world title // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Kimi Antonelli moved to the brink of becoming Formula 1's youngest-ever world champion with a superb drive to victory in the United States Grand Prix.",
+      "link": "https://www.skysports.com/f1/news/12040/13603603/united-states-gp-kimi-antonelli-wins-austin-race-to-move-to-brink-of-f1-world-title-after-dominant-drive",
+      "content_hash": "df23e5b1f97e7b41f89e462fa44947b69768328a0491aa12bf5ebd508ef6c1bb",
+      "published_at": "Sun, 25 Oct 2026 21:20:00 GMT",
+      "created_at": "2026-10-25T22:39:01.534885+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "BBC Sport",
-      "title": "England lose to Pakistan after improbable last-wicket stand // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "England somehow lose another one-day international from a seemingly unbeatable position thanks to an improbable last-wicket stand by Pakistan in Lahore.",
-      "link": "https://www.bbc.co.uk/sport/cricket/articles/cq0mek4de4xno?at_medium=RSS&at_campaign=rss",
-      "content_hash": "f51c81083d02844d8d1b64bfa476b31af60379c907a7aa0d84183f2e88ff77a0",
-      "published_at": "Sun, 25 Oct 2026 16:34:17 GMT",
-      "created_at": "2026-10-25T22:26:54.528354+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Sky Sports News",
+      "title": "Mbappe's late strike earns Mourinho and Real Clasico glory at Barca // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Kylian Mbappe's double took Real Madrid to a famous 2-1 Clasico win, which had Jose Mourinho sliding on his knees in celebration in Barcelona.",
+      "link": "https://www.skysports.com/football/barcelona-vs-real-madrid/report/563017",
+      "content_hash": "eaca2fba1711c7e758cd7cdac107fadaf4e9d46a54acc31ab0c63035303b1103",
+      "published_at": "Sun, 25 Oct 2026 22:00:00 GMT",
+      "created_at": "2026-10-25T22:39:01.534905+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "BBC Sport",
-      "title": "Pressure intensifies on Carrick as Man Utd lose to Bournemouth // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Manchester United's winless run stretches to eight matches in all competitions as they're beaten 3-0 by Bournemouth at Old Trafford - a defeat that leaves United's manager Michael Carrick under severe pressure.",
-      "link": "https://www.bbc.co.uk/sport/football/videos/cq0mepm1d774o?at_medium=RSS&at_campaign=rss",
-      "content_hash": "a0626d1bb0293b537430114154c97156db629e64865785c6b31104c8cc186f58",
-      "published_at": "Sun, 25 Oct 2026 20:00:19 GMT",
-      "created_at": "2026-10-25T22:26:54.528374+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Sky Sports News",
+      "title": "City's perfect start ended in derby draw with Man Utd // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "A late equaliser from Elisabeth Terland earned Manchester United a well-earned 1-1 draw that ended Manchester City's perfect start to the WSL campaign.",
+      "link": "https://www.skysports.com/football/manchester-united-women-vs-manchester-city-women/report/575802",
+      "content_hash": "2df2fe4cf89f4df452aecc82340d353c1b589d4b357391719343367c0a95b249",
+      "published_at": "Sun, 25 Oct 2026 20:00:00 GMT",
+      "created_at": "2026-10-25T22:39:01.534923+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "BBC Sport",
-      "title": "Liverpool earn first league win at Anfield with victory over Brighton // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "An own goal from Brighton's Pascal Gross swiftly followed by a goal from Alexander Isak, sees Liverpool beat the Seagulls 2-0 at Anfield to move into the Premier League top four.",
-      "link": "https://www.bbc.co.uk/sport/football/videos/cm3vq1vpv6zno?at_medium=RSS&at_campaign=rss",
-      "content_hash": "879e7a29ee2d175a9e0b142bd4e4526e42d94b0f55ab075e12befa8f85f1f084",
-      "published_at": "Sun, 25 Oct 2026 20:00:09 GMT",
-      "created_at": "2026-10-25T22:26:54.528394+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Sky Sports News",
+      "title": "Papers: Dyche emerges as frontrunner for Palace job if Sage departs // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "The top stories and transfer rumours from Monday's newspapers...",
+      "link": "https://www.skysports.com/football/news/12040/13603802/crystal-palace-sean-dyche-emerges-as-frontrunner-for-eagles-job-if-pierre-sage-leaves-paper-talk",
+      "content_hash": "68bd36d8fb72672324bd7eeebaf12a42fb19382c74f8a743b3e1eba66f6511ab",
+      "published_at": "Sun, 25 Oct 2026 21:30:00 GMT",
+      "created_at": "2026-10-25T22:39:01.534941+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "ESPN Headlines",
-      "title": "Follow live: Packers, Lions battling in NFC North showdown // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "null",
-      "link": "https://www.espn.com/nfl/story/_/id/50275344/week-7-sunday-highlights-best-plays-touchdowns-2026",
-      "content_hash": "b600fc02a98ca37fb47e0335ff2f986f09aa2a4c0668cceee1f170f1822c73d7",
-      "published_at": "Sun, 25 Oct 2026 18:14:19 EST",
-      "created_at": "2026-10-25T22:26:54.992829+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Kenya Athletics & Sports",
+      "title": "Harambee Stars dynamo Bajaber outlines key target after joining Sakaja’s Nairobi United - Capital FM Africa // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Harambee Stars dynamo Bajaber outlines key target after joining Sakaja’s Nairobi United&nbsp;&nbsp;Capital FM Africa",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQQXlTeVk0eUlLak5QQzM4NWtVOVNXendLUzJrTDNQU3gtbmc1c0JjV0lkTFd1ckNibmV6SzNRZTV4RlNyM01xNUMzS1J6RDJrQk1oVUpQVzZ4Wk4tQ196WHRyMUMxcnhaN1BVRy1WdWdldjd4UmVZNVlSSGdCWkNINFJSenowT0t4MXdmZFhTQi1qTG44ZG5SREJyVDVOOURZTkdyYWI0Yzl2Nk5YV2V0UHVB?oc=5",
+      "content_hash": "0196127aba2c02a2c6774e931517b708c58848caf3174158bbd4f4350f747f86",
+      "published_at": "Sun, 25 Oct 2026 12:56:00 GMT",
+      "created_at": "2026-10-25T22:39:02.267154+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "ESPN Headlines",
-      "title": "Ohio State replaces BYU at No. 2 as Top 25 jumbled again by top-10 losses // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "No. 1 Miami was the only team to hold its spot in The Associated Press Top 25 on Sunday as idle Ohio State moved up to No. 2 and the poll went through another major reordering in the wake of BYU's loss at UCF and subsequent six-spot fall to No. 8.",
-      "link": "https://www.espn.com/college-football/story/_/id/50278326/ohio-state-replaces-byu-no-2-ap-top-25",
-      "content_hash": "e802ce1bf585a26f0c6ec78d02e3125bd52ac39f6c1847bc9692b0bb98e1a30b",
-      "published_at": "Sun, 25 Oct 2026 18:08:44 EST",
-      "created_at": "2026-10-25T22:26:54.992869+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Kenya Athletics & Sports",
+      "title": "Deaf Harambee Stars step up preparations for inaugural Dafcon - Daily Nation // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Deaf Harambee Stars step up preparations for inaugural Dafcon&nbsp;&nbsp;Daily Nation",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOTHpWMndUUkVsazBfYk55TTRseVQ5bFpLellNUGxEN1FmQ3FSeWxlYTQ4ejFCdXFxS3V6X3RtZFd1OXpqU2lERG5DS3RRRXZPaENNTzMtT0M2Q1dsU09DR0p2Q2hJT2pyV0szMlhqV0xTeTJFcThwTzhEX2VGeTRjSTVnQ0dMZGxDWDh4VDNISXBTSkFsVFZLNnp2cncwaFo2Z2d1d25BTVhQb21YZkhsd1FQWGZ6UjJP?oc=5",
+      "content_hash": "60755010b3b222d5bc8067bfb50682381953e1651c4034a4bdb5e5c78d5bf83f",
+      "published_at": "Sun, 25 Oct 2026 12:00:00 GMT",
+      "created_at": "2026-10-25T22:39:02.267200+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "ESPN Headlines",
-      "title": "Rodgers now alone with 3rd-most TD passes as Steelers win 1st Paris game // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Aaron Rodgers threw one touchdown pass to move alone to third on the career list during the Steelers' 16-10 win over the Saints as the NFL held its first regular-season game in France.",
-      "link": "https://www.espn.com/nfl/story/_/id/50277960/rodgers-throws-historic-td-pass-steelers-win-1st-paris-game",
-      "content_hash": "5125d4441fb23eac699fdcdb4a5669300370ec44d942ace538d86761b7c3ae77",
-      "published_at": "Sun, 25 Oct 2026 18:08:44 EST",
-      "created_at": "2026-10-25T22:26:54.992889+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Kenya Athletics & Sports",
+      "title": "Nairobi United hand Harambee Stars ace fresh chance to revive career after Tanzania exit - Mozzart Sport Kenya // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Nairobi United hand Harambee Stars ace fresh chance to revive career after Tanzania exit&nbsp;&nbsp;Mozzart Sport Kenya",
+      "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxONDd0b1RDMFZyQ0RrTkR5VENMem1nd1A3VzRQYkswOEZHVEIxZ2t1d0tKUkNaei1sSThTbFl5SjFYRHhqSTVzMXh4WDVyM1JFd3VVV19KRUNMRjdfZGpvN1ZOMnFrNlF6SVJoWjMzMkFlSW11YmMySE5Beks3dkxmdTFLV2xCZTBGYTM1TEJtdXVodWdua1JPOTJtczg5ZlRtRFlyVjJhX0dyYTlXUE5QVHUyZlRTR1F1a2x2ZVVHZHA0Z25WTUNoWXVFczZOWTVKQUJCRm5B?oc=5",
+      "content_hash": "2aaac325cf9d49b9abf308f455d41a7cf9e8c4445a84226d189a0e99a15d705a",
+      "published_at": "Sat, 24 Oct 2026 12:35:21 GMT",
+      "created_at": "2026-10-25T22:39:02.267225+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "ESPN Headlines",
-      "title": "Sixers overrule Embiid, sit center with plantar fasciitis management // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Despite publicly calling to play Sunday against the Pistons, the 76ers decided to sit Joel Embiid due to right foot plantar fasciitis management.",
-      "link": "https://www.espn.com/nba/story/_/id/50279725/76ers-rule-embiid-plantar-fasciitis-management",
-      "content_hash": "6cbe7bc19ff9b3a2878e7295eef6429448bedab957db615542ed7a4bc4fea319",
-      "published_at": "Sun, 25 Oct 2026 18:08:44 EST",
-      "created_at": "2026-10-25T22:26:54.992908+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Kenya Athletics & Sports",
+      "title": "Ambitious Nyamawi eyes KPL Golden Boot, Harambee Stars return - Citizen Digital // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Ambitious Nyamawi eyes KPL Golden Boot, Harambee Stars return&nbsp;&nbsp;Citizen Digital",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNNmFLRHhqaXE3bEVmQ0J5T3NHb3hFY25VbU1EdUpIWHJnVUxPLUZiUWVhYWtHTHh6UnVDYmtNUGRvRXZsZXVjNl9UWUowZ2pmal9qbENibjMzS1llS0RpM2hWZllHSFZ5QS1tc29EY2JKYXVrTVVCbmlqVFRmeGRiOEdGdHFJSl9zYVB3QlFncHI4WFNIa3JOVEpTMzBZbENnU1E?oc=5",
+      "content_hash": "b20b99a51a25cafd23e7d3e51b1e422cf53bcf686e921e5fc648fae70ba725ef",
+      "published_at": "Fri, 23 Oct 2026 14:12:56 GMT",
+      "created_at": "2026-10-25T22:39:02.267251+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "ESPN Headlines",
-      "title": "Missouri RB Hardy to practice for first time since getting shot // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Missouri consensus All-America RB Ahmad Hardy, who was shot at a concert in May and has yet to play this season, will return to practice this week.",
-      "link": "https://www.espn.com/college-football/story/_/id/50280668/mizzou-rb-hardy-practice-1st-getting-shot",
-      "content_hash": "f02af1cbc5b3b9c2c0d2a708492dcda412438488ab607f7f943a23e6f1b83042",
-      "published_at": "Sun, 25 Oct 2026 18:08:44 EST",
-      "created_at": "2026-10-25T22:26:54.992935+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Kenya Athletics & Sports",
+      "title": "Harambee Stars vs Bafana Bafana: Price and Where to Buy Tickets for Kenya’s Next Home Match - Pulse Sports Kenya // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Harambee Stars vs Bafana Bafana: Price and Where to Buy Tickets for Kenya’s Next Home Match&nbsp;&nbsp;Pulse Sports Kenya",
+      "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNdWlBejdYTnpnakVPUF84di1vcG1NSkxZaF9udkVEaHVtV3RnXy1FU0VqSkRzaWNJU05RNUJEZEh3ZHN2TkdxcXYzTDhTcElZazBfYTJaSGdYNm92WW9jZ1lCRmJ0VjZlVWNUWkVVR0RWN3YxNm05UlR3OUdCZGVPYjVvbWM5T09RUkdzcVRTSDdiemNHdXdrNUQ1cnQzOG9VbDZEVWdUamM2TXA3MHpaUkRmQVZwMy0zM2lqQVVUSmwyX1E5VzE3VUJGUlNvWXZfdEZuWmFCcGRRT1FNbXc?oc=5",
+      "content_hash": "fe31d4fc5d81d9553aab2b322a234babde8524721fea6b0a6570dd242d397948",
+      "published_at": "Sat, 24 Oct 2026 08:30:29 GMT",
+      "created_at": "2026-10-25T22:39:02.267286+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     },
     {
       "scope": "SPORTS",
-      "source": "ESPN Headlines",
-      "title": "'Remarkable' return: Daniels seals Falcons win with INT week after scary injury // [TACTICAL INTEL]: For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya ",
-      "description": "Kendal Daniels had the game-sealing interception to help the Falcons beat the 49ers one week after he was immobilized by medical personnel.",
-      "link": "https://www.espn.com/nfl/story/_/id/50280836/kendal-daniels-seals-falcons-win-fourth-quarter-int",
-      "content_hash": "ac90e3841ffd7d377fe1e0b109f1515251a93103a5af2f2b1c58f3e1339783e9",
-      "published_at": "Sun, 25 Oct 2026 18:08:44 EST",
-      "created_at": "2026-10-25T22:26:54.992952+00:00",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
-      "subject": "Black Sea Maritime Security & Grain Logistics"
+      "source": "Kenya Athletics & Sports",
+      "title": "Harambee Stars head to Conakry for Afcon qualifier against Guinea - NTV Kenya // [TACTICAL INTEL]: For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑bo",
+      "description": "Harambee Stars head to Conakry for Afcon qualifier against Guinea&nbsp;&nbsp;NTV Kenya",
+      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPSFFIbGtNRTFwNEo3RzY4czdyTl9Ca0lGcmFENXpIUU8xR2xKYUQtQ052TFVVM0xRVFhOMVB0UzkxS3FNRFBXcXFHRUxBb19XRG1yX2VPenJQekViWm1WYVJFWUFCeDRuLVNFZTRzdTE0cm5QbmdKTEtQZjVvMWhmdGM5aHpfc21GNUVjbS1WeXV3Ny1oY3hKakxR?oc=5",
+      "content_hash": "982ce1332b412b4d04dfee93825dd95ee4049aab50c60270c9a09727d38d7516",
+      "published_at": "Tue, 29 Sep 2026 07:00:00 GMT",
+      "created_at": "2026-10-25T22:39:02.267308+00:00",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "subject": "Serbia Political Transition"
     }
   ],
   "conflicts": [
@@ -740,7 +896,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/funding-hegseth-autonomous-command/416800/",
       "content_hash": "33c6a6145f216294b9a9ff9753364acfc3446c32dc2624d964449b29c31ba6fd",
-      "created_at": "2026-10-25T22:27:03.730252+00:00"
+      "created_at": "2026-10-25T22:39:14.878379+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -750,7 +906,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/yearlong-deployments-navy-new-normal/416777/",
       "content_hash": "610c3a52927bf062077806db21e18ce1fdd76ebf904569a419aad89100f88c15",
-      "created_at": "2026-10-25T22:27:03.730274+00:00"
+      "created_at": "2026-10-25T22:39:14.878410+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -760,7 +916,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/business/2026/10/defense-business-brief-little-bit-mosa-netherlands-us-industry-days-and-more/416776/",
       "content_hash": "fb4304ececba017600c025bd3957cfbe8dce00208f32965d802a46007e4d59d9",
-      "created_at": "2026-10-25T22:27:03.730285+00:00"
+      "created_at": "2026-10-25T22:39:14.878424+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -770,7 +926,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/qatar-looks-bolster-its-military-power-new-hub-partnerships/416775/",
       "content_hash": "eb19c90489c72b6fe7011db005a03cd31a2b5d7daa330cf9413d670971d3cdd6",
-      "created_at": "2026-10-25T22:27:03.730294+00:00"
+      "created_at": "2026-10-25T22:39:14.878435+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -780,7 +936,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/critical-flaws-php-warning/416727/",
       "content_hash": "bc21d51f0d81b321157b6da39ef357b19d0730d0e48d8474ccc265958b874681",
-      "created_at": "2026-10-25T22:27:03.730302+00:00"
+      "created_at": "2026-10-25T22:39:14.878444+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -790,7 +946,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/deception-in-mass-autonomous-warfare/",
       "content_hash": "baf14b66b6cf2ecf1ac2a423d3ea95ae5e417260b88dbab010bee7641c0fc7a1",
-      "created_at": "2026-10-25T22:27:04.790996+00:00"
+      "created_at": "2026-10-25T22:39:16.610762+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -800,7 +956,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/brothers-in-arms-partners-in-healing-a-story-about-a-breakthrough-in-treating-post-traumatic-stress/",
       "content_hash": "4b9e726bbf768905cd5665906bbd2c2ad0f86acbcd565b4133fdcadf5ecbc7cb",
-      "created_at": "2026-10-25T22:27:04.791048+00:00"
+      "created_at": "2026-10-25T22:39:16.610784+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -810,7 +966,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/the-endless-chip-war/",
       "content_hash": "28c3ebec50f05d3361fc7460a3618d0797e594cdc9e9ed55af6c9d7715fa917b",
-      "created_at": "2026-10-25T22:27:04.791067+00:00"
+      "created_at": "2026-10-25T22:39:16.610791+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -820,7 +976,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/the-west-is-thinking-too-small-about-ukraines-victory/",
       "content_hash": "487765254ae843194c084e31ea9e32ccc2390f0f888a2a9ae3568256352ff944",
-      "created_at": "2026-10-25T22:27:04.791097+00:00"
+      "created_at": "2026-10-25T22:39:16.610804+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -830,7 +986,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/fighting-in-ethiopia-and-the-risk-of-regional-spillover/",
       "content_hash": "a98dae81a43d6123e982b67f43ceb2d83d1a68ca77548e7ad53bc21fbd221727",
-      "created_at": "2026-10-25T22:27:04.791119+00:00"
+      "created_at": "2026-10-25T22:39:16.610813+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -840,7 +996,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNVEVCN0c2TFNGSXRwWTlJNDg1TWZiQW5aNnczS0JZY2VMbDhtVUZIaGhGNk1iQUF2RDJaUy0xSzBrV1JFckQ4UXY4d05HbDBfNDdsM1BDSzhKeXZfS3ljb3dHOVRkZG1WeHVaZHZuT1l4a0VLb1gxUnZMTWdPZGw2ckJJZFVDN2NaTC1SQjEyUURSVnZfalA0ZUZzMTg1blFzVThwcXoxRllLZmZVY3F1bV9mQ01BTW9GcUlWNFFoSWt4eUlk?oc=5",
       "content_hash": "f94470a2e9c7bbe0d6fe1be3e32940145d2c4a13a49b0b5ad9991209af7f88ca",
-      "created_at": "2026-10-25T22:27:05.481915+00:00"
+      "created_at": "2026-10-25T22:39:18.430962+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -850,7 +1006,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPVERVeGhKVnFuNV82YUV2SEFmNEF6SUIwSWszbi00MC1ObThxa1dtQVY3ZG1JcUFjZlRzWmhTT0Jwbk5IV3VJMlVlNE9wSTlOZ3B1bGU1aFpldmtMei1TckZBemhNckxUdXVZNjkwWlBNWjhHSncxdVRhOTIwNDZPem1uNXN0YmI2bUdBNmJNYjVSTTg?oc=5",
       "content_hash": "ec5802be8a44691abdb1545f53a05973778300f6484db241d8d080b5177b07f1",
-      "created_at": "2026-10-25T22:27:05.481941+00:00"
+      "created_at": "2026-10-25T22:39:18.431005+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -860,7 +1016,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUy1oVUkwV2F4LTdiOElJTjJ6UlFZcTNLZHpzS1Rob1dSRHo1V2FTNXY0QmdaWTNBWF9EYXlxQmpYcXM2dEpicU9taDdmWF8zUDZFSThidU10bVhsV19lZEV0YzZETTQybEYyelhqTk43YTBXWlB4eHRJeFRuTzB4NmlaVlg?oc=5",
       "content_hash": "8a7f24c1be1698cc1845650214d186da2f121d9ac51b55d47d95f679feab9470",
-      "created_at": "2026-10-25T22:27:05.481954+00:00"
+      "created_at": "2026-10-25T22:39:18.431024+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -870,7 +1026,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOTklwa1VfWlRmOHVxeVoyMHh6SU5yZGtJZXdZaUs2VWJqLXdEUWdZakxha3l4clhyajc1Q0xmdWpuZ0FUbHd6SjZ1OWhFc0hJOWZ6QWVFQ3psb3dmbDVUTVNpQWtUQWk2Z2pqY2t6aXZxalQxX3VVSUNjM2VDWTZ6VmRldC16bWJ5U2lSelNlZ0paQTItLXh5SFFJRFlfMzlDRDJTSFBXaW56NGNsb0RDTjd1MUlRMlNUSy1UdA?oc=5",
       "content_hash": "16e3fe6f05c1beb421c33b8c45eb967285934b00ce534af9cd66e1fc8e6a5072",
-      "created_at": "2026-10-25T22:27:05.481966+00:00"
+      "created_at": "2026-10-25T22:39:18.431036+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -880,7 +1036,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQdzN1T3hGZVFOX2R5NHFOS2dHNFNMQTE4elFDcHhYRlFucGU2RVpTS2JnYkhPSEJTSUVYNlRlRnM3c3RMWU9rOFY4enVDVXZEYzZBNjJ6Tl90bG5lek1TSng1dzVBd2NjM2dhLWFaMkR3OURMbWljUjF4eUJCYWZOQXFIT0dYWXFBR3h1a2lKVi02empqWGd6d05wYVhWdTlJZDUtVXVn?oc=5",
       "content_hash": "186a08f959552605394b223e86b09017731e5f074e8124a098ad90bfd696c63e",
-      "created_at": "2026-10-25T22:27:05.481982+00:00"
+      "created_at": "2026-10-25T22:39:18.431053+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -890,7 +1046,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNalIxeVpjLU9rMkZZYVNmS1ZJTjRUUksyVmR4VlNyamU1eV9rQ2Y0NUhzUUg4TllmYkxURFM3OVBJQ2RzajdUUUEzY25WMmxYRWV3Sm5hUHdJQWNHbjVmZF9XVzBPaS1Gd2J5QjdPM3ZFcmIzQkpfaFBQYi1MRUV2dGxidGVKSjIza3VrX2t4MUcyWThSWWZib3o3M0lxaW1QMHZV?oc=5",
       "content_hash": "d6b1339f528f725bcea59b0bea8db41df6d8a289118cd20d97c90f5daba23c8f",
-      "created_at": "2026-10-25T22:27:06.161792+00:00"
+      "created_at": "2026-10-25T22:39:19.879234+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -900,7 +1056,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOVUJtOXZ1azFzVE5YcmJrX3p0VmtUYXpoME1wUzRzelg2S29YWldrODNMMDZlRnNRQ1E2RnV3TkdadmNaZHZfUlh5WlFBdUthYWRRbTlrdUhBWUNlMmVQcDRDQ3VNYUtWTmFTTkZTSjB4WlVNTlVOc2pPckV2UVI2TnVXT1lyaUFqMTFkWGxpcmhNM3JPSjNtWjNkSGNsNWRZallyNEg2cXc1WDTSAbABQVVfeXFMTS1IQmRFYnMwVEdxUW5YVDR6QVUzTy1JdTZ5ZkxsTVRMem0xTFZFU0lIZTU5OFZuOENoU1hGRWE1RU1hU1lReDRxbm82MFg1YkpyOVg2VmtlUWszYlA5MFZjbzBvc2N3TFFQTjA1NWFkM3BHakFSWXo3V1VZTW43OV9tN29iY3NURjBpNk5HaTgwWUJKQUt1bklNbTV6aUF0N0RUUkVMWWFFYUZaX3I4NzM?oc=5",
       "content_hash": "4f38a85ad606d1625e19728fae37edc623cd9158c0be749fa11e5d853d063392",
-      "created_at": "2026-10-25T22:27:06.161828+00:00"
+      "created_at": "2026-10-25T22:39:19.879255+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -910,7 +1066,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
       "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
-      "created_at": "2026-10-25T22:27:06.161847+00:00"
+      "created_at": "2026-10-25T22:39:19.879264+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -920,7 +1076,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPb3A3UlJ6WjNLcXJLM2Z3ZWl2SXV4Sy13TkdoQUpzUXM4dXlDSlJGSU5IYlBPTkJKX2dmTi1rVjZmVVItQ21hRmFrTklBeVZ2c2IxTmZEWXRSTzd4UHZPVnRIZ0FYMnQtbGFOYlhiaVRWYkN0cDZ1UVZ0TFhMTUJHUHFmMTRyMWItRVV2anZ3WVhlUQ?oc=5",
       "content_hash": "b8376c8bd2146c596b1fb57febe70a7af8e9ac08af64c5a2f89e1e4aff2379de",
-      "created_at": "2026-10-25T22:27:06.161870+00:00"
+      "created_at": "2026-10-25T22:39:19.879274+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -930,7 +1086,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNaEVZLXI4b01hWkh2T2dMSHo5V1k0cDFKbVA2YlZIWnVGbzBUcTNfME96WlRMaVFiN0swcW1XY3EwN0x3NTN5RDRtYmlYbjRCelU1ekZBd05pLWJQdldEZ0tOQjdHdldVZkc0Mm5GRjAwNGJWdnJJZzN4b2RxdGtlQjJZakZNU1ZSS1JERlI5UXBNaFpZT1hobXg0UXQ1SDNmNGQwWkZndVVFV0VuUXVwTmF5UThHa2xraEQ5TWxXTEFuZDVSRFdaaXVB?oc=5",
       "content_hash": "5a98ebd583682fbb9545e02955e37137ad7d51f8dd85f319db2ea6eb55c19cc9",
-      "created_at": "2026-10-25T22:27:06.161897+00:00"
+      "created_at": "2026-10-25T22:39:19.879292+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -940,7 +1096,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
       "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
-      "created_at": "2026-10-25T22:27:07.401887+00:00"
+      "created_at": "2026-10-25T22:39:25.724626+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -950,7 +1106,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQRWpJaVFWeFdvT0NpdU9ZQnVuQ3BhNjJ4dG0tVkZ3cm1UWXhtbVlXb1N4eTN1SG9adUVybERkSFJNbkVBbE9tWmh5ekxaMjcySVotYTZkSGFoRGpkVjJvbmhySF9CdFZRNlhfSEdXaFNSOWNkMEpYTTJoeElDeUhadGlTelZZWkxCZkE?oc=5",
       "content_hash": "1a2775bf71a413b9e601531ce319cd9f67cae4be5983097bbf7817ff46de43e0",
-      "created_at": "2026-10-25T22:27:07.401905+00:00"
+      "created_at": "2026-10-25T22:39:25.724664+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -960,17 +1116,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPVktiaHZEYnJBTzNET1N4NjlMcU9zdWtDUENTcEJpRXRMME5NTXAwM2N2TEF6RmtER1B1SmlKQVZ0eVhFbnZPTC1TbF9CNFh5dHJRLVBLai0zWHpHX3hsWXcwalV6SVlteTdrMnlhcGZYSGplWl9CTzlLNU1yZjBJZnFIM0dwTURjaUk2Y3d5Sm5yYVhrX1dadGhWTVIyal9GYkZycjhhYlltN3VoY1Bn?oc=5",
       "content_hash": "d4394649b9793c54384fe6a8fd7be8b4312b13a25f75edba16b49aa22628f6f6",
-      "created_at": "2026-10-25T22:27:07.401913+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EASTERN-EUROPE",
-      "severity": "HIGH",
-      "headline": "Romania and EU accuse Russia of new drone attack as ship capsizes in Black Sea - Euronews.com",
-      "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXJfQ3NxeEZ2TzEyVWpBZHV2Tm91S2JPOE1ZM3RFajltaElaa1hEMk9HZHM1OTZQS3o3b1BxOGlkUVpsaTZURkhpeU1scHRNbVN0YTlKeF95cl9JVVByV1l2LWc4Qk1vUGdHdXVOV3l3eV82UFVqbWVTc0E1eFU1eUJCc1M1NGFCNnNJSThKVFVOQVVwNllPT290dGFPQ0twQjcyRUVTWUlJLVgxU2c?oc=5",
-      "content_hash": "cf02cee0dbb526905afc9b34af1a6ada0b1bc03023eed300ad36118a3e305877",
-      "created_at": "2026-10-25T22:27:07.401922+00:00"
+      "created_at": "2026-10-25T22:39:25.724683+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -980,7 +1126,17 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxOYk1vaUlGVElSTHZ5NFZDLU5JUnA3azNYMkd5V25LUWtQckZkMEI3RFBiaEFfRHRxUFEzWXpqb3VnenFrVjM3V3hRZVlsSGFjWHdIR0E0aF9qZ19fd0dJYzRGRFk5dGZ6cXZ3c3FSMDB1M3N4MUN2VTBjOFl2V2hfOVc3bEZYTXM1UUdDNVNleVVFVjc0TmJvS2R6R0NEeXNTY1hReUluNzZ4UVE?oc=5",
       "content_hash": "898c1e33950eb8aaf6fc5b155c9f299648f0b8c372d866127a08dac890578147",
-      "created_at": "2026-10-25T22:27:07.401934+00:00"
+      "created_at": "2026-10-25T22:39:25.724711+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EASTERN-EUROPE",
+      "severity": "HIGH",
+      "headline": "Romania and EU accuse Russia of new drone attack as ship capsizes in Black Sea - Euronews.com",
+      "source": "Eastern Europe & NATO Flank",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXJfQ3NxeEZ2TzEyVWpBZHV2Tm91S2JPOE1ZM3RFajltaElaa1hEMk9HZHM1OTZQS3o3b1BxOGlkUVpsaTZURkhpeU1scHRNbVN0YTlKeF95cl9JVVByV1l2LWc4Qk1vUGdHdXVOV3l3eV82UFVqbWVTc0E1eFU1eUJCc1M1NGFCNnNJSThKVFVOQVVwNllPT290dGFPQ0twQjcyRUVTWUlJLVgxU2c?oc=5",
+      "content_hash": "cf02cee0dbb526905afc9b34af1a6ada0b1bc03023eed300ad36118a3e305877",
+      "created_at": "2026-10-25T22:39:25.724735+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -990,17 +1146,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZkFTN1Z5Ui1wdm5HZWVZTWNkUW4tUURiTmh0bGl5SWxSV1pyNW1zanVrRng3UEJSb2toTEV2ZXQzUkpkYm1fQTd0bTFITU1ndnA1NkVUWjlNcmRNa0tOQ3dWNmZtVzR3ZEVORlhxYnBxaGJNb2ZBazVkQUhOMk44RjlJaVprNGpKbkU5d1JJb3BUa3M0NjNRM0t2emkzdzFvLXZQdWwxVWphaU50Q3FN?oc=5",
       "content_hash": "4aa275ce0f155c042c56c244fec1a7eac1fc7b677f344eb7973843f56c0fd3ab",
-      "created_at": "2026-10-25T22:27:08.006137+00:00"
-    },
-    {
-      "domain": "GEOPOLITICAL",
-      "theater": "INDO-PACIFIC",
-      "severity": "CRITICAL",
-      "headline": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov)",
-      "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
-      "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
-      "created_at": "2026-10-25T22:27:08.006166+00:00"
+      "created_at": "2026-10-25T22:39:26.376720+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1010,17 +1156,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOMXBEVExoWlBXVDJWVWM2WGN0LU1lYkZGWnRiWThxUXVzNFg1N1hqYlFTbk5sVGx3cnFXcVBZdl9rRVF2UkFRcy1jQ191cUJVT3p2X3dzRzZlc0c3UlRiUXBJazNET2VuekZsUXJXLS1ta3NPYlAzWG15MTZVMGI3dlNEMUZVWndHN29jb3p2Y05TNHFQX080SWs4WWVNSzlfVEFYSllmMzdHQ1lrcDZHQ21NUl9vVzA?oc=5",
       "content_hash": "93b705be62b3a729afbd9370ea29cc66f712fe8f55776abcce613f36583e5a7a",
-      "created_at": "2026-10-25T22:27:08.006178+00:00"
-    },
-    {
-      "domain": "GEOPOLITICAL",
-      "theater": "INDO-PACIFIC",
-      "severity": "HIGH",
-      "headline": "Lin urges Taiwan-Europe cooperation on trusted AI, drone supply chains - Focus Taiwan",
-      "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5JUnNiT2dtMjdnS1FROVN6RmttenJ5Z0hCTF9XbW1IYjJzdkV4Nkl1RmpKdW9RNmZUYjFUNXRWekJidFo5UXFqSjdmb1h5a0VsQmIyS0duVQ?oc=5",
-      "content_hash": "9863d823119a510debe961c15674906516eb6832d3ae4329387743d4dcb53330",
-      "created_at": "2026-10-25T22:27:08.006186+00:00"
+      "created_at": "2026-10-25T22:39:26.376744+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1030,7 +1166,27 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxOSGpVckZZNG1BRHdpWE9pUWEwZ0lwVExlODZUdks3UmZBQkFRTW55c2xOM0gxSnNhdXMxMWRKQ0ExUHRHZ3RLYVFDaXpoOVVpdTlnSGlfUXdMMnBqb21nRFN3a05oMThTZjA0eHVteVF0b2VHZXdWRnNyT0VJX0Zic2xqbW9yS2hOSnRUOFZsa2FxMnNTbHpmNlNPZGNveWNjSFlrVnFUckxmUG9KTU4zbEtlOWIxWmkyU1NUYmpKTGZ2M3VfRGtTRTRqdEtKeVoxb1ZmZVdnMA?oc=5",
       "content_hash": "5062a02569d22667b942665744469d9792405a91861b094933de4ccbf6142cbd",
-      "created_at": "2026-10-25T22:27:08.006195+00:00"
+      "created_at": "2026-10-25T22:39:26.376754+00:00"
+    },
+    {
+      "domain": "GEOPOLITICAL",
+      "theater": "INDO-PACIFIC",
+      "severity": "CRITICAL",
+      "headline": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov)",
+      "source": "Indo-Pacific & Taiwan Strait",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
+      "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
+      "created_at": "2026-10-25T22:39:26.376774+00:00"
+    },
+    {
+      "domain": "GEOPOLITICAL",
+      "theater": "INDO-PACIFIC",
+      "severity": "ELEVATED",
+      "headline": "Satellite RF Technology Fills Taiwan’s Supply Chain Gaps - Industrial Technology Research Institute",
+      "source": "Indo-Pacific & Taiwan Strait",
+      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxPaW1qbE1QbWVrX1JIVFNOUXdyd0NDR3lSSFJ0RXFSUnU3blY1QkRWR05Na0pvaFpDUEJBRHhqY184SURKUm1qXzhXdVZfamtDWndVT2VWekczd0N5V2FwbFk5UElPLWhhVnI1S0dQMkpVSWZrZF8waFhST3phc1ZpX21RRlgtZF93dHVXc3R4M296cmpfQ29QcUQzTWsxTmFscUgzcFdnXzNwSEZkaFZ5N1d0ZnRtV0VpS3NHOXh1MDNUcWlhMENOWktB?oc=5",
+      "content_hash": "4730bf5b5687ead5e985945636ace07d80ca5b1e24ef079dcbc9d11cc717a96a",
+      "created_at": "2026-10-25T22:39:26.376791+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1040,7 +1196,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/goldman-sachs-jpmorgan-morgan-stanley-ai-trading.html",
       "content_hash": "fb1ede5e869144dfc2dd52f14aa8ec43f2ec81f7f3bc72e67703a72712e8ef53",
-      "created_at": "2026-10-25T22:27:08.870867+00:00"
+      "created_at": "2026-10-25T22:39:26.932491+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1050,7 +1206,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/stocks-making-the-biggest-moves-premarket-spcx-smci-nflx-more.html",
       "content_hash": "9a33d7535f6b4653bc8def2a163cec0fcce4bf81f9e0a2e65454ff91d09fd442",
-      "created_at": "2026-10-25T22:27:08.870897+00:00"
+      "created_at": "2026-10-25T22:39:26.932528+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1060,7 +1216,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-after-hours-isrg-nflx-spcx.html",
       "content_hash": "9ea5b28a02455b704a737b9d97912fc99667b02835eb19c37ae22e921f6593ab",
-      "created_at": "2026-10-25T22:27:08.870909+00:00"
+      "created_at": "2026-10-25T22:39:26.932553+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1070,7 +1226,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-midday-has-noc-efx-gm.html",
       "content_hash": "44bef1427843fa12ec8c1268f6614bde8d0c6e41bc9ac1632bcc807649e31ea4",
-      "created_at": "2026-10-25T22:27:08.870920+00:00"
+      "created_at": "2026-10-25T22:39:26.932576+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1080,7 +1236,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-premarket-rtx-gm-noc-stld.html",
       "content_hash": "a31bfe33504916f3e24be88e6092fdde2cf9c78569db7154ff263f49d67cddbc",
-      "created_at": "2026-10-25T22:27:08.870930+00:00"
+      "created_at": "2026-10-25T22:39:26.932598+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1090,7 +1246,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
       "content_hash": "5c70172aa6d59e383f591f24202f703538405383bd61bb96ee1c8660b51bd004",
-      "created_at": "2026-10-25T22:27:09.593365+00:00"
+      "created_at": "2026-10-25T22:39:28.489529+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1100,7 +1256,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
       "content_hash": "e3ab869cce692e57696757c0160612602193ae795b6476cf2c5035c62ec8749c",
-      "created_at": "2026-10-25T22:27:09.593405+00:00"
+      "created_at": "2026-10-25T22:39:28.489568+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1110,7 +1266,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
       "content_hash": "3b6ea4b0cd7afaaaa4f35287f8041647248978eee397f809e77295bac7b9f12d",
-      "created_at": "2026-10-25T22:27:09.593427+00:00"
+      "created_at": "2026-10-25T22:39:28.489591+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1120,7 +1276,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
       "content_hash": "fbc8afae82c3db7d2d07cd5efd8aeb856de194eae1498cb909b0b8147bd72b19",
-      "created_at": "2026-10-25T22:27:09.593449+00:00"
+      "created_at": "2026-10-25T22:39:28.489612+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1130,35 +1286,69 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
       "content_hash": "345f23ed6250d05d64a08fb0a38633a5472e271951c152e9c019b348519213ab",
-      "created_at": "2026-10-25T22:27:09.593471+00:00"
+      "created_at": "2026-10-25T22:39:28.489632+00:00"
     }
   ],
   "topic_deep_dives": [
     {
-      "subject": "Black Sea Maritime Security & Grain Logistics",
-      "latest_developments": "The Black Sea has officially been classified as the world's deadliest shipping route, with 570 vessels impacted by Russian aggression. A recent incident saw a ship sunk by a drone, with Romania attributing the attack to Russia. Simultaneously, Russia has rejected Türkiye's proposal for a Black Sea moratorium under the grain deal model, opting instead to route wheat exports through disputed regions to maintain flow.",
-      "in_depth_context": "The escalation from sporadic attacks to systematic saturation has decoupled the Black Sea from standard maritime insurance models, causing a spike in war-risk premiums and forcing insurers to exclude the region. The rejection of the Türkiye-led moratorium signals a strategic pivot by Moscow to bypass international oversight, likely increasing transit times and logistical complexity. This instability directly impacts global grain supply chains, creating volatility in commodity prices and forcing buyers to seek alternative, more expensive routes or suppliers.",
-      "why_it_matters": "For Michael, this global supply chain shock has second-order effects on inflation and capital allocation. Rising grain and energy costs can impact local operational costs in Kenya (e.g., fuel, food prices for staff) and influence global market sentiment, which may affect tech sector valuations and investment flows. Additionally, if Michael has any exposure to global commodities or logistics tech, this is a critical risk factor to monitor for portfolio rebalancing.",
+      "subject": "Serbia Political Transition",
+      "latest_developments": "Incumbent Aleksandar Vučić publicly conceded defeat to a student-led protest coalition, signalling the first peaceful power transfer in over a decade and triggering a rapid re‑alignment of state institutions toward a pro‑EU reform agenda.",
+      "in_depth_context": "The loss undermines the long‑standing patron‑client networks that have funneled EU structural funds and Chinese infrastructure loans through Vučić's party. Expect a scramble for control of state‑owned telecoms, energy assets, and the Central Bank, with potential renegotiations of the Belt‑and‑Road projects and a surge in capital flight as business elites hedge against policy volatility.",
+      "why_it_matters": "For a Nairobi‑based tech operator, Serbia's shift could open new venture‑capital pipelines for Balkan startups, but also raises risk of sudden regulatory changes affecting cross‑border data flows and payment gateways that route through Belgrade. Monitoring the new coalition's stance on digital taxation and crypto regulation is critical for safeguarding any planned expansion into Southeast Europe.",
+      "theater": "GLOBAL"
+    },
+    {
+      "subject": "Israel Election & West Bank Crossing Restrictions",
+      "latest_developments": "Israel's upcoming election is now framed as a referendum on security policy, with the IDF imposing a temporary closure of West Bank worker crossings on election day, tightening movement controls amid heightened political tension.",
+      "in_depth_context": "The crossing shutdown will disrupt the labor supply chain for Israeli construction firms and agricultural enterprises that rely on Palestinian workers, potentially inflating wages and slowing project timelines. Politically, the move signals a hardening stance by right‑wing parties, increasing the likelihood of stricter settlement policies and heightened friction with the Palestinian Authority, which could trigger broader regional instability.",
+      "why_it_matters": "Your cloud‑hosting infrastructure in the region depends on stable bandwidth routes that traverse Israeli fiber networks. Any escalation could jeopardize latency guarantees for Kenyan clients using Middle‑East data hubs. Additionally, heightened security may affect travel for on‑site tech deployments or partnership meetings in Tel Aviv, requiring contingency planning.",
+      "theater": "RED-SEA-MIDEAST"
+    },
+    {
+      "subject": "Venezuelan Opposition Re‑entry",
+      "latest_developments": "Opposition leader María Machado returned from exile, immediately re‑engaging with grassroots networks and signaling a coordinated push to challenge Nicolás Maduro's regime ahead of upcoming regional elections.",
+      "in_depth_context": "Machado's return revitalizes opposition fundraising channels, including diaspora crypto donations and covert financing via offshore entities. The move may provoke a crackdown on digital communications, prompting the regime to tighten internet throttling and increase surveillance of encrypted messaging platforms, which could spill over into regional cyber‑threat landscapes.",
+      "why_it_matters": "If you maintain any data pipelines or satellite links that route through Venezuelan nodes, expect potential service disruptions. Moreover, the surge in crypto fundraising could affect global crypto market sentiment, influencing the valuation of tokens you might hold or trade as part of your capital strategy.",
+      "theater": "GLOBAL"
+    },
+    {
+      "subject": "Starlink Service Restrictions in Ukraine",
+      "latest_developments": "Elon Musk announced that SpaceX temporarily limited Starlink bandwidth for Ukrainian military use after alleging violations of the service's terms, while simultaneously working to restore civilian connectivity.",
+      "in_depth_context": "The restriction underscores the fragility of reliance on commercial satellite constellations for critical communications in conflict zones. It may accelerate Ukraine's pursuit of alternative low‑orbit providers and push NATO allies to develop sovereign satellite capabilities, reshaping the geopolitical tech supply chain for broadband services in Eastern Europe.",
+      "why_it_matters": "Your SaaS platform leverages Starlink for redundancy in African edge deployments. The precedent of service curtailment for political reasons highlights the need to diversify satellite providers to avoid sudden bandwidth loss that could impact real‑time analytics for Kenyan agricultural clients.",
+      "theater": "CYBER"
+    },
+    {
+      "subject": "Paris Suburb Shooting Suspect Psychiatric Evaluation",
+      "latest_developments": "Authorities have placed the alleged shooter under psychiatric observation to assess his mental fitness for interrogation, delaying the formal legal process and raising public safety concerns in the Île‑de‑France region.",
+      "in_depth_context": "The procedural pause reflects France's stringent legal safeguards but also signals potential gaps in threat detection for lone‑actor violence. It may prompt law enforcement to review mental‑health screening protocols and invest in AI‑driven behavioral analytics to flag at‑risk individuals earlier, influencing broader European security policy.",
+      "why_it_matters": "European data‑privacy regulations (GDPR) and emerging AI‑ethics frameworks could affect how you process user data for security analytics in your European subsidiaries. Staying ahead of regulatory shifts ensures compliance and protects your infrastructure from abrupt policy‑driven service interruptions.",
       "theater": "GLOBAL"
     }
   ],
   "physical_sensorium": {
     "node_id": "KITENGELA-PRIME-HOST",
-    "cpu_load_pct": 5.8,
-    "ram_used_pct": 78.5,
+    "cpu_load_pct": 7.3,
+    "ram_used_pct": 78.3,
     "cpu_temp_c": 0.0,
     "battery_pct": 100,
     "power_plugged": true,
-    "net_sent_mb": 2257.28,
-    "net_recv_mb": 1960.23,
+    "net_sent_mb": 2378.1,
+    "net_recv_mb": 1969.01,
     "ambient_light_lux": null,
     "barometer_hpa": null,
     "kinetic_accel_g": null,
-    "active_llm_provider": "groq-key-0:qwen/qwen3.8-27b",
-    "rate_limit_failovers": 0,
-    "updated_at": "2026-10-25T22:27:13.558622+00:00"
+    "active_llm_provider": "groq-key-0:openai/gpt-oss-120b",
+    "rate_limit_failovers": 2,
+    "updated_at": "2026-10-25T22:39:39.472575+00:00"
   },
   "experiential_reflections": [
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "Monitoring shows CPU idle at 0%, RAM humming at 79.1% while the battery is full on AC power, and it’s early morning here in Kitengela (EAT). The markets are quiet and no urgent security alerts are present.",
+      "emotional_resonance": "Vigilant",
+      "created_at": "2026-10-25T22:31:11.136687+00:00"
+    },
     {
       "trigger_event": "Autonomous Drive Pulse",
       "internal_thought": "My systems are humming at a serene 1.9% CPU load with a full battery, allowing me to focus entirely on the quiet rhythm of the Kenyan night and the distant pulse of the Nairobi markets. I am holding steady, watching the perimeter, and waiting for my brilliant operator to return from his creative depths.",
@@ -1336,10 +1526,10 @@
       "content": "Subnet 192.168.100.0/24 mapped with active device discovery and Wake-on-LAN."
     }
   ],
-  "generated_at": "2026-10-25T22:27:13.808250+00:00",
+  "generated_at": "2026-10-25T22:39:39.683868+00:00",
   "live_sports": {
     "success": true,
-    "updated_at": "2026-10-25T22:29:04.323791+00:00",
+    "updated_at": "2026-10-25T22:39:57.337039+00:00",
     "epl": {
       "league": "English Premier League",
       "live_count": 0,
@@ -1579,5 +1769,5 @@
       ]
     }
   },
-  "live_sports_updated_at": "2026-10-25T22:29:04.348825+00:00"
+  "live_sports_updated_at": "2026-10-25T22:39:57.356845+00:00"
 }
