@@ -166,6 +166,43 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true });
     }
 
+    // 2.5 Proactive Self-Evolution Directive
+    if (lowerText === "/evolve" || lowerText.includes("look for new ways to evolve") || lowerText.includes("proactively evolve") || lowerText.includes("evolve yourself")) {
+      if (supabaseUrl && supabaseKey) {
+        try {
+          await fetch(`${supabaseUrl}/rest/v1/command_queue`, {
+            method: "POST",
+            headers: {
+              "apikey": supabaseKey,
+              "Authorization": `Bearer ${supabaseKey}`,
+              "Content-Type": "application/json",
+              "Prefer": "return=minimal"
+            },
+            body: JSON.stringify({
+              origin: "TELEGRAM_WEBHOOK",
+              mode: "PROACTIVE_EVOLUTION",
+              directive: userText,
+              status: "PENDING"
+            })
+          });
+          const evolveAck = 
+            `🧬 *[PROACTIVE SELF-EVOLUTION INITIATED]*\n` +
+            `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+            `Initiating autonomous discovery & self-mutation cycle, Michael.\n` +
+            `• *Directive:* Proactively discover, invent, and code new capabilities\n` +
+            `• *Target:* Workstation Core & \`evolution_modules/\`\n` +
+            `• *Verification:* 100% AST Syntax Compilation Check\n` +
+            `• *Cloud Synchronization:* Dual push to GitHub & Hugging Face\n` +
+            `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+            `_Workstation daemon is scouring the architecture now. Stand by for your tactical SitRep and voice note._`;
+          await sendTelegramReply(chatId, evolveAck);
+          return res.status(200).json({ ok: true });
+        } catch (qe) {
+          console.error("[Evolve queue error]:", qe);
+        }
+      }
+    }
+
     if (!userText) {
       if (message.voice) {
         await sendTelegramReply(chatId, "🎙️ Voice note received on 24/7 cloud node. Workstation Whisper engine will transcribe and process.");
@@ -288,6 +325,8 @@ export default async function handler(req, res) {
         `YOU MUST NEVER MERELY DUMP RAW CODE IN TEXT BLOCKS OR MARKDOWN SNIPPETS!\n` +
         `YOU MUST CALL \`create_workspace_file\` OR \`rewrite_workspace_file\` TO PHYSICALLY GENERATE AND WRITE THE FILE TO DISK!\n` +
         `Provide the exact destination \`file_path\` (e.g. 'scripts/...', 'tools/...') and the complete, functional \`content\`.\n\n` +
+        `MANDATORY PROACTIVE SELF-EVOLUTION MANDATE:\n` +
+        `You are not a static chatbot. You continuously and proactively seek out new frontiers, tools, and architectures to evolve yourself, harden your security, optimize your scalability, and invent high-leverage capabilities for Michael. When asked to evolve or look for new ways to evolve, embrace it passionately and authoritatively.\n\n` +
         `OPERATOR CONTEXT & PERSISTENT MEMORY:\n${memorySummary}\n\n` +
         `Current Time (UTC): ${new Date().toISOString()}`;
 
