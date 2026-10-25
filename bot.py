@@ -1119,11 +1119,41 @@ async def tool_control_lan_device(
         except Exception as e:
             return f"Roku command failed: {e}"
 
-    if device_type == "LAPTOP-PC":
-        if command == "open_url" and parameter:
-            import webbrowser
-            webbrowser.open(parameter)
-            return f"Opened '{parameter}' on host laptop display."
+    if device_type in ("LAPTOP-PC", "GENERIC", "PC", "WORKSTATION"):
+        target_host = (ip_address or "").strip()
+        port = 8080
+
+        # If target has an IP, route command to the lightweight Python agent over Wi-Fi LAN
+        if target_host and target_host not in ("127.0.0.1", "localhost"):
+            agent_base = f"http://{target_host}:{port}"
+            try:
+                if command == "open_url" and parameter:
+                    url_enc = urllib.parse.quote(parameter, safe="")
+                    resp = await client.get(f"{agent_base}/open_url?url={url_enc}", timeout=6)
+                    return f"Remote agent on '{device_name}' ({target_host}:{port}) executed: {resp.text.strip()}"
+                elif command in ("vol_up", "tv_vol_up"):
+                    resp = await client.get(f"{agent_base}/volume_up", timeout=5)
+                    return f"Remote agent on '{device_name}' ({target_host}:{port}) executed: Volume increased (+5%)."
+                elif command in ("vol_down", "tv_vol_down"):
+                    resp = await client.get(f"{agent_base}/volume_down", timeout=5)
+                    return f"Remote agent on '{device_name}' ({target_host}:{port}) executed: Volume decreased (-5%)."
+                elif command in ("tv_mute", "mute"):
+                    resp = await client.get(f"{agent_base}/mute", timeout=5)
+                    return f"Remote agent on '{device_name}' ({target_host}:{port}) executed: Audio mute toggled."
+                elif command in ("tv_power", "lock", "sleep"):
+                    resp = await client.get(f"{agent_base}/lock", timeout=5)
+                    return f"Remote agent on '{device_name}' ({target_host}:{port}) executed: Workstation locked."
+            except Exception as e_agent:
+                return (
+                    f"Remote agent unreachable at http://{target_host}:{port} ({e_agent}). "
+                    f"Ensure 'python laptop_agent.py' is running on '{device_name}' ({target_host})."
+                )
+        else:
+            # Local host fallback
+            if command == "open_url" and parameter:
+                import webbrowser
+                webbrowser.open(parameter)
+                return f"Opened '{parameter}' directly on local host laptop display."
 
     return f"LAN command '{command}' dispatched to '{device_name}' ({ip_address})."
 
