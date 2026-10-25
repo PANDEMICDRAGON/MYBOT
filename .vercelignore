@@ -1,0 +1,8 @@
+*.py
+requirements.txt
+schema.sql
+.venv
+__pycache__
+bot.log
+.env*
+README.md

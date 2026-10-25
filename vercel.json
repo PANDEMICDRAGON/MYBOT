@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "telemetry-news-weather",
+  "framework": null,
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [

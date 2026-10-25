@@ -13,14 +13,20 @@ let appState = {
   supabaseAnonKey: localStorage.getItem("telemetry_supabase_anon") || DEFAULT_SUPABASE_ANON_KEY,
   sitrepText: "",
   sitrepThreat: "NOMINAL",
+  conflictSummary: "",
+  futureRiskForecast: "",
+  defensiveProtocol: "",
+  asymmetricUpside: "",
   weatherData: [],
   newsData: [],
   cyberData: [],
+  conflictData: [],
   tasksData: [],
   ledgerData: [],
   vaultData: [],
   activeNewsFilter: "ALL",   // ALL | LOCAL | GLOBAL
   activeCyberFilter: "ALL",  // ALL | CVE-KEV | THREAT-INTEL | LOCAL-CYBER
+  activeConflictFilter: "ALL", // ALL | WAR-KINETIC | MACRO-ECONOMIC | EAST-AFRICA | RED-SEA-MIDEAST
   searchQuery: "",
   lastSyncTime: null,
   nextSyncSeconds: 60,
@@ -49,9 +55,77 @@ function getConditionIcon(condition) {
 // Baseline Fallback / Demo Data
 const DEMO_SITREP = {
   threat_level: "NOMINAL",
-  sitrep: "[THREAT LEVEL: NOMINAL]\nKitengela & Nairobi atmospheric conditions are nominal at 28.9°C with overcast skies. CISA KEV catalog active with 1,756 monitored CVEs; zero active ransomware exploits matching primary Python/PostgreSQL/Linux stack. Telemetry and voice command relays operational.",
+  sitrep: "[THREAT LEVEL: NOMINAL]\nKitengela & Nairobi atmospheric conditions are nominal at 28.9°C with overcast skies. Multi-network telemetry active across CNN, BBC, Al Jazeera, Fox News, NYT, and WSJ. CISA KEV catalog active with 1,756 monitored CVEs; zero active ransomware exploits matching primary Python/PostgreSQL/Linux stack. Maritime and macro threat corridors monitored.",
+  conflict_summary: "Red Sea & Bab el-Mandeb: Intermittent missile and drone threats against commercial transit; insurance surcharges elevated. Eastern Europe: Drone strikes reported near Black Sea grain export terminals. Horn of Africa / Sudan: Clashes in Khartoum perimeter; Kenya border posts on elevated alert.",
+  future_risk_forecast: "7-30 Day Horizon: Shipping reroutes around Cape of Good Hope lifting landed fuel and machinery costs into Mombasa port by 8-12%. Central Bank of Kenya holding benchmark rate at 12.75% to stabilize KES against USD import pressure. Coastal subsea cables operational.",
+  defensive_protocol: "1. Lock in essential hardware and infrastructure import orders before regional repricing.\n2. Maintain 30-day liquidity buffer in USD or money market accounts to hedge KES fluctuations.\n3. Verify off-grid power backups and offline repository mirrors (git + sqlite) against local disruptions.",
+  asymmetric_upside: "1. Dollar-denominated invoicing: Retain international clients and royalty revenues in USD.\n2. Strategic NSE positioning: Accumulate high-yield, dividend-paying domestic equities (SCOM, COOP, ABSA) during macro pullbacks.\n3. Resilience engineering: Offer failover DNS and edge architecture retainers to local businesses vulnerable to cloud outages.",
   created_at: new Date().toISOString()
 };
+
+const DEMO_CONFLICT = [
+  {
+    id: 1,
+    domain: "WAR-KINETIC",
+    theater: "RED-SEA-MIDEAST",
+    severity: "CRITICAL",
+    headline: "Houthi Anti-Ship Ballistic Missiles Target Container Vessel South of Bab el-Mandeb",
+    source: "Defense One",
+    link: "https://www.defenseone.com",
+    created_at: new Date(Date.now() - 1000 * 60 * 18).toISOString()
+  },
+  {
+    id: 2,
+    domain: "WAR-KINETIC",
+    theater: "EAST-AFRICA",
+    severity: "ELEVATED",
+    headline: "Sudan Conflict Escalates Around Port Sudan Logistics Hub; Regional Security Meeting Convened",
+    source: "Al Jazeera",
+    link: "https://www.aljazeera.com",
+    created_at: new Date(Date.now() - 1000 * 60 * 45).toISOString()
+  },
+  {
+    id: 3,
+    domain: "MACRO-ECONOMIC",
+    theater: "GLOBAL",
+    severity: "ELEVATED",
+    headline: "Brent Crude Climbs Past $84 on Mideast Supply Anxiety; Maritime War Risk Premiums Double",
+    source: "CNBC",
+    link: "https://www.cnbc.com",
+    created_at: new Date(Date.now() - 1000 * 60 * 85).toISOString()
+  },
+  {
+    id: 4,
+    domain: "WAR-KINETIC",
+    theater: "EASTERN-EUROPE",
+    severity: "ELEVATED",
+    headline: "Long-Range Drone Swarms Intercepted Over Black Sea Maritime Corridor Near Odesa",
+    source: "BBC World",
+    link: "https://www.bbc.com/news/world",
+    created_at: new Date(Date.now() - 1000 * 60 * 120).toISOString()
+  },
+  {
+    id: 5,
+    domain: "GEOPOLITICAL",
+    theater: "INDO-PACIFIC",
+    severity: "WATCH",
+    headline: "Naval Patrols Stepped Up in Taiwan Strait Ahead of Advanced Semiconductor Tariff Review",
+    source: "Fox News",
+    link: "https://www.foxnews.com/world",
+    created_at: new Date(Date.now() - 1000 * 60 * 180).toISOString()
+  },
+  {
+    id: 6,
+    domain: "MACRO-ECONOMIC",
+    theater: "GLOBAL",
+    severity: "WATCH",
+    headline: "Federal Reserve Signals Prolonged Elevated Rates; Emerging Market Currencies Under Pressure",
+    source: "WSJ Markets",
+    link: "https://www.wsj.com",
+    created_at: new Date(Date.now() - 1000 * 60 * 240).toISOString()
+  }
+];
+
 
 const DEMO_WEATHER = [
   { city: "Kitengela", scope: "LOCAL", temp_c: 28.9, humidity: 27, wind_kmh: 12.5, condition: "Overcast", updated_at: new Date().toISOString() },
@@ -183,9 +257,14 @@ async function fetchTelemetryData() {
     console.info("Using baseline cognitive data. Configure Supabase in Settings for live telemetry.");
     appState.sitrepText = DEMO_SITREP.sitrep;
     appState.sitrepThreat = DEMO_SITREP.threat_level;
+    appState.conflictSummary = DEMO_SITREP.conflict_summary;
+    appState.futureRiskForecast = DEMO_SITREP.future_risk_forecast;
+    appState.defensiveProtocol = DEMO_SITREP.defensive_protocol;
+    appState.asymmetricUpside = DEMO_SITREP.asymmetric_upside;
     appState.weatherData = DEMO_WEATHER;
     appState.newsData = DEMO_NEWS;
     appState.cyberData = DEMO_CYBER;
+    appState.conflictData = DEMO_CONFLICT;
     appState.tasksData = DEMO_TASKS;
     appState.ledgerData = DEMO_LEDGER;
     appState.vaultData = DEMO_VAULT;
@@ -201,6 +280,7 @@ async function fetchTelemetryData() {
     renderCyber();
     renderPersonalOps();
     renderNews();
+    renderConflict();
     if (refreshIcon) refreshIcon.classList.remove("spin-anim");
     return;
   }
@@ -211,11 +291,12 @@ async function fetchTelemetryData() {
   };
 
   try {
-    const [sitrepRes, weatherRes, cyberRes, newsRes, tasksRes, ledgerRes, vaultRes] = await Promise.all([
+    const [sitrepRes, weatherRes, cyberRes, newsRes, conflictRes, tasksRes, ledgerRes, vaultRes] = await Promise.all([
       fetch(`${appState.supabaseUrl}/rest/v1/tactical_briefings?select=*&order=created_at.desc&limit=1`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/weather_reports?select=*&order=scope.desc`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/cyber_alerts?select=*&order=created_at.desc&limit=25`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/news_articles?select=*&order=created_at.desc&limit=25`, { headers }),
+      fetch(`${appState.supabaseUrl}/rest/v1/conflict_and_macro_intel?select=*&order=created_at.desc&limit=30`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/personal_tasks?completed=eq.false&select=*&order=created_at.desc&limit=8`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/personal_ledger?select=*&order=created_at.desc&limit=8`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/idea_vault?select=*&order=created_at.desc&limit=8`, { headers })
@@ -223,16 +304,26 @@ async function fetchTelemetryData() {
 
     const sitrepJson = sitrepRes.ok ? await sitrepRes.json() : [];
     if (sitrepJson.length > 0) {
-      appState.sitrepText = sitrepJson[0].sitrep;
-      appState.sitrepThreat = sitrepJson[0].threat_level;
+      const b = sitrepJson[0];
+      appState.sitrepText = b.sitrep || "";
+      appState.sitrepThreat = b.threat_level || "NOMINAL";
+      appState.conflictSummary = b.conflict_summary || "";
+      appState.futureRiskForecast = b.future_risk_forecast || "";
+      appState.defensiveProtocol = b.defensive_protocol || "";
+      appState.asymmetricUpside = b.asymmetric_upside || "";
     } else {
       appState.sitrepText = DEMO_SITREP.sitrep;
       appState.sitrepThreat = DEMO_SITREP.threat_level;
+      appState.conflictSummary = DEMO_SITREP.conflict_summary;
+      appState.futureRiskForecast = DEMO_SITREP.future_risk_forecast;
+      appState.defensiveProtocol = DEMO_SITREP.defensive_protocol;
+      appState.asymmetricUpside = DEMO_SITREP.asymmetric_upside;
     }
 
     appState.weatherData = weatherRes.ok ? await weatherRes.json() : DEMO_WEATHER;
     appState.cyberData = cyberRes.ok ? await cyberRes.json() : DEMO_CYBER;
     appState.newsData = newsRes.ok ? await newsRes.json() : DEMO_NEWS;
+    appState.conflictData = conflictRes.ok ? await conflictRes.json() : DEMO_CONFLICT;
     appState.tasksData = tasksRes.ok ? await tasksRes.json() : DEMO_TASKS;
     appState.ledgerData = ledgerRes.ok ? await ledgerRes.json() : DEMO_LEDGER;
     appState.vaultData = vaultRes.ok ? await vaultRes.json() : DEMO_VAULT;
@@ -247,6 +338,7 @@ async function fetchTelemetryData() {
     renderCyber();
     renderPersonalOps();
     renderNews();
+    renderConflict();
   } catch (err) {
     console.error("Telemetry sync error:", err);
     if (connectionBadge) {
@@ -258,37 +350,110 @@ async function fetchTelemetryData() {
     renderCyber();
     renderPersonalOps();
     renderNews();
+    renderConflict();
   } finally {
     if (refreshIcon) refreshIcon.classList.remove("spin-anim");
     resetCountdown();
   }
 }
 
-// Render Tactical SitRep HUD
+// Render Tactical SitRep HUD & Strategic 4-Pillar Matrix
 function renderSitRep() {
   const contentEl = document.getElementById("sitrep-content");
   const badgeEl = document.getElementById("sitrep-badge");
   const panelEl = document.getElementById("sitrep-panel");
   const timeEl = document.getElementById("sitrep-time");
 
-  if (!contentEl) return;
+  const conflictEl = document.getElementById("hud-conflict");
+  const forecastEl = document.getElementById("hud-forecast");
+  const defenseEl = document.getElementById("hud-defense");
+  const upsideEl = document.getElementById("hud-upside");
 
-  contentEl.textContent = appState.sitrepText || "Awaiting cognitive synthesis...";
+  if (contentEl) contentEl.textContent = appState.sitrepText || "Awaiting cognitive synthesis...";
   if (timeEl) timeEl.textContent = `Generated: ${new Date().toLocaleTimeString()} // Voice Ready`;
+
+  if (conflictEl) conflictEl.textContent = appState.conflictSummary || "Corridors under continuous sensor monitoring.";
+  if (forecastEl) forecastEl.textContent = appState.futureRiskForecast || "Nominal 7-30 day threat horizon.";
+  if (defenseEl) defenseEl.textContent = appState.defensiveProtocol || "Standard protective posture active.";
+  if (upsideEl) upsideEl.textContent = appState.asymmetricUpside || "Scanning asymmetric positioning vectors.";
 
   if (badgeEl) {
     badgeEl.textContent = appState.sitrepThreat;
     if (appState.sitrepThreat === "CRITICAL") {
       badgeEl.className = "text-[10px] font-mono font-bold px-2.5 py-1 rounded bg-rose-600 text-white shadow-lg shadow-rose-500/30";
-      if (panelEl) panelEl.className = "sitrep-panel threat-critical p-5 mb-8";
+      if (panelEl) panelEl.className = "sitrep-panel threat-critical p-6 shadow-2xl";
     } else if (appState.sitrepThreat === "ELEVATED") {
       badgeEl.className = "text-[10px] font-mono font-bold px-2.5 py-1 rounded bg-amber-500 text-black";
-      if (panelEl) panelEl.className = "sitrep-panel threat-elevated p-5 mb-8";
+      if (panelEl) panelEl.className = "sitrep-panel threat-elevated p-6 shadow-2xl";
     } else {
       badgeEl.className = "text-[10px] font-mono font-bold px-2.5 py-1 rounded bg-emerald-400 text-black";
-      if (panelEl) panelEl.className = "sitrep-panel p-5 mb-8";
+      if (panelEl) panelEl.className = "sitrep-panel p-6 shadow-2xl";
     }
   }
+}
+
+// Render Global War Theaters & Macro-Economic Wire
+function renderConflict() {
+  const container = document.getElementById("conflict-list");
+  if (!container) return;
+
+  let items = appState.conflictData || [];
+
+  // Filter by theater or domain
+  if (appState.activeConflictFilter !== "ALL") {
+    items = items.filter(item =>
+      item.domain === appState.activeConflictFilter ||
+      item.theater === appState.activeConflictFilter
+    );
+  }
+
+  // Filter by search query
+  if (appState.searchQuery && appState.searchQuery.trim()) {
+    const q = appState.searchQuery.toLowerCase();
+    items = items.filter(item =>
+      (item.headline && item.headline.toLowerCase().includes(q)) ||
+      (item.source && item.source.toLowerCase().includes(q)) ||
+      (item.theater && item.theater.toLowerCase().includes(q)) ||
+      (item.domain && item.domain.toLowerCase().includes(q))
+    );
+  }
+
+  if (items.length === 0) {
+    container.innerHTML = `
+      <div class="col-span-full py-8 text-center text-slate-500 font-mono text-xs">
+        No active conflict or macroeconomic alerts matching filter [${appState.activeConflictFilter}].
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = items.map(item => {
+    let badgeClass = "badge-watch";
+    if (item.severity === "CRITICAL") badgeClass = "badge-critical";
+    else if (item.severity === "ELEVATED") badgeClass = "badge-elevated";
+
+    const timeAgo = formatTimeAgo(item.created_at || new Date().toISOString());
+
+    return `
+      <div class="conflict-card">
+        <div class="flex items-center justify-between gap-2 mb-2">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded ${badgeClass}">${item.severity}</span>
+            <span class="text-[10px] font-mono px-2 py-0.5 bg-slate-800/80 border border-slate-700/60 text-slate-300 rounded">${item.theater}</span>
+          </div>
+          <span class="text-[11px] font-mono text-slate-500">${timeAgo}</span>
+        </div>
+        <a href="${item.link || '#'}" target="_blank" rel="noopener noreferrer"
+           class="text-sm font-semibold text-slate-100 hover:text-amber-400 hover:underline block leading-snug my-1.5 transition">
+          ${item.headline}
+        </a>
+        <div class="flex items-center justify-between mt-2 pt-2 border-t border-slate-800/60 text-[11px] font-mono text-slate-400">
+          <span class="text-slate-400">${item.source}</span>
+          <span class="text-slate-500">${item.domain}</span>
+        </div>
+      </div>
+    `;
+  }).join("");
 }
 
 // Web Speech API Vocalization (Cortana / J.A.R.V.I.S. Audio Synthesizer)
@@ -299,7 +464,14 @@ function speakSitrep() {
   }
   window.speechSynthesis.cancel();
   
-  const cleanText = (appState.sitrepText || "All systems nominal.").replace(/\[.*?\]/g, "").trim();
+  const textParts = [
+    `Overwatch SitRep. Threat level: ${appState.sitrepThreat}.`,
+    appState.sitrepText || "All systems nominal.",
+    appState.conflictSummary ? `Active Wars and Chokepoints: ${appState.conflictSummary}` : "",
+    appState.defensiveProtocol ? `Defensive Protocol: ${appState.defensiveProtocol}` : ""
+  ].filter(Boolean).join(" ");
+
+  const cleanText = textParts.replace(/\[.*?\]/g, "").replace(/\n/g, " ").trim();
   const utterance = new SpeechSynthesisUtterance(cleanText);
   utterance.rate = 1.05;
   utterance.pitch = 0.95;
@@ -317,6 +489,7 @@ function stopSpeech() {
     window.speechSynthesis.cancel();
   }
 }
+
 
 // Render Weather Cards
 function renderWeather() {
@@ -704,6 +877,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+  // Setup Conflict & Macro Theater tabs
+  document.querySelectorAll(".conflict-filter-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".conflict-filter-btn").forEach(b => b.classList.remove("active-filter"));
+      btn.classList.add("active-filter");
+      appState.activeConflictFilter = btn.getAttribute("data-filter");
+      renderConflict();
+    });
+  });
+
   // Setup Search
   const searchInput = document.getElementById("telemetry-search-input");
   if (searchInput) {
@@ -711,6 +894,7 @@ document.addEventListener("DOMContentLoaded", () => {
       appState.searchQuery = e.target.value;
       renderNews();
       renderCyber();
+      renderConflict();
     });
   }
 

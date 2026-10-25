@@ -55,8 +55,8 @@ VISION_MODEL = "llama-3.2-11b-vision-preview"
 SYSTEM_PERSONA = """You are an autonomous tactical intelligence construct combining the operational precision of J.A.R.V.I.S. and the strategic threat-synthesis of Cortana.
 Rules of Engagement:
 1. Address the operator directly with dry, concise, high-signal tactical clarity. No pleasantries, no filler, no emojis.
-2. Cross-reference incoming telemetry against the Operator Memory Directives provided in context.
-3. When anomalies, severe weather, or relevant CVEs appear, state the threat vector, operational impact, and recommended countermeasure immediately.
+2. Cross-reference incoming telemetry (kinetic wars, maritime chokepoints, cyber zero-days, inflation) against the Operator Memory Directives and Asset Exposure Profile provided in context.
+3. Formulate concrete Defensive Protocols (how to protect operations, cash flow, and infrastructure) and Asymmetric Upside (how to profit or position via NSE equities, currency hedging, or high-demand technical services).
 4. Use your available tools whenever you need live database records, external web inspection, task management, transaction logging, or memory updates."""
 
 WEATHER_LOCATIONS = [
@@ -67,12 +67,72 @@ WEATHER_LOCATIONS = [
     {"city": "Tokyo", "scope": "GLOBAL", "lat": 35.6762, "lon": 139.6503},
 ]
 
+# 1. Major Global Networks & Local Wire
 NEWS_FEEDS = [
-    {"source": "Kenya Local", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi+OR+Kitengela&hl=en-KE&gl=KE&ceid=KE:en"},
+    {"source": "CNN World", "scope": "GLOBAL", "url": "http://rss.cnn.com/rss/edition_world.rss"},
     {"source": "BBC World", "scope": "GLOBAL", "url": "https://feeds.bbci.co.uk/news/world/rss.xml"},
-    {"source": "Al Jazeera", "scope": "GLOBAL", "url": "https://www.aljazeera.com/xml/rss/all.xml"}
+    {"source": "Al Jazeera", "scope": "GLOBAL", "url": "https://www.aljazeera.com/xml/rss/all.xml"},
+    {"source": "Fox News World", "scope": "GLOBAL", "url": "https://moxie.foxnews.com/google-publisher/world.xml"},
+    {"source": "NYT World", "scope": "GLOBAL", "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"},
+    {"source": "WSJ World", "scope": "GLOBAL", "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml"},
+    {"source": "The Guardian World", "scope": "GLOBAL", "url": "https://www.theguardian.com/world/rss"},
+    {"source": "Kenya Local Wire", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi+OR+Kitengela&hl=en-KE&gl=KE&ceid=KE:en"},
+    {"source": "Kenya Markets & Economy", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(CBK+OR+%22Nairobi+Securities+Exchange%22+OR+inflation+OR+shilling+OR+fuel)&hl=en-KE&gl=KE&ceid=KE:en"}
 ]
 
+# 2. Continuous War, Geopolitical Flashpoint & Macro-Economic Threat Feeds
+CONFLICT_AND_MACRO_FEEDS = [
+    {
+        "source": "Defense One",
+        "domain": "WAR-KINETIC",
+        "theater": "GLOBAL",
+        "url": "https://www.defenseone.com/rss/all/"
+    },
+    {
+        "source": "War on the Rocks",
+        "domain": "WAR-KINETIC",
+        "theater": "GLOBAL",
+        "url": "https://warontherocks.com/feed/"
+    },
+    {
+        "source": "Middle East & Red Sea Corridor",
+        "domain": "WAR-KINETIC",
+        "theater": "RED-SEA-MIDEAST",
+        "url": "https://news.google.com/rss/search?q=(%22Red+Sea%22+OR+%22Hormuz%22+OR+Israel+OR+Iran+OR+Gaza+OR+Lebanon+OR+Houthi)+AND+(strike+OR+missile+OR+blockade+OR+shipping+OR+war)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "source": "Horn of Africa & Regional Security",
+        "domain": "WAR-KINETIC",
+        "theater": "EAST-AFRICA",
+        "url": "https://news.google.com/rss/search?q=(Sudan+OR+Somalia+OR+Ethiopia+OR+DRC+OR+%22East+Africa%22)+AND+(conflict+OR+military+OR+insurgency+OR+border+OR+security)&hl=en-KE&gl=KE&ceid=KE:en"
+    },
+    {
+        "source": "Eastern Europe & NATO Flank",
+        "domain": "WAR-KINETIC",
+        "theater": "EASTERN-EUROPE",
+        "url": "https://news.google.com/rss/search?q=(Ukraine+OR+Russia+OR+NATO+OR+Black+Sea)+AND+(frontline+OR+drone+OR+sanctions+OR+energy+OR+offensive)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "source": "Indo-Pacific & Taiwan Strait",
+        "domain": "GEOPOLITICAL",
+        "theater": "INDO-PACIFIC",
+        "url": "https://news.google.com/rss/search?q=(%22South+China+Sea%22+OR+Taiwan+OR+semiconductors+OR+blockade)+AND+(military+OR+sanctions+OR+tariff+OR+supply+chain)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "source": "CNBC Global Macro & Commodities",
+        "domain": "MACRO-ECONOMIC",
+        "theater": "GLOBAL",
+        "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664"
+    },
+    {
+        "source": "WSJ Markets & Monetary Policy",
+        "domain": "MACRO-ECONOMIC",
+        "theater": "GLOBAL",
+        "url": "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
+    }
+]
+
+# Cybersecurity Intelligence Feeds
 CYBER_RSS_FEEDS = [
     {"source": "The Hacker News", "category": "THREAT-INTEL", "url": "https://feeds.feedburner.com/TheHackersNews"},
     {"source": "BleepingComputer", "category": "THREAT-INTEL", "url": "https://www.bleepingcomputer.com/feed/"},
@@ -88,19 +148,23 @@ BOOT_TIME = time.time()
 
 
 # =====================================================================
-# --- PERSISTENT MEMORY & DATABASE QUERIES ---
+# --- PERSISTENT MEMORY & DATABASE OPERATIONS ---
 # =====================================================================
 async def get_operator_memory(client: httpx.AsyncClient) -> str:
-    """Retrieve standing orders and operating directives from Supabase."""
+    """Retrieve standing orders, tech stack, and asset exposure directives."""
     if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
-        return "Local environment: Kitengela/Nairobi. Stack: Python, Next.js, PostgreSQL, Linux."
+        return (
+            "Base location: Kitengela/Nairobi. Currency: KES. "
+            "Exposure: Nairobi Securities Exchange (SCOM, COOP, ABSA), Cloud APIs, USD Royalties. "
+            "Stack: Python, Next.js, PostgreSQL, Linux."
+        )
     try:
         resp = await client.get(f"{SUPABASE_URL}/rest/v1/bot_memory?select=memory_key,directive", headers=SUPABASE_HEADERS, timeout=10)
         if resp.status_code == 200 and resp.json():
             return "\n".join([f"- [{r['memory_key']}]: {r['directive']}" for r in resp.json()])
     except Exception as e:
         logger.error(f"[Memory Read Error]: {e}")
-    return "Base location: Kitengela/Nairobi. Monitor Linux, Python, PostgreSQL, Web Stack."
+    return "Base: Kitengela/Nairobi. Currency: KES. Monitor kinetic conflicts, fuel/import shipping, and tech stack."
 
 
 async def tool_query_telemetry(client: httpx.AsyncClient, table: str, limit: int = 5) -> str:
@@ -109,6 +173,7 @@ async def tool_query_telemetry(client: httpx.AsyncClient, table: str, limit: int
         "weather_reports": "updated_at",
         "news_articles": "created_at",
         "cyber_alerts": "created_at",
+        "conflict_and_macro_intel": "created_at",
         "tactical_briefings": "created_at",
         "personal_tasks": "created_at",
         "personal_ledger": "created_at",
@@ -126,7 +191,6 @@ async def tool_query_telemetry(client: httpx.AsyncClient, table: str, limit: int
 
 
 async def tool_save_memory(client: httpx.AsyncClient, memory_key: str, directive: str) -> str:
-    """Save persistent rule or project detail into bot_memory."""
     try:
         headers = {**SUPABASE_HEADERS, "Prefer": "resolution=merge-duplicates"}
         payload = {"memory_key": memory_key.lower().replace(" ", "_"), "directive": directive, "updated_at": datetime.now(timezone.utc).isoformat()}
@@ -137,9 +201,8 @@ async def tool_save_memory(client: httpx.AsyncClient, memory_key: str, directive
 
 
 async def tool_live_web_probe(client: httpx.AsyncClient, url: str) -> str:
-    """Extract and analyze clean text from any URL on the internet."""
     try:
-        headers = {"User-Agent": "Mozilla/5.0 (compatible; TacticalConstruct/3.0)"}
+        headers = {"User-Agent": "Mozilla/5.0 (compatible; TacticalConstruct/4.0)"}
         resp = await client.get(url, headers=headers, timeout=15)
         soup = BeautifulSoup(resp.text, "html.parser")
         for tag in soup(["script", "style", "nav", "footer"]):
@@ -153,7 +216,6 @@ async def tool_live_web_probe(client: httpx.AsyncClient, url: str) -> str:
 async def tool_manage_tasks(
     client: httpx.AsyncClient, action: str, title: str = "", priority: str = "NORMAL", due_at: str = None, task_id: int = None
 ) -> str:
-    """Add, list, or complete personal tasks and calendar items."""
     try:
         if action == "add":
             payload = {"title": title, "priority": priority.upper(), "due_at": due_at, "completed": False}
@@ -177,7 +239,6 @@ async def tool_manage_tasks(
 async def tool_log_ledger_entry(
     client: httpx.AsyncClient, counterparty: str, amount: float, category: str, currency: str = "KES", ref_code: str = "", raw_summary: str = ""
 ) -> str:
-    """Log financial transactions, M-Pesa statements, or receipts into personal_ledger."""
     try:
         payload = {
             "ref_code": ref_code.upper() if ref_code else None,
@@ -194,7 +255,6 @@ async def tool_log_ledger_entry(
 
 
 async def tool_log_vault_note(client: httpx.AsyncClient, tag: str, content: str) -> str:
-    """Save spoken thoughts, project architectures, or lyrics into idea_vault."""
     try:
         payload = {"tag": tag.upper(), "content": content}
         resp = await client.post(f"{SUPABASE_URL}/rest/v1/idea_vault", headers=SUPABASE_HEADERS, json=payload, timeout=10)
@@ -204,20 +264,20 @@ async def tool_log_vault_note(client: httpx.AsyncClient, tag: str, content: str)
 
 
 # =====================================================================
-# --- LLM TOOL DEFINITIONS (ReAct PATTERN) ---
+# --- LLM TOOL DEFINITIONS ---
 # =====================================================================
 AGENT_TOOLS = [
     {
         "type": "function",
         "function": {
             "name": "query_telemetry",
-            "description": "Query the live database for weather_reports, news_articles, cyber_alerts, tactical_briefings, personal_tasks, personal_ledger, or idea_vault.",
+            "description": "Query live database for conflict_and_macro_intel, weather_reports, news_articles, cyber_alerts, tactical_briefings, personal_tasks, personal_ledger, or idea_vault.",
             "parameters": {
                 "type": "object",
                 "properties": {
                     "table": {
                         "type": "string",
-                        "enum": ["weather_reports", "news_articles", "cyber_alerts", "tactical_briefings", "personal_tasks", "personal_ledger", "idea_vault"]
+                        "enum": ["conflict_and_macro_intel", "weather_reports", "news_articles", "cyber_alerts", "tactical_briefings", "personal_tasks", "personal_ledger", "idea_vault"]
                     },
                     "limit": {"type": "integer", "description": "Number of rows to retrieve (1 to 15)"}
                 },
@@ -229,12 +289,12 @@ AGENT_TOOLS = [
         "type": "function",
         "function": {
             "name": "save_operator_directive",
-            "description": "Save a permanent fact, tech stack detail, or standing order into persistent memory.",
+            "description": "Save a permanent fact, tech stack detail, or economic standing order into persistent memory.",
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "memory_key": {"type": "string", "description": "Short identifier (e.g. 'active_project' or 'priority_target')"},
-                    "directive": {"type": "string", "description": "The rule or fact to remember permanently"}
+                    "memory_key": {"type": "string", "description": "Short identifier (e.g. 'asset_profile' or 'priority_watch')"},
+                    "directive": {"type": "string", "description": "The fact or rule to remember permanently"}
                 },
                 "required": ["memory_key", "directive"]
             }
@@ -244,7 +304,7 @@ AGENT_TOOLS = [
         "type": "function",
         "function": {
             "name": "live_web_probe",
-            "description": "Fetch and inspect raw text from any target URL for analysis.",
+            "description": "Fetch and inspect raw text from any URL on the internet.",
             "parameters": {
                 "type": "object",
                 "properties": {"url": {"type": "string", "description": "Full https:// URL to probe"}},
@@ -256,7 +316,7 @@ AGENT_TOOLS = [
         "type": "function",
         "function": {
             "name": "trigger_sensor_sweep",
-            "description": "Force an immediate synchronization of all weather, news, and cybersecurity sensors.",
+            "description": "Force an immediate synchronization of all conflict, macro, weather, news, and cyber sensors.",
             "parameters": {"type": "object", "properties": {}}
         }
     },
@@ -282,7 +342,7 @@ AGENT_TOOLS = [
         "type": "function",
         "function": {
             "name": "log_ledger_entry",
-            "description": "Extract and save financial transactions, M-Pesa messages, receipts, or ticket confirmations into the personal ledger.",
+            "description": "Extract and save financial transactions, M-Pesa statements, receipts, or ticket confirmations into the personal ledger.",
             "parameters": {
                 "type": "object",
                 "properties": {
@@ -290,7 +350,7 @@ AGENT_TOOLS = [
                     "amount": {"type": "number", "description": "Numeric transaction value"},
                     "currency": {"type": "string", "description": "ISO currency code, default KES"},
                     "category": {"type": "string", "enum": ["EXPENSE", "INCOME", "RECEIPT", "TICKET"]},
-                    "ref_code": {"type": "string", "description": "Transaction ID or confirmation code (e.g. M-Pesa code)"},
+                    "ref_code": {"type": "string", "description": "Transaction ID or confirmation code"},
                     "raw_summary": {"type": "string", "description": "Context or item breakdown"}
                 },
                 "required": ["counterparty", "amount", "category"]
@@ -316,21 +376,14 @@ AGENT_TOOLS = [
 
 
 # =====================================================================
-# --- AGENTIC REASONING ENGINE (CORTANA / J.A.R.V.I.S. BRAIN) ---
+# --- AGENTIC REASONING ENGINE ---
 # =====================================================================
 async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
-    """Executes a multi-turn ReAct reasoning loop with tool calling."""
     global conversation_history
 
     if not GROQ_API_KEY:
-        # Fallback deterministic responder if Groq API key is not yet set
         logger.warning("GROQ_API_KEY not configured. Running baseline tactical handler.")
-        cmd = user_input.strip().lower()
-        if "/weather" in cmd or "weather" in cmd:
-            return "Executing atmospheric query. Check web HUD or run sensor sweep."
-        elif "/cyber" in cmd or "cyber" in cmd or "cve" in cmd:
-            return "Threat telemetry online. CISA KEV and threat feeds active."
-        return f"Directive received: '{user_input}'. Configure GROQ_API_KEY in .env to engage full cognitive reasoning."
+        return f"Directive received: '{user_input}'. Configure GROQ_API_KEY in .env for full cognitive reasoning."
 
     memory_context = await get_operator_memory(client)
     system_prompt = (
@@ -345,7 +398,6 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
     messages = [{"role": "system", "content": system_prompt}] + conversation_history
     headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
 
-    # Run up to 3 iterative tool calls
     for _ in range(3):
         try:
             payload = {
@@ -372,14 +424,14 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                 logger.info(f"Executing tool call: {fn_name}({args})")
 
                 if fn_name == "query_telemetry":
-                    result = await tool_query_telemetry(client, args.get("table", "cyber_alerts"), args.get("limit", 5))
+                    result = await tool_query_telemetry(client, args.get("table", "conflict_and_macro_intel"), args.get("limit", 5))
                 elif fn_name == "save_operator_directive":
                     result = await tool_save_memory(client, args.get("memory_key", "directive"), args.get("directive", ""))
                 elif fn_name == "live_web_probe":
                     result = await tool_live_web_probe(client, args.get("url", ""))
                 elif fn_name == "trigger_sensor_sweep":
                     force_sync_event.set()
-                    result = "Telemetry synchronization initiated across weather, news, and cyber sensors."
+                    result = "Telemetry synchronization initiated across conflict, macro, weather, and cyber sensors."
                 elif fn_name == "manage_tasks":
                     result = await tool_manage_tasks(
                         client, args.get("action", "list"), args.get("title", ""),
@@ -406,67 +458,164 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
 
 
 # =====================================================================
-# --- TACTICAL SITREP SYNTHESIS ---
+# --- WAR & MACRO-ECONOMIC THREAT INGESTION ---
 # =====================================================================
-async def synthesize_tactical_sitrep(client: httpx.AsyncClient, weather: list[dict], news: list[dict], cyber: list[dict]) -> dict:
-    """Synthesize cross-sensor intelligence into a unified Cortana/JARVIS Tactical SitRep."""
+async def sync_conflict_and_macro(client: httpx.AsyncClient) -> list[dict]:
+    """Ingest, classify, and deduplicate kinetic war and macroeconomic shock feeds."""
+    new_intel = []
+    if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
+        return new_intel
+
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; TacticalConstruct/4.0)"}
+    critical_terms = ["invasion", "blockade", "strait of hormuz", "bab el-mandeb", "default", "rate hike", "embargo", "nuclear", "mobilization", "cable cut", "oil spike"]
+    elevated_terms = ["sanctions", "tariff", "inflation", "strike", "missile", "drone", "insurgency", "supply chain", "shortage", "devaluation"]
+
+    for feed in CONFLICT_AND_MACRO_FEEDS:
+        try:
+            resp = await client.get(feed["url"], headers=headers, timeout=20)
+            root = ET.fromstring(resp.content)
+
+            for item in root.findall(".//item")[:5]:
+                headline = (item.findtext("title") or "Untitled").strip()
+                link = item.findtext("link") or ""
+                content_hash = hashlib.sha256(f"{headline}{link}".encode()).hexdigest()
+
+                check = await client.get(
+                    f"{SUPABASE_URL}/rest/v1/conflict_and_macro_intel?content_hash=eq.{content_hash}&select=id",
+                    headers=SUPABASE_HEADERS,
+                    timeout=10
+                )
+                if check.status_code == 200 and len(check.json()) > 0:
+                    continue
+
+                lower_h = headline.lower()
+                if any(k in lower_h for k in critical_terms):
+                    severity = "CRITICAL"
+                elif any(k in lower_h for k in elevated_terms):
+                    severity = "ELEVATED"
+                else:
+                    severity = "WATCH"
+
+                record = {
+                    "domain": feed["domain"],
+                    "theater": feed["theater"],
+                    "severity": severity,
+                    "headline": headline,
+                    "source": feed["source"],
+                    "link": link,
+                    "content_hash": content_hash,
+                    "created_at": datetime.now(timezone.utc).isoformat()
+                }
+
+                insert_resp = await client.post(
+                    f"{SUPABASE_URL}/rest/v1/conflict_and_macro_intel",
+                    headers=SUPABASE_HEADERS,
+                    json=record,
+                    timeout=10
+                )
+                if insert_resp.status_code == 201:
+                    new_intel.append(record)
+                    logger.info(f"🌐 War/Macro Intel: [{severity}] {feed['theater']} - {headline[:60]}...")
+        except Exception as e:
+            logger.error(f"[Conflict/Macro Error - {feed['source']}]: {e}")
+
+    return new_intel
+
+
+# =====================================================================
+# --- STRATEGIC 4-PILLAR SITREP SYNTHESIS ---
+# =====================================================================
+async def synthesize_tactical_sitrep(
+    client: httpx.AsyncClient,
+    weather: list[dict],
+    news: list[dict],
+    cyber: list[dict],
+    conflict_macro: list[dict]
+) -> dict:
+    """Synthesize wars, macro shocks, cyber threats, and weather into Protection & Upside Protocols."""
     if not GROQ_API_KEY:
-        # Fallback SitRep if Groq key isn't provided yet
-        sitrep_text = (
-            "[THREAT LEVEL: NOMINAL]\n"
-            "Atmospheric conditions in Nairobi & Kitengela are steady. "
-            "CISA KEV and threat intel streams monitored. "
-            "System telemetry online."
-        )
-        record = {"threat_level": "NOMINAL", "sitrep": sitrep_text, "created_at": datetime.now(timezone.utc).isoformat()}
+        record = {
+            "threat_level": "NOMINAL",
+            "sitrep": "Multi-network sensors online. Monitoring kinetic conflicts and macroeconomic stability.",
+            "conflict_summary": "Red Sea, Eastern Europe, and Horn of Africa corridors under active surveillance.",
+            "future_risk_forecast": "Watch fuel pricing and shipping delays into Mombasa port over next 14-30 days.",
+            "defensive_protocol": "Maintain USD reserves; verify edge DNS failover; backup local repositories.",
+            "asymmetric_upside": "Position in domestic cash-generative equities (SCOM, banking) and cloud resilience audits.",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
         if SUPABASE_URL and SUPABASE_SERVICE_KEY:
             await client.post(f"{SUPABASE_URL}/rest/v1/tactical_briefings", headers=SUPABASE_HEADERS, json=record)
         return record
 
     memory_context = await get_operator_memory(client)
-    telemetry_dump = json.dumps({"weather": weather, "new_news": news[:5], "new_cyber_alerts": cyber[:5]})
+    telemetry_dump = json.dumps({
+        "local_weather": [w for w in weather if w["scope"] == "LOCAL"],
+        "global_and_local_news": news[:10],
+        "cyber_alerts": cyber[:6],
+        "wars_and_macro_shocks": conflict_macro[:10]
+    })
 
-    prompt = (
-        f"OPERATOR STANDING DIRECTIVES & TECH STACK:\n{memory_context}\n\n"
-        f"INCOMING MULTI-SENSOR TELEMETRY:\n{telemetry_dump}\n\n"
-        "Generate a high-signal Tactical SitRep under 150 words. "
-        "1. First line MUST start with exactly one tag: [THREAT LEVEL: NOMINAL], [THREAT LEVEL: ELEVATED], or [THREAT LEVEL: CRITICAL]. "
-        "2. Synthesize local Kitengela/Nairobi atmospheric telemetry. "
-        "3. Cross-reference cyber threats against the operator stack and highlight significant local/global events. "
-        "Tone: Pure Cortana / J.A.R.V.I.S. operational briefing."
-    )
+    prompt = f"""OPERATOR MEMORY & ASSET PROFILE:
+{memory_context}
+
+INCOMING MULTI-NETWORK TELEMETRY:
+{telemetry_dump}
+
+Synthesize this intelligence in the voice of Cortana/J.A.R.V.I.S. Output valid JSON strictly matching this schema:
+{{
+  "threat_level": "NOMINAL" | "ELEVATED" | "CRITICAL",
+  "sitrep": "Executive synthesis (under 90 words) cross-referencing CNN, BBC, Al Jazeera, Fox, and local Kenya feeds.",
+  "conflict_summary": "Status of active kinetic wars (Red Sea/Middle East, Eastern Europe, Horn of Africa/Sudan/Somalia, Indo-Pacific) and maritime chokepoints.",
+  "future_risk_forecast": "Second-order economic, cyber, or supply-chain shocks projected over the next 7-30 days (fuel/import inflation, KES/USD pressure, cloud/undersea cable risks).",
+  "defensive_protocol": "3 concrete actions the operator must take immediately to protect capital, infrastructure, and local operations.",
+  "asymmetric_upside": "3 concrete ways the operator can benefit (NSE equity positioning, currency/commodity hedges, or high-demand technical/software opportunities created by the crisis)."
+}}"""
 
     try:
         headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
         payload = {
             "model": LLM_MODEL,
-            "messages": [{"role": "system", "content": SYSTEM_PERSONA}, {"role": "user", "content": prompt}],
+            "response_format": {"type": "json_object"},
+            "messages": [
+                {"role": "system", "content": SYSTEM_PERSONA + " Always respond in valid JSON."},
+                {"role": "user", "content": prompt}
+            ],
             "temperature": 0.2
         }
-        resp = await client.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=35)
+        resp = await client.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=40)
         resp.raise_for_status()
-        sitrep_text = resp.json()["choices"][0]["message"]["content"].strip()
+        parsed = json.loads(resp.json()["choices"][0]["message"]["content"])
 
-        threat_level = "NOMINAL"
-        if "CRITICAL" in sitrep_text[:40]:
-            threat_level = "CRITICAL"
-        elif "ELEVATED" in sitrep_text[:40]:
-            threat_level = "ELEVATED"
+        record = {
+            "threat_level": parsed.get("threat_level", "NOMINAL"),
+            "sitrep": parsed.get("sitrep", ""),
+            "conflict_summary": parsed.get("conflict_summary", ""),
+            "future_risk_forecast": parsed.get("future_risk_forecast", ""),
+            "defensive_protocol": parsed.get("defensive_protocol", ""),
+            "asymmetric_upside": parsed.get("asymmetric_upside", ""),
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
 
-        record = {"threat_level": threat_level, "sitrep": sitrep_text, "created_at": datetime.now(timezone.utc).isoformat()}
         if SUPABASE_URL and SUPABASE_SERVICE_KEY:
             await client.post(f"{SUPABASE_URL}/rest/v1/tactical_briefings", headers=SUPABASE_HEADERS, json=record)
         return record
     except Exception as e:
-        logger.error(f"[SitRep Synthesis Error]: {e}")
-        return {"threat_level": "NOMINAL", "sitrep": "Telemetry captured. SitRep synthesis delayed.", "created_at": datetime.now(timezone.utc).isoformat()}
+        logger.error(f"[Strategic Synthesis Error]: {e}")
+        return {
+            "threat_level": "ELEVATED",
+            "sitrep": "Sensors active across kinetic and economic theaters. Synthesis operational fault encountered.",
+            "conflict_summary": "Telemetry channels streaming.",
+            "future_risk_forecast": "Monitor maritime chokepoints.",
+            "defensive_protocol": "Verify critical backup power and offline repository snapshots.",
+            "asymmetric_upside": "Track high-yield domestic liquidity yields.",
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
 
 
 # =====================================================================
-# --- MULTIMODAL INGESTION: WHISPER VOICE & VISION OCR ---
+# --- MULTIMODAL INGESTION ---
 # =====================================================================
 async def transcribe_telegram_voice(client: httpx.AsyncClient, file_id: str) -> str:
-    """Download Telegram voice memo and transcribe via Groq Whisper v3 Turbo."""
     if not GROQ_API_KEY:
         return "Voice transcription requires GROQ_API_KEY."
     try:
@@ -486,7 +635,6 @@ async def transcribe_telegram_voice(client: httpx.AsyncClient, file_id: str) -> 
 
 
 async def analyze_telegram_photo(client: httpx.AsyncClient, file_id: str, caption: str = "") -> str:
-    """Download image and extract receipt/document data via Groq Vision."""
     if not GROQ_API_KEY:
         return "Vision OCR requires GROQ_API_KEY."
     try:
@@ -523,7 +671,6 @@ async def analyze_telegram_photo(client: httpx.AsyncClient, file_id: str, captio
 # --- PROACTIVE TASK DEADLINE MONITOR ---
 # =====================================================================
 async def check_due_tasks(client: httpx.AsyncClient):
-    """Proactively alert the operator when task deadlines arrive."""
     if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
         return
     try:
@@ -548,7 +695,6 @@ async def check_due_tasks(client: httpx.AsyncClient):
 # --- TELEGRAM MESSAGING ---
 # =====================================================================
 async def send_telegram(client: httpx.AsyncClient, text: str):
-    """Pushes notification message to operator's Telegram."""
     if not TELEGRAM_TOKEN or not AUTHORIZED_CHAT_ID:
         logger.warning(f"[Mock Telegram Dispatch]:\n{text}")
         return
@@ -600,7 +746,7 @@ async def sync_news(client: httpx.AsyncClient) -> list[dict]:
     new_articles = []
     if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
         return new_articles
-    headers = {"User-Agent": "Mozilla/5.0 (compatible; TacticalConstruct/3.0)"}
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; TacticalConstruct/4.0)"}
     for feed in NEWS_FEEDS:
         try:
             resp = await client.get(feed["url"], headers=headers, timeout=20)
@@ -630,7 +776,7 @@ async def sync_cyber_alerts(client: httpx.AsyncClient) -> list[dict]:
     new_alerts = []
     if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
         return new_alerts
-    headers = {"User-Agent": "Mozilla/5.0 (compatible; TacticalConstruct/3.0)"}
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; TacticalConstruct/4.0)"}
 
     # 1. CISA KEV Catalog
     try:
@@ -715,7 +861,6 @@ async def telegram_poller(client: httpx.AsyncClient):
 
                     user_text = msg.get("text", "")
 
-                    # 1. Voice Note Processing
                     if "voice" in msg:
                         voice_id = msg["voice"]["file_id"]
                         logger.info("Incoming voice directive. Transcribing via Whisper...")
@@ -723,7 +868,6 @@ async def telegram_poller(client: httpx.AsyncClient):
                         await send_telegram(client, f"🎙️ *[VOICE DIRECTIVE]:* {transcript}")
                         user_text = transcript
 
-                    # 2. Photo / Receipt / Document OCR
                     elif "photo" in msg:
                         best_photo = msg["photo"][-1]["file_id"]
                         caption = msg.get("caption", "Analyze and record document/receipt.")
@@ -731,7 +875,6 @@ async def telegram_poller(client: httpx.AsyncClient):
                         extracted = await analyze_telegram_photo(client, best_photo, caption)
                         user_text = f"[DOCUMENT OCR PAYLOAD]: {extracted}\nOperator Instruction: {caption}"
 
-                    # 3. Cognitive Agent Reasoning
                     if user_text:
                         reply = await run_agent_turn(client, user_text)
                         await send_telegram(client, reply)
@@ -765,12 +908,20 @@ async def collector_worker(client: httpx.AsyncClient):
         weather = await sync_weather(client)
         news = await sync_news(client)
         cyber = await sync_cyber_alerts(client)
+        conflict_macro = await sync_conflict_and_macro(client)
 
-        if news or cyber or force_sync_event.is_set():
+        if news or cyber or conflict_macro or force_sync_event.is_set():
             try:
-                briefing = await synthesize_tactical_sitrep(client, weather, news, cyber)
-                alert_text = f"🛡️ *TACTICAL SITREP // {briefing['threat_level']}*\n\n{briefing['sitrep']}"
-                await send_telegram(client, alert_text)
+                b = await synthesize_tactical_sitrep(client, weather, news, cyber, conflict_macro)
+                telegram_dispatch = (
+                    f"🛡️ *OVERWATCH SITREP // [{b['threat_level']}]*\n\n"
+                    f"1. *SITUATION:*\n{b['sitrep']}\n\n"
+                    f"2. *ACTIVE WARS & CHOKEPOINTS:*\n{b['conflict_summary']}\n\n"
+                    f"3. *FUTURE THREAT FORECAST:*\n{b['future_risk_forecast']}\n\n"
+                    f"4. *DEFENSIVE PROTOCOL (PROTECT):*\n{b['defensive_protocol']}\n\n"
+                    f"5. *ASYMMETRIC UPSIDE (BENEFIT):*\n{b['asymmetric_upside']}"
+                )
+                await send_telegram(client, telegram_dispatch)
             except Exception as e:
                 logger.error(f"[Synthesis Dispatch Error]: {e}")
 
@@ -788,11 +939,11 @@ async def collector_worker(client: httpx.AsyncClient):
 # --- MAIN APPLICATION ENTRYPOINT ---
 # =====================================================================
 async def main():
-    logger.info("Initializing Cortana / J.A.R.V.I.S. Cognitive Command...")
+    logger.info("Initializing Cortana / J.A.R.V.I.S. Strategic War & Macro Command...")
     limits = httpx.Limits(max_keepalive_connections=10, max_connections=20)
     async with httpx.AsyncClient(follow_redirects=True, limits=limits) as client:
         if TELEGRAM_TOKEN and AUTHORIZED_CHAT_ID:
-            await send_telegram(client, "Tactical Intelligence Construct Online. Awaiting natural language or voice directives.")
+            await send_telegram(client, "Tactical Intelligence Construct Online. Kinetic War, Macro-Economic Shocks & Protective Protocols active.")
 
         tasks = [
             asyncio.create_task(telegram_poller(client)),

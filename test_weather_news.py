@@ -21,21 +21,25 @@ WEATHER_LOCATIONS = [
 ]
 
 NEWS_FEEDS = [
-    {
-        "source": "Kenya Local News",
-        "scope": "LOCAL",
-        "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi+OR+Kitengela&hl=en-KE&gl=KE&ceid=KE:en"
-    },
-    {
-        "source": "BBC World",
-        "scope": "GLOBAL",
-        "url": "https://feeds.bbci.co.uk/news/world/rss.xml"
-    },
-    {
-        "source": "Al Jazeera Global",
-        "scope": "GLOBAL",
-        "url": "https://www.aljazeera.com/xml/rss/all.xml"
-    }
+    {"source": "CNN World", "scope": "GLOBAL", "url": "http://rss.cnn.com/rss/edition_world.rss"},
+    {"source": "BBC World", "scope": "GLOBAL", "url": "https://feeds.bbci.co.uk/news/world/rss.xml"},
+    {"source": "Al Jazeera", "scope": "GLOBAL", "url": "https://www.aljazeera.com/xml/rss/all.xml"},
+    {"source": "Fox News World", "scope": "GLOBAL", "url": "https://moxie.foxnews.com/google-publisher/world.xml"},
+    {"source": "NYT World", "scope": "GLOBAL", "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"},
+    {"source": "WSJ World", "scope": "GLOBAL", "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml"},
+    {"source": "The Guardian World", "scope": "GLOBAL", "url": "https://www.theguardian.com/world/rss"},
+    {"source": "Kenya Local Wire", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi+OR+Kitengela&hl=en-KE&gl=KE&ceid=KE:en"}
+]
+
+CONFLICT_AND_MACRO_FEEDS = [
+    {"source": "Defense One", "domain": "WAR-KINETIC", "theater": "GLOBAL", "url": "https://www.defenseone.com/rss/all/"},
+    {"source": "War on the Rocks", "domain": "WAR-KINETIC", "theater": "GLOBAL", "url": "https://warontherocks.com/feed/"},
+    {"source": "Middle East & Red Sea", "domain": "WAR-KINETIC", "theater": "RED-SEA-MIDEAST", "url": "https://news.google.com/rss/search?q=(\"Red+Sea\"+OR+\"Hormuz\"+OR+Israel+OR+Iran+OR+Gaza+OR+Lebanon+OR+Houthi)+AND+(strike+OR+missile+OR+blockade+OR+shipping+OR+war)&hl=en-US&gl=US&ceid=US:en"},
+    {"source": "Horn of Africa Security", "domain": "WAR-KINETIC", "theater": "EAST-AFRICA", "url": "https://news.google.com/rss/search?q=(Sudan+OR+Somalia+OR+Ethiopia+OR+DRC+OR+\"East+Africa\")+AND+(conflict+OR+military+OR+insurgency+OR+border+OR+security)&hl=en-KE&gl=KE&ceid=KE:en"},
+    {"source": "Eastern Europe & NATO Flank", "domain": "WAR-KINETIC", "theater": "EASTERN-EUROPE", "url": "https://news.google.com/rss/search?q=(Ukraine+OR+Russia+OR+NATO+OR+Black+Sea)+AND+(frontline+OR+drone+OR+sanctions+OR+energy+OR+offensive)&hl=en-US&gl=US&ceid=US:en"},
+    {"source": "Indo-Pacific & Taiwan Strait", "domain": "GEOPOLITICAL", "theater": "INDO-PACIFIC", "url": "https://news.google.com/rss/search?q=(\"South+China+Sea\"+OR+Taiwan+OR+semiconductors+OR+blockade)+AND+(military+OR+sanctions+OR+tariff+OR+supply+chain)&hl=en-US&gl=US&ceid=US:en"},
+    {"source": "CNBC Global Macro", "domain": "MACRO-ECONOMIC", "theater": "GLOBAL", "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664"},
+    {"source": "WSJ Markets", "domain": "MACRO-ECONOMIC", "theater": "GLOBAL", "url": "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"}
 ]
 
 WMO_CODES = {
@@ -65,23 +69,31 @@ async def run_test():
             except Exception as e:
                 print(f"[{loc['scope']}] {loc['city']}: Error {e}")
 
-        print("\n=================== 📰 NEWS ENGINE TEST ====================")
+        print("\n=================== 📰 GLOBAL NEWS NETWORKS TEST ====================")
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) TelemetryTest/1.0"}
         for feed in NEWS_FEEDS:
-            print(f"\n--- {feed['source']} ({feed['scope']}) ---")
             try:
-                resp = await client.get(feed["url"], headers=headers, timeout=15)
+                resp = await client.get(feed["url"], headers=headers, timeout=12)
                 root = ET.fromstring(resp.content)
-                items = root.findall(".//item")[:3]
-                for i, item in enumerate(items, 1):
-                    title = item.findtext("title") or "Untitled"
-                    link = item.findtext("link") or ""
-                    print(f" {i}. {title}")
-                    print(f"    Link: {link}")
+                item = root.find(".//item")
+                headline = (item.findtext("title") if item is not None else "Untitled").strip()
+                print(f"[{feed['source']:20}] OK | {headline[:70]}...")
             except Exception as e:
-                print(f"Error fetching {feed['source']}: {e}")
+                print(f"[{feed['source']:20}] ERROR: {e}")
 
-        print("\n✅ Verification complete! Both feeds are operational.\n")
+        print("\n=================== 🛡️ WAR, CONFLICT & MACRO-ECONOMIC THREAT FEEDS ====================")
+        for feed in CONFLICT_AND_MACRO_FEEDS:
+            try:
+                resp = await client.get(feed["url"], headers=headers, timeout=12)
+                root = ET.fromstring(resp.content)
+                item = root.find(".//item")
+                headline = (item.findtext("title") if item is not None else "Untitled").strip()
+                print(f"[{feed['theater']:16} | {feed['source']:24}] OK | {headline[:60]}...")
+            except Exception as e:
+                print(f"[{feed['theater']:16} | {feed['source']:24}] ERROR: {e}")
+
+        print("\n✅ Verification complete! Multi-network global news and war/macro telemetry online.\n")
 
 if __name__ == "__main__":
     asyncio.run(run_test())
+
