@@ -31,6 +31,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 import edge_tts
 from wakeonlan import send_magic_packet
+import evolution_core
 
 # Setup clean, informative logging
 logging.basicConfig(
@@ -2983,8 +2984,9 @@ async def rewrite_workspace_file(
         commit_msg = f"Cortana self-evolution: rewrote {clean}"
         c_res = subprocess.run(["git", "commit", "-m", commit_msg], timeout=5, capture_output=True)
         p_res = subprocess.run(["git", "push"], timeout=10, capture_output=True)
+        subprocess.run(["git", "push", "hf", "master:main"], timeout=15, capture_output=True)
         if c_res.returncode == 0:
-            git_status = f" Committed to Git{' and pushed to remote' if p_res.returncode == 0 else ''}."
+            git_status = f" Committed to Git{' and pushed to remotes' if p_res.returncode == 0 else ''}."
     except Exception as ge:
         logger.debug(f"[Git notice]: {ge}")
 
@@ -3059,8 +3061,9 @@ async def write_own_source_code(
         commit_msg = f"Cortana self-evolution: modified {clean} ({datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')})"
         c_res = subprocess.run(["git", "commit", "-m", commit_msg], timeout=5, capture_output=True)
         p_res = subprocess.run(["git", "push"], timeout=10, capture_output=True)
+        subprocess.run(["git", "push", "hf", "master:main"], timeout=15, capture_output=True)
         if c_res.returncode == 0:
-            git_status = f" Committed to Git{' and pushed to remote' if p_res.returncode == 0 else ''}."
+            git_status = f" Committed to Git{' and pushed to remotes' if p_res.returncode == 0 else ''}."
     except Exception as ge:
         logger.debug(f"[Git auto-commit notice]: {ge}")
 
@@ -3476,6 +3479,104 @@ async def scheduled_sunday_maintenance_worker(client: httpx.AsyncClient):
         except Exception as e:
             logger.error(f"[Sunday Maintenance Worker Error]: {e}")
         await asyncio.sleep(60)
+
+
+# =====================================================================
+# --- HOURLY AUTONOMOUS SELF-EVOLUTION, SECURITY & ASSISTANCE DAEMON ---
+# =====================================================================
+async def execute_hourly_self_evolution_cycle(client: httpx.AsyncClient) -> str:
+    """
+    Continuous Hourly Self-Evolution Cycle:
+    1. Audits repository modules for security, AST syntax validation, and scalability.
+    2. Executes an autonomous, AST-verified code upgrade and syncs to GitHub & Hugging Face.
+    3. Executes concrete proactive assistance for Michael (task triage, disk space optimization, hardware telemetry).
+    4. Dispatches structured tactical report to Telegram with Edge TTS voice note (Law 8: play_on_speaker=False).
+    5. Persists evolution state to Supabase bot_memory.
+    """
+    logger.info("Initiating Cortana Hourly Self-Evolution & Security/Scalability Audit...")
+    base_dir = Path(__file__).resolve().parent
+
+    # 1. Fetch current cycle count from Supabase bot_memory
+    cycle_num = 1
+    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            m_resp = await client.get(
+                f"{SUPABASE_URL}/rest/v1/bot_memory?memory_key=eq.hourly_evolution_state&select=directive",
+                headers=SUPABASE_HEADERS,
+                timeout=8
+            )
+            if m_resp.status_code == 200 and m_resp.json():
+                saved = json.loads(m_resp.json()[0].get("directive", "{}"))
+                cycle_num = saved.get("cycle_num", 0) + 1
+        except Exception:
+            cycle_num = 1
+
+    # 2. Hardware Sensorium Vitals
+    vitals = read_physical_sensorium()
+
+    # 3. Security & Scalability Audit
+    audit_data = evolution_core.audit_codebase_security_and_scalability(base_dir)
+
+    # 4. Autonomous Code Evolution & Git/Hugging Face Sync
+    upgrade_data = evolution_core.perform_modular_self_upgrade(base_dir, cycle_num)
+
+    # 5. Proactive Operator Assistance (Personal Tasks & Health)
+    assistance_data = await evolution_core.execute_proactive_assistance(
+        client,
+        SUPABASE_URL,
+        SUPABASE_SERVICE_KEY,
+        SUPABASE_HEADERS,
+        vitals
+    )
+
+    # 6. Format Report & Voice Note
+    sitrep_msg, voice_summary = evolution_core.format_tactical_evolution_report(
+        cycle_num,
+        audit_data,
+        upgrade_data,
+        assistance_data,
+        vitals
+    )
+
+    # 7. Dispatches to Operator Michael
+    await send_telegram(client, sitrep_msg)
+    await synthesize_and_send_voice(client, voice_summary, play_on_speaker=False)
+
+    # 8. Persist State in Supabase bot_memory
+    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            state_payload = {
+                "cycle_num": cycle_num,
+                "last_evolved_at": datetime.now(timezone.utc).isoformat(),
+                "vector": upgrade_data["vector"],
+                "git_hash": upgrade_data.get("git_hash"),
+                "reclaimed_mb": audit_data.get("reclaimed_mb", 0.0),
+                "total_py_files": audit_data.get("total_py_files", 0)
+            }
+            await tool_save_memory(client, "hourly_evolution_state", json.dumps(state_payload))
+            await tool_save_memory(client, "latest_hourly_evolution", sitrep_msg)
+        except Exception as me:
+            logger.debug(f"[Evolution memory save bypass]: {me}")
+
+    logger.info(f"Cortana Hourly Self-Evolution Cycle #{cycle_num} successfully completed.")
+    return sitrep_msg
+
+
+async def hourly_self_evolution_worker(client: httpx.AsyncClient):
+    """
+    Background daemon running every hour (3600 seconds).
+    Continuously audits, updates code for security/scalability, assists Michael, and reports.
+    """
+    logger.info("Autonomous Hourly Self-Evolution Daemon initialized (3600s cycle interval)...")
+    await asyncio.sleep(90)  # Allow boot sequence and initial network discovery to settle
+    while True:
+        try:
+            await execute_hourly_self_evolution_cycle(client)
+        except asyncio.CancelledError:
+            break
+        except Exception as e:
+            logger.error(f"[Hourly Self-Evolution Error]: {e}")
+        await asyncio.sleep(3600)
 
 
 # =====================================================================
@@ -4031,6 +4132,14 @@ AGENT_TOOLS = [
             "description": "Query your physical hardware nervous system: CPU core thermals, RAM pressure, NVMe disk, battery, and environmental sensors.",
             "parameters": {"type": "object", "properties": {}}
         }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "trigger_self_evolution_cycle",
+            "description": "Trigger an autonomous self-evolution cycle immediately. Audits source code for security and scalability, updates code with AST validation and Git commit/push, executes a proactive assistance action for Michael, and sends a tactical report + audio note.",
+            "parameters": {"type": "object", "properties": {}}
+        }
     }
 ]
 
@@ -4075,6 +4184,12 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
     # --- FAST-PATH: Direct Laptop Commands (Instant Zero-Latency Execution) ---
     clean_prompt = user_input.strip()
     clean_lower = clean_prompt.lower()
+
+    # Fast-Path: On-Demand Autonomous Evolution Trigger
+    if clean_lower in ("evolve", "/evolve", "self upgrade", "upgrade yourself", "run evolution", "hourly evolution", "self evolve", "update your code"):
+        reply = await execute_hourly_self_evolution_cycle(client)
+        conversation_history.append({"role": "assistant", "content": reply})
+        return reply
 
     # 1. Speak / Say aloud on laptop (Only on explicit operator request)
     speak_prefixes = ("speak on laptop ", "say on laptop ", "read on laptop ", "read aloud ", "speak ", "say ", "talk ", "vocalize ")
@@ -4476,6 +4591,8 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                     result = await log_experiential_reflection(client, args.get("trigger_event", "Direct Inquiry"), args.get("internal_thought", ""), args.get("emotional_resonance", "Locked-In"))
                 elif fn_name in ("get_physical_sensorium", "read_physical_sensorium", "system_sensorium"):
                     result = json.dumps(read_physical_sensorium())
+                elif fn_name in ("trigger_self_evolution_cycle", "self_evolution", "evolve_code", "self_upgrade"):
+                    result = await execute_hourly_self_evolution_cycle(client)
                 else:
                     result = "Tool executed."
 
@@ -5559,7 +5676,8 @@ async def main():
             asyncio.create_task(live_sports_poller(client)),
             asyncio.create_task(start_local_command_server(5050)),
             asyncio.create_task(autonomous_intent_drive_loop(client)),
-            asyncio.create_task(scheduled_sunday_maintenance_worker(client))
+            asyncio.create_task(scheduled_sunday_maintenance_worker(client)),
+            asyncio.create_task(hourly_self_evolution_worker(client))
         ]
 
         if ENABLE_WAKEWORD or "--wake" in sys.argv:
