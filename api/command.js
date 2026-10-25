@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   }
 
   const supabaseUrl = (process.env.SUPABASE_URL || "https://vutamfqgckrzsnbcgrne.supabase.co").replace(/\/$/, "");
-  const supabaseKey = process.env.SUPABASE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1dGFtZnFnY2tyenNuYmNncm5lIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc5MjkyMTU3MCwiZXhwIjoyMTA4NDk3NTcwfQ.apKPZ82_p8pmpvcXoayE5JLYtubg3Uc6WSfOZ76v1t4";
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY || "";
 
   if (req.method === "GET") {
     try {
