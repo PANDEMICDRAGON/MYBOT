@@ -1,3 +1,13 @@
+---
+title: Cortana Tactical Construct
+emoji: ⚡
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+app_port: 5050
+pinned: false
+---
+
 # 🛰️ 24/7 Cortana & J.A.R.V.I.S. Cognitive Telemetry Construct
 
 An autonomous tactical intelligence construct combining the strategic threat synthesis of **Cortana (HALO)** and the dry operational precision, multimodal voice/vision execution, and persistent memory of **J.A.R.V.I.S. (Iron Man)**.
