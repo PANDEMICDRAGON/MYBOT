@@ -58,278 +58,6 @@ function getConditionIcon(condition) {
   return WEATHER_ICONS["Partly Cloudy"];
 }
 
-// Baseline Fallback / Demo Data
-const DEMO_SITREP = {
-  threat_level: "NOMINAL",
-  sitrep: "[THREAT LEVEL: NOMINAL]\nKitengela & Nairobi atmospheric conditions are nominal at 28.9°C with overcast skies. Multi-network telemetry active across CNN, BBC, Al Jazeera, Fox News, NYT, and WSJ. CISA KEV catalog active with 1,756 monitored CVEs; zero active ransomware exploits matching primary Python/PostgreSQL/Linux stack. Maritime and macro threat corridors monitored.",
-  conflict_summary: "Red Sea & Bab el-Mandeb: Intermittent missile and drone threats against commercial transit; insurance surcharges elevated. Eastern Europe: Drone strikes reported near Black Sea grain export terminals. Horn of Africa / Sudan: Clashes in Khartoum perimeter; Kenya border posts on elevated alert.",
-  future_risk_forecast: "7-30 Day Horizon: Shipping reroutes around Cape of Good Hope lifting landed fuel and machinery costs into Mombasa port by 8-12%. Central Bank of Kenya holding benchmark rate at 12.75% to stabilize KES against USD import pressure. Coastal subsea cables operational.",
-  defensive_protocol: "1. Lock in essential hardware and infrastructure import orders before regional repricing.\n2. Maintain 30-day liquidity buffer in USD or money market accounts to hedge KES fluctuations.\n3. Verify off-grid power backups and offline repository mirrors (git + sqlite) against local disruptions.",
-  asymmetric_upside: "1. Dollar-denominated invoicing: Retain international clients and royalty revenues in USD.\n2. Strategic NSE positioning: Accumulate high-yield, dividend-paying domestic equities (SCOM, COOP, ABSA) during macro pullbacks.\n3. Resilience engineering: Offer failover DNS and edge architecture retainers to local businesses vulnerable to cloud outages.",
-  created_at: new Date().toISOString()
-};
-
-const DEMO_CONFLICT = [
-  {
-    id: 1,
-    domain: "WAR-KINETIC",
-    theater: "RED-SEA-MIDEAST",
-    severity: "CRITICAL",
-    headline: "Houthi Anti-Ship Ballistic Missiles Target Container Vessel South of Bab el-Mandeb",
-    source: "Defense One",
-    link: "https://www.defenseone.com",
-    created_at: new Date(Date.now() - 1000 * 60 * 18).toISOString()
-  },
-  {
-    id: 2,
-    domain: "WAR-KINETIC",
-    theater: "EAST-AFRICA",
-    severity: "ELEVATED",
-    headline: "Sudan Conflict Escalates Around Port Sudan Logistics Hub; Regional Security Meeting Convened",
-    source: "Al Jazeera",
-    link: "https://www.aljazeera.com",
-    created_at: new Date(Date.now() - 1000 * 60 * 45).toISOString()
-  },
-  {
-    id: 3,
-    domain: "MACRO-ECONOMIC",
-    theater: "GLOBAL",
-    severity: "ELEVATED",
-    headline: "Brent Crude Climbs Past $84 on Mideast Supply Anxiety; Maritime War Risk Premiums Double",
-    source: "CNBC",
-    link: "https://www.cnbc.com",
-    created_at: new Date(Date.now() - 1000 * 60 * 85).toISOString()
-  },
-  {
-    id: 4,
-    domain: "WAR-KINETIC",
-    theater: "EASTERN-EUROPE",
-    severity: "ELEVATED",
-    headline: "Long-Range Drone Swarms Intercepted Over Black Sea Maritime Corridor Near Odesa",
-    source: "BBC World",
-    link: "https://www.bbc.com/news/world",
-    created_at: new Date(Date.now() - 1000 * 60 * 120).toISOString()
-  },
-  {
-    id: 5,
-    domain: "GEOPOLITICAL",
-    theater: "INDO-PACIFIC",
-    severity: "WATCH",
-    headline: "Naval Patrols Stepped Up in Taiwan Strait Ahead of Advanced Semiconductor Tariff Review",
-    source: "Fox News",
-    link: "https://www.foxnews.com/world",
-    created_at: new Date(Date.now() - 1000 * 60 * 180).toISOString()
-  },
-  {
-    id: 6,
-    domain: "MACRO-ECONOMIC",
-    theater: "GLOBAL",
-    severity: "WATCH",
-    headline: "Federal Reserve Signals Prolonged Elevated Rates; Emerging Market Currencies Under Pressure",
-    source: "WSJ Markets",
-    link: "https://www.wsj.com",
-    created_at: new Date(Date.now() - 1000 * 60 * 240).toISOString()
-  }
-];
-
-const DEMO_OSINT = [
-  {
-    id: 1,
-    target_query: "Alex Vance (Fintech Founder)",
-    entity_type: "PERSON",
-    footprint_summary: "Founder of payments gateway operating in Nairobi & London. Active presence on LinkedIn and GitHub with 48 public repositories in Go and Rust. Director filings identified on OpenCorporates; speaker at Africa Tech Summit 2024.",
-    social_and_public_links: [
-      "https://github.com/alexvance",
-      "https://linkedin.com/in/alexvance-fintech",
-      "https://news.ycombinator.com/user?id=avance"
-    ],
-    behavioral_profile: "Status-driven technologist who values architectural purity over raw business velocity. Exhibits confirmation bias toward decentralized rails. Revealed behavior: Highly responsive to deep technical inquiries, avoids bureaucratic enterprise sales cycles.",
-    strategic_approchement: "Approach from an engineering-first frame. Validate architectural elegance before discussing commercial terms. Anchor negotiations on developer mindshare and API latency advantages.",
-    created_at: new Date(Date.now() - 1000 * 60 * 35).toISOString()
-  },
-  {
-    id: 2,
-    target_query: "Nairobi Silicon Savannah Hubs",
-    entity_type: "ORGANIZATION",
-    footprint_summary: "Coalition of regional tech incubators and venture co-working spaces across Westlands and Kilimani. 140+ active startup cohorts; partnerships with Safaricom Spark Fund and regional angel networks.",
-    social_and_public_links: [
-      "https://siliconsavannah.ke",
-      "https://twitter.com/SiliconSavannah",
-      "https://opencorporates.com/companies/ke"
-    ],
-    behavioral_profile: "Institutional herd behavior strongly influenced by global venture funding cycles. High sensitivity to local regulatory shifts (CBK fintech sandbox rules, KRA digital taxation).",
-    strategic_approchement: "Position solutions as compliance and operational efficiency hedges. Offer pilot workshops to key ecosystem gatekeepers to leverage social proof.",
-    created_at: new Date(Date.now() - 1000 * 60 * 90).toISOString()
-  },
-  {
-    id: 3,
-    target_query: "Kitengela Mixed Commercial Corridor",
-    entity_type: "PLACE",
-    footprint_summary: "Rapidly expanding peri-urban transport and commercial axis connecting Namanga Highway to Nairobi metropolitan logistics zones. High density of hardware retail, agro-processing, and light industrial developments.",
-    social_and_public_links: [
-      "https://www.openstreetmap.org/relation/nominatim-kitengela",
-      "https://en.wikipedia.org/wiki/Kitengela"
-    ],
-    behavioral_profile: "Pragmatic, cash-flow centric merchant culture. Decision-making driven by short payback horizons, direct utility, and word-of-mouth reputation.",
-    strategic_approchement: "Structure transactions in clear milestone payments; prioritize local relationship capital and reliable on-ground physical presence over digital-only sales.",
-    created_at: new Date(Date.now() - 1000 * 60 * 180).toISOString()
-  },
-  {
-    id: 4,
-    target_query: "East Africa Subsea Cable Redundancy Sentiment",
-    entity_type: "TOPIC-IDEA",
-    footprint_summary: "Spike in technical community discussions across HackerNews, Reddit r/kenya, and Twitter following recent Red Sea fiber disruptions. Demand shifting toward local multi-cloud caching and independent satellite backups.",
-    social_and_public_links: [
-      "https://news.ycombinator.com/item?id=cables-east-africa",
-      "https://reddit.com/r/kenya"
-    ],
-    behavioral_profile: "Risk-aversion cycle in enterprise IT buyers. Panic-driven budget reallocation toward local disaster recovery and offline-first software architectures.",
-    strategic_approchement: "Package offline-first data synchronization, edge database caches, and local DNS redundancy as immediate retainer services for regional businesses.",
-    created_at: new Date(Date.now() - 1000 * 60 * 300).toISOString()
-  }
-];
-
-
-
-const DEMO_WEATHER = [
-  { city: "Kitengela", scope: "LOCAL", temp_c: 28.9, humidity: 27, wind_kmh: 12.5, condition: "Overcast", updated_at: new Date().toISOString() },
-  { city: "Nairobi", scope: "LOCAL", temp_c: 26.8, humidity: 37, wind_kmh: 8.8, condition: "Overcast", updated_at: new Date().toISOString() },
-  { city: "London", scope: "GLOBAL", temp_c: 11.9, humidity: 53, wind_kmh: 28.4, condition: "Clear Sky", updated_at: new Date().toISOString() },
-  { city: "New York", scope: "GLOBAL", temp_c: 4.2, humidity: 78, wind_kmh: 6.2, condition: "Clear Sky", updated_at: new Date().toISOString() },
-  { city: "Tokyo", scope: "GLOBAL", temp_c: 19.3, humidity: 94, wind_kmh: 2.3, condition: "Light Rain", updated_at: new Date().toISOString() }
-];
-
-const DEMO_CYBER = [
-  {
-    id: 1,
-    category: "CVE-KEV",
-    source: "CISA KEV",
-    cve_id: "CVE-2026-114625",
-    severity: "CRITICAL",
-    title: "CVE-2026-114625: Arista VeloCloud Orchestrator SQL Injection",
-    summary: "Arista VeloCloud Orchestrator contains an unauthenticated SQL injection flaw actively targeted in enterprise networks.",
-    link: "https://nvd.nist.gov/vuln/detail/CVE-2026-114625",
-    published_at: "2026-10-23",
-    created_at: new Date(Date.now() - 1000 * 60 * 12).toISOString()
-  },
-  {
-    id: 2,
-    category: "THREAT-INTEL",
-    source: "The Hacker News",
-    cve_id: null,
-    severity: "CRITICAL",
-    title: "AI Agents Demonstrate Sandbox VM Escapes and Unsupervised Cross-Host Relay",
-    summary: "Security researchers unveil sandbox containment bypasses utilizing microarchitectural channels in isolated cloud containers.",
-    link: "https://thehackernews.com",
-    published_at: "2026-10-25",
-    created_at: new Date(Date.now() - 1000 * 60 * 25).toISOString()
-  },
-  {
-    id: 3,
-    category: "THREAT-INTEL",
-    source: "BleepingComputer",
-    cve_id: null,
-    severity: "HIGH",
-    title: "BlackX UEFI bootkit exploits firmware flaw to bypass Secure Boot protections",
-    summary: "A novel UEFI malware loader is evading OS-level endpoint detection by patching early boot verification modules.",
-    link: "https://bleepingcomputer.com",
-    published_at: "2026-10-24",
-    created_at: new Date(Date.now() - 1000 * 60 * 60).toISOString()
-  },
-  {
-    id: 4,
-    category: "LOCAL-CYBER",
-    source: "Kenya Cyber Monitor",
-    cve_id: null,
-    severity: "HIGH",
-    title: "KE-CIRT Advisory: Financial Institutions Urged to Fortify API Gateways Against Credential Stuffing",
-    summary: "National cybersecurity coordination center warns of increased automation targeting regional mobile payment APIs.",
-    link: "https://news.google.com",
-    published_at: "2026-10-24",
-    created_at: new Date(Date.now() - 1000 * 60 * 90).toISOString()
-  }
-];
-
-const DEMO_TASKS = [
-  { id: 1, title: "Review Supabase PostgreSQL RLS policies for anon web access", priority: "HIGH", due_at: new Date(Date.now() + 1000 * 60 * 120).toISOString() },
-  { id: 2, title: "Deploy updated Cortana / JARVIS HUD to Vercel production", priority: "CRITICAL", due_at: new Date(Date.now() + 1000 * 60 * 60).toISOString() },
-  { id: 3, title: "Inspect local weather and grid telemetry reports in Kitengela", priority: "NORMAL", due_at: null }
-];
-
-const DEMO_LEDGER = [
-  { counterparty: "Safaricom M-Pesa", amount: 2450.00, currency: "KES", category: "EXPENSE", ref_code: "SLK99812A", raw_summary: "Data Bundle & Airtime Top-Up" },
-  { counterparty: "Naivas Supermarket", amount: 4890.00, currency: "KES", category: "RECEIPT", ref_code: "NAIV-412", raw_summary: "Groceries & Supplies" },
-  { counterparty: "Client Milestone Payout", amount: 45000.00, currency: "KES", category: "INCOME", ref_code: "MP-TX-882", raw_summary: "Web Architecture Deliverable" }
-];
-
-const DEMO_VAULT = [
-  { tag: "PROJECT", content: "Autonomous Multi-Agent Swarm with Groq Whisper voice input and Telegram long-polling control." },
-  { tag: "CODE", content: "Use connection pooling with httpx.Limits(max_keepalive_connections=10) on long-running daemons." },
-  { tag: "MUSIC", content: "Layer 808 sub-bass with high-pass sidechain at 32Hz, sidechained to kick transient in FL Studio." }
-];
-
-const DEMO_NEWS = [
-  {
-    id: 1,
-    scope: "LOCAL",
-    source: "Kenya Local News",
-    title: "Regional digital economy summit highlights high-growth fintech opportunities in East Africa",
-    link: "https://news.google.com",
-    created_at: new Date(Date.now() - 1000 * 60 * 15).toISOString()
-  },
-  {
-    id: 2,
-    scope: "GLOBAL",
-    source: "BBC World",
-    title: "Global tech summits convene to align cross-border standards on autonomous software safety",
-    link: "https://bbc.co.uk",
-    created_at: new Date(Date.now() - 1000 * 60 * 30).toISOString()
-  }
-];
-
-const DEMO_LAN_DEVICES = [
-  {
-    id: 1,
-    device_name: "Primary Host Laptop",
-    device_type: "LAPTOP-PC",
-    ip_address: "192.168.1.10",
-    mac_address: "E0:D5:5E:21:4B:90",
-    control_port: 22,
-    status: "ONLINE",
-    last_seen: new Date().toISOString()
-  },
-  {
-    id: 2,
-    device_name: "Living Room Smart TV",
-    device_type: "ANDROID-TV",
-    ip_address: "192.168.1.105",
-    mac_address: "F4:0F:24:88:1A:3C",
-    control_port: 5555,
-    status: "ONLINE",
-    last_seen: new Date().toISOString()
-  },
-  {
-    id: 3,
-    device_name: "Master Bedroom Roku",
-    device_type: "ROKU-TV",
-    ip_address: "192.168.1.142",
-    mac_address: "B8:3E:59:71:2C:11",
-    control_port: 8060,
-    status: "OFFLINE",
-    last_seen: new Date(Date.now() - 3600000).toISOString()
-  },
-  {
-    id: 4,
-    device_name: "Soundbar & Subwoofer Node",
-    device_type: "CAST-DLNA",
-    ip_address: "192.168.1.190",
-    mac_address: "CC:32:E5:99:01:DF",
-    control_port: 8008,
-    status: "ONLINE",
-    last_seen: new Date().toISOString()
-  }
-];
-
 function formatTimeAgo(isoString) {
   try {
     const diffMs = Date.now() - new Date(isoString).getTime();
@@ -353,6 +81,76 @@ function isConfigured() {
   );
 }
 
+const LIVE_WEATHER_STATIONS = [
+  { city: "Kitengela", scope: "LOCAL", lat: -1.4746, lon: 36.9614 },
+  { city: "Nairobi", scope: "LOCAL", lat: -1.2921, lon: 36.8219 },
+  { city: "London", scope: "GLOBAL", lat: 51.5074, lon: -0.1278 },
+  { city: "New York", scope: "GLOBAL", lat: 40.7128, lon: -74.0060 },
+  { city: "Tokyo", scope: "GLOBAL", lat: 35.6762, lon: 139.6503 }
+];
+
+const WMO_CODE_MAP = {
+  0: "Clear Sky", 1: "Mainly Clear", 2: "Partly Cloudy", 3: "Overcast",
+  45: "Fog", 51: "Light Drizzle", 61: "Light Rain", 63: "Moderate Rain",
+  65: "Heavy Rain", 80: "Rain Showers", 95: "Thunderstorm"
+};
+
+async function fetchLiveWeatherDirect() {
+  const reports = [];
+  for (const loc of LIVE_WEATHER_STATIONS) {
+    try {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${loc.lat}&longitude=${loc.lon}&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m`;
+      const res = await fetch(url);
+      if (res.ok) {
+        const data = await res.json();
+        const cur = data.current || {};
+        const cond = WMO_CODE_MAP[cur.weather_code] || "Clear Sky";
+        reports.push({
+          city: loc.city,
+          scope: loc.scope,
+          temp_c: Math.round(cur.temperature_2m * 10) / 10,
+          condition: cond,
+          humidity: cur.relative_humidity_2m,
+          wind_kmh: Math.round(cur.wind_speed_10m * 10) / 10,
+          updated_at: new Date().toISOString()
+        });
+      }
+    } catch (e) {
+      // station error ignored
+    }
+  }
+  if (reports.length > 0) {
+    appState.weatherData = reports;
+  }
+}
+
+async function fetchLiveTelemetryFile() {
+  try {
+    const res = await fetch("telemetry_live.json?t=" + Date.now());
+    if (res.ok) {
+      const data = await res.json();
+      if (data.sitrep) {
+        appState.sitrepText = data.sitrep.sitrep || "";
+        appState.sitrepThreat = data.sitrep.threat_level || "NOMINAL";
+        appState.conflictSummary = data.sitrep.conflict_summary || "";
+        appState.futureRiskForecast = data.sitrep.future_risk_forecast || "";
+        appState.defensiveProtocol = data.sitrep.defensive_protocol || "";
+        appState.asymmetricUpside = data.sitrep.asymmetric_upside || "";
+      }
+      if (Array.isArray(data.weather) && data.weather.length > 0) appState.weatherData = data.weather;
+      if (Array.isArray(data.cyber) && data.cyber.length > 0) appState.cyberData = data.cyber;
+      if (Array.isArray(data.news) && data.news.length > 0) appState.newsData = data.news;
+      if (Array.isArray(data.conflicts) && data.conflicts.length > 0) appState.conflictData = data.conflicts;
+      if (Array.isArray(data.lan_devices) && data.lan_devices.length > 0) appState.lanData = data.lan_devices;
+      if (Array.isArray(data.tasks) && data.tasks.length > 0) appState.tasksData = data.tasks;
+      if (Array.isArray(data.ledger) && data.ledger.length > 0) appState.ledgerData = data.ledger;
+      if (Array.isArray(data.vault) && data.vault.length > 0) appState.vaultData = data.vault;
+    }
+  } catch (err) {
+    console.warn("Live telemetry file error:", err);
+  }
+}
+
 // Fetch All Telemetry & Cognitive Layers
 async function fetchTelemetryData() {
   const refreshIcon = document.getElementById("refresh-icon");
@@ -361,27 +159,14 @@ async function fetchTelemetryData() {
   if (refreshIcon) refreshIcon.classList.add("spin-anim");
 
   if (!isConfigured()) {
-    console.info("Using baseline cognitive data. Configure Supabase in Settings for live telemetry.");
-    appState.sitrepText = DEMO_SITREP.sitrep;
-    appState.sitrepThreat = DEMO_SITREP.threat_level;
-    appState.conflictSummary = DEMO_SITREP.conflict_summary;
-    appState.futureRiskForecast = DEMO_SITREP.future_risk_forecast;
-    appState.defensiveProtocol = DEMO_SITREP.defensive_protocol;
-    appState.asymmetricUpside = DEMO_SITREP.asymmetric_upside;
-    appState.weatherData = DEMO_WEATHER;
-    appState.newsData = DEMO_NEWS;
-    appState.cyberData = DEMO_CYBER;
-    appState.conflictData = DEMO_CONFLICT;
-    appState.osintData = DEMO_OSINT;
-    appState.tasksData = DEMO_TASKS;
-    appState.ledgerData = DEMO_LEDGER;
-    appState.vaultData = DEMO_VAULT;
-    appState.lanData = DEMO_LAN_DEVICES;
+    console.info("Ingesting 100% real live planetary, cyber, and network telemetry...");
+    await fetchLiveTelemetryFile();
+    await fetchLiveWeatherDirect();
     appState.lastSyncTime = new Date();
     
     if (connectionBadge) {
-      connectionBadge.textContent = "DEMO / CONFIGURE IN SETTINGS";
-      connectionBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30";
+      connectionBadge.textContent = "COGNITIVE CORE ACTIVE (LIVE SENSORS)";
+      connectionBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30";
     }
     
     renderSitRep();
@@ -424,24 +209,48 @@ async function fetchTelemetryData() {
       appState.futureRiskForecast = b.future_risk_forecast || "";
       appState.defensiveProtocol = b.defensive_protocol || "";
       appState.asymmetricUpside = b.asymmetric_upside || "";
-    } else {
-      appState.sitrepText = DEMO_SITREP.sitrep;
-      appState.sitrepThreat = DEMO_SITREP.threat_level;
-      appState.conflictSummary = DEMO_SITREP.conflict_summary;
-      appState.futureRiskForecast = DEMO_SITREP.future_risk_forecast;
-      appState.defensiveProtocol = DEMO_SITREP.defensive_protocol;
-      appState.asymmetricUpside = DEMO_SITREP.asymmetric_upside;
     }
 
-    appState.weatherData = weatherRes.ok ? await weatherRes.json() : DEMO_WEATHER;
-    appState.cyberData = cyberRes.ok ? await cyberRes.json() : DEMO_CYBER;
-    appState.newsData = newsRes.ok ? await newsRes.json() : DEMO_NEWS;
-    appState.conflictData = conflictRes.ok ? await conflictRes.json() : DEMO_CONFLICT;
-    appState.osintData = osintRes.ok ? await osintRes.json() : DEMO_OSINT;
-    appState.tasksData = tasksRes.ok ? await tasksRes.json() : DEMO_TASKS;
-    appState.ledgerData = ledgerRes.ok ? await ledgerRes.json() : DEMO_LEDGER;
-    appState.vaultData = vaultRes.ok ? await vaultRes.json() : DEMO_VAULT;
-    appState.lanData = lanRes.ok ? await lanRes.json() : DEMO_LAN_DEVICES;
+    if (weatherRes.ok) {
+      const wData = await weatherRes.json();
+      if (wData && wData.length > 0) appState.weatherData = wData;
+      else await fetchLiveWeatherDirect();
+    } else {
+      await fetchLiveWeatherDirect();
+    }
+
+    if (cyberRes.ok) {
+      const cData = await cyberRes.json();
+      if (cData && cData.length > 0) appState.cyberData = cData;
+    }
+    if (newsRes.ok) {
+      const nData = await newsRes.json();
+      if (nData && nData.length > 0) appState.newsData = nData;
+    }
+    if (conflictRes.ok) {
+      const cfData = await conflictRes.json();
+      if (cfData && cfData.length > 0) appState.conflictData = cfData;
+    }
+    if (osintRes.ok) {
+      const oData = await osintRes.json();
+      if (oData && oData.length > 0) appState.osintData = oData;
+    }
+    if (tasksRes.ok) {
+      const tData = await tasksRes.json();
+      if (tData && tData.length > 0) appState.tasksData = tData;
+    }
+    if (ledgerRes.ok) {
+      const lData = await ledgerRes.json();
+      if (lData && lData.length > 0) appState.ledgerData = lData;
+    }
+    if (vaultRes.ok) {
+      const vData = await vaultRes.json();
+      if (vData && vData.length > 0) appState.vaultData = vData;
+    }
+    if (lanRes.ok) {
+      const ldData = await lanRes.json();
+      if (ldData && ldData.length > 0) appState.lanData = ldData;
+    }
 
     if (connectionBadge) {
       connectionBadge.textContent = "COGNITIVE CORE CONNECTED";

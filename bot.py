@@ -1310,8 +1310,6 @@ async def send_telegram(client: httpx.AsyncClient, text: str):
 # =====================================================================
 async def sync_weather(client: httpx.AsyncClient) -> list[dict]:
     results = []
-    if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
-        return results
     for loc in WEATHER_LOCATIONS:
         try:
             url = (
@@ -1320,15 +1318,20 @@ async def sync_weather(client: httpx.AsyncClient) -> list[dict]:
                 f"&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m"
             )
             resp = await client.get(url, timeout=15)
-            current = resp.json().get("current", {})
-            code = current.get("weather_code", 0)
-            record = {
-                "city": loc["city"], "scope": loc["scope"], "temp_c": current.get("temperature_2m", 0.0),
-                "humidity": current.get("relative_humidity_2m", 0), "wind_kmh": current.get("wind_speed_10m", 0.0),
-                "condition": WMO_CODES.get(code, f"Code {code}"), "updated_at": datetime.now(timezone.utc).isoformat()
-            }
-            results.append(record)
-            await client.post(f"{SUPABASE_URL}/rest/v1/weather_reports", headers={**SUPABASE_HEADERS, "Prefer": "resolution=merge-duplicates"}, json=record, timeout=10)
+            if resp.status_code == 200:
+                current = resp.json().get("current", {})
+                code = current.get("weather_code", 0)
+                record = {
+                    "city": loc["city"], "scope": loc["scope"], "temp_c": round(current.get("temperature_2m", 0.0), 1),
+                    "humidity": current.get("relative_humidity_2m", 0), "wind_kmh": round(current.get("wind_speed_10m", 0.0), 1),
+                    "condition": WMO_CODES.get(code, f"Code {code}"), "updated_at": datetime.now(timezone.utc).isoformat()
+                }
+                results.append(record)
+                if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+                    try:
+                        await client.post(f"{SUPABASE_URL}/rest/v1/weather_reports", headers={**SUPABASE_HEADERS, "Prefer": "resolution=merge-duplicates"}, json=record, timeout=10)
+                    except Exception:
+                        pass
         except Exception as e:
             logger.error(f"[Weather Error - {loc['city']}]: {e}")
     return results
@@ -1336,29 +1339,39 @@ async def sync_weather(client: httpx.AsyncClient) -> list[dict]:
 
 async def sync_news(client: httpx.AsyncClient) -> list[dict]:
     new_articles = []
-    if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
-        return new_articles
-    headers = {"User-Agent": "Mozilla/5.0 (compatible; TacticalConstruct/4.0)"}
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
     for feed in NEWS_FEEDS:
         try:
             resp = await client.get(feed["url"], headers=headers, timeout=20)
+            if resp.status_code != 200:
+                continue
             root = ET.fromstring(resp.content)
             for item in root.findall(".//item")[:5]:
                 title = (item.findtext("title") or "Untitled").strip()
                 link = item.findtext("link") or ""
+                if not title:
+                    continue
                 content_hash = hashlib.sha256(f"{title}{link}".encode()).hexdigest()
 
-                check = await client.get(f"{SUPABASE_URL}/rest/v1/news_articles?content_hash=eq.{content_hash}&select=id", headers=SUPABASE_HEADERS, timeout=10)
-                if check.status_code == 200 and len(check.json()) > 0:
-                    continue
+                if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+                    try:
+                        check = await client.get(f"{SUPABASE_URL}/rest/v1/news_articles?content_hash=eq.{content_hash}&select=id", headers=SUPABASE_HEADERS, timeout=10)
+                        if check.status_code == 200 and len(check.json()) > 0:
+                            continue
+                    except Exception:
+                        pass
 
                 article = {
                     "scope": feed["scope"], "source": feed["source"], "title": title, "link": link,
                     "content_hash": content_hash, "published_at": (item.findtext("pubDate") or "")[:30],
                     "created_at": datetime.now(timezone.utc).isoformat()
                 }
-                if (await client.post(f"{SUPABASE_URL}/rest/v1/news_articles", headers=SUPABASE_HEADERS, json=article, timeout=10)).status_code == 201:
-                    new_articles.append(article)
+                new_articles.append(article)
+                if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+                    try:
+                        await client.post(f"{SUPABASE_URL}/rest/v1/news_articles", headers=SUPABASE_HEADERS, json=article, timeout=10)
+                    except Exception:
+                        pass
         except Exception as e:
             logger.error(f"[News Feed Error - {feed['source']}]: {e}")
     return new_articles
@@ -1366,33 +1379,34 @@ async def sync_news(client: httpx.AsyncClient) -> list[dict]:
 
 async def sync_cyber_alerts(client: httpx.AsyncClient) -> list[dict]:
     new_alerts = []
-    if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
-        return new_alerts
-    headers = {"User-Agent": "Mozilla/5.0 (compatible; TacticalConstruct/4.0)"}
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; TacticalConstruct/4.0)"}
 
     # 1. CISA KEV Catalog
     try:
         resp = await client.get(CISA_KEV_URL, headers=headers, timeout=25)
-        vulns = resp.json().get("vulnerabilities", [])
-        vulns.sort(key=lambda x: x.get("dateAdded", ""), reverse=True)
-        for v in vulns[:6]:
-            cve_id = v.get("cveID", "UNKNOWN")
-            content_hash = hashlib.sha256(cve_id.encode()).hexdigest()
+        if resp.status_code == 200:
+            vulns = resp.json().get("vulnerabilities", [])
+            for v in reversed(vulns[-15:]):
+                cve_id = v.get("cveID", "UNKNOWN")
+                content_hash = hashlib.sha256(cve_id.encode()).hexdigest()
 
-            check = await client.get(f"{SUPABASE_URL}/rest/v1/cyber_alerts?content_hash=eq.{content_hash}&select=id", headers=SUPABASE_HEADERS, timeout=10)
-            if check.status_code == 200 and len(check.json()) > 0:
-                continue
-
-            alert = {
-                "category": "CVE-KEV", "source": "CISA KEV", "cve_id": cve_id,
-                "severity": "CRITICAL" if v.get("knownRansomwareCampaignUse") == "Known" else "HIGH",
-                "title": f"{cve_id}: {v.get('vendorProject')} {v.get('product')} - {v.get('vulnerabilityName')}",
-                "summary": v.get("shortDescription", "")[:300], "link": f"https://nvd.nist.gov/vuln/detail/{cve_id}",
-                "content_hash": content_hash, "published_at": v.get("dateAdded", ""),
-                "created_at": datetime.now(timezone.utc).isoformat()
-            }
-            if (await client.post(f"{SUPABASE_URL}/rest/v1/cyber_alerts", headers=SUPABASE_HEADERS, json=alert, timeout=10)).status_code == 201:
+                alert = {
+                    "category": "CVE-KEV", "source": "CISA KEV", "cve_id": cve_id,
+                    "severity": "CRITICAL" if "Remote Code Execution" in v.get("vulnerabilityName", "") or v.get("knownRansomwareCampaignUse") == "Known" else "HIGH",
+                    "title": f"{cve_id}: {v.get('vendorProject')} {v.get('product')} - {v.get('vulnerabilityName')}",
+                    "summary": v.get("shortDescription", "")[:300], "link": f"https://nvd.nist.gov/vuln/detail/{cve_id}",
+                    "content_hash": content_hash, "published_at": v.get("dateAdded", "") + "T00:00:00Z",
+                    "created_at": datetime.now(timezone.utc).isoformat()
+                }
                 new_alerts.append(alert)
+
+                if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+                    try:
+                        check = await client.get(f"{SUPABASE_URL}/rest/v1/cyber_alerts?content_hash=eq.{content_hash}&select=id", headers=SUPABASE_HEADERS, timeout=10)
+                        if check.status_code == 200 and len(check.json()) == 0:
+                            await client.post(f"{SUPABASE_URL}/rest/v1/cyber_alerts", headers=SUPABASE_HEADERS, json=alert, timeout=10)
+                    except Exception:
+                        pass
     except Exception as e:
         logger.error(f"[CISA KEV Error]: {e}")
 
@@ -1400,30 +1414,73 @@ async def sync_cyber_alerts(client: httpx.AsyncClient) -> list[dict]:
     for feed in CYBER_RSS_FEEDS:
         try:
             resp = await client.get(feed["url"], headers=headers, timeout=20)
-            root = ET.fromstring(resp.content)
-            for item in root.findall(".//item")[:5]:
-                title = (item.findtext("title") or "Untitled").strip()
-                link = item.findtext("link") or ""
-                content_hash = hashlib.sha256(f"{title}{link}".encode()).hexdigest()
+            if resp.status_code == 200:
+                root = ET.fromstring(resp.content)
+                for item in root.findall(".//item")[:5]:
+                    title = (item.findtext("title") or "Untitled").strip()
+                    link = item.findtext("link") or ""
+                    if not title:
+                        continue
+                    content_hash = hashlib.sha256(f"{title}{link}".encode()).hexdigest()
+                    lower_t = title.lower()
+                    severity = "CRITICAL" if any(k in lower_t for k in ["zero-day", "0-day", "ransomware", "rce", "actively exploited"]) else ("HIGH" if any(k in lower_t for k in ["breach", "cve-", "malware", "exploit"]) else "ADVISORY")
 
-                check = await client.get(f"{SUPABASE_URL}/rest/v1/cyber_alerts?content_hash=eq.{content_hash}&select=id", headers=SUPABASE_HEADERS, timeout=10)
-                if check.status_code == 200 and len(check.json()) > 0:
-                    continue
-
-                lower_t = title.lower()
-                severity = "CRITICAL" if any(k in lower_t for k in ["zero-day", "0-day", "ransomware", "rce", "actively exploited"]) else ("HIGH" if any(k in lower_t for k in ["breach", "cve-", "malware", "exploit"]) else "ADVISORY")
-
-                alert = {
-                    "category": feed["category"], "source": feed["source"], "cve_id": None, "severity": severity,
-                    "title": title, "summary": None, "link": link, "content_hash": content_hash,
-                    "published_at": (item.findtext("pubDate") or "")[:30],
-                    "created_at": datetime.now(timezone.utc).isoformat()
-                }
-                if (await client.post(f"{SUPABASE_URL}/rest/v1/cyber_alerts", headers=SUPABASE_HEADERS, json=alert, timeout=10)).status_code == 201:
+                    alert = {
+                        "category": feed["category"], "source": feed["source"], "cve_id": None, "severity": severity,
+                        "title": title, "summary": None, "link": link, "content_hash": content_hash,
+                        "published_at": (item.findtext("pubDate") or "")[:30],
+                        "created_at": datetime.now(timezone.utc).isoformat()
+                    }
                     new_alerts.append(alert)
+                    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+                        try:
+                            check = await client.get(f"{SUPABASE_URL}/rest/v1/cyber_alerts?content_hash=eq.{content_hash}&select=id", headers=SUPABASE_HEADERS, timeout=10)
+                            if check.status_code == 200 and len(check.json()) == 0:
+                                await client.post(f"{SUPABASE_URL}/rest/v1/cyber_alerts", headers=SUPABASE_HEADERS, json=alert, timeout=10)
+                        except Exception:
+                            pass
         except Exception as e:
             logger.error(f"[Cyber Feed Error - {feed['source']}]: {e}")
     return new_alerts
+
+
+async def sync_conflict_and_macro(client: httpx.AsyncClient) -> list[dict]:
+    """Ingests real-time kinetic war updates, geopolitical flashpoints, and macroeconomic shocks."""
+    new_intel = []
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; TacticalConstruct/4.0)"}
+    for feed in CONFLICT_AND_MACRO_FEEDS:
+        try:
+            resp = await client.get(feed["url"], headers=headers, timeout=15)
+            if resp.status_code == 200:
+                root = ET.fromstring(resp.content)
+                for item in root.findall(".//item")[:5]:
+                    title = (item.findtext("title") or "Untitled").strip()
+                    link = item.findtext("link") or ""
+                    if not title:
+                        continue
+                    content_hash = hashlib.sha256(f"{title}{link}".encode()).hexdigest()
+                    lower_t = title.lower()
+                    severity = "CRITICAL" if any(k in lower_t for k in ["strike", "kill", "ballistic", "war", "offensive", "casualt", "blockade"]) else ("HIGH" if any(k in lower_t for k in ["missile", "drone", "sanction", "clash", "threat", "inflation"]) else "ELEVATED")
+
+                    intel_item = {
+                        "domain": feed.get("domain", "WAR-KINETIC"),
+                        "theater": feed.get("theater", "GLOBAL"),
+                        "severity": severity,
+                        "headline": title,
+                        "source": feed.get("source", "Defense Wire"),
+                        "link": link,
+                        "content_hash": content_hash,
+                        "created_at": datetime.now(timezone.utc).isoformat()
+                    }
+                    new_intel.append(intel_item)
+                    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+                        try:
+                            await client.post(f"{SUPABASE_URL}/rest/v1/conflict_and_macro_intel", headers=SUPABASE_HEADERS, json=intel_item, timeout=10)
+                        except Exception:
+                            pass
+        except Exception as e:
+            logger.error(f"[Conflict Feed Error - {feed['source']}]: {e}")
+    return new_intel
 
 
 # =====================================================================
@@ -1496,28 +1553,60 @@ async def reminder_worker(client: httpx.AsyncClient):
 
 
 async def collector_worker(client: httpx.AsyncClient):
-    """Executes periodic sensor sync and generates proactive Tactical SitReps."""
+    """Executes periodic sensor sync and generates proactive Tactical SitReps with real telemetry persistence."""
     logger.info(f"Tactical telemetry daemon active (Interval: {SYNC_INTERVAL}s)...")
     while True:
-        weather = await sync_weather(client)
-        news = await sync_news(client)
-        cyber = await sync_cyber_alerts(client)
-        conflict_macro = await sync_conflict_and_macro(client)
+        try:
+            weather = await sync_weather(client)
+            news = await sync_news(client)
+            cyber = await sync_cyber_alerts(client)
+            conflict_macro = await sync_conflict_and_macro(client)
 
-        if news or cyber or conflict_macro or force_sync_event.is_set():
+            b = await synthesize_tactical_sitrep(client, weather, news, cyber, conflict_macro)
+
+            # Persist real telemetry into telemetry_live.json so web HUD has real-time access
             try:
-                b = await synthesize_tactical_sitrep(client, weather, news, cyber, conflict_macro)
-                telegram_dispatch = (
-                    f"🛡️ *OVERWATCH SITREP // [{b['threat_level']}]*\n\n"
-                    f"1. *SITUATION:*\n{b['sitrep']}\n\n"
-                    f"2. *ACTIVE WARS & CHOKEPOINTS:*\n{b['conflict_summary']}\n\n"
-                    f"3. *FUTURE THREAT FORECAST:*\n{b['future_risk_forecast']}\n\n"
-                    f"4. *DEFENSIVE PROTOCOL (PROTECT):*\n{b['defensive_protocol']}\n\n"
-                    f"5. *ASYMMETRIC UPSIDE (BENEFIT):*\n{b['asymmetric_upside']}"
-                )
-                await send_telegram(client, telegram_dispatch)
-            except Exception as e:
-                logger.error(f"[Synthesis Dispatch Error]: {e}")
+                live_path = Path(__file__).resolve().parent / "telemetry_live.json"
+                existing = {}
+                if live_path.exists():
+                    try:
+                        with open(live_path, "r", encoding="utf-8") as f:
+                            existing = json.load(f)
+                    except Exception:
+                        pass
+
+                payload = {
+                    "sitrep": b,
+                    "weather": weather if weather else existing.get("weather", []),
+                    "cyber": cyber if cyber else existing.get("cyber", []),
+                    "news": news if news else existing.get("news", []),
+                    "conflicts": conflict_macro if conflict_macro else existing.get("conflicts", []),
+                    "lan_devices": existing.get("lan_devices", []),
+                    "tasks": existing.get("tasks", []),
+                    "ledger": existing.get("ledger", []),
+                    "vault": existing.get("vault", []),
+                    "generated_at": datetime.now(timezone.utc).isoformat()
+                }
+                with open(live_path, "w", encoding="utf-8") as f:
+                    json.dump(payload, f, indent=2, ensure_ascii=False)
+            except Exception as se:
+                logger.error(f"[Telemetry Live Save Error]: {se}")
+
+            if (news or cyber or conflict_macro or force_sync_event.is_set()) and TELEGRAM_TOKEN and AUTHORIZED_CHAT_ID:
+                try:
+                    telegram_dispatch = (
+                        f"🛡️ *OVERWATCH SITREP // [{b['threat_level']}]*\n\n"
+                        f"1. *SITUATION:*\n{b['sitrep']}\n\n"
+                        f"2. *ACTIVE WARS & CHOKEPOINTS:*\n{b['conflict_summary']}\n\n"
+                        f"3. *FUTURE THREAT FORECAST:*\n{b['future_risk_forecast']}\n\n"
+                        f"4. *DEFENSIVE PROTOCOL (PROTECT):*\n{b['defensive_protocol']}\n\n"
+                        f"5. *ASYMMETRIC UPSIDE (BENEFIT):*\n{b['asymmetric_upside']}"
+                    )
+                    await send_telegram(client, telegram_dispatch)
+                except Exception as e:
+                    logger.error(f"[Synthesis Dispatch Error]: {e}")
+        except Exception as ce:
+            logger.error(f"[Collector Cycle Error]: {ce}")
 
         try:
             await asyncio.wait_for(force_sync_event.wait(), timeout=SYNC_INTERVAL)
