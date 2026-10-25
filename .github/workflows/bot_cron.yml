@@ -1,0 +1,41 @@
+name: 24/7 Web Collector Bot
+
+on:
+  schedule:
+    # Runs every 15 minutes automatically
+    - cron: '*/15 * * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  run-collector:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt
+
+      - name: Execute Scrape Cycle
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+          SCRAPE_INTERVAL: 60
+        # Runs a single execution cycle when executed via GitHub Actions cron
+        run: |
+          python -c "
+          import asyncio, httpx, core_bot
+          async def run_once():
+              limits = httpx.Limits(max_keepalive_connections=10, max_connections=20)
+              async with httpx.AsyncClient(follow_redirects=True, limits=limits) as client:
+                  await core_bot.execute_scrape_cycle(client)
+          asyncio.run(run_once())
+          "
