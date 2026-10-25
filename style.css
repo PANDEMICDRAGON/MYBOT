@@ -662,3 +662,73 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--hud-cyan);
 }
+
+/* --- LOCAL WI-FI / LAN DEVICE MESH --- */
+.lan-card {
+  background: rgba(6, 12, 26, 0.85);
+  border: 1px solid rgba(0, 240, 255, 0.18);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.lan-card:hover {
+  border-color: var(--hud-border-bright);
+  background: rgba(10, 20, 42, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 240, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.lan-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--hud-cyan);
+  opacity: 0.6;
+}
+
+.lan-card.device-online::before {
+  background: #10b981;
+}
+
+.lan-card.device-offline::before {
+  background: #64748b;
+}
+
+.badge-online {
+  background: rgba(16, 185, 129, 0.18);
+  border: 1px solid rgba(16, 185, 129, 0.6);
+  color: #34d399;
+}
+
+.badge-offline {
+  background: rgba(100, 116, 139, 0.18);
+  border: 1px solid rgba(100, 116, 139, 0.5);
+  color: #94a3b8;
+}
+
+/* Mic Active Listening Pulse */
+#btn-browser-mic.listening {
+  background: rgba(239, 68, 68, 0.25) !important;
+  border-color: #ef4444 !important;
+  color: #fca5a5 !important;
+  animation: mic-pulse 1s infinite alternate;
+}
+
+@keyframes mic-pulse {
+  from {
+    box-shadow: 0 0 4px rgba(239, 68, 68, 0.4);
+  }
+  to {
+    box-shadow: 0 0 16px rgba(239, 68, 68, 0.9);
+  }
+}
+

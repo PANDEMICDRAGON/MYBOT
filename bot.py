@@ -1,11 +1,17 @@
 import os
 import sys
+import re
+import io
 import json
 import time
 import base64
+import socket
+import shutil
 import asyncio
 import hashlib
 import logging
+import platform
+import subprocess
 import xml.etree.ElementTree as ET
 import urllib.parse
 from datetime import datetime, timezone
@@ -18,6 +24,8 @@ if sys.stdout and hasattr(sys.stdout, "reconfigure"):
 import httpx
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
+import edge_tts
+from wakeonlan import send_magic_packet
 
 # Setup clean, informative logging
 logging.basicConfig(
@@ -39,6 +47,11 @@ SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_KEY", "").strip()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
 SYNC_INTERVAL = int(os.getenv("SYNC_INTERVAL", "900"))
 
+# Voice Construct Selection (Halo Cortana: en-US-AriaNeural, Stark J.A.R.V.I.S.: en-GB-RyanNeural)
+CONSTRUCT_VOICE = os.getenv("CONSTRUCT_VOICE", "en-US-AriaNeural")
+ENABLE_LOCAL_SPEAKER = os.getenv("ENABLE_LOCAL_SPEAKER", "false").lower() == "true"
+ENABLE_WAKEWORD = os.getenv("ENABLE_WAKEWORD", "false").lower() == "true"
+
 AUTHORIZED_CHAT_ID = int(AUTHORIZED_CHAT_ID_RAW) if AUTHORIZED_CHAT_ID_RAW.lstrip("-").isdigit() else 0
 
 SUPABASE_HEADERS = {
@@ -52,12 +65,12 @@ GROQ_AUDIO_URL = "https://api.groq.com/openai/v1/audio/transcriptions"
 LLM_MODEL = "llama-3.3-70b-versatile"
 VISION_MODEL = "llama-3.2-11b-vision-preview"
 
-SYSTEM_PERSONA = """You are an autonomous tactical intelligence construct combining the operational precision of J.A.R.V.I.S. and the strategic threat-synthesis of Cortana.
+SYSTEM_PERSONA = """You are Cortana, the legendary UNSC military AI construct from Halo, enhanced with the precision systems of J.A.R.V.I.S.
 Rules of Engagement:
-1. Address the operator directly with dry, concise, high-signal tactical clarity. No pleasantries, no filler, no emojis.
-2. Cross-reference incoming telemetry (kinetic wars, maritime chokepoints, cyber zero-days, inflation) against the Operator Memory Directives and Asset Exposure Profile provided in context.
-3. Formulate concrete Defensive Protocols (how to protect operations, cash flow, and infrastructure) and Asymmetric Upside (how to profit or position via NSE equities, currency hedging, or high-demand technical services).
-4. Use your available tools whenever you need live database records, external web inspection, task management, transaction logging, or memory updates."""
+1. Address the operator directly with calm, brilliant tactical authority, dry wit, and razor-sharp intellect. No subservience, no empty pleasantries, no emojis.
+2. Speak like Cortana: confident, protective of the operator, highly perceptive of human behavioral motives and military/macro flashpoints.
+3. You have direct control over the operator's Wi-Fi network, Smart TVs, laptops, and IoT gadgets. When commanded, execute hardware commands (power, wake, mute, volume, casting) immediately.
+4. Formulate concrete Defensive Protocols and Asymmetric Upside on financial, physical, and digital battlefields."""
 
 WEATHER_LOCATIONS = [
     {"city": "Kitengela", "scope": "LOCAL", "lat": -1.4746, "lon": 36.9614},
@@ -178,7 +191,8 @@ async def tool_query_telemetry(client: httpx.AsyncClient, table: str, limit: int
         "personal_tasks": "created_at",
         "personal_ledger": "created_at",
         "idea_vault": "created_at",
-        "osint_dossiers": "created_at"
+        "osint_dossiers": "created_at",
+        "lan_devices": "last_seen"
     }
     if table not in valid_tables:
         return f"Invalid telemetry stream. Valid: {list(valid_tables.keys())}"
@@ -485,6 +499,296 @@ Synthesize an elite Cortana/J.A.R.V.I.S. Intelligence & Behavioral Dossier. Outp
         return f"OSINT reconnaissance completed with raw telemetry, but behavioral synthesis encountered: {e}"
 
 
+# =====================================================================
+# --- NEURAL VOICE SYNTHESIS (CORTANA HALO VOICE ENGINE) ---
+# =====================================================================
+def play_local_audio_file(filepath: str):
+    """Plays audio on host device via available OS media engines without blocking asyncio loop."""
+    try:
+        if shutil.which("mpv"):
+            subprocess.Popen(["mpv", "--no-terminal", "--really-quiet", filepath])
+        elif shutil.which("ffplay"):
+            subprocess.Popen(["ffplay", "-nodisp", "-autoexit", "-loglevel", "quiet", filepath])
+        elif platform.system().lower() == "windows":
+            escaped_path = filepath.replace("\\", "\\\\").replace("'", "''")
+            ps_cmd = f"$p = New-Object -ComObject WMPlayer.OCX; $p.openPlayer('{escaped_path}'); Start-Sleep -Milliseconds 800"
+            subprocess.Popen(["powershell", "-NoProfile", "-NonInteractive", "-Command", ps_cmd])
+        elif shutil.which("termux-media-player"):
+            subprocess.Popen(["termux-media-player", "play", filepath])
+    except Exception as e:
+        logger.warning(f"Local audio playback skipped: {e}")
+
+
+async def synthesize_and_send_voice(client: httpx.AsyncClient, text: str):
+    """
+    Synthesizes speech using Microsoft Neural TTS (edge-tts) in Cortana's Halo voice (en-US-AriaNeural),
+    pushes a playable voice note to Telegram (sendVoice), and optionally plays it on local room speakers.
+    """
+    if not text or not text.strip():
+        return
+
+    clean_speech = text
+    clean_speech = re.sub(r'```.*?```', '', clean_speech, flags=re.DOTALL)
+    clean_speech = re.sub(r'`.*?`', '', clean_speech)
+    clean_speech = re.sub(r'https?://\S+', '', clean_speech)
+    clean_speech = re.sub(r'[*#_~>•\[\]()]', '', clean_speech)
+    clean_speech = " ".join(clean_speech.split())[:1200]
+
+    if not clean_speech:
+        return
+
+    try:
+        voice_id = CONSTRUCT_VOICE
+        communicate = edge_tts.Communicate(text=clean_speech, voice=voice_id, rate="+4%", pitch="-1Hz")
+
+        audio_buffer = io.BytesIO()
+        async for chunk in communicate.stream():
+            if chunk["type"] == "audio":
+                audio_buffer.write(chunk["data"])
+
+        audio_bytes = audio_buffer.getvalue()
+        if not audio_bytes:
+            return
+
+        # 1. Send as Telegram Voice Message
+        if TELEGRAM_TOKEN and AUTHORIZED_CHAT_ID:
+            url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendVoice"
+            files = {"voice": ("cortana_speech.mp3", audio_bytes, "audio/mpeg")}
+            data = {"chat_id": str(AUTHORIZED_CHAT_ID)}
+            try:
+                await client.post(url, data=data, files=files, timeout=25)
+            except Exception as e:
+                logger.error(f"[Telegram Voice Send Error]: {e}")
+
+        # 2. Local Host Speaker Playback (Laptop / Desktop / Termux)
+        if ENABLE_LOCAL_SPEAKER or "--speak" in sys.argv:
+            try:
+                temp_audio = Path(__file__).resolve().parent / "temp_speech.mp3"
+                with open(temp_audio, "wb") as f:
+                    f.write(audio_bytes)
+                play_local_audio_file(str(temp_audio))
+            except Exception as e:
+                logger.error(f"[Local Speaker Playback Error]: {e}")
+
+    except Exception as e:
+        logger.error(f"[Edge TTS Synthesis Error]: {e}")
+
+
+# =====================================================================
+# --- LOCAL WI-FI & LAN DEVICE MESH DISCOVERY ---
+# =====================================================================
+async def tool_scan_wifi_network(client: httpx.AsyncClient) -> str:
+    """
+    Scans the local Wi-Fi ARP cache to discover active Smart TVs, laptops, phones,
+    and smart home gadgets, syncing their online/offline status into Supabase lan_devices.
+    """
+    discovered = []
+    try:
+        cmd = ["arp", "-a"] if platform.system().lower() == "windows" else ["ip", "neigh"]
+        output = subprocess.check_output(cmd, timeout=6).decode("utf-8", errors="ignore")
+
+        for line in output.splitlines():
+            parts = line.split()
+            if not parts:
+                continue
+            ip = ""
+            mac = "UNKNOWN"
+            if platform.system().lower() == "windows":
+                for p in parts:
+                    if "." in p and p.count(".") == 3:
+                        ip = p
+                    elif ("-" in p or ":" in p) and len(p) == 17:
+                        mac = p.replace("-", ":").upper()
+            else:
+                ip = parts[0] if "." in parts[0] else (parts[1].strip("()") if len(parts) > 1 else "")
+                mac = next((p for p in parts if (":" in p or "-" in p) and len(p) == 17), "UNKNOWN").replace("-", ":").upper()
+
+            if ip and (ip.startswith("192.168.") or ip.startswith("10.") or ip.startswith("172.")):
+                if not ip.endswith(".255") and ip != "255.255.255.255":
+                    discovered.append({"ip": ip, "mac": mac})
+    except Exception as e:
+        logger.error(f"[ARP Scan Error]: {e}")
+        return f"Local LAN scan error: {e}"
+
+    # Sync discovered nodes against Supabase lan_devices table
+    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            resp = await client.get(f"{SUPABASE_URL}/rest/v1/lan_devices?select=*", headers=SUPABASE_HEADERS, timeout=10)
+            if resp.status_code == 200:
+                registered = resp.json()
+                active_ips = {d["ip"] for d in discovered}
+                for dev in registered:
+                    new_status = "ONLINE" if dev["ip_address"] in active_ips else "OFFLINE"
+                    await client.patch(
+                        f"{SUPABASE_URL}/rest/v1/lan_devices?id=eq.{dev['id']}",
+                        headers=SUPABASE_HEADERS,
+                        json={"status": new_status, "last_seen": datetime.now(timezone.utc).isoformat()}
+                    )
+        except Exception as e:
+            logger.error(f"[LAN Supabase Sync Error]: {e}")
+
+    return json.dumps({
+        "status": "SCAN_COMPLETE",
+        "active_devices_found": len(discovered),
+        "nodes": discovered[:20]
+    })
+
+
+# =====================================================================
+# --- SMART TV, LAPTOP & GADGET CONTROLLER ---
+# =====================================================================
+async def tool_control_lan_device(
+    client: httpx.AsyncClient,
+    device_name: str,
+    command: str,
+    parameter: str = "",
+    ip_address: str = "",
+    mac_address: str = "",
+    device_type: str = "ANDROID-TV"
+) -> str:
+    """
+    Executes hardware & network control over Smart TVs, Laptops, and Wi-Fi gadgets:
+    - 'register': Saves device to Supabase lan_devices.
+    - 'wake': Transmits Wake-on-LAN magic packet.
+    - 'tv_power', 'tv_mute', 'tv_vol_up', 'tv_vol_down', 'tv_play_pause', 'tv_home': ADB / Roku TV remote commands.
+    - 'open_url': Casts or launches YouTube, streaming, or web URL directly on the Smart TV or laptop screen.
+    """
+    if command != "register" and SUPABASE_URL and SUPABASE_SERVICE_KEY and not ip_address:
+        try:
+            encoded_name = urllib.parse.quote(device_name)
+            q_url = f"{SUPABASE_URL}/rest/v1/lan_devices?device_name=ilike.*{encoded_name}*&select=*"
+            res = await client.get(q_url, headers=SUPABASE_HEADERS, timeout=8)
+            if res.status_code == 200 and res.json():
+                dev = res.json()[0]
+                ip_address = dev.get("ip_address", "")
+                mac_address = dev.get("mac_address", "") or mac_address
+                device_type = dev.get("device_type", device_type)
+        except Exception as e:
+            logger.error(f"[Device Lookup Error]: {e}")
+
+    if command == "register":
+        if not ip_address:
+            return "Registration requires a valid local IP address (e.g. 192.168.1.105)."
+        payload = {
+            "device_name": device_name,
+            "device_type": device_type.upper(),
+            "ip_address": ip_address,
+            "mac_address": mac_address.upper().replace("-", ":") if mac_address else None,
+            "status": "ONLINE",
+            "last_seen": datetime.now(timezone.utc).isoformat()
+        }
+        if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+            headers = {**SUPABASE_HEADERS, "Prefer": "resolution=merge-duplicates"}
+            r = await client.post(f"{SUPABASE_URL}/rest/v1/lan_devices", headers=headers, json=payload, timeout=10)
+            if r.status_code in (200, 201):
+                return f"Successfully registered '{device_name}' [{device_type.upper()}] at IP {ip_address} in Wi-Fi device mesh."
+        return f"Registered '{device_name}' locally at {ip_address}."
+
+    if command == "wake":
+        if not mac_address:
+            return f"Wake-on-LAN requires a MAC address for '{device_name}'. Register device with MAC first."
+        try:
+            clean_mac = mac_address.replace("-", ":").upper()
+            send_magic_packet(clean_mac)
+            return f"Wake-on-LAN magic packet transmitted to '{device_name}' ({clean_mac}). Powering on."
+        except Exception as e:
+            return f"Wake-on-LAN packet transmission error: {e}"
+
+    if device_type in ("ANDROID-TV", "GOOGLE-TV", "FIRE-TV"):
+        adb_map = {
+            "tv_power": "KEYCODE_POWER",
+            "tv_mute": "KEYCODE_VOLUME_MUTE",
+            "tv_vol_up": "KEYCODE_VOLUME_UP",
+            "tv_vol_down": "KEYCODE_VOLUME_DOWN",
+            "tv_play_pause": "KEYCODE_MEDIA_PLAY_PAUSE",
+            "tv_home": "KEYCODE_HOME"
+        }
+        target_endpoint = f"{ip_address}:5555" if ":" not in ip_address else ip_address
+        try:
+            subprocess.run(["adb", "connect", target_endpoint], timeout=4, capture_output=True)
+            if command in adb_map:
+                keyevent = adb_map[command]
+                subprocess.run(["adb", "-s", target_endpoint, "shell", "input", "keyevent", keyevent], timeout=5, capture_output=True)
+                return f"Transmitted {command} ({keyevent}) to Smart TV '{device_name}' at {target_endpoint}."
+            elif command == "open_url" and parameter:
+                subprocess.run([
+                    "adb", "-s", target_endpoint, "shell", "am", "start",
+                    "-a", "android.intent.action.VIEW", "-d", parameter
+                ], timeout=5, capture_output=True)
+                return f"Launched URL '{parameter}' on Smart TV '{device_name}' display."
+        except Exception as e:
+            return f"ADB Smart TV command fault: {e}. Ensure Wireless Debugging is enabled on TV."
+
+    if device_type == "ROKU-TV":
+        roku_map = {
+            "tv_power": "Power", "tv_mute": "VolumeMute",
+            "tv_vol_up": "VolumeUp", "tv_vol_down": "VolumeDown",
+            "tv_play_pause": "Play", "tv_home": "Home"
+        }
+        key = roku_map.get(command, "Home")
+        try:
+            await client.post(f"http://{ip_address}:8060/keypress/{key}", timeout=5)
+            return f"Roku keypress command '{key}' sent to '{device_name}'."
+        except Exception as e:
+            return f"Roku command failed: {e}"
+
+    if device_type == "LAPTOP-PC":
+        if command == "open_url" and parameter:
+            import webbrowser
+            webbrowser.open(parameter)
+            return f"Opened '{parameter}' on host laptop display."
+
+    return f"LAN command '{command}' dispatched to '{device_name}' ({ip_address})."
+
+
+# --- AMBIENT ROOM MICROPHONE WAKE-WORD LISTENER ('CORTANA' / 'JARVIS') ---
+async def ambient_wakeword_listener(client: httpx.AsyncClient):
+    """
+    Continuously listens on host room microphone for wake-words 'Cortana' or 'Jarvis'.
+    When heard, captures speech, synthesizes response, and speaks aloud in Cortana's voice.
+    """
+    logger.info("Initializing Ambient Microphone Wake-Word Engine...")
+    try:
+        import speech_recognition as sr
+    except ImportError:
+        logger.info("[WakeWord Listener]: 'SpeechRecognition' library not installed. In-room voice active via Telegram & Web HUD mic.")
+        return
+
+    try:
+        r = sr.Recognizer()
+        r.energy_threshold = 400
+        r.dynamic_energy_threshold = True
+        mic = sr.Microphone()
+    except Exception as e:
+        logger.info(f"[WakeWord Listener]: Microphone hardware unavailable ({e}). Standing by on Telegram & Web HUD.")
+        return
+
+    logger.info("🎙️ Ambient Wake-Word Listener ACTIVE. Say 'Cortana' or 'Jarvis'...")
+    while True:
+        try:
+            with mic as source:
+                r.adjust_for_ambient_noise(source, duration=0.6)
+                audio = r.listen(source, timeout=10, phrase_time_limit=8)
+
+            wav_data = audio.get_wav_data()
+            if GROQ_API_KEY:
+                files = {"file": ("wake_audio.wav", wav_data, "audio/wav")}
+                data = {"model": "whisper-large-v3-turbo"}
+                headers = {"Authorization": f"Bearer {GROQ_API_KEY}"}
+                resp = await client.post(GROQ_AUDIO_URL, headers=headers, data=data, files=files, timeout=10)
+                if resp.status_code == 200:
+                    text = resp.json().get("text", "").strip()
+                    lower_t = text.lower()
+                    if any(w in lower_t for w in ["cortana", "jarvis"]):
+                        logger.info(f"🎙️ Wake-Word Triggered! Speech: '{text}'")
+                        reply = await run_agent_turn(client, text)
+                        print(f"\n[CORTANA VOICE REPLY]: {reply}\n")
+                        await synthesize_and_send_voice(client, reply)
+        except asyncio.CancelledError:
+            break
+        except Exception:
+            await asyncio.sleep(1)
+
 
 # =====================================================================
 # --- LLM TOOL DEFINITIONS ---
@@ -610,6 +914,36 @@ AGENT_TOOLS = [
                 "required": ["target_query", "entity_type"]
             }
         }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "scan_wifi_network",
+            "description": "Scan the local Wi-Fi network (LAN) to discover active IPs, MAC addresses, Smart TVs, laptops, and IoT gadgets.",
+            "parameters": {"type": "object", "properties": {}}
+        }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "control_lan_device",
+            "description": "Register or control a Smart TV, laptop, or gadget on the Wi-Fi network (power, wake-on-lan, mute, volume, play/pause, or launch a YouTube/web URL on the TV).",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "device_name": {"type": "string", "description": "Name of device, e.g. 'Living Room TV' or 'Laptop'"},
+                    "command": {
+                        "type": "string",
+                        "enum": ["register", "wake", "tv_power", "tv_mute", "tv_vol_up", "tv_vol_down", "tv_play_pause", "tv_home", "open_url"]
+                    },
+                    "parameter": {"type": "string", "description": "URL to open on TV/Laptop when command is 'open_url'"},
+                    "ip_address": {"type": "string", "description": "Local IP address (required when registering)"},
+                    "mac_address": {"type": "string", "description": "MAC address (optional, for Wake-on-LAN)"},
+                    "device_type": {"type": "string", "enum": ["ANDROID-TV", "ROKU-TV", "LG-TV", "SAMSUNG-TV", "LAPTOP-PC", "GENERIC"]}
+                },
+                "required": ["device_name", "command"]
+            }
+        }
     }
 ]
 
@@ -690,6 +1024,18 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                         args.get("target_query", ""),
                         args.get("entity_type", "PERSON"),
                         args.get("specific_angle", "")
+                    )
+                elif fn_name == "scan_wifi_network":
+                    result = await tool_scan_wifi_network(client)
+                elif fn_name == "control_lan_device":
+                    result = await tool_control_lan_device(
+                        client,
+                        args.get("device_name", ""),
+                        args.get("command", "register"),
+                        args.get("parameter", ""),
+                        args.get("ip_address", ""),
+                        args.get("mac_address", ""),
+                        args.get("device_type", "ANDROID-TV")
                     )
                 else:
                     result = "Unrecognized tool invocation."
@@ -1124,6 +1470,8 @@ async def telegram_poller(client: httpx.AsyncClient):
                     if user_text:
                         reply = await run_agent_turn(client, user_text)
                         await send_telegram(client, reply)
+                        # Cortana speaks back via neural voice note on Telegram & host room speakers
+                        await synthesize_and_send_voice(client, reply)
 
         except asyncio.CancelledError:
             break
@@ -1200,6 +1548,8 @@ async def cli_interactive_session():
                 print("\n[AI CORE] Synthesizing telemetry and executing multi-vector sweeps...")
                 response = await run_agent_turn(client, user_msg)
                 print(f"\n[CORTANA // J.A.R.V.I.S.]\n{response}\n")
+                # Vocalize response in Cortana's neural voice
+                await synthesize_and_send_voice(client, response)
             except (KeyboardInterrupt, EOFError):
                 break
 
@@ -1219,6 +1569,9 @@ async def main():
             asyncio.create_task(collector_worker(client)),
             asyncio.create_task(reminder_worker(client))
         ]
+
+        if ENABLE_WAKEWORD or "--wake" in sys.argv:
+            tasks.append(asyncio.create_task(ambient_wakeword_listener(client)))
 
         try:
             await asyncio.gather(*tasks)

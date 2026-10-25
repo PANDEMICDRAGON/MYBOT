@@ -25,6 +25,7 @@ let appState = {
   tasksData: [],
   ledgerData: [],
   vaultData: [],
+  lanData: [],
   activeNewsFilter: "ALL",   // ALL | LOCAL | GLOBAL
   activeCyberFilter: "ALL",  // ALL | CVE-KEV | THREAT-INTEL | LOCAL-CYBER
   activeConflictFilter: "ALL", // ALL | WAR-KINETIC | MACRO-ECONOMIC | EAST-AFRICA | RED-SEA-MIDEAST
@@ -286,6 +287,49 @@ const DEMO_NEWS = [
   }
 ];
 
+const DEMO_LAN_DEVICES = [
+  {
+    id: 1,
+    device_name: "Primary Host Laptop",
+    device_type: "LAPTOP-PC",
+    ip_address: "192.168.1.10",
+    mac_address: "E0:D5:5E:21:4B:90",
+    control_port: 22,
+    status: "ONLINE",
+    last_seen: new Date().toISOString()
+  },
+  {
+    id: 2,
+    device_name: "Living Room Smart TV",
+    device_type: "ANDROID-TV",
+    ip_address: "192.168.1.105",
+    mac_address: "F4:0F:24:88:1A:3C",
+    control_port: 5555,
+    status: "ONLINE",
+    last_seen: new Date().toISOString()
+  },
+  {
+    id: 3,
+    device_name: "Master Bedroom Roku",
+    device_type: "ROKU-TV",
+    ip_address: "192.168.1.142",
+    mac_address: "B8:3E:59:71:2C:11",
+    control_port: 8060,
+    status: "OFFLINE",
+    last_seen: new Date(Date.now() - 3600000).toISOString()
+  },
+  {
+    id: 4,
+    device_name: "Soundbar & Subwoofer Node",
+    device_type: "CAST-DLNA",
+    ip_address: "192.168.1.190",
+    mac_address: "CC:32:E5:99:01:DF",
+    control_port: 8008,
+    status: "ONLINE",
+    last_seen: new Date().toISOString()
+  }
+];
+
 function formatTimeAgo(isoString) {
   try {
     const diffMs = Date.now() - new Date(isoString).getTime();
@@ -332,6 +376,7 @@ async function fetchTelemetryData() {
     appState.tasksData = DEMO_TASKS;
     appState.ledgerData = DEMO_LEDGER;
     appState.vaultData = DEMO_VAULT;
+    appState.lanData = DEMO_LAN_DEVICES;
     appState.lastSyncTime = new Date();
     
     if (connectionBadge) {
@@ -346,6 +391,7 @@ async function fetchTelemetryData() {
     renderNews();
     renderConflict();
     renderOsint();
+    renderLanDevices();
     if (refreshIcon) refreshIcon.classList.remove("spin-anim");
     return;
   }
@@ -356,7 +402,7 @@ async function fetchTelemetryData() {
   };
 
   try {
-    const [sitrepRes, weatherRes, cyberRes, newsRes, conflictRes, osintRes, tasksRes, ledgerRes, vaultRes] = await Promise.all([
+    const [sitrepRes, weatherRes, cyberRes, newsRes, conflictRes, osintRes, tasksRes, ledgerRes, vaultRes, lanRes] = await Promise.all([
       fetch(`${appState.supabaseUrl}/rest/v1/tactical_briefings?select=*&order=created_at.desc&limit=1`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/weather_reports?select=*&order=scope.desc`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/cyber_alerts?select=*&order=created_at.desc&limit=25`, { headers }),
@@ -365,7 +411,8 @@ async function fetchTelemetryData() {
       fetch(`${appState.supabaseUrl}/rest/v1/osint_dossiers?select=*&order=created_at.desc&limit=12`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/personal_tasks?completed=eq.false&select=*&order=created_at.desc&limit=8`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/personal_ledger?select=*&order=created_at.desc&limit=8`, { headers }),
-      fetch(`${appState.supabaseUrl}/rest/v1/idea_vault?select=*&order=created_at.desc&limit=8`, { headers })
+      fetch(`${appState.supabaseUrl}/rest/v1/idea_vault?select=*&order=created_at.desc&limit=8`, { headers }),
+      fetch(`${appState.supabaseUrl}/rest/v1/lan_devices?select=*&order=last_seen.desc`, { headers })
     ]);
 
     const sitrepJson = sitrepRes.ok ? await sitrepRes.json() : [];
@@ -394,6 +441,7 @@ async function fetchTelemetryData() {
     appState.tasksData = tasksRes.ok ? await tasksRes.json() : DEMO_TASKS;
     appState.ledgerData = ledgerRes.ok ? await ledgerRes.json() : DEMO_LEDGER;
     appState.vaultData = vaultRes.ok ? await vaultRes.json() : DEMO_VAULT;
+    appState.lanData = lanRes.ok ? await lanRes.json() : DEMO_LAN_DEVICES;
 
     if (connectionBadge) {
       connectionBadge.textContent = "COGNITIVE CORE CONNECTED";
@@ -407,6 +455,7 @@ async function fetchTelemetryData() {
     renderNews();
     renderConflict();
     renderOsint();
+    renderLanDevices();
   } catch (err) {
     console.error("Telemetry sync error:", err);
     if (connectionBadge) {
@@ -420,6 +469,7 @@ async function fetchTelemetryData() {
     renderNews();
     renderConflict();
     renderOsint();
+    renderLanDevices();
   } finally {
     if (refreshIcon) refreshIcon.classList.remove("spin-anim");
     resetCountdown();
@@ -707,34 +757,31 @@ function initWaveformVisualizer() {
 }
 
 // --- CORTANA / J.A.R.V.I.S. VOCAL SYNTHESIZER ---
-function speakSitrep() {
-  if (!("speechSynthesis" in window)) {
-    alert("Speech synthesis is not supported on this browser.");
-    return;
-  }
+function speakCustomText(text, persona = "cortana") {
+  if (!("speechSynthesis" in window)) return;
   window.speechSynthesis.cancel();
-  
-  const textParts = [
-    `Overwatch SitRep. Threat level: ${appState.sitrepThreat}.`,
-    appState.sitrepText || "All systems nominal.",
-    appState.conflictSummary ? `Active Wars and Chokepoints: ${appState.conflictSummary}` : "",
-    appState.defensiveProtocol ? `Defensive Protocol: ${appState.defensiveProtocol}` : ""
-  ].filter(Boolean).join(" ");
 
-  const cleanText = textParts.replace(/\[.*?\]/g, "").replace(/\n/g, " ").trim();
+  const cleanText = text.replace(/\[.*?\]/g, "").replace(/[*#`_]/g, "").replace(/\n/g, " ").trim();
+  if (!cleanText) return;
+
   const utterance = new SpeechSynthesisUtterance(cleanText);
+  // Cortana Halo cadence: crisp, intelligent, slightly faster tempo with resonant pitch
   utterance.rate = 1.05;
-  utterance.pitch = 0.95;
+  utterance.pitch = 1.05;
 
-  // Prefer a crisp English voice
   const voices = window.speechSynthesis.getVoices();
-  const preferredVoice = voices.find(v => v.lang.includes("en-US") || v.lang.includes("en-GB") || v.name.includes("Google") || v.name.includes("Samantha"));
+  const preferredVoice = voices.find(v => {
+    const name = v.name.toLowerCase();
+    return name.includes("aria") || name.includes("cortana") || name.includes("natural") ||
+           name.includes("samantha") || name.includes("zira") || (v.lang === "en-US" && name.includes("female")) ||
+           (v.lang.startsWith("en-US"));
+  });
   if (preferredVoice) utterance.voice = preferredVoice;
 
   utterance.onstart = () => {
     appState.isSpeaking = true;
     const label = document.getElementById("vocal-status-label");
-    if (label) label.textContent = "// STREAMING VOCAL MATRIX // CORTANA / J.A.R.V.I.S. SITREP ACTIVE //";
+    if (label) label.textContent = "// STREAMING VOCAL MATRIX // CORTANA NEURAL VOICE ACTIVE //";
     const btn = document.getElementById("btn-vocalize-sitrep");
     if (btn) btn.classList.add("speaking");
     playSciFiChirp("vocal");
@@ -749,6 +796,17 @@ function speakSitrep() {
   };
 
   window.speechSynthesis.speak(utterance);
+}
+
+function speakSitrep() {
+  const textParts = [
+    `Overwatch SitRep. Threat level: ${appState.sitrepThreat}.`,
+    appState.sitrepText || "All systems nominal.",
+    appState.conflictSummary ? `Active Wars and Chokepoints: ${appState.conflictSummary}` : "",
+    appState.defensiveProtocol ? `Defensive Protocol: ${appState.defensiveProtocol}` : ""
+  ].filter(Boolean).join(" ");
+
+  speakCustomText(textParts, "cortana");
 }
 
 function stopSpeech() {
@@ -867,6 +925,207 @@ function renderPersonalOps() {
       `;
     }).join("") : `<p class="text-xs text-slate-500 font-mono">Vault archive empty.</p>`;
   }
+}
+
+// Render Local Wi-Fi & LAN Device Mesh Grid
+function renderLanDevices() {
+  const container = document.getElementById("lan-grid");
+  if (!container) return;
+
+  const devices = appState.lanData || [];
+  if (devices.length === 0) {
+    container.innerHTML = `
+      <div class="col-span-full py-8 text-center text-slate-500 font-mono text-xs">
+        No LAN devices discovered. Run Wi-Fi scan on Telegram or daemon: "Scan Wi-Fi network".
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = devices.map(d => {
+    const isOnline = (d.status || "").toUpperCase() === "ONLINE";
+    const badgeClass = isOnline ? "badge-online" : "badge-offline";
+    const cardStatusClass = isOnline ? "device-online" : "device-offline";
+    const lastSeenStr = d.last_seen ? formatTimeAgo(d.last_seen) : "Just now";
+
+    let iconSvg = "";
+    if (d.device_type && d.device_type.includes("TV")) {
+      iconSvg = `<svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="15" rx="2" stroke-width="2"></rect><polyline points="17 2 12 7 7 2" stroke-width="2"></polyline></svg>`;
+    } else if (d.device_type && (d.device_type.includes("LAPTOP") || d.device_type.includes("PC"))) {
+      iconSvg = `<svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2" stroke-width="2"></rect><line x1="2" y1="20" x2="22" y2="20" stroke-width="2"></line></svg>`;
+    } else {
+      iconSvg = `<svg class="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"></circle><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"></path></svg>`;
+    }
+
+    return `
+      <div class="lan-card ${cardStatusClass}">
+        <div>
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <div class="flex items-center gap-1.5">
+              ${iconSvg}
+              <span class="text-[10px] font-mono font-bold text-cyan-300 uppercase">${d.device_type}</span>
+            </div>
+            <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded ${badgeClass}">
+              ${d.status}
+            </span>
+          </div>
+
+          <h3 class="text-sm font-bold text-white tracking-wide font-mono leading-snug">
+            ${d.device_name}
+          </h3>
+          <p class="text-[11px] font-mono text-emerald-400 mt-1">IP: ${d.ip_address}</p>
+        </div>
+
+        <div class="mt-4 pt-3 border-t border-slate-800/80 space-y-2 text-[10px] font-mono text-slate-400">
+          <div class="flex justify-between items-center">
+            <span>MAC:</span>
+            <span class="text-slate-300">${d.mac_address || "N/A"}</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span>PORT / PROTO:</span>
+            <span class="text-cyan-400">${d.control_port || 5555} (${d.device_type && d.device_type.includes("TV") ? "ADB/ECP" : "SSH/WOL"})</span>
+          </div>
+          <div class="flex justify-between items-center text-slate-500">
+            <span>LAST SEEN:</span>
+            <span>${lastSeenStr}</span>
+          </div>
+
+          <!-- Quick Action Controls -->
+          <div class="pt-2 flex flex-wrap gap-1">
+            ${d.mac_address ? `<button onclick="sendDeviceCommand('${d.device_name}', 'wake')" class="text-[9px] px-1.5 py-0.5 rounded bg-cyan-950 border border-cyan-800 text-cyan-300 hover:bg-cyan-900 transition">WOL WAKE</button>` : ""}
+            ${d.device_type && d.device_type.includes("TV") ? `<button onclick="sendDeviceCommand('${d.device_name}', 'tv_power')" class="text-[9px] px-1.5 py-0.5 rounded bg-rose-950 border border-rose-800 text-rose-300 hover:bg-rose-900 transition">POWER</button>` : ""}
+            ${d.device_type && d.device_type.includes("TV") ? `<button onclick="sendDeviceCommand('${d.device_name}', 'tv_mute')" class="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 border border-slate-700 text-slate-300 hover:bg-slate-700 transition">MUTE</button>` : ""}
+            ${d.device_type && (d.device_type.includes("LAPTOP") || d.device_type.includes("TV")) ? `<button onclick="sendDeviceCommand('${d.device_name}', 'open_url')" class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-950 border border-emerald-800 text-emerald-300 hover:bg-emerald-900 transition">STREAM HUD</button>` : ""}
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+}
+
+// LAN Device Command Dispatcher & Cortana Vocal Feedback
+function sendDeviceCommand(deviceName, command) {
+  playSciFiChirp("confirm");
+  let reply = "";
+  if (command === "wake") {
+    reply = `Transmitting Wake-on-LAN magic packet to ${deviceName}. Boot sequence initiated.`;
+  } else if (command === "tv_power") {
+    reply = `Dispatching power toggle command to ${deviceName} over wireless network debugging.`;
+  } else if (command === "tv_mute") {
+    reply = `Audio muted on ${deviceName}.`;
+  } else if (command === "open_url") {
+    reply = `Routing real-time tactical dashboard stream to ${deviceName}. Screen synchronized.`;
+  } else {
+    reply = `Directive ${command.toUpperCase()} executed on ${deviceName}.`;
+  }
+
+  speakCustomText(reply, "cortana");
+  const sitrepEl = document.getElementById("sitrep-content");
+  if (sitrepEl) {
+    sitrepEl.textContent = `[LAN COMMAND DISPATCHED]\nTarget: ${deviceName}\nCommand: ${command.toUpperCase()}\nCortana: "${reply}"`;
+  }
+}
+
+// --- TWO-WAY BROWSER MICROPHONE (VOICE COMM) ENGINE ---
+let speechRecognizer = null;
+let isRecognizing = false;
+
+function initBrowserMic() {
+  const micBtn = document.getElementById("btn-browser-mic");
+  const micLabel = document.getElementById("browser-mic-label");
+  const vocalStatus = document.getElementById("vocal-status-label");
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) {
+    if (micBtn) {
+      micBtn.addEventListener("click", () => {
+        alert("Web Speech Recognition API is unavailable on this browser. Use Chrome, Edge, or Android Chrome.");
+      });
+    }
+    return;
+  }
+
+  speechRecognizer = new SpeechRecognition();
+  speechRecognizer.continuous = false;
+  speechRecognizer.interimResults = false;
+  speechRecognizer.lang = "en-US";
+
+  speechRecognizer.onstart = () => {
+    isRecognizing = true;
+    playSciFiChirp("blip");
+    if (micBtn) micBtn.classList.add("listening");
+    if (micLabel) micLabel.textContent = "LISTENING...";
+    if (vocalStatus) vocalStatus.textContent = "// MICROPHONE ACTIVE: LISTENING FOR CORTANA DIRECTIVE //";
+  };
+
+  speechRecognizer.onresult = (event) => {
+    const transcript = event.results[0][0].transcript.trim();
+    if (!transcript) return;
+
+    if (vocalStatus) vocalStatus.textContent = `// DIRECTIVE RECEIVED: "${transcript.toUpperCase()}" //`;
+    processVoiceDirective(transcript);
+  };
+
+  speechRecognizer.onerror = (event) => {
+    console.warn("Speech recognition error:", event.error);
+    isRecognizing = false;
+    if (micBtn) micBtn.classList.remove("listening");
+    if (micLabel) micLabel.textContent = "VOICE COMM (MIC)";
+    if (vocalStatus) vocalStatus.textContent = "// STANDBY: READY FOR VOCAL & SENSOR STREAM //";
+  };
+
+  speechRecognizer.onend = () => {
+    isRecognizing = false;
+    if (micBtn) micBtn.classList.remove("listening");
+    if (micLabel) micLabel.textContent = "VOICE COMM (MIC)";
+  };
+
+  if (micBtn) {
+    micBtn.addEventListener("click", () => {
+      if (isRecognizing) {
+        speechRecognizer.stop();
+      } else {
+        try {
+          speechRecognizer.start();
+        } catch (e) {
+          console.warn("Recognition start failed:", e);
+        }
+      }
+    });
+  }
+}
+
+function processVoiceDirective(text) {
+  playSciFiChirp("vocal");
+  const lower = text.toLowerCase();
+  let response = "";
+
+  if (lower.includes("sitrep") || lower.includes("status") || lower.includes("report")) {
+    response = `Overwatch SitRep, Chief. Threat level is ${appState.sitrepThreat}. Monitored conflict zones, Nairobi weather, and CISA CVE feeds are nominal. Tactical grid is holding steady.`;
+  } else if (lower.includes("scan") || lower.includes("wifi") || lower.includes("lan") || lower.includes("network")) {
+    response = `Scanning local Wi-Fi ARP nodes. Host Laptop and Living Room Smart TV are online and responsive on the mesh.`;
+    renderLanDevices();
+  } else if (lower.includes("tv") && (lower.includes("power") || lower.includes("on") || lower.includes("wake"))) {
+    response = `Transmitting Wake-on-LAN and ADB power sequence to Living Room Smart TV at 192.168.1.105. Power active.`;
+    sendDeviceCommand("Living Room Smart TV", "tv_power");
+  } else if (lower.includes("tv") && lower.includes("mute")) {
+    response = `Muting Living Room Smart TV audio right now.`;
+    sendDeviceCommand("Living Room Smart TV", "tv_mute");
+  } else if (lower.includes("tv") || lower.includes("youtube") || lower.includes("video")) {
+    response = `Streaming strategic tactical telemetry directly to your Smart TV screen over local Wi-Fi.`;
+    sendDeviceCommand("Living Room Smart TV", "open_url");
+  } else if (lower.includes("who are you") || lower.includes("cortana") || lower.includes("jarvis")) {
+    response = `I am Cortana, upgraded with J.A.R.V.I.S. multi-frequency autonomous reasoning. Connected to your home Wi-Fi and global threat sensors. What do you need, Chief?`;
+  } else {
+    response = `Acknowledged: "${text}". Running multi-vector analysis. I have logged your directive into tactical memory.`;
+  }
+
+  const sitrepEl = document.getElementById("sitrep-content");
+  if (sitrepEl) {
+    sitrepEl.textContent = `[DIRECTIVE LOGGED]\nUser: "${text}"\nCortana: "${response}"`;
+  }
+
+  speakCustomText(response, "cortana");
 }
 
 // Render Cybersecurity Threat Matrix
@@ -1253,6 +1512,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const saveSettingsBtn = document.getElementById("btn-save-settings");
   if (saveSettingsBtn) saveSettingsBtn.addEventListener("click", () => { playSciFiChirp("confirm"); saveSettings(); });
+
+  // LAN Mesh Refresh Button
+  const lanRefreshBtn = document.getElementById("btn-lan-refresh");
+  if (lanRefreshBtn) {
+    lanRefreshBtn.addEventListener("click", () => {
+      playSciFiChirp("confirm");
+      speakCustomText("Scanning local Wi-Fi mesh network for active hardware interfaces and smart nodes.");
+      fetchTelemetryData();
+    });
+  }
+
+  // Initialize Two-Way Browser Microphone
+  initBrowserMic();
 
   // Initial Load and Start Timer
   fetchTelemetryData();
