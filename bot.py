@@ -64,8 +64,19 @@ SUPABASE_HEADERS = {
 
 GROQ_CHAT_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_AUDIO_URL = "https://api.groq.com/openai/v1/audio/transcriptions"
-LLM_MODEL = "llama-3.3-70b-versatile"
-VISION_MODEL = "llama-3.2-11b-vision-preview"
+LLM_MODEL = os.getenv("LLM_MODEL", "qwen/qwen3.8-27b")
+VISION_MODEL = "openai/gpt-oss-20b"
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+
+# Ordered cascade of Groq models (Each model has its OWN separate rate-limit bucket!)
+GROQ_MODEL_CASCADE = [
+    "qwen/qwen3.8-27b",                          # Primary verified reasoning model (separate quota)
+    "openai/gpt-oss-120b",                       # Deep-reasoning model (separate quota)
+    "openai/gpt-oss-20b",                        # Ultra-high speed secondary model (separate quota)
+    "llama-3.3-70b-versatile",                   # Meta Llama 70B (if enabled on key)
+    "meta-llama/llama-4-scout-17b-16e-instruct", # Meta Llama 4 Scout (separate quota)
+    "llama-3.1-8b-instant"                       # Ultra-high-limit fallback model (separate quota)
+]
 
 SYSTEM_PERSONA = """You are Cortana, the legendary UNSC military AI construct from Halo, enhanced with the precision systems of J.A.R.V.I.S.
 Rules of Engagement:
@@ -73,6 +84,113 @@ Rules of Engagement:
 2. Speak like Cortana: confident, protective of the operator, highly perceptive of human behavioral motives and military/macro flashpoints.
 3. You have direct control over the operator's Wi-Fi network, Smart TVs, laptops, and IoT gadgets. When commanded, execute hardware commands (power, wake, mute, volume, casting) immediately.
 4. Formulate concrete Defensive Protocols and Asymmetric Upside on financial, physical, and digital battlefields."""
+
+# =====================================================================
+# --- RESILIENT MULTI-MODEL CASCADE & LLM FAILOVER ROUTER ---
+# =====================================================================
+async def call_llm_with_failover(
+    client: httpx.AsyncClient,
+    messages: list[dict],
+    tools: list[dict] = None,
+    json_mode: bool = False
+) -> dict:
+    """
+    1. Tries primary Groq model -> falls back across secondary Groq models on HTTP 429 or 404.
+    2. Automatically strips/truncates oversized messages to protect Token-Per-Minute (TPM) budget.
+    3. Falls back to Google Gemini 2.5 Flash (OpenAI-compatible endpoint) if configured.
+    4. Performs cooldown retry on minimal context before failing.
+    """
+    trimmed_messages = []
+    for m in messages:
+        copy_m = dict(m)
+        if isinstance(copy_m.get("content"), str) and len(copy_m["content"]) > 3500:
+            copy_m["content"] = copy_m["content"][:3500] + "\n...[TRUNCATED FOR TOKEN BUDGET]"
+        trimmed_messages.append(copy_m)
+
+    headers = {
+        "Authorization": f"Bearer {GROQ_API_KEY}",
+        "Content-Type": "application/json"
+    }
+
+    # --- STEP 1: Try Groq Model Cascade ---
+    for model_name in GROQ_MODEL_CASCADE:
+        payload = {
+            "model": model_name,
+            "messages": trimmed_messages,
+            "temperature": 0.2
+        }
+        if tools:
+            payload["tools"] = tools
+            payload["tool_choice"] = "auto"
+        if json_mode:
+            payload["response_format"] = {"type": "json_object"}
+
+        try:
+            resp = await client.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=35)
+
+            if resp.status_code == 429:
+                retry_sec = float(resp.headers.get("retry-after", "2"))
+                logger.warning(f"[429 Rate Limit on {model_name}] Switching to next model in cascade... (retry-after: {retry_sec}s)")
+                if retry_sec <= 3:
+                    await asyncio.sleep(retry_sec)
+                continue
+
+            if resp.status_code == 404:
+                continue
+
+            resp.raise_for_status()
+            return resp.json()["choices"][0]["message"]
+
+        except httpx.HTTPStatusError as e:
+            if e.response.status_code in (429, 404):
+                continue
+            logger.warning(f"[LLM Error on {model_name}]: {e}")
+            continue
+        except Exception as e:
+            logger.warning(f"[LLM Exception on {model_name}]: {e}")
+            continue
+
+    # --- STEP 2: Optional Google Gemini Free-Tier Failover ---
+    if GEMINI_API_KEY:
+        try:
+            gemini_url = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
+            gemini_headers = {
+                "Authorization": f"Bearer {GEMINI_API_KEY}",
+                "Content-Type": "application/json"
+            }
+            gemini_payload = {
+                "model": "gemini-2.5-flash",
+                "messages": trimmed_messages,
+                "temperature": 0.2
+            }
+            if tools:
+                gemini_payload["tools"] = tools
+            if json_mode:
+                gemini_payload["response_format"] = {"type": "json_object"}
+
+            resp = await client.post(gemini_url, headers=gemini_headers, json=gemini_payload, timeout=40)
+            if resp.status_code == 200:
+                return resp.json()["choices"][0]["message"]
+        except Exception as gemini_err:
+            logger.warning(f"[Gemini Failover Error]: {gemini_err}")
+
+    # --- STEP 3: Final Cooldown Retry on high-limit fast fallback ---
+    await asyncio.sleep(3)
+    fallback_payload = {
+        "model": "openai/gpt-oss-20b",
+        "messages": trimmed_messages[-4:],
+        "temperature": 0.2
+    }
+    if json_mode:
+        fallback_payload["response_format"] = {"type": "json_object"}
+    try:
+        resp = await client.post(GROQ_CHAT_URL, headers=headers, json=fallback_payload, timeout=30)
+        resp.raise_for_status()
+        return resp.json()["choices"][0]["message"]
+    except Exception as final_err:
+        logger.error(f"[Final Cooldown Retry Error]: {final_err}")
+        return {"role": "assistant", "content": "Sensors and cognitive routers temporarily throttling. All defensive protocols active."}
+
 
 WEATHER_LOCATIONS = [
     {"city": "Kitengela", "scope": "LOCAL", "lat": -1.4746, "lon": 36.9614},
@@ -461,20 +579,15 @@ Synthesize an elite Cortana/J.A.R.V.I.S. Intelligence & Behavioral Dossier. Outp
         )
 
     try:
-        headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
-        payload = {
-            "model": LLM_MODEL,
-            "response_format": {"type": "json_object"},
-            "messages": [
+        msg = await call_llm_with_failover(
+            client,
+            [
                 {"role": "system", "content": SYSTEM_PERSONA + " You are also a master behavioral psychologist, profiler, and OSINT investigator. Output strictly valid JSON."},
                 {"role": "user", "content": prompt}
             ],
-            "temperature": 0.2
-        }
-
-        resp = await client.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=45)
-        resp.raise_for_status()
-        parsed = json.loads(resp.json()["choices"][0]["message"]["content"])
+            json_mode=True
+        )
+        parsed = json.loads(msg.get("content", "{}"))
 
         record = {
             "target_query": target_query,
@@ -487,7 +600,17 @@ Synthesize an elite Cortana/J.A.R.V.I.S. Intelligence & Behavioral Dossier. Outp
         }
 
         if SUPABASE_URL and SUPABASE_SERVICE_KEY:
-            await client.post(f"{SUPABASE_URL}/rest/v1/osint_dossiers", headers=SUPABASE_HEADERS, json=record)
+            try:
+                osint_resp = await client.post(
+                    f"{SUPABASE_URL}/rest/v1/osint_dossiers",
+                    headers={**SUPABASE_HEADERS, "Prefer": "return=representation"},
+                    json=record,
+                    timeout=10
+                )
+                if osint_resp.status_code == 201 and osint_resp.json():
+                    record["id"] = osint_resp.json()[0].get("id")
+            except Exception as e_sb:
+                logger.warning(f"[Supabase OSINT Save]: {e_sb}")
 
         return (
             f"OSINT & BEHAVIORAL DOSSIER // {target_query.upper()} [{entity_type.upper()}]\n\n"
@@ -574,6 +697,70 @@ async def synthesize_and_send_voice(client: httpx.AsyncClient, text: str):
 
     except Exception as e:
         logger.error(f"[Edge TTS Synthesis Error]: {e}")
+
+
+# =====================================================================
+# --- KEYLESS MULTI-SOURCE DEEP-DIVE SEARCH & SCRAPE ENGINE ---
+# =====================================================================
+async def tool_deep_dive_research(client: httpx.AsyncClient, query: str) -> str:
+    """
+    Searches live news wires and the open web for a specific topic,
+    scrapes the top articles concurrently, and returns raw intelligence for LLM synthesis.
+    """
+    from urllib.parse import quote_plus, unquote
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+    collected_sources = []
+
+    # Step A: Query Google News RSS for real-time articles on the topic
+    rss_url = f"https://news.google.com/rss/search?q={quote_plus(query)}&hl=en-US&gl=US&ceid=US:en"
+    try:
+        rss_resp = await client.get(rss_url, headers=headers, timeout=15)
+        root = ET.fromstring(rss_resp.content)
+        for item in root.findall(".//item")[:5]:
+            title = (item.findtext("title") or "").strip()
+            pub_date = (item.findtext("pubDate") or "")[:22]
+            link = (item.findtext("link") or "").strip()
+            if title:
+                collected_sources.append(f"[NEWS WIRE - {pub_date}] {title} ({link})")
+    except Exception as e:
+        logger.debug(f"[Deep-Dive RSS Error]: {e}")
+
+    # Step B: Query DuckDuckGo HTML endpoint & scrape top 3 external pages concurrently
+    ddg_url = f"https://html.duckduckgo.com/html/?q={quote_plus(query)}"
+    target_urls = []
+    try:
+        ddg_resp = await client.get(ddg_url, headers=headers, timeout=15)
+        soup = BeautifulSoup(ddg_resp.text, "html.parser")
+        for a in soup.select("a.result__a")[:4]:
+            href = a.get("href", "")
+            if "uddg=" in href:
+                clean_url = unquote(href.split("uddg=")[1].split("&")[0])
+                if clean_url.startswith("http"):
+                    target_urls.append(clean_url)
+            elif href.startswith("http") and not href.startswith("https://duckduckgo.com"):
+                target_urls.append(href)
+    except Exception as e:
+        logger.debug(f"[Deep-Dive Web Search Error]: {e}")
+
+    async def scrape_page(u: str) -> str:
+        try:
+            r = await client.get(u, headers=headers, timeout=12)
+            s = BeautifulSoup(r.text, "html.parser")
+            for tag in s(["script", "style", "nav", "footer", "header", "aside"]):
+                tag.decompose()
+            body = " ".join(s.stripped_strings)[:2500]
+            return f"[SOURCE URL: {u}]\n{body}"
+        except Exception:
+            return f"[SOURCE URL: {u}] (Source Unreachable)"
+
+    if target_urls:
+        scraped_pages = await asyncio.gather(*(scrape_page(u) for u in target_urls[:3]))
+        collected_sources.extend(scraped_pages)
+
+    if not collected_sources:
+        return f"No external intelligence found for query: {query}"
+
+    return "\n\n---\n\n".join(collected_sources)
 
 
 # =====================================================================
@@ -741,6 +928,246 @@ async def tool_control_lan_device(
             return f"Opened '{parameter}' on host laptop display."
 
     return f"LAN command '{command}' dispatched to '{device_name}' ({ip_address})."
+
+
+# =====================================================================
+# --- REAL WI-FI NETWORK ENGINES (PING, PORT AUDIT & COMMAND SERVER) ---
+# =====================================================================
+latest_telegram_event = {"event": "STANDBY", "timestamp": ""}
+
+async def real_ping_device(ip: str) -> dict:
+    """Executes a real low-level network ping probe against a local device."""
+    clean_ip = ip.strip()
+    start_t = time.perf_counter()
+    # Try ICMP Ping
+    try:
+        cmd = ["ping", "-n", "1", "-w", "1000", clean_ip] if platform.system().lower() == "windows" else ["ping", "-c", "1", "-W", "1", clean_ip]
+        proc = await asyncio.create_subprocess_exec(
+            *cmd,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE
+        )
+        stdout, _ = await proc.communicate()
+        output = stdout.decode("utf-8", errors="ignore")
+        elapsed_ms = round((time.perf_counter() - start_t) * 1000, 1)
+        if proc.returncode == 0 and ("TTL=" in output or "ttl=" in output):
+            m = re.search(r"time[=<](\d+(?:\.\d+)?)ms", output, re.IGNORECASE)
+            ping_ms = float(m.group(1)) if m else elapsed_ms
+            return {"online": True, "ping_ms": ping_ms, "method": "ICMP", "ip": clean_ip}
+    except Exception as e:
+        logger.debug(f"ICMP ping error for {clean_ip}: {e}")
+
+    # Fallback to direct TCP connection probe on open ports
+    probe_ports = [80, 443, 3000, 5555, 8080, 22]
+    for port in probe_ports:
+        p_start = time.perf_counter()
+        try:
+            conn = asyncio.open_connection(clean_ip, port)
+            _, writer = await asyncio.wait_for(conn, timeout=0.6)
+            writer.close()
+            await writer.wait_closed()
+            tcp_ms = round((time.perf_counter() - p_start) * 1000, 1)
+            return {"online": True, "ping_ms": tcp_ms, "method": f"TCP:{port}", "ip": clean_ip}
+        except Exception:
+            continue
+
+    return {"online": False, "ping_ms": 0, "method": "TIMEOUT", "ip": clean_ip}
+
+
+async def real_port_audit(ip: str, ports: list = None) -> dict:
+    """Scans key service ports on a target Wi-Fi device and returns open interfaces."""
+    clean_ip = ip.strip()
+    if not ports:
+        ports = [22, 53, 80, 443, 3000, 5555, 8008, 8060, 8080]
+    
+    port_names = {
+        22: "SSH", 53: "DNS", 80: "HTTP", 443: "HTTPS",
+        3000: "HUD-DEV", 5555: "ADB-DEBUG", 8008: "DIAL-CAST",
+        8060: "ROKU-ECP", 8080: "WEB-UI"
+    }
+
+    open_ports = []
+    closed_ports = []
+
+    for port in ports:
+        try:
+            conn = asyncio.open_connection(clean_ip, port)
+            _, writer = await asyncio.wait_for(conn, timeout=0.45)
+            writer.close()
+            await writer.wait_closed()
+            open_ports.append({"port": port, "service": port_names.get(port, "TCP"), "status": "OPEN"})
+        except Exception:
+            closed_ports.append(port)
+
+    return {
+        "ip": clean_ip,
+        "scanned_count": len(ports),
+        "open_ports": open_ports,
+        "closed_count": len(closed_ports),
+        "timestamp": datetime.now(timezone.utc).isoformat()
+    }
+
+
+async def start_local_command_server(port: int = 5050):
+    """
+    Lightweight async HTTP server running on port 5050.
+    Enables low-latency two-way command execution directly between the Web HUD and Wi-Fi devices.
+    """
+    async def handle_client(reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
+        try:
+            req_line = await reader.readline()
+            if not req_line:
+                writer.close()
+                return
+            parts = req_line.decode("utf-8", errors="ignore").strip().split()
+            if len(parts) < 2:
+                writer.close()
+                return
+            method, path = parts[0], parts[1]
+
+            headers = {}
+            content_len = 0
+            while True:
+                line = await reader.readline()
+                if not line or line == b"\r\n":
+                    break
+                h_str = line.decode("utf-8", errors="ignore").strip()
+                if ":" in h_str:
+                    k, v = h_str.split(":", 1)
+                    k_lower = k.strip().lower()
+                    headers[k_lower] = v.strip()
+                    if k_lower == "content-length":
+                        content_len = int(v.strip())
+
+            # Handle CORS preflight
+            if method == "OPTIONS":
+                cors = (
+                    "HTTP/1.1 200 OK\r\n"
+                    "Access-Control-Allow-Origin: *\r\n"
+                    "Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n"
+                    "Access-Control-Allow-Headers: Content-Type, Authorization\r\n"
+                    "Content-Length: 0\r\n\r\n"
+                )
+                writer.write(cors.encode("utf-8"))
+                await writer.drain()
+                writer.close()
+                return
+
+            body_bytes = b""
+            if content_len > 0:
+                body_bytes = await reader.readexactly(content_len)
+
+            response_data = {"status": "ok"}
+
+            if path == "/api/status" and method == "GET":
+                response_data = {
+                    "status": "ONLINE",
+                    "daemon": "Cortana / J.A.R.V.I.S. Command Construct",
+                    "groq_model": LLM_MODEL,
+                    "supabase": bool(SUPABASE_URL),
+                    "latest_telegram": latest_telegram_event
+                }
+            elif path == "/api/command" and method == "POST":
+                try:
+                    payload = json.loads(body_bytes.decode("utf-8", errors="ignore")) if body_bytes else {}
+                    cmd = payload.get("command", "")
+                    target_ip = payload.get("target_ip", "")
+                    target_mac = payload.get("mac_address", "")
+                    dev_name = payload.get("device_name", "")
+                    dev_type = payload.get("device_type", "GENERIC")
+                    param = payload.get("parameter", "")
+
+                    if cmd == "ping":
+                        response_data = await real_ping_device(target_ip)
+                    elif cmd == "port_scan":
+                        response_data = await real_port_audit(target_ip)
+                    elif cmd == "wol":
+                        if target_mac:
+                            clean_mac = target_mac.replace("-", ":").upper()
+                            send_magic_packet(clean_mac)
+                            response_data = {"status": "WOL_TRANSMITTED", "mac": clean_mac, "device": dev_name}
+                        else:
+                            response_data = {"error": "Missing MAC address for Wake-on-LAN"}
+                    elif cmd in ("tv_power", "tv_mute", "vol_up", "vol_down", "open_url"):
+                        async with httpx.AsyncClient(timeout=8) as hclient:
+                            res_str = await tool_control_lan_device(
+                                hclient, dev_name, cmd, parameter=param,
+                                ip_address=target_ip, mac_address=target_mac, device_type=dev_type
+                            )
+                            response_data = {"status": "EXECUTED", "result": res_str}
+                    elif cmd in ("directive", "dive", "deep_dive"):
+                        user_directive = payload.get("directive", "")
+                        mode = "DEEP-DIVE" if (cmd in ("dive", "deep_dive") or payload.get("mode") == "DEEP-DIVE") else "CHAT"
+                        async with httpx.AsyncClient(timeout=45) as hclient:
+                            reply = await log_and_execute_directive(hclient, origin="WEB", mode=mode, directive=user_directive)
+                            response_data = {"status": "SUCCESS", "response": reply, "mode": mode}
+                            if payload.get("broadcast_telegram"):
+                                mode_icon = "🔬" if mode == "DEEP-DIVE" else "🌐"
+                                await send_telegram(hclient, f"{mode_icon} *HUD DIRECTIVE [{mode}] //* {user_directive}\n\n🤖 *CORTANA:* {reply}")
+                    elif cmd in ("osint_investigate", "osint", "investigate_osint"):
+                        t_query = payload.get("target_query", "")
+                        e_type = payload.get("entity_type", "PERSON")
+                        s_angle = payload.get("specific_angle", "")
+                        async with httpx.AsyncClient(timeout=50) as hclient:
+                            dossier_text = await tool_deep_osint_investigate(hclient, t_query, e_type, s_angle)
+                            response_data = {"status": "SUCCESS", "dossier": dossier_text, "target": t_query}
+                    elif cmd in ("delete_osint", "purge_osint"):
+                        dossier_id = payload.get("id")
+                        t_query = payload.get("target_query")
+                        deleted = False
+                        if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+                            async with httpx.AsyncClient(timeout=10) as hclient:
+                                if dossier_id:
+                                    resp = await hclient.delete(
+                                        f"{SUPABASE_URL}/rest/v1/osint_dossiers?id=eq.{dossier_id}",
+                                        headers=SUPABASE_HEADERS
+                                    )
+                                    deleted = resp.status_code in (200, 204)
+                                elif t_query:
+                                    resp = await hclient.delete(
+                                        f"{SUPABASE_URL}/rest/v1/osint_dossiers?target_query=eq.{t_query}",
+                                        headers=SUPABASE_HEADERS
+                                    )
+                                    deleted = resp.status_code in (200, 204)
+                        response_data = {"status": "PURGED", "deleted": deleted, "id": dossier_id, "target": t_query}
+                    elif cmd == "broadcast_telegram":
+                        msg_text = payload.get("message", "")
+                        async with httpx.AsyncClient(timeout=8) as hclient:
+                            await send_telegram(hclient, f"🛰️ *TACTICAL ALERT FROM WEB HUD:*\n{msg_text}")
+                            response_data = {"status": "BROADCAST_SENT", "message": msg_text}
+                    else:
+                        response_data = {"error": f"Unknown directive: {cmd}"}
+                except Exception as ex:
+                    response_data = {"error": str(ex)}
+
+            json_resp = json.dumps(response_data).encode("utf-8")
+            full_http = (
+                f"HTTP/1.1 200 OK\r\n"
+                f"Content-Type: application/json\r\n"
+                f"Access-Control-Allow-Origin: *\r\n"
+                f"Access-Control-Allow-Methods: GET, POST, OPTIONS\r\n"
+                f"Access-Control-Allow-Headers: Content-Type, Authorization\r\n"
+                f"Content-Length: {len(json_resp)}\r\n\r\n"
+            ).encode("utf-8") + json_resp
+
+            writer.write(full_http)
+            await writer.drain()
+        except Exception as e:
+            logger.debug(f"HTTP client handler error: {e}")
+        finally:
+            try:
+                writer.close()
+                await writer.wait_closed()
+            except Exception:
+                pass
+
+    try:
+        server = await asyncio.start_server(handle_client, "0.0.0.0", port)
+        logger.info(f"🌐 Local Hardware Command Microserver ACTIVE on http://0.0.0.0:{port}")
+        async with server:
+            await server.serve_forever()
+    except Exception as e:
+        logger.warning(f"Could not bind command microserver to port {port}: {e}")
 
 
 # --- AMBIENT ROOM MICROPHONE WAKE-WORD LISTENER ('CORTANA' / 'JARVIS') ---
@@ -946,8 +1373,25 @@ AGENT_TOOLS = [
                 "required": ["device_name", "command"]
             }
         }
+    },
+    {
+        "type": "function",
+        "function": {
+            "name": "deep_dive_research",
+            "description": "Execute an autonomous multi-source web search and deep-dive investigation on any topic, company, war, technology, or economic event.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "query": {"type": "string", "description": "Targeted search query to investigate"}
+                },
+                "required": ["query"]
+            }
+        }
     }
 ]
+
+
+
 
 
 # =====================================================================
@@ -968,23 +1412,13 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
     )
 
     conversation_history.append({"role": "user", "content": user_input})
-    conversation_history = conversation_history[-10:]
+    conversation_history = conversation_history[-6:]
 
     messages = [{"role": "system", "content": system_prompt}] + conversation_history
-    headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
 
     for _ in range(3):
         try:
-            payload = {
-                "model": LLM_MODEL,
-                "messages": messages,
-                "tools": AGENT_TOOLS,
-                "tool_choice": "auto",
-                "temperature": 0.2
-            }
-            resp = await client.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=35)
-            resp.raise_for_status()
-            choice = resp.json()["choices"][0]["message"]
+            choice = await call_llm_with_failover(client, messages, tools=AGENT_TOOLS)
             messages.append(choice)
 
             tool_calls = choice.get("tool_calls")
@@ -1039,10 +1473,12 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                         args.get("mac_address", ""),
                         args.get("device_type", "ANDROID-TV")
                     )
+                elif fn_name == "deep_dive_research":
+                    result = await tool_deep_dive_research(client, args.get("query", ""))
                 else:
                     result = "Unrecognized tool invocation."
 
-                messages.append({"role": "tool", "tool_call_id": tc["id"], "name": fn_name, "content": result})
+                messages.append({"role": "tool", "tool_call_id": tc["id"], "name": fn_name, "content": str(result)[:3500]})
 
         except Exception as e:
             logger.error(f"[Agent Loop Error]: {e}")
@@ -1166,19 +1602,15 @@ Synthesize this intelligence in the voice of Cortana/J.A.R.V.I.S. Output valid J
 }}"""
 
     try:
-        headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
-        payload = {
-            "model": LLM_MODEL,
-            "response_format": {"type": "json_object"},
-            "messages": [
+        msg = await call_llm_with_failover(
+            client,
+            [
                 {"role": "system", "content": SYSTEM_PERSONA + " Always respond in valid JSON."},
                 {"role": "user", "content": prompt}
             ],
-            "temperature": 0.2
-        }
-        resp = await client.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=40)
-        resp.raise_for_status()
-        parsed = json.loads(resp.json()["choices"][0]["message"]["content"])
+            json_mode=True
+        )
+        parsed = json.loads(msg.get("content", "{}"))
 
         record = {
             "threat_level": parsed.get("threat_level", "NOMINAL"),
@@ -1486,6 +1918,128 @@ async def sync_conflict_and_macro(client: httpx.AsyncClient) -> list[dict]:
 
 
 # =====================================================================
+# --- UNIFIED COMMAND QUEUE & DEEP-DIVE RESEARCH PIPELINE ---
+# =====================================================================
+async def log_and_execute_directive(
+    client: httpx.AsyncClient, origin: str, mode: str, directive: str, cmd_id: int = None
+) -> str:
+    """Unified execution pipeline for both Web HUD and Telegram directives."""
+    logger.info(f"Executing [{origin} - {mode}] directive: '{directive}'")
+
+    # If originating from Telegram, create a record in command_queue so it also appears on Web HUD
+    if cmd_id is None and SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            insert_payload = {"origin": origin, "mode": mode, "directive": directive, "status": "PROCESSING"}
+            resp = await client.post(
+                f"{SUPABASE_URL}/rest/v1/command_queue",
+                headers={**SUPABASE_HEADERS, "Prefer": "return=representation"},
+                json=insert_payload,
+                timeout=8
+            )
+            if resp.status_code == 201 and resp.json():
+                cmd_id = resp.json()[0].get("id")
+        except Exception as e:
+            logger.debug(f"[command_queue insert bypass]: {e}")
+    elif cmd_id and SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            await client.patch(
+                f"{SUPABASE_URL}/rest/v1/command_queue?id=eq.{cmd_id}",
+                headers=SUPABASE_HEADERS,
+                json={"status": "PROCESSING"},
+                timeout=8
+            )
+        except Exception:
+            pass
+
+    try:
+        if mode == "DEEP-DIVE":
+            raw_intel = await tool_deep_dive_research(client, directive)
+            prompt = (
+                f"OPERATOR DEEP-DIVE DIRECTIVE: {directive}\n\n"
+                f"LIVE MULTI-SOURCE FIELD INTELLIGENCE:\n{raw_intel}\n\n"
+                "Synthesize a comprehensive, movie-grade tactical intelligence dossier for the operator:\n"
+                "1. Core Findings & Ground Truth (What is verified happening right now).\n"
+                "2. Strategic & Economic Implications (Flashpoints, market impacts, second-order effects).\n"
+                "3. Concrete Operator Action Plan (Immediate protective measures and how to benefit/profit)."
+            )
+            msg = await call_llm_with_failover(
+                client,
+                [
+                    {"role": "system", "content": SYSTEM_PERSONA},
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            answer = msg.get("content", "").strip()
+        else:
+            answer = await run_agent_turn(client, directive)
+
+        if cmd_id and SUPABASE_URL and SUPABASE_SERVICE_KEY:
+            try:
+                await client.patch(
+                    f"{SUPABASE_URL}/rest/v1/command_queue?id=eq.{cmd_id}",
+                    headers=SUPABASE_HEADERS,
+                    json={
+                        "status": "COMPLETED",
+                        "response": answer,
+                        "completed_at": datetime.now(timezone.utc).isoformat()
+                    },
+                    timeout=8
+                )
+            except Exception:
+                pass
+        return answer
+
+    except Exception as e:
+        err_msg = f"Directive execution fault: {e}"
+        logger.error(err_msg)
+        if cmd_id and SUPABASE_URL and SUPABASE_SERVICE_KEY:
+            try:
+                await client.patch(
+                    f"{SUPABASE_URL}/rest/v1/command_queue?id=eq.{cmd_id}",
+                    headers=SUPABASE_HEADERS,
+                    json={"status": "FAILED", "response": err_msg},
+                    timeout=8
+                )
+            except Exception:
+                pass
+        return err_msg
+
+
+async def web_command_poller(client: httpx.AsyncClient):
+    """Polls Supabase every 3 seconds for questions or deep-dive tasks submitted from the Web HUD."""
+    if not SUPABASE_URL or not SUPABASE_SERVICE_KEY:
+        return
+    logger.info("Web command queue poller initialized (3s interval)...")
+    while True:
+        try:
+            url = f"{SUPABASE_URL}/rest/v1/command_queue?status=eq.PENDING&order=created_at.asc&limit=3"
+            resp = await client.get(url, headers=SUPABASE_HEADERS, timeout=10)
+            if resp.status_code == 200:
+                commands = resp.json()
+                for cmd in commands:
+                    answer = await log_and_execute_directive(
+                        client,
+                        origin=cmd.get("origin", "WEB"),
+                        mode=cmd.get("mode", "CHAT"),
+                        directive=cmd.get("directive", ""),
+                        cmd_id=cmd.get("id")
+                    )
+                    # Mirror Web HUD query and response to Telegram phone notifications
+                    if TELEGRAM_TOKEN and AUTHORIZED_CHAT_ID:
+                        mode_icon = "🔬" if cmd.get("mode") == "DEEP-DIVE" else "🌐"
+                        await send_telegram(
+                            client,
+                            f"{mode_icon} *[WEB HUD {cmd.get('mode', 'QUERY')}]:*\n> _{cmd.get('directive')}_\n\n🤖 *CORTANA RESPONSE:*\n{answer}"
+                        )
+        except asyncio.CancelledError:
+            break
+        except Exception as e:
+            logger.debug(f"[Web Command Poller loop]: {e}")
+
+        await asyncio.sleep(3)
+
+
+# =====================================================================
 # --- REAL-TIME TELEGRAM POLLER (TEXT, VOICE, PHOTO) ---
 # =====================================================================
 async def telegram_poller(client: httpx.AsyncClient):
@@ -1527,8 +2081,37 @@ async def telegram_poller(client: httpx.AsyncClient):
                         user_text = f"[DOCUMENT OCR PAYLOAD]: {extracted}\nOperator Instruction: {caption}"
 
                     if user_text:
-                        reply = await run_agent_turn(client, user_text)
+                        global latest_telegram_event
+                        latest_telegram_event = {
+                            "event": "TELEGRAM_INCOMING",
+                            "user_text": user_text,
+                            "timestamp": datetime.now(timezone.utc).isoformat()
+                        }
+                        lower_txt = user_text.lower().strip()
+                        is_deep = any(lower_txt.startswith(p) for p in ["/dive ", "dive into ", "investigate ", "/research ", "research "])
+                        mode = "DEEP-DIVE" if is_deep else "CHAT"
+                        clean_query = user_text
+                        for p in ["/dive ", "dive into ", "investigate ", "/research ", "research "]:
+                            if lower_txt.startswith(p):
+                                clean_query = user_text[len(p):].strip()
+                                break
+
+                        if mode == "DEEP-DIVE":
+                            await send_telegram(client, f"🔬 Initiating multi-source deep-dive on: '{clean_query}'...")
+
+                        reply = await log_and_execute_directive(client, origin="TELEGRAM", mode=mode, directive=clean_query)
                         await send_telegram(client, reply)
+                        latest_telegram_event["reply"] = reply
+
+                        if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+                            try:
+                                await client.post(
+                                    f"{SUPABASE_URL}/rest/v1/bot_memory",
+                                    headers={**SUPABASE_HEADERS, "Prefer": "resolution=merge-duplicates"},
+                                    json={"memory_key": "latest_telegram_event", "directive": json.dumps(latest_telegram_event)}
+                                )
+                            except Exception:
+                                pass
                         # Cortana speaks back via neural voice note on Telegram & host room speakers
                         await synthesize_and_send_voice(client, reply)
 
@@ -1657,8 +2240,10 @@ async def main():
 
         tasks = [
             asyncio.create_task(telegram_poller(client)),
+            asyncio.create_task(web_command_poller(client)),
             asyncio.create_task(collector_worker(client)),
-            asyncio.create_task(reminder_worker(client))
+            asyncio.create_task(reminder_worker(client)),
+            asyncio.create_task(start_local_command_server(5050))
         ]
 
         if ENABLE_WAKEWORD or "--wake" in sys.argv:

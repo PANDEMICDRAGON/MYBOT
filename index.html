@@ -39,6 +39,9 @@
             <span id="connection-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
               QUANTUM SYNC ACTIVE
             </span>
+            <span id="bot-daemon-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-400 border border-cyan-500/40">
+              ⚡ DAEMON: ONLINE (5050)
+            </span>
           </div>
           <p class="text-[11px] text-slate-400 font-mono mt-0.5" id="hud-clock">00:00:00 (LOCAL) // 00:00:00 UTC</p>
         </div>
@@ -47,11 +50,34 @@
       <!-- Persona Switcher, Audio FX & Live Toolbar -->
       <div class="flex flex-wrap items-center gap-2.5">
         
-        <!-- Persona Theme Switcher -->
+        <!-- HUD Layout Mode: Dock vs Desktop Windows/Icons -->
         <div class="flex items-center bg-slate-900/90 border border-cyan-500/30 rounded p-1 gap-1">
-          <button id="btn-theme-hybrid" class="hud-btn active text-[10px] py-1 px-2">HYBRID</button>
-          <button id="btn-theme-jarvis" class="hud-btn text-[10px] py-1 px-2 text-cyan-300">J.A.R.V.I.S.</button>
-          <button id="btn-theme-cortana" class="hud-btn text-[10px] py-1 px-2 text-purple-300">CORTANA</button>
+          <button id="btn-layout-dock" class="hud-btn active text-[10px] py-1 px-2" title="Rearrange tiles in smart docking grid">⠿ DOCK</button>
+          <button id="btn-layout-desktop" class="hud-btn text-[10px] py-1 px-2 text-cyan-300" title="Move tiles freely like desktop windows & icons">🗔 DESKTOP</button>
+          <button id="btn-layout-reset" class="hud-btn text-[10px] py-1 px-2 text-rose-300" title="Reset layout positions to default">⟲ RESET</button>
+        </div>
+
+        <!-- Cinema FUI Multiverse Theme Selector -->
+        <div class="flex items-center bg-slate-900/90 border border-cyan-500/40 rounded p-1 gap-1.5">
+          <span class="text-[9px] font-mono font-bold text-cyan-400 px-1 hidden sm:inline-block">UNIVERSE:</span>
+          <select id="universe-theme-select" class="bg-slate-950 text-cyan-300 border border-cyan-500/40 rounded px-2 py-1 text-[10px] font-mono font-bold focus:outline-none focus:border-cyan-400 cursor-pointer shadow-inner">
+            <option value="omni">🌌 OMNI MULTIVERSE (ALL-IN-ONE)</option>
+            <option value="prometheus">🚀 PROMETHEUS (WEYLAND-YUTANI)</option>
+            <option value="starwars">⚔️ STAR WARS (DEATH STAR TRENCH)</option>
+            <option value="halo">🛡️ HALO (UNSC CORTANA & CHIEF)</option>
+            <option value="jarvis">🤖 J.A.R.V.I.S. (STARK ARC REACTOR)</option>
+            <option value="totalrecall">🧠 TOTAL RECALL (REKALL SYNAPSE)</option>
+            <option value="bladerunner">👁️ BLADE RUNNER (VOIGHT-KAMPFF)</option>
+            <option value="minorityreport">🔮 MINORITY REPORT (PRE-CRIME)</option>
+            <option value="pacificrim">🦾 PACIFIC RIM (JAEGER DRIFT)</option>
+            <option value="insurgent">🧬 INSURGENT (ERUDITE DIVERGENCE)</option>
+            <option value="tron">⚡ TRON: LEGACY (THE GRID)</option>
+            <option value="robocop">🎯 ROBOCOP (OMNICORP OCP 001)</option>
+            <option value="godseye">🛰️ FURIOUS 7 (RAMSEY GOD'S EYE)</option>
+            <option value="startrek">🖖 STAR TREK (STARFLEET LCARS)</option>
+            <option value="hitman">🔫 HITMAN (ICA AGENT 47)</option>
+            <option value="terminator">💀 TERMINATOR (SKYNET T-800)</option>
+          </select>
         </div>
 
         <!-- Audio SFX Toggle -->
@@ -96,13 +122,231 @@
     </div>
   </header>
 
+  <!-- HOLOGRAPHIC NOTIFICATION TOAST (INCOMING TELEGRAM DISPATCH) -->
+  <div id="hud-toast-banner" class="hud-toast-hidden">
+    <div class="hud-toast-content">
+      <div class="hud-toast-header">
+        <div class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-purple-400 animate-ping"></span>
+          <span class="hud-toast-title">INCOMING TELEGRAM DISPATCH</span>
+        </div>
+        <span class="hud-toast-time" id="hud-toast-time">Just now</span>
+      </div>
+      <div class="hud-toast-body" id="hud-toast-body">
+        Connecting to neural channel...
+      </div>
+    </div>
+  </div>
+
   <!-- MAIN HUD COMMAND CONTAINER -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8">
+  <main id="main-hud-grid" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-8 relative">
+
+    <!-- ===================================================================
+         INTERACTIVE CORTANA / J.A.R.V.I.S. COMMAND & DEEP-DIVE CONSOLE
+         =================================================================== -->
+    <section id="command-console-section" class="draggable-hud-panel hud-panel hud-panel-chamfer p-5 sm:p-6 relative border border-cyan-500/40 bg-slate-950/90 shadow-2xl" draggable="true" data-panel-id="command-console-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title text-cyan-400">[ DRAG TO REARRANGE TILE // DIRECTIVE &amp; DEEP-DIVE CONSOLE ]</span>
+        </div>
+        <span class="drag-hint">UPLINK-BUS-V3</span>
+      </div>
+
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-cyan-500/20 pb-3 mb-4 gap-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-lime-400 animate-pulse shadow-[0_0_8px_rgba(163,230,53,0.8)]"></span>
+            <h2 class="text-sm sm:text-base font-black font-display tracking-widest text-lime-400 uppercase">
+              DIRECTIVE &amp; DEEP-DIVE CONSOLE // CORTANA-JARVIS UPLINK
+            </h2>
+          </div>
+          <p class="text-[11px] text-slate-400 font-mono mt-0.5">
+            BIDIRECTIONAL SYNC WITH TELEGRAM &amp; AUTONOMOUS WEB RESEARCH ENGINE • RLS GATEWAY
+          </p>
+        </div>
+
+        <div class="flex items-center gap-2 w-full sm:w-auto">
+          <span class="text-[10px] font-mono text-slate-400 hidden sm:inline-block">AUTH:</span>
+          <div class="relative w-full sm:w-48">
+            <input id="operator-passcode" type="password" placeholder="Operator Passcode"
+                   class="w-full bg-slate-900 border border-cyan-500/40 rounded px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:border-lime-400 focus:outline-none font-mono" />
+            <span id="passcode-status-pill" class="absolute right-2 top-1.5 text-[9px] font-mono text-lime-400 hidden">✓ SET</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Directive Input Bar -->
+      <div class="flex flex-col md:flex-row gap-3 mb-4">
+        <select id="cmd-mode" class="bg-slate-900 border border-cyan-500/40 rounded px-3 py-2 text-xs font-mono font-bold text-cyan-300 focus:border-lime-400 focus:outline-none cursor-pointer">
+          <option value="CHAT">MODE: QUICK QUERY / MEMORY / TOOLS</option>
+          <option value="DEEP-DIVE">MODE: DEEP-DIVE WEB INVESTIGATION</option>
+        </select>
+        <div class="relative flex-1">
+          <input id="cmd-input" type="text"
+                 placeholder="Ask a question, issue a directive, or specify a target to dive into..."
+                 onkeydown="if(event.key==='Enter') submitWebDirective()"
+                 class="w-full bg-slate-900 border border-cyan-500/40 rounded px-4 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-lime-400 focus:outline-none font-mono transition" />
+        </div>
+        <button onclick="submitWebDirective()" id="cmd-submit-btn"
+                class="px-6 py-2 bg-gradient-to-r from-lime-400 to-emerald-400 hover:from-lime-300 hover:to-emerald-300 text-slate-950 font-black font-mono text-xs tracking-wider rounded transition flex items-center justify-center gap-2 shadow-[0_0_15px_rgba(163,230,53,0.3)]">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+          </svg>
+          <span>TRANSMIT</span>
+        </button>
+      </div>
+
+      <!-- Quick Preset Chips -->
+      <div class="flex flex-wrap items-center gap-2 mb-4 text-[11px] font-mono">
+        <span class="text-slate-500 text-[10px]">PRESETS:</span>
+        <button type="button" class="preset-chip px-2.5 py-1 rounded bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickDirective('DEEP-DIVE', 'Kenya Eurobond debt maturity and 2026 inflation forecast')">
+          🔬 Kenya Eurobond &amp; Debt
+        </button>
+        <button type="button" class="preset-chip px-2.5 py-1 rounded bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickDirective('CHAT', 'What are our highest priority tasks and ledger balance?')">
+          💼 Tasks &amp; Balance
+        </button>
+        <button type="button" class="preset-chip px-2.5 py-1 rounded bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickDirective('DEEP-DIVE', 'Latest critical CISA KEV zero day exploits actively targeted')">
+          🛡️ CISA Zero-Day Exploits
+        </button>
+        <button type="button" class="preset-chip px-2.5 py-1 rounded bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickDirective('CHAT', 'Scan local Wi-Fi mesh network for TV and laptop status')">
+          📡 Wi-Fi Mesh Audit
+        </button>
+      </div>
+
+      <!-- Live Conversation & Deep-Dive Dossier Feed -->
+      <div class="border-t border-cyan-500/20 pt-3">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] font-mono text-cyan-400 tracking-wider uppercase font-bold flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+            LIVE DIRECTIVE STREAM &amp; SYNTHESIZED DOSSIERS
+          </span>
+          <button onclick="fetchCommandHistory(true)" class="text-[10px] font-mono text-slate-400 hover:text-cyan-300 transition flex items-center gap-1">
+            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            POLL NOW
+          </button>
+        </div>
+        <div id="command-history" class="space-y-3 max-h-96 overflow-y-auto pr-1">
+          <div class="p-4 rounded border border-cyan-500/20 bg-slate-900/40 text-center text-xs font-mono text-slate-500">
+            Initialising command bus uplink... Directives from Web HUD and Telegram synchronize here.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         CINEMA FUI MULTIVERSE HOLO-DECK & 15-SIMULATOR CENTERPIECE
+         =================================================================== -->
+    <section id="holodeck-section" class="draggable-hud-panel holodeck-card relative" draggable="true" data-panel-id="holodeck-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // CINEMA FUI MULTIVERSE HOLO-DECK ]</span>
+        </div>
+        <span class="drag-hint">FUI-ENGINE-15X</span>
+      </div>
+
+      <!-- Holo-Deck Header & Status -->
+      <div class="p-4 sm:p-5 border-b border-cyan-500/20 bg-slate-950/60 flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <h2 id="holodeck-active-title" class="text-sm sm:text-base font-black font-display tracking-widest text-white">
+              <span class="text-cyan-400">HOLO-DECK</span> // <span class="text-amber-400">PROMETHEUS 3D LIDAR BIO-SCANNER</span>
+            </h2>
+            <span id="holodeck-tag" class="text-[9px] font-mono px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-500/40">
+              WEYLAND-YUTANI ARCHIVE
+            </span>
+          </div>
+          <p id="holodeck-active-subtitle" class="text-xs text-slate-400 font-mono mt-0.5">
+            LV-223 subterranean drone mapping telemetry • Particle point cloud • Bio-signature detection
+          </p>
+        </div>
+
+        <!-- Quick Mode Controls -->
+        <div class="flex items-center gap-2 flex-wrap">
+          <button id="btn-holodeck-prev" class="hud-btn text-[10px] py-1 px-2.5" title="Previous Sci-Fi Universe">◀ PREV</button>
+          <button id="btn-holodeck-cycle" class="hud-btn text-[10px] py-1 px-2.5 active" title="Auto-cycle through cinematic simulators">⟳ CYCLE: AUTO</button>
+          <button id="btn-holodeck-next" class="hud-btn text-[10px] py-1 px-2.5" title="Next Sci-Fi Universe">NEXT ▶</button>
+          <button id="btn-holodeck-interact" class="hud-btn text-[10px] py-1 px-3 text-cyan-300" title="Trigger Holographic Sensor Pulse">⚡ SENSOR PULSE</button>
+        </div>
+      </div>
+
+      <!-- 15-Franchise Holographic Tab Bar -->
+      <div class="holodeck-tabs-bar" id="holodeck-tabs-bar">
+        <button class="holodeck-tab-btn active" data-sim="prometheus">🚀 PROMETHEUS</button>
+        <button class="holodeck-tab-btn" data-sim="starwars">⚔️ STAR WARS</button>
+        <button class="holodeck-tab-btn" data-sim="halo">🛡️ HALO</button>
+        <button class="holodeck-tab-btn" data-sim="jarvis">🤖 J.A.R.V.I.S.</button>
+        <button class="holodeck-tab-btn" data-sim="totalrecall">🧠 TOTAL RECALL</button>
+        <button class="holodeck-tab-btn" data-sim="bladerunner">👁️ BLADE RUNNER</button>
+        <button class="holodeck-tab-btn" data-sim="minorityreport">🔮 MINORITY REPORT</button>
+        <button class="holodeck-tab-btn" data-sim="pacificrim">🦾 PACIFIC RIM</button>
+        <button class="holodeck-tab-btn" data-sim="insurgent">🧬 INSURGENT</button>
+        <button class="holodeck-tab-btn" data-sim="tron">⚡ TRON: LEGACY</button>
+        <button class="holodeck-tab-btn" data-sim="robocop">🎯 ROBOCOP</button>
+        <button class="holodeck-tab-btn" data-sim="godseye">🛰️ FURIOUS 7</button>
+        <button class="holodeck-tab-btn" data-sim="startrek">🖖 STAR TREK</button>
+        <button class="holodeck-tab-btn" data-sim="hitman">🔫 HITMAN 47</button>
+        <button class="holodeck-tab-btn" data-sim="terminator">💀 TERMINATOR</button>
+      </div>
+
+      <!-- Interactive Canvas Viewport -->
+      <div class="holodeck-viewport-frame relative" id="holodeck-viewport-frame">
+        <canvas id="holodeck-canvas" class="holodeck-canvas" width="1200" height="380"></canvas>
+        
+        <!-- Reticles -->
+        <div class="holodeck-reticle-tl"></div>
+        <div class="holodeck-reticle-tr"></div>
+        <div class="holodeck-reticle-bl"></div>
+        <div class="holodeck-reticle-br"></div>
+
+        <!-- Telemetry Data Overlay -->
+        <div class="holodeck-data-overlay holodeck-data-top-left" id="holodeck-tl-data">
+          SYS: WEYLAND LIDAR-04<br>
+          RADIAL AZIMUTH: 184.22°<br>
+          PARTICLE DENSITY: 1,024 PTS
+        </div>
+        <div class="holodeck-data-overlay holodeck-data-top-right" id="holodeck-tr-data">
+          FRAME SYNCHRONY: 60 FPS<br>
+          LATENCY: 1.4ms<br>
+          SECURITY LEVEL: EPSILON
+        </div>
+        <div class="holodeck-data-overlay holodeck-data-bottom-left" id="holodeck-bl-data">
+          INTERACTIVE MODE: DRAG TO ROTATE &amp; TARGET<br>
+          CLICK TO DISPATCH PROBE PULSE
+        </div>
+        <div class="holodeck-data-overlay holodeck-data-bottom-right" id="holodeck-br-data">
+          DIRECTIVE: SURVEY &amp; CONTAIN<br>
+          AUTHENTICATION: CONFIRMED
+        </div>
+      </div>
+
+      <!-- Simulator Interactive Controls Footer -->
+      <div class="holodeck-controls-footer">
+        <div class="flex items-center gap-3 text-xs font-mono">
+          <span class="text-slate-400">SIMULATOR MESH:</span>
+          <span id="holodeck-coords" class="text-cyan-400 font-bold">AZIMUTH: 0.0° | PITCH: 0.0° | TELEMETRY: REAL-TIME</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-holodeck-action-1" class="hud-btn text-[10px] py-1 px-3">TRIGGER PULSE</button>
+          <button id="btn-holodeck-action-2" class="hud-btn text-[10px] py-1 px-3">DIAGNOSTIC AUDIT</button>
+          <button id="btn-holodeck-voice" class="hud-btn text-[10px] py-1 px-3 text-amber-300">🎙️ VOCALIZE SIMULATION</button>
+        </div>
+      </div>
+    </section>
 
     <!-- ===================================================================
          HOLOGRAPHIC ARC REACTOR & AUDIO SPECTRUM CENTERPIECE
          =================================================================== -->
-    <section id="ai-core-section" class="hud-panel hud-panel-chamfer p-6 sm:p-8 relative">
+    <section id="ai-core-section" class="draggable-hud-panel hud-panel hud-panel-chamfer p-6 sm:p-8 relative" draggable="true" data-panel-id="ai-core-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // NEURAL CORE & VISUALIZER ]</span>
+        </div>
+        <span class="drag-hint">CORE-MKVII</span>
+      </div>
       <div class="tech-stripe absolute top-0 left-0 right-0"></div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
@@ -238,11 +482,99 @@
       </div>
     </section>
 
+    <!-- ===================================================================
+         CORTANA // J.A.R.V.I.S. TWO-WAY UPLINK TERMINAL (WEBSITE <-> BOT <-> TELEGRAM)
+         =================================================================== -->
+    <section id="terminal-section" class="draggable-hud-panel hud-panel p-6 relative space-y-5" draggable="true" data-panel-id="terminal-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // TWO-WAY NEURAL TERMINAL ]</span>
+        </div>
+        <span class="drag-hint">PORT-5050-RPC</span>
+      </div>
+
+      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-cyan-500/20 pb-4">
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="radar-blip bg-emerald-400"></span>
+            <h2 class="text-sm sm:text-base font-bold text-white tracking-wide font-display uppercase">
+              Cortana // J.A.R.V.I.S. Interactive Comms Terminal
+            </h2>
+            <span id="terminal-daemon-status" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/80 border border-emerald-500/40 text-emerald-300">
+              ⚡ LOCAL DAEMON [5050]: ONLINE
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 font-mono mt-1">
+            FULL-DUPLEX INTERACTIVE BRIDGE: SEND DIRECTIVES &bull; CONTROL WI-FI DEVICES &bull; TELEGRAM BIDIRECTIONAL RELAY
+          </p>
+        </div>
+
+        <!-- Quick Action Chips -->
+        <div class="flex flex-wrap items-center gap-2" id="terminal-quick-chips">
+          <button data-quick="ping-host" class="quick-chip-btn hud-btn text-[10px] text-cyan-300">⚡ Ping Workstation (.40)</button>
+          <button data-quick="scan-tv" class="quick-chip-btn hud-btn text-[10px] text-purple-300">🔍 Audit TV Ports (.105)</button>
+          <button data-quick="tv-power" class="quick-chip-btn hud-btn text-[10px] text-rose-300">📺 Toggle TV Power</button>
+          <button data-quick="wol-host" class="quick-chip-btn hud-btn text-[10px] text-emerald-300">⚡ Wake-on-LAN</button>
+          <button data-quick="run-sitrep" class="quick-chip-btn hud-btn text-[10px] text-amber-300">🛡️ Overwatch SitRep</button>
+          <button id="btn-clear-terminal" class="hud-btn text-[10px] text-slate-400">CLEAR LOG</button>
+        </div>
+      </div>
+
+      <!-- Real-time CRT Terminal Glass Display -->
+      <div class="terminal-screen-wrapper">
+        <div class="terminal-header-bar flex justify-between items-center px-4 py-2 bg-slate-950/90 border-b border-cyan-500/30 text-[11px] font-mono">
+          <span class="text-cyan-400 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            LIVE TERMINAL FEED // UNSC TACTICAL CONSOLE
+          </span>
+          <span class="text-slate-500 text-[10px]" id="terminal-stream-stats">READY // LOCAL STREAM BUFFER ACTIVE</span>
+        </div>
+        <div id="terminal-log-stream" class="terminal-body font-mono text-xs p-4 overflow-y-auto space-y-2 max-h-72">
+          <!-- Populated live with color-coded interactive logs -->
+        </div>
+      </div>
+
+      <!-- Directive Input & Telegram Dispatch Bar -->
+      <div class="terminal-input-bar-container bg-slate-900/90 border border-cyan-500/40 rounded-lg p-3 space-y-3">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
+          <div class="flex items-center gap-2 font-mono text-cyan-400 text-xs px-2 shrink-0">
+            <span class="animate-pulse">&gt;</span>
+            <span class="font-bold">DIRECTIVE //</span>
+          </div>
+          <input
+            type="text"
+            id="terminal-command-input"
+            placeholder="Type directive (e.g. 'Ping 192.168.100.40', 'Port audit 192.168.100.105', 'What is our DEFCON threat status?')..."
+            class="flex-1 bg-slate-950 border border-slate-700 rounded px-3 py-2 text-xs text-white placeholder-slate-500 font-mono focus:outline-none focus:border-cyan-400 transition"
+          />
+          <div class="flex items-center gap-2 shrink-0">
+            <label class="flex items-center gap-1.5 text-[11px] font-mono text-slate-300 cursor-pointer select-none">
+              <input type="checkbox" id="terminal-relay-telegram" class="rounded border-slate-700 text-cyan-500 focus:ring-0 bg-slate-950" checked />
+              <span>Broadcast Telegram</span>
+            </label>
+            <button id="btn-terminal-send" class="hud-btn bg-cyan-950/80 border-cyan-500 text-cyan-300 hover:text-white px-4 py-2 text-xs font-bold font-mono flex items-center gap-1.5">
+              <span>TRANSMIT</span>
+              <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ===================================================================
          1. TACTICAL AI SITREP & OPERATOR DIRECTIVE BANNER
          =================================================================== -->
-    <section id="sitrep-panel" class="hud-panel p-6 shadow-2xl relative">
+    <section id="sitrep-panel" class="draggable-hud-panel hud-panel p-6 shadow-2xl relative" draggable="true" data-panel-id="sitrep-panel">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // TACTICAL SITREP ]</span>
+        </div>
+        <span class="drag-hint">OVERWATCH</span>
+      </div>
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-cyan-500/20 pb-3 mb-4 gap-3">
         <div class="flex items-center gap-3">
           <span id="sitrep-badge" class="text-[10px] font-mono font-bold px-2.5 py-1 rounded bg-emerald-400 text-black">
@@ -264,11 +596,17 @@
       </div>
     </section>
 
-
     <!-- ===================================================================
          2. 4-PILLAR STRATEGIC THREAT & ASYMMETRIC MATRIX
          =================================================================== -->
-    <section id="strategic-matrix-section" class="space-y-4">
+    <section id="strategic-matrix-section" class="draggable-hud-panel space-y-4" draggable="true" data-panel-id="strategic-matrix-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // 4-PILLAR STRATEGIC MATRIX ]</span>
+        </div>
+        <span class="drag-hint">ALPHA-DEFENSE</span>
+      </div>
       <div class="flex justify-between items-center border-b border-cyan-500/20 pb-2">
         <div>
           <h2 class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase">Strategic Threat & Asymmetric Matrix</h2>
@@ -328,7 +666,14 @@
     <!-- ===================================================================
          3. LIVE WAR THEATER & MACRO-ECONOMIC SHOCK WIRE
          =================================================================== -->
-    <section id="conflict-matrix-section" class="hud-panel p-6 relative space-y-6">
+    <section id="conflict-matrix-section" class="draggable-hud-panel hud-panel p-6 relative space-y-6" draggable="true" data-panel-id="conflict-matrix-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // GLOBAL WAR THEATERS & RADAR ]</span>
+        </div>
+        <span class="drag-hint">THEATER-RADAR</span>
+      </div>
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-cyan-500/20 pb-4 mb-4 gap-3">
         <div>
           <div class="flex items-center gap-2">
@@ -424,7 +769,14 @@
     <!-- ===================================================================
          4. DEEP OSINT RECONNAISSANCE & HUMAN BEHAVIORAL PROFILER
          =================================================================== -->
-    <section id="osint-section" class="hud-panel p-6 relative space-y-6">
+    <section id="osint-section" class="draggable-hud-panel hud-panel p-6 relative space-y-6" draggable="true" data-panel-id="osint-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // DEEP OSINT & BEHAVIORAL PROFILER ]</span>
+        </div>
+        <span class="drag-hint">HUMINT-SPIDER</span>
+      </div>
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-cyan-500/20 pb-4 mb-4 gap-3">
         <div>
           <div class="flex items-center gap-2">
@@ -443,6 +795,84 @@
           <button data-filter="ORGANIZATION" class="osint-filter-btn hud-btn text-emerald-400">ORGS</button>
           <button data-filter="PLACE" class="osint-filter-btn hud-btn text-amber-400">PLACES</button>
           <button data-filter="TOPIC-IDEA" class="osint-filter-btn hud-btn text-rose-400">IDEAS / CROWD</button>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE OSINT TARGET SEARCH & RECON DISPATCH CONSOLE -->
+      <div class="p-4 sm:p-5 rounded-lg border border-cyan-500/30 bg-slate-950/85 space-y-3.5 shadow-xl">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-cyan-500/20 pb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+            <span class="text-xs font-mono font-bold text-cyan-300 tracking-wider uppercase">
+              LIVE TARGET ACQUISITION &amp; OSINT INVESTIGATION DISPATCH
+            </span>
+          </div>
+          <div class="flex items-center gap-2 text-[10px] font-mono text-slate-400">
+            <span>CHANNELS: WIKI // REDDIT // HN // DUCKDUCKGO DORKS</span>
+            <span id="osint-status-badge" class="px-2 py-0.5 rounded bg-cyan-950 border border-cyan-500/30 text-cyan-400 hidden">READY</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+          <!-- Target Query Input -->
+          <div class="md:col-span-5 relative">
+            <input id="osint-target-input" type="text"
+                   placeholder="Enter target person, organization, domain, or handle to investigate..."
+                   onkeydown="if(event.key==='Enter') submitOsintRecon()"
+                   class="w-full bg-slate-900 border border-cyan-500/40 rounded px-3.5 py-2 text-xs sm:text-sm text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none font-mono" />
+          </div>
+
+          <!-- Entity Type Select -->
+          <div class="md:col-span-3">
+            <select id="osint-entity-type" class="w-full bg-slate-900 border border-cyan-500/40 rounded px-3 py-2 text-xs font-mono font-bold text-cyan-300 focus:border-cyan-400 focus:outline-none cursor-pointer">
+              <option value="PERSON">ENTITY: PERSON (INDIVIDUAL)</option>
+              <option value="ORGANIZATION">ENTITY: ORGANIZATION / COMPANY</option>
+              <option value="PLACE">ENTITY: PLACE / FACILITY</option>
+              <option value="TOPIC-IDEA">ENTITY: TOPIC / IDEA / TECH</option>
+            </select>
+          </div>
+
+          <!-- Angle Input & Dispatch Button -->
+          <div class="md:col-span-4 flex gap-2">
+            <input id="osint-angle-input" type="text"
+                   placeholder="Specific angle (optional)..."
+                   onkeydown="if(event.key==='Enter') submitOsintRecon()"
+                   class="flex-1 bg-slate-900 border border-cyan-500/40 rounded px-3 py-2 text-xs text-white placeholder-slate-500 focus:border-cyan-400 focus:outline-none font-mono" />
+            <button id="btn-submit-osint" onclick="submitOsintRecon()"
+                    class="px-4 py-2 bg-gradient-to-r from-cyan-500 to-teal-400 hover:from-cyan-400 hover:to-teal-300 text-slate-950 font-black font-mono text-xs tracking-wider rounded transition flex items-center justify-center gap-1.5 shadow-[0_0_12px_rgba(6,182,212,0.3)] whitespace-nowrap">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+              <span>INVESTIGATE</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Presets & Dossier Management -->
+        <div class="flex flex-wrap items-center justify-between gap-2 text-[10px] font-mono pt-1">
+          <div class="flex flex-wrap items-center gap-1.5">
+            <span class="text-slate-500">QUICK TARGETS:</span>
+            <button type="button" class="preset-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickOsint('Michael Obiero', 'PERSON', 'Public history, professional affiliations, and tech profile')">
+              👤 Michael Obiero
+            </button>
+            <button type="button" class="preset-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickOsint('Alex Vance', 'PERSON', 'Business interests and corporate affiliations')">
+              👤 Alex Vance
+            </button>
+            <button type="button" class="preset-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickOsint('Kenya Revenue Authority', 'ORGANIZATION', 'Enforcement patterns and fiscal collection targets')">
+              🏢 KRA
+            </button>
+            <button type="button" class="preset-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickOsint('Safaricom PLC', 'ORGANIZATION', 'M-PESA expansion and payment infrastructure')">
+              📱 Safaricom
+            </button>
+            <button type="button" class="preset-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-cyan-500/20 hover:border-cyan-400 transition" onclick="setQuickOsint('DeepSeek AI', 'TOPIC-IDEA', 'Hardware cluster architecture and model efficiency')">
+              🧠 DeepSeek AI
+            </button>
+          </div>
+
+          <button onclick="purgeAllOsintDossiers()" class="text-rose-400/80 hover:text-rose-300 hover:underline flex items-center gap-1 transition" title="Purge all archived OSINT dossiers">
+            <svg class="w-3 h-3 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+            PURGE ALL ARCHIVES
+          </button>
         </div>
       </div>
 
@@ -509,7 +939,14 @@
     <!-- ===================================================================
          5. PERSONAL OPERATIONS MATRIX: TASKS, M-PESA & VOICE VAULT
          =================================================================== -->
-    <section id="personal-ops-section" class="space-y-4">
+    <section id="personal-ops-section" class="draggable-hud-panel space-y-4" draggable="true" data-panel-id="personal-ops-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // PERSONAL OPERATIONS & LEDGER ]</span>
+        </div>
+        <span class="drag-hint">OPS-MATRIX</span>
+      </div>
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
         <div>
           <h2 class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase">Personal Operations Matrix</h2>
@@ -548,11 +985,17 @@
       </div>
     </section>
 
-
     <!-- ===================================================================
          6. LOCAL WI-FI & LAN DEVICE MESH (SMART TVS / LAPTOPS / IOT NODES)
          =================================================================== -->
-    <section id="lan-section" class="hud-panel p-6 relative space-y-6">
+    <section id="lan-section" class="draggable-hud-panel hud-panel p-6 relative space-y-6" draggable="true" data-panel-id="lan-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // WI-FI LAN MESH & HARDWARE COCKPIT ]</span>
+        </div>
+        <span class="drag-hint">LAN-MESH</span>
+      </div>
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-cyan-500/20 pb-4 mb-4 gap-3">
         <div>
           <div class="flex items-center gap-2">
@@ -703,6 +1146,19 @@
                 🎙️ VOICE LINK
               </button>
             </div>
+
+            <!-- Direct Hardware Command Input -->
+            <div class="flex items-center gap-2 pt-2 border-t border-slate-800">
+              <input 
+                type="text" 
+                id="lan-custom-cmd-input" 
+                placeholder="Direct action on selected device (e.g. 'ping', 'port_scan', 'open_url', 'vol_up', 'wol')..."
+                class="flex-1 bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-cyan-400"
+              />
+              <button id="btn-lan-exec-custom" class="hud-btn text-xs py-1.5 px-3 text-cyan-300 bg-cyan-950/80 border-cyan-700 hover:text-white">
+                EXECUTE DIRECTIVE
+              </button>
+            </div>
             <div id="inspector-command-status" class="text-[10px] font-mono text-cyan-400 mt-2 h-4"></div>
           </div>
         </div>
@@ -714,11 +1170,17 @@
       </div>
     </section>
 
-
     <!-- ===================================================================
          7. ATMOSPHERIC TELEMETRY (PLANETARY STATIONS)
          =================================================================== -->
-    <section id="weather-section" class="space-y-4">
+    <section id="weather-section" class="draggable-hud-panel space-y-4" draggable="true" data-panel-id="weather-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // PLANETARY ATMOSPHERIC ARRAY ]</span>
+        </div>
+        <span class="drag-hint">MET-ARRAY</span>
+      </div>
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
         <div>
           <h2 class="text-xs font-mono font-bold tracking-widest text-emerald-400 uppercase">Atmospheric Telemetry</h2>
@@ -740,9 +1202,16 @@
 
 
     <!-- ===================================================================
-         7. CYBERSECURITY & ACTIVE CVE THREAT MATRIX
+         8. CYBERSECURITY & ACTIVE CVE THREAT MATRIX
          =================================================================== -->
-    <section id="cyber-section" class="hud-panel p-6 relative space-y-6">
+    <section id="cyber-section" class="draggable-hud-panel hud-panel p-6 relative space-y-6" draggable="true" data-panel-id="cyber-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // CYBER DEFCON & HEX CVE MATRIX ]</span>
+        </div>
+        <span class="drag-hint">DEFCON-SHIELD</span>
+      </div>
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-cyan-500/20 pb-4">
         <div>
           <div class="flex items-center gap-3">
@@ -825,9 +1294,16 @@
 
 
     <!-- ===================================================================
-         8. GLOBAL INFORMATION WIRE
+         9. GLOBAL INFORMATION WIRE
          =================================================================== -->
-    <section id="news-section" class="space-y-6">
+    <section id="news-section" class="draggable-hud-panel space-y-6" draggable="true" data-panel-id="news-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // GLOBAL INFORMATION WIRE ]</span>
+        </div>
+        <span class="drag-hint">NEWS-WIRE</span>
+      </div>
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-cyan-500/20 pb-4">
         <div>
           <div class="flex items-center gap-3">

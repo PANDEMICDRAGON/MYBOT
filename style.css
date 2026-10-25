@@ -49,21 +49,311 @@
   --font-ui: 'Chakra Petch', sans-serif;
 }
 
-/* J.A.R.V.I.S. MODE (Stark Industries Cyan + Arc Reactor Gold/Amber + Crimson) */
-body.theme-jarvis {
-  --hud-cyan: #00e5ff;
-  --hud-cyan-glow: rgba(0, 229, 255, 0.45);
-  --hud-cyan-dim: rgba(0, 229, 255, 0.14);
-  --hud-teal: #ffbe0b;
-  --hud-teal-glow: rgba(255, 190, 11, 0.4);
-  --hud-violet: #fbbf24;
-  --hud-violet-glow: rgba(251, 191, 36, 0.45);
-  --hud-border: rgba(0, 229, 255, 0.26);
-  --hud-border-bright: rgba(0, 229, 255, 0.75);
-  --hud-grid: rgba(0, 229, 255, 0.05);
+/* ==========================================================================
+   15 CINEMATIC SCI-FI THEME PRESETS (MOVIE-GRADE COLOR MATRICES)
+   ========================================================================== */
+
+/* 1. PROMETHEUS (Weyland-Yutani 3D LIDAR Slate, Cyan Bio-Laser & Gold Amber) */
+body.theme-prometheus {
+  --bg-space: #030910;
+  --bg-deep: #06111e;
+  --bg-surface: rgba(8, 20, 36, 0.82);
+  --hud-cyan: #38bdf8;
+  --hud-cyan-glow: rgba(56, 189, 248, 0.45);
+  --hud-cyan-dim: rgba(56, 189, 248, 0.14);
+  --hud-teal: #22d3ee;
+  --hud-teal-glow: rgba(34, 211, 238, 0.4);
+  --hud-violet: #60a5fa;
+  --hud-violet-glow: rgba(96, 165, 250, 0.35);
+  --hud-amber: #fbbf24;
+  --hud-amber-glow: rgba(251, 191, 36, 0.45);
+  --hud-crimson: #f87171;
+  --hud-border: rgba(56, 189, 248, 0.3);
+  --hud-border-bright: rgba(56, 189, 248, 0.75);
+  --hud-grid: rgba(56, 189, 248, 0.05);
 }
 
-/* CORTANA MODE (UNSC Master Chief AI: Holographic Violet + Electric Blue) */
+/* 2. STAR WARS (Death Star Trench Vector Green & Imperial Crimson) */
+body.theme-starwars {
+  --bg-space: #030604;
+  --bg-deep: #050d06;
+  --bg-surface: rgba(6, 18, 9, 0.85);
+  --hud-cyan: #22c55e;
+  --hud-cyan-glow: rgba(34, 197, 94, 0.45);
+  --hud-cyan-dim: rgba(34, 197, 94, 0.14);
+  --hud-teal: #4ade80;
+  --hud-teal-glow: rgba(74, 222, 128, 0.4);
+  --hud-violet: #86efac;
+  --hud-violet-glow: rgba(134, 239, 172, 0.35);
+  --hud-amber: #facc15;
+  --hud-amber-glow: rgba(250, 204, 21, 0.4);
+  --hud-crimson: #ef4444;
+  --hud-border: rgba(34, 197, 94, 0.32);
+  --hud-border-bright: rgba(34, 197, 94, 0.8);
+  --hud-grid: rgba(34, 197, 94, 0.06);
+}
+
+/* 3. HALO (UNSC Master Chief Visor Amber & Cortana Holographic Violet) */
+body.theme-halo {
+  --bg-space: #04090e;
+  --bg-deep: #08131d;
+  --bg-surface: rgba(9, 23, 37, 0.82);
+  --hud-cyan: #00f0ff;
+  --hud-cyan-glow: rgba(0, 240, 255, 0.45);
+  --hud-cyan-dim: rgba(0, 240, 255, 0.14);
+  --hud-teal: #38bdf8;
+  --hud-teal-glow: rgba(56, 189, 248, 0.4);
+  --hud-violet: #c084fc;
+  --hud-violet-glow: rgba(192, 132, 252, 0.45);
+  --hud-amber: #eab308;
+  --hud-amber-glow: rgba(234, 179, 8, 0.45);
+  --hud-crimson: #f43f5e;
+  --hud-border: rgba(234, 179, 8, 0.32);
+  --hud-border-bright: rgba(234, 179, 8, 0.8);
+  --hud-grid: rgba(0, 240, 255, 0.05);
+}
+
+/* 4. J.A.R.V.I.S. (Stark Industries Mark VII Arc Reactor Cyan & Hot-Rod Gold/Crimson) */
+body.theme-jarvis {
+  --bg-space: #070305;
+  --bg-deep: #120609;
+  --bg-surface: rgba(24, 8, 14, 0.84);
+  --hud-cyan: #00e5ff;
+  --hud-cyan-glow: rgba(0, 229, 255, 0.5);
+  --hud-cyan-dim: rgba(0, 229, 255, 0.16);
+  --hud-teal: #38bdf8;
+  --hud-teal-glow: rgba(56, 189, 248, 0.45);
+  --hud-violet: #f59e0b;
+  --hud-violet-glow: rgba(245, 158, 11, 0.45);
+  --hud-amber: #fbbf24;
+  --hud-amber-glow: rgba(251, 191, 36, 0.5);
+  --hud-crimson: #ef4444;
+  --hud-border: rgba(0, 229, 255, 0.32);
+  --hud-border-bright: rgba(0, 229, 255, 0.85);
+  --hud-grid: rgba(0, 229, 255, 0.06);
+}
+
+/* 5. TOTAL RECALL (Rekall Inc. Synaptic Magenta, Holographic Sunset Orange & Cyan) */
+body.theme-totalrecall {
+  --bg-space: #0c020f;
+  --bg-deep: #17041e;
+  --bg-surface: rgba(30, 8, 38, 0.85);
+  --hud-cyan: #00f2fe;
+  --hud-cyan-glow: rgba(0, 242, 254, 0.45);
+  --hud-cyan-dim: rgba(0, 242, 254, 0.15);
+  --hud-teal: #ff758c;
+  --hud-teal-glow: rgba(255, 117, 140, 0.4);
+  --hud-violet: #e879f9;
+  --hud-violet-glow: rgba(232, 121, 249, 0.45);
+  --hud-amber: #fb923c;
+  --hud-amber-glow: rgba(251, 146, 60, 0.45);
+  --hud-crimson: #f43f5e;
+  --hud-border: rgba(232, 121, 249, 0.35);
+  --hud-border-bright: rgba(232, 121, 249, 0.8);
+  --hud-grid: rgba(232, 121, 249, 0.06);
+}
+
+/* 6. BLADE RUNNER (Tyrell / Wallace Corp Neon-Noir Amber, Fog & CRT Phosphors) */
+body.theme-bladerunner {
+  --bg-space: #0b0802;
+  --bg-deep: #161004;
+  --bg-surface: rgba(28, 20, 6, 0.86);
+  --hud-cyan: #f59e0b;
+  --hud-cyan-glow: rgba(245, 158, 11, 0.45);
+  --hud-cyan-dim: rgba(245, 158, 11, 0.14);
+  --hud-teal: #fbbf24;
+  --hud-teal-glow: rgba(251, 191, 36, 0.4);
+  --hud-violet: #d97706;
+  --hud-violet-glow: rgba(217, 119, 6, 0.4);
+  --hud-amber: #fde047;
+  --hud-amber-glow: rgba(253, 224, 71, 0.45);
+  --hud-crimson: #dc2626;
+  --hud-border: rgba(245, 158, 11, 0.35);
+  --hud-border-bright: rgba(245, 158, 11, 0.8);
+  --hud-grid: rgba(245, 158, 11, 0.06);
+}
+
+/* 7. MINORITY REPORT (Pre-Crime 3-Precog Icy Glass White, Pale Cyan & Navy) */
+body.theme-minorityreport {
+  --bg-space: #020712;
+  --bg-deep: #050e20;
+  --bg-surface: rgba(8, 22, 46, 0.84);
+  --hud-cyan: #7dd3fc;
+  --hud-cyan-glow: rgba(125, 211, 252, 0.45);
+  --hud-cyan-dim: rgba(125, 211, 252, 0.15);
+  --hud-teal: #bae6fd;
+  --hud-teal-glow: rgba(186, 230, 253, 0.4);
+  --hud-violet: #93c5fd;
+  --hud-violet-glow: rgba(147, 197, 253, 0.4);
+  --hud-amber: #fde047;
+  --hud-amber-glow: rgba(253, 224, 71, 0.4);
+  --hud-crimson: #f43f5e;
+  --hud-border: rgba(125, 211, 252, 0.32);
+  --hud-border-bright: rgba(125, 211, 252, 0.8);
+  --hud-grid: rgba(125, 211, 252, 0.05);
+}
+
+/* 8. PACIFIC RIM (PPDC Jaeger Drift Neural Handshake Steel, Electric Cyan & Kaiju Crimson) */
+body.theme-pacificrim {
+  --bg-space: #040913;
+  --bg-deep: #081324;
+  --bg-surface: rgba(10, 24, 46, 0.85);
+  --hud-cyan: #06b6d4;
+  --hud-cyan-glow: rgba(6, 182, 212, 0.45);
+  --hud-cyan-dim: rgba(6, 182, 212, 0.14);
+  --hud-teal: #3b82f6;
+  --hud-teal-glow: rgba(59, 130, 246, 0.4);
+  --hud-violet: #6366f1;
+  --hud-violet-glow: rgba(99, 102, 241, 0.4);
+  --hud-amber: #f59e0b;
+  --hud-amber-glow: rgba(245, 158, 11, 0.45);
+  --hud-crimson: #e11d48;
+  --hud-border: rgba(6, 182, 212, 0.32);
+  --hud-border-bright: rgba(6, 182, 212, 0.8);
+  --hud-grid: rgba(6, 182, 212, 0.05);
+}
+
+/* 9. INSURGENT (Erudite Faction Serum Simulation Cobalt & Divergence Violet) */
+body.theme-insurgent {
+  --bg-space: #030514;
+  --bg-deep: #070c26;
+  --bg-surface: rgba(12, 19, 52, 0.84);
+  --hud-cyan: #3b82f6;
+  --hud-cyan-glow: rgba(59, 130, 246, 0.45);
+  --hud-cyan-dim: rgba(59, 130, 246, 0.15);
+  --hud-teal: #60a5fa;
+  --hud-teal-glow: rgba(96, 165, 250, 0.4);
+  --hud-violet: #8b5cf6;
+  --hud-violet-glow: rgba(139, 92, 246, 0.45);
+  --hud-amber: #fbbf24;
+  --hud-amber-glow: rgba(251, 191, 36, 0.4);
+  --hud-crimson: #ec4899;
+  --hud-border: rgba(59, 130, 246, 0.32);
+  --hud-border-bright: rgba(59, 130, 246, 0.8);
+  --hud-grid: rgba(59, 130, 246, 0.05);
+}
+
+/* 10. TRON: LEGACY (The Grid Infinite Obsidian Void & Laser Neon Cyan/Orange) */
+body.theme-tron {
+  --bg-space: #000000;
+  --bg-deep: #03070b;
+  --bg-surface: rgba(3, 12, 20, 0.9);
+  --hud-cyan: #00f0ff;
+  --hud-cyan-glow: rgba(0, 240, 255, 0.6);
+  --hud-cyan-dim: rgba(0, 240, 255, 0.18);
+  --hud-teal: #00ffd5;
+  --hud-teal-glow: rgba(0, 255, 213, 0.5);
+  --hud-violet: #ff6600;
+  --hud-violet-glow: rgba(255, 102, 0, 0.5);
+  --hud-amber: #ff8800;
+  --hud-amber-glow: rgba(255, 136, 0, 0.55);
+  --hud-crimson: #ff0055;
+  --hud-border: rgba(0, 240, 255, 0.4);
+  --hud-border-bright: rgba(0, 240, 255, 0.95);
+  --hud-grid: rgba(0, 240, 255, 0.08);
+}
+
+/* 11. ROBOCOP (OmniCorp OCP Targeting Matrix Gunmetal & Green Phosphor) */
+body.theme-robocop {
+  --bg-space: #030704;
+  --bg-deep: #060e08;
+  --bg-surface: rgba(8, 20, 12, 0.86);
+  --hud-cyan: #10b981;
+  --hud-cyan-glow: rgba(16, 185, 129, 0.45);
+  --hud-cyan-dim: rgba(16, 185, 129, 0.14);
+  --hud-teal: #34d399;
+  --hud-teal-glow: rgba(52, 211, 153, 0.4);
+  --hud-violet: #059669;
+  --hud-violet-glow: rgba(5, 150, 105, 0.35);
+  --hud-amber: #f59e0b;
+  --hud-amber-glow: rgba(245, 158, 11, 0.4);
+  --hud-crimson: #ef4444;
+  --hud-border: rgba(16, 185, 129, 0.32);
+  --hud-border-bright: rgba(16, 185, 129, 0.8);
+  --hud-grid: rgba(16, 185, 129, 0.06);
+}
+
+/* 12. FURIOUS 7 (Ramsey's God's Eye Global Satellite Triangulation Green) */
+body.theme-godseye {
+  --bg-space: #010a05;
+  --bg-deep: #03140a;
+  --bg-surface: rgba(5, 24, 13, 0.85);
+  --hud-cyan: #00ff88;
+  --hud-cyan-glow: rgba(0, 255, 136, 0.45);
+  --hud-cyan-dim: rgba(0, 255, 136, 0.15);
+  --hud-teal: #10b981;
+  --hud-teal-glow: rgba(16, 185, 129, 0.4);
+  --hud-violet: #059669;
+  --hud-violet-glow: rgba(5, 150, 105, 0.35);
+  --hud-amber: #fbbf24;
+  --hud-amber-glow: rgba(251, 191, 36, 0.45);
+  --hud-crimson: #ff2d55;
+  --hud-border: rgba(0, 255, 136, 0.35);
+  --hud-border-bright: rgba(0, 255, 136, 0.85);
+  --hud-grid: rgba(0, 255, 136, 0.06);
+}
+
+/* 13. STAR TREK (Starfleet LCARS Butterscotch Orange, Lavender & Federation Blue) */
+body.theme-startrek {
+  --bg-space: #000000;
+  --bg-deep: #080604;
+  --bg-surface: rgba(18, 12, 6, 0.88);
+  --hud-cyan: #9999ff;
+  --hud-cyan-glow: rgba(153, 153, 255, 0.45);
+  --hud-cyan-dim: rgba(153, 153, 255, 0.15);
+  --hud-teal: #cc99cc;
+  --hud-teal-glow: rgba(204, 153, 204, 0.4);
+  --hud-violet: #ff9900;
+  --hud-violet-glow: rgba(255, 153, 0, 0.5);
+  --hud-amber: #ffcc00;
+  --hud-amber-glow: rgba(255, 204, 0, 0.5);
+  --hud-crimson: #cc6666;
+  --hud-border: rgba(255, 153, 0, 0.4);
+  --hud-border-bright: rgba(255, 153, 0, 0.85);
+  --hud-grid: rgba(255, 153, 0, 0.06);
+}
+
+/* 14. HITMAN: AGENT 47 (ICA Tactical Stealth Carbon, Brushed Silver & Target Red) */
+body.theme-hitman {
+  --bg-space: #060606;
+  --bg-deep: #101010;
+  --bg-surface: rgba(20, 20, 20, 0.88);
+  --hud-cyan: #e2e8f0;
+  --hud-cyan-glow: rgba(226, 232, 240, 0.4);
+  --hud-cyan-dim: rgba(226, 232, 240, 0.12);
+  --hud-teal: #cbd5e1;
+  --hud-teal-glow: rgba(203, 213, 225, 0.35);
+  --hud-violet: #94a3b8;
+  --hud-violet-glow: rgba(148, 163, 184, 0.35);
+  --hud-amber: #f59e0b;
+  --hud-amber-glow: rgba(245, 158, 11, 0.4);
+  --hud-crimson: #e11d48;
+  --hud-border: rgba(225, 29, 72, 0.38);
+  --hud-border-bright: rgba(225, 29, 72, 0.85);
+  --hud-grid: rgba(225, 29, 72, 0.05);
+}
+
+/* 15. TERMINATOR GENISYS (Cyberdyne / Skynet T-800 Optical Blood Red CRT) */
+body.theme-terminator {
+  --bg-space: #0a0101;
+  --bg-deep: #140303;
+  --bg-surface: rgba(26, 4, 4, 0.88);
+  --hud-cyan: #ef4444;
+  --hud-cyan-glow: rgba(239, 68, 68, 0.55);
+  --hud-cyan-dim: rgba(239, 68, 68, 0.18);
+  --hud-teal: #f87171;
+  --hud-teal-glow: rgba(248, 113, 113, 0.45);
+  --hud-violet: #dc2626;
+  --hud-violet-glow: rgba(220, 38, 38, 0.5);
+  --hud-amber: #fb923c;
+  --hud-amber-glow: rgba(251, 146, 60, 0.45);
+  --hud-crimson: #ff0033;
+  --hud-border: rgba(239, 68, 68, 0.45);
+  --hud-border-bright: rgba(239, 68, 68, 0.95);
+  --hud-grid: rgba(239, 68, 68, 0.08);
+}
+
+/* 16. CORTANA MODE (UNSC AI Violet) */
 body.theme-cortana {
   --hud-cyan: #c084fc;
   --hud-cyan-glow: rgba(192, 132, 252, 0.45);
@@ -994,6 +1284,584 @@ body {
   stroke: var(--hud-cyan);
   stroke-width: 2;
   transition: all 0.5s ease;
+}
+
+/* ==========================================================================
+   DRAGGABLE & REARRANGEABLE HUD PANELS (DOCK & DESKTOP ICON MODES)
+   ========================================================================== */
+.draggable-hud-panel {
+  position: relative;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.panel-drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  margin: -12px -12px 14px -12px;
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.08), rgba(6, 11, 24, 0.95), rgba(168, 85, 247, 0.08));
+  border-bottom: 1px dashed rgba(0, 240, 255, 0.25);
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  cursor: grab;
+  user-select: none;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--hud-cyan);
+  transition: all 0.2s ease;
+}
+
+.panel-drag-handle:hover {
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.18), rgba(14, 27, 52, 0.98), rgba(168, 85, 247, 0.18));
+  border-bottom-color: var(--hud-cyan);
+  color: #fff;
+  box-shadow: 0 0 12px var(--hud-cyan-dim);
+}
+
+.panel-drag-handle:active {
+  cursor: grabbing;
+}
+
+.panel-drag-handle .drag-icon {
+  font-size: 13px;
+  color: var(--hud-cyan);
+  margin-right: 6px;
+  letter-spacing: -1px;
+}
+
+.panel-drag-handle .drag-title {
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.panel-drag-handle .drag-hint {
+  font-size: 9px;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+/* Dragging state */
+.draggable-hud-panel.dragging-panel {
+  opacity: 0.45;
+  outline: 2px dashed var(--hud-cyan);
+  outline-offset: 4px;
+  transform: scale(0.985);
+  box-shadow: 0 15px 35px rgba(0, 240, 255, 0.25);
+}
+
+/* Drop target insertion indicators */
+.draggable-hud-panel.drop-target-before {
+  border-top: 3px solid var(--hud-cyan) !important;
+  box-shadow: 0 -8px 24px rgba(0, 240, 255, 0.4);
+}
+
+.draggable-hud-panel.drop-target-after {
+  border-bottom: 3px solid var(--hud-cyan) !important;
+  box-shadow: 0 8px 24px rgba(0, 240, 255, 0.4);
+}
+
+/* ==========================================================================
+   FREE-FLOATING DESKTOP WINDOWS & ICONS MODE
+   ========================================================================== */
+body.desktop-mode-active #main-hud-grid {
+  position: relative;
+  min-height: 2800px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 240, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 240, 255, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+body.desktop-mode-active .draggable-hud-panel {
+  position: absolute;
+  width: calc(100% - 32px);
+  max-width: 900px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.2);
+  z-index: 10;
+}
+
+body.desktop-mode-active .draggable-hud-panel.panel-focused {
+  z-index: 30;
+  border-color: var(--hud-cyan);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 240, 255, 0.35);
+}
+
+/* ==========================================================================
+   INTERACTIVE TWO-WAY TERMINAL SCREEN & LOG STREAM
+   ========================================================================== */
+.terminal-screen-wrapper {
+  background: #020611;
+  border: 1px solid var(--hud-border-bright);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: inset 0 0 30px rgba(0, 240, 255, 0.07), 0 8px 24px rgba(0, 0, 0, 0.6);
+  position: relative;
+}
+
+.terminal-screen-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.12),
+    rgba(0, 0, 0, 0.12) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+#terminal-log-stream {
+  min-height: 200px;
+  max-height: 320px;
+  overflow-y: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+#terminal-log-stream::-webkit-scrollbar {
+  width: 6px;
+}
+#terminal-log-stream::-webkit-scrollbar-track {
+  background: rgba(2, 6, 17, 0.8);
+}
+#terminal-log-stream::-webkit-scrollbar-thumb {
+  background: var(--hud-cyan-dim);
+  border-radius: 3px;
+  border: 1px solid var(--hud-border);
+}
+#terminal-log-stream::-webkit-scrollbar-thumb:hover {
+  background: var(--hud-cyan);
+}
+
+.terminal-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 3px 6px;
+  border-radius: 4px;
+  transition: background 0.15s ease;
+}
+
+.terminal-entry:hover {
+  background: rgba(0, 240, 255, 0.05);
+}
+
+.terminal-tag {
+  font-size: 9px;
+  font-weight: 800;
+  padding: 1px 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+.terminal-tag-hud {
+  background: rgba(0, 240, 255, 0.15);
+  color: var(--hud-cyan);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+}
+
+.terminal-tag-bot {
+  background: rgba(16, 185, 129, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.terminal-tag-lan {
+  background: rgba(168, 85, 247, 0.15);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.terminal-tag-tg {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.terminal-tag-err {
+  background: rgba(255, 45, 85, 0.15);
+  color: #ff4d6d;
+  border: 1px solid rgba(255, 45, 85, 0.4);
+}
+
+.quick-chip-btn {
+  background: rgba(8, 16, 32, 0.85);
+  border: 1px solid var(--hud-border);
+  transition: all 0.2s ease;
+}
+
+.quick-chip-btn:hover {
+  border-color: var(--hud-cyan);
+  box-shadow: 0 0 10px var(--hud-cyan-dim);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   HOLOGRAPHIC TOAST BANNER (INCOMING TELEGRAM DISPATCH)
+   ========================================================================== */
+#hud-toast-banner {
+  position: fixed;
+  top: 75px;
+  right: 20px;
+  z-index: 9999;
+  max-width: 440px;
+  width: calc(100% - 40px);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-20px) scale(0.95);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#hud-toast-banner.hud-toast-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.hud-toast-content {
+  background: linear-gradient(135deg, rgba(8, 18, 42, 0.98), rgba(4, 9, 24, 0.98));
+  border: 1px solid var(--hud-border-bright);
+  border-left: 4px solid #a855f7;
+  border-radius: 8px;
+  padding: 14px 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(168, 85, 247, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.hud-toast-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.hud-toast-title {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: #c084fc;
+  text-transform: uppercase;
+}
+
+.hud-toast-time {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.hud-toast-body {
+  font-family: var(--font-hud);
+  font-size: 12px;
+  line-height: 1.5;
+  color: #e2e8f0;
+}
+
+/* ==========================================================================
+   CINEMA FUI MULTIVERSE HOLO-DECK & 15-SIMULATOR CONTROLS
+   ========================================================================== */
+.holodeck-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(6, 12, 28, 0.92), rgba(3, 7, 18, 0.96));
+  border: 1px solid var(--hud-border-bright);
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px var(--hud-cyan-dim);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Holo-Deck Universe Selector Navigation */
+.holodeck-tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 8px 12px;
+  background: rgba(4, 9, 22, 0.7);
+  border-bottom: 1px solid var(--hud-border);
+  scrollbar-width: thin;
+  scrollbar-color: var(--hud-cyan) transparent;
+}
+.holodeck-tabs-bar::-webkit-scrollbar {
+  height: 4px;
+}
+.holodeck-tabs-bar::-webkit-scrollbar-thumb {
+  background: var(--hud-cyan);
+  border-radius: 2px;
+}
+
+.holodeck-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary);
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+.holodeck-tab-btn:hover {
+  color: #ffffff;
+  border-color: var(--hud-cyan);
+  background: rgba(30, 41, 59, 0.85);
+  box-shadow: 0 0 12px var(--hud-cyan-dim);
+  transform: translateY(-1px);
+}
+.holodeck-tab-btn.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--hud-cyan-dim), rgba(255, 255, 255, 0.08));
+  border-color: var(--hud-cyan);
+  box-shadow: 0 0 16px var(--hud-cyan-glow), inset 0 0 10px var(--hud-cyan-dim);
+}
+
+/* Holodeck Interactive Viewport Frame */
+.holodeck-viewport-frame {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  background: radial-gradient(circle at center, rgba(10, 20, 45, 0.7) 0%, rgba(2, 5, 15, 0.95) 100%);
+  overflow: hidden;
+}
+
+.holodeck-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: crosshair;
+}
+
+/* Corner Reticle Brackets on Holodeck Canvas */
+.holodeck-reticle-tl, .holodeck-reticle-tr, .holodeck-reticle-bl, .holodeck-reticle-br {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+  border-color: var(--hud-cyan);
+  opacity: 0.85;
+}
+.holodeck-reticle-tl { top: 12px; left: 12px; border-top: 2px solid; border-left: 2px solid; }
+.holodeck-reticle-tr { top: 12px; right: 12px; border-top: 2px solid; border-right: 2px solid; }
+.holodeck-reticle-bl { bottom: 12px; left: 12px; border-bottom: 2px solid; border-left: 2px solid; }
+.holodeck-reticle-br { bottom: 12px; right: 12px; border-bottom: 2px solid; border-right: 2px solid; }
+
+/* Holodeck Telemetry Floating HUD Data Overlay */
+.holodeck-data-overlay {
+  position: absolute;
+  pointer-events: none;
+  padding: 10px 14px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.4;
+  color: var(--hud-cyan);
+  text-shadow: 0 0 8px var(--hud-cyan-glow);
+  z-index: 10;
+}
+.holodeck-data-top-left { top: 12px; left: 24px; }
+.holodeck-data-top-right { top: 12px; right: 24px; text-align: right; }
+.holodeck-data-bottom-left { bottom: 12px; left: 24px; }
+.holodeck-data-bottom-right { bottom: 12px; right: 24px; text-align: right; }
+
+/* Interactive Simulator Control Bar */
+.holodeck-controls-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 16px;
+  background: rgba(3, 7, 18, 0.9);
+  border-top: 1px solid var(--hud-border);
+}
+
+/* ==========================================================================
+   FRANCHISE-SPECIFIC VISUAL SIGNATURES
+   ========================================================================== */
+
+/* STAR TREK LCARS MODE: Signature Curved Pill Header & Left Side-Rail */
+body.theme-startrek .hud-panel {
+  border-radius: 0 24px 0 0;
+  border-left: 14px solid #ff9900;
+  border-top: 2px solid #ff9900;
+  border-right: 1px solid #cc99cc;
+  border-bottom: 1px solid #9999ff;
+  background: rgba(6, 4, 10, 0.92);
+}
+body.theme-startrek .hud-panel-title {
+  color: #ff9900;
+  letter-spacing: 0.15em;
+}
+body.theme-startrek .hud-btn {
+  border-radius: 9999px;
+  background: rgba(255, 153, 0, 0.15);
+  border-color: #ff9900;
+  color: #ffcc00;
+}
+body.theme-startrek .hud-btn.active {
+  background: #ff9900;
+  color: #000000;
+  font-weight: 800;
+}
+
+/* ROBOCOP OCP MODE: Gunmetal, OCP Directives & Sharp Targeting Crosshairs */
+body.theme-robocop .hud-panel {
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  border-radius: 2px;
+  background: rgba(4, 14, 8, 0.92);
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+}
+body.theme-robocop .hud-panel::before {
+  content: "OCP // UNIT 001";
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #10b981;
+  letter-spacing: 0.15em;
+  opacity: 0.6;
+}
+
+/* TERMINATOR GENISYS SKYNET MODE: Blood Red CRT Scanlines & Hex Streams */
+body.theme-terminator .hud-panel {
+  border: 1px solid rgba(239, 68, 68, 0.6);
+  border-radius: 3px;
+  background: rgba(18, 2, 2, 0.94);
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.25);
+}
+body.theme-terminator .hud-panel::before {
+  content: "CYBERDYNE SYSTEMS // T-800 TARGETING";
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #ef4444;
+  letter-spacing: 0.15em;
+  opacity: 0.7;
+}
+
+/* TRON: LEGACY MODE: Pure Black Void & Razor-Sharp Laser Cyan Borders */
+body.theme-tron .hud-panel {
+  border: 1px solid #00f0ff;
+  border-radius: 0;
+  background: rgba(0, 0, 0, 0.95);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.3), inset 0 0 15px rgba(0, 240, 255, 0.08);
+}
+body.theme-tron .hud-btn {
+  border-radius: 0;
+  border-color: #00f0ff;
+}
+
+/* MINORITY REPORT PRE-CRIME MODE: Crystalline Frosted Glass & Gestural Soft Cyan */
+body.theme-minorityreport .hud-panel {
+  backdrop-filter: blur(28px);
+  background: rgba(8, 24, 48, 0.65);
+  border: 1px solid rgba(125, 211, 252, 0.4);
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(125, 211, 252, 0.2);
+}
+
+/* HITMAN AGENT 47 MODE: Matte Carbon & Signature ICA Crimson Accent Stripe */
+body.theme-hitman .hud-panel {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 4px solid #e11d48;
+  border-radius: 4px;
+  background: rgba(14, 14, 14, 0.94);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.85);
+}
+body.theme-hitman .hud-panel::before {
+  content: "ICA // 640509-040147";
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #e11d48;
+  letter-spacing: 0.12em;
+}
+
+/* PACIFIC RIM PPDC MODE: Heavy Industrial Steel & Hazard Stripes */
+body.theme-pacificrim .hud-panel {
+  border: 2px solid rgba(6, 182, 212, 0.45);
+  border-radius: 6px;
+  background: rgba(8, 18, 36, 0.92);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(6, 182, 212, 0.2);
+}
+
+/* PROMETHEUS WEYLAND-YUTANI MODE: Cold Slate & Sterile Coordinates */
+body.theme-prometheus .hud-panel {
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 6px;
+  background: rgba(6, 16, 28, 0.9);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(56, 189, 248, 0.15);
+}
+body.theme-prometheus .hud-panel::before {
+  content: "WEYLAND CORP // LV-223 SURVEY";
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: #38bdf8;
+  letter-spacing: 0.12em;
+  opacity: 0.7;
+}
+
+/* BLADE RUNNER TYRELL CORP MODE: Amber Phosphor CRT Flicker & Rain Shimmer */
+body.theme-bladerunner .hud-panel {
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 4px;
+  background: rgba(20, 14, 4, 0.92);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(245, 158, 11, 0.2);
+}
+
+/* TOTAL RECALL REKALL INC MODE: Synaptic Magenta & Neon Horizon */
+body.theme-totalrecall .hud-panel {
+  border: 1px solid rgba(232, 121, 249, 0.45);
+  border-radius: 8px;
+  background: rgba(22, 6, 28, 0.92);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(232, 121, 249, 0.25);
+}
+
+/* FURIOUS 7 GOD'S EYE MODE: Surveillance Emerald & Triangulation Nodes */
+body.theme-godseye .hud-panel {
+  border: 1px solid rgba(0, 255, 136, 0.4);
+  border-radius: 4px;
+  background: rgba(3, 18, 9, 0.92);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 255, 136, 0.2);
+}
+
+/* STAR WARS IMPERIAL / REBEL MODE: Vector Green Wireframe */
+body.theme-starwars .hud-panel {
+  border: 1px solid rgba(34, 197, 94, 0.45);
+  border-radius: 4px;
+  background: rgba(4, 12, 6, 0.92);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(34, 197, 94, 0.2);
+}
+
+/* INSURGENT ERUDITE MODE: Sterile Cobalt & Pentagonal Symmetry */
+body.theme-insurgent .hud-panel {
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  border-radius: 8px;
+  background: rgba(8, 14, 38, 0.92);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(59, 130, 246, 0.22);
 }
 
 
