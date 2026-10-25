@@ -56,6 +56,7 @@ graph TD
 | **Personal Ledger** | `personal_ledger` table | Automatically organizes M-Pesa statements, merchant receipts, and income into an indexed ledger. |
 | **Voice Idea Vault** | `idea_vault` table | Instant spoken logging for code snippets, song lyrics, or project architectures. |
 | **Vocal Web HUD** | `window.speechSynthesis` | Web dashboard that reads newly synthesized SitRep briefings aloud with one click. |
+| **Wi-Fi Cyber Scanner** | Async Socket & Banner Fingerprint | Dedicated multi-port scanner auditing 20-35 services on Wi-Fi devices (Google Cast, Roku, ADB, HTTP, SSH) across mobile and desktop. |
 
 ---
 

@@ -2022,4 +2022,63 @@ body.theme-starwars .hud-panel {
   animation: spin-slow 12s linear infinite;
 }
 
+/* ==========================================================================
+   CYBER PORT SCANNER & SERVICE FINGERPRINT MATRIX
+   ========================================================================== */
+.port-matrix-card {
+  background: linear-gradient(145deg, rgba(15, 23, 42, 0.85), rgba(7, 12, 22, 0.95));
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  border-radius: 6px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.port-matrix-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.6), 0 0 15px rgba(168, 85, 247, 0.25);
+}
+
+.port-matrix-card.open-nominal {
+  border-left: 3px solid #10b981;
+  background: linear-gradient(145deg, rgba(6, 28, 18, 0.9), rgba(4, 15, 10, 0.95));
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+}
+
+.port-matrix-card.open-attention {
+  border-left: 3px solid #f59e0b;
+  background: linear-gradient(145deg, rgba(35, 24, 6, 0.9), rgba(18, 12, 3, 0.95));
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.15);
+}
+
+.port-matrix-card.open-critical {
+  border-left: 3px solid #ef4444;
+  background: linear-gradient(145deg, rgba(40, 8, 12, 0.9), rgba(20, 4, 6, 0.95));
+  box-shadow: 0 0 15px rgba(239, 68, 68, 0.25);
+  animation: pulse-border-red 2s infinite;
+}
+
+@keyframes pulse-border-red {
+  0%, 100% { border-color: rgba(239, 68, 68, 0.5); }
+  50% { border-color: rgba(239, 68, 68, 1); }
+}
+
+@keyframes scanline-laser {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 0.8; }
+  100% { transform: translateY(800%); opacity: 0; }
+}
+
+.scanner-laser-sweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #a855f7, #06b6d4, transparent);
+  animation: scanline-laser 2.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
 

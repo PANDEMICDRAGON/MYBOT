@@ -1015,12 +1015,16 @@
             REZ / DEREZ SUBNET NODES &bull; SMART TVS (ANDROID ADB // ROKU ECP // LG // SAMSUNG) &bull; WOL CONTROLLER
           </p>
         </div>
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 flex-wrap">
           <span class="text-[10px] font-mono font-bold px-2.5 py-1 rounded bg-cyan-950/80 border border-cyan-500/60 text-cyan-300">
             DISC LINK: ONLINE (0-LATENCY)
           </span>
           <button id="btn-lan-refresh" class="hud-btn text-xs text-cyan-400 hover:text-cyan-300">
             <span>REZ MESH</span>
+          </button>
+          <button id="btn-open-port-scanner" class="hud-btn text-xs text-purple-300 border-purple-500/80 bg-purple-950/60 hover:bg-purple-900/80 shadow-[0_0_12px_rgba(168,85,247,0.3)] flex items-center gap-1.5 font-bold">
+            <span>🔍</span>
+            <span>CYBER PORT SCANNER</span>
           </button>
         </div>
       </div>
@@ -1157,8 +1161,8 @@
               <button id="btn-action-openweb" class="hud-btn text-xs text-amber-300 border-amber-700">
                 🌐 OPEN WEB
               </button>
-              <button id="btn-action-portscan" class="hud-btn text-xs bg-purple-950/60 border-purple-700 text-purple-300">
-                🔍 PORT AUDIT
+              <button id="btn-action-portscan" class="hud-btn text-xs bg-purple-950/80 border-purple-600 text-purple-200 font-bold hover:bg-purple-900 shadow-[0_0_10px_rgba(168,85,247,0.3)]">
+                🔍 AUDIT &amp; FINGERPRINT
               </button>
               <button id="btn-action-voice" class="hud-btn text-xs text-cyan-300">
                 🎙️ VOICE LINK
@@ -1670,6 +1674,167 @@
             Save & Connect HUD
           </button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       CYBER PORT SCANNER & SERVICE FINGERPRINT MATRIX MODAL (MOBILE & DESKTOP)
+       =================================================================== -->
+  <div id="port-scan-modal" class="modal-overlay">
+    <div class="hud-panel p-4 sm:p-6 max-w-3xl w-full mx-3 border border-purple-500/50 bg-slate-950/95 shadow-2xl relative max-h-[92vh] overflow-y-auto flex flex-col franchise-godseye-hitman">
+      <div class="scanner-laser-sweep"></div>
+      
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between pb-3 border-b border-purple-500/30 mb-4">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-purple-400 text-lg">🔍</span>
+            <h3 class="text-sm sm:text-base font-bold text-white font-display uppercase tracking-wider glow-purple">
+              Cyber Port Scanner &amp; Service Fingerprint Matrix
+            </h3>
+          </div>
+          <p class="text-[10px] sm:text-[11px] text-purple-300/80 font-mono mt-0.5">
+            TCP SOCKET AUDIT &bull; BANNER GRABBING &bull; IDENTITY RECON &bull; SECURITY EXPOSURE PROBE
+          </p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span id="port-scan-status-badge" class="text-[9px] font-mono px-2 py-0.5 rounded bg-purple-950 border border-purple-500/60 text-purple-300 font-bold uppercase">
+            STANDBY
+          </span>
+          <button id="btn-close-port-scanner" class="text-slate-400 hover:text-white text-xl font-bold px-2 py-0.5 rounded hover:bg-slate-800 transition">
+            &times;
+          </button>
+        </div>
+      </div>
+
+      <!-- Target Selection & Profile Configuration -->
+      <div class="p-3.5 rounded bg-slate-900/80 border border-slate-800 space-y-3 mb-4">
+        <!-- Quick Preset Target Chips -->
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
+          <span>SELECT TARGET OR ENTER SUBNET IP:</span>
+          <span class="text-cyan-400 font-bold">SUBNET: 192.168.100.0/24</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5" id="port-scan-preset-chips">
+          <button type="button" class="preset-target-chip text-[10px] font-mono px-2.5 py-1 rounded bg-slate-950 border border-slate-700 text-slate-300 hover:border-purple-500 hover:text-white transition" data-ip="192.168.100.1" data-name="Gateway Router">
+            🌐 Router (192.168.100.1)
+          </button>
+          <button type="button" class="preset-target-chip text-[10px] font-mono px-2.5 py-1 rounded bg-slate-950 border border-slate-700 text-slate-300 hover:border-purple-500 hover:text-white transition" data-ip="192.168.100.10" data-name="Smart TV">
+            📺 Smart TV (192.168.100.10)
+          </button>
+          <button type="button" class="preset-target-chip text-[10px] font-mono px-2.5 py-1 rounded bg-slate-950 border border-slate-700 text-slate-300 hover:border-purple-500 hover:text-white transition" data-ip="192.168.100.40" data-name="Workstation PC">
+            💻 Workstation (192.168.100.40)
+          </button>
+          <button type="button" id="btn-chip-selected-node" class="preset-target-chip text-[10px] font-mono px-2.5 py-1 rounded bg-purple-950/70 border border-purple-600 text-purple-300 hover:text-white transition">
+            🎯 Selected Node
+          </button>
+        </div>
+
+        <!-- IP Input & Profile & Action Button Row -->
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 pt-1 items-center">
+          <div class="sm:col-span-5">
+            <label class="block text-[10px] font-mono text-slate-400 mb-1" for="port-scan-target-ip">TARGET IP ADDRESS</label>
+            <input 
+              type="text" 
+              id="port-scan-target-ip" 
+              value="192.168.100.1" 
+              placeholder="e.g. 192.168.100.10"
+              class="w-full bg-slate-950 border border-slate-700 rounded px-2.5 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-purple-400"
+            />
+          </div>
+          <div class="sm:col-span-3">
+            <label class="block text-[10px] font-mono text-slate-400 mb-1" for="port-scan-profile">AUDIT SCOPE</label>
+            <select 
+              id="port-scan-profile" 
+              class="w-full bg-slate-950 border border-slate-700 rounded px-2 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-purple-400"
+            >
+              <option value="standard" selected>STANDARD (20 Ports)</option>
+              <option value="deep">DEEP DIVE (35 Ports)</option>
+            </select>
+          </div>
+          <div class="sm:col-span-4 self-end">
+            <button 
+              id="btn-exec-port-scan" 
+              class="w-full hud-btn bg-purple-900/80 border-purple-500 text-white font-bold text-xs py-2 px-3 justify-center shadow-[0_0_15px_rgba(168,85,247,0.35)] hover:bg-purple-800 transition flex items-center gap-1.5"
+            >
+              <span>⚡</span>
+              <span id="btn-exec-port-scan-text">RUN SCAN &amp; FINGERPRINT</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-Time Progress & Status Log -->
+      <div id="port-scan-log-container" class="mb-4">
+        <div class="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden mb-2">
+          <div id="port-scan-progress-bar" class="bg-gradient-to-r from-purple-500 via-cyan-400 to-emerald-400 h-full w-0 transition-all duration-300"></div>
+        </div>
+        <div id="port-scan-log-text" class="text-[10px] font-mono text-purple-300/90 flex justify-between items-center">
+          <span id="port-scan-live-status">Ready. Select a target IP and click Run Scan &amp; Fingerprint.</span>
+          <span id="port-scan-scope-stats" class="text-slate-500">20 PORTS MONITORED</span>
+        </div>
+      </div>
+
+      <!-- Device Classification & Security Exposure Dossier Card -->
+      <div id="port-scan-identity-card" class="p-3.5 rounded bg-slate-900/90 border border-slate-800 mb-4 hidden">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800 pb-2.5 mb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="text-lg" id="dossier-device-icon">🛰️</span>
+            <div>
+              <h4 class="text-xs sm:text-sm font-bold text-white font-mono" id="dossier-classification">
+                GENERIC NODE
+              </h4>
+              <p class="text-[10px] font-mono text-cyan-400" id="dossier-target-ip">
+                IP: 192.168.100.1
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-mono text-slate-400">EXPOSURE:</span>
+            <span id="dossier-risk-badge" class="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-emerald-950 border border-emerald-500/60 text-emerald-300 uppercase">
+              NOMINAL
+            </span>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[10px] font-mono">
+          <div class="p-2 rounded bg-slate-950/70 border border-slate-800/80">
+            <span class="text-slate-500 block">TACTICAL IDENTITY / MODEL:</span>
+            <span class="text-slate-200 font-bold" id="dossier-model-title">Standard LAN Socket Service</span>
+          </div>
+          <div class="p-2 rounded bg-slate-950/70 border border-slate-800/80">
+            <span class="text-slate-500 block">SECURITY POSTURE ADVISORY:</span>
+            <span class="text-amber-300" id="dossier-risk-notes">Operating within standard residential parameters.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Port Matrix Grid -->
+      <div class="flex-1">
+        <div class="flex justify-between items-center text-[10px] font-mono text-slate-400 mb-2">
+          <span>ACTIVE OPEN SOCKET MATRIX:</span>
+          <span id="port-matrix-summary" class="text-emerald-400 font-bold">0 OPEN SOCKETS</span>
+        </div>
+        <div id="port-matrix-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5 mb-4">
+          <!-- Populated dynamically: Open socket cards with banners and browser links -->
+          <div class="col-span-full py-6 text-center text-slate-500 font-mono text-xs border border-dashed border-slate-800 rounded">
+            No scan performed yet. Choose a subnet device above and initiate cyber audit.
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Footer -->
+      <div class="pt-3 border-t border-purple-500/20 flex flex-wrap justify-between items-center gap-2 text-xs font-mono">
+        <div class="flex items-center gap-2">
+          <button id="btn-copy-port-dossier" class="hud-btn text-[11px] py-1 px-2.5 text-cyan-300 hover:text-white border-cyan-800 bg-cyan-950/50">
+            📋 COPY DOSSIER
+          </button>
+          <button id="btn-send-port-telegram" class="hud-btn text-[11px] py-1 px-2.5 text-purple-300 hover:text-white border-purple-800 bg-purple-950/50">
+            📲 NOTIFY TELEGRAM
+          </button>
+        </div>
+        <button id="btn-dismiss-port-scanner" class="hud-btn text-[11px] py-1 px-3 text-slate-300 hover:text-white">
+          DISMISS
+        </button>
       </div>
     </div>
   </div>
