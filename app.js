@@ -26,6 +26,7 @@ let appState = {
   asymmetricUpside: "",
   weatherData: [],
   newsData: [],
+  topicDeepDives: [],
   cyberData: [],
   conflictData: [],
   osintData: [],
@@ -151,6 +152,7 @@ async function fetchLiveTelemetryFile() {
       if (Array.isArray(data.weather) && data.weather.length > 0) appState.weatherData = data.weather;
       if (Array.isArray(data.cyber) && data.cyber.length > 0) appState.cyberData = data.cyber;
       if (Array.isArray(data.news) && data.news.length > 0) appState.newsData = data.news;
+      if (Array.isArray(data.topic_deep_dives) && data.topic_deep_dives.length > 0) appState.topicDeepDives = data.topic_deep_dives;
       if (Array.isArray(data.conflicts) && data.conflicts.length > 0) appState.conflictData = data.conflicts;
       if (Array.isArray(data.lan_devices) && data.lan_devices.length > 0) appState.lanData = data.lan_devices;
       if (Array.isArray(data.tasks) && data.tasks.length > 0) appState.tasksData = data.tasks;
@@ -184,6 +186,7 @@ async function fetchTelemetryData() {
     renderWeather();
     renderCyber();
     renderPersonalOps();
+    renderTopicDeepDives();
     renderNews();
     renderConflict();
     renderOsint();
@@ -272,6 +275,7 @@ async function fetchTelemetryData() {
     renderWeather();
     renderCyber();
     renderPersonalOps();
+    renderTopicDeepDives();
     renderNews();
     renderConflict();
     renderOsint();
@@ -287,6 +291,7 @@ async function fetchTelemetryData() {
     renderWeather();
     renderCyber();
     renderPersonalOps();
+    renderTopicDeepDives();
     renderNews();
     renderConflict();
     renderOsint();
@@ -2173,6 +2178,105 @@ function renderCyber() {
   }).join("");
 }
 
+// Render Active Theater Topic Deep Dives
+function renderTopicDeepDives() {
+  const container = document.getElementById("topic-deep-dives-container");
+  if (!container) return;
+
+  const dives = appState.topicDeepDives || [];
+  if (!dives || dives.length === 0) {
+    container.innerHTML = "";
+    return;
+  }
+
+  const query = (appState.searchQuery || "").toLowerCase();
+  const filtered = dives.filter(d => {
+    if (!query) return true;
+    return (d.subject || "").toLowerCase().includes(query) ||
+           (d.in_depth_context || "").toLowerCase().includes(query) ||
+           (d.latest_developments || "").toLowerCase().includes(query);
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = "";
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="p-4 rounded-lg bg-slate-950/80 border border-cyan-500/40 shadow-xl mb-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-cyan-500/20 mb-3 gap-2">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          <h3 class="text-xs font-mono font-bold tracking-widest text-cyan-300 uppercase">
+            ACTIVE THEATER TOPIC DEEP-DIVES // POST-SWEEP COGNITIVE INTELLIGENCE
+          </h3>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-500/30">
+            ${filtered.length} ACTIVE SUBJECTS
+          </span>
+          <span class="text-[10px] font-mono text-slate-400">NON-REPETITIVE ADAPTIVE SWEEPS</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
+        ${filtered.map(d => {
+          const theater = d.theater || "GLOBAL";
+          let theaterBadge = "border-cyan-500/30 text-cyan-300 bg-cyan-950/50";
+          if (theater === "CYBER") theaterBadge = "border-violet-500/30 text-violet-300 bg-violet-950/50";
+          if (theater === "RED-SEA-MIDEAST") theaterBadge = "border-amber-500/30 text-amber-300 bg-amber-950/50";
+          if (theater === "EAST-AFRICA") theaterBadge = "border-emerald-500/30 text-emerald-300 bg-emerald-950/50";
+          if (theater.includes("SPORT") || theater === "FOOTBALL" || theater === "F1-MOTORSPORT") theaterBadge = "border-amber-500/40 text-amber-300 bg-amber-950/50";
+
+          const subjectEsc = escapeHtml(d.subject || "Tactical Subject");
+          const subjectAttr = (d.subject || "").replace(/"/g, '&quot;').replace(/'/g, "\\'");
+
+          return `
+            <div class="rounded-md border border-slate-800 bg-slate-900/60 p-3.5 hover:border-cyan-500/40 transition-all flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2">
+                  <div class="flex items-center gap-2">
+                    <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border ${theaterBadge}">
+                      ${theater}
+                    </span>
+                    <h4 class="text-xs font-bold text-white font-display">${subjectEsc}</h4>
+                  </div>
+                  <button onclick="window.triggerSubjectDeepDive('${subjectAttr}', '${theater}')"
+                          title="Transmit instant research directive to neural construct"
+                          class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/40 transition-colors flex items-center gap-1 shrink-0">
+                    ⚡ DEEP DIVE
+                  </button>
+                </div>
+
+                ${d.latest_developments ? `
+                  <div class="mb-2">
+                    <span class="text-[9px] font-mono text-cyan-400 font-bold uppercase tracking-wider block mb-0.5">LATEST DEVELOPMENTS:</span>
+                    <p class="text-[11px] text-slate-300 leading-snug font-sans">${escapeHtml(d.latest_developments)}</p>
+                  </div>
+                ` : ""}
+
+                ${d.in_depth_context ? `
+                  <div class="mb-2">
+                    <span class="text-[9px] font-mono text-purple-400 font-bold uppercase tracking-wider block mb-0.5">IN-DEPTH CONTEXT & SECOND-ORDER RIPPLES:</span>
+                    <p class="text-[11px] text-slate-400 leading-snug font-sans">${escapeHtml(d.in_depth_context)}</p>
+                  </div>
+                ` : ""}
+              </div>
+
+              ${d.why_it_matters ? `
+                <div class="mt-2 pt-2 border-t border-cyan-500/20 bg-cyan-950/30 rounded p-2 text-[10px] font-mono text-cyan-200">
+                  <span class="font-bold text-cyan-400">OPERATOR RELEVANCE (KENYA/NAIROBI):</span>
+                  <p class="text-slate-300 mt-0.5 font-sans leading-tight">${escapeHtml(d.why_it_matters)}</p>
+                </div>
+              ` : ""}
+            </div>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
+
 // Render News Feed
 function renderNews() {
   const container = document.getElementById("news-container");
@@ -2203,8 +2307,25 @@ function renderNews() {
 
   container.innerHTML = filtered.map(item => {
     const isLocal = item.scope === "LOCAL";
-    const badgeClass = isLocal ? "badge-local" : "badge-global";
+    const isSports = item.scope === "SPORTS";
+    const badgeClass = isLocal ? "badge-local" : isSports ? "badge-sports" : "badge-global";
     const timeAgo = formatTimeAgo(item.created_at || item.published_at);
+
+    // Extract tactical intel if present in title
+    let mainTitle = item.title || "";
+    let tacticalIntel = "";
+    if (mainTitle.includes(" // [TACTICAL INTEL]: ")) {
+      const parts = mainTitle.split(" // [TACTICAL INTEL]: ");
+      mainTitle = parts[0];
+      tacticalIntel = parts.slice(1).join(" // [TACTICAL INTEL]: ").trim();
+    } else if (mainTitle.includes("\n\n[IN-DEPTH ANALYSIS]:")) {
+      const parts = mainTitle.split("\n\n[IN-DEPTH ANALYSIS]:");
+      mainTitle = parts[0];
+      tacticalIntel = parts.slice(1).join("\n\n[IN-DEPTH ANALYSIS]:").trim();
+    }
+
+    const titleAttr = mainTitle.replace(/"/g, '&quot;').replace(/'/g, "\\'");
+    const sourceAttr = (item.source || "").replace(/"/g, '&quot;').replace(/'/g, "\\'");
 
     return `
       <article class="news-item flex flex-col justify-between">
@@ -2214,20 +2335,36 @@ function renderNews() {
               <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded ${badgeClass}">
                 ${item.scope}
               </span>
-              <span class="text-[11px] font-mono text-slate-400 font-medium">${item.source}</span>
+              <span class="text-[11px] font-mono text-slate-400 font-medium">${escapeHtml(item.source)}</span>
             </div>
             <span class="text-[11px] font-mono text-slate-500">${timeAgo}</span>
           </div>
 
           <h4 class="text-sm font-semibold text-slate-100 hover:text-cyan-300 transition-colors leading-snug">
             <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="block">
-              ${item.title}
+              ${escapeHtml(mainTitle)}
             </a>
           </h4>
+
+          ${tacticalIntel ? `
+            <div class="mt-2.5 p-2.5 rounded bg-cyan-950/40 border border-cyan-500/30 text-xs">
+              <div class="flex items-center justify-between gap-1 mb-1">
+                <span class="text-[10px] font-mono font-bold text-cyan-400 flex items-center gap-1">
+                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                  TACTICAL DEPTH & IMPLICATIONS
+                </span>
+                <span class="text-[9px] font-mono text-slate-400">COGNITIVE SIFT</span>
+              </div>
+              <p class="text-[11px] text-slate-300 font-sans leading-relaxed">${escapeHtml(tacticalIntel)}</p>
+            </div>
+          ` : ""}
         </div>
 
         <div class="mt-3 pt-2 border-t border-slate-800/40 flex items-center justify-between text-xs text-slate-500">
-          <span class="font-mono text-[10px]">VERIFIED DISPATCH</span>
+          <button onclick="window.triggerSubjectDeepDive('${titleAttr}', '${sourceAttr}')"
+                  class="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:text-cyan-300 font-mono px-2 py-0.5 rounded bg-cyan-950/60 border border-cyan-500/20 hover:border-cyan-500/50 transition-colors">
+            ⚡ DEEP DIVE SUBJECT
+          </button>
           <a href="${item.link}" target="_blank" rel="noopener noreferrer" 
              class="inline-flex items-center gap-1 text-[11px] text-cyan-400 hover:text-cyan-300 font-mono transition-colors">
             Read Source 
@@ -3509,6 +3646,7 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelectorAll(".news-tab").forEach(t => t.classList.remove("active"));
       tab.classList.add("active");
       appState.activeNewsFilter = tab.getAttribute("data-scope");
+      renderTopicDeepDives();
       renderNews();
     });
   });
@@ -3551,6 +3689,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
       appState.searchQuery = e.target.value;
+      renderTopicDeepDives();
       renderNews();
       renderCyber();
       renderConflict();
@@ -3733,8 +3872,43 @@ async function submitWebDirective() {
     }
   }
 
-  // Route 2: Fallback to Local Bot Daemon RPC (Port 5050)
+  // Route 1b: Serverless Proxy Uplink (/api/command) - Bridges mobile Web HUD to Supabase
   if (!success) {
+    try {
+      btn.innerHTML = `<span class="inline-block animate-spin mr-1">⟳</span> CLOUD BRIDGE...`;
+      const proxyRes = await fetch("/api/command", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          origin: "WEB",
+          mode: mode,
+          directive: directive,
+          passcode: passcode
+        })
+      });
+
+      if (proxyRes.ok) {
+        success = true;
+        inputEl.value = "";
+        if (typeof speakCustomText === "function") {
+          speakCustomText(`Directive queued for neural execution. Mode: ${mode}.`, "cortana");
+        }
+        await fetchCommandHistory();
+        if (!activeCommandPoll) {
+          activeCommandPoll = setInterval(fetchCommandHistory, 2000);
+        }
+      } else {
+        const proxyErr = await proxyRes.json().catch(() => ({}));
+        console.warn("/api/command uplink failed:", proxyRes.status, proxyErr);
+      }
+    } catch (proxyErr) {
+      console.warn("/api/command endpoint unreachable:", proxyErr);
+    }
+  }
+
+  // Route 2: Fallback to Local Bot Daemon RPC (Port 5050 - only attempted if running on desktop localhost)
+  const isLocalHost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+  if (!success && isLocalHost) {
     try {
       btn.innerHTML = `<span class="inline-block animate-spin mr-1">⟳</span> LOCAL UPLINK...`;
       const localRes = await fetch("http://localhost:5050/api/command", {
@@ -4028,6 +4202,20 @@ async function submitOsintRecon() {
           statusBadge.textContent = "DIRECTIVE QUEUED // AWAITING CONSTRUCT BACKEND";
           statusBadge.className = "px-2 py-0.5 rounded bg-amber-950 border border-amber-500/40 text-amber-300";
         }
+      } else {
+        const proxyRes = await fetch("/api/command", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            origin: "WEB",
+            mode: "DEEP-DIVE",
+            directive: cmdText
+          })
+        });
+        if (proxyRes.ok && statusBadge) {
+          statusBadge.textContent = "DIRECTIVE QUEUED // AWAITING CONSTRUCT BACKEND";
+          statusBadge.className = "px-2 py-0.5 rounded bg-amber-950 border border-amber-500/40 text-amber-300";
+        }
       }
     } catch (sbErr) {
       console.error("Failed to queue OSINT command:", sbErr);
@@ -4247,3 +4435,27 @@ window.submitOsintRecon = submitOsintRecon;
 window.deleteOsintDossier = deleteOsintDossier;
 window.purgeAllOsintDossiers = purgeAllOsintDossiers;
 
+
+
+// ==========================================================================
+// TACTICAL SUBJECT DEEP DIVE TRIGGER
+// ==========================================================================
+window.triggerSubjectDeepDive = async function(subject, source) {
+  const inputEl = document.getElementById("cmd-input");
+  const modeEl = document.getElementById("cmd-mode");
+  const section = document.getElementById("interactive-command-section") || document.getElementById("command-center-section");
+
+  if (section) {
+    section.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  if (inputEl && modeEl) {
+    modeEl.value = "DEEP-DIVE";
+    inputEl.value = `Investigate in-depth developments, structural ripples, and operator impact regarding "${subject}" (Source: ${source || "Global Wire"}). What new data is emerging?`;
+    inputEl.focus();
+
+    if (typeof submitCommandDirective === "function") {
+      submitCommandDirective();
+    }
+  }
+};

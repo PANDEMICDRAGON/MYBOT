@@ -47,7 +47,49 @@ if SUPABASE_URL.endswith("/rest/v1"):
     SUPABASE_URL = SUPABASE_URL[:-8].rstrip("/")
 SUPABASE_SERVICE_KEY = os.getenv("SUPABASE_KEY", "").strip()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
-SYNC_INTERVAL = int(os.getenv("SYNC_INTERVAL", "900"))
+SYNC_INTERVAL = int(os.getenv("SYNC_INTERVAL", "300"))
+TELEGRAM_DISPATCH_INTERVAL = int(os.getenv("TELEGRAM_DISPATCH_INTERVAL", "1200"))  # 20 minutes between routine Telegram SitReps
+LAST_TELEGRAM_DISPATCH_TIME = 0.0
+
+BREAKING_KEYWORDS = [
+    "breaking", "urgent", "flash", "bulletin", "critical zero-day", "exploited in the wild",
+    "airstrike", "missile strike", "drone strike", "explosion", "martial law", "coup",
+    "hostage", "total blackout", "grid collapse", "subsea cable cut", "chokepoint closed",
+    "bank run", "border closure", "emergency declared", "curfew", "assassination"
+]
+
+def is_breaking_news_event(sitrep_data: dict, news_items: list, cyber_items: list, conflict_items: list) -> tuple[bool, str]:
+    """
+    Evaluates whether the current sweep contains breaking news or critical threats
+    that warrant immediately bypassing the 20-minute dispatch threshold.
+    """
+    threat = (sitrep_data.get("threat_level") or "").upper()
+    if threat in ("HIGH", "CRITICAL"):
+        return True, f"Threat posture elevated to {threat}"
+
+    sitrep_text = (sitrep_data.get("sitrep") or "").lower()
+    for kw in BREAKING_KEYWORDS:
+        if kw in sitrep_text:
+            return True, f"Critical SitRep indicator: '{kw.upper()}'"
+
+    for art in (news_items or [])[:10]:
+        title = (art.get("title") or "").lower()
+        for kw in BREAKING_KEYWORDS:
+            if kw in title:
+                return True, f"Breaking headline: {art.get('title')}"
+
+    for c in (cyber_items or [])[:5]:
+        c_title = (c.get("title") or "").lower()
+        if any(k in c_title for k in ("zero-day", "actively exploited", "critical", "cisa kev", "emergency advisory")):
+            return True, f"Critical cyber security alert: {c.get('title')}"
+
+    for conf in (conflict_items or [])[:5]:
+        conf_title = (conf.get("title") or "").lower()
+        for kw in BREAKING_KEYWORDS:
+            if kw in conf_title:
+                return True, f"Critical theater alert: {conf.get('title')}"
+
+    return False, ""
 
 # Voice Construct Selection (Halo Cortana: en-US-AriaNeural, Stark J.A.R.V.I.S.: en-GB-RyanNeural)
 CONSTRUCT_VOICE = os.getenv("CONSTRUCT_VOICE", "en-US-AriaNeural")
@@ -62,19 +104,24 @@ SUPABASE_HEADERS = {
     "Content-Type": "application/json"
 }
 
+GEMINI_CHAT_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
 GROQ_CHAT_URL = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_AUDIO_URL = "https://api.groq.com/openai/v1/audio/transcriptions"
-LLM_MODEL = os.getenv("LLM_MODEL", "qwen/qwen3.8-27b")
+LLM_MODEL = os.getenv("LLM_MODEL", "gemini-3.5-flash-lite")
 VISION_MODEL = "openai/gpt-oss-20b"
-GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "").strip()
 
-# Ordered cascade of Groq models (Each model has its OWN separate rate-limit bucket!)
-GROQ_MODEL_CASCADE = [
-    "qwen/qwen3.8-27b",
-    "openai/gpt-oss-120b",
-    "openai/gpt-oss-20b",
-    "llama-3.3-70b-versatile",
-    "llama-3.1-8b-instant"
+# Ordered hybrid cascade: Tries Gemini (250k-1M TPM) first, cascades to Groq on 429/spikes
+MODEL_CASCADE = [
+    {"provider": "gemini", "model": "gemini-3.5-flash-lite"},
+    {"provider": "gemini", "model": "gemini-flash-lite-latest"},
+    {"provider": "gemini", "model": "gemini-3.8-flash"},
+    {"provider": "gemini", "model": "gemini-3.1-pro-preview"},
+    {"provider": "groq", "model": "qwen/qwen3.8-27b"},
+    {"provider": "groq", "model": "llama-3.3-70b-versatile"},
+    {"provider": "groq", "model": "openai/gpt-oss-120b"},
+    {"provider": "groq", "model": "openai/gpt-oss-20b"},
+    {"provider": "groq", "model": "llama-3.1-8b-instant"}
 ]
 
 SYSTEM_PERSONA = """You are HALO (an autonomous AI construct combining the tactical intelligence of Cortana and the dry wit and operational precision of J.A.R.V.I.S.).
@@ -96,88 +143,66 @@ async def call_llm_with_failover(
     json_mode: bool = False
 ) -> dict:
     """
-    1. Tries primary Groq model -> falls back across secondary Groq models on HTTP 429 or 404.
-    2. Automatically strips/truncates oversized messages to protect Token-Per-Minute (TPM) budget.
-    3. Prevents 429 loops by only passing tools to the primary and first fallback model.
-    4. Falls back to Google Gemini if configured, or performs a cooldown retry on fast 8B instant.
+    Routes conversational turns, SitRep syntheses, and tool-calling through Google Gemini
+    first (backed by massive token capacity to eliminate 429 limits), with seamless automatic
+    failover across Gemini models and secondary Groq models.
     """
-    headers = {
-        "Authorization": f"Bearer {GROQ_API_KEY}",
-        "Content-Type": "application/json"
-    }
-
-    # Trim oversized messages so we never blow the per-minute token limit
     clean_msgs = []
     for m in messages:
         c = dict(m)
-        if isinstance(c.get("content"), str) and len(c["content"]) > 3000:
-            c["content"] = c["content"][:3000]
+        if isinstance(c.get("content"), str) and len(c["content"]) > 16000:
+            c["content"] = c["content"][:9000] + "\n...[telemetry compressed]...\n" + c["content"][-6000:]
         clean_msgs.append(c)
 
-    for idx, model_name in enumerate(GROQ_MODEL_CASCADE):
+    for idx, route in enumerate(MODEL_CASCADE):
+        provider = route["provider"]
+        model_name = route["model"]
+
+        if provider == "gemini":
+            if not GEMINI_API_KEY:
+                continue
+            url = GEMINI_CHAT_URL
+            headers = {
+                "Authorization": f"Bearer {GEMINI_API_KEY}",
+                "Content-Type": "application/json"
+            }
+        else:
+            if not GROQ_API_KEY:
+                continue
+            url = GROQ_CHAT_URL
+            headers = {
+                "Authorization": f"Bearer {GROQ_API_KEY}",
+                "Content-Type": "application/json"
+            }
+
         payload = {
             "model": model_name,
             "messages": clean_msgs,
             "temperature": 0.3
         }
-        # Only attach tool schemas on the primary or first fallback model to prevent schema 400/429 loops
-        if tools and idx <= 1:
+
+        # Only attach tool schemas on the primary routes to prevent schema loops
+        if tools and idx <= 2:
             payload["tools"] = tools
             payload["tool_choice"] = "auto"
         if json_mode:
             payload["response_format"] = {"type": "json_object"}
 
         try:
-            resp = await client.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=35)
-            if resp.status_code == 429:
-                wait_s = min(float(resp.headers.get("retry-after", "2")), 4.0)
-                logger.warning(f"[429 on {model_name}] Cooling down {wait_s}s and switching model...")
+            resp = await client.post(url, headers=headers, json=payload, timeout=35)
+            if resp.status_code in (429, 503, 404, 403):
+                wait_s = min(float(resp.headers.get("retry-after", "1")), 3.0)
+                logger.warning(f"[{resp.status_code} on {provider}:{model_name}] Switching to next model in cascade (cooldown {wait_s}s)...")
                 await asyncio.sleep(wait_s)
                 continue
-            if resp.status_code == 404:
-                continue
             resp.raise_for_status()
-            return resp.json()["choices"][0]["message"]
+            choice = resp.json()["choices"][0]["message"]
+            return choice
         except Exception as e:
-            logger.warning(f"[Failover warning on {model_name}]: {e}")
+            logger.warning(f"[Cascade failover on {provider}:{model_name}]: {e}")
             continue
 
-    # Optional Google Gemini Free-Tier Failover
-    if GEMINI_API_KEY:
-        try:
-            gemini_url = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions"
-            gemini_headers = {
-                "Authorization": f"Bearer {GEMINI_API_KEY}",
-                "Content-Type": "application/json"
-            }
-            gemini_payload = {
-                "model": "gemini-2.5-flash",
-                "messages": clean_msgs,
-                "temperature": 0.3
-            }
-            if json_mode:
-                gemini_payload["response_format"] = {"type": "json_object"}
-
-            resp = await client.post(gemini_url, headers=gemini_headers, json=gemini_payload, timeout=35)
-            if resp.status_code == 200:
-                return resp.json()["choices"][0]["message"]
-        except Exception as gemini_err:
-            logger.warning(f"[Gemini Failover Error]: {gemini_err}")
-
-    # Last-resort guaranteed reply after brief breather on 8B instant without tools
-    await asyncio.sleep(3)
-    minimal_payload = {
-        "model": "openai/gpt-oss-20b",
-        "messages": [clean_msgs[0], clean_msgs[-1]] if len(clean_msgs) >= 2 else clean_msgs,
-        "temperature": 0.3
-    }
-    try:
-        resp = await client.post(GROQ_CHAT_URL, headers=headers, json=minimal_payload, timeout=30)
-        resp.raise_for_status()
-        return resp.json()["choices"][0]["message"]
-    except Exception as final_err:
-        logger.error(f"[Final Cooldown Retry Error]: {final_err}")
-        return {"role": "assistant", "content": "All primary defensive protocols are active, sir. Standing by."}
+    return {"role": "assistant", "content": "All primary defensive protocols are active, sir. Standing by."}
 
 
 WEATHER_LOCATIONS = [
@@ -188,18 +213,148 @@ WEATHER_LOCATIONS = [
     {"city": "Tokyo", "scope": "GLOBAL", "lat": 35.6762, "lon": 139.6503},
 ]
 
-# 1. Major Global Networks & Local Wire
-NEWS_FEEDS = [
-    {"source": "CNN World", "scope": "GLOBAL", "url": "http://rss.cnn.com/rss/edition_world.rss"},
+# 1. Base Global Networks & Local Wire
+BASE_NEWS_FEEDS = [
     {"source": "BBC World", "scope": "GLOBAL", "url": "https://feeds.bbci.co.uk/news/world/rss.xml"},
     {"source": "Al Jazeera", "scope": "GLOBAL", "url": "https://www.aljazeera.com/xml/rss/all.xml"},
-    {"source": "Fox News World", "scope": "GLOBAL", "url": "https://moxie.foxnews.com/google-publisher/world.xml"},
-    {"source": "NYT World", "scope": "GLOBAL", "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"},
-    {"source": "WSJ World", "scope": "GLOBAL", "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml"},
     {"source": "The Guardian World", "scope": "GLOBAL", "url": "https://www.theguardian.com/world/rss"},
     {"source": "Kenya Local Wire", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi+OR+Kitengela&hl=en-KE&gl=KE&ceid=KE:en"},
     {"source": "Kenya Markets & Economy", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(CBK+OR+%22Nairobi+Securities+Exchange%22+OR+inflation+OR+shilling+OR+fuel)&hl=en-KE&gl=KE&ceid=KE:en"}
 ]
+NEWS_FEEDS = BASE_NEWS_FEEDS
+
+# Dynamic Rotating Topic Search Feeds (Queries on & around active subjects to prevent repetition)
+ROTATING_TOPIC_FEEDS = [
+    {
+        "subject": "Red Sea Shipping & Bab-el-Mandeb",
+        "scope": "GLOBAL",
+        "source": "Red Sea Maritime Wire",
+        "theater": "RED-SEA-MIDEAST",
+        "url": "https://news.google.com/rss/search?q=(%22Red+Sea%22+OR+%22Bab-el-Mandeb%22)+AND+(shipping+OR+freight+OR+tanker+OR+insurance+OR+reroute)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "subject": "Kenya Forex, Shilling & CBK Reserves",
+        "scope": "LOCAL",
+        "source": "Kenya Forex & CBK Wire",
+        "theater": "EAST-AFRICA",
+        "url": "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(%22forex+reserves%22+OR+%22exchange+rate%22+OR+CBK+OR+%22Eurobond%22+OR+remittances)&hl=en-KE&gl=KE&ceid=KE:en"
+    },
+    {
+        "subject": "East Africa Energy Grid & KPLC",
+        "scope": "LOCAL",
+        "source": "East Africa Energy Monitor",
+        "theater": "EAST-AFRICA",
+        "url": "https://news.google.com/rss/search?q=(Kenya+OR+Tanzania+OR+Uganda)+AND+(KPLC+OR+%22geothermal%22+OR+%22fuel+prices%22+OR+EPRA+OR+%22power+grid%22+OR+SGR)&hl=en-KE&gl=KE&ceid=KE:en"
+    },
+    {
+        "subject": "Horn of Africa Conflict & Diplomacy",
+        "scope": "GLOBAL",
+        "source": "Horn of Africa Security Wire",
+        "theater": "EAST-AFRICA",
+        "url": "https://news.google.com/rss/search?q=(Sudan+OR+Somalia+OR+Ethiopia)+AND+(military+OR+conflict+OR+refugees+OR+border+OR+diplomacy)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "subject": "Silicon Savannah & East Africa Tech",
+        "scope": "LOCAL",
+        "source": "Silicon Savannah Tech Wire",
+        "theater": "KENYA-TECH",
+        "url": "https://news.google.com/rss/search?q=(Nairobi+OR+Kenya)+AND+(fintech+OR+startup+OR+%22data+center%22+OR+Safaricom+OR+telecom)&hl=en-KE&gl=KE&ceid=KE:en"
+    },
+    {
+        "subject": "Perimeter Cyber Threats & Zero-Days",
+        "scope": "GLOBAL",
+        "source": "Zero-Day Vulnerability Feed",
+        "theater": "CYBER-GLOBAL",
+        "url": "https://news.google.com/rss/search?q=(%22zero-day%22+OR+%22critical+vulnerability%22+OR+ransomware)+AND+(exploit+OR+firewall+OR+CISA+OR+breach)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "subject": "Eastern Europe Energy & Black Sea",
+        "scope": "GLOBAL",
+        "source": "Eastern Europe Energy & Grain Wire",
+        "theater": "EASTERN-EUROPE",
+        "url": "https://news.google.com/rss/search?q=(Ukraine+OR+Russia+OR+Black+Sea)+AND+(%22power+grid%22+OR+energy+OR+missiles+OR+grain+OR+ports)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "subject": "Global Semiconductor & Tech Supply",
+        "scope": "GLOBAL",
+        "source": "Global Chip & Tech Supply Wire",
+        "theater": "INDO-PACIFIC",
+        "url": "https://news.google.com/rss/search?q=(semiconductor+OR+TSMC+OR+Nvidia+OR+ASML)+AND+(supply+chain+OR+export+controls+OR+tariffs+OR+chips)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "subject": "Undersea Cables & Cross-Border Fiber",
+        "scope": "GLOBAL",
+        "source": "Subsea Telecom & Fiber Wire",
+        "theater": "INFRASTRUCTURE",
+        "url": "https://news.google.com/rss/search?q=(%22undersea+cable%22+OR+%22subsea+cable%22+OR+%22internet+outage%22+OR+%22Red+Sea+cables%22)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "subject": "Critical Minerals & Central Africa",
+        "scope": "GLOBAL",
+        "source": "Great Lakes Minerals Corridor",
+        "theater": "CENTRAL-AFRICA",
+        "url": "https://news.google.com/rss/search?q=(%22DRC%22+OR+%22Congo%22+OR+Rwanda)+AND+(minerals+OR+coltan+OR+cobalt+OR+mining+OR+security)&hl=en-US&gl=US&ceid=US:en"
+    }
+]
+
+# 3. Dedicated Sports Networks & Live Feeds (Kenya Athletics, Premier League, UCL, F1, ESPN, BBC)
+SPORTS_NEWS_FEEDS = [
+    {
+        "subject": "Global Football & World Sports",
+        "source": "BBC Sport",
+        "scope": "SPORTS",
+        "theater": "GLOBAL-SPORTS",
+        "url": "https://feeds.bbci.co.uk/sport/rss.xml"
+    },
+    {
+        "subject": "American & Global Sports Wire",
+        "source": "ESPN Headlines",
+        "scope": "SPORTS",
+        "theater": "GLOBAL-SPORTS",
+        "url": "https://www.espn.com/espn/rss/news"
+    },
+    {
+        "subject": "European Football & Transfers",
+        "source": "Sky Sports News",
+        "scope": "SPORTS",
+        "theater": "EURO-FOOTBALL",
+        "url": "https://www.skysports.com/rss/12040"
+    },
+    {
+        "subject": "Kenya Athletics, Harambee Stars & Rugby",
+        "source": "Kenya Athletics & Sports",
+        "scope": "SPORTS",
+        "theater": "KENYA-SPORTS",
+        "url": "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(Harambee+Stars+OR+athletics+OR+marathon+OR+Kipchoge+OR+Omanyala+OR+FKF+OR+rugby)&hl=en-KE&gl=KE&ceid=KE:en"
+    },
+    {
+        "subject": "Premier League & UEFA Champions League",
+        "source": "Premier League & UCL",
+        "scope": "SPORTS",
+        "theater": "FOOTBALL",
+        "url": "https://news.google.com/rss/search?q=(%22Premier+League%22+OR+%22Champions+League%22)+AND+(Arsenal+OR+%22Man+City%22+OR+Liverpool+OR+%22Man+United%22+OR+Chelsea+OR+Real+Madrid)+AND+(transfer+OR+match+OR+score+OR+injury)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "subject": "Formula 1 Grand Prix & Motorsport",
+        "source": "Formula 1 Motorsport",
+        "scope": "SPORTS",
+        "theater": "F1-MOTORSPORT",
+        "url": "https://news.google.com/rss/search?q=(%22Formula+1%22+OR+F1+OR+Ferrari+OR+Mercedes+OR+%22Red+Bull+Racing%22+OR+Verstappen+OR+Hamilton)+AND+(Grand+Prix+OR+qualifying+OR+race)&hl=en-US&gl=US&ceid=US:en"
+    }
+]
+
+# Stateful sweep rotation & anti-repetition memory
+SWEEP_CYCLE_INDEX = 0
+SEEN_ARTICLE_HASHES = set()
+LAST_SITREP_CACHE = {
+    "threat_level": "NOMINAL",
+    "sitrep": "",
+    "conflict_summary": "",
+    "future_risk_forecast": "",
+    "defensive_protocol": "",
+    "asymmetric_upside": "",
+    "updated_at": ""
+}
 
 # 2. Continuous War, Geopolitical Flashpoint & Macro-Economic Threat Feeds
 CONFLICT_AND_MACRO_FEEDS = [
@@ -754,22 +909,55 @@ async def tool_deep_dive_research(client: httpx.AsyncClient, query: str) -> str:
 # =====================================================================
 # --- LOCAL WI-FI & LAN DEVICE MESH DISCOVERY ---
 # =====================================================================
-async def tool_scan_wifi_network(client: httpx.AsyncClient) -> str:
+def get_host_local_subnet() -> str:
+    """Auto-detects the host machine's active local Wi-Fi subnet prefix (e.g. 192.168.100)."""
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(('8.8.8.8', 80))
+        local_ip = s.getsockname()[0]
+        return '.'.join(local_ip.split('.')[:3])
+    except Exception:
+        return '192.168.100'
+    finally:
+        s.close()
+
+
+def _ping_host(ip: str):
+    param = "-n" if platform.system().lower() == "windows" else "-c"
+    timeout_flag = "-w" if platform.system().lower() == "windows" else "-W"
+    cmd = ["ping", param, "1", timeout_flag, "400", ip]
+    try:
+        if subprocess.call(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0:
+            return ip
+    except Exception:
+        pass
+    return None
+
+
+async def tool_scan_local_network(subnet: str = "192.168.1", client: httpx.AsyncClient = None) -> str:
     """
-    Scans the local Wi-Fi ARP cache to discover active Smart TVs, laptops, phones,
-    and smart home gadgets, syncing their online/offline status into Supabase lan_devices.
+    Pings local IP range to discover active devices on the Wi-Fi mesh.
+    Auto-detects current active subnet and syncs online/offline status into Supabase lan_devices.
     """
-    discovered = []
+    host_subnet = get_host_local_subnet()
+    if not subnet or subnet in ("192.168.1", "default", "auto"):
+        subnet = host_subnet
+
+    # Fast concurrent ping sweep across DHCP/common device range (1 to 45)
+    tasks = [asyncio.to_thread(_ping_host, f"{subnet}.{i}") for i in range(1, 45)]
+    results = await asyncio.gather(*tasks)
+    active_ping_ips = set(ip for ip in results if ip)
+
+    # Read ARP cache for MAC addresses and any quiet devices
+    arp_devices = {}
     try:
         cmd = ["arp", "-a"] if platform.system().lower() == "windows" else ["ip", "neigh"]
-        output = subprocess.check_output(cmd, timeout=6).decode("utf-8", errors="ignore")
-
-        for line in output.splitlines():
+        out = subprocess.check_output(cmd, timeout=5).decode("utf-8", errors="ignore")
+        for line in out.splitlines():
             parts = line.split()
             if not parts:
                 continue
-            ip = ""
-            mac = "UNKNOWN"
+            ip, mac = "", "UNKNOWN"
             if platform.system().lower() == "windows":
                 for p in parts:
                     if "." in p and p.count(".") == 3:
@@ -778,37 +966,59 @@ async def tool_scan_wifi_network(client: httpx.AsyncClient) -> str:
                         mac = p.replace("-", ":").upper()
             else:
                 ip = parts[0] if "." in parts[0] else (parts[1].strip("()") if len(parts) > 1 else "")
-                mac = next((p for p in parts if (":" in p or "-" in p) and len(p) == 17), "UNKNOWN").replace("-", ":").upper()
-
-            if ip and (ip.startswith("192.168.") or ip.startswith("10.") or ip.startswith("172.")):
-                if not ip.endswith(".255") and ip != "255.255.255.255":
-                    discovered.append({"ip": ip, "mac": mac})
+                mac = next((p for p in parts if (":" in p or "-") and len(p) == 17), "UNKNOWN").replace("-", ":").upper()
+            if ip and ip.startswith(f"{subnet}.") and not ip.endswith(".255") and ip != "255.255.255.255":
+                arp_devices[ip] = mac
     except Exception as e:
-        logger.error(f"[ARP Scan Error]: {e}")
-        return f"Local LAN scan error: {e}"
+        logger.debug(f"[ARP Scan Error]: {e}")
+
+    all_active_ips = active_ping_ips | set(arp_devices.keys())
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        all_active_ips.add(s.getsockname()[0])
+        s.close()
+    except Exception:
+        pass
 
     # Sync discovered nodes against Supabase lan_devices table
+    summary_nodes = []
     if SUPABASE_URL and SUPABASE_SERVICE_KEY:
         try:
-            resp = await client.get(f"{SUPABASE_URL}/rest/v1/lan_devices?select=*", headers=SUPABASE_HEADERS, timeout=10)
-            if resp.status_code == 200:
-                registered = resp.json()
-                active_ips = {d["ip"] for d in discovered}
-                for dev in registered:
-                    new_status = "ONLINE" if dev["ip_address"] in active_ips else "OFFLINE"
-                    await client.patch(
-                        f"{SUPABASE_URL}/rest/v1/lan_devices?id=eq.{dev['id']}",
-                        headers=SUPABASE_HEADERS,
-                        json={"status": new_status, "last_seen": datetime.now(timezone.utc).isoformat()}
-                    )
+            http_c = client if client is not None else httpx.AsyncClient()
+            should_close = client is None
+            try:
+                resp = await http_c.get(f"{SUPABASE_URL}/rest/v1/lan_devices?select=*", headers=SUPABASE_HEADERS, timeout=10)
+                if resp.status_code == 200:
+                    registered = resp.json()
+                    for dev in registered:
+                        dev_ip = dev.get("ip_address")
+                        is_online = dev_ip in all_active_ips
+                        new_status = "ONLINE" if is_online else "OFFLINE"
+                        if dev.get("status") != new_status:
+                            await http_c.patch(
+                                f"{SUPABASE_URL}/rest/v1/lan_devices?id=eq.{dev['id']}",
+                                headers=SUPABASE_HEADERS,
+                                json={"status": new_status, "last_seen": datetime.now(timezone.utc).isoformat()}
+                            )
+                        if is_online:
+                            summary_nodes.append(f"{dev.get('device_name')} ({dev.get('device_type')}) @ {dev_ip} [ONLINE]")
+            finally:
+                if should_close:
+                    await http_c.aclose()
         except Exception as e:
             logger.error(f"[LAN Supabase Sync Error]: {e}")
 
-    return json.dumps({
-        "status": "SCAN_COMPLETE",
-        "active_devices_found": len(discovered),
-        "nodes": discovered[:20]
-    })
+    if not summary_nodes:
+        summary_nodes = [f"Device {ip}" for ip in sorted(all_active_ips)]
+
+    summary_str = ", ".join(summary_nodes) if summary_nodes else "None responding to ping"
+    return f"Active devices discovered on subnet {subnet}.x ({len(all_active_ips)} active nodes): {summary_str}."
+
+
+async def tool_scan_wifi_network(client: httpx.AsyncClient) -> str:
+    """Alias for tool_scan_local_network with client injection."""
+    return await tool_scan_local_network(subnet="auto", client=client)
 
 
 # =====================================================================
@@ -1335,6 +1545,19 @@ AGENT_TOOLS = [
     {
         "type": "function",
         "function": {
+            "name": "tool_scan_local_network",
+            "description": "Scan the local Wi-Fi mesh network for active IP addresses, TVs, and laptops.",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "subnet": {"type": "string", "description": "Subnet prefix, e.g. '192.168.100' or '192.168.1'"}
+                }
+            }
+        }
+    },
+    {
+        "type": "function",
+        "function": {
             "name": "scan_wifi_network",
             "description": "Scan the local Wi-Fi network (LAN) to discover active IPs, MAC addresses, Smart TVs, laptops, and IoT gadgets.",
             "parameters": {"type": "object", "properties": {}}
@@ -1407,10 +1630,11 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
     # Smart Intent Gate: Only attach heavy tool schemas if the prompt actually asks for an action/lookup
     lower_in = user_input.lower()
     tool_triggers = [
-        "weather", "news", "cyber", "cve", "war", "conflict", "sitrep", "sweep", "sync",
+        "weather", "news", "sports", "sport", "football", "soccer", "premier league", "champions league", "athletics", "marathon", "f1", "formula 1", "cyber", "cve", "war", "conflict", "sitrep", "sweep", "sync",
         "remind", "task", "todo", "schedule", "mpesa", "ksh", "kes", "paid", "spent", "receipt",
         "vault", "idea", "remember", "save", "dive", "investigate", "search", "probe", "http",
-        "ping", "wifi", "mesh", "device", "tv", "wol", "wake", "power", "volume", "mute", "osint"
+        "ping", "wifi", "mesh", "device", "tv", "wol", "wake", "power", "volume", "mute", "osint",
+        "scan", "network", "lan", "subnet", "ip", "laptop", "router"
     ]
     needs_tools = any(k in lower_in for k in tool_triggers)
 
@@ -1454,7 +1678,17 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                     result = await tool_live_web_probe(client, args.get("url", ""))
                 elif fn_name == "trigger_sensor_sweep":
                     force_sync_event.set()
-                    result = "Telemetry synchronization initiated across conflict, macro, weather, and cyber sensors."
+                    sweep_res = await execute_complete_sensor_sweep(client, is_proactive=False)
+                    b = sweep_res.get("sitrep", {})
+                    dds = sweep_res.get("deep_dives", [])
+                    dd_str = "\n".join([f"• {d['subject']}: {d.get('latest_developments', '')}\n  Impact: {d.get('why_it_matters', '')}" for d in dds[:3]])
+                    result = (
+                        f"Real-time sensor sweep executed across kinetic, macroeconomic, cyber, and local channels.\n"
+                        f"Threat Level: {b.get('threat_level', 'NOMINAL')}\n\n"
+                        f"Tactical Situation: {b.get('sitrep', '')}\n\n"
+                        f"Active Theaters: {b.get('conflict_summary', '')}\n\n"
+                        f"Key Evolving Angles:\n{dd_str}"
+                    )
                 elif fn_name == "manage_tasks":
                     result = await tool_manage_tasks(
                         client, args.get("action", "list"), args.get("title", ""),
@@ -1475,8 +1709,9 @@ async def run_agent_turn(client: httpx.AsyncClient, user_input: str) -> str:
                         args.get("entity_type", "PERSON"),
                         args.get("specific_angle", "")
                     )
-                elif fn_name == "scan_wifi_network":
-                    result = await tool_scan_wifi_network(client)
+                elif fn_name in ("tool_scan_local_network", "scan_wifi_network"):
+                    subnet_arg = args.get("subnet", "")
+                    result = await tool_scan_local_network(subnet=subnet_arg, client=client)
                 elif fn_name == "control_lan_device":
                     result = await tool_control_lan_device(
                         client,
@@ -1587,50 +1822,88 @@ async def sync_conflict_and_macro(client: httpx.AsyncClient) -> list[dict]:
 # =====================================================================
 # --- STRATEGIC 4-PILLAR SITREP SYNTHESIS ---
 # =====================================================================
+def _clean_bullet_field(val) -> str:
+    if isinstance(val, list):
+        return "\n".join([f"• {str(x).lstrip('•- ')}" for x in val if str(x).strip()])
+    return str(val).strip()
+
+
 async def synthesize_tactical_sitrep(
     client: httpx.AsyncClient,
     weather: list[dict],
     news: list[dict],
     cyber: list[dict],
-    conflict_macro: list[dict]
+    conflict_macro: list[dict],
+    topic_deep_dives: list[dict] = None
 ) -> dict:
-    """Synthesize wars, macro shocks, cyber threats, and weather into Protection & Upside Protocols."""
+    """Synthesize wars, macro shocks, cyber threats, and weather into Protection & Upside Protocols with strict anti-repetition."""
+    global LAST_SITREP_CACHE
+
     if not GROQ_API_KEY:
         record = {
             "threat_level": "NOMINAL",
             "sitrep": "Multi-network sensors online. Monitoring kinetic conflicts and macroeconomic stability.",
             "conflict_summary": "Red Sea, Eastern Europe, and Horn of Africa corridors under active surveillance.",
             "future_risk_forecast": "Watch fuel pricing and shipping delays into Mombasa port over next 14-30 days.",
-            "defensive_protocol": "Maintain USD reserves; verify edge DNS failover; backup local repositories.",
-            "asymmetric_upside": "Position in domestic cash-generative equities (SCOM, banking) and cloud resilience audits.",
+            "defensive_protocol": "• Maintain USD reserves\n• Verify edge DNS failover\n• Backup local repositories",
+            "asymmetric_upside": "• Position in domestic cash-generative equities\n• Cloud resilience audits",
             "created_at": datetime.now(timezone.utc).isoformat()
         }
         if SUPABASE_URL and SUPABASE_SERVICE_KEY:
             await client.post(f"{SUPABASE_URL}/rest/v1/tactical_briefings", headers=SUPABASE_HEADERS, json=record)
         return record
 
+    # Hydrate LAST_SITREP_CACHE if empty
+    if not LAST_SITREP_CACHE.get("sitrep") and SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            prev_resp = await client.get(f"{SUPABASE_URL}/rest/v1/tactical_briefings?select=*&order=created_at.desc&limit=1", headers=SUPABASE_HEADERS, timeout=8)
+            if prev_resp.status_code == 200 and prev_resp.json():
+                row = prev_resp.json()[0]
+                LAST_SITREP_CACHE.update(row)
+        except Exception:
+            pass
+
     memory_context = await get_operator_memory(client)
     telemetry_dump = json.dumps({
-        "local_weather": [w for w in weather if w["scope"] == "LOCAL"],
-        "global_and_local_news": news[:10],
-        "cyber_alerts": cyber[:6],
-        "wars_and_macro_shocks": conflict_macro[:10]
+        "local_weather": [{"city": w.get("city"), "temp_c": w.get("temp_c"), "condition": w.get("condition")} for w in weather if w.get("scope") == "LOCAL"],
+        "global_and_local_news": [{"title": n.get("title", "").split(" // [TACTICAL INTEL]:")[0], "source": n.get("source"), "scope": n.get("scope")} for n in news[:8]],
+        "cyber_alerts": [{"title": c.get("title"), "severity": c.get("severity")} for c in cyber[:5]],
+        "wars_and_macro_shocks": [{"headline": m.get("headline"), "theater": m.get("theater"), "severity": m.get("severity")} for m in conflict_macro[:8]]
     })
+
+    prev_sitrep_context = ""
+    if LAST_SITREP_CACHE.get("sitrep"):
+        prev_sitrep_context = f"""PREVIOUS SITREP GIVEN TO OPERATOR:
+- Last SitRep: {LAST_SITREP_CACHE.get('sitrep')}
+- Last Theaters: {LAST_SITREP_CACHE.get('conflict_summary')}
+- Last Forecast: {LAST_SITREP_CACHE.get('future_risk_forecast')}
+"""
 
     prompt = f"""OPERATOR MEMORY & ASSET PROFILE:
 {memory_context}
 
+{prev_sitrep_context}
+INCOMING IN-DEPTH TOPIC DEEP DIVES (FRESH DEVELOPMENTS AROUND ACTIVE THEMES):
+{json.dumps(topic_deep_dives or [], indent=2)}
+
 INCOMING MULTI-NETWORK TELEMETRY:
 {telemetry_dump}
 
-Synthesize this intelligence in the voice of Cortana/J.A.R.V.I.S. Output valid JSON strictly matching this schema:
+STRICT NON-REPETITION & IN-DEPTH INTELLIGENCE DIRECTIVES:
+1. DO NOT repeat the previous briefing or boilerplate statements. The operator already received that briefing.
+2. Provide FRESH TACTICAL DEPTH, NEW DEVELOPMENTS, specific logistical/pricing metrics, and emerging details on or around the active subjects.
+3. Directly incorporate the IN-DEPTH TOPIC DEEP DIVES (e.g., freight cost surcharges, energy tariffs, specific CVEs, regional diplomacy).
+4. If a conflict or economic situation remains ongoing, do not just restate that it is happening; analyze the underlying shift, tactical pivot, or second-order consequences.
+5. Synthesize in the sharp operational voice of Cortana / J.A.R.V.I.S.
+
+Output valid JSON strictly matching this schema:
 {{
   "threat_level": "NOMINAL" | "ELEVATED" | "CRITICAL",
-  "sitrep": "Executive synthesis (under 90 words) cross-referencing CNN, BBC, Al Jazeera, Fox, and local Kenya feeds.",
-  "conflict_summary": "Status of active kinetic wars (Red Sea/Middle East, Eastern Europe, Horn of Africa/Sudan/Somalia, Indo-Pacific) and maritime chokepoints.",
+  "sitrep": "Executive synthesis (under 110 words) focusing on fresh developments, tactical shifts, and active situations without repeating prior statements.",
+  "conflict_summary": "In-depth status of active kinetic and logistics flashpoints (Red Sea, Horn of Africa, Eastern Europe, Indo-Pacific) highlighting specific shifts.",
   "future_risk_forecast": "Second-order economic, cyber, or supply-chain shocks projected over the next 7-30 days (fuel/import inflation, KES/USD pressure, cloud/undersea cable risks).",
   "defensive_protocol": "3 concrete actions the operator must take immediately to protect capital, infrastructure, and local operations.",
-  "asymmetric_upside": "3 concrete ways the operator can benefit (NSE equity positioning, currency/commodity hedges, or high-demand technical/software opportunities created by the crisis)."
+  "asymmetric_upside": "3 concrete ways the operator can benefit (NSE equity positioning, currency/commodity hedges, or software opportunities created by the crisis)."
 }}"""
 
     try:
@@ -1645,14 +1918,16 @@ Synthesize this intelligence in the voice of Cortana/J.A.R.V.I.S. Output valid J
         parsed = json.loads(msg.get("content", "{}"))
 
         record = {
-            "threat_level": parsed.get("threat_level", "NOMINAL"),
-            "sitrep": parsed.get("sitrep", ""),
-            "conflict_summary": parsed.get("conflict_summary", ""),
-            "future_risk_forecast": parsed.get("future_risk_forecast", ""),
-            "defensive_protocol": parsed.get("defensive_protocol", ""),
-            "asymmetric_upside": parsed.get("asymmetric_upside", ""),
+            "threat_level": parsed.get("threat_level") or "ELEVATED",
+            "sitrep": _clean_bullet_field(parsed.get("sitrep") or parsed.get("situation") or ""),
+            "conflict_summary": _clean_bullet_field(parsed.get("conflict_summary") or parsed.get("active_theaters") or parsed.get("theaters") or ""),
+            "future_risk_forecast": _clean_bullet_field(parsed.get("future_risk_forecast") or parsed.get("risk_forecast") or parsed.get("forecast") or ""),
+            "defensive_protocol": _clean_bullet_field(parsed.get("defensive_protocol") or parsed.get("defensive_actions") or ""),
+            "asymmetric_upside": _clean_bullet_field(parsed.get("asymmetric_upside") or parsed.get("upside") or ""),
             "created_at": datetime.now(timezone.utc).isoformat()
         }
+
+        LAST_SITREP_CACHE.update(record)
 
         if SUPABASE_URL and SUPABASE_SERVICE_KEY:
             await client.post(f"{SUPABASE_URL}/rest/v1/tactical_briefings", headers=SUPABASE_HEADERS, json=record)
@@ -1663,9 +1938,9 @@ Synthesize this intelligence in the voice of Cortana/J.A.R.V.I.S. Output valid J
             "threat_level": "ELEVATED",
             "sitrep": "Sensors active across kinetic and economic theaters. Synthesis operational fault encountered.",
             "conflict_summary": "Telemetry channels streaming.",
-            "future_risk_forecast": "Monitor maritime chokepoints.",
-            "defensive_protocol": "Verify critical backup power and offline repository snapshots.",
-            "asymmetric_upside": "Track high-yield domestic liquidity yields.",
+            "future_risk_forecast": "Monitor maritime chokepoints and currency liquidity.",
+            "defensive_protocol": "• Verify critical backup power\n• Retain offline repository snapshots\n• Maintain USD cash buffers",
+            "asymmetric_upside": "• Track high-yield domestic liquidity yields",
             "created_at": datetime.now(timezone.utc).isoformat()
         }
 
@@ -1693,33 +1968,61 @@ async def transcribe_telegram_voice(client: httpx.AsyncClient, file_id: str) -> 
 
 
 async def analyze_telegram_photo(client: httpx.AsyncClient, file_id: str, caption: str = "") -> str:
-    if not GROQ_API_KEY:
-        return "Vision OCR requires GROQ_API_KEY."
+    if not GROQ_API_KEY and not GEMINI_API_KEY:
+        return "Vision OCR requires GEMINI_API_KEY or GROQ_API_KEY."
     try:
         file_resp = await client.get(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/getFile", params={"file_id": file_id}, timeout=15)
         file_path = file_resp.json()["result"]["file_path"]
         img_bytes = (await client.get(f"https://api.telegram.org/file/bot{TELEGRAM_TOKEN}/{file_path}", timeout=25)).content
         b64_image = base64.b64encode(img_bytes).decode("utf-8")
 
-        headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
         prompt = (
             "Extract all text, confirmation codes, amounts, dates, merchants, and actionable details "
             f"from this document image. Caption: {caption}"
         )
-        payload = {
-            "model": VISION_MODEL,
-            "messages": [{
-                "role": "user",
-                "content": [
-                    {"type": "text", "text": prompt},
-                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64_image}"}}
-                ]
-            }],
-            "temperature": 0.1
-        }
-        resp = await client.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=35)
-        resp.raise_for_status()
-        return resp.json()["choices"][0]["message"]["content"]
+
+        # 1. Primary: Google Gemini Vision (massively accurate multi-modal extraction)
+        if GEMINI_API_KEY:
+            try:
+                g_headers = {"Authorization": f"Bearer {GEMINI_API_KEY}", "Content-Type": "application/json"}
+                g_payload = {
+                    "model": "gemini-3.5-flash-lite",
+                    "messages": [{
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": prompt},
+                            {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64_image}"}}
+                        ]
+                    }],
+                    "temperature": 0.1
+                }
+                g_resp = await client.post(GEMINI_CHAT_URL, headers=g_headers, json=g_payload, timeout=35)
+                if g_resp.status_code == 200:
+                    return g_resp.json()["choices"][0]["message"]["content"]
+                else:
+                    logger.warning(f"[Gemini Vision {g_resp.status_code}] Falling back to Groq Vision...")
+            except Exception as g_err:
+                logger.warning(f"[Gemini Vision error]: {g_err}")
+
+        # 2. Secondary Failover: Groq Vision
+        if GROQ_API_KEY:
+            headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
+            payload = {
+                "model": VISION_MODEL,
+                "messages": [{
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": prompt},
+                        {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{b64_image}"}}
+                    ]
+                }],
+                "temperature": 0.1
+            }
+            resp = await client.post(GROQ_CHAT_URL, headers=headers, json=payload, timeout=35)
+            resp.raise_for_status()
+            return resp.json()["choices"][0]["message"]["content"]
+
+        return "Vision extraction unavailable."
     except Exception as e:
         logger.error(f"[Vision Error]: {e}")
         return f"Document analysis fault: {e}"
@@ -1803,44 +2106,195 @@ async def sync_weather(client: httpx.AsyncClient) -> list[dict]:
     return results
 
 
-async def sync_news(client: httpx.AsyncClient) -> list[dict]:
-    new_articles = []
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
-    for feed in NEWS_FEEDS:
+async def enrich_news_with_depth(client: httpx.AsyncClient, articles: list[dict]) -> tuple[list[dict], list[dict]]:
+    """
+    Enriches incoming articles with in-depth operational intelligence.
+    Extracts structured topic deep dives (latest developments, second-order ripples, and operator impact).
+    """
+    if not articles or not GROQ_API_KEY:
+        return articles, []
+
+    sample = articles[:6]
+    items_for_prompt = []
+    for a in sample:
+        clean_t = a.get("title", "").split(" // [TACTICAL INTEL]:")[0].strip()
+        desc = a.get("description", "")[:200].strip()
+        items_for_prompt.append({
+            "source": a.get("source"),
+            "scope": a.get("scope"),
+            "title": clean_t,
+            "summary": desc if desc else clean_t
+        })
+
+    prompt = f"""You are HALO's Tactical Intelligence Analyst.
+Analyze these incoming raw news dispatches collected in the latest sweep across global & local sensors:
+{json.dumps(items_for_prompt, indent=2)}
+
+Provide IN-DEPTH OPERATIONAL INTELLIGENCE around these subjects. For each distinct subject/theater, extract:
+- subject: The active theme title (e.g., 'Red Sea & Bab-el-Mandeb Logistics', 'Kenya Forex & Central Bank Reserves', 'East Africa Energy Grid', 'Critical Infrastructure Cyber Threats')
+- latest_developments: Specific new details/developments (do NOT just repeat the headline; explain the latest tactical shift)
+- in_depth_context: Underlying mechanics, second-order economic/logistics/security ripples (freight rates, transit delays, inflation pass-through, or patch urgencies)
+- why_it_matters: Specific tactical consequence for our operator (Michael Obiero, based in Nairobi/Kitengela, managing tech infrastructure and capital)
+- theater: 'RED-SEA-MIDEAST' | 'EAST-AFRICA' | 'CYBER' | 'GLOBAL' | 'KENYA-LOCAL'
+
+Output valid JSON strictly as an array of objects matching this schema:
+[
+  {{
+    "subject": "Theme Title",
+    "latest_developments": "...",
+    "in_depth_context": "...",
+    "why_it_matters": "...",
+    "theater": "..."
+  }}
+]"""
+
+    try:
+        msg = await call_llm_with_failover(
+            client,
+            [
+                {"role": "system", "content": SYSTEM_PERSONA + " Always respond in valid JSON."},
+                {"role": "user", "content": prompt}
+            ],
+            json_mode=True
+        )
+        parsed = json.loads(msg.get("content", "[]"))
+        if not isinstance(parsed, list):
+            parsed = [parsed] if isinstance(parsed, dict) else []
+
+        # Map deep-dive context back to articles
+        enriched_articles = []
+        for art in articles:
+            clean_title = art["title"].split(" // [TACTICAL INTEL]:")[0].strip()
+            matched_dd = None
+            for dd in parsed:
+                subj_words = [w.lower() for w in dd.get("subject", "").split() if len(w) > 3]
+                if any(w in clean_title.lower() for w in subj_words) or any(w in art.get("source", "").lower() for w in subj_words):
+                    matched_dd = dd
+                    break
+            if not matched_dd and parsed:
+                matched_dd = parsed[0]
+
+            art_copy = dict(art)
+            if matched_dd:
+                art_copy["in_depth_context"] = matched_dd.get("in_depth_context", "")
+                art_copy["why_it_matters"] = matched_dd.get("why_it_matters", "")
+                art_copy["subject"] = matched_dd.get("subject", "ACTIVE THEATER")
+                short_note = matched_dd.get("why_it_matters", "")[:180]
+                art_copy["title"] = f"{clean_title} // [TACTICAL INTEL]: {short_note}"
+            else:
+                art_copy["in_depth_context"] = ""
+                art_copy["why_it_matters"] = ""
+                art_copy["subject"] = art.get("source", "GENERAL")
+            enriched_articles.append(art_copy)
+
+        return enriched_articles, parsed
+    except Exception as e:
+        logger.error(f"[News In-Depth Enrichment Error]: {e}")
+        return articles, []
+
+
+async def sync_news(client: httpx.AsyncClient) -> tuple[list[dict], list[dict]]:
+    """
+    Ingests fresh news using dynamic rotating topic queries around active subjects.
+    Prevents repeating the same headlines on every sweep.
+    Enriches dispatches with in-depth tactical intelligence and second-order impacts.
+    """
+    global SWEEP_CYCLE_INDEX, SEEN_ARTICLE_HASHES
+    SWEEP_CYCLE_INDEX += 1
+
+    # Select 2 base feeds + 2 rotating thematic feeds + 2 rotating sports feeds
+    active_feeds = list(BASE_NEWS_FEEDS[:2])
+    num_rotating = len(ROTATING_TOPIC_FEEDS)
+    if num_rotating > 0:
+        for offset in range(2):
+            idx = (SWEEP_CYCLE_INDEX * 2 + offset) % num_rotating
+            active_feeds.append(ROTATING_TOPIC_FEEDS[idx])
+
+    num_sports = len(SPORTS_NEWS_FEEDS)
+    if num_sports > 0:
+        for offset in range(2):
+            s_idx = (SWEEP_CYCLE_INDEX * 2 + offset) % num_sports
+            active_feeds.append(SPORTS_NEWS_FEEDS[s_idx])
+
+    candidate_articles = []
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; TacticalIntel/4.0)"}
+
+    for feed in active_feeds:
         try:
-            resp = await client.get(feed["url"], headers=headers, timeout=20)
+            resp = await client.get(feed["url"], headers=headers, timeout=18)
             if resp.status_code != 200:
                 continue
             root = ET.fromstring(resp.content)
-            for item in root.findall(".//item")[:5]:
-                title = (item.findtext("title") or "Untitled").strip()
+            for item in root.findall(".//item")[:6]:
+                raw_title = (item.findtext("title") or "Untitled").strip()
                 link = item.findtext("link") or ""
-                if not title:
+                if not raw_title:
                     continue
-                content_hash = hashlib.sha256(f"{title}{link}".encode()).hexdigest()
 
-                if SUPABASE_URL and SUPABASE_SERVICE_KEY:
-                    try:
-                        check = await client.get(f"{SUPABASE_URL}/rest/v1/news_articles?content_hash=eq.{content_hash}&select=id", headers=SUPABASE_HEADERS, timeout=10)
-                        if check.status_code == 200 and len(check.json()) > 0:
-                            continue
-                    except Exception:
-                        pass
+                raw_desc = (item.findtext("description") or "").strip()
+                clean_desc = re.sub(r"<[^>]+>", "", raw_desc).strip()
+
+                content_hash = hashlib.sha256(f"{raw_title}{link}".encode()).hexdigest()
+                if content_hash in SEEN_ARTICLE_HASHES:
+                    continue
+                SEEN_ARTICLE_HASHES.add(content_hash)
 
                 article = {
-                    "scope": feed["scope"], "source": feed["source"], "title": title, "link": link,
-                    "content_hash": content_hash, "published_at": (item.findtext("pubDate") or "")[:30],
+                    "scope": feed.get("scope", "GLOBAL"),
+                    "source": feed.get("source", "News Wire"),
+                    "title": raw_title,
+                    "description": clean_desc,
+                    "link": link,
+                    "content_hash": content_hash,
+                    "published_at": (item.findtext("pubDate") or "")[:30],
                     "created_at": datetime.now(timezone.utc).isoformat()
                 }
-                new_articles.append(article)
-                if SUPABASE_URL and SUPABASE_SERVICE_KEY:
-                    try:
-                        await client.post(f"{SUPABASE_URL}/rest/v1/news_articles", headers=SUPABASE_HEADERS, json=article, timeout=10)
-                    except Exception:
-                        pass
+                candidate_articles.append(article)
         except Exception as e:
-            logger.error(f"[News Feed Error - {feed['source']}]: {e}")
-    return new_articles
+            logger.error(f"[News Feed Error - {feed.get('source')}]: {e}")
+
+    # Keep seen cache capped at 250 items
+    if len(SEEN_ARTICLE_HASHES) > 250:
+        SEEN_ARTICLE_HASHES = set(list(SEEN_ARTICLE_HASHES)[-150:])
+
+    # If candidate articles gathered is small, also fetch latest stored from Supabase to provide depth context
+    working_pool = list(candidate_articles)
+    if len(working_pool) < 4 and SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            supa_resp = await client.get(f"{SUPABASE_URL}/rest/v1/news_articles?select=*&order=created_at.desc&limit=6", headers=SUPABASE_HEADERS, timeout=8)
+            if supa_resp.status_code == 200:
+                existing_supa = supa_resp.json()
+                for row in existing_supa:
+                    if not any(x["content_hash"] == row.get("content_hash") for x in working_pool):
+                        working_pool.append(row)
+        except Exception:
+            pass
+
+    # Enrich working pool with in-depth operational analysis
+    enriched_articles, topic_deep_dives = await enrich_news_with_depth(client, working_pool)
+
+    # Persist brand new articles to Supabase via batch insert
+    if candidate_articles and SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        to_post = []
+        for art in enriched_articles:
+            if any(c["content_hash"] == art["content_hash"] for c in candidate_articles):
+                to_post.append({
+                    "scope": art["scope"],
+                    "source": art["source"],
+                    "title": art["title"],
+                    "link": art["link"],
+                    "content_hash": art["content_hash"],
+                    "published_at": art.get("published_at"),
+                    "created_at": art["created_at"]
+                })
+        if to_post:
+            try:
+                batch_headers = {**SUPABASE_HEADERS, "Prefer": "resolution=ignore-duplicates"}
+                await client.post(f"{SUPABASE_URL}/rest/v1/news_articles?on_conflict=content_hash", headers=batch_headers, json=to_post, timeout=10)
+            except Exception:
+                pass
+
+    return enriched_articles, topic_deep_dives
 
 
 async def sync_cyber_alerts(client: httpx.AsyncClient) -> list[dict]:
@@ -1865,14 +2319,6 @@ async def sync_cyber_alerts(client: httpx.AsyncClient) -> list[dict]:
                     "created_at": datetime.now(timezone.utc).isoformat()
                 }
                 new_alerts.append(alert)
-
-                if SUPABASE_URL and SUPABASE_SERVICE_KEY:
-                    try:
-                        check = await client.get(f"{SUPABASE_URL}/rest/v1/cyber_alerts?content_hash=eq.{content_hash}&select=id", headers=SUPABASE_HEADERS, timeout=10)
-                        if check.status_code == 200 and len(check.json()) == 0:
-                            await client.post(f"{SUPABASE_URL}/rest/v1/cyber_alerts", headers=SUPABASE_HEADERS, json=alert, timeout=10)
-                    except Exception:
-                        pass
     except Exception as e:
         logger.error(f"[CISA KEV Error]: {e}")
 
@@ -1898,15 +2344,17 @@ async def sync_cyber_alerts(client: httpx.AsyncClient) -> list[dict]:
                         "created_at": datetime.now(timezone.utc).isoformat()
                     }
                     new_alerts.append(alert)
-                    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
-                        try:
-                            check = await client.get(f"{SUPABASE_URL}/rest/v1/cyber_alerts?content_hash=eq.{content_hash}&select=id", headers=SUPABASE_HEADERS, timeout=10)
-                            if check.status_code == 200 and len(check.json()) == 0:
-                                await client.post(f"{SUPABASE_URL}/rest/v1/cyber_alerts", headers=SUPABASE_HEADERS, json=alert, timeout=10)
-                        except Exception:
-                            pass
         except Exception as e:
             logger.error(f"[Cyber Feed Error - {feed['source']}]: {e}")
+
+    # High-efficiency batch insert into Supabase
+    if new_alerts and SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            batch_headers = {**SUPABASE_HEADERS, "Prefer": "resolution=ignore-duplicates"}
+            await client.post(f"{SUPABASE_URL}/rest/v1/cyber_alerts?on_conflict=content_hash", headers=batch_headers, json=new_alerts, timeout=10)
+        except Exception:
+            pass
+
     return new_alerts
 
 
@@ -1939,13 +2387,17 @@ async def sync_conflict_and_macro(client: httpx.AsyncClient) -> list[dict]:
                         "created_at": datetime.now(timezone.utc).isoformat()
                     }
                     new_intel.append(intel_item)
-                    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
-                        try:
-                            await client.post(f"{SUPABASE_URL}/rest/v1/conflict_and_macro_intel", headers=SUPABASE_HEADERS, json=intel_item, timeout=10)
-                        except Exception:
-                            pass
         except Exception as e:
             logger.error(f"[Conflict Feed Error - {feed['source']}]: {e}")
+
+    # High-efficiency batch insert into Supabase
+    if new_intel and SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            batch_headers = {**SUPABASE_HEADERS, "Prefer": "resolution=ignore-duplicates"}
+            await client.post(f"{SUPABASE_URL}/rest/v1/conflict_and_macro_intel?on_conflict=content_hash", headers=batch_headers, json=new_intel, timeout=10)
+        except Exception:
+            pass
+
     return new_intel
 
 
@@ -2169,64 +2621,125 @@ async def reminder_worker(client: httpx.AsyncClient):
         await asyncio.sleep(60)
 
 
+async def execute_complete_sensor_sweep(client: httpx.AsyncClient, is_proactive: bool = False) -> dict:
+    """
+    Executes a comprehensive, non-repetitive sensor sweep across weather, news, cyber, and conflict/macro streams.
+    Dynamically rotates topic search angles on & around active subjects to guarantee fresh intelligence.
+    Extracts deep-dive tactical context (developments, underlying mechanics, and operator impact).
+    Persists data to Supabase and telemetry_live.json, and optionally dispatches proactive Telegram SitRep.
+    """
+    logger.info("Initiating dynamic tactical sensor sweep (anti-repetition + in-depth topic rotation)...")
+    weather = await sync_weather(client)
+    news, topic_deep_dives = await sync_news(client)
+    cyber = await sync_cyber_alerts(client)
+    conflict_macro = await sync_conflict_and_macro(client)
+
+    b = await synthesize_tactical_sitrep(client, weather, news, cyber, conflict_macro, topic_deep_dives)
+
+    # Persist real telemetry into telemetry_live.json so web HUD has real-time access
+    try:
+        live_path = Path(__file__).resolve().parent / "telemetry_live.json"
+        existing = {}
+        if live_path.exists():
+            try:
+                with open(live_path, "r", encoding="utf-8") as f:
+                    existing = json.load(f)
+            except Exception:
+                pass
+
+        payload = {
+            "sitrep": b,
+            "weather": weather if weather else existing.get("weather", []),
+            "cyber": cyber if cyber else existing.get("cyber", []),
+            "news": news if news else existing.get("news", []),
+            "conflicts": conflict_macro if conflict_macro else existing.get("conflicts", []),
+            "topic_deep_dives": topic_deep_dives if topic_deep_dives else existing.get("topic_deep_dives", []),
+            "lan_devices": existing.get("lan_devices", []),
+            "tasks": existing.get("tasks", []),
+            "ledger": existing.get("ledger", []),
+            "vault": existing.get("vault", []),
+            "generated_at": datetime.now(timezone.utc).isoformat()
+        }
+        with open(live_path, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2, ensure_ascii=False)
+    except Exception as se:
+        logger.error(f"[Telemetry Live Save Error]: {se}")
+
+    global LAST_TELEGRAM_DISPATCH_TIME
+
+    if is_proactive and (news or cyber or conflict_macro or force_sync_event.is_set()) and TELEGRAM_TOKEN and AUTHORIZED_CHAT_ID:
+        is_breaking, breaking_reason = is_breaking_news_event(b, news, cyber, conflict_macro)
+        now_ts = time.time()
+        time_since_last = now_ts - LAST_TELEGRAM_DISPATCH_TIME
+        should_dispatch = False
+
+        if is_breaking:
+            logger.info(f"[🚨 BREAKING NEWS DETECTED]: {breaking_reason} - Bypassing 20-minute interval and dispatching immediately!")
+            should_dispatch = True
+        elif force_sync_event.is_set():
+            logger.info("[Manual Force Sync]: Triggering Telegram dispatch.")
+            should_dispatch = True
+        elif time_since_last >= TELEGRAM_DISPATCH_INTERVAL or LAST_TELEGRAM_DISPATCH_TIME == 0.0:
+            logger.info(f"[Routine 20-Min Interval Reached]: Elapsed {time_since_last:.0f}s >= {TELEGRAM_DISPATCH_INTERVAL}s. Dispatching SitRep.")
+            should_dispatch = True
+        else:
+            remaining_m = int((TELEGRAM_DISPATCH_INTERVAL - time_since_last) // 60)
+            remaining_s = int((TELEGRAM_DISPATCH_INTERVAL - time_since_last) % 60)
+            logger.info(f"[Telegram Standby]: Nominal conditions (no breaking news). Next routine dispatch in {remaining_m}m {remaining_s}s. Telemetry recorded silently.")
+
+        if should_dispatch:
+            try:
+                deep_dives_summary = ""
+                if topic_deep_dives:
+                    bullets = []
+                    for dd in topic_deep_dives[:3]:
+                        bullets.append(f"• *{dd.get('subject', 'THEATER')}:* {dd.get('latest_developments', '')}\n  ↳ _Tactical Impact:_ {dd.get('why_it_matters', '')}")
+                    deep_dives_summary = "\n\n2. *IN-DEPTH THEATER EVOLUTION (ACTIVE SUBJECTS):*\n" + "\n".join(bullets)
+
+                header_prefix = "🚨 *BREAKING TACTICAL ALERT" if is_breaking else "🛡️ *OVERWATCH SITREP"
+                breaking_banner = f"\n⚠️ *FLASH TRIGGER:* _{breaking_reason}_\n" if is_breaking else ""
+
+                telegram_dispatch = (
+                    f"{header_prefix} // [{b['threat_level']}]*\n"
+                    f"{breaking_banner}\n"
+                    f"1. *TACTICAL SITUATION & NEW DEVELOPMENTS:*\n{b['sitrep']}"
+                    f"{deep_dives_summary}\n\n"
+                    f"3. *ACTIVE THEATERS & CHOKEPOINTS:*\n{b['conflict_summary']}\n\n"
+                    f"4. *SECOND-ORDER RISK FORECAST (7-30 DAYS):*\n{b['future_risk_forecast']}\n\n"
+                    f"5. *DEFENSIVE PROTOCOL:*\n{b['defensive_protocol']}\n\n"
+                    f"6. *ASYMMETRIC UPSIDE:*\n{b['asymmetric_upside']}"
+                )
+                await send_telegram(client, telegram_dispatch)
+                LAST_TELEGRAM_DISPATCH_TIME = now_ts
+            except Exception as e:
+                logger.error(f"[Synthesis Dispatch Error]: {e}")
+
+    return {
+        "sitrep": b,
+        "weather": weather,
+        "news": news,
+        "cyber": cyber,
+        "conflicts": conflict_macro,
+        "deep_dives": topic_deep_dives
+    }
+
+
 async def collector_worker(client: httpx.AsyncClient):
-    """Executes periodic sensor sync and generates proactive Tactical SitReps with real telemetry persistence."""
-    logger.info(f"Tactical telemetry daemon active (Interval: {SYNC_INTERVAL}s)...")
+    """
+    Executes continuous sensor sweeps (default every 5 minutes to rapidly intercept
+    breaking news events and update live telemetry), while enforcing a strict 20-minute
+    dispatch interval for routine non-breaking Telegram SitReps.
+    """
+    sweep_sleep = min(SYNC_INTERVAL, 300)
+    logger.info(f"Tactical telemetry daemon active (Sweep cycle: {sweep_sleep}s, Telegram routine cadence: {TELEGRAM_DISPATCH_INTERVAL}s)...")
     while True:
         try:
-            weather = await sync_weather(client)
-            news = await sync_news(client)
-            cyber = await sync_cyber_alerts(client)
-            conflict_macro = await sync_conflict_and_macro(client)
-
-            b = await synthesize_tactical_sitrep(client, weather, news, cyber, conflict_macro)
-
-            # Persist real telemetry into telemetry_live.json so web HUD has real-time access
-            try:
-                live_path = Path(__file__).resolve().parent / "telemetry_live.json"
-                existing = {}
-                if live_path.exists():
-                    try:
-                        with open(live_path, "r", encoding="utf-8") as f:
-                            existing = json.load(f)
-                    except Exception:
-                        pass
-
-                payload = {
-                    "sitrep": b,
-                    "weather": weather if weather else existing.get("weather", []),
-                    "cyber": cyber if cyber else existing.get("cyber", []),
-                    "news": news if news else existing.get("news", []),
-                    "conflicts": conflict_macro if conflict_macro else existing.get("conflicts", []),
-                    "lan_devices": existing.get("lan_devices", []),
-                    "tasks": existing.get("tasks", []),
-                    "ledger": existing.get("ledger", []),
-                    "vault": existing.get("vault", []),
-                    "generated_at": datetime.now(timezone.utc).isoformat()
-                }
-                with open(live_path, "w", encoding="utf-8") as f:
-                    json.dump(payload, f, indent=2, ensure_ascii=False)
-            except Exception as se:
-                logger.error(f"[Telemetry Live Save Error]: {se}")
-
-            if (news or cyber or conflict_macro or force_sync_event.is_set()) and TELEGRAM_TOKEN and AUTHORIZED_CHAT_ID:
-                try:
-                    telegram_dispatch = (
-                        f"🛡️ *OVERWATCH SITREP // [{b['threat_level']}]*\n\n"
-                        f"1. *SITUATION:*\n{b['sitrep']}\n\n"
-                        f"2. *ACTIVE WARS & CHOKEPOINTS:*\n{b['conflict_summary']}\n\n"
-                        f"3. *FUTURE THREAT FORECAST:*\n{b['future_risk_forecast']}\n\n"
-                        f"4. *DEFENSIVE PROTOCOL (PROTECT):*\n{b['defensive_protocol']}\n\n"
-                        f"5. *ASYMMETRIC UPSIDE (BENEFIT):*\n{b['asymmetric_upside']}"
-                    )
-                    await send_telegram(client, telegram_dispatch)
-                except Exception as e:
-                    logger.error(f"[Synthesis Dispatch Error]: {e}")
+            await execute_complete_sensor_sweep(client, is_proactive=True)
         except Exception as ce:
             logger.error(f"[Collector Cycle Error]: {ce}")
 
         try:
-            await asyncio.wait_for(force_sync_event.wait(), timeout=SYNC_INTERVAL)
+            await asyncio.wait_for(force_sync_event.wait(), timeout=sweep_sleep)
             force_sync_event.clear()
             logger.info("Manual telemetry sweep triggered.")
         except asyncio.TimeoutError:

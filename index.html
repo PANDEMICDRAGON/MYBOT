@@ -1604,12 +1604,16 @@
         </div>
 
         <!-- News Scope Tabs -->
-        <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1.5 flex-wrap">
           <button class="news-tab hud-btn active" data-scope="ALL" id="tab-all">All Dispatches</button>
           <button class="news-tab hud-btn text-emerald-400" data-scope="LOCAL" id="tab-local">🇰🇪 Kenya Local</button>
           <button class="news-tab hud-btn text-cyan-400" data-scope="GLOBAL" id="tab-global">🌐 World Wire</button>
+          <button class="news-tab hud-btn text-amber-400" data-scope="SPORTS" id="tab-sports">⚽ Sports Wire</button>
         </div>
       </div>
+
+      <!-- Active Theater Deep Dives & In-Depth Context -->
+      <div id="topic-deep-dives-container" class="space-y-3 mb-4"></div>
 
       <!-- Articles Grid -->
       <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>

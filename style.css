@@ -770,6 +770,13 @@ body {
   color: #94a3b8;
 }
 
+.badge-sports {
+  background: rgba(245, 158, 11, 0.18);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  color: #fbbf24;
+  box-shadow: 0 0 10px rgba(245, 158, 11, 0.25);
+}
+
 /* --- CONFLICT & MACRO CARDS --- */
 .conflict-card {
   background: rgba(6, 12, 26, 0.88);
