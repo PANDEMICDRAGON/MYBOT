@@ -57,6 +57,7 @@ graph TD
 | **Voice Idea Vault** | `idea_vault` table | Instant spoken logging for code snippets, song lyrics, or project architectures. |
 | **Vocal Web HUD** | `window.speechSynthesis` | Web dashboard that reads newly synthesized SitRep briefings aloud with one click. |
 | **Wi-Fi Cyber Scanner** | Async Socket & Banner Fingerprint | Dedicated multi-port scanner auditing 20-35 services on Wi-Fi devices (Google Cast, Roku, ADB, HTTP, SSH) across mobile and desktop. |
+| **High-Tech Typography Matrix** | Google Fonts + CSS Engine | Replaces cramped legacy fonts with movie-grade Oxanium display headers, Plus Jakarta Sans & Inter hyper-crisp body text, Space Grotesk HUD labels, JetBrains Mono telemetry, and an interactive 6-preset selector (Quantum, Stark, Cortana, Minimalist, Night City, Retro). |
 
 ---
 
