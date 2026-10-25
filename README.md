@@ -121,13 +121,18 @@ SYNC_INTERVAL=900
 
 ---
 
-### 5. Launch the Autonomous Construct
-Run the daemon:
+```powershell
+.\.venv\Scripts\python setup_phone.py
+```
+This utility validates your Telegram credentials and sends an instant test ping to your phone.
+
+### 6. Launch the 24/7 Autonomous Daemon
+Run the cognitive engine:
 ```powershell
 .\.venv\Scripts\python bot.py
 ```
 Your phone will receive an initialization ping:
-> `Tactical Intelligence Construct Online. Awaiting natural language or voice directives.`
+> `Tactical Intelligence Construct Online. Kinetic War, Macro-Economic Shocks & Protective Protocols active.`
 
 ---
 
@@ -135,6 +140,8 @@ Your phone will receive an initialization ping:
 
 You don't need rigid commands anymore; talk or speak naturally via Telegram:
 
+- **War & Macro Query**: *"Give me the latest Red Sea war impact on Kenya shipping and how to position my NSE portfolio."*  
+  -> *Queries live `conflict_and_macro_intel` and synthesizes defensive & asymmetric financial maneuvers.*
 - **Voice Memo**: Hold the mic and say: *"Remind me to push the Docker containers tomorrow at 10 AM EAT."*  
   -> *Transcribed via Whisper, calculates timestamp, schedules task in database, and notifies you when due.*
 - **Receipt / M-Pesa Photo**: Send a photo of a restaurant receipt or M-Pesa screenshot.  
@@ -148,17 +155,18 @@ You don't need rigid commands anymore; talk or speak naturally via Telegram:
 
 ---
 
-## 🌐 Deploy Web Dashboard to Vercel
+## 🌐 Live Web Command HUD (Vercel)
 
+Production URL: **[https://telemetry-news-weather.vercel.app](https://telemetry-news-weather.vercel.app)**
+
+To deploy updates directly from PowerShell:
 ```powershell
-git add .
-git commit -m "Deploy Cortana / J.A.R.V.I.S. Cognitive Command HUD"
-git push
+npx vercel --prod --yes
 ```
-Connect your GitHub repository to [Vercel](https://vercel.com) for instant deployment.
 
 On your live Vercel site:
 1. Click **Settings (⚙️)** in the top navigation bar.
 2. Enter your **Supabase URL** and **Anon Public Key**.
 3. Click **Save & Connect HUD**.
-4. Click **VOCALIZE SITREP** to hear the AI briefing spoken aloud!
+4. Click **VOCALIZE SITREP** to hear Cortana / J.A.R.V.I.S. read the strategic briefing aloud!
+
