@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Global & Local Telemetry // Weather, News & Cyber Command</title>
-  <meta name="description" content="Autonomous real-time dashboard monitoring weather, global news, and cybersecurity threat intelligence via CISA KEV, Open-Meteo, RSS feeds, and Supabase." />
+  <title>Cortana / J.A.R.V.I.S. // Cognitive Command & Telemetry HUD</title>
+  <meta name="description" content="Autonomous tactical intelligence construct and real-time telemetry HUD combining weather, global intelligence, active CVEs, voice-to-action notes, and financial ledger." />
   
   <!-- Tailwind CSS & Custom Design System -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="selection:bg-rose-500 selection:text-white">
+<body class="selection:bg-cyan-500 selection:text-black">
 
   <!-- Background Ambient Glow Accents -->
-  <div class="fixed top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <div class="fixed top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
   <div class="fixed top-1/3 right-10 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
-  <div class="fixed bottom-10 left-1/3 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+  <div class="fixed bottom-10 left-1/3 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
   <!-- Header Section -->
-  <header class="border-b border-slate-800/80 backdrop-blur-md sticky top-0 z-40 bg-slate-950/75">
+  <header class="border-b border-slate-800/80 backdrop-blur-md sticky top-0 z-40 bg-slate-950/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       
       <!-- Brand & Status -->
@@ -26,11 +26,11 @@
         <div class="status-orb" id="system-status-orb"></div>
         <div>
           <div class="flex items-center gap-2">
-            <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-              TELEMETRY <span class="text-xs px-2 py-0.5 rounded font-mono bg-rose-500/15 text-rose-400 border border-rose-500/30">COMMAND</span>
+            <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2 font-mono">
+              CORTANA // <span class="text-xs px-2 py-0.5 rounded font-mono bg-cyan-500/15 text-cyan-400 border border-cyan-500/30">J.A.R.V.I.S. HUD</span>
             </h1>
             <span id="connection-badge" class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
-              CONNECTING...
+              COGNITIVE SYNC...
             </span>
           </div>
           <p class="text-xs text-slate-400 font-mono mt-0.5" id="hud-clock">00:00:00 (LOCAL) // 00:00:00 UTC</p>
@@ -44,8 +44,8 @@
           <input 
             type="text" 
             id="telemetry-search-input" 
-            placeholder="Search CVE, threat, or news..." 
-            class="w-full bg-slate-900/90 border border-slate-700/70 rounded-lg pl-3 pr-8 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-rose-400 transition"
+            placeholder="Search CVE, directive, or news..." 
+            class="w-full bg-slate-900/90 border border-slate-700/70 rounded-lg pl-3 pr-8 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition"
           />
           <svg class="w-3.5 h-3.5 text-slate-500 absolute right-2.5 top-2.5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -78,7 +78,82 @@
   <!-- Main Dashboard Container -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
 
-    <!-- 1. WEATHER STATION SECTION -->
+    <!-- 1. TACTICAL AI SITREP & VOCAL BRIEFING BANNER -->
+    <section id="sitrep-panel" class="sitrep-panel p-6 shadow-2xl">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-800/80 pb-3 mb-4 gap-3">
+        <div class="flex items-center gap-3">
+          <span id="sitrep-badge" class="text-[10px] font-mono font-bold px-2.5 py-1 rounded bg-emerald-400 text-black">
+            NOMINAL
+          </span>
+          <div>
+            <h2 class="text-sm font-bold tracking-widest text-white uppercase font-mono">
+              AI Tactical Overwatch // SitRep
+            </h2>
+            <p class="text-[11px] text-slate-400 font-mono">AUTONOMOUS SYNTHESIS BY CORTANA / J.A.R.V.I.S. CONSTRUCT</p>
+          </div>
+        </div>
+
+        <!-- Voice Synthesis Controls -->
+        <div class="flex items-center gap-2">
+          <button id="btn-vocalize-sitrep" class="btn-vocalize" title="Speak the SitRep aloud">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path>
+            </svg>
+            <span>VOCALIZE SITREP</span>
+          </button>
+          <button id="btn-mute-speech" class="btn-mute" title="Mute voice synthesis">
+            <span>MUTE</span>
+          </button>
+        </div>
+      </div>
+
+      <p id="sitrep-content" class="text-sm text-slate-200 whitespace-pre-line leading-relaxed font-sans">
+        Synthesizing atmospheric, cyber threat, and operational telemetry...
+      </p>
+      <p id="sitrep-time" class="text-[11px] text-slate-500 font-mono mt-3"></p>
+    </section>
+
+    <!-- 2. PERSONAL OPERATIONS MATRIX: TASKS, M-PESA LEDGER & VOICE VAULT -->
+    <section id="personal-ops-section" class="space-y-4">
+      <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
+        <div>
+          <h2 class="text-xs font-mono font-bold tracking-widest text-cyan-400 uppercase">Personal Operations Matrix</h2>
+          <p class="text-lg font-bold text-white tracking-wide">Tasks, Financial Ledger & Spoken Idea Vault</p>
+        </div>
+        <span class="text-xs font-mono text-slate-400">Synced via Telegram Voice & Vision OCR</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Active Tasks & Calendar -->
+        <div class="ops-panel">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+            <h3 class="text-xs font-mono font-bold text-emerald-400 tracking-wider uppercase">Active Tasks & Deadlines</h3>
+            <span class="text-[10px] font-mono text-slate-500">PROACTIVE ALERTS</span>
+          </div>
+          <div id="tasks-list" class="space-y-3"></div>
+        </div>
+
+        <!-- Receipt & M-Pesa Ledger -->
+        <div class="ops-panel">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+            <h3 class="text-xs font-mono font-bold text-cyan-400 tracking-wider uppercase">Receipt & M-Pesa Ledger</h3>
+            <span class="text-[10px] font-mono text-slate-500">OCR / SMS EXTRACT</span>
+          </div>
+          <div id="ledger-list" class="space-y-3"></div>
+        </div>
+
+        <!-- Idea & Voice-to-Action Vault -->
+        <div class="ops-panel">
+          <div class="flex justify-between items-center border-b border-slate-800 pb-3 mb-4">
+            <h3 class="text-xs font-mono font-bold text-rose-400 tracking-wider uppercase">Voice-to-Action Vault</h3>
+            <span class="text-[10px] font-mono text-slate-500">IDEA ARCHIVE</span>
+          </div>
+          <div id="vault-list" class="space-y-3"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. WEATHER STATION SECTION -->
     <section id="weather-section" class="space-y-4">
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
         <div>
@@ -96,12 +171,10 @@
       </div>
 
       <!-- Dynamic Weather Cards Grid -->
-      <div id="weather-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-        <!-- Rendered by app.js -->
-      </div>
+      <div id="weather-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4"></div>
     </section>
 
-    <!-- 2. CYBERSECURITY & ACTIVE CVE THREAT MATRIX SECTION -->
+    <!-- 4. CYBERSECURITY & ACTIVE CVE THREAT MATRIX SECTION -->
     <section id="cyber-section" class="glass-panel p-6 border-red-900/40 relative overflow-hidden space-y-6">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-800 pb-4">
         <div>
@@ -132,12 +205,10 @@
       </div>
 
       <!-- Cyber Alerts Grid -->
-      <div id="cyber-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Rendered by app.js -->
-      </div>
+      <div id="cyber-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
     </section>
 
-    <!-- 3. NEWS DISPATCH SECTION -->
+    <!-- 5. NEWS DISPATCH SECTION -->
     <section id="news-section" class="space-y-6">
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 border-b border-slate-800 pb-4">
         <div>
@@ -159,21 +230,19 @@
       </div>
 
       <!-- Articles Grid -->
-      <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- Rendered by app.js -->
-      </div>
+      <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
     </section>
 
     <!-- ARCHITECTURE FOOTER / STATUS BAR -->
     <footer class="glass-panel p-6 mt-12 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400 border border-slate-800">
       <div class="flex items-center gap-3">
-        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-        <span>24/7 Command Engine: Open-Meteo + CISA KEV + Google News + BBC + Al Jazeera</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span>Construct Active: Groq (Llama 3.3 70B + Whisper v3 + Vision) // Open-Meteo // CISA KEV</span>
       </div>
       <div class="flex items-center gap-6">
-        <span>Telegram: <strong class="text-slate-300">Long Polling (No Ports)</strong></span>
+        <span>Telegram: <strong class="text-slate-300">Voice & Vision Enabled</strong></span>
         <span>Storage: <strong class="text-slate-300">Supabase RLS</strong></span>
-        <span>Hosting: <strong class="text-slate-300">Vercel</strong></span>
+        <span>HUD: <strong class="text-slate-300">Vercel</strong></span>
       </div>
     </footer>
 
@@ -184,10 +253,10 @@
     <div class="glass-panel p-6 sm:p-8 max-w-lg w-full mx-4 border border-slate-700 bg-slate-900/95 shadow-2xl relative">
       <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
         <div class="flex items-center gap-2">
-          <svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
           </svg>
-          <h3 class="text-base font-bold text-white">Telemetry Data Connection</h3>
+          <h3 class="text-base font-bold text-white font-mono">Cognitive Telemetry Connection</h3>
         </div>
         <button id="btn-close-settings" class="text-slate-400 hover:text-white text-lg font-bold p-1">&times;</button>
       </div>
@@ -199,7 +268,7 @@
             type="text" 
             id="input-supabase-url" 
             placeholder="https://xyzproject.supabase.co" 
-            class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-rose-400 font-mono"
+            class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 font-mono"
           />
         </div>
 
@@ -209,9 +278,9 @@
             type="password" 
             id="input-supabase-key" 
             placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." 
-            class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-rose-400 font-mono"
+            class="w-full bg-slate-950 border border-slate-700 rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-cyan-400 font-mono"
           />
-          <p class="text-[11px] text-slate-500 mt-1">
+          <p class="text-[11px] text-slate-500 mt-1 font-mono">
             Safe for web browser use. Found under Supabase Project Settings -> API (anon key).
           </p>
         </div>
@@ -220,7 +289,7 @@
 
         <div class="pt-4 border-t border-slate-800 flex justify-end gap-3">
           <button id="btn-save-settings" class="btn-primary w-full justify-center">
-            Save & Connect
+            Save & Connect HUD
           </button>
         </div>
       </div>

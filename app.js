@@ -1,10 +1,9 @@
 /**
- * Telemetry Monitor: News, Weather & Cyber Command Dashboard Engine
+ * Cortana / J.A.R.V.I.S. Cognitive Command Dashboard Engine
  * Handles Supabase REST API data fetching, real-time filtering, UI rendering,
- * and persistent local configuration.
+ * Web Speech API vocalization, and persistent local configuration.
  */
 
-// Default or fallback config (can be overwritten via settings modal)
 const DEFAULT_SUPABASE_URL = "https://your-project.supabase.co";
 const DEFAULT_SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
 
@@ -12,9 +11,14 @@ const DEFAULT_SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
 let appState = {
   supabaseUrl: localStorage.getItem("telemetry_supabase_url") || DEFAULT_SUPABASE_URL,
   supabaseAnonKey: localStorage.getItem("telemetry_supabase_anon") || DEFAULT_SUPABASE_ANON_KEY,
+  sitrepText: "",
+  sitrepThreat: "NOMINAL",
   weatherData: [],
   newsData: [],
   cyberData: [],
+  tasksData: [],
+  ledgerData: [],
+  vaultData: [],
   activeNewsFilter: "ALL",   // ALL | LOCAL | GLOBAL
   activeCyberFilter: "ALL",  // ALL | CVE-KEV | THREAT-INTEL | LOCAL-CYBER
   searchQuery: "",
@@ -42,7 +46,13 @@ function getConditionIcon(condition) {
   return WEATHER_ICONS["Partly Cloudy"];
 }
 
-// Baseline / Demo Data (Shown if Supabase is unconfigured)
+// Baseline Fallback / Demo Data
+const DEMO_SITREP = {
+  threat_level: "NOMINAL",
+  sitrep: "[THREAT LEVEL: NOMINAL]\nKitengela & Nairobi atmospheric conditions are nominal at 28.9°C with overcast skies. CISA KEV catalog active with 1,756 monitored CVEs; zero active ransomware exploits matching primary Python/PostgreSQL/Linux stack. Telemetry and voice command relays operational.",
+  created_at: new Date().toISOString()
+};
+
 const DEMO_WEATHER = [
   { city: "Kitengela", scope: "LOCAL", temp_c: 28.9, humidity: 27, wind_kmh: 12.5, condition: "Overcast", updated_at: new Date().toISOString() },
   { city: "Nairobi", scope: "LOCAL", temp_c: 26.8, humidity: 37, wind_kmh: 8.8, condition: "Overcast", updated_at: new Date().toISOString() },
@@ -102,42 +112,43 @@ const DEMO_CYBER = [
   }
 ];
 
+const DEMO_TASKS = [
+  { id: 1, title: "Review Supabase PostgreSQL RLS policies for anon web access", priority: "HIGH", due_at: new Date(Date.now() + 1000 * 60 * 120).toISOString() },
+  { id: 2, title: "Deploy updated Cortana / JARVIS HUD to Vercel production", priority: "CRITICAL", due_at: new Date(Date.now() + 1000 * 60 * 60).toISOString() },
+  { id: 3, title: "Inspect local weather and grid telemetry reports in Kitengela", priority: "NORMAL", due_at: null }
+];
+
+const DEMO_LEDGER = [
+  { counterparty: "Safaricom M-Pesa", amount: 2450.00, currency: "KES", category: "EXPENSE", ref_code: "SLK99812A", raw_summary: "Data Bundle & Airtime Top-Up" },
+  { counterparty: "Naivas Supermarket", amount: 4890.00, currency: "KES", category: "RECEIPT", ref_code: "NAIV-412", raw_summary: "Groceries & Supplies" },
+  { counterparty: "Client Milestone Payout", amount: 45000.00, currency: "KES", category: "INCOME", ref_code: "MP-TX-882", raw_summary: "Web Architecture Deliverable" }
+];
+
+const DEMO_VAULT = [
+  { tag: "PROJECT", content: "Autonomous Multi-Agent Swarm with Groq Whisper voice input and Telegram long-polling control." },
+  { tag: "CODE", content: "Use connection pooling with httpx.Limits(max_keepalive_connections=10) on long-running daemons." },
+  { tag: "MUSIC", content: "Layer 808 sub-bass with high-pass sidechain at 32Hz, sidechained to kick transient in FL Studio." }
+];
+
 const DEMO_NEWS = [
   {
     id: 1,
     scope: "LOCAL",
     source: "Kenya Local News",
-    title: "Transport infrastructure development: express routes scheduled for eastern metro corridors",
+    title: "Regional digital economy summit highlights high-growth fintech opportunities in East Africa",
     link: "https://news.google.com",
     created_at: new Date(Date.now() - 1000 * 60 * 15).toISOString()
   },
   {
     id: 2,
-    scope: "LOCAL",
-    source: "Kenya Local News",
-    title: "Regional digital economy summit highlights high-growth fintech opportunities in East Africa",
-    link: "https://news.google.com",
-    created_at: new Date(Date.now() - 1000 * 60 * 45).toISOString()
-  },
-  {
-    id: 3,
     scope: "GLOBAL",
     source: "BBC World",
     title: "Global tech summits convene to align cross-border standards on autonomous software safety",
     link: "https://bbc.co.uk",
     created_at: new Date(Date.now() - 1000 * 60 * 30).toISOString()
-  },
-  {
-    id: 4,
-    scope: "GLOBAL",
-    source: "Al Jazeera Global",
-    title: "Renewable power output surges across modern energy grids ahead of upcoming climate summit",
-    link: "https://aljazeera.com",
-    created_at: new Date(Date.now() - 1000 * 60 * 70).toISOString()
   }
 ];
 
-// Helper: Format relative timestamp
 function formatTimeAgo(isoString) {
   try {
     const diffMs = Date.now() - new Date(isoString).getTime();
@@ -152,7 +163,6 @@ function formatTimeAgo(isoString) {
   }
 }
 
-// Check if credentials are set
 function isConfigured() {
   return (
     appState.supabaseUrl &&
@@ -162,7 +172,7 @@ function isConfigured() {
   );
 }
 
-// Fetch Data from Supabase with graceful fallback
+// Fetch All Telemetry & Cognitive Layers
 async function fetchTelemetryData() {
   const refreshIcon = document.getElementById("refresh-icon");
   const connectionBadge = document.getElementById("connection-badge");
@@ -170,10 +180,15 @@ async function fetchTelemetryData() {
   if (refreshIcon) refreshIcon.classList.add("spin-anim");
 
   if (!isConfigured()) {
-    console.info("Using baseline telemetry data. Configure Supabase in Settings to view live production tables.");
+    console.info("Using baseline cognitive data. Configure Supabase in Settings for live telemetry.");
+    appState.sitrepText = DEMO_SITREP.sitrep;
+    appState.sitrepThreat = DEMO_SITREP.threat_level;
     appState.weatherData = DEMO_WEATHER;
     appState.newsData = DEMO_NEWS;
     appState.cyberData = DEMO_CYBER;
+    appState.tasksData = DEMO_TASKS;
+    appState.ledgerData = DEMO_LEDGER;
+    appState.vaultData = DEMO_VAULT;
     appState.lastSyncTime = new Date();
     
     if (connectionBadge) {
@@ -181,8 +196,10 @@ async function fetchTelemetryData() {
       connectionBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30";
     }
     
+    renderSitRep();
     renderWeather();
     renderCyber();
+    renderPersonalOps();
     renderNews();
     if (refreshIcon) refreshIcon.classList.remove("spin-anim");
     return;
@@ -194,32 +211,41 @@ async function fetchTelemetryData() {
   };
 
   try {
-    const [weatherRes, cyberRes, newsRes] = await Promise.all([
+    const [sitrepRes, weatherRes, cyberRes, newsRes, tasksRes, ledgerRes, vaultRes] = await Promise.all([
+      fetch(`${appState.supabaseUrl}/rest/v1/tactical_briefings?select=*&order=created_at.desc&limit=1`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/weather_reports?select=*&order=scope.desc`, { headers }),
       fetch(`${appState.supabaseUrl}/rest/v1/cyber_alerts?select=*&order=created_at.desc&limit=25`, { headers }),
-      fetch(`${appState.supabaseUrl}/rest/v1/news_articles?select=*&order=created_at.desc&limit=30`, { headers })
+      fetch(`${appState.supabaseUrl}/rest/v1/news_articles?select=*&order=created_at.desc&limit=25`, { headers }),
+      fetch(`${appState.supabaseUrl}/rest/v1/personal_tasks?completed=eq.false&select=*&order=created_at.desc&limit=8`, { headers }),
+      fetch(`${appState.supabaseUrl}/rest/v1/personal_ledger?select=*&order=created_at.desc&limit=8`, { headers }),
+      fetch(`${appState.supabaseUrl}/rest/v1/idea_vault?select=*&order=created_at.desc&limit=8`, { headers })
     ]);
 
-    if (!weatherRes.ok || !cyberRes.ok || !newsRes.ok) {
-      throw new Error(`Supabase query status: Weather (${weatherRes.status}), Cyber (${cyberRes.status}), News (${newsRes.status})`);
+    const sitrepJson = sitrepRes.ok ? await sitrepRes.json() : [];
+    if (sitrepJson.length > 0) {
+      appState.sitrepText = sitrepJson[0].sitrep;
+      appState.sitrepThreat = sitrepJson[0].threat_level;
+    } else {
+      appState.sitrepText = DEMO_SITREP.sitrep;
+      appState.sitrepThreat = DEMO_SITREP.threat_level;
     }
 
-    const weatherJson = await weatherRes.json();
-    const cyberJson = await cyberRes.json();
-    const newsJson = await newsRes.json();
-
-    appState.weatherData = Array.isArray(weatherJson) && weatherJson.length > 0 ? weatherJson : DEMO_WEATHER;
-    appState.cyberData = Array.isArray(cyberJson) && cyberJson.length > 0 ? cyberJson : DEMO_CYBER;
-    appState.newsData = Array.isArray(newsJson) && newsJson.length > 0 ? newsJson : DEMO_NEWS;
-    appState.lastSyncTime = new Date();
+    appState.weatherData = weatherRes.ok ? await weatherRes.json() : DEMO_WEATHER;
+    appState.cyberData = cyberRes.ok ? await cyberRes.json() : DEMO_CYBER;
+    appState.newsData = newsRes.ok ? await newsRes.json() : DEMO_NEWS;
+    appState.tasksData = tasksRes.ok ? await tasksRes.json() : DEMO_TASKS;
+    appState.ledgerData = ledgerRes.ok ? await ledgerRes.json() : DEMO_LEDGER;
+    appState.vaultData = vaultRes.ok ? await vaultRes.json() : DEMO_VAULT;
 
     if (connectionBadge) {
-      connectionBadge.textContent = "SUPABASE LIVE CONNECTED";
+      connectionBadge.textContent = "COGNITIVE CORE CONNECTED";
       connectionBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30";
     }
 
+    renderSitRep();
     renderWeather();
     renderCyber();
+    renderPersonalOps();
     renderNews();
   } catch (err) {
     console.error("Telemetry sync error:", err);
@@ -227,15 +253,68 @@ async function fetchTelemetryData() {
       connectionBadge.textContent = "SYNC RETRY // FALLBACK ACTIVE";
       connectionBadge.className = "text-[10px] font-mono px-2 py-0.5 rounded bg-rose-500/10 text-rose-400 border border-rose-500/30";
     }
-    if (appState.weatherData.length === 0) appState.weatherData = DEMO_WEATHER;
-    if (appState.cyberData.length === 0) appState.cyberData = DEMO_CYBER;
-    if (appState.newsData.length === 0) appState.newsData = DEMO_NEWS;
+    renderSitRep();
     renderWeather();
     renderCyber();
+    renderPersonalOps();
     renderNews();
   } finally {
     if (refreshIcon) refreshIcon.classList.remove("spin-anim");
     resetCountdown();
+  }
+}
+
+// Render Tactical SitRep HUD
+function renderSitRep() {
+  const contentEl = document.getElementById("sitrep-content");
+  const badgeEl = document.getElementById("sitrep-badge");
+  const panelEl = document.getElementById("sitrep-panel");
+  const timeEl = document.getElementById("sitrep-time");
+
+  if (!contentEl) return;
+
+  contentEl.textContent = appState.sitrepText || "Awaiting cognitive synthesis...";
+  if (timeEl) timeEl.textContent = `Generated: ${new Date().toLocaleTimeString()} // Voice Ready`;
+
+  if (badgeEl) {
+    badgeEl.textContent = appState.sitrepThreat;
+    if (appState.sitrepThreat === "CRITICAL") {
+      badgeEl.className = "text-[10px] font-mono font-bold px-2.5 py-1 rounded bg-rose-600 text-white shadow-lg shadow-rose-500/30";
+      if (panelEl) panelEl.className = "sitrep-panel threat-critical p-5 mb-8";
+    } else if (appState.sitrepThreat === "ELEVATED") {
+      badgeEl.className = "text-[10px] font-mono font-bold px-2.5 py-1 rounded bg-amber-500 text-black";
+      if (panelEl) panelEl.className = "sitrep-panel threat-elevated p-5 mb-8";
+    } else {
+      badgeEl.className = "text-[10px] font-mono font-bold px-2.5 py-1 rounded bg-emerald-400 text-black";
+      if (panelEl) panelEl.className = "sitrep-panel p-5 mb-8";
+    }
+  }
+}
+
+// Web Speech API Vocalization (Cortana / J.A.R.V.I.S. Audio Synthesizer)
+function speakSitrep() {
+  if (!("speechSynthesis" in window)) {
+    alert("Speech synthesis is not supported on this browser.");
+    return;
+  }
+  window.speechSynthesis.cancel();
+  
+  const cleanText = (appState.sitrepText || "All systems nominal.").replace(/\[.*?\]/g, "").trim();
+  const utterance = new SpeechSynthesisUtterance(cleanText);
+  utterance.rate = 1.05;
+  utterance.pitch = 0.95;
+
+  // Prefer a crisp English voice
+  const voices = window.speechSynthesis.getVoices();
+  const preferredVoice = voices.find(v => v.lang.includes("en-US") || v.lang.includes("en-GB") || v.name.includes("Google") || v.name.includes("Samantha"));
+  if (preferredVoice) utterance.voice = preferredVoice;
+
+  window.speechSynthesis.speak(utterance);
+}
+
+function stopSpeech() {
+  if ("speechSynthesis" in window) {
+    window.speechSynthesis.cancel();
   }
 }
 
@@ -287,6 +366,61 @@ function renderWeather() {
       </div>
     `;
   }).join("");
+}
+
+// Render Personal Operations Matrix (Tasks, Ledger, Vault)
+function renderPersonalOps() {
+  // 1. Tasks
+  const tasksContainer = document.getElementById("tasks-list");
+  if (tasksContainer) {
+    tasksContainer.innerHTML = appState.tasksData.length ? appState.tasksData.map(t => {
+      let pBadge = "bg-neutral-800 text-neutral-300";
+      if (t.priority === "CRITICAL") pBadge = "bg-rose-600 text-white";
+      else if (t.priority === "HIGH") pBadge = "bg-amber-500 text-black";
+      const dueStr = t.due_at ? new Date(t.due_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }) : "No deadline";
+
+      return `
+        <div class="ops-item">
+          <div class="flex items-center justify-between gap-2 mb-1">
+            <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded ${pBadge}">${t.priority}</span>
+            <span class="text-[11px] font-mono text-slate-500">${dueStr}</span>
+          </div>
+          <p class="text-xs text-slate-200 font-medium">${t.title}</p>
+        </div>
+      `;
+    }).join("") : `<p class="text-xs text-slate-500 font-mono">No active tasks in database.</p>`;
+  }
+
+  // 2. Ledger
+  const ledgerContainer = document.getElementById("ledger-list");
+  if (ledgerContainer) {
+    ledgerContainer.innerHTML = appState.ledgerData.length ? appState.ledgerData.map(l => {
+      return `
+        <div class="ops-item flex items-center justify-between gap-3">
+          <div>
+            <p class="text-xs font-semibold text-white">${l.counterparty}</p>
+            <p class="text-[10px] font-mono text-slate-400">${l.category} ${l.ref_code ? '// ' + l.ref_code : ''}</p>
+          </div>
+          <span class="text-xs font-mono font-bold text-emerald-400 whitespace-nowrap">
+            ${l.currency} ${Number(l.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}
+          </span>
+        </div>
+      `;
+    }).join("") : `<p class="text-xs text-slate-500 font-mono">No transaction entries recorded.</p>`;
+  }
+
+  // 3. Vault
+  const vaultContainer = document.getElementById("vault-list");
+  if (vaultContainer) {
+    vaultContainer.innerHTML = appState.vaultData.length ? appState.vaultData.map(v => {
+      return `
+        <div class="ops-item">
+          <span class="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-slate-800 text-rose-400">${v.tag}</span>
+          <p class="text-xs text-slate-300 mt-1 leading-snug">${v.content}</p>
+        </div>
+      `;
+    }).join("") : `<p class="text-xs text-slate-500 font-mono">Vault archive empty.</p>`;
+  }
 }
 
 // Render Cybersecurity Threat Matrix
@@ -391,9 +525,7 @@ function renderNews() {
   if (filtered.length === 0) {
     container.innerHTML = `
       <div class="col-span-full p-12 text-center glass-panel">
-        <svg class="w-12 h-12 mx-auto text-slate-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         <p class="text-sm text-slate-300 font-medium">No dispatches match the active query or filter.</p>
-        <p class="text-xs text-slate-500 mt-1">Try resetting your search or scope filters.</p>
       </div>
     `;
     return;
@@ -545,6 +677,13 @@ document.addEventListener("DOMContentLoaded", () => {
   updateClock();
   setInterval(updateClock, 1000);
 
+  // Setup Vocalizer buttons
+  const vocalizeBtn = document.getElementById("btn-vocalize-sitrep");
+  if (vocalizeBtn) vocalizeBtn.addEventListener("click", speakSitrep);
+
+  const muteBtn = document.getElementById("btn-mute-speech");
+  if (muteBtn) muteBtn.addEventListener("click", stopSpeech);
+
   // Setup News tabs
   document.querySelectorAll(".news-tab").forEach(tab => {
     tab.addEventListener("click", () => {
@@ -565,7 +704,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Setup Unified Search (Filters both news and cyber threats)
+  // Setup Search
   const searchInput = document.getElementById("telemetry-search-input");
   if (searchInput) {
     searchInput.addEventListener("input", (e) => {
