@@ -5846,11 +5846,12 @@ async function fetchOsintReports() {
         `<span class="text-[10px] font-mono px-2 py-0.5 bg-neutral-800 text-cyan-300 rounded border border-cyan-500/20">${p}</span>`
       ).join(" ");
 
-      const footprints = (r.raw_footprints || []).slice(0, 6).map(f =>
-        `<a href="${f.url}" target="_blank" rel="noopener noreferrer" class="block text-[11px] font-mono text-neutral-400 hover:text-cyan-400 truncate">
-           <span class="text-cyan-500 font-bold">[${f.platform}]</span> ${f.title || ''} <span class="text-neutral-500">(${f.metrics || ''})</span>
-         </a>`
-      ).join("");
+      const footprints = (r.raw_footprints || []).slice(0, 10).map(f => {
+        const tierBadge = f.tier ? `<span class="text-[9px] px-1 py-0.2 rounded bg-neutral-900 text-cyan-400 mr-1.5 border border-cyan-800/40">${f.tier.replace('_', ' ')}</span>` : '';
+        return `<a href="${f.url}" target="_blank" rel="noopener noreferrer" class="block text-[11px] font-mono text-neutral-400 hover:text-cyan-400 truncate">
+           ${tierBadge}<span class="text-cyan-500 font-bold">[${f.platform}]</span> ${f.title || ''} <span class="text-neutral-500">(${f.metrics || ''})</span>
+         </a>`;
+      }).join("");
 
       container.innerHTML += `
         <div class="border border-neutral-800 bg-neutral-950 rounded-lg p-4 space-y-4 shadow-lg">
