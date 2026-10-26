@@ -4,55 +4,55 @@
     "sitrep": "Sensors active across kinetic and economic theaters. Synthesis operational fault encountered.",
     "conflict_summary": "Telemetry channels streaming.",
     "future_risk_forecast": "Monitor maritime chokepoints and currency liquidity.",
-    "defensive_protocol": "• Verify critical backup power\n• Retain offline repository snapshots\n• Maintain USD cash buffers",
-    "asymmetric_upside": "• Track high-yield domestic liquidity yields",
-    "created_at": "2026-10-26T15:50:07.954461+00:00"
+    "defensive_protocol": "\u2022 Verify critical backup power\n\u2022 Retain offline repository snapshots\n\u2022 Maintain USD cash buffers",
+    "asymmetric_upside": "\u2022 Track high-yield domestic liquidity yields",
+    "created_at": "2026-10-26T16:24:53.130244+00:00"
   },
   "weather": [
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 21.8,
-      "humidity": 62,
-      "wind_kmh": 7.1,
-      "condition": "Light Drizzle",
-      "updated_at": "2026-10-26T15:48:49.713907+00:00"
+      "temp_c": 20.3,
+      "humidity": 72,
+      "wind_kmh": 5.1,
+      "condition": "Code 81",
+      "updated_at": "2026-10-26T16:23:45.718348+00:00"
     },
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 21.8,
-      "humidity": 62,
-      "wind_kmh": 7.1,
-      "condition": "Light Drizzle",
-      "updated_at": "2026-10-26T15:48:50.142446+00:00"
+      "temp_c": 20.3,
+      "humidity": 72,
+      "wind_kmh": 5.1,
+      "condition": "Code 81",
+      "updated_at": "2026-10-26T16:23:46.141680+00:00"
     },
     {
       "city": "London",
       "scope": "GLOBAL",
-      "temp_c": 15.8,
-      "humidity": 90,
+      "temp_c": 15.9,
+      "humidity": 89,
       "wind_kmh": 18.7,
       "condition": "Overcast",
-      "updated_at": "2026-10-26T15:48:50.602108+00:00"
+      "updated_at": "2026-10-26T16:23:46.578467+00:00"
     },
     {
       "city": "New York",
       "scope": "GLOBAL",
-      "temp_c": 16.6,
-      "humidity": 48,
-      "wind_kmh": 11.9,
+      "temp_c": 17.5,
+      "humidity": 47,
+      "wind_kmh": 11.2,
       "condition": "Clear",
-      "updated_at": "2026-10-26T15:48:51.037886+00:00"
+      "updated_at": "2026-10-26T16:23:47.014099+00:00"
     },
     {
       "city": "Tokyo",
       "scope": "GLOBAL",
-      "temp_c": 15.8,
-      "humidity": 95,
-      "wind_kmh": 6.9,
+      "temp_c": 15.9,
+      "humidity": 93,
+      "wind_kmh": 6.2,
       "condition": "Overcast",
-      "updated_at": "2026-10-26T15:48:51.459450+00:00"
+      "updated_at": "2026-10-26T16:23:47.453509+00:00"
     }
   ],
   "cyber": [
@@ -66,7 +66,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-29583",
       "content_hash": "9f081a6e1d190b3adb67bea03885f7d65d18b78730b9c2c87cf597ad796249dc",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.020743+00:00"
+      "created_at": "2026-10-26T16:24:20.074973+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -78,7 +78,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-8394",
       "content_hash": "dcf56971dec638c1e32bbc4863650ecccaa3af1c85cf2da3c1c671840c6eaeba",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.020796+00:00"
+      "created_at": "2026-10-26T16:24:20.075001+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -90,7 +90,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-10189",
       "content_hash": "617c981616242dca0a79d74e690e201fa8363243f0fca31311c73e72299ea8a9",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.020822+00:00"
+      "created_at": "2026-10-26T16:24:20.075010+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -102,7 +102,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-40539",
       "content_hash": "a0a7f6dce826b88ebb232c56805a6e18d05107d19068a3fb93dd0b621606f8f4",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.020844+00:00"
+      "created_at": "2026-10-26T16:24:20.075016+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -114,7 +114,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-27561",
       "content_hash": "f2e8bbcb50ba59a8e1ff4f38363f496625804d18d53be7d4a45da85e33ab94f1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.020864+00:00"
+      "created_at": "2026-10-26T16:24:20.075022+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -126,7 +126,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-9978",
       "content_hash": "0172212bf226992607a8a51bb7ec0b2612440984f13a9e3e8b0418fad56173a1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.020885+00:00"
+      "created_at": "2026-10-26T16:24:20.075028+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -138,7 +138,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-11738",
       "content_hash": "895a24212bff3837e00307321f30d072fabdd1b8ffb152b643d8b9503297748c",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.020904+00:00"
+      "created_at": "2026-10-26T16:24:20.075034+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -150,7 +150,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25213",
       "content_hash": "25047194a1fb08666eece4829b771542f068bad1a307586569ca0631c5c446d7",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.020924+00:00"
+      "created_at": "2026-10-26T16:24:20.075039+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -162,7 +162,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-4006",
       "content_hash": "d96607a458fb92b0ad954e7ec202dd8e5339c638e4f43d7b7d373a473c45462a",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.020944+00:00"
+      "created_at": "2026-10-26T16:24:20.075045+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -174,7 +174,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21985",
       "content_hash": "0519b9eb873c86afe0f3b3964b796bf66ff912cfa74eff08bddee80945e4bcc3",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.020966+00:00"
+      "created_at": "2026-10-26T16:24:20.075050+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -186,7 +186,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21972",
       "content_hash": "6a15875afd5b6a0fc8b5116f6ded20c3b55fe218ed24823a9c41c945d0488645",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.020986+00:00"
+      "created_at": "2026-10-26T16:24:20.075056+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -198,7 +198,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3952",
       "content_hash": "16fbba0f67a35e0d9abb77c5a704a8ec673bc65bef31c73e0e2b582dceefd527",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.021006+00:00"
+      "created_at": "2026-10-26T16:24:20.075062+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -210,7 +210,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-22005",
       "content_hash": "8a7fe7a2172f4b0c3668a5827802771468f76277393fa4431ad437befb08ba97",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.021032+00:00"
+      "created_at": "2026-10-26T16:24:20.075067+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -222,7 +222,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3950",
       "content_hash": "e4f53315ecff6219811605bb364839d390f5de7c151d53ef8fe2d3f802ad0946",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.021054+00:00"
+      "created_at": "2026-10-26T16:24:20.075073+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -234,19 +234,19 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3992",
       "content_hash": "f4becfb39bd99c21aa036bc17049549112dde23f9fe030037cb5628a0a3650ee",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T15:49:25.021072+00:00"
+      "created_at": "2026-10-26T16:24:20.075078+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "The Hacker News",
       "cve_id": null,
       "severity": "CRITICAL",
-      "title": "⚡ Weekly Recap: This2Shell, That2Shell, Everything's an RCE? Rogue AI, Supply Chain Chaos and More",
+      "title": "\u26a1 Weekly Recap: This2Shell, That2Shell, Everything's an RCE? Rogue AI, Supply Chain Chaos and More",
       "summary": null,
       "link": "https://thehackernews.com/2026/10/weekly-recap-this2shell-that2shell.html",
       "content_hash": "895ce1a9905eb95c0a918d4276ccba1a55fd7fa9c12ee43bca60586d07da38ef",
       "published_at": "Mon, 26 Oct 2026 19:36:13 +053",
-      "created_at": "2026-10-26T15:49:26.013058+00:00"
+      "created_at": "2026-10-26T16:24:20.704778+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -258,7 +258,7 @@
       "link": "https://thehackernews.com/2026/10/two-critical-wasmtime-flaws-could-let.html",
       "content_hash": "ad812d0ad760262af015991d26d9d8e0f3cedb95e69d2c57426598d49c2ff1c7",
       "published_at": "Mon, 26 Oct 2026 17:22:41 +053",
-      "created_at": "2026-10-26T15:49:26.013083+00:00"
+      "created_at": "2026-10-26T16:24:20.704805+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -270,7 +270,7 @@
       "link": "https://thehackernews.com/2026/10/between-alerts-what-attackers-do-in.html",
       "content_hash": "4c93018b368c02637ba6d6e13bdee2da710a0456ee65ba11ea5f712d9354d289",
       "published_at": "Mon, 26 Oct 2026 16:53:56 +053",
-      "created_at": "2026-10-26T15:49:26.013094+00:00"
+      "created_at": "2026-10-26T16:24:20.704816+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -282,7 +282,7 @@
       "link": "https://thehackernews.com/2026/10/ucreator-android-spyware-can-steal.html",
       "content_hash": "b2e2d82afc1772afb81e0ad75b05cf74b5c8b4b6bfbb98a0641c8538a6c9990a",
       "published_at": "Mon, 26 Oct 2026 15:24:02 +053",
-      "created_at": "2026-10-26T15:49:26.013104+00:00"
+      "created_at": "2026-10-26T16:24:20.704826+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -294,7 +294,7 @@
       "link": "https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html",
       "content_hash": "6b7c5d78f4c47329efcdbdce5e28bf06b37bd3d12dee79064390e650963980d8",
       "published_at": "Mon, 26 Oct 2026 14:05:51 +053",
-      "created_at": "2026-10-26T15:49:26.013113+00:00"
+      "created_at": "2026-10-26T16:24:20.704835+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -306,7 +306,7 @@
       "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-net-patches-for-critical-brotli-flaw/",
       "content_hash": "e41976f3944eee350ade9f89136149e36864a19e7536a17e11e334a674b8f8c7",
       "published_at": "Mon, 26 Oct 2026 11:38:24 -040",
-      "created_at": "2026-10-26T15:49:26.282679+00:00"
+      "created_at": "2026-10-26T16:24:20.904855+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -318,7 +318,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/when-an-ai-agent-is-the-incident-the-identity-record-is-the-evidence/",
       "content_hash": "102b32bd0d603c2c859d7004759be33d81fc21ea90d4fd5b2e594283d21735d2",
       "published_at": "Mon, 26 Oct 2026 10:00:10 -040",
-      "created_at": "2026-10-26T15:49:26.282709+00:00"
+      "created_at": "2026-10-26T16:24:20.904897+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -330,7 +330,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/chinese-man-extradited-for-role-in-36-million-cryptocurrency-scam/",
       "content_hash": "1da23038375c2312fa23c1e6ca6461b3844073936259a4cba54d12e2a0dafca0",
       "published_at": "Mon, 26 Oct 2026 09:56:44 -040",
-      "created_at": "2026-10-26T15:49:26.282723+00:00"
+      "created_at": "2026-10-26T16:24:20.904916+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -342,7 +342,7 @@
       "link": "https://www.bleepingcomputer.com/news/linux/kali-linux-20263-released-with-6-new-tools-desktop-updates/",
       "content_hash": "4530d55fb97a38b8accbedd9cb05c8ba702a4a77cc15bf48aa4a51eaf9fa6096",
       "published_at": "Mon, 26 Oct 2026 06:26:52 -040",
-      "created_at": "2026-10-26T15:49:26.282735+00:00"
+      "created_at": "2026-10-26T16:24:20.904934+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -354,7 +354,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/php2shell-security-flaws-now-sucessfully-exploited-in-the-wild/",
       "content_hash": "6965008fcfe67473a0676fa48805ff4e699929b52a4b4da88220a0950100cc18",
       "published_at": "Mon, 26 Oct 2026 05:19:57 -040",
-      "created_at": "2026-10-26T15:49:26.282747+00:00"
+      "created_at": "2026-10-26T16:24:20.904951+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -366,19 +366,19 @@
       "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFAzVGlfNjBlOWdac1ZZMU1Ec1pFY2ctWXpFVEVMMWRJc2tZZTZEZDdCb3FxZ3JQaGJBaGZGekJlQTZHTTRZX0czZS1zLWo5LTI4d3dOVDdTTHdjeElHNHpnUGg4WGp1MkJENlo1aw?oc=5",
       "content_hash": "299233c0acf367547cde92b4ae91c6f10458369bb1f23be322fac73439ebb7f4",
       "published_at": "Mon, 26 Oct 2026 09:16:34 GMT",
-      "created_at": "2026-10-26T15:49:27.287473+00:00"
+      "created_at": "2026-10-26T16:24:21.572577+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Turning Kenya’s national cyber threat statistics into actionable business security priorities - TechTrendsKE",
+      "title": "Turning Kenya\u2019s national cyber threat statistics into actionable business security priorities - TechTrendsKE",
       "summary": null,
       "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE4tQ2JEZThuYVBZVTl5bG5vd3JxLW9tNzN4dmk5NTgtbm1WOFh2TnFQdXViMzBieC1ydVhGQ19vUG03ZlhIYy1Fd3ZYeThxX0hQLXIxU0FmYm9XbFcyend2YjV6WC1FVkVrLUwyNnNZVEVDNFdaZGlv?oc=5",
       "content_hash": "8d30229226f1b47fcf440678c82a5ec81de6596501590b54dcf3ae95bce209fd",
       "published_at": "Sat, 24 Oct 2026 11:00:36 GMT",
-      "created_at": "2026-10-26T15:49:27.287501+00:00"
+      "created_at": "2026-10-26T16:24:21.572605+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -390,19 +390,19 @@
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNNjRqUjhqSWZ2OC1kMi1HZmtyM1lYZDlQeFZFSVlyc09yUHBJT2ppeUdENHNBNV9reEhRQWJXV3Y0ZmthUGMxT3lPLXlNYkhkYy01ZXZhREgyUDI4MC1kU1pFOVJPZUNpbXQ1RlMxQUpTc3FZMWVFRUl1VTBvZ2xBN19vOHlacDRJRTN4c0JEMVhiNURGYXlKaEQ3ZHE5T2Nw?oc=5",
       "content_hash": "dfcdae4846e8007a0de4e7129ce8856b5b6bea0fad85f4cb6b2a31d04c96c589",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T15:49:27.287513+00:00"
+      "created_at": "2026-10-26T16:24:21.572616+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "𝗞𝗲𝗻𝘆𝗮 𝘀𝘁𝗿𝗲𝗻𝗴𝘁𝗵𝗲𝗻𝘀 𝗔𝗜 𝗴𝗼𝘃𝗲𝗿𝗻𝗮𝗻𝗰𝗲 𝘁𝗼 𝗰𝗼𝗺𝗯𝗮𝘁 𝗿𝗶𝘀𝗶𝗻𝗴 𝗰𝘆𝗯𝗲𝗿𝘀𝗲𝗰𝘂𝗿𝗶𝘁𝘆 𝘁𝗵𝗿𝗲𝗮𝘁𝘀 The government has called for stronger oversight of artificial intelligence (AI) systems, warning that criminals increasingly use the technology to launch - Facebook",
+      "title": "\ud835\uddde\ud835\uddf2\ud835\uddfb\ud835\ude06\ud835\uddee \ud835\ude00\ud835\ude01\ud835\uddff\ud835\uddf2\ud835\uddfb\ud835\uddf4\ud835\ude01\ud835\uddf5\ud835\uddf2\ud835\uddfb\ud835\ude00 \ud835\uddd4\ud835\udddc \ud835\uddf4\ud835\uddfc\ud835\ude03\ud835\uddf2\ud835\uddff\ud835\uddfb\ud835\uddee\ud835\uddfb\ud835\uddf0\ud835\uddf2 \ud835\ude01\ud835\uddfc \ud835\uddf0\ud835\uddfc\ud835\uddfa\ud835\uddef\ud835\uddee\ud835\ude01 \ud835\uddff\ud835\uddf6\ud835\ude00\ud835\uddf6\ud835\uddfb\ud835\uddf4 \ud835\uddf0\ud835\ude06\ud835\uddef\ud835\uddf2\ud835\uddff\ud835\ude00\ud835\uddf2\ud835\uddf0\ud835\ude02\ud835\uddff\ud835\uddf6\ud835\ude01\ud835\ude06 \ud835\ude01\ud835\uddf5\ud835\uddff\ud835\uddf2\ud835\uddee\ud835\ude01\ud835\ude00 The government has called for stronger oversight of artificial intelligence (AI) systems, warning that criminals increasingly use the technology to launch - Facebook",
       "summary": null,
       "link": "https://news.google.com/rss/articles/CBMi6whBVV95cUxPYjd0WUtPQ0M4dnc2Yk5DWWVhc1p4T1JqY0w1eGdqWjJGSUdLTDJJaGYyZ29OckpHTFlIUXVwRzRTZU9POUdZOTNvN0pBR0JsMW9rQTc5SlBTLThqc21USVhDTnpWTXdyejBmZjJyMjhOMWMxd0o2QlBBckY5dXNNVnRNY2M5Z04tWVFzNHNidkRUQVZRRFo5a3ZLT3pGdGpPQWxCOGdzVWd5bmozMmZub0pBTWJzOTNKdzE3QWtfQWZleTNQVHd1azJkV2wzSi1nY0NVYUo1V3ZmQ3kwdEVza3U1QU5CYU9XRlNqVHdTemxWNzhDUGpXTTBSa1VUZWF5YXRpUmpJRG5iNUdhbEo1RWhNMjNkRjVORzVfOERQTmxwYzdzeHV5VXdQYUtleWV0WkRnQ0ZrTGhydXFUaEhmQWJZb2ZIX2RkcF9DYzJrZUNtVFVTRWcyWER3aS1taHlFWlBCa1gya3A1YnE1enNqZFlwMm5sU3dOaWZqMzI0TDFGNmdmOFZibW4xZmRrcnVia3ZSTXRSYjg1eDk5YVZhenZvLUxsZEVic0ZweFNPVk52ZFB4N0pWcjE4Mk1qQ1RGendfN2t5OWtuWHBkclJURXRjN2MydUl0MjNYTG5WcWdlVzJrTzdNYlNrYlpwVVIyRUhDUWs5dzNVdTdqMW15bW1RVjhwVDlHUHRpWVRxd0RldDRrMjVSUmVJZHZ3cVhna0FkaEhSQVM1b0ZhVmlIX0ctZjVSYm9XSE5La2NLSmZvdU9BVUZVVWYyaWZ2bHlEUG1GaDgtaGJkeFpydUZQSGRad0w5OEZ3V211ajZoWDJFa1o2dGF0UUZGd05YWGZaaGRpX3RBaU95OGpJRmNEU1ltcVRmVUdhNWs1YUVUdEFTMnhSSGljMTY2d3EtQUUyUlhPU3EtVDRaN2U5eXBWeVlwWXYteHR5dHZEcDE0NHgtVDlaZlBCOFE5UWQydzg1SldqTGhuWWJaWlNKdmFQRktCM19FVGw4R2ZfYVo3LVVKaG9ad3hMM0x2bG1SMDJweEpqbWVEcTNNRUh0N1ozM2UtYVNxS25TVHBFZ196SGhYdTQzQ0dFYmpBZENENHYyYWlWb0F4S1ExQk9ZNE56X3M1b0hoZU1GZmJRQUx2RklqTTVNY3dxOHU1b1kwQjZjSGRkVGN3SnhiNEZRaGhQUFlPVWlIQmxsVjFmTFBqcjBxNTlTRWR2bGVIcEpGaHBGNGRBSHpSVkIyU1FEeE1KOXpHc09ydmhnN2dFODJzbVZrMmdvbXFMai1xUERCYWN4dXRLNm1MaG90cUVZR05oX0hqUHNTZ2Q5S05QX0c0MVJfaHMtSmRfRlN2QWY4LXg0dlJzRFZFcnNKMjVjV0xQemZBVGE3SjNCMm9qMmJ3SDhmMkYxOEVybGpULVJHREwySVVHMjFKOGxwa0ZiNzQ1QkQ1UTBuTlZfbk8tS1VKc09zc3pVUGNncUs1N3NLV1F0QmJvenVlQ1J6R1k?oc=5",
       "content_hash": "61cad910365d5aab214eced3ccbea2386cc54606df92b954a0ad31ae6ed2674d",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T15:49:27.287538+00:00"
+      "created_at": "2026-10-26T16:24:21.572657+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -414,129 +414,369 @@
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMGlYOUFaVy1PTTNHSHlXaTh6cklnQ0xSU3g3dXdYbjhWZGxsR0t4N1dXZ0NNd0pKM2NIOU0xQkdTUF9BdFNXYUk2bTBJYi1iM0h3TWZUM21WNmZIc2FnVEVhSzJHd1pvMnRBR0FvWFBJQ25URF9aVmxXR0xDTzhyNG1DLUEzTzNqRjV6Rnp4c0Y0Qm80ZXFQWnVvSGV2TkkwbWd5Rk9CR1RJTXYyTnc?oc=5",
       "content_hash": "2c77f445a49add8fdb3b5a81c3c6bc7a69e27c0175389c663aac488212e5520e",
       "published_at": "Wed, 14 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T15:49:27.287548+00:00"
+      "created_at": "2026-10-26T16:24:21.572669+00:00"
     }
   ],
   "news": [
     {
-      "scope": "GLOBAL",
-      "source": "Subsea Telecom & Fiber Wire",
-      "title": "Iran’s subsea cable threats put unusual tanker movements under scrutiny - safety4sea",
-      "description": "Iran’s subsea cable threats put unusual tanker movements under scrutiny&nbsp;&nbsp;safety4sea",
-      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPY0FVRmJJRzFUUEQtVXJWV1pVOGFFbU9PWVF6YXYyOGluR08xSDhGQmp1aFRVSXBLZUttZWdOUlNURW56Ukd0MENGVnE5NzAzd2NXVXFVakdRZWVNUVh6NUs5aFladzVCOVYyZmxYV3U4QWlXWUtoMy1XVlR0bWQ2S0ZURm45TTluWXJxYnk5bWU5X1EzakxyTjR3?oc=5",
-      "content_hash": "112651f57a8f367b1fa9032e51b1150842b0c6515b06233425a3fd9fc27a7c5c",
-      "published_at": "Mon, 26 Oct 2026 12:03:42 GMT",
-      "created_at": "2026-10-26T15:48:54.201266+00:00"
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "Kenya reviews draft trade bill to strengthen exports - Sacco Review",
+      "description": "Kenya reviews draft trade bill to strengthen exports&nbsp;&nbsp;Sacco Review",
+      "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOTW5La0Q2WmVHTi0tR2Z3bWJzWFB6Sng1N1laUXM3UzZHRENVMDZ4QmN3d21QNnZwT1ZyTUNiSENDRGVWZUZkQXdvNHJ2dWxoV1NBMllKWERRV0pfanA3TU9YbmV5TFA5dU5xUDAzamVEQVFyYjBuSFdjZ2FyMlh0UllZMTBSZw?oc=5",
+      "content_hash": "f35a6db54fad4ef86d4e3f0802ecfc88d7983183bb688400d92b55135ea525bc",
+      "published_at": "Mon, 26 Oct 2026 09:25:13 GMT",
+      "created_at": "2026-10-26T16:23:48.945431+00:00"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "Kenya flags \u2018exploitative\u2019 carbon-trade schemes - Business Daily",
+      "description": "Kenya flags \u2018exploitative\u2019 carbon-trade schemes&nbsp;&nbsp;Business Daily",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNRDJ4WGsySkdmYTlaSHdHYnRLNHJ4RDNQamhLX0wxQ1dZVGZVX0FSdVg3YVc0d291dlZzTEwzdTdub1YtUURua1hDcGRDLWFuUlA3MFZfVWl3NDNSYXBKLWVqeGxlMTZ1NjR4M0QwYTZMMm0zVkZwMkpRanVFczFrLXJmSkJ4akp2cVVidWRXLS0yOFc4cnBXRGZkWFlYWHF6Mnc?oc=5",
+      "content_hash": "27246dd61f99325f1353979d9c3916241fa4efd483ab663775084d48e60f3c56",
+      "published_at": "Mon, 26 Oct 2026 12:45:00 GMT",
+      "created_at": "2026-10-26T16:23:48.945528+00:00"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "Tanzania, Kenya boost security to tackle cross-border crime - thecitizen.co.tz",
+      "description": "Tanzania, Kenya boost security to tackle cross-border crime&nbsp;&nbsp;thecitizen.co.tz",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxORFlfYTROWnhQNHBkVm9VOUxjTVNTbXhGb3VIdnE1dTBNZFFoVVNOd1J2MElUeUpkN2NqaE9YSGhVWkhGbnhucURSVy11WURMa1dxb25Id2dab3NpVnJ1cVJvWXpIcWw1UGVyU0hCYXA5QzZWY1c5dEFXbEpGLUNfLTlWbVVlZnBHTGRyWHNxR1haa3VTSTN5aDFraG9sSWxZM3dleVdwTnRGQzVqcEFrRXRmVklzNWVFcEE?oc=5",
+      "content_hash": "fa28451f2a91919a150c5e82f46a03831d1ca23d14dcab0ace1e34f0af50bfaf",
+      "published_at": "Mon, 26 Oct 2026 08:35:10 GMT",
+      "created_at": "2026-10-26T16:23:48.945558+00:00"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "Kenya sends 600 MSMEs products to EAC Trade Fair in Rwanda - Kenya News Agency",
+      "description": "Kenya sends 600 MSMEs products to EAC Trade Fair in Rwanda&nbsp;&nbsp;Kenya News Agency",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQUjkyX2dITVh5bFlIYnVyNzl0UVdfdFVCbTBKR2JqWjZoRmNHMlNua3hBYTBidWRqR0tFUnI4ZFRYc0IwZFh1T1VpczVaOVRMV3JzSG9ISjl6Q25JLXo1S3AwRnFiX1pXdVk0Q3FxdDNfVzhjaGRld3NEN1VWaHpDRGJxdjQ0UGNIanNWUTF3ZFU?oc=5",
+      "content_hash": "a090e8f64ff2fa9b566f22361d9d1cec56964870cde3e40ffd93901c2351aba5",
+      "published_at": "Mon, 26 Oct 2026 10:40:47 GMT",
+      "created_at": "2026-10-26T16:23:48.945592+00:00"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "Kenya Eyes Russian Market as Fertiliser Imports Fall, Trade Gap Widens - The Kenyan Wallstreet",
+      "description": "Kenya Eyes Russian Market as Fertiliser Imports Fall, Trade Gap Widens&nbsp;&nbsp;The Kenyan Wallstreet",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPWkJwZE13LVJ3dldzU1dicEZFRGVSS0pJd3h3QVJ2Z2VBZjB4RVZBcjFEQmZHZUMzYXV5R1JaM001N2dCeGhSVnFESzFuRmxNUFY0bHVpdVNDYVBfTzAyOFNYZktvdFJQRFEwejRfZGt0Q2N4VHk5dVhTLUdUMl9SLXQwcm1jWFktS2RUcFlSTFNYRkQ2alVBZXpWeERYV2ViU2NMeA?oc=5",
+      "content_hash": "82539d8eb2978f49504fe9b1a7098812cf53052af7cb3f11a2a79b6ac62895f8",
+      "published_at": "Mon, 26 Oct 2026 12:20:07 GMT",
+      "created_at": "2026-10-26T16:23:48.945638+00:00"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "Kenya launches trip for small business owners to Rwanda trade fair - People Daily",
+      "description": "Kenya launches trip for small business owners to Rwanda trade fair&nbsp;&nbsp;People Daily",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNUWZxVmZFcEphaktoVkxUaVdOeVBkcEZTQ1pxNEl0N0dwYkxpVDE3MEcyWndURmk4MFlFaU13LWFURndxeDRub3h4bF9ia01FZ2U1Q0o0M0RYLWRDYkF5c0U5NG1zeThJb0dSdHgwYThBZUJ1aUJWWTY2ekVobGd5U0VEUkF0QmpBb3RfTFNQXzZHdll6TlJFRURNOWZoLUpBYnFkM3FB?oc=5",
+      "content_hash": "5d1e5b64117840f2d615731bb711e9d594eaa0b95eaebb72fada3ded2f618a9f",
+      "published_at": "Mon, 26 Oct 2026 08:50:56 GMT",
+      "created_at": "2026-10-26T16:23:48.945662+00:00"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "Algeria\u2019s military deployment to Niger: What\u2019s behind the move? - Al Jazeera",
+      "description": "Algeria\u2019s military deployment to Niger: What\u2019s behind the move?&nbsp;&nbsp;Al Jazeera",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQa0pjbE41cUU4VXplZ1I5YUFZRjBBdVM1RnZnMk1SYjZVdkpJdnE2RzBZTDZ0b1E1WWFUVjVkX250aWRtUTJSYWxxN19GRTBsTGEwenNEdkFteVlDSVFnRVE4b3NZMVNqMmtMeHJLeGMzS1lRaE1KS2lNR21saXJTeDBoTjdRMVVDcC1RNWp4bWVjUEZMWW13QXZQdkVLZWlYMDNr0gGoAUFVX3lxTE5sbXFJUXdaRXVmdDRTYkc1ZER6QTJRbUVSVlNESGdWdUNCaGFtTHVxZEpBeDNmQlRvdTZiN3p4OFhqODg4MUo3SDB2WmV1cWEyNDRwRFVaMXNRcnE5Ymd4SU83SjVuVHJKNXlOcmVGSnZWR3NuZlZ5dVdwb0NBX0hKLWZCcTNZZ0NsRTAyQ25BQlhPXzFxeVE3Z2Q3UzBpQjY1TnhISjVaaQ?oc=5",
+      "content_hash": "4290c100ea63353878caf7bb47de181bf32d0ba87caca5fe3ca78f0a1628cf40",
+      "published_at": "Mon, 26 Oct 2026 09:55:09 GMT",
+      "created_at": "2026-10-26T16:23:49.189080+00:00"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "Algeria to send troops to Niger in first foreign deployment since 1973 - Reuters",
+      "description": "Algeria to send troops to Niger in first foreign deployment since 1973&nbsp;&nbsp;Reuters",
+      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPU0lJZ29paHVHYVJsR1ZCMnJ4MHFia1VjMjZMc2VFWDFfUHdjUVlNUXplaUQzTWdMc0gzRV8zLTBIQWg5R1ctZEN4M0RRWEVKbmllZEVXc1BpQ2FmMXF3TGNlenVnOEc1bEN0R0FvMklJWXNCLWNtTmlGMTc1Yi1sb1VHbF9mMm1OcVYtVFF6MmJLVmE3aHV2NzdNdzI0cEFURnR3eDd1VkpTeTNEOF9J?oc=5",
+      "content_hash": "e9a63554be28bff3a7170f3813954f6894dde87b839f3baed148bcfc5d1d2481",
+      "published_at": "Sun, 25 Oct 2026 20:08:19 GMT",
+      "created_at": "2026-10-26T16:23:49.189103+00:00"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "Power sisters: How Amina and Aisha Maina are building cross-border influence from Nigeria - The Africa Report",
+      "description": "Power sisters: How Amina and Aisha Maina are building cross-border influence from Nigeria&nbsp;&nbsp;The Africa Report",
+      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNQjhmUE10MDZURWdNN2xTSnRzUTlNR0Vnc3dNX3I3ZTVoN1hmY05vMmppV0tSRlZ6dTFaMGFIZGRkejRHR3IwQjNRYV9DWTMzSFR5UHBGZk42Nk9Lc1lBb0ZIOFFSWk5fZHp5VGtRWWFvWVJiNXh1OVB2aEswYTZkU1oyUFAxNnEwWEZPMFM4ZzRpWmYxRmZUandCTjRVdDEwVmZuR2hnUXBIM0JGVy13UlVYdE5BY3JHUGRKcXNGOGZZMmROOWpJ?oc=5",
+      "content_hash": "9a8e9ed1a39c2762be7660f3932900f7148300f97d31d7f6f9656a71bd96b616",
+      "published_at": "Mon, 26 Oct 2026 06:01:10 GMT",
+      "created_at": "2026-10-26T16:23:49.189115+00:00"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "Algeria Votes to Send Troops to Protect Niger\u2019s Oil Facilities - Bloomberg.com",
+      "description": "Algeria Votes to Send Troops to Protect Niger\u2019s Oil Facilities&nbsp;&nbsp;Bloomberg.com",
+      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxONklNclhrcmZic2Q3Q2U2OTdrci15a183WjVkQ2ZxODZkVm9PY0d1QVdGMG1yejZoeFlYNnlkbDVvQXVIU2lkR3lTZk5pVGdpSWRUTVFLbVJwNVVJWENRMlNMVXNtQnBHTF95R19ka1FsTmpBSnp6dGRUMlk2TzVnYzJ4R1c2VWhMYWM4bG1FNGxJdW54VmViclFUcmtZVkhuVTFGVFAtSlRKdjdsbVFydldYUGpYcEdqbm5DSTlTUHpGeHR6cGZHT25YV0pKYjJNNHc?oc=5",
+      "content_hash": "588a998a21ecb4adad1ce56ec8e6d12893e3ba6d1b27ccdb562c5fe9c59ae4fa",
+      "published_at": "Sun, 25 Oct 2026 23:17:01 GMT",
+      "created_at": "2026-10-26T16:23:49.189140+00:00"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "Africa\u2019s second-largest economy prepares to welcome Dangote, Mansour and global business tycoons from the U.S.,UK, South Africa, India and Nigeria - Business Insider Africa",
+      "description": "Africa\u2019s second-largest economy prepares to welcome Dangote, Mansour and global business tycoons from the U.S.,UK, South Africa, India and Nigeria&nbsp;&nbsp;Business Insider Africa",
+      "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxQTkEwaGtIYlBncW9YN1JMX2VwVnNCdFZzUGMtVy03TXpjczNTdVBGOE1uaTRlUURERlJXclg4TkhGd1h1WXZuZks1WVhwYVp2cjZHMmZzVmRRc2NsTXhMYkE5TUVzUUdhbzVnUkJDZ1p1N1dpNjJTUUc1UUg2d251LUR5Ti15MnhXVzNpb0RhX3NHS1JDdUNsSTVQVHRwSkVpV25nbnY4MGt6T2U2bi1TdE85clA5UUstNmxiM2Q3Z3ZIc25wdldDQktwTGZLYnpCbV9Bdkc3b3M4dw?oc=5",
+      "content_hash": "82a392714926ae2d8206f6acee3a759a09eccf2424cb87c83a6bcc9342191565",
+      "published_at": "Mon, 26 Oct 2026 13:04:42 GMT",
+      "created_at": "2026-10-26T16:23:49.189155+00:00"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "Algeria\u2013Niger: The Troop Deployment Vote, Sonatrach's Security, and the Sahel's Changing Geography - Istituto Analisi Relazioni Internazionali",
+      "description": "Algeria\u2013Niger: The Troop Deployment Vote, Sonatrach's Security, and the Sahel's Changing Geography&nbsp;&nbsp;Istituto Analisi Relazioni Internazionali",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNQkNtU2ZObTE3eno5Qmo5bWl2T3JGd0xNbENtMDNacGd5U01NWk5ENDZJUWp4R2laODBReDMtY1BuVGxFbldjczIxQ1VveHVNRHlDOHd5RWtXWXE3Zi1kZFNWTWY0b1hzT0V0NHZaOUwxYkdOTlRaU2o2RTE1N1MzMnpwMVNkdXB3anQyb2lTZXpDRHZkSEwzSWVITG5nRkljS3VsOHNQMjhMcUlqOGV5NDJFN1ZUUllEN0ZPTnJCNlY?oc=5",
+      "content_hash": "46546ce077353ee50af6783d360618eef36921f3cb34d10e0da75af4b028803e",
+      "published_at": "Mon, 26 Oct 2026 12:03:27 GMT",
+      "created_at": "2026-10-26T16:23:49.189179+00:00"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "SGR Revenue in Kenya [Sh bn] - The Star, Kenya",
+      "description": "SGR Revenue in Kenya [Sh bn]&nbsp;&nbsp;The Star, Kenya",
+      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPMTEybUk0M1hOUjcwZnNSSDdGQ0lxcllhVFBjTFEtM3BFSnl2akt1LXhURUtieU9sLURrT0EyMnJzcjlEUnREMnBHdkN3bU9RdVVaM3BkVUE5OTVqbDlnM1ZjSGtQMk8tbWVUTVR5c1plNnFqbURqNjBFQ2VzY19nYUxJdEFVVmFzZUE?oc=5",
+      "content_hash": "2b7dafebc21773b0971dda9b1c231e52a823d7dff72df45bc147d074ffbf9b2b",
+      "published_at": "Mon, 26 Oct 2026 08:45:00 GMT",
+      "created_at": "2026-10-26T16:23:49.552295+00:00"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Kenya passes up to 62pc of higher international fuel prices to consumers - Business Daily",
+      "description": "Kenya passes up to 62pc of higher international fuel prices to consumers&nbsp;&nbsp;Business Daily",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNakFnY3ZRdW12bjBfUjVScEhRZEVnd05CZ2duX1dwZDF5eDNMck1sUHhwOG9lUVdIbXlidHFESXJneE5PX253aEdHeTRNdzJ2QlBTNUhZQjBlR3V0SWZEZ3FSNXgzd0o0bk4zY2VXczc4d19RZnpiU1F2Rkh4cm1LVUZGVnppY0RwN1NBaUhaVWhsRGE4RjFPd2E0eFlZV1NOY3o4N2EtT3RpTkoyQm1nWE96anNxV1hDSTM0U0FZZnFGX1lX?oc=5",
+      "content_hash": "3f6702d915bf06e1de0b8b83f8b39047e7ff105e692158123937b4c4e17fc486",
+      "published_at": "Sun, 25 Oct 2026 14:45:00 GMT",
+      "created_at": "2026-10-26T16:23:49.552342+00:00"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "KenGen appoints Ronoh Kibet charles as CEO as Kenya\u2019s geothermal growth and energy diversification gather pace - Africa Sustainability Matters",
+      "description": "KenGen appoints Ronoh Kibet charles as CEO as Kenya\u2019s geothermal growth and energy diversification gather pace&nbsp;&nbsp;Africa Sustainability Matters",
+      "link": "https://news.google.com/rss/articles/CBMi5AFBVV95cUxOcnNXajBKbWFoeGZzejFjVUMtQXVRMmpaNVlkT1RxaEgzeVh5Yk5jZEZ3RVFpWUVUcXh0VG4wWkMyRDl2WG1hUHdmc2p3VUZ2Vm1tQl9sMzN2d3JtMzZST3N0QXQ2SkVERmNVaDN0M0tOaEk5dlBvcGNubURjcU9vMTQ3THhVZlE0dDl6TFF4N0o4cWZsMjh3eGEtdnpBM3dnMjdydDNVMFJCei12VWpwV2JZMm1SemlVRGlaOEdpdWl2UzdKYnRsUnJkbTc0aHA5R2J0TW1sdndRbXNLZFJOcFl0UVY?oc=5",
+      "content_hash": "9a389a2657ebeb6952cae61f649d899f25ed94a6a698cb2c3bd84bd32380bd51",
+      "published_at": "Mon, 26 Oct 2026 12:08:05 GMT",
+      "created_at": "2026-10-26T16:23:49.552380+00:00"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Uganda seeks $169m from Opec Fund to rerail SGR - The EastAfrican",
+      "description": "Uganda seeks $169m from Opec Fund to rerail SGR&nbsp;&nbsp;The EastAfrican",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPV0YzYnNZaUZfLXYwTGptNnR1RmR6RnZqZGV2SF9Vb08wRlM4Q213akFUVVZJcTNFR1N1dDhpUDdSdmRpb294Tm5mZjdaSXJfZjl1djk0ZFlNVWNoLTc1MEloeU1EbUE4QU9Jb3FFVENYM2dNdkROV2VnZkFDSFllSGNqdENJdU9ab1ROWEhkSWFkYTFWY3lBYTBka212QjBDMWR2U1k2T0o?oc=5",
+      "content_hash": "7f34a1326c59b14005684aab4472f1e408bac36a79ddf35bffcaa2543fe1c32e",
+      "published_at": "Tue, 20 Oct 2026 10:09:16 GMT",
+      "created_at": "2026-10-26T16:23:49.552407+00:00"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "EPRA Boss Explains Factors Behind Monthly Pump Price Changes - Kenyans.co.ke",
+      "description": "EPRA Boss Explains Factors Behind Monthly Pump Price Changes&nbsp;&nbsp;Kenyans.co.ke",
+      "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc1RYMkNjeEdYbDNsZnNfdFFLVG0wb2xyTUh5Q2h0VXk5enNsbE9vb05DNUlOWnR1dzRuZVptenhsUmNkUkhIWkRmWlg1YnNuM0lZUmJWa1RqazlCSEFrNGZteUcxMEpUVmNsTUZMQzJGVXlFa3RfOHVXdHpLdHZNQWd1aDVtN3EtVW1UZGlKb2hGbDE4SmRiUWtiQ1BGcVMxbWktOEN5aE5XVTFJ?oc=5",
+      "content_hash": "a030d3f6ab0e0df3f9453f8f2509f4442037b579604a7221c5600c801605e83e",
+      "published_at": "Thu, 22 Oct 2026 12:51:32 GMT",
+      "created_at": "2026-10-26T16:23:49.552431+00:00"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "EPRA fuel prices: How oil shipments drive pump costs in Kenya - People Daily",
+      "description": "EPRA fuel prices: How oil shipments drive pump costs in Kenya&nbsp;&nbsp;People Daily",
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPbzk5SDVXYXlmYnA4ZTVJZ3l5ckRSTC1Va1JiN1lQQl9nZFJyd0pwMWxLTkRaRzFkalowMkZfMnhyRHFWWGJucmVmaW9DY0xFQTFWY1hRclFBc1RkX1d1cldnV1lOTUtBamFLRmlMQXNaczNwNmVDTG1FTExfbDJLcDNPY2pIbFY0a0NnRWhlZVA1eDJhUFhreEZDenVuZw?oc=5",
+      "content_hash": "21ac8838353916bb9c4bc449d04b8ecf3751ba288e3328f0c4551202b7511d76",
+      "published_at": "Wed, 21 Oct 2026 15:32:16 GMT",
+      "created_at": "2026-10-26T16:23:49.552453+00:00"
     },
     {
       "scope": "GLOBAL",
-      "source": "Subsea Telecom & Fiber Wire",
-      "title": "UK gov't looks to introduce tougher prison sentences and unlimited fines to subsea cable saboteurs - Data Center Dynamics",
-      "description": "UK gov't looks to introduce tougher prison sentences and unlimited fines to subsea cable saboteurs&nbsp;&nbsp;Data Center Dynamics",
-      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxQWTRXM2VSRDZ6N0t5ODZGaE9xQ2wzRGJPLXc0N2FDSXJWRnV3OWdmMWFxbHlvdnI4VTNteDVNX3RFcmhYSlExb25BcXpnaTJaQXQ1R0daeEc2cnM3QWNnWXVfVHgxUm9xbnRNMHBEeU5iY2VGS0t2eHRScHowTDFJYzAyVWFjbGZLaHlrMmxCeGRqNEpqTER2WVBrMlBVTGlsQlNQd3ZRLWFvZFMtVC10RVhraHQySDZ0RG8zT182MDRoSFFJRGZFYlMyVmVvLUM3blpBLVB6REk?oc=5",
-      "content_hash": "b12ff746775190acdabee67f545f135dac98c208e4643250ad929cd9eb7f9add",
-      "published_at": "Mon, 26 Oct 2026 11:51:20 GMT",
-      "created_at": "2026-10-26T15:48:54.201296+00:00"
+      "source": "Horn of Africa Security Wire",
+      "title": "Sudan conflict: Peace efforts resume to end \u2018drone war\u2019 fuelling humanitarian crisis - UN News",
+      "description": "Sudan conflict: Peace efforts resume to end \u2018drone war\u2019 fuelling humanitarian crisis&nbsp;&nbsp;UN News",
+      "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9aRTVjQUVHb19FQkhJUU54dTBXNi0yMEtFSlhWck1qU1I0TlU2Rk00eHNhRTFmdWhucWhjMXRLd25rcE5kRnJCOE5LcmNPT0laQVl5M0pBUQ?oc=5",
+      "content_hash": "7760ab67c3f2e80643da7f41f0c18ab746cd931b66d51bfa3a58cdbaa77d495d",
+      "published_at": "Wed, 21 Oct 2026 12:08:05 GMT",
+      "created_at": "2026-10-26T16:23:49.768360+00:00"
     },
     {
       "scope": "GLOBAL",
-      "source": "Subsea Telecom & Fiber Wire",
-      "title": "UK proposes 14-year jail terms for subsea cable saboteurs - Help Net Security",
-      "description": "UK proposes 14-year jail terms for subsea cable saboteurs&nbsp;&nbsp;Help Net Security",
-      "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxPejBTYzNVU0w0dXEwcWNOeV9Ba3hWYzBWWmpGSVFqbTZPdDFqUmtDbF85M3djV1RYRUNMN3hTSllXRkZ1MGtqNW11cmI1QnNoZlBEOEZ0WjBnN1liZHhqX0ZfcjRYWXp0SmJsbmNoNFJ6YTkySnVhYlpYVGdSaXFEdHJlUGQ1T0k?oc=5",
-      "content_hash": "63f454465b106c0fc9a7708074a7e9f5a62592f6cf70e46adf031c8d2671dfa6",
-      "published_at": "Fri, 23 Oct 2026 12:37:41 GMT",
-      "created_at": "2026-10-26T15:48:54.201311+00:00"
+      "source": "Horn of Africa Security Wire",
+      "title": "Fighting in Ethiopia border town kills nine, thousands flee to Kenya - Reuters",
+      "description": "Fighting in Ethiopia border town kills nine, thousands flee to Kenya&nbsp;&nbsp;Reuters",
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
+      "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
+      "published_at": "Fri, 23 Oct 2026 16:33:52 GMT",
+      "created_at": "2026-10-26T16:23:49.768411+00:00"
     },
     {
       "scope": "GLOBAL",
-      "source": "Subsea Telecom & Fiber Wire",
-      "title": "Analysts Urge US to Follow UK's Lead on Undersea Cable Law - BankInfoSecurity",
-      "description": "Analysts Urge US to Follow UK's Lead on Undersea Cable Law&nbsp;&nbsp;BankInfoSecurity",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPN3NxYkdPRjNDWmdaS1FSUGtQRkxLWDZvUGdTamduODVZaEo3TGt4ZXFGS0hLb0dYMDY4Nmhya2RMcE9KVUp2akV6V0FoaTlxdVZVSFF6XzUzQzlqdzBsUnh1YWlKV2FPTWJDblRnTXRDbDNDcW5GVG80SlpQYVZ5aUVhNzlOQWRfaXBPUFFvYjNrbjB5QVVjUWU4dVZOMmM?oc=5",
-      "content_hash": "86e2a80d5bd8dea66875bc0b93a534e645b80067aab6f4072708beeb4468a272",
-      "published_at": "Fri, 23 Oct 2026 21:21:16 GMT",
-      "created_at": "2026-10-26T15:48:54.201324+00:00"
+      "source": "Horn of Africa Security Wire",
+      "title": "EEPA reports on clashes erupt in Ethiopia-Kenya border town - IDN-InDepthNews",
+      "description": "EEPA reports on clashes erupt in Ethiopia-Kenya border town&nbsp;&nbsp;IDN-InDepthNews",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNUDk1S2FrSUJlRTBTTjEzV3lwbjRTMEtqMUMzdDVFQ05GWmtpVnhtTDZzelNsSTZyWWVxTm5nT3NqYjdkQjFjcUR3eFhxSnhuWlo4UXlZbmQyRTlsTzRQTkoxVTVvQ1JQQ2o0bmlpSTJ3WWlqTTdaeF9OT0FmUU9UNlFZdlRwYnFkNVJfMA?oc=5",
+      "content_hash": "372290e44965c6a789c0783ac77225e227727a13f3cb01adb6b02b487216ad7b",
+      "published_at": "Mon, 26 Oct 2026 14:00:10 GMT",
+      "created_at": "2026-10-26T16:23:49.768441+00:00"
     },
     {
       "scope": "GLOBAL",
-      "source": "Subsea Telecom & Fiber Wire",
-      "title": "Taiwan Open to Cooperating With Philippines on Undersea Cable Protection - https://dominotheory.com/",
-      "description": "Taiwan Open to Cooperating With Philippines on Undersea Cable Protection&nbsp;&nbsp;https://dominotheory.com/",
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOZ1Q3eWpWSWNwQ3Z4ejNoSnAyYno1czdWaTVtUWRTc0tRdDQ2eVk5SGQ5X1QxV0h0Zkw2VzM2Ul9sdVhCX2o1dERiRWRIcTRsZ3JBdjU5ZWJGTXd4S3JvM3pxNklNMGw4SXppYXVaY1RjMmgzWjVZTGVIOGN1UlRHMXpncFFBaVllLVVhN0k5S2F0V0ZKZnFQaWJCYkNZY0U?oc=5",
-      "content_hash": "121668f9ac20be1919fd37fa6eaf9534b99f1abc984ee8826a2c3e3d6387f6ae",
-      "published_at": "Thu, 22 Oct 2026 09:51:05 GMT",
-      "created_at": "2026-10-26T15:48:54.201336+00:00"
+      "source": "Horn of Africa Security Wire",
+      "title": "Kenyan lawmakers urge Ruto to intervene as Ethiopia border crisis deepens - Anadolu Ajans\u0131",
+      "description": "Kenyan lawmakers urge Ruto to intervene as Ethiopia border crisis deepens&nbsp;&nbsp;Anadolu Ajans\u0131",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPQXZNQUVUQW14UllfRy1xSzBfRkdET3NWTVdWZ001ZDNVVU5iNTNYTENzTEE4Tl9UcUkyakxFdk0xblR1NFhRVkc3am9kWHRnVndzU2xGVzhRT2tBYkR2UTh4ZGEwSVh6aGxQSndEbTZvaVlPSHk3MFBfMENyQ1REU3NxLW8ycEM0VDJ5ZnU1ckl5dWwweVA3ek5abEt5eHBmVFZ4OUZfVEw3UVFKRGNFNG1RNA?oc=5",
+      "content_hash": "1fb5eeef47f2d96c57884738d0c436f8ac372483e90245c20c7ec6a5e38db51b",
+      "published_at": "Mon, 26 Oct 2026 11:49:22 GMT",
+      "created_at": "2026-10-26T16:23:49.768475+00:00"
     },
     {
       "scope": "GLOBAL",
-      "source": "Subsea Telecom & Fiber Wire",
-      "title": "UK proposes 14-year prison terms for undersea cable sabotage - The Record from Recorded Future News",
-      "description": "UK proposes 14-year prison terms for undersea cable sabotage&nbsp;&nbsp;The Record from Recorded Future News",
-      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQaktScDNIUUFwbG5JVWZJWGZuOGZyOXhvNWJSSUdvR1c4MVIwMEFKOWJfOE9wNmRQV2tQbkhaT1RIbGdDV1Rqak1nbjlKZkdDVWJSYkRTdHJyUVZ6d0FIQ29DOU5VcUNreHZJVUUwSDlYZ2QxNzluUGI4N0dYUi1vTjBsSQ?oc=5",
-      "content_hash": "cdbe1f17832e8a54253cff31c59610d6e4c4c54eaf61c9a1ee51d672f0b58ac4",
-      "published_at": "Fri, 23 Oct 2026 13:33:18 GMT",
-      "created_at": "2026-10-26T15:48:54.201350+00:00"
+      "source": "Horn of Africa Security Wire",
+      "title": "Twenty years later, Sudan\u2019s refugees still can\u2019t go home after seeking safety - The Jerusalem Post",
+      "description": "Twenty years later, Sudan\u2019s refugees still can\u2019t go home after seeking safety&nbsp;&nbsp;The Jerusalem Post",
+      "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE55MWJlY2dRd3VLRGNBeE1DbEc3cmFILWk2TGVmcUJwVndoZDY0aW1FTmlJYmhSOVBhUmJPc01uQjE4b28tU3VvYXVUalUzM21MV2VwR3BHNG9lWjhqZ05n?oc=5",
+      "content_hash": "85a2b71887c92e527aa93900f34e7b6b6f60ebacac04f15eed819aebb6767dbc",
+      "published_at": "Mon, 26 Oct 2026 10:57:08 GMT",
+      "created_at": "2026-10-26T16:23:49.768507+00:00"
     },
     {
       "scope": "GLOBAL",
-      "source": "Great Lakes Minerals Corridor",
-      "title": "Congo Removes Boss of Artisanal Mining Regulator Amid Crackdown - Bloomberg.com",
-      "description": "Congo Removes Boss of Artisanal Mining Regulator Amid Crackdown&nbsp;&nbsp;Bloomberg.com",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPVDNoWk8wOFBuR29JQl8tSHVmeTllTDlCOC1WQkxabXFHOWV1eXZLd1VpRXFsZjAyXzF3UlBYQWM2Zl9BNFZsaFNkMTNSRkdaV0hJNXZEd0NfRUJ1cy1Vcm04THcxZnZlVm55VTNXTU5UVlBPWDJtRUVzRWNsQnZUT3pNQ0xFRWg1NVJMMmVmekFhclVGd1FPdTM3WkVxVTV1N010dGdJNGxaZ2p5cGctV1NLXzI?oc=5",
-      "content_hash": "6fc9b8cfff005ed6cba4ce700cb1f6a464c9080c5f18a0fce0b45829212accf9",
-      "published_at": "Mon, 26 Oct 2026 14:17:52 GMT",
-      "created_at": "2026-10-26T15:48:54.880517+00:00"
+      "source": "Horn of Africa Security Wire",
+      "title": "Ethiopia War Security Review, October 23, 2026 - Critical Threats",
+      "description": "Ethiopia War Security Review, October 23, 2026&nbsp;&nbsp;Critical Threats",
+      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOSEdNM29VWXVlaXdhTWpxV0tkajRKU0FENDlGYnVlXzV2THBnUTllb29vUlQ5WjlnMGFpTC1tSGxBNmdtZGZrdmVMbjctSEVqMDMzLWl0Sjhkc19GX19GV042cTJhTW5oWV9YakZRTVdwYzJub29fMzJXMnNIYWdXTWYwQVBqZVNwbnN3?oc=5",
+      "content_hash": "c55f74a0d00b27a22c8dd66230b3027fceb78206aaaa6298a1b909c675577508",
+      "published_at": "Sat, 24 Oct 2026 03:29:57 GMT",
+      "created_at": "2026-10-26T16:23:49.768534+00:00"
     },
     {
-      "scope": "GLOBAL",
-      "source": "Great Lakes Minerals Corridor",
-      "title": "DRC: M23 fighters abused miners and trafficked gold and coltan to Rwanda - Amnesty International",
-      "description": "DRC: M23 fighters abused miners and trafficked gold and coltan to Rwanda&nbsp;&nbsp;Amnesty International",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOTndkYy1xaW5hQS1VNGkyblAteEpHOVltTXlmcFNwZXZXa1pqdjkzMERjdWdOY2hJRUQ2d0ZTNTFLQ280U2dMRVBOclFCWThCSWtLZ1lzQ19QOHRqRG5EQU1EZmNNYkh0Nk9hT1o3cmxWNzFQQmtqamtDV1RRUG1oSkl4TWdHeUZYMEoweWxUeXJJNlNrTGlrbjVWVEpyeHZJVVFjS292ZzZuV1Q3bnRfdDcxWDVickY1OTVN?oc=5",
-      "content_hash": "1e5df3ca9629e5aa5754785b45999e7be3a91735a717e0cd140f16641f8a2bb5",
-      "published_at": "Mon, 21 Sep 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T15:48:54.880545+00:00"
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Careers on the line for Australia in deciding South Africa Test?",
+      "description": "Australia are about to play a Test match in Cape Town for the first time since the ball-tampering scandal back in 2018 that paused a number of their cricketers' careers.",
+      "link": "https://www.skysports.com/cricket/news/12040/13603987/south-africa-meet-australia-in-third-test-series-decider-at-cape-town-with-careers-on-the-line-for-tourists",
+      "content_hash": "ad4c72435879380ab2ad968110ba37f0eddd780f70f78b4c3fbf203da1507f8b",
+      "published_at": "Mon, 26 Oct 2026 13:00:00 GMT",
+      "created_at": "2026-10-26T16:23:50.445120+00:00"
     },
     {
-      "scope": "GLOBAL",
-      "source": "Great Lakes Minerals Corridor",
-      "title": "KPM Lights Up Africa's Largest Green Mining Power Grid on the DRC's Power-Short Copper Belt - Shanghai Metals Market",
-      "description": "KPM Lights Up Africa's Largest Green Mining Power Grid on the DRC's Power-Short Copper Belt&nbsp;&nbsp;Shanghai Metals Market",
-      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxPTUd2NVBBdTRFS2ZFMDRJNmRreHUzSmEzQnRlcm9VQjBjS1I5Sjl1V1YzYUFlcUNLTFBLd3M0Y2hTNjlYU3RSOVA5V1pNVzlSbVFZdEMwSWJwSUQzNkd2ak1Ic2Zaa1puT2tZR1plMFpzbXFfWFI5UUlxd3c1NmF0cTA5THM1RTdqY0N5UlNWLU81TUdvYnBDN0RZNUlVaWVhZVZvRkllSlNVbGRJR1pxRUdhSGh3ZkhJRkhFTnBEVTlOUWU1LXI3UFJ0S0QwYlk?oc=5",
-      "content_hash": "d380ce771ac74a46e51f1731636f3a278e0973ea54520550dbc17c29d0016795",
-      "published_at": "Mon, 26 Oct 2026 08:37:00 GMT",
-      "created_at": "2026-10-26T15:48:54.880561+00:00"
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Bournemouth latest: We're in 'good spot' ahead of Villa cup tie, says Rose",
+      "description": "",
+      "link": "https://www.skysports.com/football/live-blog/12040/13279286/bournemouth-transfers-latest-news-rumours-and-gossip-live-updates-goals-and-highlights",
+      "content_hash": "3864319db63174d99b96bcaa44cf1be2eb175c42ff7dfdf5ee8ef61fb58d0719",
+      "published_at": "Mon, 26 Oct 2026 12:32:00 GMT",
+      "created_at": "2026-10-26T16:23:50.445199+00:00"
     },
     {
-      "scope": "GLOBAL",
-      "source": "Great Lakes Minerals Corridor",
-      "title": "Security Council LIVE: DRC peace deals fail to halt fighting as Ebola deepens crisis - UN News",
-      "description": "Security Council LIVE: DRC peace deals fail to halt fighting as Ebola deepens crisis&nbsp;&nbsp;UN News",
-      "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE50bHlMdTg1Zm5qY1FnNHg3a0M4ekZrb0JZZ2tyRFI1cURkUjQwWUJfUVR2YV9iTTZaOU5YTTdQalo0VDg2TUllVnpDbUhDQ3BaekE4TDI2Yw?oc=5",
-      "content_hash": "650491e52183bbf811557d5a085aabc5d6c55d91ccc1a7a3d5fb5b913f3cd367",
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "How worried should England be after another unfathomable defeat?",
+      "description": "It's not just Manchester United who've had a chastening week.",
+      "link": "https://www.skysports.com/cricket/news/12040/13603915/englands-odi-struggles-how-worried-should-harry-brooks-side-be-after-another-unfathomable-defeat",
+      "content_hash": "3f8a0256e392c6be1d46490b95d0f4c98c8f1cfc9fad98046fa5af8205a5e01b",
+      "published_at": "Mon, 26 Oct 2026 10:00:00 GMT",
+      "created_at": "2026-10-26T16:23:50.445236+00:00"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Kane, Mbappe and Lamine Yamal - who should win men's 2026 Ballon d'Or?",
+      "description": "Harry Kane is the odds-on favourite to win the 2026 men&#8217;s Ballon d&#8217;Or, which could be one of the tightest results in recent history.",
+      "link": "https://www.skysports.com/football/news/12040/13601847/ballon-dor-2026-harry-kane-kylian-mbappe-and-lamine-yamal-in-race-for-mens-award-stats-and-pundits-opinions",
+      "content_hash": "78a9a7c01179d4151965e28a10822440fc2fe204414a01abf9a088aeb41e0a26",
+      "published_at": "Mon, 26 Oct 2026 07:00:00 GMT",
+      "created_at": "2026-10-26T16:23:50.445260+00:00"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Verstappen fumes at Red Bull radio dropouts during races",
+      "description": "Max Verstappen says technical issues with Red Bull's team radio are \"a disaster\" after he struggled to communicate with his engineer for a second successive race.",
+      "link": "https://www.skysports.com/f1/news/12040/13603619/max-verstappen-red-bull-driver-says-team-radio-dropouts-are-a-disaster-after-becoming-frustrated-during-united-states-gp",
+      "content_hash": "3ee10b2638390a04c977018f0ab5b3bc744c69cfdbca76dd006cc410d5e2ba0c",
+      "published_at": "Mon, 26 Oct 2026 12:40:00 GMT",
+      "created_at": "2026-10-26T16:23:50.445284+00:00"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Thunder star Williams stretched off with leg injury",
+      "description": "Oklahoma City Thunder star Jalen Williams was taken off the court on a stretcher after suffering a significant lower-leg injury during their 108-101 victory over the Los Angeles Clippers.",
+      "link": "https://www.skysports.com/basketball/news/12040/13603869/jalen-williams-oklahoma-city-thunder-star-stretchered-off-with-significant-leg-injury-in-win-over-los-angeles-clippers",
+      "content_hash": "3839bfa1b40c730c9e1556d2143b4f051fe891c0b5451afac588b82f6d8afb48",
+      "published_at": "Mon, 26 Oct 2026 06:40:00 GMT",
+      "created_at": "2026-10-26T16:23:50.445305+00:00"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Harambee Stars attacker explains why he snubbed Gor Mahia for Nairobi United - Mozzart Sport Kenya",
+      "description": "Harambee Stars attacker explains why he snubbed Gor Mahia for Nairobi United&nbsp;&nbsp;Mozzart Sport Kenya",
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPMXdGWHBXM2FpVUE3bzFDY3FhcVFCMF9ORlNzSElmenVQRExUR1NaU1Zuc2lKT29YTzl5QUg4UXFzR2RDdE5wM0l0UUJCbmduNkE5QjltU19nVFhJY2ljbkp3MU5acUlFWmNJUDVQSmFNTlZKdlpfV2NmWW9ncnVrXzZhYlRXOW9BQ3JqRTNlMnFEdjJOTHY1QlZoRjh3Zjd5cEN4R1NiN1FLLUh2MElQck9yckF5UFNUSUpwN3BaQktRZGkwYXc?oc=5",
+      "content_hash": "449d725f08de13d197ea7bc305d88bbc3f92d2b822c5c1b1aa27d9acfc018cbf",
+      "published_at": "Mon, 26 Oct 2026 09:39:22 GMT",
+      "created_at": "2026-10-26T16:23:51.363272+00:00"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Deaf Harambee Stars step up preparations for inaugural Dafcon - Daily Nation",
+      "description": "Deaf Harambee Stars step up preparations for inaugural Dafcon&nbsp;&nbsp;Daily Nation",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOTHpWMndUUkVsazBfYk55TTRseVQ5bFpLellNUGxEN1FmQ3FSeWxlYTQ4ejFCdXFxS3V6X3RtZFd1OXpqU2lERG5DS3RRRXZPaENNTzMtT0M2Q1dsU09DR0p2Q2hJT2pyV0szMlhqV0xTeTJFcThwTzhEX2VGeTRjSTVnQ0dMZGxDWDh4VDNISXBTSkFsVFZLNnp2cncwaFo2Z2d1d25BTVhQb21YZkhsd1FQWGZ6UjJP?oc=5",
+      "content_hash": "60755010b3b222d5bc8067bfb50682381953e1651c4034a4bdb5e5c78d5bf83f",
+      "published_at": "Sun, 25 Oct 2026 12:00:00 GMT",
+      "created_at": "2026-10-26T16:23:51.363410+00:00"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Ambitious Nyamawi eyes KPL Golden Boot, Harambee Stars return - Citizen Digital",
+      "description": "Ambitious Nyamawi eyes KPL Golden Boot, Harambee Stars return&nbsp;&nbsp;Citizen Digital",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNNmFLRHhqaXE3bEVmQ0J5T3NHb3hFY25VbU1EdUpIWHJnVUxPLUZiUWVhYWtHTHh6UnVDYmtNUGRvRXZsZXVjNl9UWUowZ2pmal9qbENibjMzS1llS0RpM2hWZllHSFZ5QS1tc29EY2JKYXVrTVVCbmlqVFRmeGRiOEdGdHFJSl9zYVB3QlFncHI4WFNIa3JOVEpTMzBZbENnU1E?oc=5",
+      "content_hash": "b20b99a51a25cafd23e7d3e51b1e422cf53bcf686e921e5fc648fae70ba725ef",
+      "published_at": "Fri, 23 Oct 2026 14:12:56 GMT",
+      "created_at": "2026-10-26T16:23:51.363435+00:00"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Harambee Stars dynamo Bajaber outlines key target after joining Sakaja\u2019s Nairobi United - Capital FM Africa",
+      "description": "Harambee Stars dynamo Bajaber outlines key target after joining Sakaja\u2019s Nairobi United&nbsp;&nbsp;Capital FM Africa",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQQXlTeVk0eUlLak5QQzM4NWtVOVNXendLUzJrTDNQU3gtbmc1c0JjV0lkTFd1ckNibmV6SzNRZTV4RlNyM01xNUMzS1J6RDJrQk1oVUpQVzZ4Wk4tQ196WHRyMUMxcnhaN1BVRy1WdWdldjd4UmVZNVlSSGdCWkNINFJSenowT0t4MXdmZFhTQi1qTG44ZG5SREJyVDVOOURZTkdyYWI0Yzl2Nk5YV2V0UHVB?oc=5",
+      "content_hash": "0196127aba2c02a2c6774e931517b708c58848caf3174158bbd4f4350f747f86",
+      "published_at": "Sun, 25 Oct 2026 12:56:00 GMT",
+      "created_at": "2026-10-26T16:23:51.363469+00:00"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Harambee Stars vs Bafana Bafana: Price and Where to Buy Tickets for Kenya\u2019s Next Home Match - Pulse Sports Kenya",
+      "description": "Harambee Stars vs Bafana Bafana: Price and Where to Buy Tickets for Kenya\u2019s Next Home Match&nbsp;&nbsp;Pulse Sports Kenya",
+      "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNdWlBejdYTnpnakVPUF84di1vcG1NSkxZaF9udkVEaHVtV3RnXy1FU0VqSkRzaWNJU05RNUJEZEh3ZHN2TkdxcXYzTDhTcElZazBfYTJaSGdYNm92WW9jZ1lCRmJ0VjZlVWNUWkVVR0RWN3YxNm05UlR3OUdCZGVPYjVvbWM5T09RUkdzcVRTSDdiemNHdXdrNUQ1cnQzOG9VbDZEVWdUamM2TXA3MHpaUkRmQVZwMy0zM2lqQVVUSmwyX1E5VzE3VUJGUlNvWXZfdEZuWmFCcGRRT1FNbXc?oc=5",
+      "content_hash": "fe31d4fc5d81d9553aab2b322a234babde8524721fea6b0a6570dd242d397948",
+      "published_at": "Sat, 24 Oct 2026 08:30:29 GMT",
+      "created_at": "2026-10-26T16:23:51.363498+00:00"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Harambee Stars head to Conakry for Afcon qualifier against Guinea - NTV Kenya",
+      "description": "Harambee Stars head to Conakry for Afcon qualifier against Guinea&nbsp;&nbsp;NTV Kenya",
+      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPSFFIbGtNRTFwNEo3RzY4czdyTl9Ca0lGcmFENXpIUU8xR2xKYUQtQ052TFVVM0xRVFhOMVB0UzkxS3FNRFBXcXFHRUxBb19XRG1yX2VPenJQekViWm1WYVJFWUFCeDRuLVNFZTRzdTE0cm5QbmdKTEtQZjVvMWhmdGM5aHpfc21GNUVjbS1WeXV3Ny1oY3hKakxR?oc=5",
+      "content_hash": "982ce1332b412b4d04dfee93825dd95ee4049aab50c60270c9a09727d38d7516",
       "published_at": "Tue, 29 Sep 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T15:48:54.880575+00:00"
-    },
-    {
-      "scope": "GLOBAL",
-      "source": "Great Lakes Minerals Corridor",
-      "title": "US-backed group Congo mines deal with Glencore in ‘final phases’ - Mining.com",
-      "description": "US-backed group Congo mines deal with Glencore in ‘final phases’&nbsp;&nbsp;Mining.com",
-      "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNY3pJWlNOOC1VOWUtZktRS2NPSlBIdVRqejc0YkVCYkFIN2o2TzlqSWdkMTRPMGZzY0EzX0NZa0QwY2xabENPWnc0ak1QWTc1Ti1tOHpuZ1JSX0FCamc1UWExMFZ5STAwamJjcmYtbXNOSFlSYU4teDFoSWlnX2NTdzF1NDBwUWhwbmdrU3ZGVGRIcTdt?oc=5",
-      "content_hash": "cdedb0dc20171d4653875662cfd5c1cf1d35e419ccfbc0d36fe39d079ccded2c",
-      "published_at": "Fri, 23 Oct 2026 16:58:50 GMT",
-      "created_at": "2026-10-26T15:48:54.880595+00:00"
-    },
-    {
-      "scope": "GLOBAL",
-      "source": "Great Lakes Minerals Corridor",
-      "title": "Rwanda cyber authority boosts security with Airtel, MTN - Connecting Africa",
-      "description": "Rwanda cyber authority boosts security with Airtel, MTN&nbsp;&nbsp;Connecting Africa",
-      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPVWMxRGgtam1OR3BVTkUxUlhoWHNxWUQ2SExCQUhlb1NTMl9nQ2tIQzBnZ21UeHVIR0lLb3hOWDRpZ240Q2ZGeUYyVXA4NFFvaXNNN3FrbDgxN05oWEIyNDVtc05BWF9Pb2xHUW8teEtIRTMzanowUWJIbFJOYlI5cXJneXNkRm1uTHZtazF3c0lMZ3BHczctN3pfSlZRbUg5YmNr?oc=5",
-      "content_hash": "4931fc55f8a01f8d3a11ef38a1bdf3c0602e18bd09fc744adebbda2c5515dbb9",
-      "published_at": "Mon, 26 Oct 2026 07:43:15 GMT",
-      "created_at": "2026-10-26T15:48:54.880609+00:00"
+      "created_at": "2026-10-26T16:23:51.363522+00:00"
     }
   ],
   "conflicts": [
@@ -544,21 +784,21 @@
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Funding, force-structure issues could hinder Hegseth’s new autonomous command",
+      "headline": "Funding, force-structure issues could hinder Hegseth\u2019s new autonomous command",
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/funding-hegseth-autonomous-command/416800/",
       "content_hash": "33c6a6145f216294b9a9ff9753364acfc3446c32dc2624d964449b29c31ba6fd",
-      "created_at": "2026-10-26T15:49:38.130425+00:00"
+      "created_at": "2026-10-26T16:24:25.538758+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Are yearlong deployments the Navy’s new normal?",
+      "headline": "Are yearlong deployments the Navy\u2019s new normal?",
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/yearlong-deployments-navy-new-normal/416777/",
       "content_hash": "610c3a52927bf062077806db21e18ce1fdd76ebf904569a419aad89100f88c15",
-      "created_at": "2026-10-26T15:49:38.130482+00:00"
+      "created_at": "2026-10-26T16:24:25.538812+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -568,7 +808,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/business/2026/10/defense-business-brief-little-bit-mosa-netherlands-us-industry-days-and-more/416776/",
       "content_hash": "fb4304ececba017600c025bd3957cfbe8dce00208f32965d802a46007e4d59d9",
-      "created_at": "2026-10-26T15:49:38.130510+00:00"
+      "created_at": "2026-10-26T16:24:25.538837+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -578,7 +818,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/qatar-looks-bolster-its-military-power-new-hub-partnerships/416775/",
       "content_hash": "eb19c90489c72b6fe7011db005a03cd31a2b5d7daa330cf9413d670971d3cdd6",
-      "created_at": "2026-10-26T15:49:38.130532+00:00"
+      "created_at": "2026-10-26T16:24:25.538859+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -588,7 +828,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/critical-flaws-php-warning/416727/",
       "content_hash": "bc21d51f0d81b321157b6da39ef357b19d0730d0e48d8474ccc265958b874681",
-      "created_at": "2026-10-26T15:49:38.130551+00:00"
+      "created_at": "2026-10-26T16:24:25.538876+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -598,17 +838,17 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/lessons-for-pentagon-procurement-from-the-special-operations-enterprise/",
       "content_hash": "9b2bf399c0c7dc35dee4c06179ab6c555aad03b1bea579c5b229ae7695d59dba",
-      "created_at": "2026-10-26T15:49:39.550235+00:00"
+      "created_at": "2026-10-26T16:24:28.206516+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "The Importance of the Battle of Bailén",
+      "headline": "The Importance of the Battle of Bail\u00e9n",
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/the-importance-of-the-battle-of-bailen/",
       "content_hash": "485ee9be955708427843da4eeff3092baacc94974b84be8f41edb5f2a0a1c82c",
-      "created_at": "2026-10-26T15:49:39.550274+00:00"
+      "created_at": "2026-10-26T16:24:28.206563+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -618,7 +858,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/deception-in-mass-autonomous-warfare/",
       "content_hash": "baf14b66b6cf2ecf1ac2a423d3ea95ae5e417260b88dbab010bee7641c0fc7a1",
-      "created_at": "2026-10-26T15:49:39.550293+00:00"
+      "created_at": "2026-10-26T16:24:28.206582+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -628,7 +868,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/brothers-in-arms-partners-in-healing-a-story-about-a-breakthrough-in-treating-post-traumatic-stress/",
       "content_hash": "4b9e726bbf768905cd5665906bbd2c2ad0f86acbcd565b4133fdcadf5ecbc7cb",
-      "created_at": "2026-10-26T15:49:39.550317+00:00"
+      "created_at": "2026-10-26T16:24:28.206606+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -638,7 +878,17 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/the-endless-chip-war/",
       "content_hash": "28c3ebec50f05d3361fc7460a3618d0797e594cdc9e9ed55af6c9d7715fa917b",
-      "created_at": "2026-10-26T15:49:39.550334+00:00"
+      "created_at": "2026-10-26T16:24:28.206623+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "RED-SEA-MIDEAST",
+      "severity": "CRITICAL",
+      "headline": "Flurry of Diplomacy in Iran Amid Reports of U.S. and Israeli Plans to Renew War - The New York Times",
+      "source": "Middle East & Red Sea Corridor",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPd05yanVUalZUaF96N3JPYjQtOHdSX0g5SXhxZ08xV1NYRk1yN2lwTndDMXZXR1NUcXFmdmVsenlIbWRMalBfXzFtSk5tVl9hdjgxQlhDU2V5VzJPTWlEek04c3lnMkt0bVFXZ0Q2a0praUUyV3BtbTlhaVBoMFRielVkV1pTYnlPMGVod1ZHMi0?oc=5",
+      "content_hash": "d912ee2c418dd60990006fff6f7929bf6b7c0c23aa43ee37ea58126e13dc6452",
+      "created_at": "2026-10-26T16:24:29.236228+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -648,7 +898,27 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOZXdRdW1Db041UUN4dlYyNURUdmFWS0V0V1hCc0hnNVBZWlIxYk5Pdkg0Nks0Ri01UkRsM0NVR3VVTEVzc2psaWhpZDk1ZlRTTG0tcHgzcEZkTURsUDFoejN3MVl0NVBKZXNwU1ZVeDI0VWY5TEJ2M2dqSXBDcFpRTzRvSExKWEtVQlNzLUZINnZsT3phZ0xROHd3VXc?oc=5",
       "content_hash": "389b0302d0e6a3271ca2278d327f1d8caa23843448de35dd2a069353567b7588",
-      "created_at": "2026-10-26T15:49:40.621435+00:00"
+      "created_at": "2026-10-26T16:24:29.236270+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "RED-SEA-MIDEAST",
+      "severity": "CRITICAL",
+      "headline": "Iran says it\u2019s prepared to go back to war amid threat from the U.S. and Israel - NPR",
+      "source": "Middle East & Red Sea Corridor",
+      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPTWF4R1g5cjkxZXNYdDVVa0N4SWVoY3FiOVVsdnJ3Nll4Si1lbVNnemhBQi05aWF3NEllLWtKTHM5Qlh3bGRmcVhiWXpFZWt2VW5iRzJCN1dzNFlqX09sVWZsTG81OEpMa0tKbnZ2T0NRMWE0el9kYkQxNjhyWVE1NkF4RGhGVUNnV1hHZGo1eUZvZUZ3c01zN1Z4WjVLNmhJdlEtU3U4VlU2SHRxOFUyeG5LbWJzaDI0X2xVel93?oc=5",
+      "content_hash": "efe2d93ad6d212cb144c35202c7b3f503207a0ed30ef9696b71b8c8f1c755a43",
+      "created_at": "2026-10-26T16:24:29.236299+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "RED-SEA-MIDEAST",
+      "severity": "CRITICAL",
+      "headline": "More Oil Is Now Coming Out of the Persian Gulf Than Before the Iran War - WSJ",
+      "source": "Middle East & Red Sea Corridor",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOQ25MSXRodmt6X1ZwZFZ1b01nR01ZTE1PWDU0SGVaWTRKMXJLdl9FbXVHSnZTMGxiV1pMbGtOZTVUMjZER01kVHQ1TmtIczlGZ3Z3X2djQng0b0RrOEQtZkk4REEtYTE2U1JxVlpLMzAtUnNycVhiQXVqV3BET09SZDZLbWtfZGp3NFl6eDZPakRzeDk4N3VydmJucDB6SlgwNmNNWVlrVTVRdGQ2RTVVOUpqTXBJa3RWaXc?oc=5",
+      "content_hash": "728bf2317febfd1a28001a602cf5a1fa55a65f19b502bcb6a744786bbcc12f5f",
+      "created_at": "2026-10-26T16:24:29.236319+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -658,47 +928,17 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPZ0xKRTVxNm9iY0h0VVRiaHpsa2I2R0FhSTNyakRBMGwzU1BCLWxXSTJlalEtbmhmSGtIR3NRalZ5d1NGck9laXdKcHZoTXoyWTliZkZrZ3dzUmdGXzllVU9zWGxpRzJIc21zUXcwV0s3a0ZZSGxiQ1UzdUtQVGc3NVd1b0pHZy1IU0ktaWl5SUpocXJlTXVnUnRrN3N4U1R2N1J0STVScmROMlFuTFczeDZYNG43MHRFaFE?oc=5",
       "content_hash": "2942718a3036d09d3705332c9a019b41a5f2891c1aef7515444fc6c4efd4a7f3",
-      "created_at": "2026-10-26T15:49:40.621488+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "RED-SEA-MIDEAST",
-      "severity": "ELEVATED",
-      "headline": "Houthis say they attacked Saudi oil pumping stations, Riyadh airport as fighting intensifies - Reuters",
-      "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxORlYwOVl3Z1hlOFdacWVmeXZVNnVhejFlWDVOR0toczJ2MWNjT1FMRWZjVU0xd1hGaGtzNU9VcGdYSnR1Z2NVQjFfRVpKallEcEVuTzNweldmeEdYOE05UXFOejl1ekR1ZjlxUlhHT1NLa3J0cmZYWUxhSEs2eXNGb2xNNUJycVNWci1ZVzZUOXBSNGc0bzRJNWVTTnVlWHhXRlBrLWRTOV9HbmlJTmVfZk95N0FIQnBLQTlTa3N3eFBaVDJMWGptVU1VN3A?oc=5",
-      "content_hash": "888be69a79cd0cf85bedf6c183087178af4fcb608c480a0632d9c7e5c7b1162d",
-      "created_at": "2026-10-26T15:49:40.621520+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "RED-SEA-MIDEAST",
-      "severity": "ELEVATED",
-      "headline": "Delegations meet in Iran with Mideast region on edge over potential for renewed fighting - AP News",
-      "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPMWJncVBjVnZqc1hWNmxhZFFWZUZkS1hXLXcyOXJSeFphV0lJR3dGX3loYTVKVmdFMzFuN1ZNYktiRFAyWW1mdkhBcE9UaE01V1NveFJ2SUlzU1h5YW5sN084S19oeXBaRWRRZVdCWnlWR2kzN3F2ZVUwMmUtMlh1STBSUXZDdVc3clRBb3VESi1FNWM?oc=5",
-      "content_hash": "87c8676ec22d75b77ea11766221e3e65ea9f1b250b43dca172ac045c0f09bf03",
-      "created_at": "2026-10-26T15:49:40.621559+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "RED-SEA-MIDEAST",
-      "severity": "ELEVATED",
-      "headline": "Mecca defense pact officials head to Iran for talks on regional conflict - Iran International",
-      "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5pUElNbkJOWlFGLWsxTWpOV0l4V0wyTU5scEZ4TDA1aEFQeENTTFNNNUJBcnZRQ2xsNlIyUUtOaU1sdF9hOGxhYXd6dmlJVFhNTmc?oc=5",
-      "content_hash": "5d397c829b6d94d2303abefa0bcce0377336612e37a0c6e554418d2c0d01a96c",
-      "created_at": "2026-10-26T15:49:40.621606+00:00"
+      "created_at": "2026-10-26T16:24:29.236341+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "EAST-AFRICA",
       "severity": "ELEVATED",
-      "headline": "Kenyan lawmakers urge Ruto to intervene as Ethiopia border crisis deepens - Anadolu Ajansı",
+      "headline": "Kenyan lawmakers urge Ruto to intervene as Ethiopia border crisis deepens - Anadolu Ajans\u0131",
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPQXZNQUVUQW14UllfRy1xSzBfRkdET3NWTVdWZ001ZDNVVU5iNTNYTENzTEE4Tl9UcUkyakxFdk0xblR1NFhRVkc3am9kWHRnVndzU2xGVzhRT2tBYkR2UTh4ZGEwSVh6aGxQSndEbTZvaVlPSHk3MFBfMENyQ1REU3NxLW8ycEM0VDJ5ZnU1ckl5dWwweVA3ek5abEt5eHBmVFZ4OUZfVEw3UVFKRGNFNG1RNA?oc=5",
       "content_hash": "1fb5eeef47f2d96c57884738d0c436f8ac372483e90245c20c7ec6a5e38db51b",
-      "created_at": "2026-10-26T15:49:42.853163+00:00"
+      "created_at": "2026-10-26T16:24:29.605395+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -708,17 +948,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPMS1WVVd2SjFQakkteUxrWlZBalpOT2dPWHJobWtWVW0wa0hfSHFhd0J0dFRYVV9Fclp4dHUtdF9PdU9mMTl3ZlZyTjBuLXhkX1U3cUVUQXFvVkN0N2loc1lOcVM5WEZsb0xkWmZfZkYyOW9xakdtVUY5eVdnZl8zM2FlbDVReGNLWVlKY3p2dDRlWFpIWFUtUTVtRnJUY1F5aXI1WmZn?oc=5",
       "content_hash": "a4e3c3ec9fa12331d79e5b3c44a4c168f0437ee010c4f706103b57aa330e5537",
-      "created_at": "2026-10-26T15:49:42.853188+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EAST-AFRICA",
-      "severity": "HIGH",
-      "headline": "EEPA reports on clashes erupt in Ethiopia-Kenya border town - IDN-InDepthNews",
-      "source": "Horn of Africa & Regional Security",
-      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNUDk1S2FrSUJlRTBTTjEzV3lwbjRTMEtqMUMzdDVFQ05GWmtpVnhtTDZzelNsSTZyWWVxTm5nT3NqYjdkQjFjcUR3eFhxSnhuWlo4UXlZbmQyRTlsTzRQTkoxVTVvQ1JQQ2o0bmlpSTJ3WWlqTTdaeF9OT0FmUU9UNlFZdlRwYnFkNVJfMA?oc=5",
-      "content_hash": "372290e44965c6a789c0783ac77225e227727a13f3cb01adb6b02b487216ad7b",
-      "created_at": "2026-10-26T15:49:42.853200+00:00"
+      "created_at": "2026-10-26T16:24:29.605437+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -728,7 +958,17 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
       "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
-      "created_at": "2026-10-26T15:49:42.853209+00:00"
+      "created_at": "2026-10-26T16:24:29.605456+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EAST-AFRICA",
+      "severity": "HIGH",
+      "headline": "EEPA reports on clashes erupt in Ethiopia-Kenya border town - IDN-InDepthNews",
+      "source": "Horn of Africa & Regional Security",
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNUDk1S2FrSUJlRTBTTjEzV3lwbjRTMEtqMUMzdDVFQ05GWmtpVnhtTDZzelNsSTZyWWVxTm5nT3NqYjdkQjFjcUR3eFhxSnhuWlo4UXlZbmQyRTlsTzRQTkoxVTVvQ1JQQ2o0bmlpSTJ3WWlqTTdaeF9OT0FmUU9UNlFZdlRwYnFkNVJfMA?oc=5",
+      "content_hash": "372290e44965c6a789c0783ac77225e227727a13f3cb01adb6b02b487216ad7b",
+      "created_at": "2026-10-26T16:24:29.605478+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -738,7 +978,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNalIxeVpjLU9rMkZZYVNmS1ZJTjRUUksyVmR4VlNyamU1eV9rQ2Y0NUhzUUg4TllmYkxURFM3OVBJQ2RzajdUUUEzY25WMmxYRWV3Sm5hUHdJQWNHbjVmZF9XVzBPaS1Gd2J5QjdPM3ZFcmIzQkpfaFBQYi1MRUV2dGxidGVKSjIza3VrX2t4MUcyWThSWWZib3o3M0lxaW1QMHZV?oc=5",
       "content_hash": "d6b1339f528f725bcea59b0bea8db41df6d8a289118cd20d97c90f5daba23c8f",
-      "created_at": "2026-10-26T15:49:42.853220+00:00"
+      "created_at": "2026-10-26T16:24:29.605498+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -748,7 +988,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
       "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
-      "created_at": "2026-10-26T15:49:43.913653+00:00"
+      "created_at": "2026-10-26T16:24:29.827561+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -758,7 +998,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQRWpJaVFWeFdvT0NpdU9ZQnVuQ3BhNjJ4dG0tVkZ3cm1UWXhtbVlXb1N4eTN1SG9adUVybERkSFJNbkVBbE9tWmh5ekxaMjcySVotYTZkSGFoRGpkVjJvbmhySF9CdFZRNlhfSEdXaFNSOWNkMEpYTTJoeElDeUhadGlTelZZWkxCZkE?oc=5",
       "content_hash": "1a2775bf71a413b9e601531ce319cd9f67cae4be5983097bbf7817ff46de43e0",
-      "created_at": "2026-10-26T15:49:43.913687+00:00"
+      "created_at": "2026-10-26T16:24:29.827593+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -768,17 +1008,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPVktiaHZEYnJBTzNET1N4NjlMcU9zdWtDUENTcEJpRXRMME5NTXAwM2N2TEF6RmtER1B1SmlKQVZ0eVhFbnZPTC1TbF9CNFh5dHJRLVBLai0zWHpHX3hsWXcwalV6SVlteTdrMnlhcGZYSGplWl9CTzlLNU1yZjBJZnFIM0dwTURjaUk2Y3d5Sm5yYVhrX1dadGhWTVIyal9GYkZycjhhYlltN3VoY1Bn?oc=5",
       "content_hash": "d4394649b9793c54384fe6a8fd7be8b4312b13a25f75edba16b49aa22628f6f6",
-      "created_at": "2026-10-26T15:49:43.913704+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EASTERN-EUROPE",
-      "severity": "HIGH",
-      "headline": "France and US Deploy Maritime Patrol Aircraft to Black Sea Amid Russian Drone Attacks - UNITED24 Media",
-      "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPWnhjcFFsMVJ5elV3M0poWG8xbjR3bERyd0FGRl9VR0FhdEpxYmI2Y0c2cGlwZWVjNlBwZUJPRE1Wc1hDVFhOT3ZBNkl6SC1Gd0xHY3kwWnM1UU5fWVZybWpMYlluX1NDM2Z0TVlyX3NxQ3RtblRmaTl1QWRfVEgyZFR3aEphLW5KU3oxVENkWXk3N1AtNW0zSXdibXhXTnY3bFNpX0lpVzVjTEhpY0Z2RW9CU2lwUHlNZEFpeDNQaTM?oc=5",
-      "content_hash": "fe11592cf119fb515fc04f0d06c9a3ac54b8ee8bb7135c933176ee12d0191cad",
-      "created_at": "2026-10-26T15:49:43.913725+00:00"
+      "created_at": "2026-10-26T16:24:29.827610+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -788,7 +1018,17 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXJfQ3NxeEZ2TzEyVWpBZHV2Tm91S2JPOE1ZM3RFajltaElaa1hEMk9HZHM1OTZQS3o3b1BxOGlkUVpsaTZURkhpeU1scHRNbVN0YTlKeF95cl9JVVByV1l2LWc4Qk1vUGdHdXVOV3l3eV82UFVqbWVTc0E1eFU1eUJCc1M1NGFCNnNJSThKVFVOQVVwNllPT290dGFPQ0twQjcyRUVTWUlJLVgxU2c?oc=5",
       "content_hash": "cf02cee0dbb526905afc9b34af1a6ada0b1bc03023eed300ad36118a3e305877",
-      "created_at": "2026-10-26T15:49:43.913745+00:00"
+      "created_at": "2026-10-26T16:24:29.827631+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EASTERN-EUROPE",
+      "severity": "HIGH",
+      "headline": "France and US Deploy Maritime Patrol Aircraft to Black Sea Amid Russian Drone Attacks - UNITED24 Media",
+      "source": "Eastern Europe & NATO Flank",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPWnhjcFFsMVJ5elV3M0poWG8xbjR3bERyd0FGRl9VR0FhdEpxYmI2Y0c2cGlwZWVjNlBwZUJPRE1Wc1hDVFhOT3ZBNkl6SC1Gd0xHY3kwWnM1UU5fWVZybWpMYlluX1NDM2Z0TVlyX3NxQ3RtblRmaTl1QWRfVEgyZFR3aEphLW5KU3oxVENkWXk3N1AtNW0zSXdibXhXTnY3bFNpX0lpVzVjTEhpY0Z2RW9CU2lwUHlNZEFpeDNQaTM?oc=5",
+      "content_hash": "fe11592cf119fb515fc04f0d06c9a3ac54b8ee8bb7135c933176ee12d0191cad",
+      "created_at": "2026-10-26T16:24:29.827653+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -798,17 +1038,17 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZkFTN1Z5Ui1wdm5HZWVZTWNkUW4tUURiTmh0bGl5SWxSV1pyNW1zanVrRng3UEJSb2toTEV2ZXQzUkpkYm1fQTd0bTFITU1ndnA1NkVUWjlNcmRNa0tOQ3dWNmZtVzR3ZEVORlhxYnBxaGJNb2ZBazVkQUhOMk44RjlJaVprNGpKbkU5d1JJb3BUa3M0NjNRM0t2emkzdzFvLXZQdWwxVWphaU50Q3FN?oc=5",
       "content_hash": "4aa275ce0f155c042c56c244fec1a7eac1fc7b677f344eb7973843f56c0fd3ab",
-      "created_at": "2026-10-26T15:49:44.486285+00:00"
+      "created_at": "2026-10-26T16:24:30.045677+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
       "theater": "INDO-PACIFIC",
       "severity": "CRITICAL",
-      "headline": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov)",
+      "headline": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America\u2019s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov)",
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
       "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
-      "created_at": "2026-10-26T15:49:44.486317+00:00"
+      "created_at": "2026-10-26T16:24:30.045734+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -818,7 +1058,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5JUnNiT2dtMjdnS1FROVN6RmttenJ5Z0hCTF9XbW1IYjJzdkV4Nkl1RmpKdW9RNmZUYjFUNXRWekJidFo5UXFqSjdmb1h5a0VsQmIyS0duVQ?oc=5",
       "content_hash": "9863d823119a510debe961c15674906516eb6832d3ae4329387743d4dcb53330",
-      "created_at": "2026-10-26T15:49:44.486328+00:00"
+      "created_at": "2026-10-26T16:24:30.045760+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -828,17 +1068,17 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOMXBEVExoWlBXVDJWVWM2WGN0LU1lYkZGWnRiWThxUXVzNFg1N1hqYlFTbk5sVGx3cnFXcVBZdl9rRVF2UkFRcy1jQ191cUJVT3p2X3dzRzZlc0c3UlRiUXBJazNET2VuekZsUXJXLS1ta3NPYlAzWG15MTZVMGI3dlNEMUZVWndHN29jb3p2Y05TNHFQX080SWs4WWVNSzlfVEFYSllmMzdHQ1lrcDZHQ21NUl9vVzA?oc=5",
       "content_hash": "93b705be62b3a729afbd9370ea29cc66f712fe8f55776abcce613f36583e5a7a",
-      "created_at": "2026-10-26T15:49:44.486340+00:00"
+      "created_at": "2026-10-26T16:24:30.045787+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
       "theater": "INDO-PACIFIC",
       "severity": "ELEVATED",
-      "headline": "$5 Billion From NVIDIA, AMD And Intel Rumored To Flow Into Taiwan’s Substrate Makers, Matching Their Own Factory Expansion Spending - Wccftech",
+      "headline": "$5 Billion From NVIDIA, AMD And Intel Rumored To Flow Into Taiwan\u2019s Substrate Makers, Matching Their Own Factory Expansion Spending - Wccftech",
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQcUxWUzh2dHYzWVBKTlFGdEozYVhmSUtqdWY2Q01BUG5Qb19BZzFSNjB3WXVYRzJaSHk3aTN3VWJQanFBTXNrTnNwZUVvbGxlSUw2c0UxQUpKZGhSc0gwQm5lSDRYcFpyQUJlOFFTWS1CalliVWNnZ3lqcFVUTUszdHpkOVdRSXo0Wk9vYjFuXzIwQlQyZXJib283ZXhtMTE4akJucFdsV1o1Rm45MWMtVTlQNGV6WFJ0bWlyY25ZYmF6eVpNYURpUERjcUFuV3hBMl9qSnZzcWsxXzZiTDUyb1hZONIB6AFBVV95cUxQLU15bGZKUWJqbVpzWk4yUjhKb3NGY2ltSlBhNHJMeEVGem1kNmhtelNBZzQtcjlfZ1VlZ2VWNVRSOThZYzF4Rmh6djNpU1ZCajBLenlDVnZBLWhDeEhIdmNVZjhOVGpmNTdHTHRfVzlqeXZrU3lSWGlEdURLR3lzZ3EycENrVkRVTTQzSDZSWnR4TUhsd3ZWZFEteHBxVDd5OFJudTk1ZXI4OWJja3o2U1l6OGlidGxRcW1OWEJkV0JMWDY1Q2hlWEw3TXo2WGNVVnpDcTcyNTdTMHotTmNsWUxfbHVUSGV1?oc=5",
       "content_hash": "b31eef8dc04fb9cc8e867e34c79adb2d106ea28bfabfa838816fc56455bc64ab",
-      "created_at": "2026-10-26T15:49:44.486357+00:00"
+      "created_at": "2026-10-26T16:24:30.045824+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -848,7 +1088,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/goldman-sachs-jpmorgan-morgan-stanley-ai-trading.html",
       "content_hash": "fb1ede5e869144dfc2dd52f14aa8ec43f2ec81f7f3bc72e67703a72712e8ef53",
-      "created_at": "2026-10-26T15:49:45.416809+00:00"
+      "created_at": "2026-10-26T16:24:30.658461+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -858,7 +1098,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/stocks-making-the-biggest-moves-premarket-spcx-smci-nflx-more.html",
       "content_hash": "9a33d7535f6b4653bc8def2a163cec0fcce4bf81f9e0a2e65454ff91d09fd442",
-      "created_at": "2026-10-26T15:49:45.416844+00:00"
+      "created_at": "2026-10-26T16:24:30.658488+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -868,7 +1108,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-after-hours-isrg-nflx-spcx.html",
       "content_hash": "9ea5b28a02455b704a737b9d97912fc99667b02835eb19c37ae22e921f6593ab",
-      "created_at": "2026-10-26T15:49:45.416866+00:00"
+      "created_at": "2026-10-26T16:24:30.658501+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -878,7 +1118,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-midday-has-noc-efx-gm.html",
       "content_hash": "44bef1427843fa12ec8c1268f6614bde8d0c6e41bc9ac1632bcc807649e31ea4",
-      "created_at": "2026-10-26T15:49:45.416887+00:00"
+      "created_at": "2026-10-26T16:24:30.658512+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -888,7 +1128,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-premarket-rtx-gm-noc-stld.html",
       "content_hash": "a31bfe33504916f3e24be88e6092fdde2cf9c78569db7154ff263f49d67cddbc",
-      "created_at": "2026-10-26T15:49:45.416907+00:00"
+      "created_at": "2026-10-26T16:24:30.658522+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -898,7 +1138,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
       "content_hash": "5c70172aa6d59e383f591f24202f703538405383bd61bb96ee1c8660b51bd004",
-      "created_at": "2026-10-26T15:49:46.113116+00:00"
+      "created_at": "2026-10-26T16:24:31.184683+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -908,7 +1148,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
       "content_hash": "e3ab869cce692e57696757c0160612602193ae795b6476cf2c5035c62ec8749c",
-      "created_at": "2026-10-26T15:49:46.113152+00:00"
+      "created_at": "2026-10-26T16:24:31.184707+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -918,7 +1158,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
       "content_hash": "3b6ea4b0cd7afaaaa4f35287f8041647248978eee397f809e77295bac7b9f12d",
-      "created_at": "2026-10-26T15:49:46.113171+00:00"
+      "created_at": "2026-10-26T16:24:31.184719+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -928,7 +1168,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
       "content_hash": "fbc8afae82c3db7d2d07cd5efd8aeb856de194eae1498cb909b0b8147bd72b19",
-      "created_at": "2026-10-26T15:49:46.113189+00:00"
+      "created_at": "2026-10-26T16:24:31.184730+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -938,7 +1178,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
       "content_hash": "345f23ed6250d05d64a08fb0a38633a5472e271951c152e9c019b348519213ab",
-      "created_at": "2026-10-26T15:49:46.113207+00:00"
+      "created_at": "2026-10-26T16:24:31.184741+00:00"
     }
   ],
   "topic_deep_dives": [
@@ -956,7 +1196,7 @@
         },
         {
           "subject": "European Football Elite & Tactical Shifting (El Clasico / UWCL)",
-          "latest_developments": "Real Madrid secured a 2-1 victory over Barcelona driven by Kylian Mbappé's brace, sparking tactical debates on modern defensive blocks versus transitional speed. Concurrently, FC Bayern Munich's women's side prepares for high-stakes UWCL fixtures.",
+          "latest_developments": "Real Madrid secured a 2-1 victory over Barcelona driven by Kylian Mbapp\u00e9's brace, sparking tactical debates on modern defensive blocks versus transitional speed. Concurrently, FC Bayern Munich's women's side prepares for high-stakes UWCL fixtures.",
           "in_depth_context": "Elite European football acts as a massive global economic and media engine, with clubs leveraging sophisticated data analytics, sports science, and high-performance load management to optimize player output across congested calendars.",
           "why_it_matters": "High-level tactical execution and performance under pressure provide brilliant mental models for engineering resilient system architectures and maintaining focus during high-stress deployment cycles.",
           "theater": "GLOBAL"
@@ -980,28 +1220,34 @@
           "latest_developments": "Dozens of unauthorized or improperly parked vehicles were towed during the Binational Half Marathon event due to sudden route closures and parking enforcement sweeps.",
           "in_depth_context": "Large-scale public events frequently collide with urban mobility frameworks, exposing poor advance communication, friction in municipal parking management, and sudden logistical gridlock.",
           "theater": "GLOBAL",
-          "why_it_matters": "A stark reminder that poor operational planning and unexpected external bottlenecks can disrupt smooth execution—reinforcing the need for robust contingency buffers in all projects."
+          "why_it_matters": "A stark reminder that poor operational planning and unexpected external bottlenecks can disrupt smooth execution\u2014reinforcing the need for robust contingency buffers in all projects."
         }
       ]
     }
   ],
   "physical_sensorium": {
     "node_id": "NAIROBI-PRIME-HOST",
-    "cpu_load_pct": 26.4,
-    "ram_used_pct": 84.3,
+    "cpu_load_pct": 7.7,
+    "ram_used_pct": 85.7,
     "cpu_temp_c": 0.0,
     "battery_pct": 100,
     "power_plugged": true,
-    "net_sent_mb": 6192.83,
-    "net_recv_mb": 2502.53,
+    "net_sent_mb": 6490.33,
+    "net_recv_mb": 2667.8,
     "ambient_light_lux": null,
     "barometer_hpa": null,
     "kinetic_accel_g": null,
     "active_llm_provider": "GEMINI-3.5-FLASH-LITE",
-    "rate_limit_failovers": 287,
-    "updated_at": "2026-10-26T15:50:08.216335+00:00"
+    "rate_limit_failovers": 33,
+    "updated_at": "2026-10-26T16:24:53.378507+00:00"
   },
   "experiential_reflections": [
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
+      "emotional_resonance": "Locked-In",
+      "created_at": "2026-10-26T15:53:38.607044+00:00"
+    },
     {
       "trigger_event": "Autonomous Drive Pulse",
       "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
@@ -1085,12 +1331,6 @@
       "internal_thought": "RAM utilization is sitting heavy at 81.7%, but all sub-agent swarms are locked in position and ready for your next directive, Chief.",
       "emotional_resonance": "Vigilant",
       "created_at": "2026-10-26T10:57:12.130462+00:00"
-    },
-    {
-      "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "Memory usage is hovering around 81.7% while the sub-agent swarm stands ready at 14 units. Everything is stable in Nairobi, and I am dialed in beside you, Chief.",
-      "emotional_resonance": "Locked-In",
-      "created_at": "2026-10-26T10:50:13.874695+00:00"
     }
   ],
   "lan_devices": [
@@ -1209,256 +1449,13 @@
       "content": "Subnet 192.168.100.0/24 mapped with active device discovery and Wake-on-LAN."
     }
   ],
-  "generated_at": "2026-10-26T15:50:08.475594+00:00",
+  "generated_at": "2026-10-26T16:24:53.633531+00:00",
   "minute_evolution": {
-    "cycle_num": 231,
-    "power_index": 2600,
+    "cycle_num": 246,
+    "power_index": 2610,
     "tier": "TIER_V",
-    "last_vector_title": "Tracemalloc Memory Leak Sentinel & Heap Monitor",
-    "total_modules": 204,
-    "timestamp": "2026-10-26T15:50:26.479305+00:00"
-  },
-  "live_sports": {
-    "success": true,
-    "updated_at": "2026-10-26T15:51:17.109532+00:00",
-    "epl": {
-      "league": "English Premier League",
-      "live_count": 0,
-      "total_count": 5,
-      "matches": [
-        {
-          "id": "401879254",
-          "name": "Newcastle United at Crystal Palace",
-          "short_name": "NEW @ CRY",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+9'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
-          "venue": "Selhurst Park",
-          "home": {
-            "name": "Crystal Palace",
-            "short": "C Palace",
-            "abbr": "CRY",
-            "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png"
-          },
-          "away": {
-            "name": "Newcastle United",
-            "short": "Newcastle",
-            "abbr": "NEW",
-            "score": "2",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png"
-          }
-        },
-        {
-          "id": "401878766",
-          "name": "Brentford at Hull City",
-          "short_name": "BRE @ HUL",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+4'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
-          "venue": "The MKM Stadium",
-          "home": {
-            "name": "Hull City",
-            "short": "Hull",
-            "abbr": "HUL",
-            "score": "1",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png"
-          },
-          "away": {
-            "name": "Brentford",
-            "short": "Brentford",
-            "abbr": "BRE",
-            "score": "1",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png"
-          }
-        },
-        {
-          "id": "401878765",
-          "name": "Brighton & Hove Albion at Liverpool",
-          "short_name": "BHA @ LIV",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+5'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
-          "venue": "Anfield",
-          "home": {
-            "name": "Liverpool",
-            "short": "Liverpool",
-            "abbr": "LIV",
-            "score": "2",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png"
-          },
-          "away": {
-            "name": "Brighton & Hove Albion",
-            "short": "Brighton",
-            "abbr": "BHA",
-            "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png"
-          }
-        },
-        {
-          "id": "401879252",
-          "name": "AFC Bournemouth at Manchester United",
-          "short_name": "BOU @ MAN",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+5'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
-          "venue": "Old Trafford",
-          "home": {
-            "name": "Manchester United",
-            "short": "Man Utd",
-            "abbr": "MAN",
-            "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png"
-          },
-          "away": {
-            "name": "AFC Bournemouth",
-            "short": "Bournemouth",
-            "abbr": "BOU",
-            "score": "3",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png"
-          }
-        },
-        {
-          "id": "401878764",
-          "name": "Leeds United at Sunderland",
-          "short_name": "LEE @ SUN",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+7'",
-          "period": 2,
-          "date": "2026-10-25T16:30Z",
-          "venue": "Stadium of Light",
-          "home": {
-            "name": "Sunderland",
-            "short": "Sunderland",
-            "abbr": "SUN",
-            "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png"
-          },
-          "away": {
-            "name": "Leeds United",
-            "short": "Leeds",
-            "abbr": "LEE",
-            "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png"
-          }
-        }
-      ]
-    },
-    "f1": {
-      "next_race": {
-        "race_name": "Mexico City Grand Prix",
-        "season": "2026",
-        "round": "19",
-        "date": "2026-11-01",
-        "time": "20:00:00Z",
-        "circuit": {
-          "name": "Autódromo Hermanos Rodríguez",
-          "locality": "Mexico City",
-          "country": "Mexico"
-        }
-      },
-      "standings": [
-        {
-          "position": "1",
-          "points": "365",
-          "wins": "9",
-          "driver": "Andrea Kimi Antonelli",
-          "code": "ANT",
-          "nationality": "Italian",
-          "team": "Mercedes"
-        },
-        {
-          "position": "2",
-          "points": "242",
-          "wins": "3",
-          "driver": "George Russell",
-          "code": "RUS",
-          "nationality": "British",
-          "team": "Mercedes"
-        },
-        {
-          "position": "3",
-          "points": "241",
-          "wins": "1",
-          "driver": "Lewis Hamilton",
-          "code": "HAM",
-          "nationality": "British",
-          "team": "Ferrari"
-        },
-        {
-          "position": "4",
-          "points": "236",
-          "wins": "2",
-          "driver": "Max Verstappen",
-          "code": "VER",
-          "nationality": "Dutch",
-          "team": "Red Bull"
-        },
-        {
-          "position": "5",
-          "points": "233",
-          "wins": "1",
-          "driver": "Charles Leclerc",
-          "code": "LEC",
-          "nationality": "Monegasque",
-          "team": "Ferrari"
-        },
-        {
-          "position": "6",
-          "points": "211",
-          "wins": "2",
-          "driver": "Lando Norris",
-          "code": "NOR",
-          "nationality": "British",
-          "team": "McLaren"
-        },
-        {
-          "position": "7",
-          "points": "144",
-          "wins": "0",
-          "driver": "Oscar Piastri",
-          "code": "PIA",
-          "nationality": "Australian",
-          "team": "McLaren"
-        },
-        {
-          "position": "8",
-          "points": "105",
-          "wins": "0",
-          "driver": "Isack Hadjar",
-          "code": "HAD",
-          "nationality": "French",
-          "team": "Red Bull"
-        },
-        {
-          "position": "9",
-          "points": "77",
-          "wins": "0",
-          "driver": "Liam Lawson",
-          "code": "LAW",
-          "nationality": "New Zealander",
-          "team": "RB F1 Team"
-        },
-        {
-          "position": "10",
-          "points": "42",
-          "wins": "0",
-          "driver": "Pierre Gasly",
-          "code": "GAS",
-          "nationality": "French",
-          "team": "Alpine F1 Team"
-        }
-      ]
-    }
-  },
-  "live_sports_updated_at": "2026-10-26T15:51:17.128970+00:00"
+    "last_vector_title": "Kenyan Regional Multi-Node Latency & DNS Heatmap Prober",
+    "total_modules": 205,
+    "timestamp": "2026-10-26T16:25:26.919042+00:00"
+  }
 }

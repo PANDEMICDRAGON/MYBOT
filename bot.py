@@ -2586,6 +2586,46 @@ async def start_local_command_server(port: int = 5050):
                         }
                 except Exception as ex:
                     response_data = {"status": "ERROR", "error": str(ex)}
+            elif (path in ("/api/evolution", "/api/evolution/", "/api/modules", "/api/modules/") or path.startswith("/api/evolution?") or path.startswith("/api/modules?")) and method in ("GET", "POST"):
+                try:
+                    payload = json.loads(body_bytes.decode("utf-8", errors="ignore")) if body_bytes else {}
+                    parsed_url = urllib.parse.urlparse(path)
+                    query_params = urllib.parse.parse_qs(parsed_url.query)
+                    action = payload.get("action") or (query_params.get("action", ["list"])[0] if query_params.get("action") else "list")
+                    target_module = payload.get("module") or payload.get("name") or (query_params.get("module", [""])[0] if query_params.get("module") else "")
+                    base_dir = Path(__file__).resolve().parent
+
+                    if action in ("list", "catalog", "all"):
+                        response_data = evolution.get_evolution_modules_catalog(base_dir)
+                    elif action in ("get", "source", "inspect"):
+                        clean_mod = target_module.replace(".py", "").strip()
+                        mod_file = base_dir / "evolution_modules" / f"{clean_mod}.py"
+                        if mod_file.exists():
+                            src_code = mod_file.read_text(encoding="utf-8")
+                            domain = evolution.classify_module_domain(clean_mod, src_code)
+                            acc = evolution.calculate_module_accuracy(clean_mod, src_code, domain)
+                            response_data = {
+                                "status": "SUCCESS",
+                                "module": clean_mod,
+                                "file_path": str(mod_file.relative_to(base_dir)).replace("\\", "/"),
+                                "domain": domain,
+                                "accuracy_score": acc["accuracy_score"],
+                                "standards": acc["standards"],
+                                "source_code": src_code
+                            }
+                        else:
+                            response_data = {"status": "ERROR", "error": f"Module '{clean_mod}' not found."}
+                    elif action in ("execute", "test", "run"):
+                        response_data = evolution.execute_evolution_module(base_dir, target_module, payload)
+                    elif action in ("refine", "upgrade"):
+                        response_data = evolution.refine_evolution_module(base_dir, target_module)
+                    elif action in ("refine-batch", "refine_batch", "batch"):
+                        b_size = int(payload.get("batch_size") or (query_params.get("batch_size", [2])[0]))
+                        response_data = evolution.periodically_refine_existing_modules(base_dir, batch_size=b_size)
+                    else:
+                        response_data = evolution.get_evolution_modules_catalog(base_dir)
+                except Exception as ex:
+                    response_data = {"status": "ERROR", "error": str(ex)}
             elif path in ("/execute", "/api/execute") and method == "POST":
                 try:
                     payload = json.loads(body_bytes.decode("utf-8", errors="ignore")) if body_bytes else {}
@@ -3730,6 +3770,14 @@ async def execute_minute_self_evolution_cycle(client: httpx.AsyncClient, is_manu
         client=client,
         llm_caller=call_llm_with_failover
     )
+
+    # 4b. Autonomous Module Refinement Loop (Periodically upgrades older/stub modules)
+    if cycle_num % 15 == 0:
+        try:
+            refine_report = evolution.periodically_refine_existing_modules(base_dir, batch_size=2)
+            logger.info(f"⚡ [Autonomous Module Refinement]: {refine_report.get('refined_count', 0)} modules upgraded (New Avg Accuracy: {refine_report.get('new_average_accuracy')}%)")
+        except Exception as re_err:
+            logger.debug(f"[Refinement loop note]: {re_err}")
 
     # 5. Proactive Operator Assistance (Personal Tasks & Health)
     assistance_data = await evolution_core.execute_proactive_assistance(
