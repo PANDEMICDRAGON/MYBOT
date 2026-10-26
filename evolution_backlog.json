@@ -1,7 +1,15 @@
 {
-  "last_updated": "2026-10-26T09:18:07.978760+00:00",
-  "active_hypothesis": "Autonomous Cross-Border East African Community (EAC) Customs Bond & Transit Tracking Oracle via Smart Containers.",
+  "last_updated": "2026-10-26T09:19:58.993458+00:00",
+  "active_hypothesis": "Autonomous Cross-Border Coffee & Horticultural Export Customs Clearance Automator via Kenya Revenue Authority (KRA) iTax & Tradenet Integration.",
   "discovered_vectors": [
+    {
+      "cycle_num": 47,
+      "vector_id": "EVO_NAIROBI_CHAI_TRADE_V1",
+      "title": "Nairobi Kenya Tea Board & Mombasa Tea Auction Direct-Trade Forward Hedging & Escrow Engine",
+      "domain": "OPERATOR_AMPLIFICATION",
+      "file": "evolution_modules\\nairobi_chai_trade.py",
+      "status": "IMPLEMENTED"
+    },
     {
       "cycle_num": 46,
       "vector_id": "EVO_NAIROBI_BO boda_escrow_V1",
@@ -392,14 +400,6 @@
       "title": "Kenya-SMS Alerting & Operator Notification Bridge",
       "domain": "OPERATOR_AMPLIFICATION",
       "file": "evolution_modules\\kenya_sms_alerting.py",
-      "status": "IMPLEMENTED"
-    },
-    {
-      "cycle_num": 11,
-      "vector_id": "EVO_QUANTUM_KEY_ROTATION_V1",
-      "title": "Post-Quantum Hybrid Key Rotation Engine",
-      "domain": "SECURITY",
-      "file": "evolution_modules\\quantum_key_rotation.py",
       "status": "IMPLEMENTED"
     }
   ],
