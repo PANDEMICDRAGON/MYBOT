@@ -1,107 +1,123 @@
-"""
-Module: nairobi_aqua_desal_sentinel.py
-Description: Autonomous borehole water quality, solar PV pumping telemetry,
-             and automated mineralization/desalination auditing for Nairobi estates.
-Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Nairobi, Kenya)
-"""
-
-import time
-import logging
+import ast
 import json
-from typing import Dict, Any, List, Optional
+import logging
+import time
+from typing import Dict, List, Optional, Tuple, Any
 
-logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [AQUA-DESAL-SENTINEL] %(levelname)s: %(message)s')
-logger = logging.getLogger("NairobiAquaDesalSentinel")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [AquaDesalSentinel]: %(message)s')
+logger = logging.getLogger('AquaDesalSentinel')
 
-class BoreholeTelemetry:
-    def __init__(self, borehole_id: str, location: str, tds_ppm: float, ph_level: float, fluoride_mg_l: float, solar_power_kw: float, flow_rate_m3_h: float):
-        self.borehole_id = borehole_id
-        self.location = location
-        self.tds_ppm = tds_ppm
-        self.ph_level = ph_level
-        self.fluoride_mg_l = fluoride_mg_l
-        self.solar_power_kw = solar_power_kw
-        self.flow_rate_m3_h = flow_rate_m3_h
-        self.timestamp = time.time()
-
-class AquaDesalSentinelEngine:
+class AquaDesalSentinel:
     """
-    Monitors borehole water parameters against Kenya Bureau of Standards (KEBS)
-    potable water limits and optimizes solar-driven reverse osmosis (RO) and remineralization.
+    Autonomous Sentinel for monitoring solar-powered brackish and borehole water
+    desalination kiosks, managing TDS (Total Dissolved Solids) thresholds, calcium/magnesium
+    re-mineralization dosing pumps, and automated photovoltaic load switching in Nairobi.
     """
-    KEBS_MAX_TDS = 1000.0  # ppm
-    KEBS_MIN_PH = 6.5
-    KEBS_MAX_PH = 8.5
-    KEBS_MAX_FLUORIDE = 1.5  # mg/L
+    def __init__(self, kiosk_id: str, target_tds_ppm: int = 150, max_tds_ppm: int = 250):
+        self.kiosk_id = kiosk_id
+        self.target_tds_ppm = target_tds_ppm
+        self.max_tds_ppm = max_tds_ppm
+        self.telemetry_history: List[Dict[str, Any]] = []
+        self.system_status = "NOMINAL"
+        logger.info(f"Initialized AquaDesalSentinel for kiosk {kiosk_id} targeting TDS {target_tds_ppm} ppm.")
 
-    def __init__(self):
-        self.telemetry_history: List[BoreholeTelemetry] = []
-        self.alerts_log: List[Dict[str, Any]] = []
-
-    def evaluate_telemetry(self, telemetry: BoreholeTelemetry) -> Dict[str, Any]:
-        self.telemetry_history.append(telemetry)
-        violations = []
-        actions_required = []
-
-        if telemetry.tds_ppm > self.KEBS_MAX_TDS:
-            violations.append(f"High TDS detected: {telenergy_val(telemetry.tds_ppm)} ppm (Limit: {self.KEBS_MAX_TDS})")
-            actions_required.append("ENGAGE_REVERSE_OSMOSIS_MEMBRANE_FLUSH")
-
-        if not (self.KEBS_MIN_PH <= telemetry.ph_level <= self.KEBS_MAX_PH):
-            violations.append(f"pH level out of bounds: {telemetry.ph_level} (Range: {self.KEBS_MIN_PH}-{self.KEBS_MAX_PH})")
-            actions_required.append("ADJUST_ALKALINE_BUFFER_DOSING")
-
-        if telemetry.fluoride_mg_l > self.KEBS_MAX_FLUORIDE:
-            violations.append(f"Excessive Fluoride: {telemetry.fluoride_mg_l} mg/L (Limit: {self.KEBS_MAX_FLUORIDE})")
-            actions_required.append("ACTIVATE_ACTIVATED_ALUMINA_FILTRATION")
-
-        if telemetry.solar_power_kw < 2.0 and telemetry.flow_rate_m3_h > 5.0:
-            violations.append("Solar deficit relative to high extraction rate. Risk of pump cavitation.")
-            actions_required.append("THROTTLE_VARIABLE_FREQUENCY_DRIVE_PUMP")
-
+    def ingest_telemetry(self, raw_feed: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Ingests sensor readings including raw TDS, permeate TDS, solar array voltage,
+        flow rate, and mineral dosing pump status.
+        """
+        timestamp = time.time()
+        feed_tds = float(raw_feed.get("feed_tds_ppm", 800.0))
+        permeate_tds = float(raw_feed.get("permeate_tds_ppm", 45.0))
+        solar_voltage = float(raw_feed.get("solar_voltage", 48.0))
+        flow_rate_lph = float(raw_feed.get("flow_rate_lph", 500.0))
+        dosing_active = bool(raw_feed.get("dosing_active", True))
+        
+        # Diagnostic evaluation
         status = "OPTIMAL"
-        if violations:
-            status = "WARNING_ACTION_REQUIRED"
-            alert_record = {
-                "borehole_id": telemetry.borehole_id,
-                "location": telemetry.location,
-                "violations": violations,
-                "actions": actions_required,
-                "timestamp": telemetry.timestamp
-            }
-            self.alerts_log.append(alert_record)
-            logger.warning(f"Borehole {telemetry.borehole_id} at {telemetry.location} flagged: {violations}")
+        actions = []
+        
+        # Check membrane integrity via permeate TDS
+        if permeate_tds > self.max_tds_ppm:
+            status = "WARNING_HIGH_TDS"
+            actions.append("TRIGGER_MEMBRANE_FLUSH")
+            logger.warning(f"[{self.kiosk_id}] High permeate TDS detected ({permeate_tds} ppm). Flushing membrane.")
+        
+        # Check re-mineralization requirement (pure RO water lacks calcium/magnesium)
+        final_target_blend = permeate_tds
+        if permeate_tds < self.target_tds_ppm and not dosing_active:
+            actions.append(
+                {"command": "ACTIVATE_MINERAL_DOSING", "rate_ml_min": 12.5}
+            )
+            logger.info(f"[{self.kiosk_id}] Activating post-RO mineral injector for optimal mineral balance.")
+            final_target_blend = self.target_tds_ppm
 
-        return {
-            "borehole_id": telemetry.borehole_id,
+        # Power safety check
+        if solar_voltage < 38.0:
+            actions.append("SWITCH_TO_BATTERY_BUFFER")
+            logger.warning(f"[{self.kiosk_id}] Solar array voltage drop ({solar_voltage}V). Switching to battery storage.")
+            status = "DEGRADED_POWER"
+
+        record = {
+            "timestamp": timestamp,
+            "kiosk_id": self.kiosk_id,
+            "feed_tds": feed_tds,
+            "permeate_tds": permeate_tds,
+            "final_blend_tds": final_target_blend,
+            "solar_voltage": solar_voltage,
+            "flow_rate_lph": flow_rate_lph,
             "status": status,
-            "violations_count": len(violations),
-            "recommended_actions": actions_required
+            "actions_taken": actions
         }
+        
+        self.telemetry_history.append(record)
+        self.system_status = status
+        return record
 
-    def get_summary_audit(self) -> Dict[str, Any]:
+    def get_audit_summary(self) -> Dict[str, Any]:
+        """Summarizes operational performance and water quality metrics."""
+        if not self.telemetry_history:
+            return {"status": "NO_DATA"}
+        
+        avg_permeate = sum(r["permeate_tds"] for r in self.telemetry_history) / len(self.telemetry_history)
+        total_liters_processed = sum(r["flow_rate_lph"] / 60.0 for r in self.telemetry_history)
+        
         return {
-            "total_telemetry_processed": len(self.telemetry_history),
-            "total_alerts_triggered": len(self.alerts_log),
-            "last_audit_timestamp": time.time()
+            "kiosk_id": self.kiosk_id,
+            "total_telemetry_packets": len(self.telemetry_history),
+            "average_permeate_tds_ppm": round(avg_permeate, 2),
+            "estimated_water_purified_liters": round(total_liters_processed, 2),
+            "current_system_status": self.system_status
         }
 
 if __name__ == "__main__":
-    logger.info("Initializing Nairobi Aqua Desalination Sentinel Test Harness...")
-    engine = AquaDesalSentinelEngine()
-
-    sample_data = BoreholeTelemetry(
-        borehole_id="BH-KAREN-04",
-        location="Karen Estate, Nairobi",
-        tds_ppm=1150.0,
-        ph_level=6.2,
-        fluoride_mg_l=1.8,
-        solar_power_kw=1.5,
-        flow_rate_m3_h=6.0
-    )
-
-    result = engine.evaluate_telemetry(sample_data)
-    print(json.dumps(result, indent=2))
-    print(json.dumps(engine.get_summary_audit(), indent=2))
-    logger.info("Aqua Desalination Sentinel test harness completed successfully.")
+    print("Executing Autonomous Test Harness for AquaDesalSentinel...")
+    sentinel = AquaDesalSentinel(kiosk_id="NAIROBI-KIBERA-DESAL-01", target_tds_ppm=160, max_tds_ppm=220)
+    
+    # Test normal telemetry ingestion
+    sample_feed = {
+        "feed_tds_ppm": 920.0,
+        "permeate_tds_ppm": 38.5,
+        "solar_voltage": 51.2,
+        "flow_rate_lph": 600.0,
+        "dosing_active": False
+    }
+    result = sentinel.ingest_telemetry(sample_feed)
+    
+    # Test anomaly telemetry ingestion (membrane leakage)
+    anomaly_feed = {
+        "feed_tds_ppm": 950.0,
+        "permeate_tds_ppm": 245.0,
+        "solar_voltage": 46.0,
+        "flow_rate_lph": 450.0,
+        "dosing_active": True
+    }
+    result_anomaly = sentinel.ingest_telemetry(anomaly_feed)
+    
+    summary = sentinel.get_audit_summary()
+    print(json.dumps(summary, indent=2))
+    
+    # Verify compilation integrity
+    code_str = open(__file__, 'r').read()
+    parsed_ast = ast.parse(code_str)
+    print(f"AST compilation successful. Total nodes: {len(list(ast.walk(parsed_ast)))}")
