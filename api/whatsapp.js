@@ -174,25 +174,44 @@ export default async function handler(req, res) {
         "• *Dual-Cloud Git Sync:* GitHub & Hugging Face (100% In-Sync)\n" +
         "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
         "All perimeter shields nominal for you, Chief! 🛡️";
-    } else if (lowerText === "sitrep" || lowerText === "briefing") {
-      let sitrepSummary = "Tactical sitrep buffer standby.";
+    } else if (lowerText === "sitrep" || lowerText === "briefing" || lowerText === "brief" || lowerText.includes("tactical brief") || lowerText.includes("global news")) {
+      let sitrepSummary = "";
       if (supabaseUrl && supabaseKey) {
         try {
-          const bResp = await fetch(`${supabaseUrl}/rest/v1/tactical_briefings?select=*&order=created_at.desc&limit=1`, {
+          // Check for full latest tactical dossier in bot_memory first
+          const mResp = await fetch(`${supabaseUrl}/rest/v1/bot_memory?memory_key=eq.latest_tactical_brief&select=*`, {
             headers: { "apikey": supabaseKey, "Authorization": `Bearer ${supabaseKey}` }
           });
-          if (bResp.ok) {
-            const briefings = await bResp.json();
-            if (briefings.length > 0) {
-              const b = briefings[0];
-              sitrepSummary = `*THREAT LEVEL:* \`${b.threat_level}\`\n${b.sitrep}`;
+          if (mResp.ok) {
+            const mData = await mResp.json();
+            if (mData.length > 0 && mData[0].directive) {
+              const parsed = JSON.parse(mData[0].directive);
+              if (parsed.text) {
+                sitrepSummary = parsed.text;
+              }
+            }
+          }
+
+          if (!sitrepSummary) {
+            const bResp = await fetch(`${supabaseUrl}/rest/v1/tactical_briefings?select=*&order=created_at.desc&limit=1`, {
+              headers: { "apikey": supabaseKey, "Authorization": `Bearer ${supabaseKey}` }
+            });
+            if (bResp.ok) {
+              const briefings = await bResp.json();
+              if (briefings.length > 0) {
+                const b = briefings[0];
+                sitrepSummary = `*THREAT LEVEL:* [${b.threat_level}]\n\n${b.sitrep}\n\n*DEFENSIVE PROTOCOL:*\n${b.defensive_protocol || "Nominal vigilance"}\n\n*UPSIDE:*\n${b.asymmetric_upside || "Maintain automated code compounding"}`;
+              }
             }
           }
         } catch (e) {
           sitrepSummary = `Sitrep query error: ${e.message}`;
         }
       }
-      replyText = `📡 *TACTICAL SITREP OVERWATCH:*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n${sitrepSummary}`;
+      if (!sitrepSummary) {
+        sitrepSummary = "Tactical sitrep buffer standby. Multi-sensor telemetry updating across 8 daily windows.";
+      }
+      replyText = `📡 *GLOBAL TACTICAL SITREP OVERWATCH:*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n${sitrepSummary}`;
     } else if (lowerText === "tasks" || lowerText === "/tasks") {
       let taskListStr = "No active tasks in database.";
       if (supabaseUrl && supabaseKey) {

@@ -213,26 +213,54 @@ export default async function handler(req, res) {
       return res.status(200).json({ ok: true });
     }
 
-    if (lowerText === "/sitrep") {
-      let sitrepStr = "Tactical sitrep buffer standby.";
+    if (lowerText === "/sitrep" || lowerText === "/brief" || lowerText === "brief" || lowerText === "sitrep" || lowerText.includes("tactical brief") || lowerText.includes("global brief") || lowerText.includes("global news")) {
+      let sitrepStr = "";
       if (supabaseUrl && supabaseKey) {
         try {
-          const bResp = await fetch(`${supabaseUrl}/rest/v1/tactical_briefings?select=*&order=created_at.desc&limit=1`, {
+          // Check for full latest tactical dossier in bot_memory first
+          const mResp = await fetch(`${supabaseUrl}/rest/v1/bot_memory?memory_key=eq.latest_tactical_brief&select=*`, {
             headers: { "apikey": supabaseKey, "Authorization": `Bearer ${supabaseKey}` }
           });
-          if (bResp.ok) {
-            const briefings = await bResp.json();
-            if (briefings.length > 0) {
-              const b = briefings[0];
-              sitrepStr = `*Threat Level:* [${b.threat_level}]\n\n${b.sitrep}\n\n*Defensive Protocol:*\n${b.defensive_protocol || "Nominal vigilance"}`;
+          if (mResp.ok) {
+            const mData = await mResp.json();
+            if (mData.length > 0 && mData[0].directive) {
+              const parsed = JSON.parse(mData[0].directive);
+              if (parsed.text) {
+                sitrepStr = parsed.text;
+              }
+            }
+          }
+
+          if (!sitrepStr) {
+            const bResp = await fetch(`${supabaseUrl}/rest/v1/tactical_briefings?select=*&order=created_at.desc&limit=1`, {
+              headers: { "apikey": supabaseKey, "Authorization": `Bearer ${supabaseKey}` }
+            });
+            if (bResp.ok) {
+              const briefings = await bResp.json();
+              if (briefings.length > 0) {
+                const b = briefings[0];
+                sitrepStr = 
+                  `🛡️ *CORTANA // GLOBAL STRATEGIC TACTICAL DOSSIER*\n` +
+                  `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                  `*Threat Level:* [${b.threat_level}]\n\n` +
+                  `*Strategic SitRep:*\n${b.sitrep}\n\n` +
+                  `*7-30 Day Risk Forecast:*\n${b.future_risk_forecast}\n\n` +
+                  `*Operational Defensive Protocol:*\n${b.defensive_protocol || "Nominal vigilance"}\n\n` +
+                  `*Asymmetric Upside:*\n${b.asymmetric_upside || "Maintain automated compounding"}\n` +
+                  `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                  `_Synchronized across 8-window global briefing cadence (6am, 9am, 12pm, 3pm, 6pm, 9pm, 12am, 3am EAT)._`;
+              }
             }
           }
         } catch (e) {
-          sitrepStr = `Sitrep query note: ${e.message}`;
+          sitrepStr = `Sitrep query notice: ${e.message}`;
         }
       }
-      await sendTelegramReply(chatId, `🛡️ *[TACTICAL SITREP OVERWATCH]:*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n${sitrepStr}`);
-      return res.status(200).json({ ok: true });
+      if (!sitrepStr) {
+        sitrepStr = "Tactical sitrep buffer standby. Multi-sensor telemetry updating across 8 daily windows.";
+      }
+      await sendTelegramReply(chatId, sitrepStr);
+      return res.status(200).json({ ok: true, handled: "tactical_brief" });
     }
 
     // 2.5 Proactive Self-Evolution Directive

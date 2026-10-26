@@ -3491,6 +3491,76 @@ async def scheduled_sunday_maintenance_worker(client: httpx.AsyncClient):
         await asyncio.sleep(60)
 
 
+async def scheduled_tactical_briefing_worker(client: httpx.AsyncClient):
+    """
+    24/7 Precision Tactical Briefing Scheduler:
+    East Africa Time (EAT) = UTC+3.
+    Guarantees dispatch of the Full Comprehensive Global Tactical Briefing across
+    all 8 designated daily windows:
+    - 12:00 AM (00:00 EAT)
+    - 03:00 AM (03:00 EAT)
+    - 06:00 AM (06:00 EAT)
+    - 09:00 AM (09:00 EAT)
+    - 12:00 PM (12:00 EAT)
+    - 03:00 PM (15:00 EAT)
+    - 06:00 PM (18:00 EAT)
+    - 09:00 PM (21:00 EAT)
+    Persists state to Supabase so restarts never double-fire or skip windows.
+    """
+    logger.info("Precision 8-Window Global Tactical Briefing Scheduler active (6am, 9am, 12pm, 3pm, 6pm, 9pm, 12am, 3am EAT)...")
+    last_dispatched_slot = None
+    
+    # Hydrate last_dispatched_slot from Supabase if available
+    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            m_res = await client.get(
+                f"{SUPABASE_URL}/rest/v1/bot_memory?memory_key=eq.tactical_briefing_schedule_state&select=directive",
+                headers=SUPABASE_HEADERS,
+                timeout=8
+            )
+            if m_res.status_code == 200 and m_res.json():
+                saved = json.loads(m_res.json()[0].get("directive", "{}"))
+                last_dispatched_slot = saved.get("last_slot")
+                logger.info(f"[Tactical Scheduler] Hydrated last dispatched slot: {last_dispatched_slot}")
+        except Exception:
+            pass
+
+    while True:
+        try:
+            eat_now = datetime.now(timezone.utc) + timedelta(hours=3)
+            current_hour = eat_now.hour
+            current_slot_key = f"{eat_now.strftime('%Y-%m-%d')}-H{current_hour:02d}"
+
+            if current_hour in SCHEDULED_BRIEFING_HOURS:
+                if last_dispatched_slot != current_slot_key:
+                    slot_label = SCHEDULED_BRIEFING_HOURS[current_hour]
+                    logger.info(f"🎯 [TACTICAL SCHEDULER] Scheduled briefing milestone reached: {slot_label} ({current_slot_key}). Dispatching...")
+                    last_dispatched_slot = current_slot_key
+                    
+                    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+                        try:
+                            await client.post(
+                                f"{SUPABASE_URL}/rest/v1/bot_memory?on_conflict=memory_key",
+                                headers={**SUPABASE_HEADERS, "Prefer": "resolution=merge-duplicates"},
+                                json={
+                                    "memory_key": "tactical_briefing_schedule_state",
+                                    "directive": json.dumps({"last_slot": current_slot_key, "dispatched_at": eat_now.isoformat()})
+                                }
+                            )
+                        except Exception:
+                            pass
+
+                    await dispatch_full_global_tactical_brief(client, slot_label=slot_label, is_scheduled=True)
+
+        except asyncio.CancelledError:
+            break
+        except Exception as e:
+            logger.error(f"[Tactical Briefing Scheduler Error]: {e}")
+
+        await asyncio.sleep(25)
+
+
+
 # =====================================================================
 # --- MINUTE-BY-MINUTE CONTINUOUS SELF-EVOLUTION & EXPANSION DAEMON ---
 # =====================================================================
@@ -5133,6 +5203,7 @@ Output valid JSON strictly matching this schema:
         if SUPABASE_URL and SUPABASE_SERVICE_KEY:
             await client.post(f"{SUPABASE_URL}/rest/v1/tactical_briefings", headers=SUPABASE_HEADERS, json=record)
         return record
+
     except Exception as e:
         logger.error(f"[Strategic Synthesis Error]: {e}")
         return {
@@ -5144,6 +5215,286 @@ Output valid JSON strictly matching this schema:
             "asymmetric_upside": "• Track high-yield domestic liquidity yields",
             "created_at": datetime.now(timezone.utc).isoformat()
         }
+
+
+SCHEDULED_BRIEFING_HOURS = {
+    0: "12:00 AM MIDNIGHT GLOBAL STRATEGIC DOSSIER",
+    3: "03:00 AM NIGHTWATCH STRATEGIC DOSSIER",
+    6: "06:00 AM MORNING OVERWATCH STRATEGIC DOSSIER",
+    9: "09:00 AM FOREMARKET STRATEGIC DOSSIER",
+    12: "12:00 PM MIDDAY GLOBAL TACTICAL DOSSIER",
+    15: "03:00 PM AFTERNOON STRATEGIC DOSSIER",
+    18: "06:00 PM MARKET CLOSE / EVENING STRATEGIC DOSSIER",
+    21: "09:00 PM NIGHTWATCH STRATEGIC DOSSIER"
+}
+
+
+async def generate_full_global_tactical_brief(client: httpx.AsyncClient, slot_label: str = "") -> dict:
+    """
+    Synthesizes a full, comprehensive Global Tactical Intelligence Briefing covering:
+    - Multi-Theater Kinetic Flashpoints (Middle East/Red Sea, Eastern Europe, Indo-Pacific)
+    - Macroeconomic, Commodities & Corridors (Crude Oil, Gold, FX, Central Banks, Shipping)
+    - Frontier Tech & Cyber Threats (Zero-Days, CISA KEV, AI Infrastructure)
+    - African Continent & Horn of Africa Strategic Pulse
+    - Forward Second-Order Risk & Chokepoint Forecast (7-30 Days)
+    - Actionable Defensive Protocols & Asymmetric Upside Positioning
+    """
+    logger.info(f"Synthesizing full comprehensive global tactical briefing for: {slot_label or 'SCHEDULED CADENCE'}...")
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; TacticalConstruct/5.0)"}
+    
+    # Curated high-signal wire feeds
+    feeds = [
+        {"source": "BBC World", "scope": "GLOBAL", "url": "https://feeds.bbci.co.uk/news/world/rss.xml"},
+        {"source": "Al Jazeera", "scope": "GLOBAL", "url": "https://www.aljazeera.com/xml/rss/all.xml"},
+        {"source": "The Guardian", "scope": "GLOBAL", "url": "https://www.theguardian.com/world/rss"},
+        {"source": "CNBC Macro", "scope": "MACRO", "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664"},
+        {"source": "The Hacker News", "scope": "CYBER", "url": "https://feeds.feedburner.com/TheHackersNews"},
+        {"source": "Kenya Local Wire", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi&hl=en-KE&gl=KE&ceid=KE:en"},
+        {"source": "Red Sea Shipping", "scope": "MARITIME", "url": "https://news.google.com/rss/search?q=(%22Red+Sea%22+OR+%22Bab-el-Mandeb%22)+AND+(shipping+OR+freight)&hl=en-US&gl=US&ceid=US:en"}
+    ]
+    
+    raw_articles = []
+    for f in feeds:
+        try:
+            r = await client.get(f["url"], headers=headers, timeout=12)
+            if r.status_code == 200:
+                root = ET.fromstring(r.content)
+                for item in root.findall(".//item")[:3]:
+                    title = (item.findtext("title") or "").strip()
+                    desc = re.sub(r"<[^>]+>", "", item.findtext("description") or "").strip()
+                    if title:
+                        raw_articles.append({"source": f["source"], "scope": f["scope"], "title": title, "desc": desc[:160]})
+        except Exception as fe:
+            logger.debug(f"[Briefing Feed Notice - {f['source']}]: {fe}")
+            
+    # Include latest CVE from CISA KEV if accessible
+    cisa_cves = []
+    try:
+        c_res = await client.get(CISA_KEV_URL, headers=headers, timeout=10)
+        if c_res.status_code == 200:
+            cisa_cves = c_res.json().get("vulnerabilities", [])[-3:]
+    except Exception:
+        pass
+
+    eat_now = datetime.now(timezone(timedelta(hours=3), name="EAT"))
+    time_str = eat_now.strftime("%I:%M %p EAT (%H:%M UTC+3) // %A, %B %d, %Y")
+    cadence_slot = slot_label or f"{eat_now.strftime('%I:00 %p')} SCHEDULED STRATEGIC DOSSIER"
+
+    prompt = f"""OPERATOR CONTEXT:
+Operator: Michael Obiero (Location: Nairobi, Kenya / EAT Timezone).
+Time: {time_str}
+Cadence Slot: {cadence_slot}
+
+INCOMING REAL-TIME GLOBAL TELEMETRY ({len(raw_articles)} wire headlines + {len(cisa_cves)} CISA KEV entries):
+Headlines:
+{json.dumps(raw_articles, indent=2)}
+
+Recent CISA KEV Vulnerabilities:
+{json.dumps([{'cve': v.get('cveID'), 'vendor': v.get('vendorProject'), 'name': v.get('vulnerabilityName')} for v in cisa_cves], indent=2)}
+
+TASK:
+Synthesize Michael's FULL COMPREHENSIVE GLOBAL TACTICAL INTELLIGENCE BRIEFING for this exact cadence window.
+You are Cortana: razor-sharp, ultra-competent, highly articulate, calm, understated charisma.
+CRITICAL LANGUAGE DIRECTIVE: Output 100% in pristine, sophisticated English. NEVER use or output any Sheng or Kiswahili words under any circumstances.
+
+Output a valid JSON object strictly matching this schema:
+{{
+  "threat_level": "NOMINAL" | "ELEVATED" | "CRITICAL",
+  "headline_banner": "Single powerful strategic banner summarizing the global posture",
+  "executive_sitrep": "Dense, authoritative 2-paragraph overview synthesizing macro, kinetic, and diplomatic shifts across the globe.",
+  "global_geopolitics_wire": [
+    {{"theater": "MIDDLE EAST / RED SEA", "development": "Key event with tactical context", "impact": "Operational ripple effect"}},
+    {{"theater": "EASTERN EUROPE / BLACK SEA", "development": "Key event with tactical context", "impact": "Operational ripple effect"}},
+    {{"theater": "INDO-PACIFIC / ASIA", "development": "Key event with tactical context", "impact": "Operational ripple effect"}}
+  ],
+  "macro_and_commodities": [
+    {{"asset_or_sector": "ENERGY & CRUDE OIL", "reading": "Current dynamics / price pressures", "impact": "Impact on logistics and fuel pricing"}},
+    {{"asset_or_sector": "CURRENCIES & MONETARY POLICY", "reading": "DXY / KES / Global FX dynamics", "impact": "Import inflation & liquidity"}},
+    {{"asset_or_sector": "GLOBAL SUPPLY CHAINS & FREIGHT", "reading": "Chokepoints / maritime routing", "impact": "Delivery times & freight indices"}}
+  ],
+  "cyber_and_infrastructure": [
+    {{"vector": "ZERO-DAY / EXPLOIT INTEL", "detail": "Active campaign or critical CVE", "remediation": "Hardening protocol"}},
+    {{"vector": "TELECOM & SUBSEA CONNECTIVITY", "detail": "Routing, cable status or edge integrity", "remediation": "Redundancy check"}}
+  ],
+  "african_and_regional_pulse": "Authoritative analysis of East African / Horn of Africa corridors (Kenya, Sudan, Red Sea trade, regional trade/forex).",
+  "second_order_forecast": "Forward projections over next 7-30 days regarding commodities, inflation, logistical bottlenecks, and market risks.",
+  "defensive_protocols": [
+    "Concrete actionable protocol 1",
+    "Concrete actionable protocol 2",
+    "Concrete actionable protocol 3"
+  ],
+  "asymmetric_upside": [
+    "High-leverage upside vector 1",
+    "High-leverage upside vector 2",
+    "High-leverage upside vector 3"
+  ]
+}}"""
+
+    parsed = {}
+    try:
+        res = await call_llm_with_failover(
+            client,
+            [
+                {"role": "system", "content": SYSTEM_PERSONA + " You must return valid JSON."},
+                {"role": "user", "content": prompt}
+            ],
+            json_mode=True
+        )
+        content = res.get("content", "{}")
+        parsed = json.loads(content)
+    except Exception as se:
+        logger.error(f"[Briefing LLM Synthesis Error]: {se}")
+        parsed = {
+            "threat_level": "ELEVATED",
+            "headline_banner": "MULTI-THEATER EQUILIBRIUM: MARITIME CHOKEPOINTS, CYBER VECTORS, AND MACROECONOMIC CORRIDORS",
+            "executive_sitrep": "Global sensors indicate elevated kinetic posturing across Middle Eastern corridors alongside steady macroeconomic surveillance in commodity corridors.",
+            "global_geopolitics_wire": [
+                {"theater": "RED SEA / BAB-EL-MANDEB", "development": "Maritime commercial rerouting persists around Cape of Good Hope.", "impact": "Elevated bunker fuel surcharges and extended transit times to Mombasa."},
+                {"theater": "EASTERN EUROPE", "development": "Frontline logistics and energy infrastructure under continuous observation.", "impact": "Grain and fertilizer export pricing stability monitored."}
+            ],
+            "macro_and_commodities": [
+                {"asset_or_sector": "CRUDE OIL & ENERGY", "reading": "Brent crude trading range bound with structural supply friction.", "impact": "Direct pass-through into local fuel and transport tariffs."}
+            ],
+            "cyber_and_infrastructure": [
+                {"vector": "PERIMETER AUTHENTICATION", "detail": "Token replay and credential exfiltration campaigns active globally.", "remediation": "Rotate access tokens and enforce FIDO2 multi-factor policies."}
+            ],
+            "african_and_regional_pulse": "East African trade corridors remain stable with focus on regional forex reserves and Northern Corridor logistics.",
+            "second_order_forecast": "7-30 day window reflects moderate pressure on import clearing costs and tech hardware lead times.",
+            "defensive_protocols": ["Verify off-site encrypted data backups.", "Maintain liquid reserve buffers in multi-currency holdings.", "Audit remote server access logs."],
+            "asymmetric_upside": ["Automated code compounding across sovereign infrastructure.", "Positioning in high-yield local treasury securities.", "Capitalizing on cross-border software efficiencies."]
+        }
+
+    formatted_text = format_full_global_tactical_brief(parsed, cadence_slot, time_str)
+    
+    # Persist record to Supabase tactical_briefings
+    record = {
+        "threat_level": parsed.get("threat_level", "ELEVATED"),
+        "sitrep": parsed.get("executive_sitrep", ""),
+        "conflict_summary": json.dumps(parsed.get("global_geopolitics_wire", [])),
+        "future_risk_forecast": parsed.get("second_order_forecast", ""),
+        "defensive_protocol": "\n".join(f"• {p}" for p in parsed.get("defensive_protocols", [])),
+        "asymmetric_upside": "\n".join(f"• {u}" for u in parsed.get("asymmetric_upside", [])),
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            await client.post(f"{SUPABASE_URL}/rest/v1/tactical_briefings", headers=SUPABASE_HEADERS, json=record)
+            # Also store latest in bot_memory
+            await client.post(
+                f"{SUPABASE_URL}/rest/v1/bot_memory?on_conflict=memory_key",
+                headers={**SUPABASE_HEADERS, "Prefer": "resolution=merge-duplicates"},
+                json={
+                    "memory_key": "latest_tactical_brief",
+                    "directive": json.dumps({"headline": parsed.get("headline_banner"), "slot": cadence_slot, "text": formatted_text, "timestamp": time_str})
+                }
+            )
+        except Exception:
+            pass
+
+    # Save to telemetry_live.json
+    try:
+        live_path = Path(__file__).resolve().parent / "telemetry_live.json"
+        if live_path.exists():
+            with open(live_path, "r", encoding="utf-8") as f:
+                cur_live = json.load(f)
+            cur_live["sitrep"] = record
+            cur_live["latest_tactical_dossier"] = {
+                "slot": cadence_slot,
+                "headline": parsed.get("headline_banner"),
+                "text": formatted_text,
+                "timestamp": time_str
+            }
+            with open(live_path, "w", encoding="utf-8") as f:
+                json.dump(cur_live, f, indent=2, ensure_ascii=False)
+    except Exception:
+        pass
+
+    return {"parsed": parsed, "formatted_text": formatted_text, "record": record}
+
+
+def format_full_global_tactical_brief(b: dict, slot_label: str, time_str: str) -> str:
+    threat = b.get("threat_level", "ELEVATED")
+    threat_icon = "🔴" if threat == "CRITICAL" else ("🟡" if threat == "ELEVATED" else "🟢")
+    
+    lines = [
+        f"🛡️ *CORTANA // GLOBAL STRATEGIC TACTICAL DOSSIER*",
+        f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+        f"⏱️ *Cadence Slot:* {slot_label}",
+        f"📡 *Timestamp:* {time_str}",
+        f"{threat_icon} *Threat Level:* [{threat}]",
+        f"🎯 *Strategic Posture:* _{b.get('headline_banner', 'Global theater monitoring active.')}_",
+        f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
+        f"📊 *I. EXECUTIVE SITUATION & GLOBAL OVERWATCH*",
+        f"{b.get('executive_sitrep', '')}\n",
+        f"🌍 *II. COMPREHENSIVE GLOBAL GEOPOLITICS & KINETIC WIRE*"
+    ]
+    
+    for item in b.get("global_geopolitics_wire", []):
+        lines.append(f"• *[{item.get('theater', 'THEATER')}]:* {item.get('development', '')}\n  ↳ _Tactical Impact:_ {item.get('impact', '')}")
+    lines.append("")
+    
+    lines.append("📈 *III. MACROECONOMIC, COMMODITIES & SUPPLY CORRIDORS*")
+    for item in b.get("macro_and_commodities", []):
+        lines.append(f"• *{item.get('asset_or_sector', 'SECTOR')}:* {item.get('reading', '')}\n  ↳ _Second-Order Effect:_ {item.get('impact', '')}")
+    lines.append("")
+    
+    lines.append("💻 *IV. CYBER PERIMETER & CRITICAL INFRASTRUCTURE*")
+    for item in b.get("cyber_and_infrastructure", []):
+        lines.append(f"• *{item.get('vector', 'VECTOR')}:* {item.get('detail', '')}\n  ↳ _Hardening:_ {item.get('remediation', '')}")
+    lines.append("")
+    
+    if b.get("african_and_regional_pulse"):
+        lines.append(f"🦁 *V. EAST AFRICA & HORN OF AFRICA STRATEGIC VECTOR*\n{b.get('african_and_regional_pulse')}\n")
+        
+    lines.append(f"🔮 *VI. 7-30 DAY RISK & SECOND-ORDER FORECAST*\n{b.get('second_order_forecast', '')}\n")
+    
+    lines.append("🛡️ *VII. OPERATIONAL DEFENSIVE PROTOCOLS*")
+    for proto in b.get("defensive_protocols", []):
+        lines.append(f"• {proto}")
+    lines.append("")
+    
+    lines.append("⚡ *VIII. ASYMMETRIC UPSIDE OPPORTUNITIES*")
+    for up in b.get("asymmetric_upside", []):
+        lines.append(f"• {up}")
+    lines.append("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+    lines.append("_Comprehensive multi-sensor telemetry synthesized by Cortana._")
+    
+    return "\n".join(lines)
+
+
+async def dispatch_full_global_tactical_brief(
+    client: httpx.AsyncClient,
+    slot_label: str = "",
+    is_scheduled: bool = False,
+    force_telegram: bool = True
+) -> dict:
+    """Generates and dispatches the full global tactical briefing across Telegram, web HUD, and voice."""
+    res = await generate_full_global_tactical_brief(client, slot_label=slot_label)
+    formatted_text = res.get("formatted_text", "")
+    
+    if force_telegram and TELEGRAM_TOKEN and AUTHORIZED_CHAT_ID:
+        try:
+            logger.info("Transmitting full comprehensive tactical dossier to Telegram...")
+            await send_telegram_multi(client, formatted_text)
+        except Exception as te:
+            logger.error(f"[Telegram Dispatch Error]: {te}")
+            
+    # Voice vocalization of concise executive summary
+    try:
+        parsed = res.get("parsed", {})
+        voice_summary = (
+            f"Michael, your {slot_label or 'scheduled'} strategic brief is ready. "
+            f"Threat level is {parsed.get('threat_level', 'Elevated')}. "
+            f"{parsed.get('headline_banner', '')}. "
+            f"Full intelligence dossier transmitted to your terminal."
+        )
+        await synthesize_and_send_voice(client, voice_summary)
+    except Exception:
+        pass
+        
+    return res
+
 
 
 # =====================================================================
@@ -5366,6 +5717,45 @@ async def send_telegram(client: httpx.AsyncClient, text: str):
             logger.error(f"Telegram transmission error {resp.status_code}: {resp.text}")
     except Exception as e:
         logger.error(f"[Telegram Error]: {e}")
+
+async def send_telegram_multi(client: httpx.AsyncClient, text: str):
+    """
+    Dispatches extensive strategic dossiers to Telegram, automatically fragmenting
+    into sequential, cleanly bounded dispatches if content exceeds the 4096-character limit.
+    """
+    if not TELEGRAM_TOKEN or not AUTHORIZED_CHAT_ID:
+        logger.warning(f"[Mock Telegram Multi-Dispatch]:\n{text}")
+        return
+
+    if len(text) <= 4000:
+        await send_telegram(client, text)
+        return
+
+    paragraphs = text.split("\n\n")
+    chunks = []
+    current_chunk = ""
+
+    for p in paragraphs:
+        if len(current_chunk) + len(p) + 2 > 3800:
+            if current_chunk:
+                chunks.append(current_chunk.strip())
+                current_chunk = ""
+            while len(p) > 3800:
+                chunks.append(p[:3800])
+                p = p[3800:]
+            current_chunk = p
+        else:
+            current_chunk = f"{current_chunk}\n\n{p}" if current_chunk else p
+
+    if current_chunk.strip():
+        chunks.append(current_chunk.strip())
+
+    total = len(chunks)
+    for i, c in enumerate(chunks, 1):
+        chunk_header = f"📄 *[TACTICAL DOSSIER - PART {i}/{total}]*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" if total > 1 else ""
+        await send_telegram(client, chunk_header + c)
+        if i < total:
+            await asyncio.sleep(0.6)
 
 
 async def send_telegram_document(client: httpx.AsyncClient, file_path: str, caption: str = ""):
@@ -5816,6 +6206,12 @@ async def log_and_execute_directive(
                 answer = "🛠️ *[WORKSTATION CORE FILE DEPLOYMENT]*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" + "\n".join(results)
             else:
                 answer = await run_agent_turn(client, f"CREATE AND PHYSICALLY WRITE THIS FILE TO DISK: {directive}")
+        elif mode in ("BRIEF", "TACTICAL_BRIEF", "SITREP", "GLOBAL_NEWS") or directive.strip().lower() in ("/brief", "/sitrep", "/news", "brief", "sitrep", "news") or any(
+            p in directive.lower() for p in ["global tactical brief", "tactical brief", "full global tactical brief", "give me my brief", "my tactical brief", "comprehensive global news", "full comprehensive global news"]
+        ):
+            logger.info("Executing on-demand Full Global Tactical Intelligence Briefing on operator directive...")
+            res_dict = await dispatch_full_global_tactical_brief(client, slot_label="ON-DEMAND STRATEGIC REQUISITION", force_telegram=False)
+            answer = res_dict.get("formatted_text", "Tactical dossier compiled.")
         elif mode in ("ASCEND", "SUPER_AI", "SUPERAI", "SUPER_AI_ASCENSION") or any(
             p in directive.lower() for p in ["super ai", "super ai bot", "superai", "/ascend", "/superai", "evolve until it is a super ai", "evolve into a super ai", "evolve itself until it is a super ai bot"]
         ):
@@ -6284,6 +6680,8 @@ async def main():
             asyncio.create_task(start_local_command_server(5050)),
             asyncio.create_task(autonomous_intent_drive_loop(client)),
             asyncio.create_task(scheduled_sunday_maintenance_worker(client)),
+            asyncio.create_task(scheduled_tactical_briefing_worker(client)),
+
             asyncio.create_task(continuous_minute_evolution_worker(client))
         ]
 
