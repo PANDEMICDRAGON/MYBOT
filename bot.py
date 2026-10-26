@@ -4346,8 +4346,13 @@ async def handle_swarm_directive(client: httpx.AsyncClient, directive: str) -> s
             ("Hephaestus-Architect", "CODE_ARCHITECT", "Compile AST-verified modules, optimize algorithms, and enforce clean architecture."),
             ("Hermes-Quant", "QUANT_ARBITRAGEUR", "Model Nairobi Securities Exchange tickers, FX spreads, and KES liquidity dynamics."),
             ("Argus-Recon", "OSINT_RECON_DRONE", "Harvest open-source social, Reddit, and global RSS signals for asymmetric insights."),
-            ("Calliope-Amplifier", "CREATIVE_AMPLIFIER", "Design high-velocity promotion vectors for OBIFLAMEE music releases on streaming DSPs."),
-            ("Athena-Scholar", "SINGULARITY_RESEARCHER", "Explore recursive self-improvement algorithms, meta-learning, and superintelligence milestones."),
+            ("Calliope-Amplifier", "CREATIVE_AMPLIFIER", "Design high-velocity promotion vectors for creative releases on streaming DSPs."),
+            ("Apollo-Canvas", "CANVAS_DIRECTOR", "Develop visual identity guides, cover art specifications, typography pairings, and generative prompt matrices."),
+            ("Calliope-Script", "NARRATIVE_STRATEGIST", "Author high-engagement story treatments, video scripts, release notes, press kits (EPK), and promotional copy."),
+            ("Orpheus-Sonic", "SOUND_DESIGN_CURATOR", "Curate audio production structures, arrangement blueprints, sound design notes, and reference mixing chains."),
+            ("Terpsichore-Reach", "DISTRIBUTION_CURATOR", "Map out multi-week creative rollout schedules, short-form video hooks, and digital audience growth playbooks."),
+            ("Minerva-Rights", "METADATA_RIGHTS_SPECIALIST", "Audit split sheets, catalog ISRC/ISWC codes, and structure copyright registration checklists."),
+            ("Athena-Scholar", "SINGULARITY_RESEARCHER", "Explore cognitive architectures, meta-learning, and high-performance agent coordination algorithms."),
             ("Aegis-Crypt", "SECURITY_SENTINEL", "Enforce zero-trust token isolation, tamper detection, and outbound shield integrity."),
             ("Chronos-Scheduler", "CODE_ARCHITECT", "Orchestrate asynchronous cron pipelines and low-latency micro-services.")
         ]

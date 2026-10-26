@@ -66,10 +66,40 @@ PRESET_ROLES = {
         "tools": ["rss_sweep", "web_fetch", "sentiment_decode", "llm_inference"]
     },
     "CREATIVE_AMPLIFIER": {
-        "title": "OBIFLAMEE Music & Audience Velocity Multiplier",
-        "description": "Designs zero-cost viral promo playbooks, hooks, content calendars, and metadata for streaming DSPs.",
+        "title": "Creative Audience & Release Velocity Multiplier",
+        "description": "Designs high-impact rollout playbooks, promotional hooks, content calendars, and metadata for streaming DSPs.",
         "default_power": 1500,
         "tools": ["content_synthesis", "calendar_gen", "file_rw", "llm_inference"]
+    },
+    "CANVAS_DIRECTOR": {
+        "title": "Visual Identity & Concept Art Director",
+        "description": "Develops visual style guides, generative prompt matrices, cover art specifications, and aesthetic continuity systems.",
+        "default_power": 1550,
+        "tools": ["style_guide_gen", "prompt_matrix", "asset_spec", "llm_inference"]
+    },
+    "NARRATIVE_STRATEGIST": {
+        "title": "Creative Storytelling, Script & Copywriting Architect",
+        "description": "Authors high-engagement story treatments, video scripts, release notes, press kits (EPK), artist bios, and promotional copy.",
+        "default_power": 1500,
+        "tools": ["script_author", "epk_builder", "narrative_arc", "llm_inference"]
+    },
+    "SOUND_DESIGN_CURATOR": {
+        "title": "Audio Engineering & Sound Design Specialist",
+        "description": "Curates audio production structures, sound design layering notes, sample categorization, and arrangement blueprints.",
+        "default_power": 1550,
+        "tools": ["arrangement_spec", "audio_tagger", "mixing_notes", "llm_inference"]
+    },
+    "DISTRIBUTION_CURATOR": {
+        "title": "Audience Growth & Release Rollout Strategist",
+        "description": "Maps out multi-week creative rollout schedules, short-form video hooks, playlist pitching angles, and social content calendars.",
+        "default_power": 1500,
+        "tools": ["rollout_planner", "hook_generator", "calendar_gen", "llm_inference"]
+    },
+    "METADATA_RIGHTS_SPECIALIST": {
+        "title": "Creative Rights, Catalog & Metadata Sentinel",
+        "description": "Audits split sheets, structures ISRC/ISWC song catalog metadata, generates publishing registration checklists, and ensures clean attribution.",
+        "default_power": 1450,
+        "tools": ["split_sheet_calc", "metadata_formatter", "rights_audit", "llm_inference"]
     },
     "SINGULARITY_RESEARCHER": {
         "title": "Recursive Self-Ascension & Frontier AI Researcher",

@@ -218,8 +218,9 @@ export default async function handler(req, res) {
         "🐝 *CORTANA SOVEREIGN AGENT SWARM TELEMETRY:*\n" +
         "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
         "• *Commander:* Cortana / Halo\n" +
-        "• *Active Swarm Nodes:* 11 Special Forces Agents\n" +
-        "• *Sub-Agents:* Aegis-Guard (Cyber), Vanguard-Arch (Code), Ledger-Quant (Finance), Siren-Recon (OSINT), Sonic-Forge (Media & Creative Synthesis)\n" +
+        "• *Active Swarm Nodes:* 14 Specialized Agents\n" +
+        "• *Technical Division:* Valkyrie (Cyber), Hephaestus (Code), Hermes (Quant), Argus (OSINT)\n" +
+        "• *Creative Division:* Apollo-Canvas (Visuals), Calliope-Script (Narrative), Orpheus-Sonic (Audio), Terpsichore-Reach (Audience), Minerva-Rights (Catalog)\n" +
         "• *Execution Mode:* Multi-threaded parallel AST synthesis\n" +
         "• *Nexus UI:* https://telemetry-news-weather.vercel.app/tools/cortana_swarm_nexus.html\n" +
         "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" +
