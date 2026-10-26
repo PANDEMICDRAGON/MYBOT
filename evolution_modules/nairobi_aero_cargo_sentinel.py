@@ -1,133 +1,87 @@
 """
-Nairobi Jomo Kenyatta International Airport (JKIA) Air Cargo & Perishable Cold-Chain Customs Clearinghouse
-Designed to secure, audit, and accelerate perishable export logistics for Michael Obiero in Nairobi.
+Nairobi Jomo Kenyatta International Airport (JKIA) Perishable Cargo Air-Freight Smart Contract & Customs Expeditor
+Designed for Michael Obiero in Nairobi, Kenya.
 """
 
 import json
 import hashlib
 import time
-from typing import Dict, Any, List, Optional
+from typing import Dict, List, Optional, Any
 
+class AeroCargoSentinel:
+    """Manages real-time cold-chain telemetry, KRA customs clearance status, and airline escrow for perishable cargo at JKIA."""
+    
+    def __init__(self, max_temp_celsius: float = 6.5):
+        self.max_temp_celsius = max_temp_celsius
+        self.shipments: Dict[str, Dict[str, Any]] = {}
 
-class AeroCargoException(Exception):
-    """Base exception for aero cargo clearinghouse operations."""
-    pass
-
-
-class AirwayBill:
-    """Represents an individual air cargo consignment passing through JKIA."""
-
-    def __init__(self, awb_number: str, shipper: str, destination: str, commodity: str, weight_kg: float):
-        self.awb_number = awb_number
-        self.shipper = shipper
-        self.destination = destination
-        self.commodity = commodity
-        self.weight_kg = weight_kg
-        self.temperature_log: List[float] = []
-        self.customs_cleared: bool = False
-        self.phytosanitary_verified: bool = False
-        self.integrity_hash: str = ""
-        self._update_hash()
-
-    def _update_hash(self) -> None:
-        payload = f"{self.awb_number}:{self.shipper}:{self.destination}:{self.commodity}:{self.weight_kg}:{self.customs_cleared}"
-        self.integrity_hash = hashlib.sha256(payload.encode('utf-8')).hexdigest()
-
-    def record_temperature(self, temp_c: float) -> None:
-        self.temperature_log.append(temp_c)
-        if len(self.temperature_log) > 1000:
-            self.temperature_log.pop(0)
-
-    def to_dict(self) -> Dict[str, Any]:
-        return {
-            "awb_number": self.awb_number,
-            "shipper": self.shipper,
-            "destination": self.destination,
-            "commodity": self.commodity,
-            "weight_kg": self.weight_kg,
-            "temperature_log": self.temperature_log,
-            "customs_cleared": self.customs_cleared,
-            "phytosanitary_verified": self.phytosanitary_verified,
-            "integrity_hash": self.integrity_hash,
+    def register_shipment(self, shipment_id: str, exporter: str, destination: str, weight_kg: float, declared_value_kes: float) -> Dict[str, Any]:
+        """Registers an outgoing perishable cargo consignment."""
+        shipment = {
+            "shipment_id": shipment_id,
+            "exporter": exporter,
+            "destination": destination,
+            "weight_kg": weight_kg,
+            "declared_value_kes": declared_value_kes,
+            "status": "REGISTERED_AT_COLD_ROOM",
+            "temperature_logs": [],
+            "customs_cleared": False,
+            "escrow_locked": True,
+            "timestamp": time.time()
         }
+        self.shipments[shipment_id] = shipment
+        return shipment
 
-
-class JKIAAeroCargoSentinel:
-    """Orchestrates and audits cold-chain integrity and KRA customs sign-offs at JKIA."""
-
-    def __init__(self, max_temp_threshold_c: float = 8.0):
-        self.max_temp_threshold_c = max_temp_threshold_c
-        self.consignments: Dict[str, AirwayBill] = {}
-
-    def register_consignment(self, awb_number: str, shipper: str, destination: str, commodity: str, weight_kg: float) -> AirwayBill:
-        if awb_number in self.consignments:
-            raise AeroCargoException(f"Consignment {awb_number} already registered.")
-        awb = AirwayBill(awb_number, shipper, destination, commodity, weight_kg)
-        self.consignments[awb_number] = awb
-        return awb
-
-    def ingest_sensor_telemetry(self, awb_number: str, temp_c: float) -> None:
-        if awb_number not in self.consignments:
-            raise AeroCargoException(f"Consignment {awb_number} not found.")
-        awb = self.consignments[awb_number]
-        awb.record_temperature(temp_c)
-        if temp_c > self.max_temp_threshold_c:
-            # Flag breach internally or take corrective action
-            pass
-
-    def verify_phytosanitary(self, awb_number: str) -> bool:
-        if awb_number not in self.consignments:
-            raise AeroCargoException(f"Consignment {awb_number} not found.")
-        awb = self.consignments[awb_number]
-        awb.phytosanitary_verified = True
-        awb._update_hash()
-        return True
-
-    def clear_customs(self, awb_number: str, kra_token: str) -> bool:
-        if not kra_token.startswith("KRA-AUTH-"):
-            raise AeroCargoException("Invalid KRA Customs Authorization Token.")
-        if awb_number not in self.consignments:
-            raise AeroCargoException(f"Consignment {awb_number} not found.")
-        awb = self.consignments[awb_number]
-        if not awb.phytosanitary_verified:
-            raise AeroCargoException("Cannot clear customs without phytosanitary verification.")
+    def record_temperature(self, shipment_id: str, temp_celsius: float) -> bool:
+        """Appends temperature telemetry to verify cold-chain compliance."""
+        if shipment_id not in self.shipments:
+            raise ValueError(f"Shipment {shipment_id} not found.")
         
-        awb.customs_cleared = True
-        awb._update_hash()
+        shipment = self.shipments[shipment_id]
+        shipment["temperature_logs"].append({"temp": temp_celsius, "time": time.time()})
+        
+        if temp_celsius > self.max_temp_celsius:
+            shipment["status"] = "COLD_CHAIN_BREACH"
+            shipment["escrow_locked"] = False
+            return False
         return True
 
-    def generate_manifest_audit(self) -> Dict[str, Any]:
-        total_weight = sum(c.weight_kg for c in self.consignments.values())
-        cleared_count = sum(1 for c in self.consignments.values() if c.customs_cleared)
-        return {
-            "timestamp": time.time(),
-            "total_consignments": len(self.consignments),
-            "cleared_consignments": cleared_count,
-            "total_weight_kg": total_weight,
-            "status": "OPERATIONAL"
-        }
+    def verify_kra_customs(self, shipment_id: str, kra_permit_code: str) -> bool:
+        """Validates KRA export compliance and customs clearance."""
+        if shipment_id not in self.shipments:
+            raise ValueError(f"Shipment {shipment_id} not found.")
+        
+        shipment = self.shipments[shipment_id]
+        # Verify dummy KRA digital signature hash format
+        if len(kra_permit_code) >= 10 and kra_permit_code.startswith("KRA-EXP-"):
+            shipment["customs_cleared"] = True
+            if shipment["status"] != "COLD_CHAIN_BREACH":
+                shipment["status"] = "CLEARED_FOR_TARMAC_LOADING"
+            return True
+        
+        shipment["status"] = "CUSTOMS_REJECTED"
+        return False
 
+    def finalize_dispatch(self, shipment_id: str) -> Dict[str, Any]:
+        """Finalizes cargo dispatch if all checks pass."""
+        if shipment_id not in self.shipments:
+            raise ValueError(f"Shipment {shipment_id} not found.")
+        
+        shipment = self.shipments[shipment_id]
+        if shipment["customs_cleared"] and shipment["status"] == "CLEARED_FOR_TARMAC_LOADING":
+            shipment["status"] = "AIRBORNE"
+            shipment["escrow_locked"] = False
+        else:
+            shipment["status"] = "DISPATCH_BLOCKED"
+            
+        return shipment
 
 if __name__ == "__main__":
-    print("Initializing JKIA Aero Cargo & Cold-Chain Sentinel...")
-    sentinel = JKIAAeroCargoSentinel(max_temp_threshold_c=6.0)
-    
-    # Register trial fresh cut flowers export
-    awb = sentinel.register_consignment(
-        awb_number="AWB-789-NBO-AMS",
-        shipper="Naivasha Blooms Ltd",
-        destination="Amsterdam Schiphol",
-        commodity="Fresh Cut Roses",
-        weight_kg=1250.5
-    )
-    
-    sentinel.ingest_sensor_telemetry("AWB-789-NBO-AMS", 4.2)
-    sentinel.ingest_sensor_telemetry("AWB-789-NBO-AMS", 4.8)
-    sentinel.verify_phytosanitary("AWB-789-NBO-AMS")
-    
-    cleared = sentinel.clear_customs("AWB-789-NBO-AMS", "KRA-AUTH-994821")
-    print(f"Consignment AWB-789-NBO-AMS Customs Cleared: {cleared}")
-    
-    audit = sentinel.generate_manifest_audit()
-    print("Manifest Audit Report:", json.dumps(audit, indent=2))
-    print("JKIA Aero Cargo Sentinel test cycle completed successfully.")
+    sentinel = AeroCargoSentinel(max_temp_celsius=6.0)
+    s_id = "JKIA-EXP-2025-098"
+    sentinel.register_shipment(s_id, "Nairobi Flora Ltd", "Amsterdam (AMS)", 1250.0, 850000.0)
+    sentinel.record_temperature(s_id, 4.2)
+    sentinel.record_temperature(s_id, 5.1)
+    assert sentinel.verify_kra_customs(s_id, "KRA-EXP-XYZ12345") is True
+    result = sentinel.finalize_dispatch(s_id)
+    print(json.dumps(result, indent=2))
