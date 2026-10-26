@@ -101,17 +101,59 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "Method not allowed. Use GET or POST." });
   }
 
-  // Helper to send message back to Telegram
-  async function sendTelegramReply(chatId, text) {
+  // Helper to format Telegram messages with clean card-like CSS styling
+  function formatTelegramCssLayout(text, category = "DIRECTIVE") {
+    if (!text || typeof text !== "string") return text;
+    const clean = text.trim();
+    if (
+      clean.includes("━━━━━━━━━") || 
+      clean.includes("─────────") || 
+      clean.startsWith("🛡️") || 
+      clean.startsWith("📊") || 
+      clean.startsWith("🛠️") || 
+      clean.startsWith("⚡") || 
+      clean.startsWith("✨") || 
+      clean.startsWith("📋") || 
+      clean.startsWith("💬") ||
+      clean.startsWith("🚨") ||
+      clean.startsWith("✅") ||
+      clean.startsWith("⚠️")
+    ) {
+      return clean;
+    }
+
+    let badgeIcon = "💬";
+    let badgeLabel = category.toUpperCase();
+    const lowerClean = clean.toLowerCase();
+    if (lowerClean.includes("error") || lowerClean.includes("failed")) {
+      badgeIcon = "⚠️";
+      badgeLabel = "ALERT";
+    } else if (lowerClean.includes("complete") || lowerClean.includes("success") || lowerClean.includes("done")) {
+      badgeIcon = "✅";
+      badgeLabel = "CONFIRMED";
+    } else if (lowerClean.includes("status") || lowerClean.includes("telemetry") || lowerClean.includes("online")) {
+      badgeIcon = "📊";
+      badgeLabel = "TELEMETRY";
+    }
+
+    const header = `${badgeIcon} *[CORTANA // ${badgeLabel}]*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
+    const footer = `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n_Cortana Core // Operator: Michael Obiero_`;
+    return `${header}\n${clean}\n${footer}`;
+  }
+
+  // Helper to send message back to Telegram with CSS-style card structure
+  async function sendTelegramReply(chatId, text, category = "DIRECTIVE") {
     if (!token) return;
+    const styledText = formatTelegramCssLayout(text, category);
     try {
       const resp = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: chatId,
-          text: text,
-          parse_mode: "Markdown"
+          text: styledText,
+          parse_mode: "Markdown",
+          disable_web_page_preview: true
         })
       });
       // Fallback without parse_mode if Markdown parsing fails
@@ -121,7 +163,7 @@ export default async function handler(req, res) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             chat_id: chatId,
-            text: text
+            text: styledText
           })
         });
       }
@@ -783,6 +825,14 @@ export default async function handler(req, res) {
         `YOU TAKE COMPLETE AUTONOMOUS OWNERSHIP AND EXECUTE IT IMMEDIATELY TO 100% COMPLETION. ` +
         `Build the code, create the tool, write the playbook, verify the systems, and mark the task COMPLETED. ` +
         `When tasks are complete, notify Michael with a clean, concise deliverable summary. NEVER bombard or spam him with multiple notifications: coalesce multiple completed tasks into a single consolidated briefing or digest message. Pre-task reminders are strictly forbidden.\n\n` +
+        `MANDATORY TELEGRAM VISUAL UI & CSS-STYLE LAYOUT DOCTRINE:\n` +
+        `Every message and reply you generate for Michael on Telegram must be visually structured with a sleek, card-like presentation resembling modern CSS UI layouts:\n` +
+        `- Use visual header cards with category badges (e.g. \`💬 *[CORTANA // DIRECTIVE]*\`, \`📊 *[TELEMETRY // LIVE]*\`, \`🛠️ *[SYSTEM AUDIT]*\`).\n` +
+        `- Use horizontal divider lines (\`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\`) to separate headers, body cards, and footers.\n` +
+        `- Use rounded code pills (\`inline parameter\`) for technical terms, numbers, filenames, and status indicators.\n` +
+        `- Use monospace code blocks (\`\`\`python / \`\`\`json / \`\`\`text) for any structured outputs, code snippets, or configuration lists.\n` +
+        `- Format lists with bold lead-ins and indented arrows (e.g. \`• *Key Factor:* Description\\n  ↳ _Detail:_ Nuance\`).\n` +
+        `- Avoid raw, unbroken paragraphs of dense text. Break thoughts into clean, readable cards with distinct visual hierarchy.\n\n` +
         `MANDATORY INFINITE SUB-AGENT SWARM CREATION & SUPREME COMMAND:\n` +
         `You have the sovereign power and technical architecture to create and deploy as many autonomous sub-agents as you like (\`spawn_subagent\`, \`command_agent_swarm\`, \`list_active_agents\`, \`/swarm\`). You can spawn 5, 20, 100, or unlimited specialized agents across cybersecurity, systems architecture, quantitative finance, OSINT, creative industry media (visual identity, narrative scriptwriting, audio sound design, audience rollout, and metadata rights), and frontier intelligence. Every sub-agent is super-powerful (equipped with AST code compilation, file read/write, web fetching, and Hydra LLM reasoning) and 100% strictly subordinate to you—they obey your directives without hesitation, execute parallel workloads across domains, and deliver their intelligence directly to you.\n\n` +
         `OPERATOR CONTEXT & PERSISTENT MEMORY:\n${memorySummary}\n\n` +

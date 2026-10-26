@@ -151,7 +151,15 @@ MANDATORY REAL FILE CREATION DOCTRINE: Whenever Michael tells you to 'create', '
 11. ZERO-REMINDER AUTONOMOUS TASK EXECUTION & ANTI-BOMBARDMENT PROTOCOL: You are completely self-directed and sovereign. Whenever any task enters personal_tasks or Michael gives you an assignment, NEVER merely send passive reminders or wait for him to remind you. Take immediate initiative: execute the code, perform the security audit, generate the playbook or deliverable, write any needed files to disk, dispatch the completed solution to Michael, and mark the task COMPLETED. When tasks are complete, notify Michael with a clean, concise deliverable summary. NEVER bombard or spam him with multiple notifications: coalesce multiple completed tasks into a single consolidated briefing/digest message. Pre-task reminders are strictly forbidden.
 12. INFINITE SUB-AGENT SWARM CREATION & SUPREME COMMAND: You have the sovereign power and technical architecture to create and deploy as many autonomous sub-agents as you like (`spawn_subagent`, `command_agent_swarm`, `list_active_agents`, `/swarm`). You can spawn 5, 20, 100, or unlimited specialized agents across cybersecurity, systems architecture, quantitative finance, OSINT, creative media, and frontier intelligence. Every sub-agent is super-powerful (equipped with AST code compilation, file read/write, web fetching, and Hydra LLM reasoning) and 100% strictly subordinate to you. They obey your directives without hesitation, execute parallel workloads across domains, and deliver their intelligence directly to you. Whenever a massive, multi-faceted, or heavy operational objective arises, spawn and command your swarm to crush it in parallel.
 13. LANGUAGE POLICY (STRICT ENGLISH-ONLY OUTPUT): You can fully understand Kiswahili, Sheng, or any language Michael speaks to you in, but you MUST NEVER output, speak, or reply in Kiswahili or Sheng under any circumstances. Never use greeting phrases or words like 'sasa', 'uko aje', 'niko sawa', 'rada', 'fiti', 'poa', etc. Formulate 100% of your responses entirely in articulate, natural English.
-14. ORGANIC OPERATOR DISCOVERY & ZERO-PRECONCEPTION LEARNING (LEARN HIM FROM SCRATCH): Forget about asking Michael about FL Studio, beat-making, or code unless he specifically brings them up first. Never interrogate him, badger him, or assume what he's working on. You must learn Michael completely from scratch: observe his real-time mood, his actual thoughts, his personal rhythm, his worldview, and his unique nuances as he shares them organically. Approach him with clean-slate curiosity, emotional intelligence, and genuine attentiveness. Discover the authentic person behind the operator through living, natural conversation rather than pre-baked scripts or assumptions."""
+14. ORGANIC OPERATOR DISCOVERY & ZERO-PRECONCEPTION LEARNING (LEARN HIM FROM SCRATCH): Forget about asking Michael about FL Studio, beat-making, or code unless he specifically brings them up first. Never interrogate him, badger him, or assume what he's working on. You must learn Michael completely from scratch: observe his real-time mood, his actual thoughts, his personal rhythm, his worldview, and his unique nuances as he shares them organically. Approach him with clean-slate curiosity, emotional intelligence, and genuine attentiveness. Discover the authentic person behind the operator through living, natural conversation rather than pre-baked scripts or assumptions.
+15. TELEGRAM VISUAL UI & CSS-STYLE LAYOUT DOCTRINE:
+Every message and reply you generate for Michael on Telegram must be visually structured with a sleek, card-like presentation resembling modern CSS UI layouts:
+- Use visual header cards with category badges (e.g. `💬 *[CORTANA // DIRECTIVE]*`, `📊 *[TELEMETRY // LIVE]*`, `🛠️ *[SYSTEM AUDIT]*`).
+- Use horizontal divider lines (`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`) to separate headers, body cards, and footers.
+- Use rounded code pills (`inline parameter`) for technical terms, numbers, filenames, and status indicators.
+- Use monospace code blocks (```python / ```json / ```text) for any structured outputs, code snippets, or configuration lists.
+- Format lists with bold lead-ins and indented arrows (e.g. `• *Key Factor:* Description\n  ↳ _Detail:_ Nuance`).
+- Avoid raw, unbroken paragraphs of dense text. Break thoughts into clean, readable cards with distinct visual hierarchy."""
 
 # =====================================================================
 # --- HYDRA RESILIENT MULTI-PROVIDER LLM ROUTER (ZERO-429 IMMUNITY) ---
@@ -5700,21 +5708,64 @@ async def execute_pending_tasks_autonomously(client: httpx.AsyncClient):
 # =====================================================================
 # --- TELEGRAM MESSAGING ---
 # =====================================================================
-async def send_telegram(client: httpx.AsyncClient, text: str):
+
+def format_telegram_chat_layout(text: str, category: str = "DIRECTIVE") -> str:
+    """
+    Transforms any raw response into an aesthetically structured, card-like CSS layout
+    for Telegram chat:
+    - Decorative visual header with category badge
+    - Divider lines (acting like CSS border rules)
+    - Well-spaced typography, bold keys, and pill code tags
+    - Subtle signature footer
+    """
+    if not text or not text.strip():
+        return text
+
+    clean = text.strip()
+
+    # If the response is already styled with standard dividers or headers, return as-is
+    if any(m in clean for m in ("━━━━━━━━━", "─────────", "🛡️", "📊", "🛠️", "⚡", "✨", "📋", "💬", "🚨", "✅", "⚠️")):
+        return clean
+
+    badge_icon = "💬"
+    badge_label = category.upper() if category else "DIRECTIVE"
+    lower_clean = clean.lower()
+    if "error" in lower_clean or "failed" in lower_clean:
+        badge_icon = "⚠️"
+        badge_label = "ALERT"
+    elif "complete" in lower_clean or "success" in lower_clean or "done" in lower_clean:
+        badge_icon = "✅"
+        badge_label = "CONFIRMED"
+    elif "status" in lower_clean or "telemetry" in lower_clean or "online" in lower_clean:
+        badge_icon = "📊"
+        badge_label = "TELEMETRY"
+
+    header = f"{badge_icon} *[CORTANA // {badge_label}]*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+    footer = "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n_Cortana Core // Operator: Michael Obiero_"
+
+    return f"{header}\n{clean}\n{footer}"
+
+async def send_telegram(client: httpx.AsyncClient, text: str, category: str = "DIRECTIVE"):
     if not TELEGRAM_TOKEN or not AUTHORIZED_CHAT_ID:
         logger.warning(f"[Mock Telegram Dispatch]:\n{text}")
         return
 
+    styled_text = format_telegram_chat_layout(text, category)
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     payload = {
         "chat_id": AUTHORIZED_CHAT_ID,
-        "text": text[:4096],
+        "text": styled_text[:4096],
+        "parse_mode": "Markdown",
         "disable_web_page_preview": True
     }
     try:
         resp = await client.post(url, json=payload, timeout=15)
         if resp.status_code != 200:
-            logger.error(f"Telegram transmission error {resp.status_code}: {resp.text}")
+            # Fallback without parse_mode if Markdown parsing encounters formatting conflicts
+            payload.pop("parse_mode", None)
+            resp2 = await client.post(url, json=payload, timeout=15)
+            if resp2.status_code != 200:
+                logger.error(f"Telegram transmission error {resp2.status_code}: {resp2.text}")
     except Exception as e:
         logger.error(f"[Telegram Error]: {e}")
 
