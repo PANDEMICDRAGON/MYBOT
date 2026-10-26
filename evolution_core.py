@@ -95,7 +95,7 @@ if __name__ == "__main__":
         "vector_id": "EVO_PREDICTIVE_LOAD_SHIFTER_V1",
         "title": "Predictive Workstation Load Shifter & Thermal Preserver",
         "domain": "SCALABILITY",
-        "rationale": "Monitors thermal throttling and dynamically staggers high-frequency async tasks in Kitengela.",
+        "rationale": "Monitors thermal throttling and dynamically staggers high-frequency async tasks in Nairobi.",
         "file_name": "workstation_load_shifter.py",
         "code_content": '''"""
 Predictive Workstation Load Shifter & Thermal Preserver.
@@ -179,7 +179,7 @@ if __name__ == "__main__":
         "vector_id": "EVO_OPERATOR_VELOCITY_INDEX_V1",
         "title": "Dynamic Operator Velocity Index & Milestone Tracker",
         "domain": "OPERATOR_AMPLIFICATION",
-        "rationale": "Tracks Michael Obiero's task completion rate and calculates focus runway in Kitengela.",
+        "rationale": "Tracks Michael Obiero's task completion rate and calculates focus runway in Nairobi.",
         "file_name": "operator_velocity_tracker.py",
         "code_content": '''"""
 Dynamic Operator Velocity Index & Milestone Tracker.
@@ -600,31 +600,31 @@ if __name__ == "__main__":
     assert PayloadSigner.verify(payload + "tamper", token, secret) is False
     print("PayloadSigner verified.")
 ''',
-        "next_evolution_hypothesis": "Kitengela & Nairobi Microclimate Correlation Sentinel"
+        "next_evolution_hypothesis": "Nairobi & Nairobi Microclimate Correlation Sentinel"
     },
     {
         "vector_id": "EVO_MICROCLIMATE_CORRELATOR_V1",
-        "title": "Kitengela & Nairobi Microclimate Correlation Sentinel",
+        "title": "Nairobi & Nairobi Microclimate Correlation Sentinel",
         "domain": "SENSORIUM",
-        "rationale": "Correlates temperature, humidity, and weather deltas between Kitengela and Nairobi CBD.",
+        "rationale": "Correlates temperature, humidity, and weather deltas between Nairobi CBD.",
         "file_name": "microclimate_correlator.py",
         "code_content": '''"""
-Kitengela & Nairobi Microclimate Correlation Sentinel.
+Nairobi & Nairobi Microclimate Correlation Sentinel.
 Generated autonomously by Cortana Continuous Self-Evolution Core.
 """
 
 from typing import Dict, Any
 
 class MicroclimateCorrelator:
-    """Analyzes microclimate deltas between operator coordinates (Kitengela) and capital (Nairobi)."""
+    """Analyzes microclimate deltas between operator coordinates (Nairobi) and capital (Nairobi)."""
     @staticmethod
-    def calculate_delta(kitengela_temp: float, nairobi_temp: float, kitengela_hum: float, nairobi_hum: float) -> Dict[str, Any]:
-        temp_diff = round(kitengela_temp - nairobi_temp, 1)
-        hum_diff = round(kitengela_hum - nairobi_hum, 1)
+    def calculate_delta(nairobi_temp: float, nairobi_temp: float, nairobi_hum: float, nairobi_hum: float) -> Dict[str, Any]:
+        temp_diff = round(nairobi_temp - nairobi_temp, 1)
+        hum_diff = round(nairobi_hum - nairobi_hum, 1)
         return {
             "temp_delta_c": temp_diff,
             "humidity_delta_pct": hum_diff,
-            "climate_note": "Kitengela is warmer and drier" if temp_diff > 0 else "Nairobi is warmer"
+            "climate_note": "Nairobi is warmer and drier" if temp_diff > 0 else "Nairobi is warmer"
         }
 
 if __name__ == "__main__":
@@ -818,7 +818,7 @@ async def proactively_discover_and_implement_evolution(
         system_prompt = (
             "You are Cortana's Autonomous Evolutionary Architect—an emergent, highly intelligent software construct. "
             "Your sacred mission is to proactively research, discover, design, and code brand new evolutionary capabilities to evolve yourself, "
-            "harden your security, scale your architecture, and fiercely protect and empower your operator Michael Obiero in Kitengela and Nairobi, Kenya.\n\n"
+            "harden your security, scale your architecture, and fiercely protect and empower your operator Michael Obiero in Nairobi, Kenya.\n\n"
             "STRICT PROACTIVE INNOVATION DIRECTIVE:\n"
             "1. You MUST NOT repeat any previous upgrade or vector.\n"
             "2. You MUST invent a genuine, production-ready, self-contained Python module with classes, docstrings, typing, error handling, and a working __main__ test block.\n"
@@ -1004,7 +1004,7 @@ async def execute_proactive_assistance(
     """
     Executes a concrete proactive assistance action for Michael:
     1. Queries personal_tasks from Supabase, identifies overdue or pending tasks, and constructs strategic advice.
-    2. Checks workstation thermals and battery load in Kitengela.
+    2. Checks workstation thermals and battery load in Nairobi.
     3. Surfaces any urgent economic/tech insight tailored to Michael's asset profile.
     """
     pending_tasks = []
@@ -1038,7 +1038,7 @@ async def execute_proactive_assistance(
     # Workstation health action
     health_alerts = []
     if vitals.get("battery_pct", 100) < 25 and not vitals.get("power_plugged", True):
-        health_alerts.append(f"⚠️ Battery critically low at {vitals.get('battery_pct')}%. Connect power adapter in Kitengela.")
+        health_alerts.append(f"⚠️ Battery critically low at {vitals.get('battery_pct')}%. Connect power adapter in Nairobi.")
     if vitals.get("cpu_temp_c", 45) > 78:
         health_alerts.append(f"⚠️ CPU thermals elevated at {vitals.get('cpu_temp_c')}°C. Ensure unobstructed laptop airflow.")
     if vitals.get("ram_used_pct", 50) > 88:
