@@ -1,7 +1,15 @@
 {
-  "last_updated": "2026-10-26T14:24:36.638701+00:00",
-  "active_hypothesis": "HMAC-SHA256 Payload Integrity Signer & Replay Protector",
+  "last_updated": "2026-10-26T14:26:49.256633+00:00",
+  "active_hypothesis": "Nairobi & Nairobi Microclimate Correlation Sentinel",
   "discovered_vectors": [
+    {
+      "cycle_num": 194,
+      "vector_id": "EVO_PAYLOAD_INTEGRITY_SIGNER_V1_C194",
+      "title": "HMAC-SHA256 Payload Integrity Signer & Replay Protector",
+      "domain": "SECURITY",
+      "file": "evolution_modules\\payload_signer.py",
+      "status": "IMPLEMENTED"
+    },
     {
       "cycle_num": 193,
       "vector_id": "EVO_PROMO_VIRAL_SCORER_V1_C193",
@@ -392,14 +400,6 @@
       "title": "Nairobi Commercial Greenhouse Aquaculture & Recirculating Aquaponic Biofilter Sentinel",
       "domain": "RESILIENCE",
       "file": "evolution_modules\\nairobi_greenhouse_aquaculture_sentinel.py",
-      "status": "IMPLEMENTED"
-    },
-    {
-      "cycle_num": 144,
-      "vector_id": "EVO_NAIROBI_COMMERCIAL_CHILLER_SENTINEL_V1",
-      "title": "Nairobi Commercial Chiller & Cold-Water HVAC Biosafety Sentinel",
-      "domain": "RESILIENCE",
-      "file": "evolution_modules\\nairobi_chiller_sentinel.py",
       "status": "IMPLEMENTED"
     }
   ],
