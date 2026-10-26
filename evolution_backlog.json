@@ -1,7 +1,15 @@
 {
-  "last_updated": "2026-10-26T14:04:53.432255+00:00",
-  "active_hypothesis": "Zero-Trust Secret Masking Stream for Outbound LLM Telemetry",
+  "last_updated": "2026-10-26T14:07:04.328451+00:00",
+  "active_hypothesis": "Dynamic Operator Velocity Index & Focused Milestone Tracker",
   "discovered_vectors": [
+    {
+      "cycle_num": 185,
+      "vector_id": "EVO_ZERO_TRUST_MASKER_V1_C185",
+      "title": "Zero-Trust Secret Masking Stream for Outbound LLM Telemetry",
+      "domain": "SECURITY",
+      "file": "evolution_modules\\zero_trust_masker.py",
+      "status": "IMPLEMENTED"
+    },
     {
       "cycle_num": 184,
       "vector_id": "EVO_PREDICTIVE_LOAD_SHIFTER_V1_C184",
@@ -392,14 +400,6 @@
       "title": "Nairobi Commercial Flour Milling & Grain Dust Explosion Biosafety Sentinel",
       "domain": "RESILIENCE",
       "file": "evolution_modules\\nairobi_flour_mill_sentinel.py",
-      "status": "IMPLEMENTED"
-    },
-    {
-      "cycle_num": 135,
-      "vector_id": "EVO_NAIROBI_COMMERCIAL_LAUNDRY_WASHWATER_SENTINEL_V1",
-      "title": "Nairobi Commercial Laundry & Water Recycling Biosafety Sentinel",
-      "domain": "RESILIENCE",
-      "file": "evolution_modules\\nairobi_commercial_laundry_sentinel.py",
       "status": "IMPLEMENTED"
     }
   ],
