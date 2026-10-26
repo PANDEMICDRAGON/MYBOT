@@ -2649,13 +2649,20 @@ async def start_local_command_server(port: int = 5050):
                         async with httpx.AsyncClient(timeout=10) as hclient:
                             del_res = await tool_delete_memory(hclient, m_key)
                             response_data = {"status": "SUCCESS", "result": del_res, "key": m_key}
-                    elif cmd in ("delete_osint", "purge_osint"):
+                    elif cmd in ("delete_osint", "purge_osint", "purge_all_osint"):
                         dossier_id = payload.get("id")
                         t_query = payload.get("target_query")
+                        purge_all = payload.get("all") or cmd == "purge_all_osint"
                         deleted = False
                         if SUPABASE_URL and SUPABASE_SERVICE_KEY:
                             async with httpx.AsyncClient(timeout=10) as hclient:
-                                if dossier_id:
+                                if purge_all:
+                                    resp = await hclient.delete(
+                                        f"{SUPABASE_URL}/rest/v1/osint_dossiers?id=gt.0",
+                                        headers=SUPABASE_HEADERS
+                                    )
+                                    deleted = resp.status_code in (200, 204)
+                                elif dossier_id:
                                     resp = await hclient.delete(
                                         f"{SUPABASE_URL}/rest/v1/osint_dossiers?id=eq.{dossier_id}",
                                         headers=SUPABASE_HEADERS
@@ -2667,7 +2674,7 @@ async def start_local_command_server(port: int = 5050):
                                         headers=SUPABASE_HEADERS
                                     )
                                     deleted = resp.status_code in (200, 204)
-                        response_data = {"status": "PURGED", "deleted": deleted, "id": dossier_id, "target": t_query}
+                        response_data = {"status": "PURGED", "deleted": deleted, "all": purge_all, "id": dossier_id, "target": t_query}
                     elif cmd == "broadcast_telegram":
                         msg_text = payload.get("message", "")
                         async with httpx.AsyncClient(timeout=8) as hclient:
