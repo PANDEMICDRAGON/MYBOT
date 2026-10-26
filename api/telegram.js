@@ -17,6 +17,7 @@ export default async function handler(req, res) {
   const token = process.env.TELEGRAM_TOKEN;
   const authorizedChatId = process.env.TELEGRAM_CHAT_ID || process.env.AUTHORIZED_CHAT_ID || "679432696";
   const groqApiKey = process.env.GROQ_API_KEY;
+  const geminiApiKey = process.env.GEMINI_API_KEY;
   const supabaseUrl = (process.env.SUPABASE_URL || "https://vutamfqgckrzsnbcgrne.supabase.co").replace(/\/$/, "");
   const supabaseKey = process.env.SUPABASE_KEY || "";
 
@@ -468,8 +469,8 @@ export default async function handler(req, res) {
       }
     ];
 
-    // 5. Conversational & Reasoning Pipeline via Groq LLaMA 3.3 70B
-    if (groqApiKey) {
+    // 5. Conversational & Reasoning Pipeline via Groq & Google Gemini Failover
+    if (groqApiKey || geminiApiKey) {
       // Pull operator memory context from Supabase
       let memorySummary = "Operator: Michael Obiero (Kitengela / Nairobi, Kenya). Tech stack: Python, Supabase, Next.js, Linux.";
       if (supabaseUrl && supabaseKey) {
@@ -542,17 +543,29 @@ export default async function handler(req, res) {
       }
 
       try {
-        const modelsToTry = [
-          { name: "openai/gpt-oss-120b", maxTokens: 8192, reasoningEffort: "low" },
-          { name: "openai/gpt-oss-20b", maxTokens: 8192, reasoningEffort: "low" },
-          { name: "qwen/qwen3.8-27b", maxTokens: 4096, reasoningEffort: null }
-        ];
+        const providersToTry = [];
+        if (groqApiKey) {
+          providersToTry.push(
+            { provider: "groq", name: "openai/gpt-oss-120b", url: "https://api.groq.com/openai/v1/chat/completions", key: groqApiKey, maxTokens: 8192, reasoningEffort: "low" },
+            { provider: "groq", name: "openai/gpt-oss-20b", url: "https://api.groq.com/openai/v1/chat/completions", key: groqApiKey, maxTokens: 8192, reasoningEffort: "low" },
+            { provider: "groq", name: "qwen/qwen3.8-27b", url: "https://api.groq.com/openai/v1/chat/completions", key: groqApiKey, maxTokens: 4096, reasoningEffort: null }
+          );
+        }
+        if (geminiApiKey) {
+          providersToTry.push(
+            { provider: "gemini", name: "gemini-2.0-flash", url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", key: geminiApiKey, maxTokens: 8192, reasoningEffort: null },
+            { provider: "gemini", name: "gemini-1.5-flash", url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", key: geminiApiKey, maxTokens: 8192, reasoningEffort: null }
+          );
+        }
+
         let groqResp = null;
         let usedModel = "openai/gpt-oss-120b";
+        let usedProvider = "groq";
 
-        for (const cfg of modelsToTry) {
+        for (const cfg of providersToTry) {
           usedModel = cfg.name;
-          const groqPayload = {
+          usedProvider = cfg.provider;
+          const payload = {
             model: cfg.name,
             messages: [
               { role: "system", content: systemPersona },
@@ -564,16 +577,16 @@ export default async function handler(req, res) {
             max_tokens: cfg.maxTokens
           };
           if (cfg.reasoningEffort) {
-            groqPayload.reasoning_effort = cfg.reasoningEffort;
+            payload.reasoning_effort = cfg.reasoningEffort;
           }
 
-          groqResp = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+          groqResp = await fetch(cfg.url, {
             method: "POST",
             headers: {
-              "Authorization": `Bearer ${groqApiKey}`,
+              "Authorization": `Bearer ${cfg.key}`,
               "Content-Type": "application/json"
             },
-            body: JSON.stringify(groqPayload)
+            body: JSON.stringify(payload)
           });
           if (groqResp.ok) break;
         }
