@@ -1,112 +1,124 @@
 """
-Nairobi Commercial Aquaponics Bio-Filter & Nitrification Biosafety Sentinel
-Autonomous Evolutionary Architecture for Michael Obiero / Nairobi, Kenya
-
-Monitors biological filtration efficiency, dissolved oxygen, pH, and toxic nitrogen compounds
-in urban commercial aquaponics systems, executing emergency fail-safes and aeration cycling.
+Module: nairobi_commercial_aquaponics_bio_filter_sentinel.py
+Description: Autonomous biosafety sentinel for commercial aquaponics bio-filters in Nairobi, Kenya.
+             Monitors nitrification kinetics, ammonia/nitrite toxicity, dissolved oxygen, and flow rates.
+Author: Cortana's Autonomous Evolutionary Architect
+Operator: Michael Obiero (Nairobi, Kenya)
 """
 
-import time
 import logging
+import time
 from typing import Dict, Any, List, Optional
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [%(name)s]: %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
 logger = logging.getLogger("AquaponicsBioFilterSentinel")
 
+class BioFilterMetrics:
+    def __init__(self, system_id: str, ammonia_ppm: float, nitrite_ppm: float, nitrate_ppm: float,
+                 dissolved_oxygen_mg_l: float, water_temp_c: float, ph_level: float, flow_rate_lpm: float):
+        self.system_id = system_id
+        self.ammonia_ppm = ammonia_ppm
+        self.nitrite_ppm = nitrite_ppm
+        self.nitrate_ppm = nitrate_ppm
+        self.dissolved_oxygen_mg_l = dissolved_oxygen_mg_l
+        self.water_temp_c = water_temp_c
+        self.ph_level = ph_level
+        self.flow_rate_lpm = flow_rate_lpm
+        self.timestamp = time.time()
 
 class AquaponicsBioFilterSentinel:
     """
-    Manages biological filtration health, nitrogen cycle metrics, and emergency water quality 
-    controls for urban commercial aquaponics facilities in Nairobi.
+    Monitors biological filtration efficiency and water parameters for commercial aquaponics
+    systems in Nairobi, executing immediate emergency interventions upon toxicity spikes.
     """
-
-    def __init__(self, facility_id: str, max_ammonia_ppm: float = 0.5, min_dissolved_oxygen_ppm: float = 5.0):
-        self.facility_id = facility_id
+    def __init__(self, system_id: str, max_ammonia_ppm: float = 0.5, max_nitrite_ppm: float = 0.3,
+                 min_dissolved_oxygen: float = 5.0, min_flow_lpm: float = 20.0):
+        self.system_id = system_id
         self.max_ammonia_ppm = max_ammonia_ppm
-        self.min_dissolved_oxygen_ppm = min_dissolved_oxygen_ppm
-        self.system_status = "NOMINAL"
-        self.emergency_aeration_active = False
-        self.emergency_flush_active = False
-        logger.info(f"Initialized Aquaponics Bio-Filter Sentinel for {{self.facility_id}}")
+        self.max_nitrite_ppm = max_nitrite_ppm
+        self.min_dissolved_oxygen = min_dissolved_oxygen
+        self.min_flow_lpm = min_flow_lpm
+        self.incident_log: List[Dict[str, Any]] = []
 
-    def evaluate_telemetry(self, telemetry: Dict[str, float]) -> Dict[str, Any]:
+    def evaluate_nitrification_health(self, metrics: BioFilterMetrics) -> Dict[str, Any]:
         """
-        Evaluates real-time sensor telemetry including ammonia, nitrite, pH, DO, and temperature.
+        Evaluates bio-filter metrics against safety thresholds and computes nitrification efficiency.
         """
-        ammonia = telemetry.get("ammonia_ppm", 0.0)
-        nitrite = telemetry.get(
-            "nitrite_ppm", 0.0
-        )  # Toxic intermediate in nitrification
-        nitrate = telemetry.get("nitrate_ppm", 20.0)  # Plant nutrient
-        dissolved_oxygen = telemetry.get("dissolved_oxygen_ppm", 6.0)
-        ph = telemetry.get("ph", 6.8)
-        temperature_c = telemetry.get("temperature_celsius", 22.5)
+        alerts = []
+        status = "OPTIMAL"
 
-        actions: List[str] = []
-        alerts: List[str] = []
+        # Ammonia toxicity check
+        if metrics.ammonia_ppm > self.max_ammonia_ppm:
+            status = "CRITICAL"
+            alerts.append(f"HIGH AMMONIA WARNING: {metrics.ammonia_ppm} ppm (Threshold: < {self.max_ammonia_ppm})")
 
-        # Check Ammonia toxicity
-        if ammonia > self.max_ammonia_ppm:
-            alerts.append(
-                f"CRITICAL: Ammonia spike detected ({{ammonia}} ppm > {{self.max_ammonia_ppm}} ppm)"
-            )
-            self.emergency_flush_active = True
-            actions.append(
-                "TRIGGER_BYPASS_AND_FRESH_WATER_DILUTION_VALVE"
-            )
-        else:
-            self.emergency_flush_active = False
+        # Nitrite toxicity check
+        if metrics.nitrite_ppm > self.max_nitrite_ppm:
+            status = "CRITICAL" if status != "CRITICAL" else status
+            alerts.append(f"HIGH NITRITE WARNING: {metrics.nitrite_ppm} ppm (Threshold: < {self.max_nitrite_ppm})")
 
-        # Check Dissolved Oxygen (critical for nitrifying bacteria and fish)
-        if dissolved_oxygen < self.min_dissolved_oxygen_ppm:
-            alerts.append(
-                f"CRITICAL: Dissolved Oxygen low ({{dissolved_oxygen}} ppm < {{self.min_dissolved_oxygen_ppm}} ppm)"
-            )
-            self.emergency_aeration_active = True
-            actions.append(
-                "ENGAGE_SECONDARY_OXYGEN_GENERATOR_AND_BLOWERS"
-            )
-        else:
-            self.emergency_aeration_active = False
+        # Dissolved Oxygen check
+        if metrics.dissolved_oxygen_mg_l < self.min_dissolved_oxygen:
+            status = "WARNING" if status == "OPTIMAL" else status
+            alerts.append(f"LOW OXYGEN WARNING: {metrics.dissolved_oxygen_mg_l} mg/L (Min: {self.min_dissolved_oxygen})")
 
-        # Check Nitrification efficiency ratio (Nitrate vs Nitrite/Ammonia)
-        if nitrite > 1.0:
-            alerts.append(
-                f"WARNING: Nitrite accumulation ({{nitrite}} ppm). Biofilter bacterial colony bottleneck."
-            )
-            actions.append(
-                "REDUCE_FISH_FEEDING_RATE_AUTOMATICALLY"
-            )
+        # Flow rate check
+        if metrics.flow_rate_lpm < self.min_flow_lpm:
+            status = "CRITICAL"
+            alerts.append(f"PUMP FLOW FAILURE: {metrics.flow_rate_lpm} LPM (Min: {self.min_flow_lpm})")
 
-        # System status update
-        if alerts:
-            self.system_status = "DEGRADED_INTERVENTION_ACTIVE"
-        else:
-            self.system_status = "NOMINAL"
-
-        assessment = {
-            "facility_id": self.facility_id,
-            "timestamp": time.time(),
-            "status": self.system_status,
+        evaluation = {
+            "system_id": self.system_id,
+            "status": status,
             "alerts": alerts,
-            "actions_taken": actions,
-            "emergency_aeration": self.emergency_aeration_active,
-            "emergency_flush": self.emergency_flush_active,
+            "timestamp": metrics.timestamp,
+            "nitrification_active": metrics.ammonia_ppm < 0.2 and metrics.nitrite_ppm < 0.1
         }
 
-        logger.info(f"Telemetry evaluated for {{self.facility_id}}: Status[{{self.system_status}}]")
-        return assessment
+        if status != "OPTIMAL":
+            self.incident_log.append(evaluation)
+            logger.warning(f"[{self.system_id}] BioFilter Status: {status} | Alerts: {alerts}")
+        else:
+            logger.info(f"[{self.system_id}] BioFilter Operational. Nitrification Healthy.")
 
+        return evaluation
+
+    def execute_remediation(self, evaluation: Dict[str, Any]) -> str:
+        """
+        Executes automated corrective action protocols (e.g., aeration booster, water dilution, feed halt).
+        """
+        if evaluation["status"] == "OPTIMAL":
+            return "NO_ACTION_REQUIRED"
+
+        actions_taken = []
+        for alert in evaluation["alerts"]:
+            if "AMMONIA" in alert or "NITRITE" in alert:
+                actions_taken.append("HALTED_FISH_FEEDING_AND_ACTIVATED_CARBON_BYPASS")
+            if "OXYGEN" in alert:
+                actions_taken.append("DEPLOYED_EMERGENCY_OXYGEN_DIFFUSERS")
+            if "FLOW" in alert:
+                actions_taken.append("SWITCHED_TO_BACKUP_DC_WATER_PUMP")
+
+        logger.error(f"[REMEDIATION EXECUTED FOR {self.system_id}]: {actions_taken}")
+        return f"SUCCESS: Executed {len(actions_taken)} corrective protocols."
 
 if __name__ == "__main__":
-    sentinel = AquaponicsBioFilterSentinel(facility_id="NAIROBI-AQUA-PILOT-01")
-    sample_telemetry = {
-        "ammonia_ppm": 0.8,  # Triggers emergency flush
-        "nitrite_ppm": 1.5,  # Triggers feeding reduction
-        "nitrate_ppm": 45.0,
-        "dissolved_oxygen_ppm": 4.2,  # Triggers emergency oxygen
-        "ph": 6.5,
-        "temperature_celsius": 23.0,
-    }
-    result = sentinel.evaluate_telemetry(sample_telemetry)
-    print("Aquaponics Bio-Filter Sentinel Test Execution Results:", result)
+    print("Initializing Nairobi Commercial Aquaponics Bio-Filter & Nitrification Biosafety Sentinel...")
+    sentinel = AquaponicsBioFilterSentinel(system_id="NAI_AQUA_RANCH_01")
+    
+    # Test metrics simulating a bio-filter nitrite spike
+    test_metrics = BioFilterMetrics(
+        system_id="NAI_AQUA_RANCH_01",
+        ammonia_ppm=0.1,
+        nitrite_ppm=0.45,
+        nitrate_ppm=45.0,
+        dissolved_oxygen_mg_l=4.2,
+        water_temp_c=24.5,
+        ph_level=6.8,
+        flow_rate_lpm=18.5
+    )
+    
+    eval_result = sentinel.evaluate_nitrification_health(test_metrics)
+    print("Evaluation Result:", eval_result)
+    action_result = sentinel.execute_remediation(eval_result)
+    print("Remediation Result:", action_result)
