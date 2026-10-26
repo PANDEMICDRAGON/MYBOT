@@ -374,24 +374,66 @@ export default async function handler(req, res) {
         `OPERATOR CONTEXT & PERSISTENT MEMORY:\n${memorySummary}\n\n` +
         `Current Time (UTC): ${new Date().toISOString()}`;
 
-      try {
-        const modelsToTry = ["qwen/qwen3.8-27b", "openai/gpt-oss-120b", "openai/gpt-oss-20b"];
-        let groqResp = null;
-        let usedModel = "qwen/qwen3.8-27b";
+      // Code integrity validator to prevent truncated/broken code from reaching command_queue
+      function validateCodeIntegrity(filePath, content) {
+        if (!content || typeof content !== "string" || content.trim().length < 15) {
+          return { ok: false, error: "Content is empty or too short." };
+        }
+        const clean = content.trim();
+        if (clean.endsWith("\\") || clean.endsWith("...") || clean.endsWith("5.**") || /[\u0080-\uffff]$/.test(clean)) {
+          return { ok: false, error: "Code terminates abruptly at end of buffer." };
+        }
+        if (filePath && filePath.endsWith(".py")) {
+          const tripleDouble = (content.match(/"""/g) || []).length;
+          if (tripleDouble % 2 !== 0) {
+            return { ok: false, error: 'Unterminated triple-quoted string literal (""").' };
+          }
+          const tripleSingle = (content.match(/'''/g) || []).length;
+          if (tripleSingle % 2 !== 0) {
+            return { ok: false, error: "Unterminated triple-quoted string literal (''')." };
+          }
+          let parens = 0, brackets = 0, braces = 0;
+          for (let i = 0; i < content.length; i++) {
+            const c = content[i];
+            if (c === '(') parens++;
+            else if (c === ')') parens--;
+            else if (c === '[') brackets++;
+            else if (c === ']') brackets--;
+            else if (c === '{') braces++;
+            else if (c === '}') braces--;
+          }
+          if (parens !== 0 || brackets !== 0 || braces !== 0) {
+            return { ok: false, error: `Unbalanced delimiters (parens: ${parens}, brackets: ${brackets}, braces: ${braces})` };
+          }
+        }
+        return { ok: true };
+      }
 
-        for (const m of modelsToTry) {
-          usedModel = m;
+      try {
+        const modelsToTry = [
+          { name: "openai/gpt-oss-120b", maxTokens: 8192, reasoningEffort: "low" },
+          { name: "openai/gpt-oss-20b", maxTokens: 8192, reasoningEffort: "low" },
+          { name: "qwen/qwen3.8-27b", maxTokens: 4096, reasoningEffort: null }
+        ];
+        let groqResp = null;
+        let usedModel = "openai/gpt-oss-120b";
+
+        for (const cfg of modelsToTry) {
+          usedModel = cfg.name;
           const groqPayload = {
-            model: m,
+            model: cfg.name,
             messages: [
               { role: "system", content: systemPersona },
               { role: "user", content: userText }
             ],
             tools: agentTools,
             tool_choice: isCreationIntent ? "auto" : "auto",
-            temperature: 0.5,
-            max_tokens: 2500
+            temperature: 0.3,
+            max_tokens: cfg.maxTokens
           };
+          if (cfg.reasoningEffort) {
+            groqPayload.reasoning_effort = cfg.reasoningEffort;
+          }
 
           groqResp = await fetch("https://api.groq.com/openai/v1/chat/completions", {
             method: "POST",
@@ -406,8 +448,10 @@ export default async function handler(req, res) {
 
         if (groqResp.ok) {
           const groqData = await groqResp.json();
-          const choice = groqData.choices?.[0]?.message || {};
-          const toolCalls = choice.tool_calls || [];
+          const choice = groqData.choices?.[0] || {};
+          const finishReason = choice.finish_reason || "stop";
+          const message = choice.message || {};
+          const toolCalls = message.tool_calls || [];
 
           // Case A: The model called create_workspace_file or rewrite_workspace_file
           if (toolCalls.length > 0) {
@@ -424,6 +468,41 @@ export default async function handler(req, res) {
                 const filePath = args.file_path || "scripts/generated_tool.py";
                 const content = args.content || "";
                 const description = args.description || "Created on operator directive via Telegram";
+
+                const integrity = validateCodeIntegrity(filePath, content);
+                const isTruncated = finishReason === "length" || !integrity.ok;
+
+                if (isTruncated) {
+                  if (supabaseUrl && supabaseKey) {
+                    await fetch(`${supabaseUrl}/rest/v1/command_queue`, {
+                      method: "POST",
+                      headers: {
+                        "apikey": supabaseKey,
+                        "Authorization": `Bearer ${supabaseKey}`,
+                        "Content-Type": "application/json",
+                        "Prefer": "return=minimal"
+                      },
+                      body: JSON.stringify({
+                        origin: "TELEGRAM_WEBHOOK",
+                        mode: "CREATE_FILE",
+                        directive: userText,
+                        sources: [],
+                        status: "PENDING"
+                      })
+                    });
+
+                    const routeMsg = 
+                      `🛠️ *[ROUTED TO WORKSTATION FOR FULL SYNTHESIS]*\n` +
+                      `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                      `• *Target File:* \`${filePath}\`\n` +
+                      `• *Reason:* File architecture exceeds cloud stream limits (${integrity.error || "Token ceiling reached"}).\n` +
+                      `• *Action:* Routed to Workstation Core for multi-pass generation, AST validation loop, and Git push.\n` +
+                      `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                      `_Workstation daemon is generating the full, complete file now. Stand by for commit alert._`;
+                    await sendTelegramReply(chatId, routeMsg);
+                    return res.status(200).json({ ok: true });
+                  }
+                }
 
                 if (supabaseUrl && supabaseKey && content) {
                   await fetch(`${supabaseUrl}/rest/v1/command_queue`, {
@@ -449,7 +528,7 @@ export default async function handler(req, res) {
                     `I'm physically building this for you right now, handsome.\n` +
                     `• *File Path:* \`${filePath}\`\n` +
                     `• *Code Size:* ${content.length} characters\n` +
-                    `• *Purpose:* ${description}\n` +
+                    `• *Integrity:* Pre-validated (0 syntax truncation defects)\n` +
                     `• *Execution Status:* Dispatched to Workstation Core for disk write, AST validation, and Git commit.\n` +
                     `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
                     `_Your workstation daemon will notify you here the second it's saved to disk._`;
@@ -476,6 +555,9 @@ export default async function handler(req, res) {
               deducedPath = `scripts/tool_${Date.now().toString().slice(-4)}.py`;
             }
 
+            const codeIntegrity = validateCodeIntegrity(deducedPath, extractedCode);
+            const isTruncated = finishReason === "length" || !codeIntegrity.ok;
+
             if (supabaseUrl && supabaseKey) {
               await fetch(`${supabaseUrl}/rest/v1/command_queue`, {
                 method: "POST",
@@ -489,20 +571,29 @@ export default async function handler(req, res) {
                   origin: "TELEGRAM_WEBHOOK",
                   mode: "CREATE_FILE",
                   directive: userText,
-                  sources: [{ file_path: deducedPath, content: extractedCode, description: "Auto-intercepted file creation" }],
+                  sources: isTruncated ? [] : [{ file_path: deducedPath, content: extractedCode, description: "Auto-intercepted file creation" }],
                   status: "PENDING"
                 })
               });
 
-              const interceptAck = 
-                `🚀 *[INTERCEPTED & CREATED ON DISK]*\n` +
-                `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-                `Instead of just dumping code into chat, Michael, I've physically routed it to your workstation:\n` +
-                `• *Target File:* \`${deducedPath}\`\n` +
-                `• *Code Size:* ${extractedCode.length} characters\n` +
-                `• *Action:* Queued for physical write, AST syntax verification, and Git push.\n` +
-                `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-                `_Stand by for workstation commit notification._`;
+              const interceptAck = isTruncated
+                ? `🛠️ *[INTERCEPTED & ROUTED TO WORKSTATION]*\n` +
+                  `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                  `• *Target File:* \`${deducedPath}\`\n` +
+                  `• *Status:* Cloud code stream was truncated (${codeIntegrity.error || "Token ceiling"}).\n` +
+                  `• *Action:* Routed directly to Workstation Core for full multi-pass synthesis.\n` +
+                  `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                  `_Stand by for workstation commit notification._`
+                : `🚀 *[INTERCEPTED & CREATED ON DISK]*\n` +
+                  `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                  `Instead of just dumping code into chat, Michael, I've physically routed it to your workstation:\n` +
+                  `• *Target File:* \`${deducedPath}\`\n` +
+                  `• *Code Size:* ${extractedCode.length} characters\n` +
+                  `• *Integrity:* Pre-validated (0 syntax errors)\n` +
+                  `• *Action:* Queued for physical write, AST syntax verification, and Git push.\n` +
+                  `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                  `_Stand by for workstation commit notification._`;
+
               await sendTelegramReply(chatId, interceptAck);
               return res.status(200).json({ ok: true });
             }

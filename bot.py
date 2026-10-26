@@ -5401,14 +5401,24 @@ async def log_and_execute_directive(
             if file_path and content:
                 create_res = await create_workspace_file(client, file_path, content)
                 if "failed" in create_res.lower() or "aborted" in create_res.lower() or "denied" in create_res.lower():
-                    answer = (
-                        f"⚠️ *[FILE CREATION ABORTED // WORKSTATION CORE]*\n"
-                        f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                        f"• *File:* `{file_path}`\n"
-                        f"• *Issue:* {create_res}\n"
-                        f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                        f"_Code syntax was rejected by the AST compiler to protect your repository from broken code._"
-                    )
+                    # If syntax failed (likely truncated payload from cloud streaming ceiling), trigger local workstation recovery
+                    if any(term in create_res.lower() for term in ("syntax validation failed", "unindent does not match", "unterminated", "syntaxerror")):
+                        logger.warning(f"Payload from cloud queue for '{file_path}' had syntax failure ({create_res}). Initiating autonomous workstation recovery...")
+                        recovery_prompt = (
+                            f"The payload sent from cloud queue for file '{file_path}' was truncated midway by token limits (SyntaxError: {create_res}).\n"
+                            f"Operator Directive: {directive}\n"
+                            f"You must physically generate and write the COMPLETE, syntactically flawless version of '{file_path}' to disk using create_workspace_file."
+                        )
+                        answer = await run_agent_turn(client, recovery_prompt)
+                    else:
+                        answer = (
+                            f"⚠️ *[FILE CREATION ABORTED // WORKSTATION CORE]*\n"
+                            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                            f"• *File:* `{file_path}`\n"
+                            f"• *Issue:* {create_res}\n"
+                            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                            f"_Code syntax was rejected by the AST compiler to protect your repository from broken code._"
+                        )
                 else:
                     answer = (
                         f"✅ *[FILE CREATION SUCCESS // WORKSTATION CORE]*\n"
