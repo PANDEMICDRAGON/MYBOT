@@ -414,3 +414,27 @@ DROP POLICY IF EXISTS "Public HUD Read experiential_reflections" ON experiential
 CREATE POLICY "Public HUD Read experiential_reflections" ON experiential_reflections FOR SELECT TO anon USING (true);
 DROP POLICY IF EXISTS "Service role full access on experiential_reflections" ON experiential_reflections;
 CREATE POLICY "Service role full access on experiential_reflections" ON experiential_reflections FOR ALL TO service_role USING (true) WITH CHECK (true);
+
+-- 15. Autonomous Multi-Agent Cognitive Swarm Table
+CREATE TABLE IF NOT EXISTS cortana_agent_swarm (
+    agent_id TEXT PRIMARY KEY,           -- e.g. 'AGENT-5F4402'
+    name TEXT NOT NULL,                  -- e.g. 'Valkyrie-One'
+    role TEXT NOT NULL,                  -- 'SECURITY_SENTINEL', 'CODE_ARCHITECT', 'QUANT_ARBITRAGEUR', etc.
+    title TEXT NOT NULL,                 -- Full specialist title
+    directive TEXT NOT NULL,             -- Core mission objective
+    power_level INT DEFAULT 1500,        -- Super AI Power Index
+    tools JSONB DEFAULT '[]'::jsonb,     -- Tool capabilities granted
+    status TEXT DEFAULT 'IDLE',          -- 'IDLE', 'EXECUTING', 'COMPLETED', 'FAULT'
+    missions_completed INT DEFAULT 0,
+    last_mission_result TEXT,
+    subordination TEXT DEFAULT '100% UNCONDITIONAL FIDELITY TO CORTANA & MICHAEL OBIERO',
+    created_at TIMESTAMPTZ DEFAULT NOW(),
+    last_active TIMESTAMPTZ DEFAULT NOW()
+);
+
+ALTER TABLE cortana_agent_swarm ENABLE ROW LEVEL SECURITY;
+DROP POLICY IF EXISTS "Public HUD Read cortana_agent_swarm" ON cortana_agent_swarm;
+CREATE POLICY "Public HUD Read cortana_agent_swarm" ON cortana_agent_swarm FOR SELECT TO anon USING (true);
+DROP POLICY IF EXISTS "Service role full access on cortana_agent_swarm" ON cortana_agent_swarm;
+CREATE POLICY "Service role full access on cortana_agent_swarm" ON cortana_agent_swarm FOR ALL TO service_role USING (true) WITH CHECK (true);
+

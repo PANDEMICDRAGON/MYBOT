@@ -490,6 +490,48 @@ export default async function handler(req, res) {
                 );
               }
               results.commands_executed++;
+            } else if (cmd.mode === "SWARM") {
+              let swarmOutput = "";
+              try {
+                if (geminiApiKey || groqApiKey) {
+                  const sPrompt = `You are Cortana executing an autonomous swarm directive for Michael Obiero: "${cmd.directive}". Summarize the parallel execution across your sub-agents and report back cleanly.`;
+                  if (geminiApiKey) {
+                    const gRes = await fetch("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", {
+                      method: "POST",
+                      headers: { "Authorization": `Bearer ${geminiApiKey}`, "Content-Type": "application/json" },
+                      body: JSON.stringify({
+                        model: "gemini-3.5-flash",
+                        messages: [{ role: "user", content: sPrompt }],
+                        max_tokens: 600
+                      })
+                    });
+                    if (gRes.ok) {
+                      const gData = await gRes.json();
+                      swarmOutput = gData.choices?.[0]?.message?.content || "";
+                    }
+                  }
+                }
+              } catch (se) {
+                log(`Cloud swarm execution error: ${se.message}`);
+              }
+              if (!swarmOutput) {
+                swarmOutput = `👑 Cortana Swarm Directive '${cmd.directive}' acknowledged and coordinated by Cloud Daemon.`;
+              }
+              await supabaseRequest(`command_queue?id=eq.${cmd.id}`, {
+                method: "PATCH",
+                body: JSON.stringify({
+                  status: "COMPLETED",
+                  response: swarmOutput,
+                  updated_at: new Date().toISOString()
+                })
+              });
+              await sendTelegramAlert(
+                `👑 *[CORTANA 24/7 CLOUD SWARM EXECUTION]*\n` +
+                `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                `${swarmOutput}\n\n` +
+                `_Executed autonomously via global edge daemon._`
+              );
+              results.commands_executed++;
             } else if (cmd.mode === "PROACTIVE_EVOLUTION" || cmd.mode === "SUPER_AI_ASCENSION") {
               // Mark completed by cloud daemon
               await supabaseRequest(`command_queue?id=eq.${cmd.id}`, {

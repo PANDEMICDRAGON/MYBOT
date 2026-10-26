@@ -68,6 +68,7 @@ graph TD
 | **Vocal Web HUD** | `window.speechSynthesis` | Web dashboard that reads newly synthesized SitRep briefings aloud with one click. |
 | **Wi-Fi Cyber Scanner** | Async Socket & Banner Fingerprint | Dedicated multi-port scanner auditing 20-35 services on Wi-Fi devices (Google Cast, Roku, ADB, HTTP, SSH) across mobile and desktop. |
 | **Secure Local CLI & Workspace Bridge** | `halo_agent.py` (Gemini + Groq) | Dual-listener daemon (Port 5050 + Supabase command_queue) for zero-latency local code refactoring, colorized unified diffs, path-sandboxed writes, and git stash + syntax rollback safety. |
+| **Autonomous Sub-Agent Swarm** | `swarm_engine.py` (Queen-Worker Architecture) | Cortana dynamically spawns, commissions, and commands unlimited super-powerful specialized sub-agents (Security, Code Architecture, Quant Finance, OSINT, Music Promo, Frontier AI). All agents execute parallel workloads with AST validation and Hydra LLM failover, obeying Cortana with 100% unconditional fidelity. |
 | **High-Tech Typography Matrix** | Google Fonts + CSS Engine | Replaces cramped legacy fonts with movie-grade Oxanium display headers, Plus Jakarta Sans & Inter hyper-crisp body text, Space Grotesk HUD labels, JetBrains Mono telemetry, and an interactive 6-preset selector (Quantum, Stark, Cortana, Minimalist, Night City, Retro). |
 
 ---

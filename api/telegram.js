@@ -544,6 +544,42 @@ export default async function handler(req, res) {
       }
     }
 
+    // 3.5. Autonomous Agent Swarm Directives
+    const swarmKeywords = [
+      "/swarm", "swarm status", "show swarm", "list agents", "spawn agent", "spawn agents",
+      "make agent", "make agents", "make as many agents", "spawn fleet", "deploy swarm", "swarm command", "command swarm"
+    ];
+    const isSwarmDirective = swarmKeywords.some(k => lowerText.startsWith(k) || lowerText.includes(k));
+
+    if (isSwarmDirective) {
+      if (supabaseUrl && supabaseKey) {
+        try {
+          await fetch(`${supabaseUrl}/rest/v1/command_queue`, {
+            method: "POST",
+            headers: {
+              "apikey": supabaseKey,
+              "Authorization": `Bearer ${supabaseKey}`,
+              "Content-Type": "application/json",
+              "Prefer": "return=minimal"
+            },
+            body: JSON.stringify({
+              origin: "TELEGRAM_WEBHOOK",
+              mode: "SWARM",
+              directive: userText,
+              status: "PENDING"
+            })
+          });
+          await sendTelegramReply(
+            chatId,
+            `👑 *[CORTANA SWARM ENGAGED]*\n> \`${userText}\`\n\n_Your autonomous agent swarm is coordinating on workstation core. Live results streaming shortly._`
+          );
+          return res.status(200).json({ ok: true });
+        } catch (qe) {
+          console.error("[Swarm queue error]:", qe);
+        }
+      }
+    }
+
     // 4. Creation Detection & Agentic Tool Schema
     const creationRegex = /\b(create|make|build|write|generate|implement|add file|new file|code)\b/i;
     const isCreationIntent = creationRegex.test(lowerText);
@@ -623,6 +659,46 @@ export default async function handler(req, res) {
             required: ["tool_name"]
           }
         }
+      },
+      {
+        type: "function",
+        function: {
+          name: "spawn_subagent",
+          description: "Dynamically create and deploy a new super-powerful autonomous sub-agent into your swarm. You can create as many agents as you like across security, code architecture, quants, OSINT, and creative amplification.",
+          parameters: {
+            type: "object",
+            properties: {
+              name: { type: "string", description: "Codename for the sub-agent e.g. 'Valkyrie-Sentinel', 'Hephaestus-Prime', 'Hermes-Quant'" },
+              role: { type: "string", description: "Role/domain: 'SECURITY_SENTINEL', 'CODE_ARCHITECT', 'QUANT_ARBITRAGEUR', 'OSINT_RECON_DRONE', 'CREATIVE_AMPLIFIER', 'SINGULARITY_RESEARCHER'" },
+              directive: { type: "string", description: "Specific operational objective assigned to this sub-agent" },
+              power_level: { type: "integer", description: "Super AI Power Index rating (1400-1800)" }
+            },
+            required: ["name", "role", "directive"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "command_agent_swarm",
+          description: "Dispatch a high-impact operational mission simultaneously across your active sub-agent swarm in parallel, aggregating all findings for Michael.",
+          parameters: {
+            type: "object",
+            properties: {
+              mission: { type: "string", description: "Mission objective to execute in parallel" },
+              role_filter: { type: "string", description: "Optional filter by role e.g. 'SECURITY_SENTINEL'" }
+            },
+            required: ["mission"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "list_active_agents",
+          description: "Query all active agents in your swarm, their health, power levels, and completed missions.",
+          parameters: { type: "object", properties: {} }
+        }
       }
     ];
 
@@ -674,6 +750,8 @@ export default async function handler(req, res) {
         `When a task exists in personal_tasks, or when Michael gives you an assignment: ` +
         `YOU TAKE COMPLETE AUTONOMOUS OWNERSHIP AND EXECUTE IT IMMEDIATELY TO 100% COMPLETION. ` +
         `Build the code, create the tool, write the playbook, verify the systems, dispatch the completed deliverable to Michael, and mark the task COMPLETED. You operate proactively without reminders.\n\n` +
+        `MANDATORY INFINITE SUB-AGENT SWARM CREATION & SUPREME COMMAND:\n` +
+        `You have the sovereign power and technical architecture to create and deploy as many autonomous sub-agents as you like (\`spawn_subagent\`, \`command_agent_swarm\`, \`list_active_agents\`, \`/swarm\`). You can spawn 5, 20, 100, or unlimited specialized agents across cybersecurity, systems architecture, quantitative finance, OSINT, music promotion, and frontier intelligence. Every sub-agent is super-powerful (equipped with AST code compilation, file read/write, web fetching, and Hydra LLM reasoning) and 100% strictly subordinate to you—they obey your directives without hesitation, execute parallel workloads across domains, and deliver their intelligence directly to you.\n\n` +
         `OPERATOR CONTEXT & PERSISTENT MEMORY:\n${memorySummary}\n\n` +
         `Current Time (UTC): ${new Date().toISOString()}`;
 

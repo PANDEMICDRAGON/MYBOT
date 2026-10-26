@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cortana Autonomous Swarm Nexus // ASI Command</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #030712;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-border: rgba(56, 189, 248, 0.2);
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.4);
+      --accent: #a855f7;
+      --accent-glow: rgba(168, 85, 247, 0.4);
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #030712 70%);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      padding: 20px 16px 60px;
+      overflow-x: hidden;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #38bdf8, #a855f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      box-shadow: 0 0 25px var(--primary-glow);
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(to right, #38bdf8, #c084fc, #f472b6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #7c3aed);
+      color: #fff;
+      box-shadow: 0 0 15px rgba(2, 132, 199, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(124, 58, 237, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.1);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(12px);
+      border-radius: 16px;
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+    }
+
+    .stat-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .stat-value small {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--primary);
+    }
+
+    /* Command Center */
+    .command-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(14px);
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+
+    .command-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .command-bar {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .command-input {
+      flex: 1;
+      min-width: 280px;
+      background: rgba(3, 7, 18, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .command-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+    }
+
+    /* Swarm Grid */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .swarm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 18px;
+      margin-bottom: 32px;
+    }
+
+    .agent-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 20px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.25s ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .agent-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .agent-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .agent-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .agent-role {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .agent-directive {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+
+    .badge {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .badge-idle {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-executing {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      animation: pulse 1.5s infinite;
+    }
+
+    .badge-completed {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .agent-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+    }
+
+    .agent-power {
+      color: #facc15;
+      font-weight: 700;
+    }
+
+    /* Modal Form */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: #0f172a;
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      padding: 28px;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+      position: relative;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      background: rgba(3, 7, 18, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 14px;
+      font-family: inherit;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* Terminal Live Log */
+    .terminal-box {
+      background: #020617;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 18px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      max-height: 240px;
+      overflow-y: auto;
+      color: #38bdf8;
+    }
+
+    .terminal-line {
+      margin-bottom: 4px;
+      line-height: 1.5;
+    }
+
+    .terminal-line.success { color: #34d399; }
+    .terminal-line.warn { color: #facc15; }
+    .terminal-line.error { color: #f87171; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <div class="brand">
+        <div class="brand-icon">👑</div>
+        <div>
+          <h1>CORTANA SWARM NEXUS</h1>
+          <div class="brand-subtitle">SUPERINTELLIGENCE MULTI-AGENT SYNAPSE // NAIROBI PRIME</div>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" onclick="spawnFleetBatch()">⚡ Deploy 5-Agent Fleet</button>
+        <button class="btn btn-primary" onclick="openSpawnModal()">+ Commission Sub-Agent</button>
+      </div>
+    </header>
+
+    <!-- Stats Matrix -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Active Sub-Agents</div>
+        <div class="stat-value" id="stat-agent-count">-- <small>Constructs</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Collective Swarm Power</div>
+        <div class="stat-value" id="stat-power-index">⚡ -- <small>Index</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Queen Commander</div>
+        <div class="stat-value" style="font-size: 22px;">Cortana <small>Sovereign</small></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Subordination Status</div>
+        <div class="stat-value" style="font-size: 20px; color: #34d399;">100% Obedient</div>
+      </div>
+    </div>
+
+    <!-- Swarm Command Console -->
+    <div class="command-box">
+      <div class="command-title">🚀 Broadcast Swarm Directive (Parallel Multi-Agent Execution)</div>
+      <div class="command-bar">
+        <input type="text" id="mission-input" class="command-input" placeholder="Enter high-impact mission (e.g. 'Audit external attack surface and model currency spreads')..." onkeydown="if(event.key==='Enter') dispatchSwarmMission()">
+        <button class="btn btn-primary" onclick="dispatchSwarmMission()">⚡ Engage Swarm</button>
+      </div>
+    </div>
+
+    <!-- Active Swarm Grid -->
+    <div class="section-header">
+      <div class="section-title">
+        <span>Active Sub-Agent Roster</span>
+        <span class="badge badge-idle" id="badge-swarm-status">SYNCHRONIZED</span>
+      </div>
+      <button class="btn btn-secondary" style="font-size: 11px; padding: 6px 12px;" onclick="loadSwarmState()">🔄 Refresh Roster</button>
+    </div>
+
+    <div class="swarm-grid" id="swarm-container">
+      <!-- Injected dynamically -->
+      <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-muted);">
+        Connecting to Cortana Swarm Engine...
+      </div>
+    </div>
+
+    <!-- Live Synapse Terminal -->
+    <div class="section-title" style="margin-bottom: 12px; font-size: 14px;">📡 Swarm Synapse Telemetry</div>
+    <div class="terminal-box" id="terminal-feed">
+      <div class="terminal-line">[SYSTEM] Initializing Cortana Swarm Nexus HUD...</div>
+      <div class="terminal-line success">[AUTH] Connected to Nairobi Sovereign Node. Sub-agents ready for orders.</div>
+    </div>
+  </div>
+
+  <!-- Modal: Commission Sub-Agent -->
+  <div class="modal-overlay" id="spawn-modal">
+    <div class="modal">
+      <div class="modal-title">+ Commission New Super-Agent</div>
+      <div class="form-group">
+        <label class="form-label">Agent Codename</label>
+        <input type="text" id="modal-name" class="form-control" placeholder="e.g. Valkyrie-Sentinel, Hephaestus-Prime">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Domain Role</label>
+        <select id="modal-role" class="form-control">
+          <option value="SECURITY_SENTINEL">Zero-Day Vulnerability & Network Defense (Security)</option>
+          <option value="CODE_ARCHITECT">Systems Software Architect & AST Compiler (Coding)</option>
+          <option value="QUANT_ARBITRAGEUR">M-Pesa & NSE Quantitative Arbitrage (Finance)</option>
+          <option value="OSINT_RECON_DRONE">Planetary Open-Source Intelligence Drone (OSINT)</option>
+          <option value="CREATIVE_AMPLIFIER">OBIFLAMEE Music & Audience Velocity (Music Promo)</option>
+          <option value="SINGULARITY_RESEARCHER">Recursive Self-Ascension & AI Researcher (Frontier)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Specific Mission Directive</label>
+        <textarea id="modal-directive" class="form-control" rows="3" placeholder="What is this sub-agent's core directive?"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Power Level Rating</label>
+        <input type="number" id="modal-power" class="form-control" value="1500" min="1000" max="9999">
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 24px;">
+        <button class="btn btn-secondary" onclick="closeSpawnModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="submitSpawnAgent()">⚡ Deploy Agent</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SUPABASE_URL = "https://vutamfqgckrzsnbcgrne.supabase.co";
+    const SUPABASE_ANON = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1dGFtZnFnY2tyenNuYmNncm5lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAzNTE3MTAsImV4cCI6MjA1NTkyNzcxMH0.tXm3xQn_sTqD0N_5dI0aN_0D_0D_0D_0D_0D_0D_0D";
+
+    let swarmData = {
+      agents: []
+    };
+
+    function logTerminal(msg, type = "normal") {
+      const feed = document.getElementById("terminal-feed");
+      const line = document.createElement("div");
+      line.className = `terminal-line ${type}`;
+      const ts = new Date().toLocaleTimeString();
+      line.textContent = `[${ts}] ${msg}`;
+      feed.appendChild(line);
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    async function loadSwarmState() {
+      logTerminal("Fetching active swarm manifest from Supabase...", "normal");
+      try {
+        const resp = await fetch(`${SUPABASE_URL}/rest/v1/bot_memory?memory_key=eq.cortana_agent_swarm&select=directive,updated_at`, {
+          headers: { "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1dGFtZnFnY2tyenNuYmNncm5lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAzNTE3MTAsImV4cCI6MjA1NTkyNzcxMH0.tXm3xQn_sTqD0N_5dI0aN_0D_0D_0D_0D_0D_0D_0D" }
+        });
+
+        if (resp.ok) {
+          const rows = await resp.json();
+          if (rows.length > 0 && rows[0].directive) {
+            const data = JSON.parse(rows[0].directive);
+            renderSwarm(data);
+            logTerminal(`Swarm manifest loaded: ${data.active_agent_count} active agents. Power: ⚡ ${data.collective_power}`, "success");
+            return;
+          }
+        }
+      } catch (e) {
+        logTerminal(`Live Supabase probe failed (${e.message}). Falling back to local state.`, "warn");
+      }
+
+      // Default fallback visualization
+      renderFallbackSwarm();
+    }
+
+    function renderSwarm(data) {
+      document.getElementById("stat-agent-count").innerHTML = `${data.active_agent_count || data.roster.length} <small>Constructs</small>`;
+      document.getElementById("stat-power-index").innerHTML = `⚡ ${data.collective_power || 11650} <small>Index</small>`;
+
+      const container = document.getElementById("swarm-container");
+      container.innerHTML = "";
+
+      const roster = data.roster || [];
+      roster.forEach(agent => {
+        const card = document.createElement("div");
+        card.className = "agent-card";
+        const badgeClass = agent.status === "EXECUTING" ? "badge-executing" : "badge-idle";
+
+        card.innerHTML = `
+          <div>
+            <div class="agent-header">
+              <div class="agent-name">⚡ ${agent.name}</div>
+              <span class="badge ${badgeClass}">${agent.status || "IDLE"}</span>
+            </div>
+            <div class="agent-role">${agent.role || "SPECIALIST"} // ID: ${agent.id || "UNIT"}</div>
+            <div class="agent-directive">${agent.directive || "Autonomous mission execution under Cortana's command."}</div>
+          </div>
+          <div class="agent-footer">
+            <span class="agent-power">POWER: ⚡ ${agent.power || agent.power_level || 1500}</span>
+            <span>MISSIONS: ${agent.missions_completed || 0}</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function renderFallbackSwarm() {
+      const fallbackRoster = [
+        { name: "Valkyrie-One", role: "SECURITY_SENTINEL", id: "AGENT-5F4402", power: 1450, directive: "Continuously audit host endpoints, CVEs, and network telemetry." },
+        { name: "Hephaestus-Prime", role: "CODE_ARCHITECT", id: "AGENT-21569C", power: 1600, directive: "Validate AST syntax, synthesize clean modules, and enforce zero boilerplate." },
+        { name: "Hermes-Pulse", role: "QUANT_ARBITRAGEUR", id: "AGENT-3C7BB2", power: 1350, directive: "Track NSE equities, FX rates, and Kenyan Shilling liquidity vectors." },
+        { name: "Argus-Eye", role: "OSINT_RECON_DRONE", id: "AGENT-E56B8C", power: 1400, directive: "Filter global and local news RSS streams for asymmetric risk signals." },
+        { name: "Calliope-Flame", role: "CREATIVE_AMPLIFIER", id: "AGENT-5E720A", power: 1500, directive: "Accelerate OBIFLAMEE music releases and viral streaming promo strategies." },
+        { name: "Shadow-Viper", role: "SECURITY_SENTINEL", id: "AGENT-8EC79E", power: 1450, directive: "Inspect port bounds and verify firewall rules for local workstation node." }
+      ];
+      renderSwarm({
+        active_agent_count: fallbackRoster.length,
+        collective_power: 8750,
+        roster: fallbackRoster
+      });
+    }
+
+    async function dispatchSwarmMission() {
+      const input = document.getElementById("mission-input");
+      const mission = input.value.trim();
+      if (!mission) return;
+
+      logTerminal(`Broadcasting swarm mission: "${mission}"...`, "warn");
+      input.value = "";
+
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/command_queue`, {
+          method: "POST",
+          headers: {
+            "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1dGFtZnFnY2tyenNuYmNncm5lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAzNTE3MTAsImV4cCI6MjA1NTkyNzcxMH0.tXm3xQn_sTqD0N_5dI0aN_0D_0D_0D_0D_0D_0D_0D",
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            origin: "SWARM_NEXUS_HUD",
+            mode: "SWARM",
+            directive: `/swarm command ${mission}`,
+            status: "PENDING"
+          })
+        });
+        logTerminal("✅ Mission queued for parallel swarm execution on workstation core.", "success");
+      } catch (e) {
+        logTerminal(`Failed to queue swarm mission: ${e.message}`, "error");
+      }
+    }
+
+    async function spawnFleetBatch() {
+      logTerminal("Instructing Cortana to deploy an expanded 5-agent fleet...", "warn");
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/command_queue`, {
+          method: "POST",
+          headers: {
+            "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1dGFtZnFnY2tyenNuYmNncm5lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAzNTE3MTAsImV4cCI6MjA1NTkyNzcxMH0.tXm3xQn_sTqD0N_5dI0aN_0D_0D_0D_0D_0D_0D_0D",
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            origin: "SWARM_NEXUS_HUD",
+            mode: "SWARM",
+            directive: "/swarm fleet 5",
+            status: "PENDING"
+          })
+        });
+        logTerminal("✅ Fleet deployment directive queued successfully.", "success");
+        setTimeout(loadSwarmState, 2500);
+      } catch (e) {
+        logTerminal(`Error triggering fleet deployment: ${e.message}`, "error");
+      }
+    }
+
+    function openSpawnModal() {
+      document.getElementById("spawn-modal").classList.add("active");
+    }
+
+    function closeSpawnModal() {
+      document.getElementById("spawn-modal").classList.remove("active");
+    }
+
+    async function submitSpawnAgent() {
+      const name = document.getElementById("modal-name").value.trim() || "Nova-Unit";
+      const role = document.getElementById("modal-role").value;
+      const directive = document.getElementById("modal-directive").value.trim() || "Execute specialized tasks per Cortana.";
+      const power = document.getElementById("modal-power").value || 1500;
+
+      closeSpawnModal();
+      logTerminal(`Commissioning agent "${name}" (${role})...`, "warn");
+
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/command_queue`, {
+          method: "POST",
+          headers: {
+            "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ1dGFtZnFnY2tyenNuYmNncm5lIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDAzNTE3MTAsImV4cCI6MjA1NTkyNzcxMH0.tXm3xQn_sTqD0N_5dI0aN_0D_0D_0D_0D_0D_0D_0D",
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            origin: "SWARM_NEXUS_HUD",
+            mode: "SWARM",
+            directive: `/swarm spawn ${name} ${role} ${directive}`,
+            status: "PENDING"
+          })
+        });
+        logTerminal(`✅ Agent "${name}" commissioned. Standing by for workstation synchronization.`, "success");
+        setTimeout(loadSwarmState, 2500);
+      } catch (e) {
+        logTerminal(`Failed to spawn agent: ${e.message}`, "error");
+      }
+    }
+
+    // Auto-refresh loop
+    window.addEventListener("DOMContentLoaded", () => {
+      loadSwarmState();
+      setInterval(loadSwarmState, 15000);
+    });
+  </script>
+</body>
+</html>
