@@ -1,123 +1,141 @@
-import ast
-import json
-import logging
-import time
-from typing import Dict, List, Optional, Tuple, Any
+"""Nairobi Municipal Solar Desalination & Mineralization Quality Sentinel.
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [AquaDesalSentinel]: %(message)s')
-logger = logging.getLogger('AquaDesalSentinel')
+Monitors solar-powered water purification kiosks across Nairobi, ensuring strict
+WHO drinking water standards (TDS, pH, UV sterilization) and auto-adjusting
+mineral dosing pumps using local heuristic models.
+"""
+
+import ast
+import logging
+import statistics
+from typing import Any, Dict, List, Optional
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] [AquaDesalSentinel]: %(message)s",
+)
+logger = logging.getLogger("AquaDesalSentinel")
+
 
 class AquaDesalSentinel:
-    """
-    Autonomous Sentinel for monitoring solar-powered brackish and borehole water
-    desalination kiosks, managing TDS (Total Dissolved Solids) thresholds, calcium/magnesium
-    re-mineralization dosing pumps, and automated photovoltaic load switching in Nairobi.
-    """
-    def __init__(self, kiosk_id: str, target_tds_ppm: int = 150, max_tds_ppm: int = 250):
-        self.kiosk_id = kiosk_id
-        self.target_tds_ppm = target_tds_ppm
-        self.max_tds_ppm = max_tds_ppm
+    """Autonomous sentinel for Nairobi decentralized solar water kiosks."""
+
+    def __init__(
+        self,
+        station_id: str,
+        target_tds_min: float = 150.0,
+        target_tds_max: float = 300.0,
+        target_ph_min: float = 6.5,
+        target_ph_max: float = 8.5,
+    ):
+        self.station_id = station_id
+        self.target_tds_min = target_tds_min
+        self.target_tds_max = target_tds_max
+        self.target_ph_min = target_ph_min
+        self.target_ph_max = target_ph_max
         self.telemetry_history: List[Dict[str, Any]] = []
-        self.system_status = "NOMINAL"
-        logger.info(f"Initialized AquaDesalSentinel for kiosk {kiosk_id} targeting TDS {target_tds_ppm} ppm.")
 
-    def ingest_telemetry(self, raw_feed: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Ingests sensor readings including raw TDS, permeate TDS, solar array voltage,
-        flow rate, and mineral dosing pump status.
-        """
-        timestamp = time.time()
-        feed_tds = float(raw_feed.get("feed_tds_ppm", 800.0))
-        permeate_tds = float(raw_feed.get("permeate_tds_ppm", 45.0))
-        solar_voltage = float(raw_feed.get("solar_voltage", 48.0))
-        flow_rate_lph = float(raw_feed.get("flow_rate_lph", 500.0))
-        dosing_active = bool(raw_feed.get("dosing_active", True))
-        
-        # Diagnostic evaluation
-        status = "OPTIMAL"
-        actions = []
-        
-        # Check membrane integrity via permeate TDS
-        if permeate_tds > self.max_tds_ppm:
-            status = "WARNING_HIGH_TDS"
-            actions.append("TRIGGER_MEMBRANE_FLUSH")
-            logger.warning(f"[{self.kiosk_id}] High permeate TDS detected ({permeate_tds} ppm). Flushing membrane.")
-        
-        # Check re-mineralization requirement (pure RO water lacks calcium/magnesium)
-        final_target_blend = permeate_tds
-        if permeate_tds < self.target_tds_ppm and not dosing_active:
-            actions.append(
-                {"command": "ACTIVATE_MINERAL_DOSING", "rate_ml_min": 12.5}
+    def evaluate_telemetry(self, raw_telemetry: Dict[str, Any]) -> Dict[str, Any]:
+        """Validates water quality metrics and determines valve/pump actions."""
+        try:
+            tds = float(raw_telemetry.get("tds_ppm", 0.0))
+            ph = float(raw_telemetry.get("ph_level", 7.0))
+            uv_intensity = float(raw_telemetry.get("uv_mw_cm2", 0.0))
+            flow_rate = float(raw_telemetry.get("flow_rate_lph", 0.0))
+            battery_soc = float(raw_telemetry.get("battery_soc_pct", 100.0))
+
+            violations = []
+            actions = []
+
+            # TDS Evaluation
+            if tds < self.target_tds_min:
+                violations.append("TDS_TOO_LOW_INSUFFICIENT_MINERALIZATION")
+                actions.append("INCREASE_CALCIUM_MAGNESIUM_DOSING")
+            elif tds > self.target_tds_max:
+                violations.append("TDS_TOO_HIGH_MEMBRANE_FOULING")
+                actions.append("TRIGGER_RO_FLUSH_CYCLE")
+
+            # pH Evaluation
+            if not (self.target_ph_min <= ph <= self.target_ph_max):
+                violations.append("PH_OUT_OF_WHO_RANGE")
+                actions.append("ADJUST_BUFFER_INJECTION_VALVE")
+
+            # UV Sterilization Safety Check
+            if uv_intensity < 30.0:
+                violations.append("UV_STERILIZATION_INTENSITY_CRITICAL")
+                actions.append("HALT_DISPENSING_PUMP_LOCK_VALVE")
+
+            # Power Management
+            if battery_soc < 20.0:
+                violations.append("SOLAR_BATTERY_LOW")
+                actions.append("SWITCH_TO_ECO_FILTRATION_MODE")
+
+            status = "OPTIMAL" if not violations else "WARNING"
+            if any("HALT" in act for act in actions):
+                status = "EMERGENCY_LOCKDOWN"
+
+            assessment = {
+                "station_id": self.station_id,
+                "status": status,
+                "violations": violations,
+                "recommended_actions": actions,
+                "metrics_snapshot": {
+                    "tds_ppm": tds,
+                    "ph_level": ph,
+                    "uv_mw_cm2": uv_intensity,
+                    "flow_rate_lph": flow_rate,
+                    "battery_soc_pct": battery_soc,
+                },
+            }
+
+            self.telemetry_history.append(assessment)
+            logger.info(
+                f"Station {self.station_id} evaluated. Status: {status}. Violations: {len(violations)}"
             )
-            logger.info(f"[{self.kiosk_id}] Activating post-RO mineral injector for optimal mineral balance.")
-            final_target_blend = self.target_tds_ppm
+            return assessment
 
-        # Power safety check
-        if solar_voltage < 38.0:
-            actions.append("SWITCH_TO_BATTERY_BUFFER")
-            logger.warning(f"[{self.kiosk_id}] Solar array voltage drop ({solar_voltage}V). Switching to battery storage.")
-            status = "DEGRADED_POWER"
+        except Exception as e:
+            logger.error(f"Failed to evaluate telemetry: {str(e)}")
+            return {
+                "station_id": self.station_id,
+                "status": "ERROR",
+                "error_message": str(e),
+            }
 
-        record = {
-            "timestamp": timestamp,
-            "kiosk_id": self.kiosk_id,
-            "feed_tds": feed_tds,
-            "permeate_tds": permeate_tds,
-            "final_blend_tds": final_target_blend,
-            "solar_voltage": solar_voltage,
-            "flow_rate_lph": flow_rate_lph,
-            "status": status,
-            "actions_taken": actions
-        }
-        
-        self.telemetry_history.append(record)
-        self.system_status = status
-        return record
-
-    def get_audit_summary(self) -> Dict[str, Any]:
-        """Summarizes operational performance and water quality metrics."""
+    def get_aggregate_stats(self) -> Dict[str, Any]:
+        """Calculates average water parameters over recorded telemetry history."""
         if not self.telemetry_history:
-            return {"status": "NO_DATA"}
-        
-        avg_permeate = sum(r["permeate_tds"] for r in self.telemetry_history) / len(self.telemetry_history)
-        total_liters_processed = sum(r["flow_rate_lph"] / 60.0 for r in self.telemetry_history)
-        
+            return {"total_readings": 0}
+
+        tds_values = [
+            h["metrics_snapshot"]["tds_ppm"] for h in self.telemetry_history
+        ]
+        ph_values = [
+            h["metrics_snapshot"]["ph_level"] for h in self.telemetry_history
+        ]
+
         return {
-            "kiosk_id": self.kiosk_id,
-            "total_telemetry_packets": len(self.telemetry_history),
-            "average_permeate_tds_ppm": round(avg_permeate, 2),
-            "estimated_water_purified_liters": round(total_liters_processed, 2),
-            "current_system_status": self.system_status
+            "total_readings": len(self.telemetry_history),
+            "mean_tds_ppm": round(statistics.mean(tds_values), 2),
+            "mean_ph_level": round(statistics.mean(ph_values), 2),
         }
+
 
 if __name__ == "__main__":
-    print("Executing Autonomous Test Harness for AquaDesalSentinel...")
-    sentinel = AquaDesalSentinel(kiosk_id="NAIROBI-KIBERA-DESAL-01", target_tds_ppm=160, max_tds_ppm=220)
-    
-    # Test normal telemetry ingestion
-    sample_feed = {
-        "feed_tds_ppm": 920.0,
-        "permeate_tds_ppm": 38.5,
-        "solar_voltage": 51.2,
-        "flow_rate_lph": 600.0,
-        "dosing_active": False
+    # Test harness execution
+    sentinel = AquaDesalSentinel(station_id="NAI-WESTLANDS-AQUA-01")
+    sample_payload = {
+        "tds_ppm": 110.0,
+        "ph_level": 6.2,
+        "uv_mw_cm2": 25.0,
+        "flow_rate_lph": 500.0,
+        "battery_soc_pct": 85.0,
     }
-    result = sentinel.ingest_telemetry(sample_feed)
-    
-    # Test anomaly telemetry ingestion (membrane leakage)
-    anomaly_feed = {
-        "feed_tds_ppm": 950.0,
-        "permeate_tds_ppm": 245.0,
-        "solar_voltage": 46.0,
-        "flow_rate_lph": 450.0,
-        "dosing_active": True
-    }
-    result_anomaly = sentinel.ingest_telemetry(anomaly_feed)
-    
-    summary = sentinel.get_audit_summary()
-    print(json.dumps(summary, indent=2))
-    
-    # Verify compilation integrity
-    code_str = open(__file__, 'r').read()
-    parsed_ast = ast.parse(code_str)
-    print(f"AST compilation successful. Total nodes: {len(list(ast.walk(parsed_ast)))}")
+    result = sentinel.evaluate_telemetry(sample_payload)
+    print("Test Evaluation Result:", result)
+    print("Aggregate Stats:", sentinel.get_aggregate_stats())
+
+    # Compile check self-test
+    source_code = open(__file__, "r", encoding="utf-8").read()
+    parsed_ast = ast.parse(source_code)
+    print(f"AST compilation check passed: {parsed_ast is not None}")
