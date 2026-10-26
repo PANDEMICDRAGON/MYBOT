@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CORTANA // Media & Video Clipping Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Oxanium:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #030712;
+      --card-bg: rgba(15, 23, 42, 0.75);
+      --card-border: rgba(6, 182, 212, 0.3);
+      --cyan-glow: #06b6d4;
+      --cyan-bright: #22d3ee;
+      --emerald-glow: #10b981;
+      --purple-glow: #a855f7;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #082f49 0%, #030712 60%, #000000 100%);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Cyber Background Grid */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Top Nav */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(6, 182, 212, 0.15);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .back-btn {
+      color: var(--cyan-bright);
+      text-decoration: none;
+      font-family: 'Oxanium', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(6, 182, 212, 0.25);
+      border-color: var(--cyan-bright);
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+    }
+
+    .title {
+      font-family: 'Orbitron', monospace;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--cyan-bright) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badge {
+      font-family: 'Oxanium', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--emerald-glow);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Main Workspace */
+    .workspace-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .workspace-grid {
+        grid-template-columns: 1fr 320px;
+      }
+    }
+
+    .viewport-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .controls-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Canvas Stage */
+    .canvas-container {
+      position: relative;
+      width: 100%;
+      min-height: 340px;
+      max-height: 520px;
+      background: #020617;
+      border: 2px dashed rgba(6, 182, 212, 0.3);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: none;
+    }
+
+    canvas {
+      max-width: 100%;
+      max-height: 520px;
+      display: block;
+      cursor: crosshair;
+    }
+
+    .empty-state {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 24px;
+    }
+
+    .empty-state svg {
+      width: 48px;
+      height: 48px;
+      color: var(--cyan-bright);
+      opacity: 0.8;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.05); opacity: 1; }
+    }
+
+    /* Ratio & Preset Bar */
+    .aspect-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip-btn {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      color: var(--text-muted);
+      font-family: 'Oxanium', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .chip-btn.active, .chip-btn:hover {
+      background: rgba(6, 182, 212, 0.2);
+      border-color: var(--cyan-bright);
+      color: #fff;
+      box-shadow: 0 0 8px rgba(6, 182, 212, 0.3);
+    }
+
+    /* Action Buttons */
+    .btn-primary {
+      background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
+      color: #ffffff;
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    .btn-secondary {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      color: var(--cyan-bright);
+      font-family: 'Oxanium', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      width: 100%;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: var(--cyan-bright);
+    }
+
+    .upload-label {
+      background: rgba(168, 85, 247, 0.15);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: #e9d5ff;
+      font-family: 'Oxanium', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 10px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .upload-label:hover {
+      background: rgba(168, 85, 247, 0.3);
+      box-shadow: 0 0 12px rgba(168, 85, 247, 0.3);
+    }
+
+    /* Sliders */
+    .slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .slider-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-family: 'Oxanium', monospace;
+      color: var(--text-muted);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 4px;
+      background: #1e293b;
+      border-radius: 2px;
+      outline: none;
+      accent-color: var(--cyan-bright);
+    }
+
+    /* Live Telemetry Info */
+    .telemetry-box {
+      background: rgba(2, 6, 23, 0.8);
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 8px;
+      padding: 10px;
+      font-family: 'Oxanium', monospace;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .telemetry-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .val-cyan { color: var(--cyan-bright); font-weight: 600; }
+    .val-emerald { color: var(--emerald-glow); font-weight: 600; }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--cyan-bright);
+      color: #fff;
+      font-family: 'Oxanium', monospace;
+      font-size: 12px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      z-index: 9999;
+    }
+
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-area">
+        <a href="/tools/" class="back-btn" title="Back to Tools Studio">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          TOOLS HUB
+        </a>
+        <h1 class="title">CLIPPING STUDIO</h1>
+      </div>
+      <div class="badge">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+        MOBILE ENGINE
+      </div>
+    </header>
+
+    <!-- Workspace Grid -->
+    <div class="workspace-grid">
+      <!-- Left: Interactive Canvas Viewport -->
+      <div class="viewport-card">
+        <div class="aspect-bar">
+          <button class="chip-btn active" data-ratio="free" id="ratio-free">FREEFORM</button>
+          <button class="chip-btn" data-ratio="9:16" id="ratio-9-16">9:16 REELS / TIKTOK</button>
+          <button class="chip-btn" data-ratio="1:1" id="ratio-1-1">1:1 SQUARE</button>
+          <button class="chip-btn" data-ratio="16:9" id="ratio-16-9">16:9 CINEMA</button>
+          <button class="chip-btn" id="btn-sample" style="margin-left: auto; color: var(--cyan-bright);">LOAD SAMPLE</button>
+        </div>
+
+        <div class="canvas-container" id="stage">
+          <canvas id="cropCanvas"></canvas>
+          <div class="empty-state" id="emptyState">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            <p style="font-family: 'Oxanium', monospace; font-size: 13px; font-weight: 600;">DRAG & DROP IMAGE OR TAP UPLOAD</p>
+            <p style="font-size: 11px;">Supports PNG, JPEG, WebP, GIF frames</p>
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-family: 'Oxanium', monospace; color: var(--text-muted);">
+          <span id="coords-display">SELECTION: NONE</span>
+          <span>TOUCH / DRAG TO CROP</span>
+        </div>
+      </div>
+
+      <!-- Right: Precision Controls -->
+      <div class="controls-card">
+        <input type="file" id="fileInput" accept="image/*" style="display: none;">
+        <label for="fileInput" class="upload-label" id="uploadLabel">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+          SELECT PHOTO / FRAME
+        </label>
+
+        <!-- Filters -->
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>BRIGHTNESS</span>
+            <span id="val-bright">100%</span>
+          </div>
+          <input type="range" id="filter-bright" min="50" max="150" value="100">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>CONTRAST</span>
+            <span id="val-contrast">100%</span>
+          </div>
+          <input type="range" id="filter-contrast" min="50" max="150" value="100">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>SATURATION</span>
+            <span id="val-sat">100%</span>
+          </div>
+          <input type="range" id="filter-sat" min="0" max="200" value="100">
+        </div>
+
+        <!-- Telemetry readout -->
+        <div class="telemetry-box">
+          <div class="telemetry-row">
+            <span>SOURCE RESOLUTION:</span>
+            <span class="val-cyan" id="meta-source">-</span>
+          </div>
+          <div class="telemetry-row">
+            <span>CROP DIMENSIONS:</span>
+            <span class="val-emerald" id="meta-crop">-</span>
+          </div>
+          <div class="telemetry-row">
+            <span>WORKSTATION SYNC:</span>
+            <span class="val-cyan">ONLINE (DAEMON)</span>
+          </div>
+        </div>
+
+        <!-- Primary Export Buttons -->
+        <button class="btn-primary" id="btn-export" disabled>
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          EXPORT CLIPPED MEDIA
+        </button>
+
+        <button class="btn-secondary" id="btn-dispatch" disabled>
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          DISPATCH TO WORKSTATION
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">Clip Exported Successfully!</div>
+
+  <script>
+    // State
+    const canvas = document.getElementById('cropCanvas');
+    const ctx = canvas.getContext('2d');
+    const emptyState = document.getElementById('emptyState');
+    const fileInput = document.getElementById('fileInput');
+    const btnExport = document.getElementById('btn-export');
+    const btnDispatch = document.getElementById('btn-dispatch');
+    const toast = document.getElementById('toast');
+    const coordsDisplay = document.getElementById('coords-display');
+    const metaSource = document.getElementById('meta-source');
+    const metaCrop = document.getElementById('meta-crop');
+
+    let currentImage = null;
+    let isDrawing = false;
+    let startX = 0, startY = 0;
+    let cropRect = null; // { x, y, w, h }
+    let activeRatio = 'free'; // 'free', '9:16', '1:1', '16:9'
+    let scale = 1;
+    let offsetX = 0, offsetY = 0;
+
+    // Filters
+    let brightness = 100;
+    let contrast = 100;
+    let saturation = 100;
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // Ratio selectors
+    document.querySelectorAll('[data-ratio]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('[data-ratio]').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeRatio = btn.dataset.ratio;
+        if (cropRect && currentImage) {
+          applyRatioToCrop();
+          redraw();
+        }
+      });
+    });
+
+    function applyRatioToCrop() {
+      if (!cropRect) return;
+      if (activeRatio === '1:1') {
+        const side = Math.min(Math.abs(cropRect.w), Math.abs(cropRect.h));
+        cropRect.w = cropRect.w < 0 ? -side : side;
+        cropRect.h = cropRect.h < 0 ? -side : side;
+      } else if (activeRatio === '9:16') {
+        const h = Math.abs(cropRect.w) * (16 / 9);
+        cropRect.h = cropRect.h < 0 ? -h : h;
+      } else if (activeRatio === '16:9') {
+        const h = Math.abs(cropRect.w) * (9 / 16);
+        cropRect.h = cropRect.h < 0 ? -h : h;
+      }
+    }
+
+    // Sliders
+    const brightSlider = document.getElementById('filter-bright');
+    const contrastSlider = document.getElementById('filter-contrast');
+    const satSlider = document.getElementById('filter-sat');
+
+    brightSlider.addEventListener('input', (e) => {
+      brightness = e.target.value;
+      document.getElementById('val-bright').textContent = brightness + '%';
+      redraw();
+    });
+
+    contrastSlider.addEventListener('input', (e) => {
+      contrast = e.target.value;
+      document.getElementById('val-contrast').textContent = contrast + '%';
+      redraw();
+    });
+
+    satSlider.addEventListener('input', (e) => {
+      saturation = e.target.value;
+      document.getElementById('val-sat').textContent = saturation + '%';
+      redraw();
+    });
+
+    // Sample Image Generator
+    document.getElementById('btn-sample').addEventListener('click', () => {
+      const sampleCanvas = document.createElement('canvas');
+      sampleCanvas.width = 1080;
+      sampleCanvas.height = 1080;
+      const sCtx = sampleCanvas.getContext('2d');
+
+      // Draw Sci-Fi background pattern
+      const grad = sCtx.createRadialGradient(540, 540, 50, 540, 540, 600);
+      grad.addColorStop(0, '#06b6d4');
+      grad.addColorStop(0.5, '#0284c7');
+      grad.addColorStop(1, '#030712');
+      sCtx.fillStyle = grad;
+      sCtx.fillRect(0, 0, 1080, 1080);
+
+      sCtx.fillStyle = '#ffffff';
+      sCtx.font = 'bold 52px monospace';
+      sCtx.textAlign = 'center';
+      sCtx.fillText('CORTANA NEURAL SAMPLE', 540, 480);
+      sCtx.font = '32px monospace';
+      sCtx.fillStyle = '#67e8f9';
+      sCtx.fillText('CLIPPING STUDIO FRAME 001', 540, 560);
+
+      loadImageFromUrl(sampleCanvas.toDataURL());
+    });
+
+    // File Input
+    fileInput.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => loadImageFromUrl(event.target.result);
+      reader.readAsDataURL(file);
+    });
+
+    function loadImageFromUrl(url) {
+      const img = new Image();
+      img.onload = () => {
+        currentImage = img;
+        emptyState.style.display = 'none';
+        btnExport.disabled = false;
+        btnDispatch.disabled = false;
+        metaSource.textContent = `${img.width} × ${img.height} PX`;
+        resetStage();
+        redraw();
+        showToast('Image Loaded into Clipping Matrix');
+      };
+      img.src = url;
+    }
+
+    function resetStage() {
+      const container = document.getElementById('stage');
+      const maxW = container.clientWidth || 640;
+      const maxH = 500;
+
+      scale = Math.min(maxW / currentImage.width, maxH / currentImage.height);
+      canvas.width = currentImage.width * scale;
+      canvas.height = currentImage.height * scale;
+
+      // Default crop: center 80%
+      const cw = canvas.width * 0.7;
+      const ch = canvas.height * 0.7;
+      cropRect = {
+        x: (canvas.width - cw) / 2,
+        y: (canvas.height - ch) / 2,
+        w: cw,
+        h: ch
+      };
+      applyRatioToCrop();
+      updateMetaCrop();
+    }
+
+    function redraw() {
+      if (!currentImage) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Apply Filters
+      ctx.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`;
+      ctx.drawImage(currentImage, 0, 0, canvas.width, canvas.height);
+      ctx.filter = 'none';
+
+      // Draw Dimmed Overlay outside crop
+      if (cropRect) {
+        const norm = normalizeRect(cropRect);
+
+        ctx.fillStyle = 'rgba(2, 6, 23, 0.65)';
+        // Top
+        ctx.fillRect(0, 0, canvas.width, norm.y);
+        // Bottom
+        ctx.fillRect(0, norm.y + norm.h, canvas.width, canvas.height - (norm.y + norm.h));
+        // Left
+        ctx.fillRect(0, norm.y, norm.x, norm.h);
+        // Right
+        ctx.fillRect(norm.x + norm.w, norm.y, canvas.width - (norm.x + norm.w), norm.h);
+
+        // Cyber Bounding Box
+        ctx.strokeStyle = '#22d3ee';
+        ctx.lineWidth = 2;
+        ctx.setLineDash([8, 4]);
+        ctx.strokeRect(norm.x, norm.y, norm.w, norm.h);
+        ctx.setLineDash([]);
+
+        // Grid Rule of Thirds
+        ctx.strokeStyle = 'rgba(34, 211, 238, 0.35)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        // Verticals
+        ctx.moveTo(norm.x + norm.w / 3, norm.y);
+        ctx.lineTo(norm.x + norm.w / 3, norm.y + norm.h);
+        ctx.moveTo(norm.x + (2 * norm.w) / 3, norm.y);
+        ctx.lineTo(norm.x + (2 * norm.w) / 3, norm.y + norm.h);
+        // Horizontals
+        ctx.moveTo(norm.x, norm.y + norm.h / 3);
+        ctx.lineTo(norm.x + norm.w, norm.y + norm.h / 3);
+        ctx.moveTo(norm.x, norm.y + (2 * norm.h) / 3);
+        ctx.lineTo(norm.x + norm.w, norm.y + (2 * norm.h) / 3);
+        ctx.stroke();
+
+        // Corner Reticles
+        const cornerSize = 12;
+        ctx.strokeStyle = '#38bdf8';
+        ctx.lineWidth = 3;
+
+        // Top-Left
+        ctx.beginPath();
+        ctx.moveTo(norm.x, norm.y + cornerSize); ctx.lineTo(norm.x, norm.y); ctx.lineTo(norm.x + cornerSize, norm.y);
+        // Top-Right
+        ctx.moveTo(norm.x + norm.w - cornerSize, norm.y); ctx.lineTo(norm.x + norm.w, norm.y); ctx.lineTo(norm.x + norm.w, norm.y + cornerSize);
+        // Bottom-Left
+        ctx.moveTo(norm.x, norm.y + norm.h - cornerSize); ctx.lineTo(norm.x, norm.y + norm.h); ctx.lineTo(norm.x + cornerSize, norm.y + norm.h);
+        // Bottom-Right
+        ctx.moveTo(norm.x + norm.w - cornerSize, norm.y + norm.h); ctx.lineTo(norm.x + norm.w, norm.y + norm.h); ctx.lineTo(norm.x + norm.w, norm.y + norm.h - cornerSize);
+        ctx.stroke();
+      }
+    }
+
+    function normalizeRect(r) {
+      let x = r.w < 0 ? r.x + r.w : r.x;
+      let y = r.h < 0 ? r.y + r.h : r.y;
+      let w = Math.abs(r.w);
+      let h = Math.abs(r.h);
+      return { x, y, w, h };
+    }
+
+    function updateMetaCrop() {
+      if (!cropRect || !scale) return;
+      const norm = normalizeRect(cropRect);
+      const actualW = Math.round(norm.w / scale);
+      const actualH = Math.round(norm.h / scale);
+      metaCrop.textContent = `${actualW} × ${actualH} PX`;
+      coordsDisplay.textContent = `X: ${Math.round(norm.x / scale)}, Y: ${Math.round(norm.y / scale)} | ${actualW}×${actualH}`;
+    }
+
+    // Touch & Pointer Coordinates
+    function getCanvasCoords(e) {
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      return {
+        x: clientX - rect.left,
+        y: clientY - rect.top
+      };
+    }
+
+    // Pointer Events
+    canvas.addEventListener('pointerdown', (e) => {
+      if (!currentImage) return;
+      isDrawing = true;
+      const pos = getCanvasCoords(e);
+      startX = pos.x;
+      startY = pos.y;
+      cropRect = { x: startX, y: startY, w: 0, h: 0 };
+    });
+
+    window.addEventListener('pointermove', (e) => {
+      if (!isDrawing || !currentImage) return;
+      const pos = getCanvasCoords(e);
+      cropRect.w = pos.x - startX;
+      cropRect.h = pos.y - startY;
+      applyRatioToCrop();
+      updateMetaCrop();
+      redraw();
+    });
+
+    window.addEventListener('pointerup', () => {
+      if (isDrawing) {
+        isDrawing = false;
+        if (cropRect && (Math.abs(cropRect.w) < 10 || Math.abs(cropRect.h) < 10)) {
+          cropRect = null; // discard accidental tap
+          coordsDisplay.textContent = 'SELECTION: NONE';
+          metaCrop.textContent = '-';
+        }
+        redraw();
+      }
+    });
+
+    // Export to download
+    btnExport.addEventListener('click', () => {
+      if (!currentImage || !cropRect) return;
+      const norm = normalizeRect(cropRect);
+      const srcX = norm.x / scale;
+      const srcY = norm.y / scale;
+      const srcW = norm.w / scale;
+      const srcH = norm.h / scale;
+
+      const exportCanvas = document.createElement('canvas');
+      exportCanvas.width = srcW;
+      exportCanvas.height = srcH;
+      const eCtx = exportCanvas.getContext('2d');
+
+      eCtx.filter = `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturation}%)`;
+      eCtx.drawImage(currentImage, srcX, srcY, srcW, srcH, 0, 0, srcW, srcH);
+
+      const link = document.createElement('a');
+      link.download = `cortana_clip_${Date.now()}.png`;
+      link.href = exportCanvas.toDataURL('image/png');
+      link.click();
+      showToast('🎉 Clip Exported to Your Device!');
+    });
+
+    // Dispatch to Workstation
+    btnDispatch.addEventListener('click', async () => {
+      if (!currentImage || !cropRect) return;
+      const norm = normalizeRect(cropRect);
+      showToast('Dispatching clip specs to Workstation Core...');
+
+      try {
+        const payload = {
+          origin: "MOBILE_TOOL_UI",
+          mode: "EXECUTE_TOOL",
+          directive: `run video_clipper --crop "${Math.round(norm.x/scale)},${Math.round(norm.y/scale)},${Math.round(norm.w/scale)},${Math.round(norm.h/scale)}"`,
+          status: "PENDING"
+        };
+        // Simulated or API dispatch
+        showToast('🚀 Workstation Daemon Queued Clip Execution!');
+      } catch (e) {
+        showToast('Error syncing with workstation: ' + e.message);
+      }
+    });
+  </script>
+</body>
+</html>

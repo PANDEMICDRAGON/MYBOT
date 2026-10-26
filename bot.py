@@ -5403,8 +5403,7 @@ async def log_and_execute_directive(
             )
             answer = msg.get("content", "").strip()
         elif mode in ("CREATE_FILE", "CREATE-FILE", "FILE_CREATION"):
-            file_path = None
-            content = None
+            srcs = []
             if cmd_id and SUPABASE_URL and SUPABASE_SERVICE_KEY:
                 try:
                     q_res = await client.get(
@@ -5414,44 +5413,32 @@ async def log_and_execute_directive(
                     )
                     if q_res.status_code == 200 and q_res.json():
                         srcs = q_res.json()[0].get("sources", [])
-                        if srcs and isinstance(srcs, list) and isinstance(srcs[0], dict):
-                            file_path = srcs[0].get("file_path")
-                            content = srcs[0].get("content")
                 except Exception:
                     pass
 
-            if file_path and content:
-                create_res = await create_workspace_file(client, file_path, content)
-                if "failed" in create_res.lower() or "aborted" in create_res.lower() or "denied" in create_res.lower():
-                    # If syntax failed (likely truncated payload from cloud streaming ceiling), trigger local workstation recovery
-                    if any(term in create_res.lower() for term in ("syntax validation failed", "unindent does not match", "unterminated", "syntaxerror")):
-                        logger.warning(f"Payload from cloud queue for '{file_path}' had syntax failure ({create_res}). Initiating autonomous workstation recovery...")
-                        recovery_prompt = (
-                            f"The payload sent from cloud queue for file '{file_path}' was truncated midway by token limits (SyntaxError: {create_res}).\n"
-                            f"Operator Directive: {directive}\n"
-                            f"You must physically generate and write the COMPLETE, syntactically flawless version of '{file_path}' to disk using create_workspace_file."
-                        )
-                        answer = await run_agent_turn(client, recovery_prompt)
+            if srcs and isinstance(srcs, list) and len(srcs) > 0:
+                results = []
+                for s in srcs:
+                    file_path = s.get("file_path")
+                    content = s.get("content")
+                    if not file_path or not content:
+                        continue
+                    create_res = await create_workspace_file(client, file_path, content)
+                    if "failed" in create_res.lower() or "aborted" in create_res.lower() or "denied" in create_res.lower():
+                        if any(term in create_res.lower() for term in ("syntax validation failed", "unindent does not match", "unterminated", "syntaxerror")):
+                            logger.warning(f"Payload from cloud queue for '{file_path}' had syntax failure ({create_res}). Initiating autonomous workstation recovery...")
+                            recovery_prompt = (
+                                f"The payload sent from cloud queue for file '{file_path}' was truncated midway by token limits (SyntaxError: {create_res}).\n"
+                                f"Operator Directive: {directive}\n"
+                                f"You must physically generate and write the COMPLETE, syntactically flawless version of '{file_path}' to disk using create_workspace_file."
+                            )
+                            sub_ans = await run_agent_turn(client, recovery_prompt)
+                            results.append(f"• `{file_path}`: {sub_ans}")
+                        else:
+                            results.append(f"• `{file_path}`: ⚠️ {create_res}")
                     else:
-                        answer = (
-                            f"⚠️ *[FILE CREATION ABORTED // WORKSTATION CORE]*\n"
-                            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                            f"• *File:* `{file_path}`\n"
-                            f"• *Issue:* {create_res}\n"
-                            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                            f"_Code syntax was rejected by the AST compiler to protect your repository from broken code._"
-                        )
-                else:
-                    answer = (
-                        f"✅ *[FILE CREATION SUCCESS // WORKSTATION CORE]*\n"
-                        f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                        f"• *File:* `{file_path}`\n"
-                        f"• *Status:* Physically created on disk ({len(content)} bytes)\n"
-                        f"• *AST Syntax:* Validated (0 syntax errors)\n"
-                        f"• *Git Sync:* {create_res}\n"
-                        f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                        f"_The file is physically present in your repository, Michael._"
-                    )
+                        results.append(f"• `{file_path}`: ✅ Created ({len(content)} bytes) | {create_res}")
+                answer = "🛠️ *[WORKSTATION CORE FILE DEPLOYMENT]*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" + "\n".join(results)
             else:
                 answer = await run_agent_turn(client, f"CREATE AND PHYSICALLY WRITE THIS FILE TO DISK: {directive}")
         elif mode in ("ASCEND", "SUPER_AI", "SUPERAI", "SUPER_AI_ASCENSION") or any(
@@ -5622,6 +5609,11 @@ async def web_command_poller(client: httpx.AsyncClient):
                             await send_telegram(
                                 client,
                                 answer
+                            )
+                        elif origin == "SMS_GATEWAY":
+                            await send_telegram(
+                                client,
+                                f"📲 *[CELLULAR SMS WORKSTATION EXECUTION]:*\n> _{cmd.get('directive')}_\n\n{answer}"
                             )
                         elif origin == "WEB":
                             mode_icon = "🔬" if cmd_mode == "DEEP-DIVE" else "🌐"

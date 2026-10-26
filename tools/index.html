@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CORTANA // Interactive Tools & Mobile Apps Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Oxanium:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #030712;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --card-border: rgba(6, 182, 212, 0.3);
+      --cyan-glow: #06b6d4;
+      --cyan-bright: #22d3ee;
+      --emerald-glow: #10b981;
+      --flame-orange: #f97316;
+      --purple-glow: #a855f7;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #082f49 0%, #030712 60%, #000000 100%);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(6, 182, 212, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(6, 182, 212, 0.15);
+    }
+
+    .logo-area { display: flex; align-items: center; gap: 12px; }
+
+    .nav-btn {
+      color: var(--cyan-bright);
+      text-decoration: none;
+      font-family: 'Oxanium', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: rgba(6, 182, 212, 0.25);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+    }
+
+    .title {
+      font-family: 'Orbitron', monospace;
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--cyan-bright) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(15, 23, 42, 0.8) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      backdrop-filter: blur(14px);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 140px;
+      height: 140px;
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--cyan-bright);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Tools Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .tools-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .tool-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.25s ease;
+      position: relative;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--cyan-bright);
+      box-shadow: 0 6px 25px rgba(6, 182, 212, 0.25);
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .tool-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .icon-cyan { background: rgba(6, 182, 212, 0.15); border: 1px solid rgba(6, 182, 212, 0.4); color: var(--cyan-bright); }
+    .icon-orange { background: rgba(249, 115, 22, 0.15); border: 1px solid rgba(249, 115, 22, 0.4); color: var(--flame-orange); }
+    .icon-emerald { background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: var(--emerald-glow); }
+    .icon-purple { background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.4); color: var(--purple-glow); }
+
+    .badge-ui {
+      font-family: 'Oxanium', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--emerald-glow);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .badge-cli {
+      font-family: 'Oxanium', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(6, 182, 212, 0.15);
+      color: var(--cyan-bright);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+    }
+
+    .tool-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .tool-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .btn-action-primary {
+      background: linear-gradient(135deg, #06b6d4 0%, #0284c7 100%);
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Orbitron', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 10px 14px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-action-primary:hover {
+      box-shadow: 0 0 18px rgba(6, 182, 212, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-action-secondary {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      color: var(--cyan-bright);
+      text-decoration: none;
+      font-family: 'Oxanium', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-action-secondary:hover {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: var(--cyan-bright);
+    }
+
+    /* Live Cyber Ping Runner Card */
+    .ping-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ping-display {
+      background: #020617;
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      border-radius: 8px;
+      padding: 12px;
+      font-family: 'Oxanium', monospace;
+      font-size: 12px;
+      color: var(--cyan-bright);
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--cyan-bright);
+      color: #fff;
+      font-family: 'Oxanium', monospace;
+      font-size: 12px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      z-index: 9999;
+    }
+
+    #toast.show { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo-area">
+        <a href="/" class="nav-btn" title="Back to Primary Command Telemetry HUD">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          SITREP HUD
+        </a>
+        <h1 class="title">INTERACTIVE TOOLS HUB</h1>
+      </div>
+      <div class="nav-btn" style="color: var(--emerald-glow); border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.1);">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+        DAEMON SYNCED
+      </div>
+    </header>
+
+    <div class="hero-banner">
+      <div class="hero-title">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+        AUTONOMOUS TELEGRAM TOOL-TO-UI FABRIC
+      </div>
+      <p class="hero-desc">
+        Every tool you ask Cortana to build in Telegram is automatically assessed for UI requirements. 
+        Interactive tools with video, audio, image, form, or visual needs receive an instant mobile web interface deployed right here, 
+        while background daemons run seamlessly across your workstation.
+      </p>
+    </div>
+
+    <div class="tools-grid">
+      <!-- Tool 1: Media & Video Clipping Studio -->
+      <div class="tool-card">
+        <div class="card-top">
+          <div class="tool-icon icon-cyan">✂️</div>
+          <span class="badge-ui">📱 MOBILE UI READY</span>
+        </div>
+        <div class="tool-title">MEDIA CLIPPING STUDIO</div>
+        <p class="tool-desc">
+          Precision video and image framing canvas. Scrub timestamps, draw 9:16 Reels/TikTok or 1:1 Instagram crops, apply real-time filter adjustments, and export directly on your phone.
+        </p>
+        <div style="display: flex; gap: 8px; margin-top: auto;">
+          <a href="/tools/clipping_tool.html" class="btn-action-primary" style="flex: 1;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            OPEN STUDIO
+          </a>
+          <button class="btn-action-secondary" onclick="copyTelegramCmd('/run video_clipper')">
+            CLI: /run
+          </button>
+        </div>
+      </div>
+
+      <!-- Tool 2: Obiflamee Social Marketing Launchpad -->
+      <div class="tool-card">
+        <div class="card-top">
+          <div class="tool-icon icon-orange">🔥</div>
+          <span class="badge-ui">📱 MOBILE UI READY</span>
+        </div>
+        <div class="tool-title">OBIFLAMEE PROMO LAUNCHPAD</div>
+        <p class="tool-desc">
+          Zero-Ksh music promotion generator for Michael's OBIFLAMEE brand. Full 30-day cross-platform marketing calendar, viral TikTok/Reels hook creator, and one-tap clipboard copy.
+        </p>
+        <div style="display: flex; gap: 8px; margin-top: auto;">
+          <a href="/tools/obiflamee_promo.html" class="btn-action-primary" style="flex: 1; background: linear-gradient(135deg, #f97316 0%, #ea580c 100%); box-shadow: 0 0 12px rgba(249, 115, 22, 0.3);">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            LAUNCH PROMO
+          </a>
+          <button class="btn-action-secondary" onclick="copyTelegramCmd('/run obiflamee_promo')">
+            CLI: /run
+          </button>
+        </div>
+      </div>
+
+      <!-- Tool 3: Cyber Ping Diagnostic -->
+      <div class="tool-card">
+        <div class="card-top">
+          <div class="tool-icon icon-emerald">📡</div>
+          <span class="badge-cli">⚡ CLI & API ENGINE</span>
+        </div>
+        <div class="tool-title">SYSTEM PING CHECK</div>
+        <p class="tool-desc">
+          Ultra-low latency connectivity inspector. Pings Vercel cloud serverless nodes, Supabase real-time queues, and workstation telemetry to ensure 100% bridge uptime.
+        </p>
+        <div style="display: flex; gap: 8px; margin-top: auto;">
+          <button class="btn-action-primary" id="btn-quick-ping" style="flex: 1;">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+            TEST PING NOW
+          </button>
+          <button class="btn-action-secondary" onclick="copyTelegramCmd('/run system_ping_check')">
+            CLI: /run
+          </button>
+        </div>
+      </div>
+
+      <!-- Tool 4: Cellular SMS Gateway -->
+      <div class="tool-card">
+        <div class="card-top">
+          <div class="tool-icon icon-purple">📲</div>
+          <span class="badge-cli">📶 ZERO-DATA CELLULAR</span>
+        </div>
+        <div class="tool-title">CELLULAR SMS GATEWAY</div>
+        <p class="tool-desc">
+          Operates over carrier telecom signaling (SS7 / GSM SMS). Control Cortana, trigger tool runs, or receive tactical sitreps even when your mobile data plan is off.
+        </p>
+        <div style="display: flex; gap: 8px; margin-top: auto;">
+          <button class="btn-action-secondary" style="flex: 1;" onclick="testSmsPing()">
+            GATEWAY STATUS CHECK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Interactive Ping Console -->
+    <div class="ping-card">
+      <div style="font-family: 'Orbitron', monospace; font-size: 13px; font-weight: 700; color: var(--cyan-bright);">
+        TELEMETRY CONSOLE FEED
+      </div>
+      <div class="ping-display" id="consoleOutput">
+        <span>Ready. Tap "TEST PING NOW" or open any studio above.</span>
+        <span style="color: var(--text-muted); font-size: 11px;">NODE: IAD1</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">Copied to Clipboard!</div>
+
+  <script>
+    const toast = document.getElementById('toast');
+    const consoleOutput = document.getElementById('consoleOutput');
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    window.copyTelegramCmd = function(cmd) {
+      navigator.clipboard.writeText(cmd);
+      showToast(`Copied '${cmd}' to Clipboard!`);
+    };
+
+    document.getElementById('btn-quick-ping').addEventListener('click', async () => {
+      consoleOutput.innerHTML = `<span>🛰️ Pinging Cloud Telemetry Node...</span>`;
+      const t0 = performance.now();
+      try {
+        const r = await fetch('/api/command?health=1');
+        const dt = Math.round(performance.now() - t0);
+        consoleOutput.innerHTML = `
+          <span style="color: #10b981;">✅ PING SUCCESS // Latency: ${dt}ms // HTTP ${r.status}</span>
+          <span style="color: #67e8f9; font-size: 11px;">STATUS: ONLINE</span>
+        `;
+        showToast(`Ping: ${dt}ms (Online)`);
+      } catch (e) {
+        consoleOutput.innerHTML = `<span style="color: #ef4444;">❌ Ping Failed: ${e.message}</span>`;
+      }
+    });
+
+    window.testSmsPing = async function() {
+      consoleOutput.innerHTML = `<span>📲 Inspecting Cellular SMS Gateway...</span>`;
+      try {
+        const r = await fetch('/api/sms');
+        const data = await r.json();
+        consoleOutput.innerHTML = `
+          <span style="color: #a855f7;">📲 GATEWAY: ${data.service} // [${data.status}]</span>
+          <span style="color: #e9d5ff; font-size: 11px;">GSM 03.40</span>
+        `;
+        showToast('SMS Gateway Online!');
+      } catch (e) {
+        consoleOutput.innerHTML = `<span style="color: #ef4444;">SMS Gateway check failed: ${e.message}</span>`;
+      }
+    };
+  </script>
+</body>
+</html>

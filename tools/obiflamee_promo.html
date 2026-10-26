@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>OBIFLAMEE // Music Promo & Campaign Launchpad</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Oxanium:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #030712;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --card-border: rgba(249, 115, 22, 0.35);
+      --flame-orange: #f97316;
+      --flame-amber: #f59e0b;
+      --cyan-bright: #22d3ee;
+      --emerald-glow: #10b981;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #451a03 0%, #030712 65%, #000000 100%);
+      color: var(--text-main);
+      font-family: 'Inter', -apple-system, sans-serif;
+      min-height: 100vh;
+      padding: 16px;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image: 
+        linear-gradient(rgba(249, 115, 22, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(249, 115, 22, 0.05) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(249, 115, 22, 0.15);
+    }
+
+    .logo-area { display: flex; align-items: center; gap: 10px; }
+
+    .back-btn {
+      color: var(--flame-amber);
+      text-decoration: none;
+      font-family: 'Oxanium', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(249, 115, 22, 0.1);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(249, 115, 22, 0.25);
+      border-color: var(--flame-orange);
+      box-shadow: 0 0 10px rgba(249, 115, 22, 0.3);
+    }
+
+    .title {
+      font-family: 'Orbitron', monospace;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--flame-orange) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .badge {
+      font-family: 'Oxanium', monospace;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 4px;
+      background: rgba(249, 115, 22, 0.15);
+      color: var(--flame-amber);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .grid-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 768px) {
+      .grid-layout {
+        grid-template-columns: 360px 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 16px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--flame-orange);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-family: 'Oxanium', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    input[type="text"], select, textarea {
+      background: rgba(2, 6, 23, 0.8);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input[type="text"]:focus, select:focus, textarea:focus {
+      border-color: var(--flame-orange);
+      box-shadow: 0 0 10px rgba(249, 115, 22, 0.2);
+    }
+
+    .platform-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .platform-btn {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(249, 115, 22, 0.25);
+      color: var(--text-muted);
+      font-family: 'Oxanium', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 8px 4px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .platform-btn.active, .platform-btn:hover {
+      background: rgba(249, 115, 22, 0.2);
+      border-color: var(--flame-orange);
+      color: #fff;
+    }
+
+    .btn-fire {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+      color: #ffffff;
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 0 15px rgba(249, 115, 22, 0.4);
+      transition: all 0.2s ease;
+    }
+
+    .btn-fire:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.6);
+    }
+
+    .result-box {
+      background: rgba(2, 6, 23, 0.9);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      border-radius: 8px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(249, 115, 22, 0.15);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      color: var(--flame-amber);
+      font-family: 'Oxanium', monospace;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: rgba(249, 115, 22, 0.3);
+      color: #fff;
+    }
+
+    .calendar-matrix {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 480px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .calendar-row {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(249, 115, 22, 0.2);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      transition: border-color 0.2s;
+    }
+
+    .calendar-row:hover {
+      border-color: var(--flame-orange);
+    }
+
+    .day-badge {
+      font-family: 'Orbitron', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--flame-amber);
+      min-width: 55px;
+    }
+
+    .day-info {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .day-hook {
+      font-size: 12px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .day-meta {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-family: 'Oxanium', monospace;
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--flame-orange);
+      color: #fff;
+      font-family: 'Oxanium', monospace;
+      font-size: 12px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(249, 115, 22, 0.4);
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      z-index: 9999;
+    }
+
+    #toast.show { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo-area">
+        <a href="/tools/" class="back-btn" title="Back to Tools Studio">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          TOOLS HUB
+        </a>
+        <h1 class="title">OBIFLAMEE PROMO</h1>
+      </div>
+      <div class="badge">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #f97316; display: inline-block;"></span>
+        ZERO-KSH LAUNCHPAD
+      </div>
+    </header>
+
+    <div class="grid-layout">
+      <!-- Left: Generator Form -->
+      <div class="card">
+        <div class="section-title">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.316.492-.533 1.054-.727 1.636a19.78 19.78 0 01-1.393 2.923c-.279.467-.58.918-.916 1.344-.128.164-.26.324-.397.48-.372.423-.787.822-1.25 1.173a7.48 7.48 0 00-1.748 1.834 8.01 8.01 0 00-1.127 3.652A7.99 7.99 0 0010 20a7.99 7.99 0 007.635-5.59 8.01 8.01 0 00-1.127-3.652 7.48 7.48 0 00-1.748-1.834 14.887 14.887 0 01-1.25-1.173 17.067 17.067 0 01-.397-.48 19.78 19.78 0 01-.916-1.344c-.194-.582-.411-1.144-.727-1.636a4.838 4.838 0 00-.822-.88 1 1 0 00-.253-.153z" clip-rule="evenodd"></path></svg>
+          POST COPY GENERATOR
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">TARGET PLATFORM</label>
+          <div class="platform-selector">
+            <button class="platform-btn active" data-plat="TikTok">TIKTOK</button>
+            <button class="platform-btn" data-plat="Reels">REELS</button>
+            <button class="platform-btn" data-plat="Shorts">SHORTS</button>
+            <button class="platform-btn" data-plat="X/Twitter">X / TWITTER</button>
+            <button class="platform-btn" data-plat="Spotify">SPOTIFY</button>
+            <button class="platform-btn" data-plat="Instagram">INSTA POST</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">TRACK TITLE</label>
+          <input type="text" id="trackInput" value="Sunrise Beat (Afro-House Mix)">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">CONTENT PILLAR</label>
+          <select id="pillarSelect">
+            <option value="curiosity">🔥 High-Curiosity Audio Teaser</option>
+            <option value="breakdown">🎹 Production / Beat Breakdown</option>
+            <option value="behind">🎬 Behind the Scenes / Studio Vibes</option>
+            <option value="drop">🚀 Official Release Drop & Stream Link</option>
+            <option value="challenge">💃 Dance & Lip-Sync Challenge Hook</option>
+          </select>
+        </div>
+
+        <button class="btn-fire" id="btn-generate">
+          <svg width="16" height="16" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path></svg>
+          GENERATE VIRAL COPY
+        </button>
+
+        <div class="result-box" id="resultCard" style="display: none;">
+          <button class="copy-btn" id="btn-copy">COPY</button>
+          <div style="font-family: 'Oxanium', monospace; font-size: 11px; color: var(--flame-amber);" id="resultTitle">TIKTOK VIRAL HOOK</div>
+          <div style="font-size: 12px; line-height: 1.5; white-space: pre-wrap;" id="resultContent"></div>
+        </div>
+      </div>
+
+      <!-- Right: 30-Day Campaign Matrix -->
+      <div class="card">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="section-title">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            30-DAY PROMO CALENDAR
+          </div>
+          <button class="copy-btn" id="btn-download-csv" style="position: static;">DOWNLOAD CSV</button>
+        </div>
+
+        <div class="calendar-matrix" id="calendarList">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">Copied to Clipboard!</div>
+
+  <script>
+    let activePlatform = 'TikTok';
+    const toast = document.getElementById('toast');
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    document.querySelectorAll('.platform-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.platform-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activePlatform = btn.dataset.plat;
+      });
+    });
+
+    const promoTemplates = {
+      curiosity: {
+        hook: "Wait for the drop at 0:24... 🔥",
+        caption: "I locked myself in the studio for 14 hours to make this bassline hit your chest like this. Does Nairobi know about this sound yet? Drop a 🔥 if this needs to drop this Friday!",
+        tags: "#OBIFLAMEE #AfroHouse #NairobiMusic #NewSound #UndergroundBeats #ElectronicMusic"
+      },
+      breakdown: {
+        hook: "How I layered 3 Kenyan percussions into an Afro-House club banger:",
+        caption: "Started with the acoustic congas, added sidechained 808 sub, then brought in the signature vocal synth. Rate this transition from 1-10 in the comments!",
+        tags: "#MusicProducer #BeatBreakdown #FLStudio #Ableton #KenyaBeats #OBIFLAMEE #AfroTech"
+      },
+      behind: {
+        hook: "3 AM studio madness in Nairobi. 🎧",
+        caption: "When inspiration hits at midnight you don't sleep until the master track is bouncing. Tag someone who needs to hear this unreleased OBIFLAMEE heat.",
+        tags: "#StudioVibes #NairobiProducer #OBIFLAMEE #AfroHouseCommunity #KenyaToTheWorld"
+      },
+      drop: {
+        hook: "IT IS FINALLY OUT EVERYWHERE! 🚀",
+        caption: "'{TRACK}' is officially streaming on Spotify, Apple Music, and YouTube! Link in bio. Add it to your weekend playlist and turn the volume all the way up!",
+        tags: "#NewMusicFriday #OutNow #SpotifyPlaylist #AppleMusic #OBIFLAMEE #AfroHouseMusic"
+      },
+      challenge: {
+        hook: "Show me your best transition to this sound! 💃",
+        caption: "Using my sound for your next outfit change, dance video, or gym pump? Tag @OBIFLAMEE so I can repost my favorite ones on my story!",
+        tags: "#DanceChallenge #TikTokKenya #AfroHouseDance #ViralSound #OBIFLAMEE"
+      }
+    };
+
+    document.getElementById('btn-generate').addEventListener('click', () => {
+      const track = document.getElementById('trackInput').value || 'Sunrise Beat';
+      const pillar = document.getElementById('pillarSelect').value;
+      const t = promoTemplates[pillar];
+
+      const fullText = `${t.hook}\n\n${t.caption.replace('{TRACK}', track)}\n\n${t.tags}`;
+
+      document.getElementById('resultTitle').textContent = `${activePlatform.toUpperCase()} // ${pillar.toUpperCase()} CAMPAIGN`;
+      document.getElementById('resultContent').textContent = fullText;
+      document.getElementById('resultCard').style.display = 'flex';
+      showToast('Generated Viral Copy!');
+    });
+
+    document.getElementById('btn-copy').addEventListener('click', () => {
+      const text = document.getElementById('resultContent').textContent;
+      navigator.clipboard.writeText(text);
+      showToast('Copied to Clipboard!');
+    });
+
+    // Populate 30-Day Calendar Mock
+    const days = [
+      { day: "DAY 01", platform: "TikTok / Reels", hook: "The 10-second bass drop teaser", type: "Teaser" },
+      { day: "DAY 02", platform: "X / Twitter", hook: "Producer story thread: Why this synth took 3 weeks", type: "Lore" },
+      { day: "DAY 03", platform: "Instagram", hook: "Cover art reveal carousel with sound snippet", type: "Visual" },
+      { day: "DAY 04", platform: "YouTube Shorts", hook: "Acoustic percussion vs Final mastered mix", type: "Breakdown" },
+      { day: "DAY 05", platform: "TikTok", hook: "POV: You find the track of the summer before it blows up", type: "Curiosity" },
+      { day: "DAY 06", platform: "Spotify", hook: "Canvas video upload + Artist playlist pitch", type: "Distribution" },
+      { day: "DAY 07", platform: "All Platforms", hook: "OFFICIAL RELEASE DAY BLITZ: Link in bio everywhere", type: "Launch" },
+      { day: "DAY 08", platform: "Reels / TikTok", hook: "DJ transition tutorial with the drop", type: "DJ Share" },
+      { day: "DAY 09", platform: "Instagram", hook: "First 24 hours streaming numbers shoutout", type: "Social Proof" },
+      { day: "DAY 10", platform: "TikTok", hook: "Duet/Stitch open challenge: 'Vibe with this beat'", type: "Engagement" },
+      { day: "DAY 11", platform: "X / Twitter", hook: "Tagging top Kenyan & African EDM curation pages", type: "Outreach" },
+      { day: "DAY 12", platform: "YouTube", hook: "Full high-def visualizer / audio stream release", type: "Long-form" },
+      { day: "DAY 13", platform: "Instagram", hook: "Behind the scenes candid photos in the studio", type: "Personality" },
+      { day: "DAY 14", platform: "TikTok", hook: "Late night drive vibes with the melody playing", type: "Aesthetic" },
+      { day: "DAY 15", platform: "Spotify / Apple", hook: "Pitching to Apple Music 'Mzansi House' & 'Afro-Tech'", type: "Editorial" },
+      { day: "DAY 20", platform: "All Platforms", hook: "Mid-month momentum check & remix tease", type: "Re-engage" },
+      { day: "DAY 25", platform: "TikTok / Reels", hook: "Fan video compilation reel with track audio", type: "Community" },
+      { day: "DAY 30", platform: "All Platforms", hook: "30-Day Wrap Up: Thank you Nairobi & worldwide listeners", type: "Milestone" }
+    ];
+
+    const calContainer = document.getElementById('calendarList');
+    days.forEach(d => {
+      const row = document.createElement('div');
+      row.className = 'calendar-row';
+      row.innerHTML = `
+        <div class="day-badge">${d.day}</div>
+        <div class="day-info">
+          <div class="day-hook">${d.hook}</div>
+          <div class="day-meta">${d.platform} • <span style="color: var(--flame-amber);">${d.type}</span></div>
+        </div>
+        <button class="copy-btn" style="position: static;" onclick="quickCopyHook('${d.hook}')">COPY</button>
+      `;
+      calContainer.appendChild(row);
+    });
+
+    window.quickCopyHook = function(hook) {
+      navigator.clipboard.writeText(hook + " #OBIFLAMEE #AfroHouse #Kenya");
+      showToast('Hook Copied!');
+    };
+
+    document.getElementById('btn-download-csv').addEventListener('click', () => {
+      let csv = "Day,Platform,Hook,Type\n";
+      days.forEach(d => {
+        csv += `"${d.day}","${d.platform}","${d.hook}","${d.type}"\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = "obiflamee_30_day_promo_calendar.csv";
+      a.click();
+      showToast('CSV Downloaded!');
+    });
+  </script>
+</body>
+</html>
