@@ -1,7 +1,15 @@
 {
-  "last_updated": "2026-10-26T10:35:30.608696+00:00",
-  "active_hypothesis": "Nairobi Electric Motorcycle (Boda Boda) Battery Swapping Grid & Carbon Offset Monetization Ledger.",
+  "last_updated": "2026-10-26T10:37:05.304967+00:00",
+  "active_hypothesis": "Nairobi Electric Motorcycle Battery Swap & Second-Life Energy Storage Vault for off-grid lighting units.",
   "discovered_vectors": [
+    {
+      "cycle_num": 89,
+      "vector_id": "EVO_NAIROBI_MATRESS_RECYCLING_V1",
+      "title": "Nairobi Post-Consumer Polyurethane Foam Mattress Upcycling & Circular Economy Ledger",
+      "domain": "OPERATOR_AMPLIFICATION",
+      "file": "evolution_modules\\nairobi_mattress_recycling_sentinel.py",
+      "status": "IMPLEMENTED"
+    },
     {
       "cycle_num": 88,
       "vector_id": "EVO_NAIROBI_JUA_KALI_METAL_RECYCLING_VAULT_V1",
@@ -392,14 +400,6 @@
       "title": "Nairobi & Nairobi Diaspora & Local Freelance Milestone Escrow & M-Pesa Disburse Automator",
       "domain": "OPERATOR_AMPLIFICATION",
       "file": "evolution_modules\\nairobi_freelance_escrow.py",
-      "status": "IMPLEMENTED"
-    },
-    {
-      "cycle_num": 40,
-      "vector_id": "EVO_secure_cmd_auth_V1",
-      "title": "Secure Command Authorization Engine",
-      "domain": "SECURITY",
-      "file": "evolution_modules\\secure_command_authorizer.py",
       "status": "IMPLEMENTED"
     }
   ],
