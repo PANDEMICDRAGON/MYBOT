@@ -1,156 +1,120 @@
 import json
 import logging
 from datetime import datetime
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-
 class KRA_Tax_Optimizer:
     """
-    Autonomous KRA Tax Optimization & Compliance Sentinel.
-    
-    This class proactively calculates optimal tax brackets, identifies deductions,
-    and ensures compliance with KRA regulations for operators in Kenya.
+    A class to optimize tax payments and ensure compliance with Kenyan Revenue Authority (KRA) regulations.
     """
-
-    def __init__(self, operator_name: str, location: str):
-        self.operator_name = operator_name
-        self.location = location
-        self.tax_brackets = self._load_tax_brackets()
-        self.deductions = self._load_deductions()
-        self.compliance_rules = self._load_compliance_rules()
-        logger.info(f"KRA_Tax_Optimizer initialized for {operator_name} in {location}")
-
-    def _load_tax_brackets(self) -> List[Dict]:
-        """Load current KRA tax brackets."""
-        return [
-            {"min": 0, "max": 240000, "rate": 0.10},
-            {"min": 240001, "max": 400000, "rate": 0.25},
-            {"min": 400001, "max": 800000, "rate": 0.30},
-            {"min": 800001, "max": 1000000, "rate": 0.325},
-            {"min": 1000001, "max": float('inf'), "rate": 0.35}
-        ]
-
-    def _load_deductions(self) -> Dict[str, float]:
-        """Load standard deductions."""
-        return {
-            "housing": 0.15,
-            "medical": 0.05,
-            "education": 0.10
-        }
-
-    def _load_compliance_rules(self) -> List[str]:
-        """Load compliance rules."""
-        return [
-            "File returns by 20th of the following month",
-            "Maintain records for 5 years",
-            "Pay VAT if turnover exceeds 1M KES"
-        ]
-
-    def calculate_tax(self, income: float) -> float:
+    
+    def __init__(self, tax_year: int = 2024):
+        self.tax_year = tax_year
+        self.tax_brackets = self._get_tax_brackets()
+        self.deductions = self._get_deductions()
+        
+    def _get_tax_brackets(self) -> List[Dict[str, float]]:
         """
-        Calculate tax based on income.
+        Retrieve the current tax brackets for the specified tax year.
+        """
+        # Example tax brackets for Kenya (2024)
+        return [
+            {"min_income": 0, "max_income": 240000, "rate": 0.10},
+            {"min_income": 240001, "max_income": 400000, "rate": 0.25},
+            {"min_income": 400001, "max_income": 800000, "rate": 0.30},
+            {"min_income": 800001, "max_income": float('inf'), "rate": 0.35}
+        ]
+    
+    def _get_deductions(self) -> Dict[str, float]:
+        """
+        Retrieve the current deductions for the specified tax year.
+        """
+        # Example deductions for Kenya (2024)
+        return {
+            "personal_relief": 2400,
+            "pension_contribution": 0.05,  # 5% of gross income
+            "insurance_premium": 0.02,  # 2% of gross income
+            "medical_expenses": 0.01  # 1% of gross income
+        }
+    
+    def calculate_tax(self, gross_income: float) -> Dict[str, float]:
+        """
+        Calculate the tax payable based on the gross income.
         
         Args:
-            income (float): Annual income in KES.
+            gross_income (float): The gross income for the tax year.
             
         Returns:
-            float: Calculated tax amount.
+            Dict[str, float]: A dictionary containing the calculated tax details.
         """
-        tax = 0.0
+        if gross_income < 0:
+            raise ValueError("Gross income cannot be negative.")
+            
+        tax_payable = 0.0
         for bracket in self.tax_brackets:
-            if income > bracket["min"]:
-                taxable = min(income, bracket["max"]) - bracket["min"]
-                tax += taxable * bracket["rate"]
+            if gross_income > bracket["min_income"]:
+                taxable_amount = min(gross_income, bracket["max_income"]) - bracket["min_income"]
+                tax_payable += taxable_amount * bracket["rate"]
             else:
                 break
-        return tax
-
-    def optimize_deductions(self, income: float, deductions: Dict[str, float]) -> float:
-        """
-        Optimize deductions to minimize tax.
         
-        Args:
-            income (float): Annual income in KES.
-            deductions (Dict[str, float]): Available deductions.
-            
-        Returns:
-            float: Optimized tax amount.
-        """
-        total_deductions = sum(deductions.values())
-        taxable_income = max(0, income - total_deductions)
-        return self.calculate_tax(taxable_income)
-
-    def check_compliance(self, last_filing_date: datetime) -> bool:
-        """
-        Check if the operator is compliant with filing deadlines.
+        # Apply deductions
+        deductions = self.deductions
+        total_deductions = deductions["personal_relief"] + \
+                           (gross_income * deductions["pension_contribution"]) + \
+                           (gross_income * deductions["insurance_premium"]) + \
+                           (gross_income * deductions["medical_expenses"])
         
-        Args:
-            last_filing_date (datetime): Date of last tax filing.
-            
-        Returns:
-            bool: True if compliant, False otherwise.
-        """
-        current_date = datetime.now()
-        days_since_filing = (current_date - last_filing_date).days
-        return days_since_filing <= 30
-
-    def generate_report(self, income: float, deductions: Dict[str, float], last_filing_date: datetime) -> Dict:
-        """
-        Generate a comprehensive tax report.
-        
-        Args:
-            income (float): Annual income in KES.
-            deductions (Dict[str, float]): Available deductions.
-            last_filing_date (datetime): Date of last tax filing.
-            
-        Returns:
-            Dict: Comprehensive tax report.
-        """
-        base_tax = self.calculate_tax(income)
-        optimized_tax = self.optimize_deductions(income, deductions)
-        savings = base_tax - optimized_tax
-        compliant = self.check_compliance(last_filing_date)
+        net_tax = max(0, tax_payable - total_deductions)
         
         return {
-            "operator": self.operator_name,
-            "location": self.location,
-            "income": income,
-            "base_tax": base_tax,
-            "optimized_tax": optimized_tax,
-            "savings": savings,
-            "compliant": compliant,
-            "recommendations": self._generate_recommendations(savings, compliant)
+            "gross_income": gross_income,
+            "tax_payable": tax_payable,
+            "total_deductions": total_deductions,
+            "net_tax": net_tax
         }
-
-    def _generate_recommendations(self, savings: float, compliant: bool) -> List[str]:
+    
+    def suggest_optimization(self, gross_income: float) -> Dict[str, float]:
         """
-        Generate recommendations based on tax report.
+        Suggest tax optimization strategies based on the gross income.
         
         Args:
-            savings (float): Potential tax savings.
-            compliant (bool): Compliance status.
+            gross_income (float): The gross income for the tax year.
             
         Returns:
-            List[str]: Recommendations.
+            Dict[str, float]: A dictionary containing the suggested optimization details.
         """
-        recommendations = []
-        if savings > 0:
-            recommendations.append(f"Consider optimizing deductions to save {savings:.2f} KES.")
-        if not compliant:
-            recommendations.append("File your taxes immediately to avoid penalties.")
-        return recommendations
-
+        tax_details = self.calculate_tax(gross_income)
+        
+        # Suggest increasing pension contributions if possible
+        suggested_pension_contribution = min(gross_income * 0.05, gross_income * 0.10)
+        
+        return {
+            "current_net_tax": tax_details["net_tax"],
+            "suggested_pension_contribution": suggested_pension_contribution,
+            "potential_tax_savings": suggested_pension_contribution * 0.35  # Assuming top tax rate
+        }
 
 if __name__ == "__main__":
-    # Test harness
-    optimizer = KRA_Tax_Optimizer("Michael Obiero", "Nairobi")
-    income = 1200000
-    deductions = {"housing": 180000, "medical": 60000, "education": 120000}
-    last_filing_date = datetime.now()
+    optimizer = KRA_Tax_Optimizer()
     
-    report = optimizer.generate_report(income, deductions, last_filing_date)
-    print(json.dumps(report, indent=2))
+    # Test case 1
+    gross_income_1 = 500000
+    tax_details_1 = optimizer.calculate_tax(gross_income_1)
+    print(f"Tax Details for {gross_income_1}: {tax_details_1}")
+    
+    # Test case 2
+    gross_income_2 = 1000000
+    tax_details_2 = optimizer.calculate_tax(gross_income_2)
+    print(f"Tax Details for {gross_income_2}: {tax_details_2}")
+    
+    # Suggest optimization
+    optimization_1 = optimizer.suggest_optimization(gross_income_1)
+    print(f"Optimization Suggestion for {gross_income_1}: {optimization_1}")
+    
+    optimization_2 = optimizer.suggest_optimization(gross_income_2)
+    print(f"Optimization Suggestion for {gross_income_2}: {optimization_2}")
