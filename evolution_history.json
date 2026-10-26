@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 29,
-    "vector_id": "EVO_NAIROBI_POWER_TOKEN_SENTINEL_V1",
-    "title": "Nairobi & Nairobi Kenya Power Token Smart Meter Predictive Guard",
-    "domain": "RESILIENCE",
-    "rationale": "To protect operator Michael Obiero from unexpected prepaid Kenya Power (KPLC) token exhaustion during critical night operations in Nairobi or Nairobi. This module monitors live system activity rates, projects KPLC token burn-down curves based on grid vs solar usage cycles, alerts via offline channels when tokens dip below safety thresholds, and autonomously queues emergency USSD/M-Pesa purchase sequences.",
-    "file_path": "evolution_modules\\nairobi_power_token_sentinel.py",
-    "code_size": 3232,
-    "applied_at": "2026-10-26 11:41:54 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Autonomous multi-source cryptocurrency & fiat micro-hedge fund rebalancer optimized for Kenya's Nairobi Securities Exchange (NSE) and decentralized digital assets."
-  },
-  {
     "cycle_num": 30,
     "vector_id": "EVO_NHIF_SHIF_AUDITOR_V1",
     "title": "Nairobi & Nairobi Social Health Authority (SHA/SHIF) Autonomous Medical Contribution & Claim Auditor",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-10-26 14:48:43 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Nairobi Urban Commercial Mushroom Spawn & Substrate Sterilization Sentinel for controlled-environment agriculture."
+  },
+  {
+    "cycle_num": 128,
+    "vector_id": "EVO_NAIROBI_SGR_CARGO_MANIFEST_V1",
+    "title": "Nairobi SGR Cargo Manifest Integrity & Customs Pre-Clearance Sentinel",
+    "domain": "SECURITY",
+    "rationale": "With the expansion of the Standard Gauge Railway (SGR) logistics corridors, there is a critical need to secure the integrity of cargo manifests against tampering and to automate pre-clearance for KRA (Kenya Revenue Authority) customs. This module ensures that freight data remains immutable from origin to destination and flags discrepancies before they cause costly delays at the port or border.",
+    "file_path": "evolution_modules\\nairobi_sgr_cargo_manifest_sentinel.py",
+    "code_size": 6300,
+    "applied_at": "2026-10-26 14:50:04 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Develop a 'Nairobi Port Mombasa Container Stacking Optimizer' that uses physics-based simulation to maximize container yard efficiency and minimize crane moves, integrating with SGR manifest data for just-in-time delivery."
   }
 ]

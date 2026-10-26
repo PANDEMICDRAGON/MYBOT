@@ -1,7 +1,15 @@
 {
-  "last_updated": "2026-10-26T11:48:43.065382+00:00",
-  "active_hypothesis": "Nairobi Urban Commercial Mushroom Spawn & Substrate Sterilization Sentinel for controlled-environment agriculture.",
+  "last_updated": "2026-10-26T11:50:04.022140+00:00",
+  "active_hypothesis": "Develop a 'Nairobi Port Mombasa Container Stacking Optimizer' that uses physics-based simulation to maximize container yard efficiency and minimize crane moves, integrating with SGR manifest data for just-in-time delivery.",
   "discovered_vectors": [
+    {
+      "cycle_num": 128,
+      "vector_id": "EVO_NAIROBI_SGR_CARGO_MANIFEST_V1",
+      "title": "Nairobi SGR Cargo Manifest Integrity & Customs Pre-Clearance Sentinel",
+      "domain": "SECURITY",
+      "file": "evolution_modules\\nairobi_sgr_cargo_manifest_sentinel.py",
+      "status": "IMPLEMENTED"
+    },
     {
       "cycle_num": 127,
       "vector_id": "EVO_NAIROBI_ARTISANAL_CHEESE_CURING_SENTINEL_V1",
@@ -392,14 +400,6 @@
       "title": "Nairobi Savings and Credit Cooperative (SACCO) Automated Compliance & Fraud Prevention Sentinel",
       "domain": "SECURITY",
       "file": "evolution_modules\\nairobi_sacco_audit_sentinel.py",
-      "status": "IMPLEMENTED"
-    },
-    {
-      "cycle_num": 78,
-      "vector_id": "EVO_NAIROBI_RECYCLED_PLASTIC_CREDIT_V1",
-      "title": "Nairobi Recycled Plastic Waste Credit & Circular Economy Ledger Sentinel",
-      "domain": "OPERATOR_AMPLIFICATION",
-      "file": "evolution_modules\\nairobi_plastic_credit_sentinel.py",
       "status": "IMPLEMENTED"
     }
   ],
