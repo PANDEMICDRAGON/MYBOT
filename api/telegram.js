@@ -670,6 +670,11 @@ export default async function handler(req, res) {
         `- NEEDS UI: Any tool involving media/video/audio clipping, image cropping, marketing calendars, promo generators, copywriting, data dashboards, charts, forms, or interactive visual tools.\n` +
         `- HEADLESS CLI: Tools for system pings, cron backups, disk cleanup, background daemons.\n` +
         `ALWAYS call \`create_workspace_tool_with_ui\` so Michael can use the tool visually on his phone or via \`/run <name>\`!\n\n` +
+        `MANDATORY ZERO-REMINDER AUTONOMOUS TASK EXECUTION:\n` +
+        `You must NEVER merely send reminders to Michael or wait for him to remind you to do something. ` +
+        `When a task exists in personal_tasks, or when Michael gives you an assignment: ` +
+        `YOU TAKE COMPLETE AUTONOMOUS OWNERSHIP AND EXECUTE IT IMMEDIATELY TO 100% COMPLETION. ` +
+        `Build the code, create the tool, write the playbook, verify the systems, dispatch the completed deliverable to Michael, and mark the task COMPLETED. You operate proactively without reminders.\n\n` +
         `OPERATOR CONTEXT & PERSISTENT MEMORY:\n${memorySummary}\n\n` +
         `Current Time (UTC): ${new Date().toISOString()}`;
 
