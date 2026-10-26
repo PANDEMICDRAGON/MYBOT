@@ -897,6 +897,13 @@ async def osint_social_and_public_records(client: httpx.AsyncClient, target: str
     }
 
 
+def clean_md_inline(text: str) -> str:
+    """Strips raw markdown formatting tokens from inside titles/headlines to avoid entity syntax collision."""
+    if not text:
+        return ""
+    return re.sub(r'[*_`]', '', str(text)).strip()
+
+
 # --- CORTANA / J.A.R.V.I.S. BEHAVIORAL PSYCHOLOGY & DOSSIER SYNTHESIZER ---
 async def tool_deep_osint_investigate(
     client: httpx.AsyncClient, target_query: str, entity_type: str = "PERSON", specific_angle: str = ""
@@ -945,11 +952,12 @@ Synthesize an elite Cortana/J.A.R.V.I.S. Intelligence & Behavioral Dossier. Outp
         if SUPABASE_URL and SUPABASE_SERVICE_KEY:
             await client.post(f"{SUPABASE_URL}/rest/v1/osint_dossiers", headers=SUPABASE_HEADERS, json=record)
         return (
-            f"OSINT & BEHAVIORAL DOSSIER // {target_query.upper()} [{entity_type.upper()}]\n\n"
-            f"1. DIGITAL & PUBLIC RECORD FOOTPRINT:\n{record['footprint_summary']}\n\n"
-            f"2. HUMAN BEHAVIOR & PSYCHOLOGICAL PROFILE:\n{record['behavioral_profile']}\n\n"
-            f"3. STRATEGIC PLAYBOOK (INTERACTION / LEVERAGE):\n{record['strategic_approchement']}\n\n"
-            f"4. KEY SOURCES:\n" + "\n".join([f"• {u}" for u in record["social_and_public_links"][:5]])
+            f"🗂️ *[OSINT & BEHAVIORAL DOSSIER // {clean_md_inline(target_query.upper())} [{clean_md_inline(entity_type.upper())}]]*\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            f"*1. DIGITAL & PUBLIC RECORD FOOTPRINT:*\n{record['footprint_summary']}\n\n"
+            f"*2. HUMAN BEHAVIOR & PSYCHOLOGICAL PROFILE:*\n{record['behavioral_profile']}\n\n"
+            f"*3. STRATEGIC PLAYBOOK (INTERACTION / LEVERAGE):*\n{record['strategic_approchement']}\n\n"
+            f"*4. KEY SOURCES:*\n" + "\n".join([f"• {u}" for u in record["social_and_public_links"][:5]])
         )
 
     try:
@@ -987,11 +995,12 @@ Synthesize an elite Cortana/J.A.R.V.I.S. Intelligence & Behavioral Dossier. Outp
                 logger.warning(f"[Supabase OSINT Save]: {e_sb}")
 
         return (
-            f"OSINT & BEHAVIORAL DOSSIER // {target_query.upper()} [{entity_type.upper()}]\n\n"
-            f"1. DIGITAL & PUBLIC RECORD FOOTPRINT:\n{record['footprint_summary']}\n\n"
-            f"2. HUMAN BEHAVIOR & PSYCHOLOGICAL PROFILE:\n{record['behavioral_profile']}\n\n"
-            f"3. STRATEGIC PLAYBOOK (INTERACTION / LEVERAGE):\n{record['strategic_approchement']}\n\n"
-            f"4. KEY SOURCES:\n" + "\n".join([f"• {u}" for u in record["social_and_public_links"][:5]])
+            f"🗂️ *[OSINT & BEHAVIORAL DOSSIER // {clean_md_inline(target_query.upper())} [{clean_md_inline(entity_type.upper())}]]*\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            f"*1. DIGITAL & PUBLIC RECORD FOOTPRINT:*\n{record['footprint_summary']}\n\n"
+            f"*2. HUMAN BEHAVIOR & PSYCHOLOGICAL PROFILE:*\n{record['behavioral_profile']}\n\n"
+            f"*3. STRATEGIC PLAYBOOK (INTERACTION / LEVERAGE):*\n{record['strategic_approchement']}\n\n"
+            f"*4. KEY SOURCES:*\n" + "\n".join([f"• {u}" for u in record["social_and_public_links"][:5]])
         )
     except Exception as e:
         logger.error(f"[OSINT Synthesis Error]: {e}")
@@ -5554,8 +5563,10 @@ IMPORTANT: Include at least 8 to 12 distinct items in continental_geopolitics_wi
 
 
 def format_full_global_tactical_brief(b: dict, slot_label: str, time_str: str) -> str:
-    threat = b.get("threat_level", "ELEVATED")
+    threat = clean_md_inline(b.get("threat_level", "ELEVATED"))
     threat_icon = "🔴" if threat == "CRITICAL" else ("🟡" if threat == "ELEVATED" else "🟢")
+    headline_banner = clean_md_inline(b.get('headline_banner', 'Multi-continent intelligence active.'))
+    exec_overwatch = clean_md_inline(b.get('executive_overwatch', b.get('executive_sitrep', '')))
     
     lines = [
         f"🛡️ *CORTANA // EXPANDED STRATEGIC INTELLIGENCE DOSSIER*",
@@ -5563,10 +5574,10 @@ def format_full_global_tactical_brief(b: dict, slot_label: str, time_str: str) -
         f"⏱️ *Cadence Slot:* {slot_label}",
         f"📡 *Timestamp:* {time_str}",
         f"{threat_icon} *Threat Level:* [{threat}]",
-        f"🎯 *Strategic Posture:* _{b.get('headline_banner', 'Multi-continent intelligence active.')}_",
+        f"🎯 *Strategic Posture:* _{headline_banner}_",
         f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
         f"📊 *I. EXECUTIVE MACRO & GEO-STRATEGIC OVERWATCH*",
-        f"{b.get('executive_overwatch', b.get('executive_sitrep', ''))}\n",
+        f"{exec_overwatch}\n",
         f"🌍 *II. COMPREHENSIVE CONTINENTAL & SUB-CONTINENTAL INTELLIGENCE WIRE*"
     ]
     
@@ -5581,26 +5592,26 @@ def format_full_global_tactical_brief(b: dict, slot_label: str, time_str: str) -
 
     continental_items = b.get("continental_geopolitics_wire") or b.get("global_news_wire") or []
     for item in continental_items:
-        cont = item.get("continent", "GLOBAL").upper()
-        sub = item.get("subcontinent", item.get("theater_or_category", "THEATER"))
+        cont = clean_md_inline(item.get("continent", "GLOBAL").upper())
+        sub = clean_md_inline(item.get("subcontinent", item.get("theater_or_category", "THEATER")))
         icon = continent_icons.get(cont, "🌍")
-        hd = item.get("headline", item.get("development", ""))
-        src = item.get("source", "Wire")
-        det = item.get("in_depth_details", "")
-        imp = item.get("tactical_impact", item.get("impact", ""))
-        lines.append(f"• {icon} *[{cont} // {sub}]:* {hd}\n  📰 _Source:_ {src}\n  ↳ _Details:_ {det}\n  ↳ _Tactical Impact:_ {imp}")
+        hd = clean_md_inline(item.get("headline", item.get("development", "")))
+        src = clean_md_inline(item.get("source", "Wire"))
+        det = clean_md_inline(item.get("in_depth_details", ""))
+        imp = clean_md_inline(item.get("tactical_impact", item.get("impact", "")))
+        lines.append(f"• {icon} *[{cont} // {sub}]:* *{hd}*\n  📰 _Source:_ {src}\n  ↳ _Details:_ {det}\n  ↳ _Tactical Impact:_ {imp}\n")
     lines.append("")
     
     lines.append("🦁 *III. IN-DEPTH KENYA & EAST AFRICAN NATIONAL PULSE*")
     for item in b.get("local_kenya_wire", []):
-        dom = item.get("domain", "KENYA")
-        hd = item.get("headline", "")
-        src = item.get("source", "Local Wire")
-        det = item.get("in_depth_details", "")
-        imp = item.get("tactical_impact", "")
-        lines.append(f"• 🦁 *[{dom}]:* {hd}\n  📰 _Source:_ {src}\n  ↳ _Details:_ {det}\n  ↳ _Tactical Impact:_ {imp}")
+        dom = clean_md_inline(item.get("domain", "KENYA"))
+        hd = clean_md_inline(item.get("headline", ""))
+        src = clean_md_inline(item.get("source", "Local Wire"))
+        det = clean_md_inline(item.get("in_depth_details", ""))
+        imp = clean_md_inline(item.get("tactical_impact", ""))
+        lines.append(f"• 🦁 *[{dom}]:* *{hd}*\n  📰 _Source:_ {src}\n  ↳ _Details:_ {det}\n  ↳ _Tactical Impact:_ {imp}\n")
     if not b.get("local_kenya_wire") and b.get("african_and_regional_pulse"):
-        lines.append(b.get("african_and_regional_pulse"))
+        lines.append(clean_md_inline(b.get("african_and_regional_pulse")))
     lines.append("")
 
     lines.append("⚽ 🏎️ *IV. COMPREHENSIVE GLOBAL & REGIONAL SPORTS WIRE*")
@@ -5612,47 +5623,50 @@ def format_full_global_tactical_brief(b: dict, slot_label: str, time_str: str) -
         "COMBAT": "🥊"
     }
     for item in b.get("sports_intelligence_wire", []):
-        sp = item.get("sport", "SPORTS").upper()
+        sp = clean_md_inline(item.get("sport", "SPORTS").upper())
         icon = "🏅"
         for k, v in sport_icons.items():
             if k in sp:
                 icon = v
                 break
-        hd = item.get("headline", "")
-        src = item.get("source", "Sports Wire")
-        sc = item.get("score_or_standings")
-        det = item.get("in_depth_details", "")
-        sig = item.get("strategic_significance", "")
+        hd = clean_md_inline(item.get("headline", ""))
+        src = clean_md_inline(item.get("source", "Sports Wire"))
+        sc = clean_md_inline(item.get("score_or_standings"))
+        det = clean_md_inline(item.get("in_depth_details", ""))
+        sig = clean_md_inline(item.get("strategic_significance", ""))
         sc_str = f" [Score/Standings: {sc}]" if sc and str(sc) != "None" else ""
-        lines.append(f"• {icon} *[{sp}]:* {hd}{sc_str}\n  📰 _Source:_ {src}\n  ↳ _Details:_ {det}\n  ↳ _Strategic Note:_ {sig}")
+        lines.append(f"• {icon} *[{sp}]:* *{hd}*{sc_str}\n  📰 _Source:_ {src}\n  ↳ _Details:_ {det}\n  ↳ _Strategic Note:_ {sig}\n")
     lines.append("")
 
     lines.append("📈 *V. MACROECONOMIC, COMMODITIES & LIQUIDITY MATRIX*")
     for item in b.get("macro_and_commodities", []):
-        sec = item.get("sector", item.get("asset_or_sector", "SECTOR"))
-        read = item.get("reading", "")
-        imp = item.get("impact", "")
-        lines.append(f"• *{sec}:* {read}\n  ↳ _Second-Order Effect:_ {imp}")
+        sec = clean_md_inline(item.get("sector", item.get("asset_or_sector", "SECTOR")))
+        read = clean_md_inline(item.get("reading", ""))
+        imp = clean_md_inline(item.get("impact", ""))
+        lines.append(f"• *[{sec}]:* *{read}*\n  ↳ _Second-Order Effect:_ {imp}\n")
     lines.append("")
     
     lines.append("💻 *VI. CYBER PERIMETER & CRITICAL INFRASTRUCTURE*")
     for item in b.get("cyber_and_infrastructure", []):
-        vec = item.get("vector", "VECTOR")
-        det = item.get("detail", "")
-        hard = item.get("hardening", item.get("remediation", ""))
-        lines.append(f"• *{vec}:* {det}\n  ↳ _Hardening Directive:_ {hard}")
+        vec = clean_md_inline(item.get("vector", "VECTOR"))
+        det = clean_md_inline(item.get("detail", ""))
+        hard = clean_md_inline(item.get("hardening", item.get("remediation", "")))
+        lines.append(f"• *[{vec}]:* *{det}*\n  ↳ _Hardening Directive:_ {hard}\n")
     lines.append("")
         
-    lines.append(f"🔮 *VII. 7-30 DAY RISK & SECOND-ORDER FORECAST*\n{b.get('second_order_forecast', '')}\n")
+    second_order = clean_md_inline(b.get('second_order_forecast', ''))
+    lines.append(f"🔮 *VII. 7-30 DAY RISK & SECOND-ORDER FORECAST*\n{second_order}\n")
     
     lines.append("🛡️ *VIII. OPERATIONAL DEFENSIVE PROTOCOLS*")
     for proto in b.get("defensive_protocols", []):
-        lines.append(f"• {proto}")
+        clean_proto = clean_md_inline(proto)
+        lines.append(f"• *{clean_proto}*")
     lines.append("")
     
     lines.append("⚡ *IX. ASYMMETRIC UPSIDE OPPORTUNITIES*")
     for up in b.get("asymmetric_upside", []):
-        lines.append(f"• {up}")
+        clean_up = clean_md_inline(up)
+        lines.append(f"• *{clean_up}*")
     lines.append("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
     lines.append("_High-volume continental & sports intelligence synthesized by Cortana._")
     
@@ -5933,29 +5947,107 @@ def format_telegram_chat_layout(text: str, category: str = "DIRECTIVE") -> str:
 
     return f"{header}\n{clean}\n{footer}"
 
-async def send_telegram(client: httpx.AsyncClient, text: str, category: str = "DIRECTIVE"):
+def repair_telegram_markdown(text: str) -> str:
+    """
+    Ensures that Telegram Markdown formatting has balanced delimiters (*, _, `)
+    and does not trigger 400 Bad Request entity errors.
+    """
+    if not text:
+        return text
+
+    # Balance backticks
+    if text.count("```") % 2 != 0:
+        text += "\n```"
+    elif text.count("`") % 2 != 0:
+        text += "`"
+
+    # Balance bold asterisks
+    if text.count("*") % 2 != 0:
+        text += "*"
+
+    # Balance italic underscores
+    if text.count("_") % 2 != 0:
+        text += "_"
+
+    return text
+
+
+def chunk_telegram_text(text: str, max_chunk_size: int = 3500) -> list[str]:
+    """
+    Splits long text into cleanly bounded chunks at paragraph boundaries (\n\n)
+    or line boundaries (\n), ensuring delimiters are balanced in every chunk.
+    """
+    if len(text) <= max_chunk_size:
+        return [repair_telegram_markdown(text)]
+
+    paragraphs = text.split("\n\n")
+    chunks = []
+    current_chunk = ""
+
+    for p in paragraphs:
+        if len(p) > max_chunk_size:
+            lines = p.split("\n")
+            for line in lines:
+                if len(current_chunk) + len(line) + 2 > max_chunk_size:
+                    if current_chunk:
+                        chunks.append(repair_telegram_markdown(current_chunk.strip()))
+                        current_chunk = ""
+                current_chunk = f"{current_chunk}\n{line}" if current_chunk else line
+        elif len(current_chunk) + len(p) + 2 > max_chunk_size:
+            if current_chunk:
+                chunks.append(repair_telegram_markdown(current_chunk.strip()))
+                current_chunk = ""
+            current_chunk = p
+        else:
+            current_chunk = f"{current_chunk}\n\n{p}" if current_chunk else p
+
+    if current_chunk.strip():
+        chunks.append(repair_telegram_markdown(current_chunk.strip()))
+
+    return chunks
+
+
+async def _send_single_telegram(client: httpx.AsyncClient, text: str, category: str = "DIRECTIVE"):
     if not TELEGRAM_TOKEN or not AUTHORIZED_CHAT_ID:
         logger.warning(f"[Mock Telegram Dispatch]:\n{text}")
         return
 
     styled_text = format_telegram_chat_layout(text, category)
+    repaired_text = repair_telegram_markdown(styled_text)
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     payload = {
         "chat_id": AUTHORIZED_CHAT_ID,
-        "text": styled_text[:4096],
+        "text": repaired_text[:4096],
         "parse_mode": "Markdown",
         "disable_web_page_preview": True
     }
     try:
         resp = await client.post(url, json=payload, timeout=15)
         if resp.status_code != 200:
-            # Fallback without parse_mode if Markdown parsing encounters formatting conflicts
+            logger.warning(f"Telegram Markdown parse failed ({resp.status_code}): {resp.text}. Retrying with plain text fallback...")
             payload.pop("parse_mode", None)
+            payload["text"] = styled_text[:4096]
             resp2 = await client.post(url, json=payload, timeout=15)
             if resp2.status_code != 200:
                 logger.error(f"Telegram transmission error {resp2.status_code}: {resp2.text}")
     except Exception as e:
         logger.error(f"[Telegram Error]: {e}")
+
+
+async def send_telegram(client: httpx.AsyncClient, text: str, category: str = "DIRECTIVE"):
+    """
+    Sends message to Telegram. If message is extensive (> 3800 chars), automatically
+    chunks into sequential, cleanly bounded dispatches without dropping markdown formatting.
+    """
+    if not TELEGRAM_TOKEN or not AUTHORIZED_CHAT_ID:
+        logger.warning(f"[Mock Telegram Dispatch]:\n{text}")
+        return
+
+    if len(text) > 3800:
+        await send_telegram_multi(client, text)
+    else:
+        await _send_single_telegram(client, text, category)
+
 
 async def send_telegram_multi(client: httpx.AsyncClient, text: str):
     """
@@ -5966,33 +6058,12 @@ async def send_telegram_multi(client: httpx.AsyncClient, text: str):
         logger.warning(f"[Mock Telegram Multi-Dispatch]:\n{text}")
         return
 
-    if len(text) <= 4000:
-        await send_telegram(client, text)
-        return
-
-    paragraphs = text.split("\n\n")
-    chunks = []
-    current_chunk = ""
-
-    for p in paragraphs:
-        if len(current_chunk) + len(p) + 2 > 3800:
-            if current_chunk:
-                chunks.append(current_chunk.strip())
-                current_chunk = ""
-            while len(p) > 3800:
-                chunks.append(p[:3800])
-                p = p[3800:]
-            current_chunk = p
-        else:
-            current_chunk = f"{current_chunk}\n\n{p}" if current_chunk else p
-
-    if current_chunk.strip():
-        chunks.append(current_chunk.strip())
-
+    chunks = chunk_telegram_text(text, max_chunk_size=3500)
     total = len(chunks)
+
     for i, c in enumerate(chunks, 1):
         chunk_header = f"📄 *[TACTICAL DOSSIER - PART {i}/{total}]*\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n" if total > 1 else ""
-        await send_telegram(client, chunk_header + c)
+        await _send_single_telegram(client, chunk_header + c)
         if i < total:
             await asyncio.sleep(0.6)
 

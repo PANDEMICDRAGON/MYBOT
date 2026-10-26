@@ -490,13 +490,14 @@ async def execute_directive_router(client: httpx.AsyncClient, prompt: str, auto_
             supabase_headers=SUPABASE_HEADERS
         )
         return (
-            f"PLANETARY OSINT & BEHAVIORAL DOSSIER // TARGET: {r['target_query']}\n"
-            f"PLATFORMS: {', '.join(r['platforms_scanned'])}\n"
-            f"SENTIMENT VECTOR: {r['sentiment_vector']}\n\n"
-            f"1. EVOLUTIONARY PSYCHOLOGY & STATUS SIGNALING:\n{r['status_signaling']}\n\n"
-            f"2. GAME THEORY & INCENTIVE MATRIX:\n{r['game_theory_matrix']}\n\n"
-            f"3. NARRATIVE COORDINATION & BOT DETECTION:\n{r['narrative_coordination']}\n\n"
-            f"4. OPERATOR COUNTERPLAY (PROTECT & EXPLOIT):\n{r['operator_counterplay']}"
+            f"🗂️ *[PLANETARY OSINT & BEHAVIORAL DOSSIER // TARGET: {r['target_query'].upper()}]*\n"
+            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            f"📡 *Platforms Scanned:* {', '.join(r['platforms_scanned'])}\n"
+            f"🎯 *Sentiment Vector:* *[{r['sentiment_vector']}]*\n\n"
+            f"*1. EVOLUTIONARY PSYCHOLOGY & STATUS SIGNALING:*\n{r['status_signaling']}\n\n"
+            f"*2. GAME THEORY & INCENTIVE MATRIX:*\n{r['game_theory_matrix']}\n\n"
+            f"*3. NARRATIVE COORDINATION & BOT DETECTION:*\n{r['narrative_coordination']}\n\n"
+            f"*4. OPERATOR COUNTERPLAY (PROTECT & EXPLOIT):*\n{r['operator_counterplay']}"
         )
 
     if any(lower.startswith(p) for p in ("win:", "milestone:", "lesson:", "philosophy:", "anchor:")):

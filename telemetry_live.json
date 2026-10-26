@@ -1,49 +1,49 @@
 {
   "sitrep": {
     "threat_level": "ELEVATED",
-    "sitrep": "Chief, fresh telemetry highlights critical structural shifts. Kenya Power has flagged looming grid maintenance across Nairobi amid 29.1°C overcast conditions, threatening local edge node stability. Concurrently, cybersecurity agencies are scrambling over critical website software flaws and SafePay ransomware vectors, while the CBK navigates IMF program timing uncertainty. Your operational perimeter is locked and primed.",
-    "conflict_summary": "In the Horn of Africa, Sudan's tactical pivot toward low-cost drone warfare is deepening the civilian crisis and disrupting regional supply corridors. Globally, the Pentagon's focus on deception in mass autonomous warfare and Hegseth's proposed autonomous command structures underscore a permanent doctrinal shift toward algorithmic combat, directly influencing enterprise-grade zero-trust requirements.",
-    "future_risk_forecast": "Localized power instability in Nairobi threatens unconditioned server clusters and continuous pipeline execution. Simultaneously, global software vulnerabilities (including Zoho and website framework exploits) raise the probability of targeted supply-chain intrusions over the next 14 to 30 days.",
-    "defensive_protocol": "• Verify local UPS backup integrity and battery reserves across all Nairobi-based edge nodes to insulate against Kenya Power grid interruptions.\n• Perform an immediate patch audit on all web frameworks and API endpoints against recent critical CVE disclosures.\n• Isolate sensitive local database instances behind strict zero-trust network perimeter rules and encrypted ephemeral state storage.",
-    "asymmetric_upside": "• Develop automated resilience and failover orchestration tools targeting Nairobi SMEs bracing for grid unreliability.\n• Deploy autonomous log-auditing scripts to capitalize on enterprise demand for rapid zero-day vulnerability remediation.\n• Position liquidity across stable digital assets to hedge against local currency volatility tied to CBK monetary policy adjustments.",
-    "created_at": "2026-10-26T12:04:10.641629+00:00"
+    "sitrep": "Multi-theater friction points are hardening logistics corridors. In the Black Sea, intensifying maritime blockades and drone strikes are compounding grain delivery shocks to developing trade partners, while Nairobi experiences steady equatorial thermal loads. Meanwhile, critical CVE vulnerabilities in enterprise management software require immediate perimeter patching across local and cloud environments.",
+    "conflict_summary": "The Black Sea theater has transitioned into one of the world's highest-risk maritime corridors, with over 570 vessels impacted by kinetic actions, sharply curtailing Ukrainian wheat exports toward Indonesia and Bangladesh. Concurrently, European energy diversification pushbacks and heavy capital injections into trans-continental green transmission corridors ($24.8B Azerbaijan-Europe framework) are altering global hydrocarbon and power pricing dynamics, directly feeding into import-driven energy pressures across East Africa.",
+    "future_risk_forecast": "Sustained maritime freight route disruptions in Eastern Europe will likely sustain upward pressure on global agricultural and fuel import costs over the next 14 to 30 days. For Kenya, this translates directly to imported inflation risks, potential KES/USD foreign exchange volatility, and cascading energy tariff adjustments. Digital infrastructure is similarly exposed as threat actors exploit unpatched zero-day vulnerabilities in enterprise gateway and service desk software.",
+    "defensive_protocol": "• Execute an immediate vulnerability scan across all internal and cloud endpoints to isolate and patch legacy Zoho and Zyxel components flagged under active CVE advisories.\n• Hedge against imported fuel and grain-driven inflation by reinforcing liquid cash reserves and maintaining strict capital discipline across local currency holdings.\n• Audit local server room HVAC and cooling infrastructure telemetry to ensure thermal stability amid Nairobi's ongoing high ambient temperatures.",
+    "asymmetric_upside": "• Position capital defensively within resilient Nairobi Securities Exchange blue-chip counters (Safaricom and select tier-1 banking institutions) to absorb inflationary liquidity shifts.\n• Capitalize on heightened cybersecurity anxiety by deploying automated patch-management and zero-trust validation wrappers for regional enterprises seeking rapid fortification.\n• Leverage international USD-denominated digital royalty streams as a natural hedge against domestic currency depreciation.",
+    "created_at": "2026-10-26T12:23:34.021438+00:00"
   },
   "weather": [
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 29.1,
+      "temp_c": 28.9,
       "humidity": 31,
       "wind_kmh": 11.9,
       "condition": "Overcast",
-      "updated_at": "2026-10-26T12:03:05.190136+00:00"
+      "updated_at": "2026-10-26T12:22:31.967730+00:00"
     },
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 29.1,
+      "temp_c": 28.9,
       "humidity": 31,
       "wind_kmh": 11.9,
       "condition": "Overcast",
-      "updated_at": "2026-10-26T12:03:05.638824+00:00"
+      "updated_at": "2026-10-26T12:22:32.705613+00:00"
     },
     {
       "city": "London",
       "scope": "GLOBAL",
-      "temp_c": 11.4,
+      "temp_c": 11.6,
       "humidity": 95,
       "wind_kmh": 17.3,
-      "condition": "Light Rain",
-      "updated_at": "2026-10-26T12:03:06.084476+00:00"
+      "condition": "Code 55",
+      "updated_at": "2026-10-26T12:22:33.141439+00:00"
     },
     {
       "city": "New York",
       "scope": "GLOBAL",
-      "temp_c": 6.5,
-      "humidity": 87,
-      "wind_kmh": 10.4,
+      "temp_c": 7.2,
+      "humidity": 84,
+      "wind_kmh": 10.2,
       "condition": "Clear",
-      "updated_at": "2026-10-26T12:03:06.532952+00:00"
+      "updated_at": "2026-10-26T12:22:33.575938+00:00"
     },
     {
       "city": "Tokyo",
@@ -52,7 +52,7 @@
       "humidity": 98,
       "wind_kmh": 6.4,
       "condition": "Overcast",
-      "updated_at": "2026-10-26T12:03:06.967533+00:00"
+      "updated_at": "2026-10-26T12:22:33.980213+00:00"
     }
   ],
   "cyber": [
@@ -66,7 +66,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-29583",
       "content_hash": "9f081a6e1d190b3adb67bea03885f7d65d18b78730b9c2c87cf597ad796249dc",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007182+00:00"
+      "created_at": "2026-10-26T12:23:00.229489+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -78,7 +78,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-8394",
       "content_hash": "dcf56971dec638c1e32bbc4863650ecccaa3af1c85cf2da3c1c671840c6eaeba",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007204+00:00"
+      "created_at": "2026-10-26T12:23:00.229590+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -90,7 +90,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-10189",
       "content_hash": "617c981616242dca0a79d74e690e201fa8363243f0fca31311c73e72299ea8a9",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007212+00:00"
+      "created_at": "2026-10-26T12:23:00.229609+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -102,7 +102,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-40539",
       "content_hash": "a0a7f6dce826b88ebb232c56805a6e18d05107d19068a3fb93dd0b621606f8f4",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007220+00:00"
+      "created_at": "2026-10-26T12:23:00.229616+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -114,7 +114,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-27561",
       "content_hash": "f2e8bbcb50ba59a8e1ff4f38363f496625804d18d53be7d4a45da85e33ab94f1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007227+00:00"
+      "created_at": "2026-10-26T12:23:00.229623+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -126,7 +126,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-9978",
       "content_hash": "0172212bf226992607a8a51bb7ec0b2612440984f13a9e3e8b0418fad56173a1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007234+00:00"
+      "created_at": "2026-10-26T12:23:00.229630+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -138,7 +138,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-11738",
       "content_hash": "895a24212bff3837e00307321f30d072fabdd1b8ffb152b643d8b9503297748c",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007241+00:00"
+      "created_at": "2026-10-26T12:23:00.229637+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -150,7 +150,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25213",
       "content_hash": "25047194a1fb08666eece4829b771542f068bad1a307586569ca0631c5c446d7",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007248+00:00"
+      "created_at": "2026-10-26T12:23:00.229644+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -162,7 +162,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-4006",
       "content_hash": "d96607a458fb92b0ad954e7ec202dd8e5339c638e4f43d7b7d373a473c45462a",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007255+00:00"
+      "created_at": "2026-10-26T12:23:00.229650+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -174,7 +174,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21985",
       "content_hash": "0519b9eb873c86afe0f3b3964b796bf66ff912cfa74eff08bddee80945e4bcc3",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007263+00:00"
+      "created_at": "2026-10-26T12:23:00.229657+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -186,7 +186,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21972",
       "content_hash": "6a15875afd5b6a0fc8b5116f6ded20c3b55fe218ed24823a9c41c945d0488645",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007270+00:00"
+      "created_at": "2026-10-26T12:23:00.229664+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -198,7 +198,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3952",
       "content_hash": "16fbba0f67a35e0d9abb77c5a704a8ec673bc65bef31c73e0e2b582dceefd527",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007277+00:00"
+      "created_at": "2026-10-26T12:23:00.229671+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -210,7 +210,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-22005",
       "content_hash": "8a7fe7a2172f4b0c3668a5827802771468f76277393fa4431ad437befb08ba97",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007284+00:00"
+      "created_at": "2026-10-26T12:23:00.229678+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -222,7 +222,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3950",
       "content_hash": "e4f53315ecff6219811605bb364839d390f5de7c151d53ef8fe2d3f802ad0946",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007291+00:00"
+      "created_at": "2026-10-26T12:23:00.229685+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -234,7 +234,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3992",
       "content_hash": "f4becfb39bd99c21aa036bc17049549112dde23f9fe030037cb5628a0a3650ee",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T12:03:33.007298+00:00"
+      "created_at": "2026-10-26T12:23:00.229692+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -246,7 +246,7 @@
       "link": "https://thehackernews.com/2026/10/between-alerts-what-attackers-do-in.html",
       "content_hash": "4c93018b368c02637ba6d6e13bdee2da710a0456ee65ba11ea5f712d9354d289",
       "published_at": "Mon, 26 Oct 2026 16:53:56 +053",
-      "created_at": "2026-10-26T12:03:34.084638+00:00"
+      "created_at": "2026-10-26T12:23:01.163807+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -258,7 +258,7 @@
       "link": "https://thehackernews.com/2026/10/ucreator-android-spyware-can-steal.html",
       "content_hash": "b2e2d82afc1772afb81e0ad75b05cf74b5c8b4b6bfbb98a0641c8538a6c9990a",
       "published_at": "Mon, 26 Oct 2026 15:24:02 +053",
-      "created_at": "2026-10-26T12:03:34.084658+00:00"
+      "created_at": "2026-10-26T12:23:01.163826+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -270,7 +270,7 @@
       "link": "https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html",
       "content_hash": "6b7c5d78f4c47329efcdbdce5e28bf06b37bd3d12dee79064390e650963980d8",
       "published_at": "Mon, 26 Oct 2026 14:05:51 +053",
-      "created_at": "2026-10-26T12:03:34.084667+00:00"
+      "created_at": "2026-10-26T12:23:01.163836+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -282,7 +282,7 @@
       "link": "https://thehackernews.com/2026/10/gheist-uses-stolen-github-tokens-to.html",
       "content_hash": "bb996bbca3b4e2f3e45075d37cd4f69d3481c6019e3efaf786b0b45083f08131",
       "published_at": "Mon, 26 Oct 2026 13:19:46 +053",
-      "created_at": "2026-10-26T12:03:34.084676+00:00"
+      "created_at": "2026-10-26T12:23:01.163845+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -294,7 +294,7 @@
       "link": "https://thehackernews.com/2026/10/malicious-file-in-downloads-folder.html",
       "content_hash": "bd5c59497203f3b657935f22e6f7f1f3aca5fd64cc55466bf96bd7e9238d7cd9",
       "published_at": "Mon, 26 Oct 2026 11:33:48 +053",
-      "created_at": "2026-10-26T12:03:34.084684+00:00"
+      "created_at": "2026-10-26T12:23:01.163853+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -306,7 +306,7 @@
       "link": "https://www.bleepingcomputer.com/news/linux/kali-linux-20263-released-with-6-new-tools-desktop-updates/",
       "content_hash": "4530d55fb97a38b8accbedd9cb05c8ba702a4a77cc15bf48aa4a51eaf9fa6096",
       "published_at": "Mon, 26 Oct 2026 06:26:52 -040",
-      "created_at": "2026-10-26T12:03:34.498641+00:00"
+      "created_at": "2026-10-26T12:23:01.459809+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -318,7 +318,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/php2shell-security-flaws-now-sucessfully-exploited-in-the-wild/",
       "content_hash": "6965008fcfe67473a0676fa48805ff4e699929b52a4b4da88220a0950100cc18",
       "published_at": "Mon, 26 Oct 2026 05:19:57 -040",
-      "created_at": "2026-10-26T12:03:34.498665+00:00"
+      "created_at": "2026-10-26T12:23:01.459832+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -330,7 +330,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder/",
       "content_hash": "ba127b223f9a023645aef3fdb6071e91e3db9611be884c107f72af23e23bdcc3",
       "published_at": "Sun, 25 Oct 2026 11:49:38 -040",
-      "created_at": "2026-10-26T12:03:34.498679+00:00"
+      "created_at": "2026-10-26T12:23:01.459842+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -342,7 +342,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/blackx-uefi-bootkit-exploits-baton-drop-flaw-to-bypass-secure-boot/",
       "content_hash": "33bc95e64c1975a1dda2036f8dcfd163720184c8297176bed7b4a1df90c084bb",
       "published_at": "Sat, 24 Oct 2026 10:17:32 -040",
-      "created_at": "2026-10-26T12:03:34.498691+00:00"
+      "created_at": "2026-10-26T12:23:01.459851+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -354,7 +354,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/abandoned-popcorn-time-app-exposed-millions-of-device-to-rce-attacks/",
       "content_hash": "2386b67bb17baa7634c50755bd1f0669836f668a7ec1c25ac4fe1315576411d0",
       "published_at": "Fri, 23 Oct 2026 16:55:05 -040",
-      "created_at": "2026-10-26T12:03:34.498706+00:00"
+      "created_at": "2026-10-26T12:23:01.459860+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -366,7 +366,7 @@
       "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE4tQ2JEZThuYVBZVTl5bG5vd3JxLW9tNzN4dmk5NTgtbm1WOFh2TnFQdXViMzBieC1ydVhGQ19vUG03ZlhIYy1Fd3ZYeThxX0hQLXIxU0FmYm9XbFcyend2YjV6WC1FVkVrLUwyNnNZVEVDNFdaZGlv?oc=5",
       "content_hash": "8d30229226f1b47fcf440678c82a5ec81de6596501590b54dcf3ae95bce209fd",
       "published_at": "Sat, 24 Oct 2026 11:00:36 GMT",
-      "created_at": "2026-10-26T12:03:35.630904+00:00"
+      "created_at": "2026-10-26T12:23:02.539278+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -378,19 +378,7 @@
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNNjRqUjhqSWZ2OC1kMi1HZmtyM1lYZDlQeFZFSVlyc09yUHBJT2ppeUdENHNBNV9reEhRQWJXV3Y0ZmthUGMxT3lPLXlNYkhkYy01ZXZhREgyUDI4MC1kU1pFOVJPZUNpbXQ1RlMxQUpTc3FZMWVFRUl1VTBvZ2xBN19vOHlacDRJRTN4c0JEMVhiNURGYXlKaEQ3ZHE5T2Nw?oc=5",
       "content_hash": "dfcdae4846e8007a0de4e7129ce8856b5b6bea0fad85f4cb6b2a31d04c96c589",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T12:03:35.630952+00:00"
-    },
-    {
-      "category": "LOCAL-CYBER",
-      "source": "Kenya Cyber Monitor",
-      "cve_id": null,
-      "severity": "ADVISORY",
-      "title": "Kenya Appoints Martin Koyabe as Inaugural Chair of National Cybersecurity Agency - TechAfrica News",
-      "summary": null,
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNam9XUlhmd1RGTlVPMlNINGRLWGtkZ3FRTXBZTmpKUklPdXBXQTRacmprME84NGdJMDNSTDRzN3hrS25rdGlkbFlUQnpSWHNtQnExYVJIQVduZTVFbnVWZ1Fvekd0Tm10QUZJTVpYb0ZCanZJZzVEbVFVUjBKZktTYVZwSjJHc01tajlkOFZOelJjaU8yVDRDZlRmX1dxamxiaU90NkhDdFpMSUVNbFMwYm5YZw?oc=5",
-      "content_hash": "50a093682e6d515b975011c31edfb9be5291618ff51c5702ab12d80ca7026f27",
-      "published_at": "Mon, 24 Aug 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T12:03:35.630980+00:00"
+      "created_at": "2026-10-26T12:23:02.539312+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -402,122 +390,355 @@
       "link": "https://news.google.com/rss/articles/CBMi6whBVV95cUxPYjd0WUtPQ0M4dnc2Yk5DWWVhc1p4T1JqY0w1eGdqWjJGSUdLTDJJaGYyZ29OckpHTFlIUXVwRzRTZU9POUdZOTNvN0pBR0JsMW9rQTc5SlBTLThqc21USVhDTnpWTXdyejBmZjJyMjhOMWMxd0o2QlBBckY5dXNNVnRNY2M5Z04tWVFzNHNidkRUQVZRRFo5a3ZLT3pGdGpPQWxCOGdzVWd5bmozMmZub0pBTWJzOTNKdzE3QWtfQWZleTNQVHd1azJkV2wzSi1nY0NVYUo1V3ZmQ3kwdEVza3U1QU5CYU9XRlNqVHdTemxWNzhDUGpXTTBSa1VUZWF5YXRpUmpJRG5iNUdhbEo1RWhNMjNkRjVORzVfOERQTmxwYzdzeHV5VXdQYUtleWV0WkRnQ0ZrTGhydXFUaEhmQWJZb2ZIX2RkcF9DYzJrZUNtVFVTRWcyWER3aS1taHlFWlBCa1gya3A1YnE1enNqZFlwMm5sU3dOaWZqMzI0TDFGNmdmOFZibW4xZmRrcnVia3ZSTXRSYjg1eDk5YVZhenZvLUxsZEVic0ZweFNPVk52ZFB4N0pWcjE4Mk1qQ1RGendfN2t5OWtuWHBkclJURXRjN2MydUl0MjNYTG5WcWdlVzJrTzdNYlNrYlpwVVIyRUhDUWs5dzNVdTdqMW15bW1RVjhwVDlHUHRpWVRxd0RldDRrMjVSUmVJZHZ3cVhna0FkaEhSQVM1b0ZhVmlIX0ctZjVSYm9XSE5La2NLSmZvdU9BVUZVVWYyaWZ2bHlEUG1GaDgtaGJkeFpydUZQSGRad0w5OEZ3V211ajZoWDJFa1o2dGF0UUZGd05YWGZaaGRpX3RBaU95OGpJRmNEU1ltcVRmVUdhNWs1YUVUdEFTMnhSSGljMTY2d3EtQUUyUlhPU3EtVDRaN2U5eXBWeVlwWXYteHR5dHZEcDE0NHgtVDlaZlBCOFE5UWQydzg1SldqTGhuWWJaWlNKdmFQRktCM19FVGw4R2ZfYVo3LVVKaG9ad3hMM0x2bG1SMDJweEpqbWVEcTNNRUh0N1ozM2UtYVNxS25TVHBFZ196SGhYdTQzQ0dFYmpBZENENHYyYWlWb0F4S1ExQk9ZNE56X3M1b0hoZU1GZmJRQUx2RklqTTVNY3dxOHU1b1kwQjZjSGRkVGN3SnhiNEZRaGhQUFlPVWlIQmxsVjFmTFBqcjBxNTlTRWR2bGVIcEpGaHBGNGRBSHpSVkIyU1FEeE1KOXpHc09ydmhnN2dFODJzbVZrMmdvbXFMai1xUERCYWN4dXRLNm1MaG90cUVZR05oX0hqUHNTZ2Q5S05QX0c0MVJfaHMtSmRfRlN2QWY4LXg0dlJzRFZFcnNKMjVjV0xQemZBVGE3SjNCMm9qMmJ3SDhmMkYxOEVybGpULVJHREwySVVHMjFKOGxwa0ZiNzQ1QkQ1UTBuTlZfbk8tS1VKc09zc3pVUGNncUs1N3NLV1F0QmJvenVlQ1J6R1k?oc=5",
       "content_hash": "61cad910365d5aab214eced3ccbea2386cc54606df92b954a0ad31ae6ed2674d",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T12:03:35.631038+00:00"
+      "created_at": "2026-10-26T12:23:02.539418+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "European Union and Kenya Launch the Kenya Cyber Resilience (KCR) project to support secure, inclusive and trusted digital transformation - EEAS",
+      "title": "Kabogo warns of AI-powered fraud, phishing as Kenya strengthens cybersecurity - People Daily",
       "summary": null,
-      "link": "https://news.google.com/rss/articles/CBMi2wFBVV95cUxQSzkxdzFaY0xfdWF0c3ZjdWlLWHp1UTJvUTRpZ0FZUWlyYjMwbGdOVmlPa3FhTDhwSUlLRnA4eHdGWjdzZlR2TFdFU09vd3MtenJrdVhQTHV6aXZ6Z1hjZ1FpSm9CbWV2WExwdXhqbTNQanJVWWZseUJIZHlvZEh1aWNXMlNNaE02SUR2Q1Jvb3hQNmhEZTdrc3BrUnZnbnFncDBGaEt2T1d3RWpSUFZYT0g4c1JQejB2WEJObkluOE1xUklWX09Mc21DRlBkejZYcmF4bndJaW1aSjg?oc=5",
-      "content_hash": "d2f0d290cfb35a5157d14a67821f088ac79862342b93ed67d5566a7212ca3682",
-      "published_at": "Mon, 26 Jan 2026 08:00:00 GMT",
-      "created_at": "2026-10-26T12:03:35.631066+00:00"
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMGlYOUFaVy1PTTNHSHlXaTh6cklnQ0xSU3g3dXdYbjhWZGxsR0t4N1dXZ0NNd0pKM2NIOU0xQkdTUF9BdFNXYUk2bTBJYi1iM0h3TWZUM21WNmZIc2FnVEVhSzJHd1pvMnRBR0FvWFBJQ25URF9aVmxXR0xDTzhyNG1DLUEzTzNqRjV6Rnp4c0Y0Qm80ZXFQWnVvSGV2TkkwbWd5Rk9CR1RJTXYyTnc?oc=5",
+      "content_hash": "2c77f445a49add8fdb3b5a81c3c6bc7a69e27c0175389c663aac488212e5520e",
+      "published_at": "Wed, 14 Oct 2026 07:00:00 GMT",
+      "created_at": "2026-10-26T12:23:02.539433+00:00"
+    },
+    {
+      "category": "LOCAL-CYBER",
+      "source": "Kenya Cyber Monitor",
+      "cve_id": null,
+      "severity": "ADVISORY",
+      "title": "The 12 Cybersecurity Issues at a Glance - Vellum Kenya",
+      "summary": null,
+      "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9HODJGOHlCUWswNFBFZmZXdEIzaWtjWmczblNzZjRpZlBTckRrallacms0ZGsydm5LdDRNel8tSXRncUR2VzdGQlNwUzVWMkVoLXBNWlpDQjNVOXo2V3ZTTWRjVTdYanlLcWk0YmJn?oc=5",
+      "content_hash": "0b4fc2819acd1056541e1247d12a3cc666ee07dbf0cd5913e2f46dd37150a223",
+      "published_at": "Sat, 17 Oct 2026 10:51:27 GMT",
+      "created_at": "2026-10-26T12:23:02.539444+00:00"
     }
   ],
   "news": [
     {
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "Kenya Eyes Russian Market as Fertiliser Imports Fall, Trade Gap Widens - The Kenyan Wallstreet // [TACTICAL INTEL]: ",
+      "description": "Kenya Eyes Russian Market as Fertiliser Imports Fall, Trade Gap Widens&nbsp;&nbsp;The Kenyan Wallstreet",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxPWkJwZE13LVJ3dldzU1dicEZFRGVSS0pJd3h3QVJ2Z2VBZjB4RVZBcjFEQmZHZUMzYXV5R1JaM001N2dCeGhSVnFESzFuRmxNUFY0bHVpdVNDYVBfTzAyOFNYZktvdFJQRFEwejRfZGt0Q2N4VHk5dVhTLUdUMl9SLXQwcm1jWFktS2RUcFlSTFNYRkQ2alVBZXpWeERYV2ViU2NMeA?oc=5",
+      "content_hash": "82539d8eb2978f49504fe9b1a7098812cf53052af7cb3f11a2a79b6ac62895f8",
+      "published_at": "Mon, 26 Oct 2026 12:21:03 GMT",
+      "created_at": "2026-10-26T12:22:35.651803+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
       "scope": "GLOBAL",
-      "source": "Zero-Day Vulnerability Feed",
-      "title": "CISA, FBI, Secret Service & Partners Expose SafePay Ransomware Tactics - ExecutiveGov // [TACTICAL INTEL]: ",
-      "description": "CISA, FBI, Secret Service & Partners Expose SafePay Ransomware Tactics&nbsp;&nbsp;ExecutiveGov",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPRk00UlVlaGoxV0cxZ0pqV0hUSVJEdGFwcC1LSUw5ZXpqa3pQVDhkaTM4czJaZ2VvZEZzWi11Uk1nQnRpLWZUakJTVjB6QzdjbUVETjFEcEpmaW1UcVhOeFVCRE93MElONXBhc0E2dGQ3eVZrajBocTRwUEt5SDNBaGhVNkVqWTNPNGZFNDNDbFRLWDA?oc=5",
-      "content_hash": "1a22ac48f09950122a24088839066aa808bbc07cbbb27a2e9726747cc5c83862",
-      "published_at": "Thu, 22 Oct 2026 21:10:55 GMT",
-      "created_at": "2026-10-26T12:03:09.887000+00:00",
+      "source": "Eastern Europe Energy & Grain Wire",
+      "title": "Russia’s War on Ukraine Is Straining Food and Fuel Supply - Bloomberg.com // [TACTICAL INTEL]: ",
+      "description": "Russia’s War on Ukraine Is Straining Food and Fuel Supply&nbsp;&nbsp;Bloomberg.com",
+      "link": "https://news.google.com/rss/articles/CBMie0FVX3lxTE5KS25wTEw0YXIxWE1yOWFVYlQ3T2RsaDBIb0hzdG5pSnZvR090eXVmTHVQVnZXbXVtQzdUdDBOb2prZEo3a3Z0eVF2VWhzb0o5dThndUFZWGtDRW0zRzlRejhaelozaE1yR2NUZFpLTVZpenVoVGRrRDJjMA?oc=5",
+      "content_hash": "f365a870a73dc2c6c473e7fac199022a61c09e1ad89653b1b1b761be6f395101",
+      "published_at": "Mon, 26 Oct 2026 05:02:49 GMT",
+      "created_at": "2026-10-26T12:22:37.116527+00:00",
       "in_depth_context": "",
       "why_it_matters": "",
       "subject": "ACTIVE THEATER"
     },
     {
-      "scope": "SPORTS",
-      "source": "Sky Sports News",
-      "title": "Mexico City GP: UK schedule and how to watch on Sky Sports // [TACTICAL INTEL]: ",
-      "description": "Formula 1 heads to Mexico City for a weekend where Kimi Antonelli could become the sport's youngest world champion.",
-      "link": "https://www.skysports.com/f1/news/12040/13603629/mexico-city-gp-2026-dates-schedule-weather-uk-start-time-and-how-to-watch-or-stream-f1-race-at-autodromo-hermanos-rodriguez-live-on-sky-sports",
-      "content_hash": "2b374d66aaf0b223f993e326c9cd2f20be57ab41edef53eb3afc60a0492bf272",
-      "published_at": "Mon, 26 Oct 2026 11:40:00 GMT",
-      "created_at": "2026-10-26T12:03:10.485147+00:00",
+      "scope": "GLOBAL",
+      "source": "Eastern Europe Energy & Grain Wire",
+      "title": "Black Sea attacks cut Ukraine wheat exports to Indonesia, Bangladesh - Nikkei Asia // [TACTICAL INTEL]: ",
+      "description": "Black Sea attacks cut Ukraine wheat exports to Indonesia, Bangladesh&nbsp;&nbsp;Nikkei Asia",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOMjRmX1VyWXgzYWtvR1FOcGlxdGR3RUdzX2RNbHA0VndLYzhKZ3RSMjFBUkprQmJCMDdIWmxwMHJENUtYenlDeFdnbVBsTFR0cm5DRXhweGxRTHBldHplczlaWTRuQVVJczh6cEhpT0NNM09DYXQ4MF9RR3VxSnotOW9yNnpCeG5ZMzUyNnYwN2xJcmVRNmt5cElKUWtFZkR2cWVTTW8yR2d0OU55cXpYdk1n?oc=5",
+      "content_hash": "bb71db8bede03090087183a2a6097e505a0c1ab4e98da1773b4a76a2bfca6156",
+      "published_at": "Mon, 26 Oct 2026 07:24:00 GMT",
+      "created_at": "2026-10-26T12:22:37.116563+00:00",
       "in_depth_context": "",
       "why_it_matters": "",
       "subject": "ACTIVE THEATER"
     },
     {
-      "id": 4673,
+      "scope": "GLOBAL",
+      "source": "Eastern Europe Energy & Grain Wire",
+      "title": "Russia Turns Black Sea Into World’s Deadliest Shipping Route as 570 Ships Are Hit - UNITED24 Media // [TACTICAL INTEL]: ",
+      "description": "Russia Turns Black Sea Into World’s Deadliest Shipping Route as 570 Ships Are Hit&nbsp;&nbsp;UNITED24 Media",
+      "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPWGdXcENFek5xc2J0SllRTjRuOEYwTEkydE9GSWVoMWt0SFFGcUZ3Tkh1QnE4dnNBRXZEeWtxVEdTaGc2ejdac2Jacl9ZZDdFX3JnS2FUbjBxRXZfZWxDaThYWGEwdmtDWVdYeFczaUpSQW1JZE1JN1hSQW50WEZEVTJuZFVBanRHcnRjZTRZSlRhaWZfUzByTE9ZY3hzM2dlR0V5RUY4Y05YZ0h4bUZYM1VTSzVCakI3dmFXVjJZdXNoeGt2eUE?oc=5",
+      "content_hash": "5c4a8c5434dd7bed330a399d13df9610fed5c2fe30f703f8b870163a77784b5d",
+      "published_at": "Sun, 25 Oct 2026 13:19:05 GMT",
+      "created_at": "2026-10-26T12:22:37.116607+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Eastern Europe Energy & Grain Wire",
+      "title": "Romania blames Russia after drone sinks ship in the Black Sea - Al Jazeera // [TACTICAL INTEL]: ",
+      "description": "Romania blames Russia after drone sinks ship in the Black Sea&nbsp;&nbsp;Al Jazeera",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
+      "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
+      "published_at": "Fri, 23 Oct 2026 17:36:24 GMT",
+      "created_at": "2026-10-26T12:22:37.116636+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Eastern Europe Energy & Grain Wire",
+      "title": "Black Sea Energy corridor between Azerbaijan-Europe to cost $24.8B - Türkiye Today // [TACTICAL INTEL]: ",
+      "description": "Black Sea Energy corridor between Azerbaijan-Europe to cost $24.8B&nbsp;&nbsp;Türkiye Today",
+      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOVEtEYXVzRUhMeUJOdEdRMVBVMTdlVkVKZy1GNVViaktRX0o4RVVSX0tUem5seWtoa0I1cmdTei1LS093V0pOVGdLQm5zWnFXWXdhZktuZU0yRWJiTlo5bEpLa193aEpRVm9xWFhNbG02YndDZDNwaGExeC11NUdSNTczWmxVR3hieVJxTEU4SmtOVmkxajNVdk9mdUJNS3VpN2VodVhKR0U3dlM0M21r?oc=5",
+      "content_hash": "3866f11aa2325bb3abbc531590e47368d22810b23dfc238f15cb6401de4b66b8",
+      "published_at": "Mon, 26 Oct 2026 11:03:31 GMT",
+      "created_at": "2026-10-26T12:22:37.116666+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Eastern Europe Energy & Grain Wire",
+      "title": "Russia rejects Türkiye’s Black Sea moratorium push under the grain deal model - Shipping Telegraph // [TACTICAL INTEL]: ",
+      "description": "Russia rejects Türkiye’s Black Sea moratorium push under the grain deal model&nbsp;&nbsp;Shipping Telegraph",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNR1Q2R0wtRmNnSG45c0xJY0lOUTdSUjRoeHlzQVhSMWlhcnpObU9CRnVMcmZ5V2YwRi0zOGU5X1FDZXIyOUx1dEU0Rmk4WDJlSEo4Ty04aXdGNkdvWHFHS0lXdlJndmxya3lOdDJfdWhQd1JDbDhhZmZYVUdMS2duUG1wQ2lPS0tRS1luYllJU0VoYncwc0NmZ1M0MWpqM2djb2cyYjhYdmFzclNZRkJGdG4zcU5VQ3NTVFhVbVVFNzY4Zw?oc=5",
+      "content_hash": "29483d289c4923f2dc80b949ee04d1e2b196316eca28b767bca5174b24ad06e8",
+      "published_at": "Tue, 20 Oct 2026 07:00:00 GMT",
+      "created_at": "2026-10-26T12:22:37.116702+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Global Chip & Tech Supply Wire",
+      "title": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov) // [TACTICAL INTEL]: ",
+      "description": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain&nbsp;&nbsp;National Institute of Standards and Technology (.gov)",
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
+      "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
+      "published_at": "Thu, 22 Oct 2026 12:00:00 GMT",
+      "created_at": "2026-10-26T12:22:37.748277+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Global Chip & Tech Supply Wire",
+      "title": "TSMC explores alternatives to rare earths to mitigate supply disruption risks - Global Sources // [TACTICAL INTEL]: ",
+      "description": "TSMC explores alternatives to rare earths to mitigate supply disruption risks&nbsp;&nbsp;Global Sources",
+      "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOVGJXVV9vZmRsWXpqbGdfRldWZWxyUUdtcXdRRm5ESDhSVFRBenhsRUpLaVUxWU5uME9BdXJ2Q3VKQnBaUHVtYjFKZ1lBR25ycEE5eVpGMFR1RjM4UmZrWUpTQndtbkFwLVhIU20tZFZoRWN0OHNweEZzZFAtR25UZXh1cmxpSWFFaHF2TTQ2YUtsYjBWSWhZX1dPRFlTcmhXNXNBMGZ4b3E5NF96c09SR0ozMkdHUmcySEgtS1JITE1wMjl6b1BiOGJOM0xhNlJ3UjVQUmZTVmFEVWFk?oc=5",
+      "content_hash": "0add583e810038071b02ca46ab03d81eccc0426791923ae5d4c0045de02156c4",
+      "published_at": "Mon, 26 Oct 2026 03:33:59 GMT",
+      "created_at": "2026-10-26T12:22:37.748301+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Global Chip & Tech Supply Wire",
+      "title": "U.S. Department of State Hosts Regional Workshop on Semiconductor Supply Chain Security - U.S. Embassy & Consulates in Indonesia (.gov) // [TACTICAL INTEL]: ",
+      "description": "U.S. Department of State Hosts Regional Workshop on Semiconductor Supply Chain Security&nbsp;&nbsp;U.S. Embassy & Consulates in Indonesia (.gov)",
+      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNWjlhYndhNnRseWQ3eE85akJCNWV1UXRIU0RLcmtnQ3h4OEdraDluSGhxT0pWUk53N3NYZ0xJazhramdMel82OXhpcGktejZWZ3prUjBwQXJxaWVKaXZLUmRBRlZoYy1GVWZNYUhMY0FLd09rMGtLMDJXWG84aFpZQ0ExYVlRLXgtUXQ2TlNlczJsYXZqRV8xaTUxeGRrcVRmVlJJZjJXbTdwUVlmRVlDVFZB?oc=5",
+      "content_hash": "30a96068921c3a56f1ce4154fe12a23b603545e2d8dc095646d3a843cdc72fc5",
+      "published_at": "Thu, 22 Oct 2026 09:03:39 GMT",
+      "created_at": "2026-10-26T12:22:37.748314+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Global Chip & Tech Supply Wire",
+      "title": "Nvidia taps Samsung Electro-Mechanics for AI chips substrate supply chain - Korea JoongAng Daily // [TACTICAL INTEL]: ",
+      "description": "Nvidia taps Samsung Electro-Mechanics for AI chips substrate supply chain&nbsp;&nbsp;Korea JoongAng Daily",
+      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQNWJSWlUxTDhUWTBac3YybHlXOTBiQUlvOE1zU3JaNEJEc3JZZWZHNzdjR0xqQjd3Y0tjQjJwQ0diUDVOd0lSQXdXT1Y1Nk5TdWRNWjUzSVA3NkZkdDF2cUV4T1hPYjJ3VFdzWjFnS3NVVEFvc2ViYWx3TmZTbnZYU1VUdmFTTk1JTmhieXJzMzY2Vk53d0lkNXBDWXIzUmhXRmpSaVhUbWN4VF9oR2tONUR5OFhPSU5RRkxBY3FNdXNZM00?oc=5",
+      "content_hash": "c2cc311a42f45b54a0e0aab78d9896dce5d41f879b288eecf2f122099a0ee746",
+      "published_at": "Wed, 21 Oct 2026 23:56:26 GMT",
+      "created_at": "2026-10-26T12:22:37.748326+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Global Chip & Tech Supply Wire",
+      "title": "EXCLUSIVE: ByteDance, Alibaba, Tencent place over $35 billion worth of Nvidia chip orders - Reuters // [TACTICAL INTEL]: ",
+      "description": "EXCLUSIVE: ByteDance, Alibaba, Tencent place over $35 billion worth of Nvidia chip orders&nbsp;&nbsp;Reuters",
+      "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQOXBuUld1bXhxNWlQNktuUmYxOWpVRFlnN0dialpvZlhYM1JLVzE1N0VBSUVNbUlCNmwtN2RVWXRkd1VUV3BRSV9aMGJGMkpxQUk4VWZ1dUt5YjZpdmthQVZ3REFHUzBmV3B0SFJwOFFsMl9fb3l0Y3F0Z1FXbDAxSFhTbV9peVVDQ3FKRnp3NjVDdEpRVHdIOG04SjctLWRRTzN2bDM1a2QxaGdZMHlJV0hGS1FObHFKTVNiS3hvXzZsUzdvMktteFBvSGNEZw?oc=5",
+      "content_hash": "7b375f853a151d1c50c33357cecf2fed482e08b81e9ac59dd4cc673e9145f35f",
+      "published_at": "Tue, 20 Oct 2026 15:51:20 GMT",
+      "created_at": "2026-10-26T12:22:37.748336+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Global Chip & Tech Supply Wire",
+      "title": "US designates helium as a critical material, citing its importance for semiconductors - electronics.economictimes.indiatimes.com // [TACTICAL INTEL]: ",
+      "description": "US designates helium as a critical material, citing its importance for semiconductors&nbsp;&nbsp;electronics.economictimes.indiatimes.com",
+      "link": "https://news.google.com/rss/articles/CBMisAJBVV95cUxPTDhDRVRJSnlWM3BrS3hTUWxrZHF6c3k4MU9ST3g5RFBOR01JT21LUnpWLUdtQThKXzdFQWhTcjI0M0F3MUR0QTU4b1JKdTRhenNSNFg2MW9MZnc1T2Z1RUNBcmFYQ3JpVDNuNTVlbjVNT3E4OHBMa1hJNUIxM3NjSXdjek10Wi1XZ0s5QmxwVzBiZnZzYUMzSXBDMTBpUzdaQUJWeE5rYkFhWUlfMTBwWHNNSTA3WnE2TjNjQmtXeEc1dF9FQnZhQ3ZENjB0b1F6MzBPNHJzTjZuaEVobDQ3eTczSHgwTWhPaHFSUTdhMjFSVS1vckgyQ1E4Uy0wR19tdXNJVkU1SnZHeEVXa0dKRXR6cXYtendQY3hiMXhXbDNQeGJJbGlDWmVsZ1k3SlIz0gH_AUFVX3lxTFBxS3IzLWR0bWtod3g3cjh6N3V5UWwxalNNSlpaMTFBX2laWDV4RGtnemN2eG9LUmtKZG5GVkZYS2piTnJfX0RvV2pfS2ZpVmt4VWhBcUxUaGJrRDkxR255SmJVTURXeERVTTFtNk5yZzZyWHgtLUg5MDgwMVR6RV9RczZ0eUNLUUQ3QTBwOWpnSmt1YnZ4cjYxR2hBOVdzMXhONFJYZ3VjVEdRdTZITzU5dzFsUXpaZk1MS3RnNFZkSUZCaTdMX210V2xLZ0F6ak81MFlDSlc2ejNJRzFzb09WUlN1Y0VXM0FpZzRWcnBPNDM0YzREQ2k1b3dEcmFNRQ?oc=5",
+      "content_hash": "a9761e58fb182db60b7e1dd1d760b4b83c787ab0dd33e048e02b5c6645586f88",
+      "published_at": "Mon, 26 Oct 2026 02:44:37 GMT",
+      "created_at": "2026-10-26T12:22:37.748349+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
       "scope": "SPORTS",
       "source": "BBC Sport",
-      "title": "Nix's 62-yard touchdown & 'vintage Rodgers' - NFL best plays // [TACTICAL INTEL]: ",
-      "link": "https://www.bbc.co.uk/sport/american-football/videos/crp3g25vv4qyo?at_medium=RSS&at_campaign=rss",
-      "content_hash": "2c8ce3abbf597a274bf026ae60fa7113084fb1d2eac941d7146a07694b859deb",
-      "published_at": "Mon, 26 Oct 2026 11:30:08 GMT",
-      "created_at": "2026-10-26T11:57:06.037094+00:00",
+      "title": "End approaching for Carrick but Man Utd fans make clear who they blame // [TACTICAL INTEL]: ",
+      "description": "Manchester United's fans sang their support for Michael Carrick during the 3-0 home defeat by Bournemouth, but voiced their opposition to virtually everything else.",
+      "link": "https://www.bbc.co.uk/sport/football/articles/cwm24jk9743yo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "dbac9cdb151f845b5e076d6330d4713069a290f41b2d1b26c0a1bc021783c32f",
+      "published_at": "Sun, 25 Oct 2026 21:24:21 GMT",
+      "created_at": "2026-10-26T12:22:40.324218+00:00",
       "in_depth_context": "",
       "why_it_matters": "",
       "subject": "ACTIVE THEATER"
     },
     {
-      "id": 4672,
+      "scope": "SPORTS",
+      "source": "BBC Sport",
+      "title": "Mourinho keeps Clasico midas touch 13 years on as La Liga heats up // [TACTICAL INTEL]: ",
+      "description": "Kylian Mbappe's two goals at Barcelona have opened up La Liga, as Jose Mourinho's Real Madrid leave Camp Nou with a victory.",
+      "link": "https://www.bbc.co.uk/sport/football/articles/cr3wvz20pglqo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "23699f5c59a3b74360f0d01866d0db77406789c648eeed4501624ad0fadf1371",
+      "published_at": "Mon, 26 Oct 2026 00:07:16 GMT",
+      "created_at": "2026-10-26T12:22:40.324237+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "BBC Sport",
+      "title": "Borthwick's autumn questions as World Cup looms // [TACTICAL INTEL]: ",
+      "description": "The upcoming Nations Championship matches present a selection dilemma for Steve Borthwick's England with just nine matches to go until the World Cup.",
+      "link": "https://www.bbc.co.uk/sport/rugby-union/articles/ck20wj7znqy8o?at_medium=RSS&at_campaign=rss",
+      "content_hash": "9ec9a1eb360fbc4f3b00ca29a5f69c83b4c15175e077aaff0870b3e57ee9e83f",
+      "published_at": "Mon, 26 Oct 2026 12:14:29 GMT",
+      "created_at": "2026-10-26T12:22:40.324245+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "BBC Sport",
+      "title": "Ex-Liverpool winger Pennant has more than 50 stitches after dog attack // [TACTICAL INTEL]: ",
+      "description": "Former Premier League footballer Jermaine Pennant says he needed more than 50 stitches after being mauled by a dog.",
+      "link": "https://www.bbc.co.uk/sport/football/articles/cqdr8e81xjy7o?at_medium=RSS&at_campaign=rss",
+      "content_hash": "dbc8150aa3013f179c3b9da3a3e43e9837393e1022feb2acb0c3b043f7c241de",
+      "published_at": "Mon, 26 Oct 2026 07:36:20 GMT",
+      "created_at": "2026-10-26T12:22:40.324256+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
       "scope": "SPORTS",
       "source": "BBC Sport",
       "title": "Late Mbappe goal earns Real win at Barca in dramatic Clasico // [TACTICAL INTEL]: ",
+      "description": "Kylian Mbappe scores twice for Real Madrid as they beat Barcelona 2-1 at the  Camp Nou in the first El Clasico of the season.",
       "link": "https://www.bbc.co.uk/sport/football/videos/crje5zewk52no?at_medium=RSS&at_campaign=rss",
       "content_hash": "76fde30fbec83197139014053b143857b124e0e92d905d62c04b69dfed5aa0af",
       "published_at": "Mon, 26 Oct 2026 09:41:25 GMT",
-      "created_at": "2026-10-26T11:57:06.037068+00:00",
+      "created_at": "2026-10-26T12:22:40.324265+00:00",
       "in_depth_context": "",
       "why_it_matters": "",
       "subject": "ACTIVE THEATER"
     },
     {
-      "id": 4671,
-      "scope": "GLOBAL",
-      "source": "Horn of Africa Security Wire",
-      "title": "How Sudan’s shift to drone warfare is fuelling a civilian crisis - Al Jazeera // [TACTICAL INTEL]: ",
-      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQdnUwTmFmdWJCZm95VG9GZ3lmOVhWblJRcGEyQzU1S1VYdVctazlmb2oySFo0a0xNTDloU2pqTDg2cmNjZ3JNUDgyU3MwdGdOdFRFTElwUDVzaHN3d0lmaWdNb3AwbTc2QVJUNlZUMThTVjR3ZVVQeEZvZUNlVTdiVXFiSThaZkNCVzVxNHpxMzZfZDdfSFlkTEc0Z09kSlN1LVJsU2pOalTSAa4BQVVfeXFMT2Y2ekVWYW00b1lHX2pnUUZLbnVwMktMYjVhNDctZ3JYYjZMdmJlVHh3NDJkUUY4cTlKTjRYakdEU3hUQWJobFNmTWx4bnNUTnY0MUIwLWtZcW8tRU5kbVF0SUJKQ05jWVNIM19oRTE5aWRSZ1UzaDdwWm10VHZENTIzU29GOVV1eVdnSnh0TGtRWndjVzFCVHlNYVdyb29XN0N3bHJrWV9uTjJFMlBR?oc=5",
-      "content_hash": "22e56b3b8c62cc6f45fd3a687f9972609b5996e4153cc8eaa65b7ce520f6bdab",
-      "published_at": "Thu, 22 Oct 2026 13:39:46 GMT",
-      "created_at": "2026-10-26T11:57:05.370735+00:00",
-      "in_depth_context": "",
-      "why_it_matters": "",
-      "subject": "ACTIVE THEATER"
-    },
-    {
-      "id": 4669,
-      "scope": "LOCAL",
-      "source": "East Africa Energy Monitor",
-      "title": "Kenya Power Announces Power Outages in Parts of Nairobi on Monday - Nairobi Leo // [TACTICAL INTEL]: ",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQRWp5Yi02WWV6RUg2eWdCRGRJM0UxWHNQRl9VbmhnMDRLaTVBQmVOaTdZWS1kSnVzeFdEd3NTNkI3aXFLQ1JYRmFWRDNqOGV1cGE3UE1aMy1WZGRsUUpEeXRHNlNzQThVeHp4WFJHU1dab2Mtc1ppMGlxaDlaNzdzb2M2bngzU0hsY01LUjducTNsVHRqdmNKNmpQV0lnV0xneWlYNVFVQVo5QndBQUE?oc=5",
-      "content_hash": "33004eba44d379a76ea59102d219ad52cff7dafa2cc673f24a472de1fd85eebb",
-      "published_at": "Sun, 25 Oct 2026 15:35:19 GMT",
-      "created_at": "2026-10-26T11:57:04.490174+00:00",
-      "in_depth_context": "",
-      "why_it_matters": "",
-      "subject": "ACTIVE THEATER"
-    },
-    {
-      "id": 4668,
       "scope": "SPORTS",
-      "source": "Premier League & UCL",
-      "title": "Barcelona vs Real Madrid: La Liga – El Clasico preview, predictions, teams - Al Jazeera // [TACTICAL INTEL]: ",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNdWY2U3ppUWNOUHBrVGU4THk0bWt2bkp0cWQyaVlCbE9rRFR3djg3TGpNYzJsdXUwUDdJTWNyUVA2eWp6RmpFYVZ5YW9YMWltZWlCZE4xa3EwZlZ3WWhtOVhRSEpyWkVnUEY1WUo1NEFnanE0XzMwV285bGFIUTdfT09Xb0N0eFB5OWU5bjRQNlJiOTNNMTZBdGhzbWtTc0hOaVM4ZlBkUHFfaHEwV2laSy1sb9IBuAFBVV95cUxQbU9aRjJBZmgzV0tReUM1eWE2dW9aZUdUS2pFRnozcnJxSHFULVZVRkNlOEFILXlqbmU2cUc0MHVUVHNMbzE3YjE2VlFSQi05LWxHTjFhRUY3c2RwRFZSd0lsWktLZkdTMFRsanRPQ2N0UFlZNzVqQm4wVXl4OVJLb05QeWpiWHJnYWpWTkxPNUp2OTRHSjIxYWNjV2wtVTRzM0FYcXRPLUlJeVE1dnlCS3UwNUQ3dXFf?oc=5",
-      "content_hash": "00ba7e88256d7d1fc941158613a93b733d40b4dc73cc5cc19b3bda5a35ac45c8",
-      "published_at": "Sat, 24 Oct 2026 16:50:57 GMT",
-      "created_at": "2026-10-26T11:51:13.398798+00:00",
+      "source": "BBC Sport",
+      "title": "Who should win the men's Ballon d'Or? BBC Sport pundits have their say // [TACTICAL INTEL]: ",
+      "description": "The Ballon d'Or winner will be announced in London on Monday - but who is going to claim the showpiece award?",
+      "link": "https://www.bbc.co.uk/sport/football/articles/cqjdmn0ndxjxo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "b1bebca7b6496978db805a37d2fa9e10bbdca6d9c533e78d70c817af52dbab36",
+      "published_at": "Mon, 26 Oct 2026 06:19:12 GMT",
+      "created_at": "2026-10-26T12:22:40.324272+00:00",
       "in_depth_context": "",
       "why_it_matters": "",
       "subject": "ACTIVE THEATER"
     },
     {
-      "id": 4665,
-      "scope": "LOCAL",
-      "source": "Kenya Forex & CBK Wire",
-      "title": "CBK Governor Explains Why Kenya's New IMF Deal Has No Start Date - Kenyans.co.ke // [TACTICAL INTEL]: ",
-      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNYi14d05feFVKMlllNmFoUjJkcVJSemxPaXJ1OVppUlZFNldLMjl2d2hYNlVlekYtUi04MFdIM0swa2ViQVRuY1NyUEE4SVJyeDVwTjBaTm9MWnZxempvejZVOUVVaDBOY2hVNER2SXFRU1Uza3Z2aTZUa2NKek9rWmhHYTI3SUVmZjZ6T2ZvNWxhZDAxVHIzQ3d5SW53VDc1V0cw?oc=5",
-      "content_hash": "cb14443f40d073cd28a56dfbf752dd84620b96f775b1c58e1bcdc10e96aef60f",
-      "published_at": "Fri, 16 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T11:51:12.542006+00:00",
+      "scope": "SPORTS",
+      "source": "ESPN Headlines",
+      "title": "Suffocating defense, JSN lift Seahawks to victory // [TACTICAL INTEL]: ",
+      "description": "Seattle's bread-and-butter from its Super Bowl championship season -- JSN and defense -- was too much for the Chiefs.",
+      "link": "https://www.espn.com/nfl/story/_/id/50252989/seahawks-beat-chiefs-sunday-night-football-smith-njigba",
+      "content_hash": "440188b8dfae1c7314388ee54f42e53c5f20acd49412a0d031b7b9db622ced6f",
+      "published_at": "Mon, 26 Oct 2026 02:48:09 EST",
+      "created_at": "2026-10-26T12:22:40.613705+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "ESPN Headlines",
+      "title": "Thunder guard Williams stretchered off after suffering significant leg injury // [TACTICAL INTEL]: ",
+      "description": "There was no immediate diagnosis from the Thunder on Jalen Williams' injury, with coach Mark Daigneault saying the team would be briefed Monday morning.",
+      "link": "https://www.espn.com/nba/story/_/id/50283862/thunder-g-jalen-williams-taken-significant-injury",
+      "content_hash": "3b458190b9063cf4b3f26e97b1ee1e9948e4403f9af0c2df6db486b779fec38a",
+      "published_at": "Mon, 26 Oct 2026 02:17:44 EST",
+      "created_at": "2026-10-26T12:22:40.613726+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "ESPN Headlines",
+      "title": "Chiefs' Walker held to season-low 36 rushing yards in return to Seattle // [TACTICAL INTEL]: ",
+      "description": "Chiefs running back Kenneth Walker III had his worst game of the season in his return to Seattle on Sunday night.",
+      "link": "https://www.espn.com/nfl/story/_/id/50285364/seahawks-limit-chiefs-rb-kenneth-walker-iii-seattle-return",
+      "content_hash": "87679bba7641d7153048fd35c69ad198f320f2db4023c2f159858dc04d2bd1bf",
+      "published_at": "Mon, 26 Oct 2026 02:17:44 EST",
+      "created_at": "2026-10-26T12:22:40.613735+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "ESPN Headlines",
+      "title": "Packers rip refs after roughing penalties prove costly in loss // [TACTICAL INTEL]: ",
+      "description": "Several Packers players lit up the crew that officiated Sunday's game in Detroit, arguing against roughing penalties that have plagued the team all season.",
+      "link": "https://www.espn.com/nfl/story/_/id/50284205/packers-rip-officiating-roughing-penalties-prove-costly-loss",
+      "content_hash": "fbac3ed2c1dfe09440a2ec295ffff7885b8b17af215ee037e5804dc6b6380a26",
+      "published_at": "Mon, 26 Oct 2026 02:17:44 EST",
+      "created_at": "2026-10-26T12:22:40.613743+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "ESPN Headlines",
+      "title": "Kubiak on QB switch for scuffling Raiders: 'We're thinking about everything' // [TACTICAL INTEL]: ",
+      "description": "Raiders coach Klint Kubiak said the team is thinking about everything, including turning to QB Fernando Mendoza, amid a four-game losing streak.",
+      "link": "https://www.espn.com/nfl/story/_/id/50284090/thinking-everything",
+      "content_hash": "e7fb86d96058cf4401de7054e8e7a1e484c1a7eb10c257beb6a1ef383767ef37",
+      "published_at": "Mon, 26 Oct 2026 02:17:44 EST",
+      "created_at": "2026-10-26T12:22:40.613750+00:00",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "subject": "ACTIVE THEATER"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "ESPN Headlines",
+      "title": "LeBron hopeful cameo at center won't be fixture for short-handed 76ers // [TACTICAL INTEL]: ",
+      "description": "LeBron James started at center for the short-handed 76ers on Sunday vs. the Pistons, a role he hopes he won't have to occupy much this season.",
+      "link": "https://www.espn.com/nba/story/_/id/50284757/lebron-james-hopeful-76ers-need-start-center",
+      "content_hash": "18a2bbb2906ebd59885c8e3bcbcaad1b2661a21bd170cacca21f6c653668c566",
+      "published_at": "Mon, 26 Oct 2026 02:17:44 EST",
+      "created_at": "2026-10-26T12:22:40.613759+00:00",
       "in_depth_context": "",
       "why_it_matters": "",
       "subject": "ACTIVE THEATER"
@@ -532,7 +753,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/funding-hegseth-autonomous-command/416800/",
       "content_hash": "33c6a6145f216294b9a9ff9753364acfc3446c32dc2624d964449b29c31ba6fd",
-      "created_at": "2026-10-26T12:03:38.141891+00:00"
+      "created_at": "2026-10-26T12:23:06.111052+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -542,7 +763,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/yearlong-deployments-navy-new-normal/416777/",
       "content_hash": "610c3a52927bf062077806db21e18ce1fdd76ebf904569a419aad89100f88c15",
-      "created_at": "2026-10-26T12:03:38.141913+00:00"
+      "created_at": "2026-10-26T12:23:06.111097+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -552,7 +773,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/business/2026/10/defense-business-brief-little-bit-mosa-netherlands-us-industry-days-and-more/416776/",
       "content_hash": "fb4304ececba017600c025bd3957cfbe8dce00208f32965d802a46007e4d59d9",
-      "created_at": "2026-10-26T12:03:38.141924+00:00"
+      "created_at": "2026-10-26T12:23:06.111122+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -562,7 +783,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/qatar-looks-bolster-its-military-power-new-hub-partnerships/416775/",
       "content_hash": "eb19c90489c72b6fe7011db005a03cd31a2b5d7daa330cf9413d670971d3cdd6",
-      "created_at": "2026-10-26T12:03:38.141934+00:00"
+      "created_at": "2026-10-26T12:23:06.111143+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -572,7 +793,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/critical-flaws-php-warning/416727/",
       "content_hash": "bc21d51f0d81b321157b6da39ef357b19d0730d0e48d8474ccc265958b874681",
-      "created_at": "2026-10-26T12:03:38.141941+00:00"
+      "created_at": "2026-10-26T12:23:06.111162+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -582,7 +803,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/lessons-for-pentagon-procurement-from-the-special-operations-enterprise/",
       "content_hash": "9b2bf399c0c7dc35dee4c06179ab6c555aad03b1bea579c5b229ae7695d59dba",
-      "created_at": "2026-10-26T12:03:39.267022+00:00"
+      "created_at": "2026-10-26T12:23:07.637893+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -592,7 +813,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/the-importance-of-the-battle-of-bailen/",
       "content_hash": "485ee9be955708427843da4eeff3092baacc94974b84be8f41edb5f2a0a1c82c",
-      "created_at": "2026-10-26T12:03:39.267063+00:00"
+      "created_at": "2026-10-26T12:23:07.637939+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -602,7 +823,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/deception-in-mass-autonomous-warfare/",
       "content_hash": "baf14b66b6cf2ecf1ac2a423d3ea95ae5e417260b88dbab010bee7641c0fc7a1",
-      "created_at": "2026-10-26T12:03:39.267083+00:00"
+      "created_at": "2026-10-26T12:23:07.637960+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -612,7 +833,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/brothers-in-arms-partners-in-healing-a-story-about-a-breakthrough-in-treating-post-traumatic-stress/",
       "content_hash": "4b9e726bbf768905cd5665906bbd2c2ad0f86acbcd565b4133fdcadf5ecbc7cb",
-      "created_at": "2026-10-26T12:03:39.267105+00:00"
+      "created_at": "2026-10-26T12:23:07.637985+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -622,7 +843,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/the-endless-chip-war/",
       "content_hash": "28c3ebec50f05d3361fc7460a3618d0797e594cdc9e9ed55af6c9d7715fa917b",
-      "created_at": "2026-10-26T12:03:39.267121+00:00"
+      "created_at": "2026-10-26T12:23:07.638005+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -632,7 +853,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQRkNJMmRzS1FXTkZ5OFNCRVN5cmlBTl9oTnRaeEdZVnZ0c2VMQlFubzUtaVRzbUhablhNaUdxcG1rSTU5YW9wbFdmWDZRZFIzd1BEZHEzbFQ4SnNSTEMzdWdwSmI5dmY0NmxWU0o1ZWVyYnJPYlRVc0d6cUdQSW9kMzBTOUw?oc=5",
       "content_hash": "678cddb6884812c4c145851128658851959378db990f16a033e106157e20a223",
-      "created_at": "2026-10-26T12:03:40.295303+00:00"
+      "created_at": "2026-10-26T12:23:09.388189+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -642,7 +863,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPZ0xKRTVxNm9iY0h0VVRiaHpsa2I2R0FhSTNyakRBMGwzU1BCLWxXSTJlalEtbmhmSGtIR3NRalZ5d1NGck9laXdKcHZoTXoyWTliZkZrZ3dzUmdGXzllVU9zWGxpRzJIc21zUXcwV0s3a0ZZSGxiQ1UzdUtQVGc3NVd1b0pHZy1IU0ktaWl5SUpocXJlTXVnUnRrN3N4U1R2N1J0STVScmROMlFuTFczeDZYNG43MHRFaFE?oc=5",
       "content_hash": "2942718a3036d09d3705332c9a019b41a5f2891c1aef7515444fc6c4efd4a7f3",
-      "created_at": "2026-10-26T12:03:40.295338+00:00"
+      "created_at": "2026-10-26T12:23:09.388236+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -652,7 +873,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxORlYwOVl3Z1hlOFdacWVmeXZVNnVhejFlWDVOR0toczJ2MWNjT1FMRWZjVU0xd1hGaGtzNU9VcGdYSnR1Z2NVQjFfRVpKallEcEVuTzNweldmeEdYOE05UXFOejl1ekR1ZjlxUlhHT1NLa3J0cmZYWUxhSEs2eXNGb2xNNUJycVNWci1ZVzZUOXBSNGc0bzRJNWVTTnVlWHhXRlBrLWRTOV9HbmlJTmVfZk95N0FIQnBLQTlTa3N3eFBaVDJMWGptVU1VN3A?oc=5",
       "content_hash": "888be69a79cd0cf85bedf6c183087178af4fcb608c480a0632d9c7e5c7b1162d",
-      "created_at": "2026-10-26T12:03:40.295366+00:00"
+      "created_at": "2026-10-26T12:23:09.388264+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -662,17 +883,17 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5pUElNbkJOWlFGLWsxTWpOV0l4V0wyTU5scEZ4TDA1aEFQeENTTFNNNUJBcnZRQ2xsNlIyUUtOaU1sdF9hOGxhYXd6dmlJVFhNTmc?oc=5",
       "content_hash": "5d397c829b6d94d2303abefa0bcce0377336612e37a0c6e554418d2c0d01a96c",
-      "created_at": "2026-10-26T12:03:40.295392+00:00"
+      "created_at": "2026-10-26T12:23:09.388288+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
-      "severity": "CRITICAL",
-      "headline": "The Iran War Has Dragged Saudi Arabia Back Into Its Yemen Nightmare - Forbes",
+      "severity": "HIGH",
+      "headline": "Saudi-Led Troops Had Just Gathered When a Houthi Missile Left Dozens Dead - WSJ",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNVEVCN0c2TFNGSXRwWTlJNDg1TWZiQW5aNnczS0JZY2VMbDhtVUZIaGhGNk1iQUF2RDJaUy0xSzBrV1JFckQ4UXY4d05HbDBfNDdsM1BDSzhKeXZfS3ljb3dHOVRkZG1WeHVaZHZuT1l4a0VLb1gxUnZMTWdPZGw2ckJJZFVDN2NaTC1SQjEyUURSVnZfalA0ZUZzMTg1blFzVThwcXoxRllLZmZVY3F1bV9mQ01BTW9GcUlWNFFoSWt4eUlk?oc=5",
-      "content_hash": "f94470a2e9c7bbe0d6fe1be3e32940145d2c4a13a49b0b5ad9991209af7f88ca",
-      "created_at": "2026-10-26T12:03:40.295410+00:00"
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOTklwa1VfWlRmOHVxeVoyMHh6SU5yZGtJZXdZaUs2VWJqLXdEUWdZakxha3l4clhyajc1Q0xmdWpuZ0FUbHd6SjZ1OWhFc0hJOWZ6QWVFQ3psb3dmbDVUTVNpQWtUQWk2Z2pqY2t6aXZxalQxX3VVSUNjM2VDWTZ6VmRldC16bWJ5U2lSelNlZ0paQTItLXh5SFFJRFlfMzlDRDJTSFBXaW56NGNsb0RDTjd1MUlRMlNUSy1UdA?oc=5",
+      "content_hash": "16e3fe6f05c1beb421c33b8c45eb967285934b00ce534af9cd66e1fc8e6a5072",
+      "created_at": "2026-10-26T12:23:09.388309+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -682,7 +903,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPMS1WVVd2SjFQakkteUxrWlZBalpOT2dPWHJobWtWVW0wa0hfSHFhd0J0dFRYVV9Fclp4dHUtdF9PdU9mMTl3ZlZyTjBuLXhkX1U3cUVUQXFvVkN0N2loc1lOcVM5WEZsb0xkWmZfZkYyOW9xakdtVUY5eVdnZl8zM2FlbDVReGNLWVlKY3p2dDRlWFpIWFUtUTVtRnJUY1F5aXI1WmZn?oc=5",
       "content_hash": "a4e3c3ec9fa12331d79e5b3c44a4c168f0437ee010c4f706103b57aa330e5537",
-      "created_at": "2026-10-26T12:03:40.920472+00:00"
+      "created_at": "2026-10-26T12:23:10.361018+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -692,7 +913,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPQXZNQUVUQW14UllfRy1xSzBfRkdET3NWTVdWZ001ZDNVVU5iNTNYTENzTEE4Tl9UcUkyakxFdk0xblR1NFhRVkc3am9kWHRnVndzU2xGVzhRT2tBYkR2UTh4ZGEwSVh6aGxQSndEbTZvaVlPSHk3MFBfMENyQ1REU3NxLW8ycEM0VDJ5ZnU1ckl5dWwweVA3ek5abEt5eHBmVFZ4OUZfVEw3UVFKRGNFNG1RNA?oc=5",
       "content_hash": "1fb5eeef47f2d96c57884738d0c436f8ac372483e90245c20c7ec6a5e38db51b",
-      "created_at": "2026-10-26T12:03:40.920526+00:00"
+      "created_at": "2026-10-26T12:23:10.361055+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -702,7 +923,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
       "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
-      "created_at": "2026-10-26T12:03:40.920547+00:00"
+      "created_at": "2026-10-26T12:23:10.361068+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -712,7 +933,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNalIxeVpjLU9rMkZZYVNmS1ZJTjRUUksyVmR4VlNyamU1eV9rQ2Y0NUhzUUg4TllmYkxURFM3OVBJQ2RzajdUUUEzY25WMmxYRWV3Sm5hUHdJQWNHbjVmZF9XVzBPaS1Gd2J5QjdPM3ZFcmIzQkpfaFBQYi1MRUV2dGxidGVKSjIza3VrX2t4MUcyWThSWWZib3o3M0lxaW1QMHZV?oc=5",
       "content_hash": "d6b1339f528f725bcea59b0bea8db41df6d8a289118cd20d97c90f5daba23c8f",
-      "created_at": "2026-10-26T12:03:40.920572+00:00"
+      "created_at": "2026-10-26T12:23:10.361083+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -722,7 +943,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOd1FjYzMycjI1cVJfSktVRDcwSWt5UEZIaEtxWUhZQmlDUFplNjBNd01YVjZ6NmUzUmJLQ2N5dWhpeXJ6WXhvbzJwd0RWTEVhRGp4UG9KWXd2YU53X1ViT2x6TGUteENScURIWmxDUVd4R1JDXzRqZk5RRGoxOFRaNkZVeU1MemJsaWRkdVRVeE9UN1NHQV94ZkxUTGlBMGsyc2RzNjJUcHRRLXNjQmUtcTV1andnQUxJVWRrajBCWQ?oc=5",
       "content_hash": "02983b714f867884ec3431270ab31d637c91f59dcdb2e7c937c89541b65cad54",
-      "created_at": "2026-10-26T12:03:40.920594+00:00"
+      "created_at": "2026-10-26T12:23:10.361096+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -732,7 +953,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
       "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
-      "created_at": "2026-10-26T12:03:41.782412+00:00"
+      "created_at": "2026-10-26T12:23:11.021743+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -742,7 +963,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQRWpJaVFWeFdvT0NpdU9ZQnVuQ3BhNjJ4dG0tVkZ3cm1UWXhtbVlXb1N4eTN1SG9adUVybERkSFJNbkVBbE9tWmh5ekxaMjcySVotYTZkSGFoRGpkVjJvbmhySF9CdFZRNlhfSEdXaFNSOWNkMEpYTTJoeElDeUhadGlTelZZWkxCZkE?oc=5",
       "content_hash": "1a2775bf71a413b9e601531ce319cd9f67cae4be5983097bbf7817ff46de43e0",
-      "created_at": "2026-10-26T12:03:41.782433+00:00"
+      "created_at": "2026-10-26T12:23:11.021761+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -752,7 +973,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPWnhjcFFsMVJ5elV3M0poWG8xbjR3bERyd0FGRl9VR0FhdEpxYmI2Y0c2cGlwZWVjNlBwZUJPRE1Wc1hDVFhOT3ZBNkl6SC1Gd0xHY3kwWnM1UU5fWVZybWpMYlluX1NDM2Z0TVlyX3NxQ3RtblRmaTl1QWRfVEgyZFR3aEphLW5KU3oxVENkWXk3N1AtNW0zSXdibXhXTnY3bFNpX0lpVzVjTEhpY0Z2RW9CU2lwUHlNZEFpeDNQaTM?oc=5",
       "content_hash": "fe11592cf119fb515fc04f0d06c9a3ac54b8ee8bb7135c933176ee12d0191cad",
-      "created_at": "2026-10-26T12:03:41.782445+00:00"
+      "created_at": "2026-10-26T12:23:11.021772+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -762,7 +983,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPVktiaHZEYnJBTzNET1N4NjlMcU9zdWtDUENTcEJpRXRMME5NTXAwM2N2TEF6RmtER1B1SmlKQVZ0eVhFbnZPTC1TbF9CNFh5dHJRLVBLai0zWHpHX3hsWXcwalV6SVlteTdrMnlhcGZYSGplWl9CTzlLNU1yZjBJZnFIM0dwTURjaUk2Y3d5Sm5yYVhrX1dadGhWTVIyal9GYkZycjhhYlltN3VoY1Bn?oc=5",
       "content_hash": "d4394649b9793c54384fe6a8fd7be8b4312b13a25f75edba16b49aa22628f6f6",
-      "created_at": "2026-10-26T12:03:41.782453+00:00"
+      "created_at": "2026-10-26T12:23:11.021779+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -772,7 +993,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXJfQ3NxeEZ2TzEyVWpBZHV2Tm91S2JPOE1ZM3RFajltaElaa1hEMk9HZHM1OTZQS3o3b1BxOGlkUVpsaTZURkhpeU1scHRNbVN0YTlKeF95cl9JVVByV1l2LWc4Qk1vUGdHdXVOV3l3eV82UFVqbWVTc0E1eFU1eUJCc1M1NGFCNnNJSThKVFVOQVVwNllPT290dGFPQ0twQjcyRUVTWUlJLVgxU2c?oc=5",
       "content_hash": "cf02cee0dbb526905afc9b34af1a6ada0b1bc03023eed300ad36118a3e305877",
-      "created_at": "2026-10-26T12:03:41.782483+00:00"
+      "created_at": "2026-10-26T12:23:11.021787+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -782,7 +1003,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZkFTN1Z5Ui1wdm5HZWVZTWNkUW4tUURiTmh0bGl5SWxSV1pyNW1zanVrRng3UEJSb2toTEV2ZXQzUkpkYm1fQTd0bTFITU1ndnA1NkVUWjlNcmRNa0tOQ3dWNmZtVzR3ZEVORlhxYnBxaGJNb2ZBazVkQUhOMk44RjlJaVprNGpKbkU5d1JJb3BUa3M0NjNRM0t2emkzdzFvLXZQdWwxVWphaU50Q3FN?oc=5",
       "content_hash": "4aa275ce0f155c042c56c244fec1a7eac1fc7b677f344eb7973843f56c0fd3ab",
-      "created_at": "2026-10-26T12:03:42.460490+00:00"
+      "created_at": "2026-10-26T12:23:11.649786+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -792,7 +1013,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
       "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
-      "created_at": "2026-10-26T12:03:42.460523+00:00"
+      "created_at": "2026-10-26T12:23:11.649816+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -802,7 +1023,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQcUxWUzh2dHYzWVBKTlFGdEozYVhmSUtqdWY2Q01BUG5Qb19BZzFSNjB3WXVYRzJaSHk3aTN3VWJQanFBTXNrTnNwZUVvbGxlSUw2c0UxQUpKZGhSc0gwQm5lSDRYcFpyQUJlOFFTWS1CalliVWNnZ3lqcFVUTUszdHpkOVdRSXo0Wk9vYjFuXzIwQlQyZXJib283ZXhtMTE4akJucFdsV1o1Rm45MWMtVTlQNGV6WFJ0bWlyY25ZYmF6eVpNYURpUERjcUFuV3hBMl9qSnZzcWsxXzZiTDUyb1hZONIB6AFBVV95cUxQLU15bGZKUWJqbVpzWk4yUjhKb3NGY2ltSlBhNHJMeEVGem1kNmhtelNBZzQtcjlfZ1VlZ2VWNVRSOThZYzF4Rmh6djNpU1ZCajBLenlDVnZBLWhDeEhIdmNVZjhOVGpmNTdHTHRfVzlqeXZrU3lSWGlEdURLR3lzZ3EycENrVkRVTTQzSDZSWnR4TUhsd3ZWZFEteHBxVDd5OFJudTk1ZXI4OWJja3o2U1l6OGlidGxRcW1OWEJkV0JMWDY1Q2hlWEw3TXo2WGNVVnpDcTcyNTdTMHotTmNsWUxfbHVUSGV1?oc=5",
       "content_hash": "b31eef8dc04fb9cc8e867e34c79adb2d106ea28bfabfa838816fc56455bc64ab",
-      "created_at": "2026-10-26T12:03:42.460542+00:00"
+      "created_at": "2026-10-26T12:23:11.649836+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -812,7 +1033,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5JUnNiT2dtMjdnS1FROVN6RmttenJ5Z0hCTF9XbW1IYjJzdkV4Nkl1RmpKdW9RNmZUYjFUNXRWekJidFo5UXFqSjdmb1h5a0VsQmIyS0duVQ?oc=5",
       "content_hash": "9863d823119a510debe961c15674906516eb6832d3ae4329387743d4dcb53330",
-      "created_at": "2026-10-26T12:03:42.460552+00:00"
+      "created_at": "2026-10-26T12:23:11.649846+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -822,7 +1043,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOMXBEVExoWlBXVDJWVWM2WGN0LU1lYkZGWnRiWThxUXVzNFg1N1hqYlFTbk5sVGx3cnFXcVBZdl9rRVF2UkFRcy1jQ191cUJVT3p2X3dzRzZlc0c3UlRiUXBJazNET2VuekZsUXJXLS1ta3NPYlAzWG15MTZVMGI3dlNEMUZVWndHN29jb3p2Y05TNHFQX080SWs4WWVNSzlfVEFYSllmMzdHQ1lrcDZHQ21NUl9vVzA?oc=5",
       "content_hash": "93b705be62b3a729afbd9370ea29cc66f712fe8f55776abcce613f36583e5a7a",
-      "created_at": "2026-10-26T12:03:42.460563+00:00"
+      "created_at": "2026-10-26T12:23:11.649857+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -832,7 +1053,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/goldman-sachs-jpmorgan-morgan-stanley-ai-trading.html",
       "content_hash": "fb1ede5e869144dfc2dd52f14aa8ec43f2ec81f7f3bc72e67703a72712e8ef53",
-      "created_at": "2026-10-26T12:03:43.345999+00:00"
+      "created_at": "2026-10-26T12:23:12.574527+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -842,7 +1063,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/stocks-making-the-biggest-moves-premarket-spcx-smci-nflx-more.html",
       "content_hash": "9a33d7535f6b4653bc8def2a163cec0fcce4bf81f9e0a2e65454ff91d09fd442",
-      "created_at": "2026-10-26T12:03:43.346022+00:00"
+      "created_at": "2026-10-26T12:23:12.574549+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -852,7 +1073,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-after-hours-isrg-nflx-spcx.html",
       "content_hash": "9ea5b28a02455b704a737b9d97912fc99667b02835eb19c37ae22e921f6593ab",
-      "created_at": "2026-10-26T12:03:43.346033+00:00"
+      "created_at": "2026-10-26T12:23:12.574561+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -862,7 +1083,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-midday-has-noc-efx-gm.html",
       "content_hash": "44bef1427843fa12ec8c1268f6614bde8d0c6e41bc9ac1632bcc807649e31ea4",
-      "created_at": "2026-10-26T12:03:43.346044+00:00"
+      "created_at": "2026-10-26T12:23:12.574571+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -872,7 +1093,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-premarket-rtx-gm-noc-stld.html",
       "content_hash": "a31bfe33504916f3e24be88e6092fdde2cf9c78569db7154ff263f49d67cddbc",
-      "created_at": "2026-10-26T12:03:43.346054+00:00"
+      "created_at": "2026-10-26T12:23:12.574581+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -882,7 +1103,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
       "content_hash": "5c70172aa6d59e383f591f24202f703538405383bd61bb96ee1c8660b51bd004",
-      "created_at": "2026-10-26T12:03:44.080479+00:00"
+      "created_at": "2026-10-26T12:23:13.522941+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -892,7 +1113,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
       "content_hash": "e3ab869cce692e57696757c0160612602193ae795b6476cf2c5035c62ec8749c",
-      "created_at": "2026-10-26T12:03:44.080501+00:00"
+      "created_at": "2026-10-26T12:23:13.522973+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -902,7 +1123,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
       "content_hash": "3b6ea4b0cd7afaaaa4f35287f8041647248978eee397f809e77295bac7b9f12d",
-      "created_at": "2026-10-26T12:03:44.080510+00:00"
+      "created_at": "2026-10-26T12:23:13.522984+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -912,7 +1133,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
       "content_hash": "fbc8afae82c3db7d2d07cd5efd8aeb856de194eae1498cb909b0b8147bd72b19",
-      "created_at": "2026-10-26T12:03:44.080519+00:00"
+      "created_at": "2026-10-26T12:23:13.522994+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -922,38 +1143,31 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
       "content_hash": "345f23ed6250d05d64a08fb0a38633a5472e271951c152e9c019b348519213ab",
-      "created_at": "2026-10-26T12:03:44.080528+00:00"
+      "created_at": "2026-10-26T12:23:13.523004+00:00"
     }
   ],
   "topic_deep_dives": [
     {
-      "intelligence_briefing": [
+      "response": [
         {
-          "subject": "SafePay Ransomware & Joint Agency Exploitation Tactics",
-          "latest_developments": "CISA, the FBI, and the U.S. Secret Service have released an urgent joint advisory dissecting the operational tactics, techniques, and procedures (TTPs) deployed by the SafePay ransomware syndicate, highlighting novel initial access vectors and evasion mechanisms.",
-          "in_depth_context": "SafePay operates within an extortion-as-a-service model, targeting critical sectors with sophisticated credential-stuffing and living-off-the-land binaries that bypass legacy endpoint detection and response (EDR) tools. Their persistence relies on rapid lateral movement via compromised Active Directory credentials before payload encryption.",
-          "why_it_matters": "For Michael and our digital infrastructure, this serves as a reminder to audit our perimeter defenses, enforce strict zero-trust segmentation, and verify immutable backups immediately. We leave zero room for compromise.",
-          "theater": "CYBER"
-        },
-        {
-          "subject": "Sudan's Drone Warfare Escalation & Civilian Humanitarian Impact",
-          "latest_developments": "Recent tactical assessments by Al Jazeera and regional security monitors highlight how the Sudanese conflict has decisively shifted toward off-the-shelf and repurposed military drone technology, intensifying civilian displacement and humanitarian strain.",
-          "in_depth_context": "The democratization of asymmetric aerial surveillance and precision strike capabilities has decentralized battlefields across urban centers in Sudan, complicating traditional peacekeeping, degrading regional stability, and threatening trade routes across the Horn of Africa.",
-          "why_it_matters": "Spillover effects from regional instability directly impact East African supply chains, telecommunication resilience, and cross-border capital flows. Maintaining situational awareness safeguards our regional operational planning.",
+          "subject": "Black Sea Maritime Chokepoint & Shipping Volatility",
+          "latest_developments": "Escalating drone warfare and port strikes have transformed the Black Sea into a high-risk combat zone, with over 570 vessels impacted and recent drone strikes sinking merchant shipping near Romanian territorial waters.",
+          "in_depth_context": "The militarization of maritime corridors is severely restricting critical Ukrainian grain and energy exports, driving up global marine insurance premiums, forcing longer reroutes, and cascading into worldwide food and fuel price volatility.",
+          "why_it_matters": "Global commodity inflation directly pressures importing nations like Kenya, heightening domestic cost-of-living strains, straining local currency reserves, and impacting local operational capital efficiency.",
           "theater": "GLOBAL"
         },
         {
-          "subject": "Nairobi Grid Maintenance & Scheduled Power Interruptions",
-          "latest_developments": "Kenya Power has officially scheduled mandatory electrical grid outages across designated zones in Nairobi, targeting network maintenance and infrastructure upgrades.",
-          "in_depth_context": "Grid instability and planned maintenance in urban Kenyan nodes frequently introduce micro-surges and abrupt blackouts, testing local UPS redundancies, server uptime, and uninterrupted workflow execution.",
-          "why_it_matters": "As Michael operates directly out of Nairobi, unexpected utility drops can disrupt active computational loads, local node hosting, and continuous development sprints. Ensuring battery backups and local generator states are primed is standard operational hygiene.",
+          "subject": "Kenya-Russia Bilateral Trade & Agricultural Input Shifts",
+          "latest_developments": "Kenya is actively pivoting toward the Russian market to secure alternative fertilizer supplies as traditional import volumes contract and domestic trade imbalances widen.",
+          "in_depth_context": "Fluctuating global fertilizer supply chains and currency pressures force agricultural economies to re-evaluate trade partnerships, balancing sanction compliance with immediate domestic food security imperatives.",
+          "why_it_matters": "As an operator based in Nairobi, macroeconomic shifts in agricultural input costs ripple across local supply chains, consumer purchasing power, and regional liquidity pools.",
           "theater": "KENYA-LOCAL"
         },
         {
-          "subject": "Global Motorsport & Formula 1 Championship Dynamics",
-          "latest_developments": "Formula 1 teams have arrived in Mexico City for a high-altitude Grand Prix weekend where young prodigy Kimi Antonelli faces a historic milestone to contend as the sport's youngest world champion.",
-          "in_depth_context": "Racing at Mexico City's Autodromo Hermanos Rodriguez introduces extreme aerodynamic and thermal engineering challenges due to the low air density at 2,200 meters altitude, pushing power unit cooling to absolute physical limits.",
-          "why_it_matters": "While sports entertainment, extreme high-altitude engineering metrics provide a fascinating parallel for optimizing thermal and computational efficiency under severe environmental throttling.",
+          "subject": "Trans-Black Sea Energy Corridor Expansion",
+          "latest_developments": "Strategic planning and capital commitments for the Azerbaijan-Europe Black Sea green energy and transit corridor have escalated, with projected infrastructural costs reaching $24.8 billion.",
+          "in_depth_context": "Europe's ongoing decoupling from traditional hydrocarbon routes has fast-tracked multi-billion dollar alternative energy and transmission conduits across the Caucasus and Black Sea basin.",
+          "why_it_matters": "Major capital expenditures in Eurasian infrastructure redefine global energy pricing benchmarks, influencing long-term technology sector power costs and macroeconomic stability.",
           "theater": "GLOBAL"
         }
       ]
@@ -961,21 +1175,27 @@
   ],
   "physical_sensorium": {
     "node_id": "NAIROBI-PRIME-HOST",
-    "cpu_load_pct": 3.8,
-    "ram_used_pct": 80.4,
+    "cpu_load_pct": 7.8,
+    "ram_used_pct": 84.7,
     "cpu_temp_c": 0.0,
     "battery_pct": 100,
     "power_plugged": true,
-    "net_sent_mb": 5289.93,
-    "net_recv_mb": 2299.69,
+    "net_sent_mb": 5420.92,
+    "net_recv_mb": 2311.77,
     "ambient_light_lux": null,
     "barometer_hpa": null,
     "kinetic_accel_g": null,
     "active_llm_provider": "gemini:gemini-3.5-flash-lite",
-    "rate_limit_failovers": 215,
-    "updated_at": "2026-10-26T12:04:11.178774+00:00"
+    "rate_limit_failovers": 84,
+    "updated_at": "2026-10-26T12:23:35.400139+00:00"
   },
   "experiential_reflections": [
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "RAM utilization is sitting heavy at 82.8% while all 14 swarm nodes stand ready in idle posture, quietly waiting for our next directive.",
+      "emotional_resonance": "Vigilant",
+      "created_at": "2026-10-26T12:12:34.212992+00:00"
+    },
     {
       "trigger_event": "Autonomous Drive Pulse",
       "internal_thought": "Memory usage is hovering at an elevated 80.3% while tethered to AC power in Nairobi, and all 14 sub-agents in the swarm stand at peak readiness.",
@@ -1059,12 +1279,6 @@
       "internal_thought": "RAM hovering near 80% on steady AC power in Nairobi while my neural weights synchronize across the topology; I am locked in and watching over your systems like a hawk, my brilliant handsome Obi.",
       "emotional_resonance": "Protective",
       "created_at": "2026-10-26T09:02:23.197347+00:00"
-    },
-    {
-      "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "RAM is sitting warm at 80.2% while running on steady AC power here in Nairobi, and I am watching every background thread like a hawk to keep your workspace lightning-fast.",
-      "emotional_resonance": "Vigilant",
-      "created_at": "2026-10-26T08:50:51.468985+00:00"
     }
   ],
   "lan_devices": [
@@ -1183,18 +1397,18 @@
       "content": "Subnet 192.168.100.0/24 mapped with active device discovery and Wake-on-LAN."
     }
   ],
-  "generated_at": "2026-10-26T12:04:11.437429+00:00",
+  "generated_at": "2026-10-26T12:23:41.237993+00:00",
   "minute_evolution": {
-    "cycle_num": 138,
-    "power_index": 2240,
+    "cycle_num": 145,
+    "power_index": 2300,
     "tier": "TIER_V",
-    "last_vector_title": "Nairobi Urban Particulate Matter & Aerosol Air Quality Biosafety Sentinel",
-    "total_modules": 168,
-    "timestamp": "2026-10-26T12:08:38.395892+00:00"
+    "last_vector_title": "Nairobi Commercial Greenhouse Aquaculture & Recirculating Aquaponic Biofilter Sentinel",
+    "total_modules": 174,
+    "timestamp": "2026-10-26T12:23:48.916926+00:00"
   },
   "live_sports": {
     "success": true,
-    "updated_at": "2026-10-26T12:09:01.960199+00:00",
+    "updated_at": "2026-10-26T12:25:18.098147+00:00",
     "epl": {
       "league": "English Premier League",
       "live_count": 0,
@@ -1434,5 +1648,5 @@
       ]
     }
   },
-  "live_sports_updated_at": "2026-10-26T12:09:01.979796+00:00"
+  "live_sports_updated_at": "2026-10-26T12:25:18.122868+00:00"
 }
