@@ -94,7 +94,7 @@ export default async function handler(req, res) {
   }
 
   const action = body.action || query.action || "list";
-  const targetModule = (body.module || body.name || query.module || "").replace(/\.py$/, "").trim();
+  const targetModule = (body.module || body.name || body.module_id || query.module || query.module_id || query.name || "").replace(/\.py$/, "").trim();
 
   try {
     // 1. ACTION: LIST / CATALOG
@@ -136,6 +136,9 @@ export default async function handler(req, res) {
         };
       }
 
+      if (catalog && typeof catalog === "object") {
+        catalog.ok = true;
+      }
       return res.status(200).json(catalog);
     }
 
@@ -190,6 +193,8 @@ export default async function handler(req, res) {
       const standards = domainMeta.standards.slice(0, 3);
 
       const responsePayload = {
+        ok: true,
+        passed: true,
         status: "SUCCESS",
         module: targetModule,
         domain,

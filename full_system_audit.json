@@ -1,0 +1,140 @@
+{
+  "timestamp": "2026-10-26T16:54:07.125877+00:00",
+  "checks": {
+    "Workstation RPC": [
+      {
+        "name": "Endpoint /status",
+        "success": true,
+        "details": "HTTP 200"
+      },
+      {
+        "name": "Endpoint /telemetry",
+        "success": true,
+        "details": "HTTP 200"
+      },
+      {
+        "name": "Endpoint /health",
+        "success": true,
+        "details": "HTTP 200"
+      },
+      {
+        "name": "Endpoint /",
+        "success": true,
+        "details": "HTTP 200"
+      }
+    ],
+    "Supabase": [
+      {
+        "name": "Credentials Check",
+        "success": true,
+        "details": "URL and KEY present"
+      },
+      {
+        "name": "Table 'bot_memory'",
+        "success": true,
+        "details": "HTTP 200 (1 sample rows)"
+      },
+      {
+        "name": "Table 'command_queue'",
+        "success": true,
+        "details": "HTTP 200 (1 sample rows)"
+      },
+      {
+        "name": "Table 'personal_tasks'",
+        "success": true,
+        "details": "HTTP 200 (1 sample rows)"
+      },
+      {
+        "name": "Table 'weather_reports'",
+        "success": true,
+        "details": "HTTP 200 (1 sample rows)"
+      },
+      {
+        "name": "Table 'cyber_alerts'",
+        "success": true,
+        "details": "HTTP 200 (1 sample rows)"
+      },
+      {
+        "name": "Table 'conflict_and_macro_intel'",
+        "success": true,
+        "details": "HTTP 200 (1 sample rows)"
+      }
+    ],
+    "Vercel Edge": [
+      {
+        "name": "Main Web HUD (index.html)",
+        "success": true,
+        "details": "HTTP 200"
+      },
+      {
+        "name": "Evolution API (catalog)",
+        "success": true,
+        "details": "HTTP 200 (182 modules active)"
+      },
+      {
+        "name": "Evolution API (test runner)",
+        "success": true,
+        "details": "HTTP 200 (AST passed: True)"
+      },
+      {
+        "name": "Cron Background API",
+        "success": true,
+        "details": "HTTP 200"
+      },
+      {
+        "name": "Sports Telemetry API",
+        "success": true,
+        "details": "HTTP 200"
+      },
+      {
+        "name": "Telegram Webhook Probe",
+        "success": true,
+        "details": "HTTP 200"
+      },
+      {
+        "name": "WhatsApp Webhook Probe",
+        "success": true,
+        "details": "HTTP 200"
+      },
+      {
+        "name": "SMS Webhook Probe",
+        "success": true,
+        "details": "HTTP 200"
+      }
+    ],
+    "External Feeds": [
+      {
+        "name": "Nairobi Weather (Open-Meteo)",
+        "success": true,
+        "details": "HTTP 200 (Temp: 18.4\u00b0C)"
+      },
+      {
+        "name": "Google News RSS (East Africa)",
+        "success": true,
+        "details": "HTTP 200"
+      },
+      {
+        "name": "CISA KEV Vulnerabilities Feed",
+        "success": true,
+        "details": "HTTP 200 (1756 cataloged CVEs)"
+      }
+    ],
+    "Evolution Modules": [
+      {
+        "name": "AST Syntax Integrity",
+        "success": true,
+        "details": "100% of 184 modules passed AST syntax check"
+      }
+    ],
+    "Voice & Audio": [
+      {
+        "name": "Sanitize Text for Speech",
+        "success": true,
+        "details": "Sanitized: 'Good evening! All telemetry nominal. Let's conquer this.'"
+      }
+    ]
+  },
+  "passed": 24,
+  "failed": 0,
+  "warnings": 0
+}

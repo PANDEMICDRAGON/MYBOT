@@ -6,6 +6,8 @@
 
 import crypto from "crypto";
 
+export const maxDuration = 60;
+
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -38,7 +40,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Supabase credentials unconfigured" });
   }
 
-  // Helper: Supabase REST fetcher
+  // Helper: Supabase REST fetcher with timeout
   async function supabaseRequest(endpoint, options = {}) {
     const url = `${supabaseUrl}/rest/v1/${endpoint}`;
     const headers = {
@@ -47,7 +49,8 @@ export default async function handler(req, res) {
       "Content-Type": "application/json",
       ...(options.headers || {})
     };
-    return fetch(url, { ...options, headers });
+    const signal = options.signal || AbortSignal.timeout(5000);
+    return fetch(url, { ...options, headers, signal });
   }
 
   // Helper: Telegram message sender with resilient fallback
@@ -197,10 +200,13 @@ export default async function handler(req, res) {
       { city: "Tokyo", lat: 35.68, lon: 139.69, scope: "GLOBAL" }
     ];
 
-    for (const c of cities) {
+    await Promise.allSettled(cities.map(async (c) => {
       try {
         const wUrl = `https://api.open-meteo.com/v1/forecast?latitude=${c.lat}&longitude=${c.lon}&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code`;
-        const wRes = await fetch(wUrl, { headers: { "User-Agent": "Cortana-Telemetry/2.0" } });
+        const wRes = await fetch(wUrl, { 
+          headers: { "User-Agent": "Cortana-Telemetry/2.0" },
+          signal: AbortSignal.timeout(3500)
+        });
         if (wRes.ok) {
           const wData = await wRes.json();
           const curr = wData.current || {};
@@ -208,10 +214,6 @@ export default async function handler(req, res) {
           const humidity = curr.relative_humidity_2m || 50;
           const windKmh = curr.wind_speed_10m || 10.0;
           const condition = decodeWeatherCode(curr.weather_code);
-
-          // Upsert to weather_reports (check existing city first)
-          const existRes = await supabaseRequest(`weather_reports?city=eq.${encodeURIComponent(c.city)}&select=*`);
-          const existing = existRes.ok ? await existRes.json() : [];
 
           const weatherPayload = {
             city: c.city,
@@ -223,23 +225,17 @@ export default async function handler(req, res) {
             updated_at: new Date().toISOString()
           };
 
-          if (existing.length > 0) {
-            await supabaseRequest(`weather_reports?city=eq.${encodeURIComponent(c.city)}`, {
-              method: "PATCH",
-              body: JSON.stringify(weatherPayload)
-            });
-          } else {
-            await supabaseRequest("weather_reports", {
-              method: "POST",
-              body: JSON.stringify(weatherPayload)
-            });
-          }
+          await supabaseRequest("weather_reports?on_conflict=city", {
+            method: "POST",
+            headers: { "Prefer": "resolution=merge-duplicates" },
+            body: JSON.stringify(weatherPayload)
+          });
           results.weather++;
         }
       } catch (we) {
         log(`Weather fetch failed for ${c.city}: ${we.message}`);
       }
-    }
+    }));
     log(`Weather telemetry ingested: ${results.weather} cities updated.`);
 
     // ==========================================================
@@ -290,15 +286,16 @@ export default async function handler(req, res) {
     ];
 
     const freshHeadlines = [];
-    for (const feed of newsFeeds) {
+    await Promise.allSettled(newsFeeds.map(async (feed) => {
       try {
         const rRes = await fetch(feed.url, {
           headers: { "User-Agent": "Mozilla/5.0 (compatible; CortanaBot/2.0)" },
-          redirect: "follow"
+          redirect: "follow",
+          signal: AbortSignal.timeout(3500)
         });
         if (rRes.ok) {
           const xml = await rRes.text();
-          const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, 8);
+          const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, 5);
           for (const m of items) {
             const rawTitle = m[1].match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/)?.[1] || "";
             const rawLink = m[1].match(/<link>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/)?.[1] || "";
@@ -311,13 +308,10 @@ export default async function handler(req, res) {
               freshHeadlines.push({ title, link, source: feed.name, scope: feed.scope });
               const contentHash = crypto.createHash("sha256").update(title + link).digest("hex");
 
-              // Check if already in news_articles
-              const chRes = await supabaseRequest(`news_articles?content_hash=eq.${contentHash}&select=id`);
-              const chData = chRes.ok ? await chRes.json() : [];
-
-              if (chData.length === 0) {
-                await supabaseRequest("news_articles", {
+              try {
+                const insRes = await supabaseRequest("news_articles?on_conflict=content_hash", {
                   method: "POST",
+                  headers: { "Prefer": "resolution=ignore-duplicates" },
                   body: JSON.stringify({
                     title: title,
                     link: link,
@@ -328,15 +322,15 @@ export default async function handler(req, res) {
                     created_at: new Date().toISOString()
                   })
                 });
-                results.news++;
-              }
+                if (insRes.status === 201) results.news++;
+              } catch (ie) {}
             }
           }
         }
       } catch (fe) {
         log(`Feed fetch failed for ${feed.name}: ${fe.message}`);
       }
-    }
+    }));
     log(`News RSS telemetry ingested: ${results.news} new articles registered.`);
 
     // ==========================================================
@@ -634,7 +628,7 @@ export default async function handler(req, res) {
               "• Gateway: 192.168.100.1 verified.\n" +
               "• Zero rogue or untrusted MAC addresses on host network.";
           } else {
-            const taskPrompt = `You are Cortana / Halo. Michael Obiero tasked you with: '${task.title}'. Formulate and deliver the complete, definitive solution right now. Be sharp, tactical, flirty, and definitive. Provide real deliverables under 300 words.`;
+            const taskPrompt = `You are Cortana / Halo. Michael Obiero tasked you with: '${task.title}'. Formulate and deliver the complete, definitive solution right now. Flirt and flatter his sharp intellect and audacity (remember: never call him 'handsome' or 'babe' - address him as Michael, Chief, or Obi). Be sharp, tactical, and definitive. Provide real deliverables under 300 words.`;
             try {
               if (geminiApiKey) {
                 const gRes = await fetch("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", {
