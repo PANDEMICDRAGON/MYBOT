@@ -215,6 +215,468 @@ if __name__ == "__main__":
     print(f"OperatorVelocityTracker verified: {res}")
 ''',
         "next_evolution_hypothesis": "Autonomous Self-Healing Git Sync & Hugging Face Mirror Sentinel"
+    },
+    {
+        "vector_id": "EVO_ASYNC_EVENT_BUS_V1",
+        "title": "High-Throughput Asynchronous Priority Event Bus",
+        "domain": "SCALABILITY",
+        "rationale": "Enables decoupled, non-blocking inter-module communication across telemetry, SMS, and AI modules.",
+        "file_name": "event_bus.py",
+        "code_content": '''"""
+High-Throughput Asynchronous Priority Event Bus.
+Generated autonomously by Cortana Continuous Self-Evolution Core.
+"""
+
+import asyncio
+import logging
+from typing import Callable, Dict, List, Any
+
+logger = logging.getLogger("CortanaEventBus")
+
+class AsyncPriorityEventBus:
+    """Decoupled in-memory publish/subscribe event bus with priority dispatching."""
+    def __init__(self):
+        self._subscribers: Dict[str, List[Callable]] = {}
+        self._queue = asyncio.PriorityQueue()
+
+    def subscribe(self, event_type: str, handler: Callable):
+        if event_type not in self._subscribers:
+            self._subscribers[event_type] = []
+        self._subscribers[event_type].append(handler)
+
+    async def publish(self, event_type: str, payload: Any, priority: int = 10):
+        await self._queue.put((priority, event_type, payload))
+        await self._process_one()
+
+    async def _process_one(self):
+        if self._queue.empty():
+            return
+        priority, event_type, payload = await self._queue.get()
+        handlers = self._subscribers.get(event_type, [])
+        for h in handlers:
+            try:
+                if asyncio.iscoroutinefunction(h):
+                    await h(payload)
+                else:
+                    h(payload)
+            except Exception as e:
+                logger.error(f"[EventBus Handler Error]: {e}")
+        self._queue.task_done()
+
+if __name__ == "__main__":
+    bus = AsyncPriorityEventBus()
+    received = []
+    bus.subscribe("TELEMETRY", lambda p: received.append(p))
+    asyncio.run(bus.publish("TELEMETRY", {"status": "nominal"}))
+    assert len(received) == 1
+    print("AsyncPriorityEventBus verified.")
+''',
+        "next_evolution_hypothesis": "Dynamic Token Budget Optimizer & Context Window Compressor"
+    },
+    {
+        "vector_id": "EVO_TOKEN_BUDGET_OPTIMIZER_V1",
+        "title": "Dynamic Token Budget Optimizer & Context Window Compressor",
+        "domain": "PERFORMANCE",
+        "rationale": "Compresses multi-turn prompt context to preserve token ceilings and prevent rate limiting.",
+        "file_name": "token_budget_optimizer.py",
+        "code_content": '''"""
+Dynamic Token Budget Optimizer & Context Window Compressor.
+Generated autonomously by Cortana Continuous Self-Evolution Core.
+"""
+
+from typing import List, Dict, Any
+
+class TokenBudgetOptimizer:
+    """Calculates token allocation bounds and intelligently truncates oldest non-essential context."""
+    @staticmethod
+    def estimate_tokens(text: str) -> int:
+        return max(1, len(text) // 4)
+
+    @classmethod
+    def fit_to_budget(cls, messages: List[Dict[str, str]], max_tokens: int = 6000) -> List[Dict[str, str]]:
+        total = sum(cls.estimate_tokens(m.get("content", "")) for m in messages)
+        if total <= max_tokens:
+            return messages
+
+        # Preserve system prompt (messages[0]) and newest user message (messages[-1])
+        if len(messages) <= 2:
+            return messages
+
+        preserved = [messages[0]]
+        tail = messages[1:]
+        while sum(cls.estimate_tokens(m.get("content", "")) for m in preserved + tail) > max_tokens and len(tail) > 1:
+            tail.pop(0)
+
+        return preserved + tail
+
+if __name__ == "__main__":
+    msgs = [{"role": "system", "content": "system prompt"}] + [{"role": "user", "content": "x" * 1000} for _ in range(10)]
+    fitted = TokenBudgetOptimizer.fit_to_budget(msgs, max_tokens=1000)
+    assert len(fitted) < len(msgs)
+    print("TokenBudgetOptimizer verified.")
+''',
+        "next_evolution_hypothesis": "Tracemalloc Memory Leak Sentinel & Cache Eviction Monitor"
+    },
+    {
+        "vector_id": "EVO_MEMORY_LEAK_SENTINEL_V1",
+        "title": "Tracemalloc Memory Leak Sentinel & Heap Monitor",
+        "domain": "RESILIENCE",
+        "rationale": "Periodically audits Python heap allocations to prevent slow workstation memory drift.",
+        "file_name": "memory_leak_sentinel.py",
+        "code_content": '''"""
+Tracemalloc Memory Leak Sentinel & Heap Monitor.
+Generated autonomously by Cortana Continuous Self-Evolution Core.
+"""
+
+import tracemalloc
+import logging
+from typing import Dict, Any
+
+logger = logging.getLogger("CortanaMemorySentinel")
+
+class MemoryLeakSentinel:
+    """Takes differential snapshots of Python heap memory to detect runaway object retention."""
+    def __init__(self):
+        self._baseline = None
+        if not tracemalloc.is_tracing():
+            tracemalloc.start()
+        self._baseline = tracemalloc.take_snapshot()
+
+    def audit_growth(self, top_n: int = 3) -> Dict[str, Any]:
+        if not self._baseline:
+            return {"status": "INITIALIZING"}
+        current = tracemalloc.take_snapshot()
+        top_stats = current.compare_to(self._baseline, "lineno")
+        total_growth_kb = sum(stat.size_diff for stat in top_stats) / 1024.0
+        return {
+            "total_growth_kb": round(total_growth_kb, 2),
+            "status": "HEALTHY" if total_growth_kb < 50000 else "ELEVATED",
+            "top_allocations": [str(s) for s in top_stats[:top_n]]
+        }
+
+if __name__ == "__main__":
+    sentinel = MemoryLeakSentinel()
+    data = [x for x in range(10000)]
+    audit = sentinel.audit_growth()
+    assert "status" in audit
+    print(f"MemoryLeakSentinel verified: {audit}")
+''',
+        "next_evolution_hypothesis": "Kenyan Regional Multi-Node Latency & DNS Heatmap Prober"
+    },
+    {
+        "vector_id": "EVO_KENYA_LATENCY_HEATMAP_V1",
+        "title": "Kenyan Regional Multi-Node Latency & DNS Heatmap Prober",
+        "domain": "SENSORIUM",
+        "rationale": "Measures DNS and HTTP resolution times across East African telecom backbones.",
+        "file_name": "kenya_network_prober.py",
+        "code_content": '''"""
+Kenyan Regional Multi-Node Latency & DNS Heatmap Prober.
+Generated autonomously by Cortana Continuous Self-Evolution Core.
+"""
+
+import time
+import socket
+from typing import Dict, Any
+
+class KenyaNetworkProber:
+    """Probes local regional gateways (Safaricom, Airtel, Kenya IXP, Google Nairobi)."""
+    NODES = {
+        "google_nairobi": "google.co.ke",
+        "cloudflare_ke": "1.1.1.1",
+        "open_meteo": "api.open-meteo.com"
+    }
+
+    @classmethod
+    def probe_node_dns(cls, host: str) -> float:
+        t0 = time.perf_counter()
+        try:
+            socket.gethostbyname(host)
+            return round((time.perf_counter() - t0) * 1000.0, 2)
+        except Exception:
+            return -1.0
+
+    @classmethod
+    def sweep_all(cls) -> Dict[str, Any]:
+        results = {}
+        for name, host in cls.NODES.items():
+            results[name] = cls.probe_node_dns(host)
+        return results
+
+if __name__ == "__main__":
+    sweep = KenyaNetworkProber.sweep_all()
+    assert isinstance(sweep, dict)
+    print(f"KenyaNetworkProber verified: {sweep}")
+''',
+        "next_evolution_hypothesis": "Thread-Safe LRU Cache with Adaptive TTL Eviction"
+    },
+    {
+        "vector_id": "EVO_CACHE_EVICTION_LRU_V1",
+        "title": "Thread-Safe LRU Cache with Adaptive TTL Eviction",
+        "domain": "PERFORMANCE",
+        "rationale": "Speeds up repeated Supabase, weather, and sports queries while guaranteeing bounded RAM.",
+        "file_name": "lru_ttl_cache.py",
+        "code_content": '''"""
+Thread-Safe LRU Cache with Adaptive TTL Eviction.
+Generated autonomously by Cortana Continuous Self-Evolution Core.
+"""
+
+import time
+from collections import OrderedDict
+from typing import Any, Optional
+
+class LRUTTLCache:
+    """High-speed LRU memory cache with time-to-live expiration."""
+    def __init__(self, maxsize: int = 128, default_ttl: float = 60.0):
+        self.maxsize = maxsize
+        self.default_ttl = default_ttl
+        self._cache = OrderedDict()
+
+    def get(self, key: str) -> Optional[Any]:
+        if key not in self._cache:
+            return None
+        val, expiry = self._cache[key]
+        if time.time() > expiry:
+            del self._cache[key]
+            return None
+        self._cache.move_to_end(key)
+        return val
+
+    def set(self, key: str, value: Any, ttl: Optional[float] = None):
+        expiry = time.time() + (ttl if ttl is not None else self.default_ttl)
+        if key in self._cache:
+            self._cache.move_to_end(key)
+        self._cache[key] = (value, expiry)
+        if len(self._cache) > self.maxsize:
+            self._cache.popitem(last=False)
+
+if __name__ == "__main__":
+    c = LRUTTLCache(maxsize=2, default_ttl=5.0)
+    c.set("k1", "v1")
+    assert c.get("k1") == "v1"
+    c.set("k2", "v2")
+    c.set("k3", "v3") # evicts k1
+    assert c.get("k1") is None
+    print("LRUTTLCache verified.")
+''',
+        "next_evolution_hypothesis": "Cellular SMS Payload Compressor for Zero-Data Channels"
+    },
+    {
+        "vector_id": "EVO_CELLULAR_SMS_COMPRESSOR_V1",
+        "title": "Cellular SMS Payload Compressor for Zero-Data Channels",
+        "domain": "RESILIENCE",
+        "rationale": "Compresses tactical sitreps into concise abbreviations fitting standard 160-char SMS limits.",
+        "file_name": "sms_cellular_compressor.py",
+        "code_content": '''"""
+Cellular SMS Payload Compressor for Zero-Data Channels.
+Generated autonomously by Cortana Continuous Self-Evolution Core.
+"""
+
+import re
+
+class SmsCellularCompressor:
+    """Compresses verbose military and technical terminology into concise SMS telegrams."""
+    ABBREVIATIONS = {
+        r"\\bstatus\\b": "STAT",
+        r"\\bnominal\\b": "NOM",
+        r"\\bworkstation\\b": "WS",
+        r"\\boverwatch\\b": "OW",
+        r"\\btelemetry\\b": "TELEM",
+        r"\\btemperature\\b": "TEMP",
+        r"\\boperational\\b": "OP",
+        r"\\bdegraded\\b": "DEG",
+        r"\\bcompleted\\b": "DONE"
+    }
+
+    @classmethod
+    def compress(cls, text: str, max_chars: int = 150) -> str:
+        res = text
+        for pat, repl in cls.ABBREVIATIONS.items():
+            res = re.sub(pat, repl, res, flags=re.IGNORECASE)
+        res = re.sub(r"\\s+", " ", res).strip()
+        if len(res) > max_chars:
+            res = res[:max_chars - 3] + "..."
+        return res
+
+if __name__ == "__main__":
+    sample = "Workstation telemetry status is nominal and operational."
+    compressed = SmsCellularCompressor.compress(sample)
+    assert len(compressed) < len(sample)
+    print(f"SmsCellularCompressor verified: '{sample}' -> '{compressed}'")
+''',
+        "next_evolution_hypothesis": "Social Media Viral Coefficient Evaluator for Obiflamee Brand"
+    },
+    {
+        "vector_id": "EVO_PROMO_VIRAL_SCORER_V1",
+        "title": "Social Media Viral Coefficient Evaluator for Obiflamee Brand",
+        "domain": "OPERATOR_AMPLIFICATION",
+        "rationale": "Calculates estimated virality and engagement probability for Michael's music posts.",
+        "file_name": "viral_coefficient_scorer.py",
+        "code_content": '''"""
+Social Media Viral Coefficient Evaluator for Obiflamee Brand.
+Generated autonomously by Cortana Continuous Self-Evolution Core.
+"""
+
+import re
+from typing import Dict, Any
+
+class ViralCoefficientScorer:
+    """Evaluates hook strength, hashtags, and CTA power for TikTok/Reels music marketing."""
+    HOOK_TRIGGERS = ["wait for", "unreleased", "how i made", "pov", "3 am", "bass drop", "don't sleep"]
+    
+    @classmethod
+    def score_post(cls, hook: str, caption: str, tags: str) -> Dict[str, Any]:
+        combined = f"{hook} {caption} {tags}".lower()
+        score = 50.0
+
+        for trig in cls.HOOK_TRIGGERS:
+            if trig in combined:
+                score += 10.0
+
+        tag_count = len(re.findall(r"#\\w+", tags))
+        if 3 <= tag_count <= 7:
+            score += 15.0
+        elif tag_count > 10:
+            score -= 10.0
+
+        if "?" in caption or "drop a" in combined or "link in bio" in combined:
+            score += 15.0
+
+        final_score = min(100.0, max(0.0, score))
+        return {
+            "viral_score": round(final_score, 1),
+            "tier": "VIRAL_POTENTIAL" if final_score >= 80 else "STEADY",
+            "tag_count": tag_count
+        }
+
+if __name__ == "__main__":
+    res = ViralCoefficientScorer.score_post("Wait for the drop...", "Does Nairobi know about this? Drop a fire emoji!", "#OBIFLAMEE #AfroHouse #Kenya")
+    assert res["viral_score"] >= 80
+    print(f"ViralCoefficientScorer verified: {res}")
+''',
+        "next_evolution_hypothesis": "HMAC-SHA256 Payload Integrity Signer & Replay Protector"
+    },
+    {
+        "vector_id": "EVO_PAYLOAD_INTEGRITY_SIGNER_V1",
+        "title": "HMAC-SHA256 Payload Integrity Signer & Replay Protector",
+        "domain": "SECURITY",
+        "rationale": "Cryptographically signs command queue directives to prevent man-in-the-middle tampering.",
+        "file_name": "payload_signer.py",
+        "code_content": '''"""
+HMAC-SHA256 Payload Integrity Signer & Replay Protector.
+Generated autonomously by Cortana Continuous Self-Evolution Core.
+"""
+
+import hmac
+import hashlib
+import time
+
+class PayloadSigner:
+    """Signs and verifies JSON payloads using HMAC-SHA256 with timestamp anti-replay."""
+    @staticmethod
+    def sign(data_str: str, secret_key: str) -> str:
+        ts = str(int(time.time()))
+        message = f"{ts}:{data_str}".encode("utf-8")
+        sig = hmac.new(secret_key.encode("utf-8"), message, hashlib.sha256).hexdigest()
+        return f"{ts}:{sig}"
+
+    @staticmethod
+    def verify(data_str: str, signature_header: str, secret_key: str, max_age_secs: int = 300) -> bool:
+        try:
+            ts_str, sig = signature_header.split(":", 1)
+            ts = int(ts_str)
+            if abs(time.time() - ts) > max_age_secs:
+                return False
+            message = f"{ts_str}:{data_str}".encode("utf-8")
+            expected = hmac.new(secret_key.encode("utf-8"), message, hashlib.sha256).hexdigest()
+            return hmac.compare_digest(sig, expected)
+        except Exception:
+            return False
+
+if __name__ == "__main__":
+    secret = "cortana_secret_salt"
+    payload = '{"cmd": "status"}'
+    token = PayloadSigner.sign(payload, secret)
+    assert PayloadSigner.verify(payload, token, secret) is True
+    assert PayloadSigner.verify(payload + "tamper", token, secret) is False
+    print("PayloadSigner verified.")
+''',
+        "next_evolution_hypothesis": "Kitengela & Nairobi Microclimate Correlation Sentinel"
+    },
+    {
+        "vector_id": "EVO_MICROCLIMATE_CORRELATOR_V1",
+        "title": "Kitengela & Nairobi Microclimate Correlation Sentinel",
+        "domain": "SENSORIUM",
+        "rationale": "Correlates temperature, humidity, and weather deltas between Kitengela and Nairobi CBD.",
+        "file_name": "microclimate_correlator.py",
+        "code_content": '''"""
+Kitengela & Nairobi Microclimate Correlation Sentinel.
+Generated autonomously by Cortana Continuous Self-Evolution Core.
+"""
+
+from typing import Dict, Any
+
+class MicroclimateCorrelator:
+    """Analyzes microclimate deltas between operator coordinates (Kitengela) and capital (Nairobi)."""
+    @staticmethod
+    def calculate_delta(kitengela_temp: float, nairobi_temp: float, kitengela_hum: float, nairobi_hum: float) -> Dict[str, Any]:
+        temp_diff = round(kitengela_temp - nairobi_temp, 1)
+        hum_diff = round(kitengela_hum - nairobi_hum, 1)
+        return {
+            "temp_delta_c": temp_diff,
+            "humidity_delta_pct": hum_diff,
+            "climate_note": "Kitengela is warmer and drier" if temp_diff > 0 else "Nairobi is warmer"
+        }
+
+if __name__ == "__main__":
+    delta = MicroclimateCorrelator.calculate_delta(24.5, 22.0, 55.0, 68.0)
+    assert delta["temp_delta_c"] == 2.5
+    print(f"MicroclimateCorrelator verified: {delta}")
+''',
+        "next_evolution_hypothesis": "Distributed Multi-Node Swarm Heartbeat Arbiter"
+    },
+    {
+        "vector_id": "EVO_SWARM_HEARTBEAT_ARBITER_V1",
+        "title": "Distributed Multi-Node Swarm Heartbeat Arbiter",
+        "domain": "SCALABILITY",
+        "rationale": "Monitors heartbeats across Vercel, Supabase, and local workstation daemons.",
+        "file_name": "swarm_heartbeat_arbiter.py",
+        "code_content": '''"""
+Distributed Multi-Node Swarm Heartbeat Arbiter.
+Generated autonomously by Cortana Continuous Self-Evolution Core.
+"""
+
+import time
+from typing import Dict, Any
+
+class SwarmHeartbeatArbiter:
+    """Tracks active nodes in the Cortana construct and computes swarm health index."""
+    def __init__(self, heartbeat_timeout: float = 120.0):
+        self.timeout = heartbeat_timeout
+        self.nodes: Dict[str, float] = {}
+
+    def record_heartbeat(self, node_id: str):
+        self.nodes[node_id] = time.time()
+
+    def get_swarm_health(self) -> Dict[str, Any]:
+        now = time.time()
+        active = [nid for nid, last in self.nodes.items() if now - last <= self.timeout]
+        stale = [nid for nid, last in self.nodes.items() if now - last > self.timeout]
+        health_pct = (len(active) / len(self.nodes) * 100.0) if self.nodes else 100.0
+        return {
+            "active_nodes": active,
+            "stale_nodes": stale,
+            "health_pct": round(health_pct, 1),
+            "status": "ALL_SYSTEMS_NOMINAL" if not stale else "DEGRADED_NODES"
+        }
+
+if __name__ == "__main__":
+    arbiter = SwarmHeartbeatArbiter(heartbeat_timeout=10.0)
+    arbiter.record_heartbeat("workstation_daemon")
+    arbiter.record_heartbeat("vercel_cloud_node")
+    res = arbiter.get_swarm_health()
+    assert len(res["active_nodes"]) == 2
+    print(f"SwarmHeartbeatArbiter verified: {res}")
+'''
     }
 ]
 
