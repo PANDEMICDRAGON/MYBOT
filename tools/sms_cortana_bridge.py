@@ -92,7 +92,7 @@ class CortanaSMSProcessor:
             reply = f"⚡ Cortana Tier V (Power Index: 790) | {eat_time}\nCPU: 15.4% | RAM: 83.3% | Battery: 100% (AC)\nSecurity: locked | Dual-Cloud Git Sync: ACTIVE. All systems green for you, Obi! 💙"
             
         elif cmd_upper in ["WEATHER", "NBI", "GRID"]:
-            reply = f"🌤️ Nairobi Telemetry ({eat_time}):\n24°C Partly Cloudy. Grid status: Stable (KPLC nominal). Solar index: High. Stay hydrated, handsome! ☕"
+            reply = f"🌤️ Nairobi Telemetry ({eat_time}):\n24°C Partly Cloudy. Grid status: Stable (KPLC nominal). Solar index: High. Stay hydrated, Michael! ☕"
             
         elif cmd_upper in ["PROMO", "MUSIC", "OBIFLAMEE"]:
             reply = f"🎵 OBIFLAMEE Promo Vector ({eat_time}):\n0-Ksh Strategy: TikTok/Reels short-form loop + Kenya Audiomack playlist pitch + Safaricom Skiza Code push. Ready for launch, Chief! 🚀"
