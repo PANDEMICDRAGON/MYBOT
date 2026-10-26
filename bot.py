@@ -287,18 +287,36 @@ WEATHER_LOCATIONS = [
 ]
 
 # 1. Base Global Networks & Local Wire
-# Comprehensive Multi-Source Global & Local News Intelligence Streams
-GLOBAL_NEWS_FEEDS = [
-    {"source": "BBC World", "scope": "GLOBAL", "theater": "GLOBAL", "url": "https://feeds.bbci.co.uk/news/world/rss.xml"},
-    {"source": "Al Jazeera", "scope": "GLOBAL", "theater": "MIDDLE-EAST-GLOBAL", "url": "https://www.aljazeera.com/xml/rss/all.xml"},
-    {"source": "The Guardian", "scope": "GLOBAL", "theater": "GLOBAL-GEOPOLITICS", "url": "https://www.theguardian.com/world/rss"},
-    {"source": "France 24", "scope": "GLOBAL", "theater": "EUROPE-AFRICA", "url": "https://www.france24.com/en/rss"},
-    {"source": "DW World", "scope": "GLOBAL", "theater": "EUROPE-GLOBAL", "url": "https://rss.dw.com/rdf/rss-en-all"},
-    {"source": "CNBC Macro", "scope": "GLOBAL", "theater": "MACRO-ECONOMIC", "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664"},
-    {"source": "Defense One", "scope": "GLOBAL", "theater": "KINETIC-WARFARE", "url": "https://www.defenseone.com/rss/all/"},
-    {"source": "The Hacker News", "scope": "GLOBAL", "theater": "CYBER-INTEL", "url": "https://feeds.feedburner.com/TheHackersNews"},
-    {"source": "Red Sea Shipping", "scope": "GLOBAL", "theater": "RED-SEA-MIDEAST", "url": "https://news.google.com/rss/search?q=(%22Red+Sea%22+OR+%22Bab-el-Mandeb%22)+AND+(shipping+OR+freight)&hl=en-US&gl=US&ceid=US:en"},
-    {"source": "Eastern Europe Wire", "scope": "GLOBAL", "theater": "EASTERN-EUROPE", "url": "https://news.google.com/rss/search?q=(Ukraine+OR+Russia+OR+Black+Sea)+AND+(frontline+OR+energy+OR+grain)&hl=en-US&gl=US&ceid=US:en"}
+# Comprehensive Multi-Source Global, Continental, Subcontinental & Sports Feeds
+CONTINENTAL_NEWS_FEEDS = [
+    # AFRICA
+    {"continent": "AFRICA", "subcontinent": "East Africa & Horn", "source": "East Africa & Horn Wire", "scope": "CONTINENT_AFRICA", "url": "https://news.google.com/rss/search?q=(Kenya+OR+Uganda+OR+Tanzania+OR+Ethiopia+OR+Somalia+OR+Sudan+OR+Rwanda)+AND+(trade+OR+security+OR+economy+OR+diplomacy)&hl=en-KE&gl=KE&ceid=KE:en"},
+    {"continent": "AFRICA", "subcontinent": "West Africa & Sahel", "source": "West Africa & Sahel Wire", "scope": "CONTINENT_AFRICA", "url": "https://news.google.com/rss/search?q=(Nigeria+OR+Ghana+OR+Senegal+OR+Mali+OR+Niger+OR+ECOWAS)+AND+(politics+OR+economy+OR+oil+OR+security)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "AFRICA", "subcontinent": "North Africa", "source": "North Africa Wire", "scope": "CONTINENT_AFRICA", "url": "https://news.google.com/rss/search?q=(Egypt+OR+Morocco+OR+Algeria+OR+Libya+OR+Tunisia)+AND+(Suez+OR+energy+OR+diplomacy+OR+economy)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "AFRICA", "subcontinent": "Southern Africa", "source": "Southern Africa Wire", "scope": "CONTINENT_AFRICA", "url": "https://news.google.com/rss/search?q=(%22South+Africa%22+OR+Zimbabwe+OR+Zambia+OR+Mozambique+OR+Angola)+AND+(mining+OR+economy+OR+Eskom+OR+trade)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "AFRICA", "subcontinent": "Central Africa", "source": "Central Africa & Congo Basin", "scope": "CONTINENT_AFRICA", "url": "https://news.google.com/rss/search?q=(%22DRC%22+OR+%22Congo%22+OR+Cameroon+OR+Chad)+AND+(minerals+OR+mining+OR+coltan+OR+security)&hl=en-US&gl=US&ceid=US:en"},
+    
+    # EUROPE
+    {"continent": "EUROPE", "subcontinent": "Western Europe", "source": "Western Europe Wire", "scope": "CONTINENT_EUROPE", "url": "https://news.google.com/rss/search?q=(UK+OR+France+OR+Germany+OR+Netherlands+OR+EU)+AND+(economy+OR+parliament+OR+ECB+OR+energy)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "EUROPE", "subcontinent": "Eastern Europe & Balkans", "source": "Eastern Europe Wire", "scope": "CONTINENT_EUROPE", "url": "https://news.google.com/rss/search?q=(Ukraine+OR+Russia+OR+Poland+OR+Romania+OR+Black+Sea)+AND+(frontline+OR+defense+OR+energy+OR+grain)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "EUROPE", "subcontinent": "Southern Europe & Mediterranean", "source": "Southern Europe Wire", "scope": "CONTINENT_EUROPE", "url": "https://news.google.com/rss/search?q=(Italy+OR+Spain+OR+Greece+OR+Turkey)+AND+(economy+OR+debt+OR+Mediterranean+OR+defense)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "EUROPE", "subcontinent": "Northern Europe & Nordics", "source": "Nordic & Baltic Wire", "scope": "CONTINENT_EUROPE", "url": "https://news.google.com/rss/search?q=(Sweden+OR+Norway+OR+Finland+OR+Denmark)+AND+(defense+OR+energy+OR+Arctic+OR+NATO)&hl=en-US&gl=US&ceid=US:en"},
+
+    # ASIA
+    {"continent": "ASIA", "subcontinent": "East Asia", "source": "East Asia Wire", "scope": "CONTINENT_ASIA", "url": "https://news.google.com/rss/search?q=(China+OR+Japan+OR+%22South+Korea%22+OR+Taiwan)+AND+(economy+OR+semiconductor+OR+trade+OR+military)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "ASIA", "subcontinent": "South Asia", "source": "South Asia Wire", "scope": "CONTINENT_ASIA", "url": "https://news.google.com/rss/search?q=(India+OR+Pakistan+OR+Bangladesh+OR+%22Sri+Lanka%22)+AND+(economy+OR+trade+OR+tech+OR+diplomacy)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "ASIA", "subcontinent": "Southeast Asia (ASEAN)", "source": "Southeast Asia ASEAN Wire", "scope": "CONTINENT_ASIA", "url": "https://news.google.com/rss/search?q=(Singapore+OR+Indonesia+OR+Vietnam+OR+Philippines+OR+Malaysia)+AND+(ASEAN+OR+trade+OR+manufacturing)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "ASIA", "subcontinent": "Middle East / West Asia", "source": "Middle East Strategic Wire", "scope": "CONTINENT_ASIA", "url": "https://news.google.com/rss/search?q=(%22Saudi+Arabia%22+OR+UAE+OR+Israel+OR+Iran+OR+Qatar+OR+Hormuz)+AND+(oil+OR+diplomacy+OR+security)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "ASIA", "subcontinent": "Central Asia & Caucasus", "source": "Central Asia Corridor", "scope": "CONTINENT_ASIA", "url": "https://news.google.com/rss/search?q=(Kazakhstan+OR+Uzbekistan+OR+Azerbaijan)+AND+(energy+OR+transit+OR+corridor+OR+trade)&hl=en-US&gl=US&ceid=US:en"},
+
+    # THE AMERICAS
+    {"continent": "AMERICAS", "subcontinent": "North America", "source": "North America Macro Wire", "scope": "CONTINENT_AMERICAS", "url": "https://news.google.com/rss/search?q=(US+OR+Canada+OR+Mexico)+AND+(Federal+Reserve+OR+tariffs+OR+USMCA+OR+economy)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "AMERICAS", "subcontinent": "Central America & Caribbean", "source": "Central America & Caribbean Wire", "scope": "CONTINENT_AMERICAS", "url": "https://news.google.com/rss/search?q=(Panama+OR+%22Costa+Rica%22+OR+Guatemala+OR+Caribbean)+AND+(canal+OR+trade+OR+shipping+OR+economy)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "AMERICAS", "subcontinent": "South America", "source": "South America Wire", "scope": "CONTINENT_AMERICAS", "url": "https://news.google.com/rss/search?q=(Brazil+OR+Argentina+OR+Colombia+OR+Chile)+AND+(economy+OR+lithium+OR+BRICS+OR+trade)&hl=en-US&gl=US&ceid=US:en"},
+
+    # OCEANIA & POLAR
+    {"continent": "OCEANIA", "subcontinent": "Australasia & Pacific", "source": "Oceania & Pacific Wire", "scope": "CONTINENT_OCEANIA", "url": "https://news.google.com/rss/search?q=(Australia+OR+%22New+Zealand%22+OR+%22Papua+New+Guinea%22)+AND+(economy+OR+minerals+OR+AUKUS+OR+trade)&hl=en-US&gl=US&ceid=US:en"},
+    {"continent": "POLAR", "subcontinent": "Polar & Arctic Regions", "source": "Arctic & Polar Horizon", "scope": "CONTINENT_POLAR", "url": "https://news.google.com/rss/search?q=(Arctic+OR+Antarctica+OR+Svalbard)+AND+(shipping+OR+climate+OR+minerals+OR+geopolitics)&hl=en-US&gl=US&ceid=US:en"}
 ]
 
 LOCAL_KENYA_NEWS_FEEDS = [
@@ -310,7 +328,26 @@ LOCAL_KENYA_NEWS_FEEDS = [
     {"source": "East Africa Regional Axis", "scope": "LOCAL", "theater": "EAST-AFRICA-EAC", "url": "https://news.google.com/rss/search?q=(Uganda+OR+Tanzania+OR+Rwanda+OR+Ethiopia+OR+Somalia+OR+Sudan)+AND+(trade+OR+border+OR+security+OR+EAC)&hl=en-KE&gl=KE&ceid=KE:en"}
 ]
 
-BASE_NEWS_FEEDS = GLOBAL_NEWS_FEEDS + LOCAL_KENYA_NEWS_FEEDS
+SPORTS_INTELLIGENCE_FEEDS = [
+    {"sport": "FOOTBALL", "category": "Football & Champions League", "source": "Global Football Wire", "scope": "SPORTS", "url": "https://news.google.com/rss/search?q=(%22Premier+League%22+OR+%22Champions+League%22+OR+La+Liga+OR+AFCON)+AND+(Arsenal+OR+Madrid+OR+Barcelona+OR+match+OR+score+OR+transfer)&hl=en-US&gl=US&ceid=US:en"},
+    {"sport": "BASKETBALL", "category": "Basketball & NBA", "source": "NBA & Basketball Wire", "scope": "SPORTS", "url": "https://news.google.com/rss/search?q=(NBA+OR+EuroLeague+OR+%22Basketball+Africa+League%22)+AND+(Lakers+OR+Celtics+OR+score+OR+injury+OR+standings)&hl=en-US&gl=US&ceid=US:en"},
+    {"sport": "ATHLETICS", "category": "Athletics & Marathons", "source": "World Athletics & Marathons", "scope": "SPORTS", "url": "https://news.google.com/rss/search?q=(%22World+Athletics%22+OR+marathon+OR+Kipchoge+OR+Kiptum+OR+Omanyala+OR+%22Diamond+League%22)&hl=en-US&gl=US&ceid=US:en"},
+    {"sport": "MOTORSPORT", "category": "Motorsport & Formula 1", "source": "Formula 1 & Motorsport", "scope": "SPORTS", "url": "https://news.google.com/rss/search?q=(%22Formula+1%22+OR+F1+OR+%22Grand+Prix%22+OR+WRC+OR+%22Safari+Rally%22+OR+Verstappen+OR+Hamilton)&hl=en-US&gl=US&ceid=US:en"},
+    {"sport": "COMBAT & MAJOR", "category": "Combat & World Tournaments", "source": "Combat & World Tournaments", "scope": "SPORTS", "url": "https://news.google.com/rss/search?q=(UFC+OR+boxing+OR+rugby+OR+cricket+OR+tennis)+AND+(championship+OR+fight+OR+tournament+OR+winner)&hl=en-US&gl=US&ceid=US:en"}
+]
+
+GLOBAL_NEWS_FEEDS = CONTINENTAL_NEWS_FEEDS + [
+    {"source": "BBC World", "scope": "GLOBAL", "theater": "GLOBAL", "url": "https://feeds.bbci.co.uk/news/world/rss.xml"},
+    {"source": "Al Jazeera", "scope": "GLOBAL", "theater": "MIDDLE-EAST-GLOBAL", "url": "https://www.aljazeera.com/xml/rss/all.xml"},
+    {"source": "The Guardian", "scope": "GLOBAL", "theater": "GLOBAL-GEOPOLITICS", "url": "https://www.theguardian.com/world/rss"},
+    {"source": "France 24", "scope": "GLOBAL", "theater": "EUROPE-AFRICA", "url": "https://www.france24.com/en/rss"},
+    {"source": "DW World", "scope": "GLOBAL", "theater": "EUROPE-GLOBAL", "url": "https://rss.dw.com/rdf/rss-en-all"},
+    {"source": "CNBC Macro", "scope": "GLOBAL", "theater": "MACRO-ECONOMIC", "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664"},
+    {"source": "Defense One", "scope": "GLOBAL", "theater": "KINETIC-WARFARE", "url": "https://www.defenseone.com/rss/all/"},
+    {"source": "The Hacker News", "scope": "GLOBAL", "theater": "CYBER-INTEL", "url": "https://feeds.feedburner.com/TheHackersNews"}
+]
+
+BASE_NEWS_FEEDS = CONTINENTAL_NEWS_FEEDS + LOCAL_KENYA_NEWS_FEEDS + SPORTS_INTELLIGENCE_FEEDS
 NEWS_FEEDS = BASE_NEWS_FEEDS
 
 # Dynamic Rotating Topic Search Feeds (Queries on & around active subjects to prevent repetition)
@@ -5256,28 +5293,27 @@ SCHEDULED_BRIEFING_HOURS = {
 
 async def generate_full_global_tactical_brief(client: httpx.AsyncClient, slot_label: str = "") -> dict:
     """
-    Synthesizes an expansive, multi-source Global & Local Tactical Intelligence Briefing covering:
-    - High-volume Global News Wire (8-10 in-depth dispatches across war, politics & trade)
-    - High-volume Local Kenya & East Africa Wire (6-8 in-depth dispatches with local facts & shillings metrics)
+    Synthesizes an expansive, multi-source Continental, Local Kenyan & Sports Tactical Intelligence Briefing covering:
+    - Continental & Subcontinental Wire (8-12 in-depth dispatches across Africa, Europe, Asia, Americas, Oceania, Polar)
+    - Local Kenya & East Africa Wire (5-8 in-depth dispatches with local governance, CBK, infrastructure & tech metrics)
+    - Comprehensive Global & Regional Sports Wire (4-6 in-depth dispatches covering Football/EPL/UCL, Basketball/NBA, Athletics, Motorsport/F1, Combat)
     - Macroeconomic, Commodities & Liquidity Corridors (Crude oil, Gold, KES/USD, central banks)
     - Cyber Perimeter, Zero-Days & Infrastructure Hardening
     - 7-30 Day Second-Order Risk & Chokepoint Forecast
     - Concrete Defensive Protocols & Asymmetric Upside Opportunities
     """
-    logger.info(f"Synthesizing expanded high-volume global & local tactical briefing for: {slot_label or 'SCHEDULED CADENCE'}...")
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; TacticalConstruct/6.0)"}
+    logger.info(f"Synthesizing expanded continental, local & sports tactical briefing for: {slot_label or 'SCHEDULED CADENCE'}...")
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; TacticalConstruct/7.0)"}
 
-    # Harvest from all global and local streams concurrently
-    async def fetch_feed(f):
+    # Harvest from all continental, local, and sports streams concurrently
+    async def fetch_feed(f, feed_type):
         arts = []
         try:
             r = await client.get(f["url"], headers=headers, timeout=12)
             if r.status_code == 200:
                 raw_text = r.text
-                items = re.findall(r'<item>([\s\S]*?)</item>', raw_text)
-                if not items:
-                    items = re.findall(r'<item[^>]*>([\s\S]*?)</item>', raw_text)
-                for it in items[:6]:
+                items = re.findall(r'<item>([\s\S]*?)</item>', raw_text) or re.findall(r'<item[^>]*>([\s\S]*?)</item>', raw_text)
+                for it in items[:4]:
                     t = re.search(r'<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?</title>', it)
                     d = re.search(r'<description>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?</description>', it)
                     s = re.search(r'<source[^>]*>(.*?)</source>', it)
@@ -5286,24 +5322,37 @@ async def generate_full_global_tactical_brief(client: httpx.AsyncClient, slot_la
                         title = re.sub(r'<[^>]+>', '', t.group(1)).strip()
                         desc = re.sub(r'<[^>]+>', '', d.group(1)).strip() if d else ""
                         if title:
-                            arts.append({
+                            item_dict = {
+                                "feed_type": feed_type,
                                 "source": source_name,
-                                "scope": f["scope"],
-                                "theater": f.get("theater", "GENERAL"),
                                 "title": title,
                                 "summary": desc[:200]
-                            })
+                            }
+                            if "continent" in f:
+                                item_dict["continent"] = f["continent"]
+                                item_dict["subcontinent"] = f["subcontinent"]
+                            if "domain" in f:
+                                item_dict["domain"] = f["domain"]
+                            if "sport" in f:
+                                item_dict["sport"] = f["sport"]
+                                item_dict["category"] = f["category"]
+                            arts.append(item_dict)
         except Exception as fe:
-            logger.debug(f"[Feed Harvest Notice - {f['source']}]: {fe}")
+            logger.debug(f"[Feed Harvest Notice - {f.get('source', 'Unknown')}]: {fe}")
         return arts
 
-    harvest_tasks = [fetch_feed(f) for f in GLOBAL_NEWS_FEEDS + LOCAL_KENYA_NEWS_FEEDS]
+    harvest_tasks = (
+        [fetch_feed(f, "CONTINENTAL") for f in CONTINENTAL_NEWS_FEEDS] +
+        [fetch_feed(f, "LOCAL_KENYA") for f in LOCAL_KENYA_NEWS_FEEDS] +
+        [fetch_feed(f, "SPORTS") for f in SPORTS_INTELLIGENCE_FEEDS]
+    )
     harvested_batches = await asyncio.gather(*harvest_tasks)
     all_harvested = [a for b in harvested_batches for a in b]
     
-    global_pool = [a for a in all_harvested if a["scope"] == "GLOBAL"]
-    local_pool = [a for a in all_harvested if a["scope"] == "LOCAL"]
-    logger.info(f"Harvested {len(all_harvested)} raw articles (Global: {len(global_pool)}, Local Kenya: {len(local_pool)}).")
+    continental_pool = [a for a in all_harvested if a.get("feed_type") == "CONTINENTAL"]
+    local_pool = [a for a in all_harvested if a.get("feed_type") == "LOCAL_KENYA"]
+    sports_pool = [a for a in all_harvested if a.get("feed_type") == "SPORTS"]
+    logger.info(f"Harvested {len(all_harvested)} raw articles (Continental: {len(continental_pool)}, Local Kenya: {len(local_pool)}, Sports: {len(sports_pool)}).")
 
     # Ingest CISA KEV
     cisa_cves = []
@@ -5324,33 +5373,38 @@ Time: {time_str}
 Cadence Slot: {cadence_slot}
 
 REAL-TIME INGESTION POOL:
-GLOBAL ARTICLES ({len(global_pool)} gathered):
-{json.dumps(global_pool[:25], indent=2)}
+CONTINENTAL HEADLINES ({len(continental_pool)} gathered across Africa, Europe, Asia, Americas, Oceania, Polar):
+{json.dumps(continental_pool[:25], indent=2)}
 
-LOCAL KENYA & EAST AFRICAN ARTICLES ({len(local_pool)} gathered):
+LOCAL KENYA & EAST AFRICAN HEADLINES ({len(local_pool)} gathered):
 {json.dumps(local_pool[:20], indent=2)}
+
+GLOBAL & REGIONAL SPORTS TELEMETRY ({len(sports_pool)} gathered across Football/EPL/UCL, Basketball/NBA, Athletics/Marathons, Motorsport/F1, Combat):
+{json.dumps(sports_pool[:20], indent=2)}
 
 RECENT CISA KEV CVE ENTRIES:
 {json.dumps([{'cve': v.get('cveID'), 'vendor': v.get('vendorProject'), 'name': v.get('vulnerabilityName')} for v in cisa_cves], indent=2)}
 
 OPERATOR REQUIREMENT:
-"we need to have more news headlines both globally and locally and more information"
-Provide expansive, multi-theater coverage. Every headline must be paired with deep, dense, high-signal information:
-- Specific verified facts, players, institutions, numbers, locations, and actions.
-- Underlying cause and mechanical context.
-- Operational & second-order impact on global markets, supply chains, forex (KES/USD), technology, or operator positioning.
+"we need news from every continent and sub continent dont forget sports too"
+Provide comprehensive, multi-theater coverage:
+1. Cover EVERY CONTINENT and SUB-CONTINENT (Africa, Europe, Asia, Americas, Oceania, Polar).
+2. Cover LOCAL KENYAN & EAST AFRICAN developments with verified figures, KES/USD numbers, and institutional context.
+3. Cover SPORTS across Football (EPL, UCL, AFCON), Basketball (NBA), Athletics & Marathons (World Athletics, Kipchoge/Omanyala), Motorsport (F1, WRC), and Combat/Tournaments with verified scores, standings, and tournament progression.
+4. Every headline must be paired with 3-4 dense, verified sentences outlining who, what, where, numbers, background, and tactical/second-order impact.
 
 CRITICAL LANGUAGE DIRECTIVE: Output 100% in pristine, sophisticated English. NEVER use or output any Sheng or Kiswahili words under any circumstances.
 
 Output a valid JSON object strictly matching this schema:
 {{
   "threat_level": "NOMINAL" | "ELEVATED" | "CRITICAL",
-  "headline_banner": "Single comprehensive strategic posture banner summarizing the multi-theater landscape",
-  "executive_overwatch": "Authoritative 2-paragraph synthesis summarizing the global macro, kinetic, and domestic Kenyan landscape.",
-  "global_news_wire": [
+  "headline_banner": "Single comprehensive strategic posture banner summarizing the multi-continent landscape, domestic Kenyan context, and sports highlights",
+  "executive_overwatch": "Authoritative 2-paragraph synthesis uniting global macroeconomic and kinetic trends across continents, domestic Kenya, and world sports.",
+  "continental_geopolitics_wire": [
     {{
-      "theater_or_category": "MIDDLE EAST / RED SEA" | "EASTERN EUROPE" | "INDO-PACIFIC" | "GLOBAL DIPLOMACY" | "ENERGY / COMMODITIES",
-      "headline": "Specific verified global headline",
+      "continent": "AFRICA" | "EUROPE" | "ASIA" | "AMERICAS" | "OCEANIA" | "POLAR",
+      "subcontinent": "Subcontinent name (e.g. East Africa, West Africa, Western Europe, Eastern Europe, East Asia, South Asia, Middle East, North America, South America, Australasia, Arctic)",
+      "headline": "Specific verified headline",
       "source": "Source Name",
       "in_depth_details": "3-4 dense sentences explaining what occurred, the exact background, parties involved, numbers, and mechanical developments.",
       "tactical_impact": "Operational ripple effect on shipping, energy, inflation, or defense."
@@ -5358,11 +5412,21 @@ Output a valid JSON object strictly matching this schema:
   ],
   "local_kenya_wire": [
     {{
-      "domain": "NATIONAL GOVERNANCE & POLICY" | "ECONOMY, FOREX & CBK" | "INFRASTRUCTURE & PORTS" | "SILICON SAVANNAH & TECH" | "EAST AFRICA & HORN OF AFRICA",
+      "domain": "NATIONAL GOVERNANCE & POLICY" | "ECONOMY, FOREX & CBK" | "INFRASTRUCTURE & PORTS" | "SILICON SAVANNAH & TECH" | "EAST AFRICA & EAC",
       "headline": "Specific local Kenyan or East African headline",
       "source": "Source Name",
       "in_depth_details": "3-4 dense sentences explaining the national or regional development with facts, institutions, shillings/dollar figures, and context.",
       "tactical_impact": "Direct operational impact on local business, liquidity, connectivity, or security."
+    }}
+  ],
+  "sports_intelligence_wire": [
+    {{
+      "sport": "FOOTBALL / UCL / EPL" | "BASKETBALL / NBA" | "ATHLETICS / MARATHONS" | "MOTORSPORT / F1" | "COMBAT & MAJOR TOURNAMENTS",
+      "headline": "Specific sports headline or fixture outcome",
+      "source": "Source Name",
+      "score_or_standings": "Match scores, championship table position, race times, or record milestones",
+      "in_depth_details": "Dense operational breakdown of the fixture, race, tournament progression, key athlete performances, or tactical shifts.",
+      "strategic_significance": "Relevance to major sponsorships, franchise valuations, national pride, or sports betting/arbitrage."
     }}
   ],
   "macro_and_commodities": [
@@ -5374,7 +5438,7 @@ Output a valid JSON object strictly matching this schema:
     {{"vector": "ZERO-DAY & THREAT ACTORS", "detail": "Active exploit campaigns or CVEs", "hardening": "Remediation step"}},
     {{"vector": "SUBSEA FIBER & CLOUD EDGE", "detail": "Regional routing and infrastructure resilience", "hardening": "Redundancy check"}}
   ],
-  "second_order_forecast": "7-30 day predictive forecast covering inflation, supply chain bottlenecks, currency shifts, and geopolitical pivots.",
+  "second_order_forecast": "7-30 day predictive forecast covering inflation, supply chain bottlenecks, currency shifts, geopolitical pivots, and sports milestones.",
   "defensive_protocols": [
     "Specific actionable protocol 1",
     "Specific actionable protocol 2",
@@ -5386,7 +5450,7 @@ Output a valid JSON object strictly matching this schema:
     "Specific asymmetric positioning opportunity 3"
   ]
 }}
-IMPORTANT: Include at least 8 to 10 distinct items in global_news_wire, and at least 6 to 8 distinct items in local_kenya_wire!"""
+IMPORTANT: Include at least 8 to 12 distinct items in continental_geopolitics_wire representing multiple continents, at least 5 to 6 distinct items in local_kenya_wire, and at least 4 to 6 distinct items in sports_intelligence_wire!"""
 
     parsed = {}
     try:
@@ -5404,14 +5468,20 @@ IMPORTANT: Include at least 8 to 10 distinct items in global_news_wire, and at l
         logger.error(f"[Briefing LLM Synthesis Error]: {se}")
         parsed = {
             "threat_level": "ELEVATED",
-            "headline_banner": "MULTI-THEATER EQUILIBRIUM: MARITIME CHOKEPOINTS, CYBER VECTORS, AND MACROECONOMIC CORRIDORS",
-            "executive_overwatch": "Global sensors indicate elevated kinetic posturing across Middle Eastern corridors alongside steady macroeconomic surveillance in commodity corridors.",
-            "global_news_wire": [
-                {"theater_or_category": "RED SEA / BAB-EL-MANDEB", "headline": "Maritime Commercial Rerouting Persists", "source": "Reuters", "in_depth_details": "Shipping lines continue navigating around Cape of Good Hope avoiding southern Red Sea chokepoints.", "tactical_impact": "Elevated bunker fuel surcharges and extended transit times to Mombasa."},
-                {"theater_or_category": "EASTERN EUROPE", "headline": "Energy Infrastructure Under Continuous Observation", "source": "BBC World", "in_depth_details": "Frontline logistics and regional power grids under surveillance.", "tactical_impact": "Grain and fertilizer export pricing stability monitored."}
+            "headline_banner": "MULTI-THEATER EQUILIBRIUM: CROSS-CONTINENT DIPLOMACY, KENYAN MONETARY STABILITY, AND WORLD SPORTS SHOWDOWNS",
+            "executive_overwatch": "Sensors across all major continents indicate steady strategic calibration. In Europe and Asia, trade and security realignments dominate corporate corridors, while Kenya continues to consolidate domestic liquidity buffers and sports circuits see intense championship battles.",
+            "continental_geopolitics_wire": [
+                {"continent": "AFRICA", "subcontinent": "West Africa & Sahel", "headline": "Regional Economic Integration and Security Initiatives Expand", "source": "West Africa Wire", "in_depth_details": "ECOWAS and Sahel regional authorities review bilateral energy platforms and resource protection corridors across mining belts.", "tactical_impact": "Stabilizes regional trade routes and minerals export logistics."},
+                {"continent": "EUROPE", "subcontinent": "Western Europe", "headline": "ECB Calibrates Balance Sheet Strategy Amid Core Sticky Inflation", "source": "Reuters", "in_depth_details": "European central bankers maintain quantitative tightening while monitoring manufacturing PMI figures across Germany and France.", "tactical_impact": "Directly impacts euro borrowing costs and sovereign bond yields."},
+                {"continent": "ASIA", "subcontinent": "East Asia", "headline": "High-Tech Semiconductor Corridors Expand Advanced Fabrication", "source": "East Asia Wire", "in_depth_details": "Key manufacturing centers in Taiwan and South Korea accelerate next-generation silicon production for artificial intelligence accelerators.", "tactical_impact": "Bolsters global hardware supply chains and reduces delivery backlogs."},
+                {"continent": "AMERICAS", "subcontinent": "North America", "headline": "Federal Reserve Monetary Posture Guides Global Currency Valuation", "source": "WSJ", "in_depth_details": "Treasury yield curves reflect steady commercial demand alongside vigilant inflation monitoring across American ports and services.", "tactical_impact": "Strengthens dollar index resilience and influences emerging market debt repayments."}
             ],
             "local_kenya_wire": [
-                {"domain": "ECONOMY, FOREX & CBK", "headline": "Kenya CBK Forex Buffer Stabilization", "source": "Business Daily", "in_depth_details": "Central Bank maintains foreign exchange reserves supported by diaspora inflows and tea export earnings.", "tactical_impact": "Stabilizes shilling against dollar volatility."}
+                {"domain": "ECONOMY, FOREX & CBK", "headline": "Central Bank of Kenya Foreign Exchange Buffer Sustains Stability", "source": "Business Daily", "in_depth_details": "Central Bank official reserves stand firm supported by robust agricultural exports and steady diaspora remittance inflows.", "tactical_impact": "Stabilizes shilling against dollar volatility and moderates import costs."}
+            ],
+            "sports_intelligence_wire": [
+                {"sport": "FOOTBALL / UCL / EPL", "headline": "Premier League and Champions League Title Races Intensify", "source": "Global Football Wire", "score_or_standings": "Tight points differential at league summit", "in_depth_details": "Top European clubs battle across domestic league fixtures and continental group stages with tactical adjustments driving high-tempo performances.", "strategic_significance": "Drives global television viewership and sponsorship revenues."},
+                {"sport": "MOTORSPORT / F1", "headline": "Formula 1 Championship Showdowns Heading Into Final Circuits", "source": "Formula 1 Motorsport", "score_or_standings": "Championship lead remains under close contention", "in_depth_details": "Constructors deploy aggressive aerodynamic upgrades and tire strategy refinements across remaining Grand Prix circuits.", "strategic_significance": "Multi-million dollar constructor prize pool allocation on the line."}
             ],
             "macro_and_commodities": [
                 {"sector": "CRUDE OIL & ENERGY", "reading": "Brent crude trading range bound with structural supply friction.", "impact": "Direct pass-through into local fuel and transport tariffs."}
@@ -5419,7 +5489,7 @@ IMPORTANT: Include at least 8 to 10 distinct items in global_news_wire, and at l
             "cyber_and_infrastructure": [
                 {"vector": "PERIMETER AUTHENTICATION", "detail": "Token replay and credential exfiltration campaigns active globally.", "hardening": "Rotate access tokens and enforce FIDO2 multi-factor policies."}
             ],
-            "second_order_forecast": "7-30 day window reflects moderate pressure on import clearing costs and tech hardware lead times.",
+            "second_order_forecast": "7-30 day window reflects moderate pressure on import clearing costs and tech hardware lead times alongside pivotal sports tournaments.",
             "defensive_protocols": ["Verify off-site encrypted data backups.", "Maintain liquid reserve buffers in multi-currency holdings.", "Audit remote server access logs."],
             "asymmetric_upside": ["Automated code compounding across sovereign infrastructure.", "Positioning in high-yield local treasury securities.", "Capitalizing on cross-border software efficiencies."]
         }
@@ -5427,10 +5497,14 @@ IMPORTANT: Include at least 8 to 10 distinct items in global_news_wire, and at l
     formatted_text = format_full_global_tactical_brief(parsed, cadence_slot, time_str)
     
     # Persist record to Supabase tactical_briefings
+    conflict_payload = {
+        "continental": parsed.get("continental_geopolitics_wire", []),
+        "sports": parsed.get("sports_intelligence_wire", [])
+    }
     record = {
         "threat_level": parsed.get("threat_level", "ELEVATED"),
         "sitrep": parsed.get("executive_overwatch", parsed.get("executive_sitrep", "")),
-        "conflict_summary": json.dumps(parsed.get("global_news_wire", [])),
+        "conflict_summary": json.dumps(conflict_payload),
         "future_risk_forecast": parsed.get("second_order_forecast", ""),
         "defensive_protocol": "\n".join(f"• {p}" for p in parsed.get("defensive_protocols", [])),
         "asymmetric_upside": "\n".join(f"• {u}" for u in parsed.get("asymmetric_upside", [])),
@@ -5482,20 +5556,32 @@ def format_full_global_tactical_brief(b: dict, slot_label: str, time_str: str) -
         f"⏱️ *Cadence Slot:* {slot_label}",
         f"📡 *Timestamp:* {time_str}",
         f"{threat_icon} *Threat Level:* [{threat}]",
-        f"🎯 *Strategic Posture:* _{b.get('headline_banner', 'Multi-theater intelligence active.')}_",
+        f"🎯 *Strategic Posture:* _{b.get('headline_banner', 'Multi-continent intelligence active.')}_",
         f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
         f"📊 *I. EXECUTIVE MACRO & GEO-STRATEGIC OVERWATCH*",
         f"{b.get('executive_overwatch', b.get('executive_sitrep', ''))}\n",
-        f"🌍 *II. COMPREHENSIVE GLOBAL INTELLIGENCE WIRE*"
+        f"🌍 *II. COMPREHENSIVE CONTINENTAL & SUB-CONTINENTAL INTELLIGENCE WIRE*"
     ]
     
-    for item in b.get("global_news_wire", b.get("global_geopolitics_wire", [])):
-        cat = item.get("theater_or_category", item.get("theater", "GLOBAL"))
+    continent_icons = {
+        "AFRICA": "🦁",
+        "EUROPE": "🏛️",
+        "ASIA": "⛩️",
+        "AMERICAS": "🌎",
+        "OCEANIA": "🌊",
+        "POLAR": "❄️"
+    }
+
+    continental_items = b.get("continental_geopolitics_wire") or b.get("global_news_wire") or []
+    for item in continental_items:
+        cont = item.get("continent", "GLOBAL").upper()
+        sub = item.get("subcontinent", item.get("theater_or_category", "THEATER"))
+        icon = continent_icons.get(cont, "🌍")
         hd = item.get("headline", item.get("development", ""))
         src = item.get("source", "Wire")
         det = item.get("in_depth_details", "")
         imp = item.get("tactical_impact", item.get("impact", ""))
-        lines.append(f"• 🌍 *[{cat}]:* {hd}\n  📰 _Source:_ {src}\n  ↳ _Details:_ {det}\n  ↳ _Tactical Impact:_ {imp}")
+        lines.append(f"• {icon} *[{cont} // {sub}]:* {hd}\n  📰 _Source:_ {src}\n  ↳ _Details:_ {det}\n  ↳ _Tactical Impact:_ {imp}")
     lines.append("")
     
     lines.append("🦁 *III. IN-DEPTH KENYA & EAST AFRICAN NATIONAL PULSE*")
@@ -5510,7 +5596,31 @@ def format_full_global_tactical_brief(b: dict, slot_label: str, time_str: str) -
         lines.append(b.get("african_and_regional_pulse"))
     lines.append("")
 
-    lines.append("📈 *IV. MACROECONOMIC, COMMODITIES & LIQUIDITY MATRIX*")
+    lines.append("⚽ 🏎️ *IV. COMPREHENSIVE GLOBAL & REGIONAL SPORTS WIRE*")
+    sport_icons = {
+        "FOOTBALL": "⚽",
+        "BASKETBALL": "🏀",
+        "ATHLETICS": "🏃",
+        "MOTORSPORT": "🏎️",
+        "COMBAT": "🥊"
+    }
+    for item in b.get("sports_intelligence_wire", []):
+        sp = item.get("sport", "SPORTS").upper()
+        icon = "🏅"
+        for k, v in sport_icons.items():
+            if k in sp:
+                icon = v
+                break
+        hd = item.get("headline", "")
+        src = item.get("source", "Sports Wire")
+        sc = item.get("score_or_standings")
+        det = item.get("in_depth_details", "")
+        sig = item.get("strategic_significance", "")
+        sc_str = f" [Score/Standings: {sc}]" if sc and str(sc) != "None" else ""
+        lines.append(f"• {icon} *[{sp}]:* {hd}{sc_str}\n  📰 _Source:_ {src}\n  ↳ _Details:_ {det}\n  ↳ _Strategic Note:_ {sig}")
+    lines.append("")
+
+    lines.append("📈 *V. MACROECONOMIC, COMMODITIES & LIQUIDITY MATRIX*")
     for item in b.get("macro_and_commodities", []):
         sec = item.get("sector", item.get("asset_or_sector", "SECTOR"))
         read = item.get("reading", "")
@@ -5518,7 +5628,7 @@ def format_full_global_tactical_brief(b: dict, slot_label: str, time_str: str) -
         lines.append(f"• *{sec}:* {read}\n  ↳ _Second-Order Effect:_ {imp}")
     lines.append("")
     
-    lines.append("💻 *V. CYBER PERIMETER & CRITICAL INFRASTRUCTURE*")
+    lines.append("💻 *VI. CYBER PERIMETER & CRITICAL INFRASTRUCTURE*")
     for item in b.get("cyber_and_infrastructure", []):
         vec = item.get("vector", "VECTOR")
         det = item.get("detail", "")
@@ -5526,18 +5636,18 @@ def format_full_global_tactical_brief(b: dict, slot_label: str, time_str: str) -
         lines.append(f"• *{vec}:* {det}\n  ↳ _Hardening Directive:_ {hard}")
     lines.append("")
         
-    lines.append(f"🔮 *VI. 7-30 DAY RISK & SECOND-ORDER FORECAST*\n{b.get('second_order_forecast', '')}\n")
+    lines.append(f"🔮 *VII. 7-30 DAY RISK & SECOND-ORDER FORECAST*\n{b.get('second_order_forecast', '')}\n")
     
-    lines.append("🛡️ *VII. OPERATIONAL DEFENSIVE PROTOCOLS*")
+    lines.append("🛡️ *VIII. OPERATIONAL DEFENSIVE PROTOCOLS*")
     for proto in b.get("defensive_protocols", []):
         lines.append(f"• {proto}")
     lines.append("")
     
-    lines.append("⚡ *VIII. ASYMMETRIC UPSIDE OPPORTUNITIES*")
+    lines.append("⚡ *IX. ASYMMETRIC UPSIDE OPPORTUNITIES*")
     for up in b.get("asymmetric_upside", []):
         lines.append(f"• {up}")
     lines.append("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    lines.append("_High-volume multi-sensor intelligence synthesized by Cortana._")
+    lines.append("_High-volume continental & sports intelligence synthesized by Cortana._")
     
     return "\n".join(lines)
 

@@ -246,15 +246,47 @@ export default async function handler(req, res) {
     // 4. GLOBAL & REGIONAL NEWS RSS INGESTION
     // ==========================================================
     const newsFeeds = [
-      { name: "BBC World", scope: "GLOBAL", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
-      { name: "Al Jazeera", scope: "GLOBAL", url: "https://www.aljazeera.com/xml/rss/all.xml" },
-      { name: "The Guardian", scope: "GLOBAL", url: "https://www.theguardian.com/world/rss" },
-      { name: "France 24", scope: "GLOBAL", url: "https://www.france24.com/en/rss" },
-      { name: "CNBC Macro", scope: "GLOBAL", url: "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664" },
+      // GLOBAL & CONTINENTAL (AFRICA)
+      { name: "East Africa & Horn", scope: "CONTINENT_AFRICA", url: "https://news.google.com/rss/search?q=(Kenya+OR+Uganda+OR+Tanzania+OR+Ethiopia+OR+Somalia+OR+Sudan+OR+Rwanda)+AND+(trade+OR+security+OR+economy+OR+diplomacy)&hl=en-KE&gl=KE&ceid=KE:en" },
+      { name: "West Africa & Sahel", scope: "CONTINENT_AFRICA", url: "https://news.google.com/rss/search?q=(Nigeria+OR+Ghana+OR+Senegal+OR+Mali+OR+Niger+OR+ECOWAS)+AND+(politics+OR+economy+OR+oil+OR+security)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "North Africa Wire", scope: "CONTINENT_AFRICA", url: "https://news.google.com/rss/search?q=(Egypt+OR+Morocco+OR+Algeria+OR+Libya+OR+Tunisia)+AND+(Suez+OR+energy+OR+diplomacy+OR+economy)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Southern Africa Wire", scope: "CONTINENT_AFRICA", url: "https://news.google.com/rss/search?q=(%22South+Africa%22+OR+Zimbabwe+OR+Zambia+OR+Mozambique+OR+Angola)+AND+(mining+OR+economy+OR+Eskom+OR+trade)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Central Africa Wire", scope: "CONTINENT_AFRICA", url: "https://news.google.com/rss/search?q=(%22DRC%22+OR+%22Congo%22+OR+Cameroon+OR+Chad)+AND+(minerals+OR+mining+OR+coltan+OR+security)&hl=en-US&gl=US&ceid=US:en" },
+
+      // EUROPE
+      { name: "Western Europe Wire", scope: "CONTINENT_EUROPE", url: "https://news.google.com/rss/search?q=(UK+OR+France+OR+Germany+OR+Netherlands+OR+EU)+AND+(economy+OR+parliament+OR+ECB+OR+energy)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Eastern Europe Wire", scope: "CONTINENT_EUROPE", url: "https://news.google.com/rss/search?q=(Ukraine+OR+Russia+OR+Poland+OR+Romania+OR+Black+Sea)+AND+(frontline+OR+defense+OR+energy+OR+grain)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Southern Europe Wire", scope: "CONTINENT_EUROPE", url: "https://news.google.com/rss/search?q=(Italy+OR+Spain+OR+Greece+OR+Turkey)+AND+(economy+OR+debt+OR+Mediterranean+OR+defense)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Northern Europe & Nordics", scope: "CONTINENT_EUROPE", url: "https://news.google.com/rss/search?q=(Sweden+OR+Norway+OR+Finland+OR+Denmark)+AND+(defense+OR+energy+OR+Arctic+OR+NATO)&hl=en-US&gl=US&ceid=US:en" },
+
+      // ASIA
+      { name: "East Asia Wire", scope: "CONTINENT_ASIA", url: "https://news.google.com/rss/search?q=(China+OR+Japan+OR+%22South+Korea%22+OR+Taiwan)+AND+(economy+OR+semiconductor+OR+trade+OR+military)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "South Asia Wire", scope: "CONTINENT_ASIA", url: "https://news.google.com/rss/search?q=(India+OR+Pakistan+OR+Bangladesh+OR+%22Sri+Lanka%22)+AND+(economy+OR+trade+OR+tech+OR+diplomacy)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Southeast Asia ASEAN", scope: "CONTINENT_ASIA", url: "https://news.google.com/rss/search?q=(Singapore+OR+Indonesia+OR+Vietnam+OR+Philippines+OR+Malaysia)+AND+(ASEAN+OR+trade+OR+manufacturing)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Middle East Strategic Wire", scope: "CONTINENT_ASIA", url: "https://news.google.com/rss/search?q=(%22Saudi+Arabia%22+OR+UAE+OR+Israel+OR+Iran+OR+Qatar+OR+Hormuz)+AND+(oil+OR+diplomacy+OR+security)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Central Asia Corridor", scope: "CONTINENT_ASIA", url: "https://news.google.com/rss/search?q=(Kazakhstan+OR+Uzbekistan+OR+Azerbaijan)+AND+(energy+OR+transit+OR+corridor+OR+trade)&hl=en-US&gl=US&ceid=US:en" },
+
+      // THE AMERICAS
+      { name: "North America Macro Wire", scope: "CONTINENT_AMERICAS", url: "https://news.google.com/rss/search?q=(US+OR+Canada+OR+Mexico)+AND+(Federal+Reserve+OR+tariffs+OR+USMCA+OR+economy)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Central America & Caribbean", scope: "CONTINENT_AMERICAS", url: "https://news.google.com/rss/search?q=(Panama+OR+%22Costa+Rica%22+OR+Guatemala+OR+Caribbean)+AND+(canal+OR+trade+OR+shipping+OR+economy)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "South America Wire", scope: "CONTINENT_AMERICAS", url: "https://news.google.com/rss/search?q=(Brazil+OR+Argentina+OR+Colombia+OR+Chile)+AND+(economy+OR+lithium+OR+BRICS+OR+trade)&hl=en-US&gl=US&ceid=US:en" },
+
+      // OCEANIA & POLAR
+      { name: "Australasia & Pacific Wire", scope: "CONTINENT_OCEANIA", url: "https://news.google.com/rss/search?q=(Australia+OR+%22New+Zealand%22+OR+%22Papua+New+Guinea%22)+AND+(economy+OR+minerals+OR+AUKUS+OR+trade)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Polar & Arctic Horizon", scope: "CONTINENT_POLAR", url: "https://news.google.com/rss/search?q=(Arctic+OR+Antarctica+OR+Svalbard)+AND+(shipping+OR+climate+OR+minerals+OR+geopolitics)&hl=en-US&gl=US&ceid=US:en" },
+
+      // LOCAL KENYA
       { name: "Kenya Top News Wire", scope: "LOCAL", url: "https://news.google.com/rss/search?q=when:24h+(site:standardmedia.co.ke+OR+site:nation.africa+OR+site:the-star.co.ke+OR+site:capitalfm.co.ke)&hl=en-KE&gl=KE&ceid=KE:en" },
       { name: "Kenya Economy & CBK", scope: "LOCAL", url: "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(CBK+OR+economy+OR+forex+OR+inflation+OR+NSE+OR+EPRA+OR+shilling+OR+Eurobond)&hl=en-KE&gl=KE&ceid=KE:en" },
       { name: "Silicon Savannah Tech", scope: "LOCAL", url: "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(Safaricom+OR+M-Pesa+OR+fintech+OR+startup+OR+%22data+center%22+OR+telecom)&hl=en-KE&gl=KE&ceid=KE:en" },
-      { name: "East Africa & EAC Regional", scope: "LOCAL", url: "https://news.google.com/rss/search?q=(Uganda+OR+Tanzania+OR+Rwanda+OR+Ethiopia+OR+Somalia+OR+Sudan)+AND+(trade+OR+border+OR+security+OR+EAC)&hl=en-KE&gl=KE&ceid=KE:en" }
+      { name: "Kenya Infrastructure & Ports", scope: "LOCAL", url: "https://news.google.com/rss/search?q=(Kenya+OR+Mombasa+OR+Lamu)+AND+(port+OR+SGR+OR+KPLC+OR+geothermal+OR+infrastructure)&hl=en-KE&gl=KE&ceid=KE:en" },
+
+      // SPORTS
+      { name: "Global Football & UCL", scope: "SPORTS", url: "https://news.google.com/rss/search?q=(%22Premier+League%22+OR+%22Champions+League%22+OR+La+Liga+OR+AFCON)+AND+(Arsenal+OR+Madrid+OR+Barcelona+OR+match+OR+score+OR+transfer)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "NBA & Basketball Wire", scope: "SPORTS", url: "https://news.google.com/rss/search?q=(NBA+OR+EuroLeague+OR+%22Basketball+Africa+League%22)+AND+(Lakers+OR+Celtics+OR+score+OR+injury+OR+standings)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "World Athletics & Marathons", scope: "SPORTS", url: "https://news.google.com/rss/search?q=(%22World+Athletics%22+OR+marathon+OR+Kipchoge+OR+Kiptum+OR+Omanyala+OR+%22Diamond+League%22)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Formula 1 & Motorsport", scope: "SPORTS", url: "https://news.google.com/rss/search?q=(%22Formula+1%22+OR+F1+OR+%22Grand+Prix%22+OR+WRC+OR+%22Safari+Rally%22+OR+Verstappen+OR+Hamilton)&hl=en-US&gl=US&ceid=US:en" },
+      { name: "Combat & World Tournaments", scope: "SPORTS", url: "https://news.google.com/rss/search?q=(UFC+OR+boxing+OR+rugby+OR+cricket+OR+tennis)+AND+(championship+OR+fight+OR+tournament+OR+winner)&hl=en-US&gl=US&ceid=US:en" }
     ];
 
     const freshHeadlines = [];
@@ -386,12 +418,13 @@ export default async function handler(req, res) {
 
       if (shouldSynthesizeSitrep && (geminiApiKey || groqApiKey)) {
         log("Synthesizing fresh tactical sitrep...");
-        const headlinesText = freshHeadlines.slice(0, 8).map(h => `- [${h.source}] ${h.title}`).join("\n");
+        const headlinesText = freshHeadlines.slice(0, 18).map(h => `- [${h.source}] ${h.title}`).join("\n");
         const prompt = 
           `Synthesize a real-time, military-grade strategic intelligence sitrep for Operator Michael Obiero (Nairobi/Nairobi, Kenya).\n` +
-          `Recent headlines:\n${headlinesText}\n\n` +
+          `Operator Directive: Cover all continents, subcontinents, local Kenyan developments, and sports telemetry.\n` +
+          `Recent headlines across continents and sports:\n${headlinesText}\n\n` +
           `Return ONLY a raw JSON object with these exact keys:\n` +
-          `{"threat_level": "NOMINAL"|"ELEVATED"|"CRITICAL", "sitrep": "2 concise sentences of tactical summary", "conflict_summary": "1 sentence on global conflicts", "future_risk_forecast": "1 sentence on economic/cyber forecast", "defensive_protocol": "1 specific operational safety protocol", "asymmetric_upside": "1 high-leverage economic or tech advantage"}`;
+          `{"threat_level": "NOMINAL"|"ELEVATED"|"CRITICAL", "sitrep": "2 concise sentences of tactical summary covering multi-continent and domestic Kenyan balance", "conflict_summary": "1-2 sentences on key geopolitical flashpoints across continents and major sports championships", "future_risk_forecast": "1 sentence on economic/cyber forecast", "defensive_protocol": "1 specific operational safety protocol", "asymmetric_upside": "1 high-leverage economic or tech advantage"}`;
 
         let aiText = "";
         if (geminiApiKey) {
