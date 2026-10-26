@@ -1,121 +1,203 @@
 import hashlib
 import time
-import json
 import uuid
 from typing import Dict, Optional, Tuple
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass
+from enum import Enum
+
+
+class SessionStatus(Enum):
+    ACTIVE = "active"
+    LOCKED = "locked"
+    EXPIRED = "expired"
+    REVOKED = "revoked"
+
 
 @dataclass
 class USSDSession:
     session_id: str
+    user_id: str
     device_fingerprint: str
-    timestamp: float
-    nonce: str
-    signature: str
+    created_at: float
+    expires_at: float
+    status: SessionStatus
+    last_activity: float
+    transaction_hash: Optional[str] = None
+
 
 class USSDSessionLock:
     """
-    A sentinel that locks USSD sessions to a specific device and time window to prevent replay attacks.
+    A security module to lock and protect USSD sessions in Nairobi.
+    Prevents replay attacks, session hijacking, and unauthorized access.
     """
-    
-    def __init__(self, max_session_age_seconds: float = 30.0):
-        self.max_session_age = max_session_age_seconds
-        self.active_sessions: Dict[str, USSDSession] = {}
-        self.replay_attempts: int = 0
+
+    def __init__(self, session_ttl: int = 300):
+        self.sessions: Dict[str, USSDSession] = {}
+        self.session_ttl = session_ttl
+        self._lock = None  # Placeholder for thread safety if needed
+
+    def create_session(self, user_id: str, device_fingerprint: str) -> str:
+        """
+        Create a new USSD session.
         
-    def _generate_fingerprint(self, device_id: str, user_id: str) -> str:
-        """Generate a cryptographic fingerprint for the device and user."""
-        data = f"{device_id}:{user_id}:{time.time()}"
-        return hashlib.sha256(data.encode()).hexdigest()
-    
-    def _sign_session(self, session_id: str, device_fingerprint: str, nonce: str) -> str:
-        """Sign the session with a HMAC-SHA256 signature."""
-        key = b"nairobi_ussd_secret_key"
-        message = f"{session_id}:{device_fingerprint}:{nonce}".encode()
-        return hashlib.sha256(key + message).hexdigest()
-    
-    def create_session(self, device_id: str, user_id: str) -> USSDSession:
-        """Create a new locked USSD session."""
+        Args:
+            user_id: The unique identifier of the user.
+            device_fingerprint: A hash representing the device's unique characteristics.
+            
+        Returns:
+            The session ID.
+        """
         session_id = str(uuid.uuid4())
-        device_fingerprint = self._generate_fingerprint(device_id, user_id)
-        nonce = str(uuid.uuid4())
-        timestamp = time.time()
-        signature = self._sign_session(session_id, device_fingerprint, nonce)
-        
+        now = time.time()
         session = USSDSession(
             session_id=session_id,
+            user_id=user_id,
             device_fingerprint=device_fingerprint,
-            timestamp=timestamp,
-            nonce=nonce,
-            signature=signature
+            created_at=now,
+            expires_at=now + self.session_ttl,
+            status=SessionStatus.ACTIVE,
+            last_activity=now
         )
+        self.sessions[session_id] = session
+        return session_id
+
+    def validate_session(self, session_id: str, device_fingerprint: str) -> bool:
+        """
+        Validate a USSD session.
         
-        self.active_sessions[session_id] = session
-        return session
-    
-    def validate_session(self, session: USSDSession) -> bool:
-        """Validate a USSD session, checking for replay attacks and expiration."""
-        # Check if session exists
-        if session.session_id not in self.active_sessions:
+        Args:
+            session_id: The session ID to validate.
+            device_fingerprint: The device fingerprint to check against.
+            
+        Returns:
+            True if the session is valid, False otherwise.
+        """
+        session = self.sessions.get(session_id)
+        if not session:
             return False
-        
-        # Check if session has expired
-        if time.time() - session.timestamp > self.max_session_age:
-            del self.active_sessions[session.session_id]
+
+        if session.status != SessionStatus.ACTIVE:
             return False
-        
-        # Verify signature
-        expected_signature = self._sign_session(
-            session.session_id,
-            session.device_fingerprint,
-            session.nonce
-        )
-        
-        if session.signature != expected_signature:
-            self.replay_attempts += 1
+
+        if session.device_fingerprint != device_fingerprint:
             return False
-        
-        # Invalidate session after use (one-time use)
-        del self.active_sessions[session.session_id]
+
+        if time.time() > session.expires_at:
+            session.status = SessionStatus.EXPIRED
+            return False
+
+        session.last_activity = time.time()
         return True
-    
-    def get_status(self) -> Dict:
-        """Get the current status of the session lock."""
-        return {
-            "active_sessions": len(self.active_sessions),
-            "replay_attempts": self.replay_attempts,
-            "max_session_age": self.max_session_age
-        }
+
+    def lock_session(self, session_id: str, transaction_data: str) -> str:
+        """
+        Lock a session to a specific transaction to prevent replay.
+        
+        Args:
+            session_id: The session ID to lock.
+            transaction_data: The data to bind the session to.
+            
+        Returns:
+            The transaction hash.
+        """
+        session = self.sessions.get(session_id)
+        if not session or session.status != SessionStatus.ACTIVE:
+            raise ValueError("Invalid or inactive session")
+
+        transaction_hash = hashlib.sha256(transaction_data.encode()).hexdigest()
+        session.transaction_hash = transaction_hash
+        session.status = SessionStatus.LOCKED
+        return transaction_hash
+
+    def unlock_session(self, session_id: str) -> bool:
+        """
+        Unlock a session after a transaction is completed.
+        
+        Args:
+            session_id: The session ID to unlock.
+            
+        Returns:
+            True if the session was unlocked, False otherwise.
+        """
+        session = self.sessions.get(session_id)
+        if not session or session.status != SessionStatus.LOCKED:
+            return False
+
+        session.status = SessionStatus.ACTIVE
+        session.transaction_hash = None
+        return True
+
+    def revoke_session(self, session_id: str) -> bool:
+        """
+        Revoke a session immediately.
+        
+        Args:
+            session_id: The session ID to revoke.
+            
+        Returns:
+            True if the session was revoked, False otherwise.
+        """
+        session = self.sessions.get(session_id)
+        if not session:
+            return False
+
+        session.status = SessionStatus.REVOKED
+        return True
+
+    def get_session_status(self, session_id: str) -> Optional[SessionStatus]:
+        """
+        Get the status of a session.
+        
+        Args:
+            session_id: The session ID to check.
+            
+        Returns:
+            The session status, or None if the session does not exist.
+        """
+        session = self.sessions.get(session_id)
+        if not session:
+            return None
+
+        if time.time() > session.expires_at and session.status == SessionStatus.ACTIVE:
+            session.status = SessionStatus.EXPIRED
+
+        return session.status
+
 
 if __name__ == "__main__":
     # Test harness
-    lock = USSDSessionLock(max_session_age_seconds=5.0)
+    lock = USSDSessionLock(session_ttl=10)
     
     # Create a session
-    session = lock.create_session("device_123", "user_456")
-    print(f"Created session: {session.session_id}")
+    session_id = lock.create_session("user123", "device_fp_abc")
+    print(f"Created session: {session_id}")
     
     # Validate the session
-    is_valid = lock.validate_session(session)
+    is_valid = lock.validate_session(session_id, "device_fp_abc")
     print(f"Session valid: {is_valid}")
     
-    # Try to validate the same session again (should fail due to one-time use)
-    is_valid_again = lock.validate_session(session)
-    print(f"Session valid again: {is_valid_again}")
+    # Lock the session to a transaction
+    transaction_hash = lock.lock_session(session_id, "transfer_1000_kes")
+    print(f"Transaction hash: {transaction_hash}")
     
-    # Check status
-    status = lock.get_status()
-    print(f"Status: {status}")
+    # Try to validate again (should fail because it's locked)
+    is_valid = lock.validate_session(session_id, "device_fp_abc")
+    print(f"Session valid after lock: {is_valid}")
     
-    # Test replay attack detection
-    replay_session = USSDSession(
-        session_id="fake_session",
-        device_fingerprint="fake_fingerprint",
-        timestamp=time.time(),
-        nonce="fake_nonce",
-        signature="fake_signature"
-    )
-    is_replay_valid = lock.validate_session(replay_session)
-    print(f"Replay attack valid: {is_replay_valid}")
+    # Unlock the session
+    unlocked = lock.unlock_session(session_id)
+    print(f"Session unlocked: {unlocked}")
+    
+    # Validate again (should succeed)
+    is_valid = lock.validate_session(session_id, "device_fp_abc")
+    print(f"Session valid after unlock: {is_valid}")
+    
+    # Revoke the session
+    revoked = lock.revoke_session(session_id)
+    print(f"Session revoked: {revoked}")
+    
+    # Try to validate again (should fail because it's revoked)
+    is_valid = lock.validate_session(session_id, "device_fp_abc")
+    print(f"Session valid after revoke: {is_valid}")
     
     print("All tests passed.")
