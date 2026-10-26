@@ -2183,10 +2183,10 @@ if __name__ == "__main__":
     if sub in ("power", "index", "tier"):
         metrics = calculate_super_ai_power_index(base)
         print(json.dumps(metrics, indent=2))
-    elif sub in ("ascend", "cycle", "evolve"):
+    elif sub in ("ascend", "cycle", "evolve", "run"):
         async def _run():
             async with httpx.AsyncClient(timeout=30) as client:
-                res = await ascend_towards_super_ai(client, base)
+                res = await ascend_towards_super_ai(base, client)
                 print(json.dumps(res, indent=2))
         asyncio.run(_run())
     elif sub in ("audit", "clean"):
