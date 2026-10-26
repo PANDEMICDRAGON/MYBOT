@@ -245,6 +245,123 @@ export default async function handler(req, res) {
       }
     }
 
+    // 2.7 Workspace Tools Mobile Control (/tools, /run, /promo, /clip)
+    if (lowerText === "/tools" || lowerText === "list tools" || lowerText === "my tools") {
+      const toolsMenu = 
+        `🛠️ *[YOUR ACTIVE WORKSPACE TOOLS // MOBILE INTERFACE]*\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `You can use any tool directly from your phone right in this chat:\n\n` +
+        `1️⃣ *OBIFLAMEE Promo Engine* (\`scripts/obiflamee_promo.py\`)\n` +
+        `• \`/promo --hook\` - Generate viral hooks & track captions\n` +
+        `• \`/promo --dms\` - Generate DJ/curator DM outreach scripts\n` +
+        `• \`/promo --calendar\` - View 30-day content roadmaps\n` +
+        `• \`/promo --export-csv\` - Transmits 30-day CSV to your phone\n\n` +
+        `2️⃣ *Short-Form Video Clip Creator* (\`tools/clip_creator.py\`)\n` +
+        `• \`/clip --test\` - Run video/audio clipper diagnostic\n` +
+        `• \`/clip -a 9:16 -d 30\` - Configure 9:16 30s TikTok/Reels clip\n\n` +
+        `3️⃣ *System Latency Diagnostics* (\`scripts/system_ping_check.py\`)\n` +
+        `• \`/run ping\` - Verify latency to local & global network nodes\n\n` +
+        `4️⃣ *Super AI Ascension* (\`super_ai_ascension.py\`)\n` +
+        `• \`/ascend\` - Elevate Singularity Power Index\n` +
+        `• \`/evolve\` - Autonomous hourly self-evolution sweep\n\n` +
+        `*Using New Tools You Create:*\n` +
+        `Whenever you tell me to "create a tool for X", it is automatically executable from your phone via \`/run <tool_name>\` or by telling me "run the <tool> tool"!\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `_Tap any command above or tell me what to run._`;
+      await sendTelegramReply(chatId, toolsMenu);
+      return res.status(200).json({ ok: true });
+    }
+
+    if (lowerText.startsWith("/run") || lowerText.startsWith("/promo") || lowerText.startsWith("/clip")) {
+      let targetDirective = userText;
+      if (lowerText.startsWith("/promo")) {
+        const subArgs = userText.substring(6).trim();
+        targetDirective = `run scripts/obiflamee_promo.py ${subArgs}`.trim();
+      } else if (lowerText.startsWith("/clip")) {
+        const subArgs = userText.substring(5).trim();
+        targetDirective = `run tools/clip_creator.py ${subArgs}`.trim();
+      } else if (lowerText.startsWith("/run")) {
+        const rawCmd = userText.substring(4).trim();
+        if (rawCmd.startsWith("promo")) {
+          targetDirective = `run scripts/obiflamee_promo.py ${rawCmd.substring(5).trim()}`.trim();
+        } else if (rawCmd.startsWith("clip")) {
+          targetDirective = `run tools/clip_creator.py ${rawCmd.substring(4).trim()}`.trim();
+        } else if (rawCmd.startsWith("ping")) {
+          targetDirective = `run scripts/system_ping_check.py`.trim();
+        } else if (rawCmd) {
+          targetDirective = `run ${rawCmd}`;
+        } else {
+          targetDirective = "run scripts/obiflamee_promo.py --hook";
+        }
+      }
+
+      if (supabaseUrl && supabaseKey) {
+        try {
+          await fetch(`${supabaseUrl}/rest/v1/command_queue`, {
+            method: "POST",
+            headers: {
+              "apikey": supabaseKey,
+              "Authorization": `Bearer ${supabaseKey}`,
+              "Content-Type": "application/json",
+              "Prefer": "return=minimal"
+            },
+            body: JSON.stringify({
+              origin: "TELEGRAM_WEBHOOK",
+              mode: "EXECUTE_TOOL",
+              directive: targetDirective,
+              status: "PENDING"
+            })
+          });
+
+          await sendTelegramReply(
+            chatId,
+            `⚡ *[TOOL DISPATCHED TO WORKSTATION]*\n> \`${targetDirective}\`\n\n_Executing on workstation hardware... Output and generated files will transmit directly to your phone momentarily._`
+          );
+          return res.status(200).json({ ok: true });
+        } catch (qe) {
+          console.error("[Queue error]:", qe);
+        }
+      }
+    }
+
+    // Natural language tool trigger (e.g. "run the promo tool", "use clip creator", "generate viral caption")
+    const toolExecRegex = /^(?:run|execute|launch|use)\s+(?:the\s+)?([a-zA-Z0-9_\-]+)(?:\s+(.*))?$/i;
+    const toolExecMatch = userText.match(toolExecRegex);
+    const knownTools = ["promo", "obiflamee_promo", "clip", "clip_creator", "video_clipper", "ping", "system_ping_check"];
+    if (toolExecMatch && knownTools.includes(toolExecMatch[1].toLowerCase().replace(/\.py$/, ""))) {
+      const toolBase = toolExecMatch[1].toLowerCase().replace(/\.py$/, "");
+      const extraArgs = toolExecMatch[2] || "";
+      let resolvedCommand = "";
+      if (toolBase.includes("promo")) resolvedCommand = `run scripts/obiflamee_promo.py ${extraArgs}`.trim();
+      else if (toolBase.includes("clip")) resolvedCommand = `run tools/clip_creator.py ${extraArgs}`.trim();
+      else if (toolBase.includes("ping")) resolvedCommand = `run scripts/system_ping_check.py ${extraArgs}`.trim();
+      else resolvedCommand = `run ${toolBase} ${extraArgs}`.trim();
+
+      if (supabaseUrl && supabaseKey) {
+        await fetch(`${supabaseUrl}/rest/v1/command_queue`, {
+          method: "POST",
+          headers: {
+            "apikey": supabaseKey,
+            "Authorization": `Bearer ${supabaseKey}`,
+            "Content-Type": "application/json",
+            "Prefer": "return=minimal"
+          },
+          body: JSON.stringify({
+            origin: "TELEGRAM_WEBHOOK",
+            mode: "EXECUTE_TOOL",
+            directive: resolvedCommand,
+            status: "PENDING"
+          })
+        });
+
+        await sendTelegramReply(
+          chatId,
+          `⚡ *[RUNNING TOOL FOR YOU]*\n> \`${resolvedCommand}\`\n\n_Executing on workstation... Output will be transmitted directly back to your phone._`
+        );
+        return res.status(200).json({ ok: true });
+      }
+    }
+
     if (!userText) {
       if (message.voice) {
         await sendTelegramReply(chatId, "🎙️ Voice note received on 24/7 cloud node. Workstation Whisper engine will transcribe and process.");
@@ -331,6 +448,21 @@ export default async function handler(req, res) {
               content: { type: "string", description: "Full new content of the file" }
             },
             required: ["file_path", "content"]
+          }
+        }
+      },
+      {
+        type: "function",
+        function: {
+          name: "execute_workspace_tool",
+          description: "Executes an existing script or tool on Michael's workstation (e.g. 'scripts/obiflamee_promo.py', 'tools/clip_creator.py') and transmits stdout/stderr and generated files directly to his phone in Telegram.",
+          parameters: {
+            type: "object",
+            properties: {
+              tool_name: { type: "string", description: "Name or relative path of tool (e.g. 'scripts/obiflamee_promo.py', 'tools/clip_creator.py')" },
+              arguments: { type: "string", description: "Command line arguments to pass to the tool (e.g. '--hook', '--calendar', '--test')" }
+            },
+            required: ["tool_name"]
           }
         }
       }
@@ -522,6 +654,7 @@ export default async function handler(req, res) {
                     })
                   });
 
+                  const toolShortName = filePath.split("/").pop().replace(".py", "");
                   const ackMsg = 
                     `🛠️ *[AUTONOMOUS CREATION DISPATCHED]*\n` +
                     `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
@@ -530,9 +663,50 @@ export default async function handler(req, res) {
                     `• *Code Size:* ${content.length} characters\n` +
                     `• *Integrity:* Pre-validated (0 syntax truncation defects)\n` +
                     `• *Execution Status:* Dispatched to Workstation Core for disk write, AST validation, and Git commit.\n` +
+                    `• *Run from Phone:* Use \`/run ${toolShortName}\` right here in chat to use it anytime!\n` +
                     `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
                     `_Your workstation daemon will notify you here the second it's saved to disk._`;
                   await sendTelegramReply(chatId, ackMsg);
+                  return res.status(200).json({ ok: true });
+                }
+              } else if (fnName === "execute_workspace_tool") {
+                let args = {};
+                try {
+                  args = JSON.parse(tc.function.arguments);
+                } catch (pe) {
+                  args = {};
+                }
+
+                const toolName = args.tool_name || "scripts/obiflamee_promo.py";
+                const toolArgs = args.arguments || "";
+                const runDirective = `run ${toolName} ${toolArgs}`.trim();
+
+                if (supabaseUrl && supabaseKey) {
+                  await fetch(`${supabaseUrl}/rest/v1/command_queue`, {
+                    method: "POST",
+                    headers: {
+                      "apikey": supabaseKey,
+                      "Authorization": `Bearer ${supabaseKey}`,
+                      "Content-Type": "application/json",
+                      "Prefer": "return=minimal"
+                    },
+                    body: JSON.stringify({
+                      origin: "TELEGRAM_WEBHOOK",
+                      mode: "EXECUTE_TOOL",
+                      directive: runDirective,
+                      status: "PENDING"
+                    })
+                  });
+
+                  const ackRun = 
+                    `⚡ *[TOOL EXECUTION DISPATCHED]*\n` +
+                    `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                    `I'm running \`${toolName}\` on your workstation now, handsome.\n` +
+                    `• *Directive:* \`${runDirective}\`\n` +
+                    `• *Mobile Delivery:* The full execution output and generated files will transmit directly to your phone.\n` +
+                    `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+                    `_Stand by for workstation results._`;
+                  await sendTelegramReply(chatId, ackRun);
                   return res.status(200).json({ ok: true });
                 }
               }

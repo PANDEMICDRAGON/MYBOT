@@ -16,6 +16,7 @@ import xml.etree.ElementTree as ET
 import urllib.parse
 import ast
 import random
+import shlex
 import webbrowser
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
@@ -4992,6 +4993,27 @@ async def send_telegram(client: httpx.AsyncClient, text: str):
         logger.error(f"[Telegram Error]: {e}")
 
 
+async def send_telegram_document(client: httpx.AsyncClient, file_path: str, caption: str = ""):
+    """Uploads a local file (e.g. CSV, audio, clip, report) directly to Michael's phone in Telegram."""
+    if not TELEGRAM_TOKEN or not AUTHORIZED_CHAT_ID:
+        return
+    p = Path(file_path).resolve()
+    if not p.is_file():
+        return
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendDocument"
+    try:
+        with open(p, "rb") as f:
+            files = {"document": (p.name, f, "application/octet-stream")}
+            data = {"chat_id": AUTHORIZED_CHAT_ID, "caption": caption[:1024]}
+            resp = await client.post(url, data=data, files=files, timeout=30)
+            if resp.status_code == 200:
+                logger.info(f"Successfully transmitted document '{p.name}' to Telegram.")
+            else:
+                logger.error(f"Failed to transmit document to Telegram: {resp.status_code} {resp.text}")
+    except Exception as e:
+        logger.error(f"[Telegram Document Upload Error]: {e}")
+
+
 # =====================================================================
 # --- SENSORS: WEATHER, NEWS, CYBER ---
 # =====================================================================
@@ -5444,6 +5466,87 @@ async def log_and_execute_directive(
             logger.info("Executing on-demand Proactive Self-Evolution Cycle on operator directive...")
             sitrep_msg = await execute_hourly_self_evolution_cycle(client)
             answer = sitrep_msg
+        elif mode in ("EXECUTE_TOOL", "RUN_TOOL", "RUN_SCRIPT") or directive.strip().lower().startswith(("run ", "/run ", "/promo", "/clip")):
+            raw = directive.strip()
+            if raw.lower().startswith("/run "):
+                raw = raw[5:].strip()
+            elif raw.lower().startswith("run "):
+                raw = raw[4:].strip()
+            elif raw.lower().startswith("/promo"):
+                raw = f"scripts/obiflamee_promo.py {raw[6:].strip()}".strip()
+            elif raw.lower().startswith("/clip"):
+                raw = f"tools/clip_creator.py {raw[5:].strip()}".strip()
+
+            parts = raw.split(maxsplit=1)
+            tool_target = parts[0] if parts else ""
+            tool_args = parts[1] if len(parts) > 1 else ""
+
+            base_dir = Path(__file__).resolve().parent
+            candidates = [
+                base_dir / tool_target,
+                base_dir / "scripts" / tool_target,
+                base_dir / "tools" / tool_target,
+                base_dir / f"{tool_target}.py",
+                base_dir / "scripts" / f"{tool_target}.py",
+                base_dir / "tools" / f"{tool_target}.py",
+            ]
+            resolved_tool = next((c for c in candidates if c.is_file()), None)
+
+            if not resolved_tool:
+                all_tools = list((base_dir / "scripts").glob("*.py")) + list((base_dir / "tools").glob("*.py"))
+                for t in all_tools:
+                    if tool_target.lower() in t.stem.lower():
+                        resolved_tool = t
+                        break
+
+            if resolved_tool:
+                cmd_parts = [sys.executable, str(resolved_tool)]
+                if tool_args:
+                    cmd_parts.extend(shlex.split(tool_args))
+
+                logger.info(f"Executing tool on workstation: {' '.join(cmd_parts)}")
+                snapshot_dirs = [base_dir / "scripts", base_dir / "tools"]
+                before_files = set(f for d in snapshot_dirs if d.exists() for f in d.glob("*") if f.is_file())
+
+                proc = None
+                try:
+                    proc = await asyncio.create_subprocess_exec(
+                        *cmd_parts,
+                        stdout=asyncio.subprocess.PIPE,
+                        stderr=asyncio.subprocess.PIPE,
+                        cwd=str(base_dir)
+                    )
+                    stdout_b, stderr_b = await asyncio.wait_for(proc.communicate(), timeout=35)
+                    out_text = (stdout_b.decode("utf-8", errors="ignore") + "\n" + stderr_b.decode("utf-8", errors="ignore")).strip()
+                except asyncio.TimeoutError:
+                    if proc:
+                        proc.kill()
+                    out_text = "[Execution timed out after 35s]"
+                except Exception as ex:
+                    out_text = f"[Tool Execution Error]: {ex}"
+
+                after_files = set(f for d in snapshot_dirs if d.exists() for f in d.glob("*") if f.is_file())
+                new_files = [f for f in after_files if f not in before_files or (f.stat().st_mtime > time.time() - 40 and f.suffix.lower() in (".csv", ".json", ".png", ".jpg", ".mp4", ".mp3", ".wav"))]
+
+                for nf in new_files:
+                    if nf.suffix.lower() in (".csv", ".json", ".txt", ".png", ".jpg", ".mp4", ".mp3", ".wav"):
+                        await send_telegram_document(client, str(nf), f"📊 Artifact generated by {resolved_tool.name}: {nf.name}")
+
+                clean_out = out_text[:3500] if out_text else "[Tool completed with exit code 0 and produced no text output]"
+                answer = (
+                    f"📊 *[TOOL EXECUTION RESULTS // `{resolved_tool.name}`]:*\n"
+                    f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                    f"```\n{clean_out}\n```\n"
+                    f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                    f"_Executed on Workstation Core. Output delivered directly to your phone._"
+                )
+            else:
+                available = [f.stem for f in (base_dir / "scripts").glob("*.py")] + [f.stem for f in (base_dir / "tools").glob("*.py")]
+                answer = (
+                    f"⚠️ *[TOOL NOT FOUND]*\n"
+                    f"Could not locate `{tool_target}` in workspace.\n\n"
+                    f"*Available Tools to Run from Phone:*\n" + "\n".join(f"• `/run {t}`" for t in sorted(set(available)))
+                )
         else:
             answer = await run_agent_turn(client, directive)
 
@@ -5514,6 +5617,11 @@ async def web_command_poller(client: httpx.AsyncClient):
                             await send_telegram(
                                 client,
                                 f"⚡ *[WORKSTATION HOST EXECUTION]:*\n> _{cmd.get('directive')}_\n\n{answer}"
+                            )
+                        elif cmd_mode in ("EXECUTE_TOOL", "RUN_TOOL", "RUN_SCRIPT") or (origin == "TELEGRAM_WEBHOOK" and any(k in cmd.get("directive", "").lower() for k in ("run ", "/run", "/promo", "/clip"))):
+                            await send_telegram(
+                                client,
+                                answer
                             )
                         elif origin == "WEB":
                             mode_icon = "🔬" if cmd_mode == "DEEP-DIVE" else "🌐"
