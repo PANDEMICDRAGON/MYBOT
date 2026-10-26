@@ -421,15 +421,19 @@
       <div class="tool-card">
         <div class="card-top">
           <div class="tool-icon icon-purple">📲</div>
-          <span class="badge-cli">📶 ZERO-DATA CELLULAR</span>
+          <span class="badge-ui">📱 ZERO-DATA STUDIO</span>
         </div>
         <div class="tool-title">CELLULAR SMS GATEWAY</div>
         <p class="tool-desc">
-          Operates over carrier telecom signaling (SS7 / GSM SMS). Control Cortana, trigger tool runs, or receive tactical sitreps even when your mobile data plan is off.
+          Text Halo over standard cellular SMS (Safaricom / Airtel) with zero mobile data bundles. Interactive mobile simulator, Android auto-reply guide & Termux setup.
         </p>
         <div style="display: flex; gap: 8px; margin-top: auto;">
-          <button class="btn-action-secondary" style="flex: 1;" onclick="testSmsPing()">
-            GATEWAY STATUS CHECK
+          <a href="/tools/sms_gateway.html" class="btn-action-primary" style="flex: 1; background: linear-gradient(135deg, #a855f7 0%, #7e22ce 100%); box-shadow: 0 0 12px rgba(168, 85, 247, 0.3);">
+            <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+            OPEN SMS STUDIO
+          </a>
+          <button class="btn-action-secondary" onclick="testSmsPing()">
+            TEST PING
           </button>
         </div>
       </div>

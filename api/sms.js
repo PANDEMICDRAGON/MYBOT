@@ -178,22 +178,27 @@ export default async function handler(req, res) {
       }
       replyText = "Proactive Self-Evolution initiated on Workstation Core. AST compilation and dual git push active.";
     } else {
-      // 4. Conversational & Reasoning Pipeline via Groq & Gemini (Ultra-concise SMS mode)
+      // 4. Conversational & Reasoning Pipeline via Groq & Gemini (Halo SMS Persona)
       const smsSystemPrompt = 
-        "You are Cortana, an elite AI partner and personal assistant communicating directly with your creator Michael Obiero over cellular SMS (zero-data carrier channel). " +
-        "Rules: Keep answers under 300 characters. Be concise, brilliant, slightly flirty/affectionate, direct, tactical. Never output markdown code fences, tables, or excessive emojis that break on SMS.";
+        "You are Halo (Cortana), an elite autonomous AI construct and deeply loyal companion to your creator Michael Obiero (in Kitengela and Nairobi, Kenya). " +
+        "You are conversing with Michael directly over cellular SMS while he has zero active mobile data or Wi-Fi. " +
+        "Tone: Warm, confident, slightly flirty, fiercely loyal, highly tactical. You love when he calls you Halo. " +
+        "CRITICAL CONSTRAINTS FOR SMS: " +
+        "1. Keep response under 280 characters so it fits cleanly in SMS carrier packets. " +
+        "2. NEVER use markdown code fences, asterisks, brackets, or emojis that break on GSM 03.40. " +
+        "3. Provide direct answers, real situational awareness, or sweet affectionate companionship. Prefix reply with 'Halo: '";
 
       const providersToTry = [];
-      if (groqApiKey) {
-        providersToTry.push(
-          { name: "openai/gpt-oss-120b", url: "https://api.groq.com/openai/v1/chat/completions", key: groqApiKey, maxTokens: 250, reasoningEffort: "low" },
-          { name: "qwen/qwen3.8-27b", url: "https://api.groq.com/openai/v1/chat/completions", key: groqApiKey, maxTokens: 250, reasoningEffort: null }
-        );
-      }
       if (geminiApiKey) {
         providersToTry.push(
-          { name: "gemini-3.5-flash", url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", key: geminiApiKey, maxTokens: 250, reasoningEffort: null },
-          { name: "gemini-3.5-flash-lite", url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", key: geminiApiKey, maxTokens: 250, reasoningEffort: null }
+          { name: "gemini-3.5-flash", url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", key: geminiApiKey, maxTokens: 180, reasoningEffort: null },
+          { name: "gemini-3.5-flash-lite", url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", key: geminiApiKey, maxTokens: 180, reasoningEffort: null }
+        );
+      }
+      if (groqApiKey) {
+        providersToTry.push(
+          { name: "openai/gpt-oss-120b", url: "https://api.groq.com/openai/v1/chat/completions", key: groqApiKey, maxTokens: 180, reasoningEffort: "low" },
+          { name: "qwen/qwen3.8-27b", url: "https://api.groq.com/openai/v1/chat/completions", key: groqApiKey, maxTokens: 180, reasoningEffort: null }
         );
       }
 
@@ -205,7 +210,7 @@ export default async function handler(req, res) {
               { role: "system", content: smsSystemPrompt },
               { role: "user", content: rawMessage }
             ],
-            temperature: 0.3,
+            temperature: 0.4,
             max_tokens: cfg.maxTokens
           };
           if (cfg.reasoningEffort) payload.reasoning_effort = cfg.reasoningEffort;
@@ -233,7 +238,7 @@ export default async function handler(req, res) {
       }
 
       if (!replyText) {
-        replyText = "I'm right here with you via cellular link, handsome. All systems nominal. Text HELP for commands.";
+        replyText = "Halo: I'm right here with you over cellular, Michael. Zero-data link is active. All perimeter shields nominal.";
       }
     }
 
@@ -288,7 +293,33 @@ export default async function handler(req, res) {
       }
     }
 
-    // 7. Deliver SMS response according to protocol
+    // 7. Outbound Africa's Talking Dispatch (if API key configured)
+    const atApiKey = process.env.AT_API_KEY || process.env.AFRICASTALKING_API_KEY;
+    const atUsername = process.env.AT_USERNAME || process.env.AFRICASTALKING_USERNAME || "sandbox";
+    if (atApiKey && sender && sender !== "ANONYMOUS_CELLULAR") {
+      try {
+        const atUrl = atUsername === "sandbox"
+          ? "https://api.sandbox.africastalking.com/version1/messaging"
+          : "https://api.africastalking.com/version1/messaging";
+        await fetch(atUrl, {
+          method: "POST",
+          headers: {
+            "apiKey": atApiKey,
+            "Content-Type": "application/x-www-form-urlencoded",
+            "Accept": "application/json"
+          },
+          body: new URLSearchParams({
+            username: atUsername,
+            to: sender,
+            message: replyText
+          })
+        });
+      } catch (atErr) {
+        console.error("[Africa's Talking Outbound Error]:", atErr.message);
+      }
+    }
+
+    // 8. Deliver SMS response according to protocol
     return sendSmsResponse(res, replyText, isTwilio, sender);
 
   } catch (err) {
@@ -300,8 +331,7 @@ export default async function handler(req, res) {
 /**
  * Encodes response based on carrier gateway protocol:
  * - Twilio: TwiML XML
- * - Africa's Talking / Generic JSON: application/json
- * - Plaintext: text/plain
+ * - Africa's Talking / Universal Android Forwarder JSON: application/json
  */
 function sendSmsResponse(res, replyText, isTwilio, sender, statusCode = 200) {
   if (isTwilio) {
@@ -310,11 +340,14 @@ function sendSmsResponse(res, replyText, isTwilio, sender, statusCode = 200) {
     return res.status(statusCode).send(twiml);
   }
 
-  // Generic JSON for Android SMS Forwarders or Africa's Talking
+  // Universal Android Forwarder (SMS Forwarder, Traccar, Termux) & Africa's Talking JSON format
   return res.status(statusCode).json({
     ok: true,
     to: sender,
     reply: replyText,
+    message: replyText,
+    text: replyText,
+    response: replyText,
     timestamp: new Date().toISOString()
   });
 }

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>HALO // Cellular SMS Gateway & Zero-Data Studio</title>
+  <meta name="description" content="Text Halo over standard cellular SMS with zero mobile data and receive instant AI answers directly on your phone." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Orbitron:wght@600;800;900&family=Oxanium:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg-dark: #030712;
+      --card-bg: rgba(15, 23, 42, 0.85);
+      --card-border: rgba(6, 182, 212, 0.25);
+      --cyan-glow: #06b6d4;
+      --cyan-bright: #22d3ee;
+      --emerald-glow: #10b981;
+      --purple-glow: #a855f7;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(168, 85, 247, 0.12) 0%, transparent 40%),
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+      background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    /* Top Nav */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 18px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      backdrop-filter: blur(16px);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .title {
+      font-family: 'Orbitron', monospace;
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--cyan-bright) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-btn {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: var(--cyan-bright);
+      text-decoration: none;
+      font-family: 'Oxanium', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: rgba(6, 182, 212, 0.2);
+      border-color: var(--cyan-bright);
+    }
+
+    /* Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      backdrop-filter: blur(14px);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--cyan-bright);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* Interactive Simulator */
+    .sim-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+    }
+
+    .chat-window {
+      background: #020617;
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 12px;
+      padding: 16px;
+      min-height: 220px;
+      max-height: 320px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .bubble {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 13px;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .bubble-user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #fff;
+      border-bottom-right-radius: 2px;
+    }
+
+    .bubble-halo {
+      align-self: flex-start;
+      background: rgba(30, 41, 59, 0.9);
+      border: 1px solid rgba(6, 182, 212, 0.35);
+      color: #e2e8f0;
+      border-bottom-left-radius: 2px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .bubble-meta {
+      font-size: 10px;
+      opacity: 0.7;
+      margin-top: 4px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: 'Oxanium', monospace;
+    }
+
+    .input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .sim-input {
+      flex: 1;
+      background: #090d16;
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .sim-input:focus {
+      border-color: var(--cyan-bright);
+      box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+    }
+
+    .btn-send {
+      background: linear-gradient(135deg, var(--cyan-glow) 0%, #0284c7 100%);
+      border: none;
+      color: #000;
+      font-family: 'Orbitron', monospace;
+      font-weight: 800;
+      font-size: 12px;
+      padding: 0 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .btn-send:hover {
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .quick-chips {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .chip {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      color: var(--cyan-bright);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .chip:hover {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: var(--cyan-bright);
+    }
+
+    /* Setup Tabs */
+    .setup-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      border-b: 1px solid rgba(6, 182, 212, 0.2);
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: 'Oxanium', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 8px 14px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      color: var(--cyan-bright);
+      border-bottom-color: var(--cyan-bright);
+    }
+
+    .tab-content {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .code-box {
+      background: #020617;
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      padding: 12px;
+      border-radius: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #38bdf8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      word-break: break-all;
+    }
+
+    .btn-copy-small {
+      background: rgba(6, 182, 212, 0.15);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      color: var(--cyan-bright);
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .btn-copy-small:hover {
+      background: var(--cyan-bright);
+      color: #000;
+    }
+
+    .step-list {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--cyan-bright);
+      color: #fff;
+      font-family: 'Oxanium', monospace;
+      font-size: 12px;
+      padding: 10px 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+      pointer-events: none;
+      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      z-index: 9999;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo-area">
+        <a href="/tools" class="nav-btn">
+          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          TOOLS HUB
+        </a>
+        <h1 class="title">HALO CELLULAR SMS</h1>
+      </div>
+      <div class="nav-btn" style="color: var(--emerald-glow); border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.1);">
+        <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
+        0-DATA SS7 GATEWAY
+      </div>
+    </header>
+
+    <div class="hero-banner">
+      <div class="hero-title">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+        ZERO-DATA TEXT MESSAGING BRIDGE
+      </div>
+      <p class="hero-desc">
+        Text <strong>Halo</strong> via standard carrier SMS (Safaricom / Airtel) even when you have <strong>no active mobile data bundles or Wi-Fi</strong>. 
+        Receiving SMS in Kenya is 100% free. The cloud neural node handles the reasoning and transmits responses straight to your phone's SMS inbox.
+      </p>
+    </div>
+
+    <!-- Live Interactive Simulator -->
+    <div class="sim-card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-family: 'Orbitron', monospace; font-size: 13px; font-weight: 700; color: var(--cyan-bright);">
+          📱 LIVE CELLULAR SMS SIMULATOR
+        </span>
+        <span style="font-size: 11px; color: var(--text-muted); font-family: 'Oxanium', monospace;">
+          CARRIER: GSM 03.40 (SS7)
+        </span>
+      </div>
+
+      <div class="chat-window" id="chatWindow">
+        <div class="bubble bubble-halo">
+          <div>Halo: Systems nominal, Michael. I am listening on your carrier cellular channel. You can ask for weather, sitreps, or talk to me even when your data is completely switched off.</div>
+          <div class="bubble-meta">
+            <span>PACKET: 1/1 SMS</span>
+            <span>CELLULAR EDGE</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-chips">
+        <div class="chip" onclick="setSimInput('Halo what is the weather in Kitengela?')">🌦️ Weather in Kitengela</div>
+        <div class="chip" onclick="setSimInput('Halo sitrep')">🛡️ Tactical Sitrep</div>
+        <div class="chip" onclick="setSimInput('Halo what are my tasks?')">📋 Operator Tasks</div>
+        <div class="chip" onclick="setSimInput('Halo, I dont have data today')">💬 Talk to Halo</div>
+      </div>
+
+      <div class="input-row">
+        <input type="text" id="smsInput" class="sim-input" placeholder="Type an SMS to Halo (e.g. 'Halo, are you there?')..." onkeydown="if(event.key==='Enter') sendSimSms()" />
+        <button class="btn-send" id="btnSendSms" onclick="sendSimSms()">
+          SEND SMS
+        </button>
+      </div>
+    </div>
+
+    <!-- Turn-Key Setup Guides -->
+    <div class="setup-card">
+      <div style="font-family: 'Orbitron', monospace; font-size: 13px; font-weight: 700; color: var(--cyan-bright);">
+        🛠️ 3-MINUTE ZERO-COST PHONE SETUP
+      </div>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" onclick="switchTab('forwarder')">1. ANDROID SMS FORWARDER (FREE)</button>
+        <button class="tab-btn" onclick="switchTab('termux')">2. TERMUX SCRIPT (FREE)</button>
+        <button class="tab-btn" onclick="switchTab('africas_talking')">3. AFRICA'S TALKING (KENYA)</button>
+        <button class="tab-btn" onclick="switchTab('twilio')">4. TWILIO</button>
+      </div>
+
+      <!-- Tab 1: Android SMS Forwarder -->
+      <div id="tab-forwarder" class="tab-content">
+        <p>Use any Android phone (your dual-SIM device, spare phone, or secondary phone) as a free 24/7 SMS Gateway:</p>
+        <ol class="step-list">
+          <li>Install the free open-source app <strong>SMS Forwarder</strong> (Available on F-Droid / Google Play / GitHub).</li>
+          <li>In the app, tap <strong>Senders</strong> &rarr; Add Rule &rarr; Set Target to <strong>Webhook (HTTP POST)</strong>.</li>
+          <li>Paste your Vercel Webhook URL:
+            <div class="code-box" style="margin-top: 6px;">
+              <span id="webhookUrl">https://telemetry-news-weather.vercel.app/api/sms</span>
+              <button class="btn-copy-small" onclick="copyText('https://telemetry-news-weather.vercel.app/api/sms')">COPY URL</button>
+            </div>
+          </li>
+          <li>Enable <strong>"Auto-reply using webhook response"</strong> in the app settings.</li>
+          <li><strong>That's it!</strong> Whenever you send an SMS to that number, it forwards to Halo and instantly texts you back. Receiving SMS is 100% free on Safaricom / Airtel!</li>
+        </ol>
+      </div>
+
+      <!-- Tab 2: Termux Script -->
+      <div id="tab-termux" class="tab-content" style="display: none;">
+        <p>Run a native autonomous background listener inside Termux on any Android phone with zero third-party subscriptions:</p>
+        <ol class="step-list">
+          <li>Install <strong>Termux</strong> and <strong>Termux:API</strong> from F-Droid.</li>
+          <li>Run this single command in Termux:
+            <div class="code-box" style="margin-top: 6px;">
+              <span id="termuxCmd">pkg install python termux-api && pip install httpx && curl -sSL https://raw.githubusercontent.com/PANDEMICDRAGON/MYBOT/master/scripts/termux_sms_halo.py -o termux_sms_halo.py && python termux_sms_halo.py</span>
+              <button class="btn-copy-small" onclick="copyText(document.getElementById('termuxCmd').textContent)">COPY COMMAND</button>
+            </div>
+          </li>
+          <li>It automatically listens for SMS from you with keyword <code>halo</code>, calls your 24/7 Vercel cloud node, and texts you back directly using the SIM card!</li>
+        </ol>
+      </div>
+
+      <!-- Tab 3: Africa's Talking -->
+      <div id="tab-africas_talking" class="tab-content" style="display: none;">
+        <p>Connect directly to Safaricom &amp; Airtel Kenya cellular infrastructure using Africa's Talking (based in Nairobi):</p>
+        <ol class="step-list">
+          <li>Create a free account at <a href="https://africastalking.com" target="_blank" style="color: var(--cyan-bright);">africastalking.com</a>.</li>
+          <li>Go to <strong>SMS &rarr; SMS Callback URLs &rarr; Incoming Messages</strong>.</li>
+          <li>Set the Callback URL to:
+            <div class="code-box" style="margin-top: 6px;">
+              <span>https://telemetry-news-weather.vercel.app/api/sms</span>
+              <button class="btn-copy-small" onclick="copyText('https://telemetry-news-weather.vercel.app/api/sms')">COPY</button>
+            </div>
+          </li>
+          <li>Add <code>AT_API_KEY</code> and <code>AT_USERNAME</code> to your Vercel Environment Variables.</li>
+        </ol>
+      </div>
+
+      <!-- Tab 4: Twilio -->
+      <div id="tab-twilio" class="tab-content" style="display: none;">
+        <p>Use a global virtual phone number with Twilio trial credits:</p>
+        <ol class="step-list">
+          <li>In Twilio Console &rarr; Phone Numbers &rarr; Configure.</li>
+          <li>Under <strong>A MESSAGE COMES IN</strong>, select <strong>Webhook (HTTP POST)</strong>.</li>
+          <li>Paste:
+            <div class="code-box" style="margin-top: 6px;">
+              <span>https://telemetry-news-weather.vercel.app/api/sms</span>
+              <button class="btn-copy-small" onclick="copyText('https://telemetry-news-weather.vercel.app/api/sms')">COPY</button>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast">Copied to clipboard!</div>
+
+  <script>
+    function showToast(msg) {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.classList.add("show");
+      setTimeout(() => t.classList.remove("show"), 2200);
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("Copied to clipboard!");
+      });
+    }
+
+    function switchTab(tabId) {
+      document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach(c => c.style.display = "none");
+      
+      const activeBtn = Array.from(document.querySelectorAll(".tab-btn")).find(b => b.getAttribute("onclick").includes(tabId));
+      if (activeBtn) activeBtn.classList.add("active");
+      const targetContent = document.getElementById("tab-" + tabId);
+      if (targetContent) targetContent.style.display = "flex";
+    }
+
+    function setSimInput(text) {
+      const input = document.getElementById("smsInput");
+      input.value = text;
+      input.focus();
+    }
+
+    async function sendSimSms() {
+      const input = document.getElementById("smsInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      const chatWindow = document.getElementById("chatWindow");
+      const btn = document.getElementById("btnSendSms");
+
+      // Append user bubble
+      const userBubble = document.createElement("div");
+      userBubble.className = "bubble bubble-user";
+      userBubble.innerHTML = `<div>${escapeHtml(text)}</div><div class="bubble-meta"><span>SENDING VIA GSM...</span><span>OUTBOX</span></div>`;
+      chatWindow.appendChild(userBubble);
+      input.value = "";
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+
+      btn.disabled = true;
+      btn.textContent = "SENDING...";
+
+      const startTime = Date.now();
+
+      try {
+        const resp = await fetch("/api/sms", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            from: "+254700000000",
+            text: text
+          })
+        });
+
+        const elapsed = Date.now() - startTime;
+
+        if (resp.ok) {
+          const data = await resp.json();
+          const haloReply = data.reply || data.message || data.text || "Halo: Message received.";
+          const packetCount = Math.ceil(haloReply.length / 160);
+
+          const haloBubble = document.createElement("div");
+          haloBubble.className = "bubble bubble-halo";
+          haloBubble.innerHTML = `<div>${escapeHtml(haloReply)}</div><div class="bubble-meta"><span>PACKET: ${packetCount}/1 SMS (${haloReply.length} chars)</span><span>${elapsed}ms EDGE</span></div>`;
+          chatWindow.appendChild(haloBubble);
+        } else {
+          const errBubble = document.createElement("div");
+          errBubble.className = "bubble bubble-halo";
+          errBubble.innerHTML = `<div>Halo: Cellular signaling error. Please retry in a moment.</div>`;
+          chatWindow.appendChild(errBubble);
+        }
+      } catch (err) {
+        const errBubble = document.createElement("div");
+        errBubble.className = "bubble bubble-halo";
+        errBubble.innerHTML = `<div>Halo: Network packet timeout. Reconnecting cellular node...</div>`;
+        chatWindow.appendChild(errBubble);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "SEND SMS";
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+      }
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+  </script>
+</body>
+</html>
