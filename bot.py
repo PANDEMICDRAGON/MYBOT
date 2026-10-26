@@ -167,7 +167,7 @@ def build_hydra_provider_chain() -> list[dict]:
 
     # 2. Secondary: Google Gemini models (Massive 1M token capacity, high RPM)
     if GEMINI_API_KEY:
-        for gm in ["gemini-2.0-flash", "gemini-1.5-flash", "gemini-2.5-flash"]:
+        for gm in ["gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-3.8-flash", "gemini-flash-latest"]:
             chain.append({
                 "provider": "gemini",
                 "model": gm,

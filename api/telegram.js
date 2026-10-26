@@ -553,8 +553,9 @@ export default async function handler(req, res) {
         }
         if (geminiApiKey) {
           providersToTry.push(
-            { provider: "gemini", name: "gemini-2.0-flash", url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", key: geminiApiKey, maxTokens: 8192, reasoningEffort: null },
-            { provider: "gemini", name: "gemini-1.5-flash", url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", key: geminiApiKey, maxTokens: 8192, reasoningEffort: null }
+            { provider: "gemini", name: "gemini-3.5-flash", url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", key: geminiApiKey, maxTokens: 8192, reasoningEffort: null },
+            { provider: "gemini", name: "gemini-3.5-flash-lite", url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", key: geminiApiKey, maxTokens: 8192, reasoningEffort: null },
+            { provider: "gemini", name: "gemini-flash-latest", url: "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", key: geminiApiKey, maxTokens: 8192, reasoningEffort: null }
           );
         }
 
@@ -727,7 +728,7 @@ export default async function handler(req, res) {
           }
 
           // Case B: Model replied with text. Check if it contains markdown code blocks and user wanted creation
-          let replyContent = choice.content || "";
+          let replyContent = message.content || choice.content || "";
           const codeBlockRegex = /```(?:python|javascript|js|ts|html|css|sh)?\n([\s\S]+?)\n```/;
           const match = replyContent.match(codeBlockRegex);
 
