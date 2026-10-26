@@ -2,8 +2,8 @@ name: 24/7 Web Collector Bot
 
 on:
   schedule:
-    # Runs every 15 minutes automatically
-    - cron: '*/15 * * * *'
+    # Runs every 10 minutes automatically in GitHub Cloud
+    - cron: '*/10 * * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI
 
 jobs:
@@ -12,6 +12,10 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Trigger Vercel 24/7 Cloud Daemon
+        run: |
+          curl -sS -X GET "https://telemetry-news-weather.vercel.app/api/cron" || echo "Vercel cron ping completed"
 
       - name: Set up Python
         uses: actions/setup-python@v5

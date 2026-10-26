@@ -188,6 +188,12 @@ async function fetchTelemetryData() {
   
   if (refreshIcon) refreshIcon.classList.add("spin-anim");
 
+  // Opportunistic 24/7 Cloud Daemon Sweep Trigger (Throttled to 2 mins)
+  if (!window._lastCloudDaemonPing || Date.now() - window._lastCloudDaemonPing > 120000) {
+    window._lastCloudDaemonPing = Date.now();
+    fetch("/api/cron").catch(() => {});
+  }
+
   if (!isConfigured()) {
     console.info("Ingesting 100% real live planetary, cyber, and network telemetry...");
     await fetchLiveTelemetryFile();
