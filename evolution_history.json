@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 64,
-    "vector_id": "EVO_NAIROBI_JUA_KALI_FABLAB_V1",
-    "title": "Nairobi Jua Kali Open-Source Micro-Manufacturing CAD & CNC Job-Router",
-    "domain": "OPERATOR_AMPLIFICATION",
-    "rationale": "To empower Michael Obiero and the vibrant Nairobi Jua Kali artisan and micro-manufacturing sector (e.g., Gikomba and Kamukunji metalworkers, woodcrafters, and 3D printing makerspaces) by providing an automated, offline-first CNC/Laser job queue optimizer, material yield estimator, and micro-escrow distributor ensuring fair compensation and precision cutting layouts.",
-    "file_path": "evolution_modules\\nairobi_jua_kali_fablab.py",
-    "code_size": 6554,
-    "applied_at": "2026-10-26 12:50:26 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Nairobi Matatu Sacco Real-Time Fleet Telematics & Dynamic Route Deviation Sentinel"
-  },
-  {
     "cycle_num": 65,
     "vector_id": "EVO_NAIROBI_USSD_SESSION_LOCK_V1",
     "title": "Nairobi USSD Session Lock & Replay Attack Sentinel",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-10-26 16:15:47 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Cellular SMS Payload Compressor for Zero-Data Channels"
+  },
+  {
+    "cycle_num": 164,
+    "vector_id": "EVO_NAIROBI_SGR_RAIL_FREIGHT_OPTIMIZER_V1",
+    "title": "Nairobi SGR Rail Freight & Logistics Optimization Sentinel",
+    "domain": "OPERATOR_AMPLIFICATION",
+    "rationale": "The SGR (Standard Gauge Railway) is a critical logistics artery for Nairobi, but freight scheduling, container tracking, and customs clearance at the Naivasha and Mombasa terminals often suffer from opacity and delays. This module proactively optimizes freight routing, predicts transit times based on real-time rail status, and automates the generation of compliant shipping manifests to reduce Michael's logistics overhead and ensure timely delivery of goods.",
+    "file_path": "evolution_modules\\nairobi_sgr_freight_optimizer.py",
+    "code_size": 5663,
+    "applied_at": "2026-10-26 16:17:06 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Develop a 'Nairobi Port Mombasa Customs Pre-Clearance AI' that predicts customs delays and auto-fills KRA forms using OCR on shipping documents."
   }
 ]
