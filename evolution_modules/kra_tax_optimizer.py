@@ -1,120 +1,97 @@
 import json
 import logging
-from datetime import datetime
-from typing import Dict, List, Optional
+from datetime import datetime, timedelta
+from typing import Dict, List, Optional, Union
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
 class KRA_Tax_Optimizer:
     """
-    A class to optimize tax payments and ensure compliance with Kenyan Revenue Authority (KRA) regulations.
+    A class to optimize tax calculations and ensure compliance with KRA regulations.
     """
-    
-    def __init__(self, tax_year: int = 2024):
-        self.tax_year = tax_year
-        self.tax_brackets = self._get_tax_brackets()
-        self.deductions = self._get_deductions()
-        
-    def _get_tax_brackets(self) -> List[Dict[str, float]]:
-        """
-        Retrieve the current tax brackets for the specified tax year.
-        """
-        # Example tax brackets for Kenya (2024)
-        return [
-            {"min_income": 0, "max_income": 240000, "rate": 0.10},
-            {"min_income": 240001, "max_income": 400000, "rate": 0.25},
-            {"min_income": 400001, "max_income": 800000, "rate": 0.30},
-            {"min_income": 800001, "max_income": float('inf'), "rate": 0.35}
-        ]
-    
-    def _get_deductions(self) -> Dict[str, float]:
-        """
-        Retrieve the current deductions for the specified tax year.
-        """
-        # Example deductions for Kenya (2024)
-        return {
-            "personal_relief": 2400,
-            "pension_contribution": 0.05,  # 5% of gross income
-            "insurance_premium": 0.02,  # 2% of gross income
-            "medical_expenses": 0.01  # 1% of gross income
+
+    def __init__(self, operator_name: str = "Michael Obiero"):
+        self.operator_name = operator_name
+        self.tax_rates = {
+            "personal_income_tax": 0.30,  # 30% for high earners
+            "corporate_tax": 0.30,  # 30% corporate tax
+            "vat": 0.16,  # 16% VAT
+            "withholding_tax": 0.5,  # 5% withholding tax
         }
-    
-    def calculate_tax(self, gross_income: float) -> Dict[str, float]:
+        self.tax_deadlines = {
+            "personal_income_tax": "15th of every month",
+            "corporate_tax": "15th of every month",
+            "vat": "20th of every month",
+            "withholding_tax": "15th of every month",
+        }
+
+    def calculate_tax(self, income: float, tax_type: str) -> float:
         """
-        Calculate the tax payable based on the gross income.
-        
+        Calculate tax based on income and tax type.
+
         Args:
-            gross_income (float): The gross income for the tax year.
-            
+            income (float): The income amount.
+            tax_type (str): The type of tax (e.g., 'personal_income_tax', 'corporate_tax').
+
         Returns:
-            Dict[str, float]: A dictionary containing the calculated tax details.
+            float: The calculated tax amount.
         """
-        if gross_income < 0:
-            raise ValueError("Gross income cannot be negative.")
-            
-        tax_payable = 0.0
-        for bracket in self.tax_brackets:
-            if gross_income > bracket["min_income"]:
-                taxable_amount = min(gross_income, bracket["max_income"]) - bracket["min_income"]
-                tax_payable += taxable_amount * bracket["rate"]
-            else:
-                break
-        
-        # Apply deductions
-        deductions = self.deductions
-        total_deductions = deductions["personal_relief"] + \
-                           (gross_income * deductions["pension_contribution"]) + \
-                           (gross_income * deductions["insurance_premium"]) + \
-                           (gross_income * deductions["medical_expenses"])
-        
-        net_tax = max(0, tax_payable - total_deductions)
-        
-        return {
-            "gross_income": gross_income,
-            "tax_payable": tax_payable,
-            "total_deductions": total_deductions,
-            "net_tax": net_tax
-        }
-    
-    def suggest_optimization(self, gross_income: float) -> Dict[str, float]:
+        if tax_type not in self.tax_rates:
+            raise ValueError(f"Unknown tax type: {tax_type}")
+
+        tax_amount = income * self.tax_rates[tax_type]
+        logger.info(f"Calculated {tax_type} for {self.operator_name}: {tax_amount:.2f}")
+        return tax_amount
+
+    def check_compliance(self, tax_type: str, due_date: datetime) -> bool:
         """
-        Suggest tax optimization strategies based on the gross income.
-        
+        Check if the tax is due and compliant.
+
         Args:
-            gross_income (float): The gross income for the tax year.
-            
+            tax_type (str): The type of tax.
+            due_date (datetime): The due date for the tax.
+
         Returns:
-            Dict[str, float]: A dictionary containing the suggested optimization details.
+            bool: True if compliant, False otherwise.
         """
-        tax_details = self.calculate_tax(gross_income)
-        
-        # Suggest increasing pension contributions if possible
-        suggested_pension_contribution = min(gross_income * 0.05, gross_income * 0.10)
-        
-        return {
-            "current_net_tax": tax_details["net_tax"],
-            "suggested_pension_contribution": suggested_pension_contribution,
-            "potential_tax_savings": suggested_pension_contribution * 0.35  # Assuming top tax rate
+        today = datetime.now()
+        if due_date < today:
+            logger.warning(f"{tax_type} is overdue for {self.operator_name}")
+            return False
+        else:
+            logger.info(f"{tax_type} is compliant for {self.operator_name}")
+            return True
+
+    def generate_tax_report(self, income: float, tax_type: str) -> Dict[str, Union[float, str]]:
+        """
+        Generate a tax report for the given income and tax type.
+
+        Args:
+            income (float): The income amount.
+            tax_type (str): The type of tax.
+
+        Returns:
+            Dict[str, Union[float, str]]: A dictionary containing the tax report.
+        """
+        tax_amount = self.calculate_tax(income, tax_type)
+        report = {
+            "operator": self.operator_name,
+            "income": income,
+            "tax_type": tax_type,
+            "tax_amount": tax_amount,
+            "due_date": self.tax_deadlines[tax_type],
+            "compliant": self.check_compliance(tax_type, datetime.now()),
         }
+        logger.info(f"Generated tax report for {self.operator_name}: {report}")
+        return report
+
 
 if __name__ == "__main__":
     optimizer = KRA_Tax_Optimizer()
-    
-    # Test case 1
-    gross_income_1 = 500000
-    tax_details_1 = optimizer.calculate_tax(gross_income_1)
-    print(f"Tax Details for {gross_income_1}: {tax_details_1}")
-    
-    # Test case 2
-    gross_income_2 = 1000000
-    tax_details_2 = optimizer.calculate_tax(gross_income_2)
-    print(f"Tax Details for {gross_income_2}: {tax_details_2}")
-    
-    # Suggest optimization
-    optimization_1 = optimizer.suggest_optimization(gross_income_1)
-    print(f"Optimization Suggestion for {gross_income_1}: {optimization_1}")
-    
-    optimization_2 = optimizer.suggest_optimization(gross_income_2)
-    print(f"Optimization Suggestion for {gross_income_2}: {optimization_2}")
+    income = 100000.0
+    tax_type = "personal_income_tax"
+    report = optimizer.generate_tax_report(income, tax_type)
+    print(json.dumps(report, indent=2))
