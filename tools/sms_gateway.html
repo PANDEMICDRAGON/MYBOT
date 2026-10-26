@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>HALO // Cellular SMS Gateway & Zero-Data Studio</title>
-  <meta name="description" content="Text Halo over standard cellular SMS with zero mobile data and receive instant AI answers directly on your phone." />
+  <title>HALO // Cellular Shortcodes & WhatsApp Telephony Hub</title>
+  <meta name="description" content="Connect with Halo over Africa's Talking Shortcodes and WhatsApp. Zero-data cellular SMS and rich WhatsApp AI intelligence." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -19,6 +19,8 @@
       --cyan-glow: #06b6d4;
       --cyan-bright: #22d3ee;
       --emerald-glow: #10b981;
+      --whatsapp-green: #25D366;
+      --whatsapp-dark: #075E54;
       --purple-glow: #a855f7;
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
@@ -30,7 +32,7 @@
       background-color: var(--bg-dark);
       background-image: 
         radial-gradient(circle at 10% 10%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
-        radial-gradient(circle at 90% 90%, rgba(168, 85, 247, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 90% 90%, rgba(37, 211, 102, 0.1) 0%, transparent 40%),
         linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
       background-size: 100% 100%, 100% 100%, 30px 30px, 30px 30px;
@@ -45,7 +47,7 @@
 
     .container {
       width: 100%;
-      max-width: 800px;
+      max-width: 860px;
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -71,7 +73,7 @@
 
     .title {
       font-family: 'Orbitron', monospace;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       letter-spacing: 1px;
       background: linear-gradient(135deg, #ffffff 0%, var(--cyan-bright) 100%);
@@ -100,9 +102,9 @@
       border-color: var(--cyan-bright);
     }
 
-    /* Banner */
+    /* Hero Banner */
     .hero-banner {
-      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(15, 23, 42, 0.9) 100%);
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.15) 0%, rgba(37, 211, 102, 0.08) 50%, rgba(15, 23, 42, 0.9) 100%);
       border: 1px solid var(--card-border);
       border-radius: 14px;
       padding: 20px;
@@ -128,7 +130,49 @@
       line-height: 1.5;
     }
 
-    /* Interactive Simulator */
+    /* Channel Selector */
+    .channel-switcher {
+      display: flex;
+      background: rgba(2, 6, 23, 0.9);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 4px;
+      gap: 6px;
+    }
+
+    .channel-btn {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'Orbitron', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s;
+    }
+
+    .channel-btn.active-sms {
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.25) 0%, rgba(2, 132, 199, 0.3) 100%);
+      color: var(--cyan-bright);
+      border: 1px solid var(--cyan-bright);
+      box-shadow: 0 0 12px rgba(6, 182, 212, 0.3);
+    }
+
+    .channel-btn.active-wa {
+      background: linear-gradient(135deg, rgba(37, 211, 102, 0.25) 0%, rgba(7, 94, 84, 0.4) 100%);
+      color: var(--whatsapp-green);
+      border: 1px solid var(--whatsapp-green);
+      box-shadow: 0 0 12px rgba(37, 211, 102, 0.3);
+    }
+
+    /* Simulator Card */
     .sim-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -138,6 +182,35 @@
       flex-direction: column;
       gap: 16px;
       box-shadow: 0 4px 24px rgba(0, 0, 0, 0.6);
+      transition: border-color 0.3s;
+    }
+
+    .sim-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .sim-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cyan-bright);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .sim-badge {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'Oxanium', monospace;
+      background: rgba(15, 23, 42, 0.8);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .chat-window {
@@ -145,12 +218,13 @@
       border: 1px solid rgba(6, 182, 212, 0.2);
       border-radius: 12px;
       padding: 16px;
-      min-height: 220px;
-      max-height: 320px;
+      min-height: 240px;
+      max-height: 340px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       gap: 12px;
+      transition: border-color 0.3s;
     }
 
     .bubble {
@@ -160,6 +234,7 @@
       font-size: 13px;
       line-height: 1.45;
       word-break: break-word;
+      white-space: pre-wrap;
     }
 
     .bubble-user {
@@ -167,6 +242,14 @@
       background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
       color: #fff;
       border-bottom-right-radius: 2px;
+    }
+
+    .bubble-user-wa {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #005c4b 0%, #004d40 100%);
+      color: #e9edef;
+      border-bottom-right-radius: 2px;
+      border: 1px solid rgba(37, 211, 102, 0.25);
     }
 
     .bubble-halo {
@@ -178,6 +261,14 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
+    .bubble-halo-wa {
+      align-self: flex-start;
+      background: #202c33;
+      border: 1px solid rgba(37, 211, 102, 0.3);
+      color: #e9edef;
+      border-bottom-left-radius: 2px;
+    }
+
     .bubble-meta {
       font-size: 10px;
       opacity: 0.7;
@@ -186,6 +277,40 @@
       justify-content: space-between;
       gap: 8px;
       font-family: 'Oxanium', monospace;
+    }
+
+    .config-strip {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .config-pill {
+      flex: 1;
+      min-width: 140px;
+      background: #090d16;
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 8px;
+      padding: 6px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .config-pill label {
+      font-size: 10px;
+      color: var(--text-muted);
+      font-family: 'Oxanium', monospace;
+      text-transform: uppercase;
+    }
+
+    .config-pill input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      outline: none;
     }
 
     .input-row {
@@ -203,6 +328,7 @@
       font-family: inherit;
       font-size: 13px;
       outline: none;
+      transition: all 0.2s;
     }
 
     .sim-input:focus {
@@ -231,6 +357,15 @@
       transform: translateY(-1px);
     }
 
+    .btn-send-wa {
+      background: linear-gradient(135deg, var(--whatsapp-green) 0%, var(--whatsapp-dark) 100%);
+      color: #fff;
+    }
+
+    .btn-send-wa:hover {
+      box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
+    }
+
     .quick-chips {
       display: flex;
       gap: 6px;
@@ -251,11 +386,11 @@
     }
 
     .chip:hover {
-      background: rgba(6, 182, 212, 0.15);
+      background: rgba(6, 182, 212, 0.2);
       border-color: var(--cyan-bright);
     }
 
-    /* Setup Tabs */
+    /* Setup Guides */
     .setup-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -268,68 +403,39 @@
 
     .tab-bar {
       display: flex;
-      gap: 8px;
-      border-b: 1px solid rgba(6, 182, 212, 0.2);
+      gap: 6px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 8px;
       overflow-x: auto;
     }
 
     .tab-btn {
-      background: none;
-      border: none;
+      background: transparent;
+      border: 1px solid transparent;
       color: var(--text-muted);
       font-family: 'Oxanium', monospace;
       font-size: 12px;
-      font-weight: 700;
+      font-weight: 600;
       padding: 8px 14px;
+      border-radius: 8px;
       cursor: pointer;
-      border-bottom: 2px solid transparent;
-      transition: all 0.2s;
       white-space: nowrap;
+      transition: all 0.2s;
     }
 
     .tab-btn.active {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: rgba(6, 182, 212, 0.4);
       color: var(--cyan-bright);
-      border-bottom-color: var(--cyan-bright);
     }
 
     .tab-content {
-      font-size: 13px;
-      line-height: 1.6;
-      color: #cbd5e1;
       display: flex;
       flex-direction: column;
       gap: 12px;
-    }
-
-    .code-box {
-      background: #020617;
-      border: 1px solid rgba(6, 182, 212, 0.25);
-      padding: 12px;
-      border-radius: 8px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      color: #38bdf8;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-      word-break: break-all;
-    }
-
-    .btn-copy-small {
-      background: rgba(6, 182, 212, 0.15);
-      border: 1px solid rgba(6, 182, 212, 0.4);
-      color: var(--cyan-bright);
-      padding: 4px 8px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 11px;
-      white-space: nowrap;
-    }
-
-    .btn-copy-small:hover {
-      background: var(--cyan-bright);
-      color: #000;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #cbd5e1;
     }
 
     .step-list {
@@ -339,67 +445,122 @@
       gap: 8px;
     }
 
+    .code-box {
+      background: #020617;
+      border: 1px solid rgba(6, 182, 212, 0.2);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--cyan-bright);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+    }
+
+    .btn-copy-small {
+      background: rgba(6, 182, 212, 0.2);
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      color: #fff;
+      font-size: 10px;
+      font-family: 'Orbitron', monospace;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .btn-copy-small:hover {
+      background: var(--cyan-bright);
+      color: #000;
+    }
+
     #toast {
       position: fixed;
       bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%) translateY(100px);
-      background: rgba(15, 23, 42, 0.95);
-      border: 1px solid var(--cyan-bright);
-      color: #fff;
-      font-family: 'Oxanium', monospace;
-      font-size: 12px;
-      padding: 10px 20px;
+      background: var(--cyan-bright);
+      color: #000;
+      font-family: 'Orbitron', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 8px 18px;
       border-radius: 20px;
-      box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.6);
+      opacity: 0;
       pointer-events: none;
-      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-      z-index: 9999;
+      transition: opacity 0.3s;
+      z-index: 999;
     }
-    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    #toast.show {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
+
   <div class="container">
+    <!-- Header -->
     <header class="header">
       <div class="logo-area">
-        <a href="/tools" class="nav-btn">
-          <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-          TOOLS HUB
-        </a>
-        <h1 class="title">HALO CELLULAR SMS</h1>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2m0 4a6 6 0 1 0 0 12 6 6 0 0 0 0-12m0 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4"></path></svg>
+        <span class="title">HALO // TELEPHONY &amp; MESSAGING NEXUS</span>
       </div>
-      <div class="nav-btn" style="color: var(--emerald-glow); border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.1);">
-        <span style="width: 6px; height: 6px; border-radius: 50%; background: #10b981; display: inline-block;"></span>
-        0-DATA SS7 GATEWAY
-      </div>
+      <a href="/" class="nav-btn">
+        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        OVERWATCH HUD
+      </a>
     </header>
 
+    <!-- Hero Banner -->
     <div class="hero-banner">
       <div class="hero-title">
         <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-        ZERO-DATA TEXT MESSAGING BRIDGE
+        DUAL CELLULAR SHORTCODE &amp; WHATSAPP GATEWAY
       </div>
       <p class="hero-desc">
-        Text <strong>Halo</strong> via standard carrier SMS (Safaricom / Airtel) even when you have <strong>no active mobile data bundles or Wi-Fi</strong>. 
-        Receiving SMS in Kenya is 100% free. The cloud neural node handles the reasoning and transmits responses straight to your phone's SMS inbox.
+        Chat with <strong>Halo</strong> via <strong>Africa's Talking Shortcodes</strong> (zero mobile data / free inbound carrier SMS in Kenya) or directly on <strong>WhatsApp</strong> with rich markdown formatting, tactical sitreps, and autonomous sub-agent orchestration.
       </p>
     </div>
 
+    <!-- Mode Selector -->
+    <div class="channel-switcher">
+      <button class="channel-btn active-sms" id="btnModeSms" onclick="setMode('sms')">
+        <span>📱</span> AFRICA'S TALKING SHORTCODE
+      </button>
+      <button class="channel-btn" id="btnModeWa" onclick="setMode('whatsapp')">
+        <span>💬</span> WHATSAPP BUSINESS GATEWAY
+      </button>
+    </div>
+
     <!-- Live Interactive Simulator -->
-    <div class="sim-card">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <span style="font-family: 'Orbitron', monospace; font-size: 13px; font-weight: 700; color: var(--cyan-bright);">
-          📱 LIVE CELLULAR SMS SIMULATOR
+    <div class="sim-card" id="simCard">
+      <div class="sim-header">
+        <span class="sim-title" id="simTitle">
+          📱 LIVE AFRICA'S TALKING SHORTCODE SIMULATOR
         </span>
-        <span style="font-size: 11px; color: var(--text-muted); font-family: 'Oxanium', monospace;">
-          CARRIER: GSM 03.40 (SS7)
+        <span class="sim-badge" id="simBadge">
+          PROTOCOL: AT SHORTCODE 2-WAY (SMS)
         </span>
       </div>
 
+      <!-- Config Inputs for Simulation -->
+      <div class="config-strip">
+        <div class="config-pill" id="pillTarget">
+          <label id="lblTarget">Shortcode / Dest</label>
+          <input type="text" id="simTarget" value="20880" placeholder="e.g. 20880 or 99999" />
+        </div>
+        <div class="config-pill">
+          <label>Sender Mobile (MSISDN)</label>
+          <input type="text" id="simSender" value="+254712345678" placeholder="+2547XXXXXXXX" />
+        </div>
+      </div>
+
       <div class="chat-window" id="chatWindow">
-        <div class="bubble bubble-halo">
-          <div>Halo: Systems nominal, Michael. I am listening on your carrier cellular channel. You can ask for weather, sitreps, or talk to me even when your data is completely switched off.</div>
+        <div class="bubble bubble-halo" id="initialBubble">
+          <div>Halo: Systems nominal, Michael. I am listening on your Africa's Talking shortcode and WhatsApp channels. Send a test message or command below to test live!</div>
           <div class="bubble-meta">
             <span>PACKET: 1/1 SMS</span>
             <span>CELLULAR EDGE</span>
@@ -407,17 +568,19 @@
         </div>
       </div>
 
-      <div class="quick-chips">
-        <div class="chip" onclick="setSimInput('Halo what is the weather in Nairobi?')">🌦️ Weather in Nairobi</div>
-        <div class="chip" onclick="setSimInput('Halo sitrep')">🛡️ Tactical Sitrep</div>
-        <div class="chip" onclick="setSimInput('Halo what are my tasks?')">📋 Operator Tasks</div>
-        <div class="chip" onclick="setSimInput('Halo, I dont have data today')">💬 Talk to Halo</div>
+      <!-- Quick Chips -->
+      <div class="quick-chips" id="quickChips">
+        <div class="chip" onclick="setSimInput('HALO status')">⚡ HALO status</div>
+        <div class="chip" onclick="setSimInput('HALO sitrep')">🛡️ HALO sitrep</div>
+        <div class="chip" onclick="setSimInput('HALO tasks')">📋 HALO tasks</div>
+        <div class="chip" onclick="setSimInput('HALO what is the weather in Nairobi?')">🌤️ Weather in Nairobi</div>
+        <div class="chip" onclick="setSimInput('HALO swarm status')">🐝 Swarm Status</div>
       </div>
 
       <div class="input-row">
-        <input type="text" id="smsInput" class="sim-input" placeholder="Type an SMS to Halo (e.g. 'Halo, are you there?')..." onkeydown="if(event.key==='Enter') sendSimSms()" />
-        <button class="btn-send" id="btnSendSms" onclick="sendSimSms()">
-          SEND SMS
+        <input type="text" id="msgInput" class="sim-input" placeholder="Type a message (e.g. 'HALO status')..." onkeydown="if(event.key==='Enter') sendSimMessage()" />
+        <button class="btn-send" id="btnSend" onclick="sendSimMessage()">
+          SEND
         </button>
       </div>
     </div>
@@ -425,67 +588,105 @@
     <!-- Turn-Key Setup Guides -->
     <div class="setup-card">
       <div style="font-family: 'Orbitron', monospace; font-size: 13px; font-weight: 700; color: var(--cyan-bright);">
-        🛠️ 3-MINUTE ZERO-COST PHONE SETUP
+        🛠️ GATEWAY CONFIGURATION &amp; WEBHOOK INSTRUCTIONS
       </div>
 
       <div class="tab-bar">
-        <button class="tab-btn active" onclick="switchTab('forwarder')">1. ANDROID SMS FORWARDER (FREE)</button>
-        <button class="tab-btn" onclick="switchTab('termux')">2. TERMUX SCRIPT (FREE)</button>
-        <button class="tab-btn" onclick="switchTab('africas_talking')">3. AFRICA'S TALKING (KENYA)</button>
-        <button class="tab-btn" onclick="switchTab('twilio')">4. TWILIO</button>
+        <button class="tab-btn active" onclick="switchTab('at_shortcode')">1. AFRICA'S TALKING SHORTCODE</button>
+        <button class="tab-btn" onclick="switchTab('whatsapp_guide')">2. WHATSAPP GATEWAY</button>
+        <button class="tab-btn" onclick="switchTab('android_forwarder')">3. ANDROID FORWARDER (FREE)</button>
+        <button class="tab-btn" onclick="switchTab('termux')">4. TERMUX BACKGROUND LISTENER</button>
+        <button class="tab-btn" onclick="switchTab('twilio')">5. TWILIO</button>
       </div>
 
-      <!-- Tab 1: Android SMS Forwarder -->
-      <div id="tab-forwarder" class="tab-content">
-        <p>Use any Android phone (your dual-SIM device, spare phone, or secondary phone) as a free 24/7 SMS Gateway:</p>
+      <!-- Tab 1: Africa's Talking Shortcodes -->
+      <div id="tab-at_shortcode" class="tab-content">
+        <p><strong>Connect directly to Safaricom &amp; Airtel shortcodes via Africa's Talking (Nairobi, Kenya):</strong></p>
         <ol class="step-list">
-          <li>Install the free open-source app <strong>SMS Forwarder</strong> (Available on F-Droid / Google Play / GitHub).</li>
-          <li>In the app, tap <strong>Senders</strong> &rarr; Add Rule &rarr; Set Target to <strong>Webhook (HTTP POST)</strong>.</li>
-          <li>Paste your Vercel Webhook URL:
+          <li>Log into your dashboard at <a href="https://africastalking.com" target="_blank" style="color: var(--cyan-bright);">africastalking.com</a>.</li>
+          <li>Go to <strong>SMS &rarr; Shortcodes &rarr; Inbound &rarr; Callback URL</strong> (or Sandbox: <em>Shortcodes &rarr; Callback URLs</em>).</li>
+          <li>Paste your live Vercel SMS endpoint:
             <div class="code-box" style="margin-top: 6px;">
-              <span id="webhookUrl">https://telemetry-news-weather.vercel.app/api/sms</span>
+              <span>https://telemetry-news-weather.vercel.app/api/sms</span>
               <button class="btn-copy-small" onclick="copyText('https://telemetry-news-weather.vercel.app/api/sms')">COPY URL</button>
             </div>
           </li>
-          <li>Enable <strong>"Auto-reply using webhook response"</strong> in the app settings.</li>
-          <li><strong>That's it!</strong> Whenever you send an SMS to that number, it forwards to Halo and instantly texts you back. Receiving SMS is 100% free on Safaricom / Airtel!</li>
+          <li>If using a shared shortcode (e.g. <code>20880</code> or sandbox <code>99999</code>), set your keyword to <code>HALO</code> or <code>CORTANA</code>. Any SMS starting with <code>HALO &lt;text&gt;</code> is automatically stripped and routed to Halo's reasoning core!</li>
+          <li>Add your credentials to your Vercel Environment Variables:
+            <div class="code-box" style="margin-top: 6px;">
+              <span>AT_API_KEY=your_key<br>AT_USERNAME=your_username<br>AT_SHORTCODE=20880<br>AT_KEYWORD=HALO</span>
+              <button class="btn-copy-small" onclick="copyText('AT_API_KEY=\nAT_USERNAME=\nAT_SHORTCODE=\nAT_KEYWORD=HALO')">COPY ENV</button>
+            </div>
+          </li>
+          <li><strong>Test via AT Simulator:</strong> Open Africa's Talking Sandbox &rarr; Launch Simulator &rarr; Select "Shortcodes" &rarr; Enter your shortcode &rarr; Text <code>HALO status</code>. You'll receive instant response!</li>
         </ol>
       </div>
 
-      <!-- Tab 2: Termux Script -->
+      <!-- Tab 2: WhatsApp Gateway -->
+      <div id="tab-whatsapp_guide" class="tab-content" style="display: none;">
+        <p><strong>Bring Halo onto WhatsApp using Meta Cloud WhatsApp API or Africa's Talking:</strong></p>
+        <ol class="step-list">
+          <li><strong>Option A: Meta WhatsApp Cloud API (Official &amp; Free 1,000 chats/mo):</strong>
+            <ul style="margin: 6px 0 6px 18px;">
+              <li>Go to <a href="https://developers.facebook.com" target="_blank" style="color: var(--whatsapp-green);">developers.facebook.com</a> &rarr; Create App &rarr; WhatsApp.</li>
+              <li>In WhatsApp &rarr; Configuration &rarr; Webhook:
+                <div class="code-box" style="margin: 4px 0;">
+                  <span>Callback URL: https://telemetry-news-weather.vercel.app/api/whatsapp<br>Verify Token: cortana_whatsapp_2026</span>
+                  <button class="btn-copy-small" onclick="copyText('https://telemetry-news-weather.vercel.app/api/whatsapp')">COPY</button>
+                </div>
+              </li>
+              <li>Subscribe to <code>messages</code> webhook field.</li>
+              <li>Add <code>WHATSAPP_ACCESS_TOKEN</code> and <code>WHATSAPP_PHONE_NUMBER_ID</code> to Vercel.</li>
+            </ul>
+          </li>
+          <li><strong>Option B: Africa's Talking WhatsApp Channel:</strong>
+            <ul style="margin: 6px 0 6px 18px;">
+              <li>Go to Africa's Talking &rarr; WhatsApp Channels &rarr; Webhooks.</li>
+              <li>Set Webhook URL to: <code>https://telemetry-news-weather.vercel.app/api/whatsapp</code>.</li>
+              <li>Set <code>AT_WHATSAPP_NUMBER</code> in your environment variables.</li>
+            </ul>
+          </li>
+          <li><strong>Option C: Twilio WhatsApp Sandbox:</strong>
+            <ul style="margin: 6px 0 6px 18px;">
+              <li>In Twilio Console &rarr; Messaging &rarr; WhatsApp Sandbox &rarr; Set incoming URL to: <code>https://telemetry-news-weather.vercel.app/api/whatsapp</code>.</li>
+            </ul>
+          </li>
+        </ol>
+      </div>
+
+      <!-- Tab 3: Android SMS Forwarder -->
+      <div id="tab-android_forwarder" class="tab-content" style="display: none;">
+        <p>Use any Android phone (spare phone or secondary SIM) as a 100% free cellular gateway:</p>
+        <ol class="step-list">
+          <li>Install the free open-source app <strong>SMS Forwarder</strong> (F-Droid / Google Play).</li>
+          <li>Tap <strong>Senders</strong> &rarr; Add Rule &rarr; Set Target to <strong>Webhook (HTTP POST)</strong>.</li>
+          <li>Paste your Vercel Webhook URL:
+            <div class="code-box" style="margin-top: 6px;">
+              <span>https://telemetry-news-weather.vercel.app/api/sms</span>
+              <button class="btn-copy-small" onclick="copyText('https://telemetry-news-weather.vercel.app/api/sms')">COPY URL</button>
+            </div>
+          </li>
+          <li>Enable <strong>"Auto-reply using webhook response"</strong> in settings.</li>
+        </ol>
+      </div>
+
+      <!-- Tab 4: Termux Script -->
       <div id="tab-termux" class="tab-content" style="display: none;">
-        <p>Run a native autonomous background listener inside Termux on any Android phone with zero third-party subscriptions:</p>
+        <p>Run a native background GSM listener inside Termux on any Android phone:</p>
         <ol class="step-list">
           <li>Install <strong>Termux</strong> and <strong>Termux:API</strong> from F-Droid.</li>
-          <li>Run this single command in Termux:
+          <li>Run this single command:
             <div class="code-box" style="margin-top: 6px;">
               <span id="termuxCmd">pkg install python termux-api && pip install httpx && curl -sSL https://raw.githubusercontent.com/PANDEMICDRAGON/MYBOT/master/scripts/termux_sms_halo.py -o termux_sms_halo.py && python termux_sms_halo.py</span>
               <button class="btn-copy-small" onclick="copyText(document.getElementById('termuxCmd').textContent)">COPY COMMAND</button>
             </div>
           </li>
-          <li>It automatically listens for SMS from you with keyword <code>halo</code>, calls your 24/7 Vercel cloud node, and texts you back directly using the SIM card!</li>
         </ol>
       </div>
 
-      <!-- Tab 3: Africa's Talking -->
-      <div id="tab-africas_talking" class="tab-content" style="display: none;">
-        <p>Connect directly to Safaricom &amp; Airtel Kenya cellular infrastructure using Africa's Talking (based in Nairobi):</p>
-        <ol class="step-list">
-          <li>Create a free account at <a href="https://africastalking.com" target="_blank" style="color: var(--cyan-bright);">africastalking.com</a>.</li>
-          <li>Go to <strong>SMS &rarr; SMS Callback URLs &rarr; Incoming Messages</strong>.</li>
-          <li>Set the Callback URL to:
-            <div class="code-box" style="margin-top: 6px;">
-              <span>https://telemetry-news-weather.vercel.app/api/sms</span>
-              <button class="btn-copy-small" onclick="copyText('https://telemetry-news-weather.vercel.app/api/sms')">COPY</button>
-            </div>
-          </li>
-          <li>Add <code>AT_API_KEY</code> and <code>AT_USERNAME</code> to your Vercel Environment Variables.</li>
-        </ol>
-      </div>
-
-      <!-- Tab 4: Twilio -->
+      <!-- Tab 5: Twilio -->
       <div id="tab-twilio" class="tab-content" style="display: none;">
-        <p>Use a global virtual phone number with Twilio trial credits:</p>
+        <p>Use a global Twilio virtual number for SMS or WhatsApp:</p>
         <ol class="step-list">
           <li>In Twilio Console &rarr; Phone Numbers &rarr; Configure.</li>
           <li>Under <strong>A MESSAGE COMES IN</strong>, select <strong>Webhook (HTTP POST)</strong>.</li>
@@ -503,6 +704,56 @@
   <div id="toast">Copied to clipboard!</div>
 
   <script>
+    let currentMode = "sms"; // "sms" or "whatsapp"
+
+    function setMode(mode) {
+      currentMode = mode;
+      const btnSms = document.getElementById("btnModeSms");
+      const btnWa = document.getElementById("btnModeWa");
+      const title = document.getElementById("simTitle");
+      const badge = document.getElementById("simBadge");
+      const btnSend = document.getElementById("btnSend");
+      const lblTarget = document.getElementById("lblTarget");
+      const simTarget = document.getElementById("simTarget");
+      const chips = document.getElementById("quickChips");
+
+      if (mode === "whatsapp") {
+        btnSms.className = "channel-btn";
+        btnWa.className = "channel-btn active-wa";
+        title.innerHTML = "💬 LIVE WHATSAPP GATEWAY SIMULATOR";
+        title.style.color = "var(--whatsapp-green)";
+        badge.textContent = "PROTOCOL: WHATSAPP BUSINESS CLOUD";
+        btnSend.className = "btn-send btn-send-wa";
+        lblTarget.textContent = "WhatsApp Channel / App ID";
+        simTarget.value = "WHATSAPP_CLOUD_PROD";
+        
+        chips.innerHTML = `
+          <div class="chip" onclick="setSimInput('Halo, status report')">⚡ Halo, status report</div>
+          <div class="chip" onclick="setSimInput('Halo, sitrep briefing')">🛡️ Halo, sitrep briefing</div>
+          <div class="chip" onclick="setSimInput('Halo, show active swarm agents')">🐝 Swarm Telemetry</div>
+          <div class="chip" onclick="setSimInput('Halo, what are my active tasks?')">📋 Operator Tasks</div>
+          <div class="chip" onclick="setSimInput('Halo, how are our systems today?')">💙 Talk to Halo</div>
+        `;
+      } else {
+        btnSms.className = "channel-btn active-sms";
+        btnWa.className = "channel-btn";
+        title.innerHTML = "📱 LIVE AFRICA'S TALKING SHORTCODE SIMULATOR";
+        title.style.color = "var(--cyan-bright)";
+        badge.textContent = "PROTOCOL: AT SHORTCODE 2-WAY (SMS)";
+        btnSend.className = "btn-send";
+        lblTarget.textContent = "Shortcode / Dest";
+        simTarget.value = "20880";
+
+        chips.innerHTML = `
+          <div class="chip" onclick="setSimInput('HALO status')">⚡ HALO status</div>
+          <div class="chip" onclick="setSimInput('HALO sitrep')">🛡️ HALO sitrep</div>
+          <div class="chip" onclick="setSimInput('HALO tasks')">📋 HALO tasks</div>
+          <div class="chip" onclick="setSimInput('HALO what is the weather in Nairobi?')">🌤️ Weather in Nairobi</div>
+          <div class="chip" onclick="setSimInput('HALO swarm status')">🐝 Swarm Status</div>
+        `;
+      }
+    }
+
     function showToast(msg) {
       const t = document.getElementById("toast");
       t.textContent = msg;
@@ -527,23 +778,25 @@
     }
 
     function setSimInput(text) {
-      const input = document.getElementById("smsInput");
+      const input = document.getElementById("msgInput");
       input.value = text;
       input.focus();
     }
 
-    async function sendSimSms() {
-      const input = document.getElementById("smsInput");
+    async function sendSimMessage() {
+      const input = document.getElementById("msgInput");
       const text = input.value.trim();
       if (!text) return;
 
       const chatWindow = document.getElementById("chatWindow");
-      const btn = document.getElementById("btnSendSms");
+      const btn = document.getElementById("btnSend");
+      const sender = document.getElementById("simSender").value.trim() || "+254712345678";
+      const target = document.getElementById("simTarget").value.trim() || "20880";
 
       // Append user bubble
       const userBubble = document.createElement("div");
-      userBubble.className = "bubble bubble-user";
-      userBubble.innerHTML = `<div>${escapeHtml(text)}</div><div class="bubble-meta"><span>SENDING VIA GSM...</span><span>OUTBOX</span></div>`;
+      userBubble.className = currentMode === "whatsapp" ? "bubble bubble-user-wa" : "bubble bubble-user";
+      userBubble.innerHTML = `<div>${escapeHtml(text)}</div><div class="bubble-meta"><span>${currentMode === "whatsapp" ? "WHATSAPP" : "SMS TO " + target}</span><span>OUTBOX</span></div>`;
       chatWindow.appendChild(userBubble);
       input.value = "";
       chatWindow.scrollTop = chatWindow.scrollHeight;
@@ -554,40 +807,55 @@
       const startTime = Date.now();
 
       try {
-        const resp = await fetch("/api/sms", {
+        const endpoint = currentMode === "whatsapp" ? "/api/whatsapp" : "/api/sms";
+        const payload = currentMode === "whatsapp" 
+          ? {
+              sender: sender,
+              message: text,
+              channel: "whatsapp"
+            }
+          : {
+              from: sender,
+              to: target,
+              text: text,
+              linkId: "SIM_LINK_" + Date.now(),
+              networkCode: "63902"
+            };
+
+        const resp = await fetch(endpoint, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            from: "+254700000000",
-            text: text
-          })
+          body: JSON.stringify(payload)
         });
 
         const elapsed = Date.now() - startTime;
 
         if (resp.ok) {
           const data = await resp.json();
-          const haloReply = data.reply || data.message || data.text || "Halo: Message received.";
-          const packetCount = Math.ceil(haloReply.length / 160);
+          const replyText = data.reply || data.message || data.text || "Message processed.";
+          const packetCount = Math.ceil(replyText.length / 160);
 
           const haloBubble = document.createElement("div");
-          haloBubble.className = "bubble bubble-halo";
-          haloBubble.innerHTML = `<div>${escapeHtml(haloReply)}</div><div class="bubble-meta"><span>PACKET: ${packetCount}/1 SMS (${haloReply.length} chars)</span><span>${elapsed}ms EDGE</span></div>`;
+          haloBubble.className = currentMode === "whatsapp" ? "bubble bubble-halo-wa" : "bubble bubble-halo";
+          const metaInfo = currentMode === "whatsapp"
+            ? `<span>WHATSAPP CLOUD (${replyText.length} chars)</span><span>${elapsed}ms</span>`
+            : `<span>PACKET: ${packetCount}/1 SMS (${replyText.length} chars)</span><span>${elapsed}ms</span>`;
+          haloBubble.innerHTML = `<div>${escapeHtml(replyText)}</div><div class="bubble-meta">${metaInfo}</div>`;
           chatWindow.appendChild(haloBubble);
         } else {
           const errBubble = document.createElement("div");
           errBubble.className = "bubble bubble-halo";
-          errBubble.innerHTML = `<div>Halo: Cellular signaling error. Please retry in a moment.</div>`;
+          errBubble.innerHTML = `<div>Halo: Gateway transmission error (${resp.status}). Check credentials or serverless logs.</div>`;
           chatWindow.appendChild(errBubble);
         }
       } catch (err) {
         const errBubble = document.createElement("div");
         errBubble.className = "bubble bubble-halo";
-        errBubble.innerHTML = `<div>Halo: Network packet timeout. Reconnecting cellular node...</div>`;
+        errBubble.innerHTML = `<div>Halo: Network error (${err.message}). Reconnecting gateway node...</div>`;
         chatWindow.appendChild(errBubble);
       } finally {
         btn.disabled = false;
-        btn.textContent = "SEND SMS";
+        btn.textContent = "SEND";
         chatWindow.scrollTop = chatWindow.scrollHeight;
       }
     }

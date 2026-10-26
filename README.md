@@ -69,6 +69,8 @@ graph TD
 | **Wi-Fi Cyber Scanner** | Async Socket & Banner Fingerprint | Dedicated multi-port scanner auditing 20-35 services on Wi-Fi devices (Google Cast, Roku, ADB, HTTP, SSH) across mobile and desktop. |
 | **Secure Local CLI & Workspace Bridge** | `halo_agent.py` (Gemini + Groq) | Dual-listener daemon (Port 5050 + Supabase command_queue) for zero-latency local code refactoring, colorized unified diffs, path-sandboxed writes, and git stash + syntax rollback safety. |
 | **Autonomous Sub-Agent Swarm** | `swarm_engine.py` (Queen-Worker Architecture) | Cortana dynamically spawns, commissions, and commands unlimited super-powerful specialized sub-agents (Security, Code Architecture, Quant Finance, OSINT, Music Promo, Frontier AI). All agents execute parallel workloads with AST validation and Hydra LLM failover, obeying Cortana with 100% unconditional fidelity. |
+| **Africa's Talking Shortcodes (SMS)** | `api/sms.js` (GSM 03.40 / SS7 Signaling) | Chat with Halo over 2-way Africa's Talking Shortcodes (e.g. `20880` or sandbox `99999`) across Safaricom and Airtel Kenya with zero mobile data bundles required. |
+| **Sovereign WhatsApp Gateway** | `api/whatsapp.js` (Meta Cloud & AT WhatsApp) | 24/7 rich interactive WhatsApp connectivity supporting Meta Cloud WhatsApp API, Africa's Talking WhatsApp, and Twilio WhatsApp with real-time tactical sitreps, tool links, and Telegram cross-channel sync. |
 | **High-Tech Typography Matrix** | Google Fonts + CSS Engine | Replaces cramped legacy fonts with movie-grade Oxanium display headers, Plus Jakarta Sans & Inter hyper-crisp body text, Space Grotesk HUD labels, JetBrains Mono telemetry, and an interactive 6-preset selector (Quantum, Stark, Cortana, Minimalist, Night City, Retro). |
 
 ---

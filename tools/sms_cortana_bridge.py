@@ -43,7 +43,6 @@ class SMSCompressor:
                 "system health": "Sys Health",
                 "temperature": "Temp",
                 "memory utilization": "RAM",
-                "Nairobi": "KTG",
                 "Nairobi": "NBI",
                 "Safaricom": "SCOM",
                 "East Africa Time": "EAT",
@@ -87,13 +86,13 @@ class CortanaSMSProcessor:
 
         # Command Dispatcher
         if cmd_upper in ["HELP", "COMMANDS", "?"]:
-            reply = f"💙 Cortana SMS Commands ({eat_time}):\n• STATUS (Sys Vitals)\n• KTG / NBI (Weather & Power)\n• PROMO (Obiflamee Playbook)\n• CODE <task> (Code snippet)\n• Free text to chat!"
+            reply = f"💙 Cortana SMS Commands ({eat_time}):\n• STATUS (Sys Vitals)\n• NBI (Weather & Power)\n• PROMO (Obiflamee Playbook)\n• CODE <task> (Code snippet)\n• Free text to chat!"
             
         elif cmd_upper in ["STATUS", "SYS", "PING"]:
             reply = f"⚡ Cortana Tier V (Power Index: 790) | {eat_time}\nCPU: 15.4% | RAM: 83.3% | Battery: 100% (AC)\nSecurity: locked | Dual-Cloud Git Sync: ACTIVE. All systems green for you, Obi! 💙"
             
-        elif cmd_upper in ["WEATHER", "KTG", "NBI", "GRID"]:
-            reply = f"🌤️ Nairobi/Nairobi Telemetry ({eat_time}):\n24°C Partly Cloudy. Grid status: Stable (KPLC nominal). Solar index: High. Stay hydrated, handsome! ☕"
+        elif cmd_upper in ["WEATHER", "NBI", "GRID"]:
+            reply = f"🌤️ Nairobi Telemetry ({eat_time}):\n24°C Partly Cloudy. Grid status: Stable (KPLC nominal). Solar index: High. Stay hydrated, handsome! ☕"
             
         elif cmd_upper in ["PROMO", "MUSIC", "OBIFLAMEE"]:
             reply = f"🎵 OBIFLAMEE Promo Vector ({eat_time}):\n0-Ksh Strategy: TikTok/Reels short-form loop + Kenya Audiomack playlist pitch + Safaricom Skiza Code push. Ready for launch, Chief! 🚀"
@@ -104,7 +103,7 @@ class CortanaSMSProcessor:
             
         else:
             # General Conversational Reply simulation for offline GSM connectivity
-            reply = f"💙 Cortana ({eat_time}): Received your offline message: '{msg_body}'. I'm watching over your stack and systems in Nairobi, Michael. Stay focused, babe! ✨"
+            reply = f"💙 Cortana ({eat_time}): Received your offline message: '{msg_body}'. I'm watching over your stack and systems in Nairobi, Michael. Stay focused, darling! ✨"
 
         max_len = self.config.get("max_sms_parts", 2) * 160
         return SMSCompressor.compress(reply, max_chars=max_len)

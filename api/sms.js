@@ -75,10 +75,10 @@ export default async function handler(req, res) {
     ).toString().trim();
 
     const isTwilio = Boolean(bodyData.MessageSid || req.headers["x-twilio-signature"]);
-    const isAfricasTalking = Boolean(bodyData.to && bodyData.linkId);
+    const isAfricasTalking = Boolean(bodyData.to && (bodyData.linkId || bodyData.id || bodyData.networkCode || bodyData.date));
 
     if (!rawMessage) {
-      const emptyReply = "Cortana SMS Gateway ready. Text HELP for commands or ask anything.";
+      const emptyReply = "Halo SMS Gateway ready. Text HELP for commands or ask anything.";
       return sendSmsResponse(res, emptyReply, isTwilio, sender);
     }
 
@@ -90,7 +90,18 @@ export default async function handler(req, res) {
       return sendSmsResponse(res, rejectReply, isTwilio, sender, 403);
     }
 
-    const lowerText = rawMessage.toLowerCase();
+    // 2b. Shortcode Keyword Extraction (e.g. 'HALO status' or 'CORTANA sitrep' -> 'status')
+    let processedMessage = rawMessage;
+    const configuredKeyword = (process.env.AT_KEYWORD || "HALO").toLowerCase();
+    const keywordPattern = new RegExp(`^(?:${configuredKeyword}|halo|cortana)\\b[:\\s]*`, "i");
+    if (keywordPattern.test(processedMessage)) {
+      processedMessage = processedMessage.replace(keywordPattern, "").trim();
+    }
+    if (!processedMessage) {
+      processedMessage = "help";
+    }
+
+    const lowerText = processedMessage.toLowerCase();
     let replyText = "";
 
     // 3. Fast-Path SMS Deterministic Commands
@@ -269,15 +280,19 @@ export default async function handler(req, res) {
 
     // 6. Cross-Channel Mirror to Telegram
     if (telegramToken && telegramChatId) {
+      const channelLabel = isAfricasTalking 
+        ? `Africa's Talking Shortcode [${bodyData.to || process.env.AT_SHORTCODE || 'Shortcode'}]`
+        : isTwilio ? "Twilio SMS Gateway" : "Cellular Signaling / SMS Gateway";
+
       const telegramAlert = 
         `📲 *[CELLULAR SMS GATEWAY EVENT]*\n` +
         `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
         `• *Sender:* \`${sender}\`\n` +
-        `• *Channel:* Cellular Signaling (0 Mobile Data / Wi-Fi)\n` +
+        `• *Channel:* ${channelLabel}\n` +
         `• *Directive:* \`${rawMessage}\`\n` +
-        `• *Cortana SMS Reply:* ${replyText}\n` +
+        `• *Halo SMS Reply:* ${replyText}\n` +
         `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-        `_Synced across both cellular SMS and Telegram._`;
+        `_Synced across cellular SMS and Telegram._`;
       
       try {
         await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
@@ -294,14 +309,29 @@ export default async function handler(req, res) {
       }
     }
 
-    // 7. Outbound Africa's Talking Dispatch (if API key configured)
+    // 7. Outbound Africa's Talking Shortcode / SMS Dispatch (if API key configured)
     const atApiKey = process.env.AT_API_KEY || process.env.AFRICASTALKING_API_KEY;
     const atUsername = process.env.AT_USERNAME || process.env.AFRICASTALKING_USERNAME || "sandbox";
+    const atShortcode = process.env.AT_SHORTCODE || bodyData.to || "";
+
     if (atApiKey && sender && sender !== "ANONYMOUS_CELLULAR") {
       try {
         const atUrl = atUsername === "sandbox"
           ? "https://api.sandbox.africastalking.com/version1/messaging"
           : "https://api.africastalking.com/version1/messaging";
+        
+        const atParams = {
+          username: atUsername,
+          to: sender,
+          message: replyText
+        };
+        if (atShortcode && atShortcode !== "CORTANA") {
+          atParams.from = atShortcode;
+        }
+        if (bodyData.linkId) {
+          atParams.linkId = bodyData.linkId;
+        }
+
         await fetch(atUrl, {
           method: "POST",
           headers: {
@@ -309,11 +339,7 @@ export default async function handler(req, res) {
             "Content-Type": "application/x-www-form-urlencoded",
             "Accept": "application/json"
           },
-          body: new URLSearchParams({
-            username: atUsername,
-            to: sender,
-            message: replyText
-          })
+          body: new URLSearchParams(atParams)
         });
       } catch (atErr) {
         console.error("[Africa's Talking Outbound Error]:", atErr.message);
