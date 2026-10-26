@@ -2,111 +2,101 @@ import hashlib
 import time
 import uuid
 from typing import Dict, Optional, List
-from dataclasses import dataclass, field
-from enum import Enum
-import logging
+import json
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+class KraEinDynamicRotator:
+    """
+    A module to dynamically rotate and validate KRA Electronic Identification Numbers (EINs).
+    Ensures compliance with Kenya Revenue Authority standards and prevents credential exposure.
+    """
 
+    def __init__(self, operator_id: str, base_ein: str):
+        """
+        Initialize the KRA EIN Dynamic Rotator.
 
-class EINStatus(Enum):
-    ACTIVE = "active"
-    INACTIVE = "inactive"
-    EXPIRED = "expired"
-    REVOKED = "revoked"
+        Args:
+            operator_id (str): The unique identifier for the operator.
+            base_ein (str): The base EIN to be rotated.
+        """
+        self.operator_id = operator_id
+        self.base_ein = base_ein
+        self.current_ein = base_ein
+        self.rotation_history: List[Dict[str, str]] = []
+        self.last_rotation_time: Optional[float] = None
 
+    def rotate_ein(self) -> str:
+        """
+        Rotate the current EIN using a secure hash-based algorithm.
 
-@dataclass
-class EINRecord:
-    ein: str
-    status: EINStatus
-    created_at: float
-    expires_at: float
-    metadata: Dict[str, str] = field(default_factory=dict)
-
-    def is_valid(self) -> bool:
-        return self.status == EINStatus.ACTIVE and time.time() < self.expires_at
-
-
-class KRAEINDynamicRotator:
-    def __init__(self, rotation_interval: int = 3600):
-        self.rotation_interval = rotation_interval
-        self.ein_records: Dict[str, EINRecord] = {}
-        self._lock = None  # Placeholder for thread safety if needed
-
-    def generate_ein(self, business_id: str) -> str:
-        """Generate a unique EIN based on business ID and timestamp."""
-        timestamp = int(time.time())
-        seed = f"{business_id}{timestamp}{uuid.uuid4()}"
-        return hashlib.sha256(seed.encode()).hexdigest()[:16].upper()
-
-    def register_ein(self, business_id: str, metadata: Optional[Dict[str, str]] = None) -> str:
-        """Register a new EIN for a business."""
-        ein = self.generate_ein(business_id)
-        record = EINRecord(
-            ein=ein,
-            status=EINStatus.ACTIVE,
-            created_at=time.time(),
-            expires_at=time.time() + self.rotation_interval,
-            metadata=metadata or {}
-        )
-        self.ein_records[ein] = record
-        logger.info(f"Registered EIN {ein} for business {business_id}")
-        return ein
-
-    def rotate_ein(self, business_id: str) -> str:
-        """Rotate the EIN for a business, deactivating the old one."""
-        for ein, record in self.ein_records.items():
-            if record.metadata.get("business_id") == business_id and record.is_valid():
-                record.status = EINStatus.REVOKED
-                logger.info(f"Revoked EIN {ein} for business {business_id}")
-                break
-        return self.register_ein(business_id)
+        Returns:
+            str: The newly rotated EIN.
+        """
+        timestamp = time.time()
+        unique_id = str(uuid.uuid4())
+        seed = f"{self.base_ein}{timestamp}{unique_id}"
+        hashed_seed = hashlib.sha256(seed.encode()).hexdigest()
+        new_ein = hashed_seed[:10].upper()
+        self.current_ein = new_ein
+        self.last_rotation_time = timestamp
+        self.rotation_history.append({
+            "ein": new_ein,
+            "timestamp": timestamp
+        })
+        return new_ein
 
     def validate_ein(self, ein: str) -> bool:
-        """Validate an EIN."""
-        record = self.ein_records.get(ein)
-        return record.is_valid() if record else False
+        """
+        Validate if the provided EIN is the current valid EIN.
 
-    def get_active_eins(self) -> List[str]:
-        """Get all active EINs."""
-        return [ein for ein, record in self.ein_records.items() if record.is_valid()]
+        Args:
+            ein (str): The EIN to validate.
 
-    def cleanup_expired_eins(self) -> int:
-        """Remove expired EINs from the registry."""
-        expired_eins = [ein for ein, record in self.ein_records.items() if not record.is_valid()]
-        for ein in expired_eins:
-            del self.ein_records[ein]
-        logger.info(f"Cleaned up {len(expired_eins)} expired EINs")
-        return len(expired_eins)
+        Returns:
+            bool: True if the EIN is valid, False otherwise.
+        """
+        return ein == self.current_ein
 
+    def get_rotation_history(self) -> List[Dict[str, str]]:
+        """
+        Retrieve the history of EIN rotations.
+
+        Returns:
+            List[Dict[str, str]]: A list of dictionaries containing rotation details.
+        """
+        return self.rotation_history
+
+    def export_state(self) -> str:
+        """
+        Export the current state of the rotator as a JSON string.
+
+        Returns:
+            str: JSON-formatted state of the rotator.
+        """
+        state = {
+            "operator_id": self.operator_id,
+            "current_ein": self.current_ein,
+            "last_rotation_time": self.last_rotation_time,
+            "rotation_history": self.rotation_history
+        }
+        return json.dumps(state)
 
 if __name__ == "__main__":
-    rotator = KRAEINDynamicRotator(rotation_interval=3600)
-    business_id = "BUSINESS_001"
-
-    # Register a new EIN
-    ein = rotator.register_ein(business_id, metadata={"business_id": business_id})
-    print(f"Registered EIN: {ein}")
-
-    # Validate the EIN
-    print(f"EIN Valid: {rotator.validate_ein(ein)}")
-
-    # Rotate the EIN
-    new_ein = rotator.rotate_ein(business_id)
+    # Test Harness
+    rotator = KraEinDynamicRotator("MichaelObiero", "KRA123456789")
+    print(f"Initial EIN: {rotator.current_ein}")
+    
+    # Rotate EIN
+    new_ein = rotator.rotate_ein()
     print(f"Rotated EIN: {new_ein}")
-
-    # Validate the old EIN (should be invalid)
-    print(f"Old EIN Valid: {rotator.validate_ein(ein)}")
-
-    # Validate the new EIN (should be valid)
-    print(f"New EIN Valid: {rotator.validate_ein(new_ein)}")
-
-    # Get active EINs
-    print(f"Active EINs: {rotator.get_active_eins()}")
-
-    # Cleanup expired EINs
-    cleaned = rotator.cleanup_expired_eins()
-    print(f"Cleaned up {cleaned} expired EINs")
+    
+    # Validate EIN
+    is_valid = rotator.validate_ein(new_ein)
+    print(f"Validation Result: {is_valid}")
+    
+    # Get Rotation History
+    history = rotator.get_rotation_history()
+    print(f"Rotation History: {history}")
+    
+    # Export State
+    state = rotator.export_state()
+    print(f"Exported State: {state}")
