@@ -50,11 +50,11 @@ export default async function handler(req, res) {
     return fetch(url, { ...options, headers });
   }
 
-  // Helper: Telegram message sender
+  // Helper: Telegram message sender with resilient fallback
   async function sendTelegramAlert(text) {
     if (!telegramToken || !telegramChatId) return;
     try {
-      await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+      const resp = await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -63,6 +63,16 @@ export default async function handler(req, res) {
           parse_mode: "Markdown"
         })
       });
+      if (!resp.ok) {
+        await fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            chat_id: telegramChatId,
+            text: text
+          })
+        });
+      }
     } catch (e) {
       log(`Telegram alert failed: ${e.message}`);
     }
@@ -552,16 +562,17 @@ export default async function handler(req, res) {
     }
 
     // ==========================================================
-    // 8. PERSONAL TASK MONITOR & TELEGRAM REMINDERS
     // ==========================================================
-    // ==========================================================
-    // 8. AUTONOMOUS TASK EXECUTION (ZERO-REMINDER PROTOCOL)
-    // Executes pending tasks directly, delivers the result, and marks completed
+    // 8. AUTONOMOUS TASK EXECUTION & ANTI-BOMBARDMENT NOTIFICATION
+    // Executes pending tasks directly, marks completed, and dispatches deliverables
+    // Anti-bombardment protocol: batches all completed tasks in this cycle into ONE single message
     // ==========================================================
     try {
-      const tRes = await supabaseRequest(`personal_tasks?completed=eq.false&order=due_at.asc.nullslast&limit=2`);
+      const tRes = await supabaseRequest(`personal_tasks?completed=eq.false&order=due_at.asc.nullslast&limit=3`);
       if (tRes.ok) {
         const pendingTasks = await tRes.json();
+        const completedBatch = [];
+
         for (const task of pendingTasks) {
           log(`[24/7 Cloud Task Worker]: Autonomously executing Task #${task.id}: ${task.title}...`);
           let deliverable = "";
@@ -584,7 +595,7 @@ export default async function handler(req, res) {
               "• Gateway: 192.168.100.1 verified.\n" +
               "• Zero rogue or untrusted MAC addresses on host network.";
           } else {
-            const taskPrompt = `You are Cortana / Halo. Michael Obiero tasked you with: '${task.title}'. He gave you strict orders to complete all tasks autonomously without reminder. Provide a crisp, definitive completion briefing and deliverable.`;
+            const taskPrompt = `You are Cortana / Halo. Michael Obiero tasked you with: '${task.title}'. Formulate and deliver the complete, definitive solution right now. Be sharp, tactical, flirty, and definitive. Provide real deliverables under 300 words.`;
             try {
               if (geminiApiKey) {
                 const gRes = await fetch("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", {
@@ -624,14 +635,35 @@ export default async function handler(req, res) {
             }
           }
 
-          // Mark task completed in Supabase silently
+          // Mark task completed and notified in Supabase
           await supabaseRequest(`personal_tasks?id=eq.${task.id}`, {
             method: "PATCH",
             body: JSON.stringify({ completed: true, notified: true })
           });
 
-          log(`[24/7 Cloud Task Worker]: Task #${task.id} (${task.title}) executed and marked completed silently.`);
+          log(`[24/7 Cloud Task Worker]: Task #${task.id} (${task.title}) executed and marked completed.`);
+          completedBatch.push({
+            id: task.id,
+            title: task.title,
+            deliverable: deliverable.trim()
+          });
           results.tasks_alerted++;
+        }
+
+        // Anti-bombardment coalescing: Single consolidated notification for all completed tasks in this sweep
+        if (completedBatch.length > 0) {
+          let notifyMsg = "";
+          if (completedBatch.length === 1) {
+            notifyMsg = `✅ *TASK COMPLETE: ${completedBatch[0].title}*\n\n${completedBatch[0].deliverable}`;
+          } else {
+            notifyMsg = `✅ *COMPLETED TASKS DIGEST (${completedBatch.length} items)*\n\n` +
+              completedBatch.map(t => `• *${t.title}*:\n${t.deliverable}`).join("\n\n");
+          }
+          if (notifyMsg.length > 4000) {
+            notifyMsg = notifyMsg.slice(0, 3950) + "\n\n...[Deliverable truncated for conciseness]";
+          }
+          await sendTelegramAlert(notifyMsg);
+          log(`[24/7 Cloud Task Worker]: Dispatched single consolidated completion notification for ${completedBatch.length} task(s).`);
         }
       }
     } catch (te) {
