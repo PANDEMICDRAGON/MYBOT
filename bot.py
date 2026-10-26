@@ -287,13 +287,30 @@ WEATHER_LOCATIONS = [
 ]
 
 # 1. Base Global Networks & Local Wire
-BASE_NEWS_FEEDS = [
-    {"source": "BBC World", "scope": "GLOBAL", "url": "https://feeds.bbci.co.uk/news/world/rss.xml"},
-    {"source": "Al Jazeera", "scope": "GLOBAL", "url": "https://www.aljazeera.com/xml/rss/all.xml"},
-    {"source": "The Guardian World", "scope": "GLOBAL", "url": "https://www.theguardian.com/world/rss"},
-    {"source": "Kenya Local Wire", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi+OR+Nairobi&hl=en-KE&gl=KE&ceid=KE:en"},
-    {"source": "Kenya Markets & Economy", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(CBK+OR+%22Nairobi+Securities+Exchange%22+OR+inflation+OR+shilling+OR+fuel)&hl=en-KE&gl=KE&ceid=KE:en"}
+# Comprehensive Multi-Source Global & Local News Intelligence Streams
+GLOBAL_NEWS_FEEDS = [
+    {"source": "BBC World", "scope": "GLOBAL", "theater": "GLOBAL", "url": "https://feeds.bbci.co.uk/news/world/rss.xml"},
+    {"source": "Al Jazeera", "scope": "GLOBAL", "theater": "MIDDLE-EAST-GLOBAL", "url": "https://www.aljazeera.com/xml/rss/all.xml"},
+    {"source": "The Guardian", "scope": "GLOBAL", "theater": "GLOBAL-GEOPOLITICS", "url": "https://www.theguardian.com/world/rss"},
+    {"source": "France 24", "scope": "GLOBAL", "theater": "EUROPE-AFRICA", "url": "https://www.france24.com/en/rss"},
+    {"source": "DW World", "scope": "GLOBAL", "theater": "EUROPE-GLOBAL", "url": "https://rss.dw.com/rdf/rss-en-all"},
+    {"source": "CNBC Macro", "scope": "GLOBAL", "theater": "MACRO-ECONOMIC", "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664"},
+    {"source": "Defense One", "scope": "GLOBAL", "theater": "KINETIC-WARFARE", "url": "https://www.defenseone.com/rss/all/"},
+    {"source": "The Hacker News", "scope": "GLOBAL", "theater": "CYBER-INTEL", "url": "https://feeds.feedburner.com/TheHackersNews"},
+    {"source": "Red Sea Shipping", "scope": "GLOBAL", "theater": "RED-SEA-MIDEAST", "url": "https://news.google.com/rss/search?q=(%22Red+Sea%22+OR+%22Bab-el-Mandeb%22)+AND+(shipping+OR+freight)&hl=en-US&gl=US&ceid=US:en"},
+    {"source": "Eastern Europe Wire", "scope": "GLOBAL", "theater": "EASTERN-EUROPE", "url": "https://news.google.com/rss/search?q=(Ukraine+OR+Russia+OR+Black+Sea)+AND+(frontline+OR+energy+OR+grain)&hl=en-US&gl=US&ceid=US:en"}
 ]
+
+LOCAL_KENYA_NEWS_FEEDS = [
+    {"source": "Kenya Top News Wire", "scope": "LOCAL", "theater": "KENYA-NATIONAL", "url": "https://news.google.com/rss/search?q=when:24h+(site:standardmedia.co.ke+OR+site:nation.africa+OR+site:the-star.co.ke+OR+site:capitalfm.co.ke)&hl=en-KE&gl=KE&ceid=KE:en"},
+    {"source": "Kenya Economy & CBK", "scope": "LOCAL", "theater": "KENYA-ECONOMY", "url": "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(CBK+OR+economy+OR+forex+OR+inflation+OR+NSE+OR+EPRA+OR+shilling+OR+Eurobond)&hl=en-KE&gl=KE&ceid=KE:en"},
+    {"source": "Kenya Business Wire", "scope": "LOCAL", "theater": "KENYA-BUSINESS", "url": "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(%22Business+Daily%22+OR+%22Kenyan+Wall+Street%22+OR+treasury+OR+revenue+OR+KRA)&hl=en-KE&gl=KE&ceid=KE:en"},
+    {"source": "Silicon Savannah Tech", "scope": "LOCAL", "theater": "KENYA-TECH", "url": "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(Safaricom+OR+M-Pesa+OR+fintech+OR+startup+OR+%22data+center%22+OR+telecom)&hl=en-KE&gl=KE&ceid=KE:en"},
+    {"source": "Kenya Infrastructure & Ports", "scope": "LOCAL", "theater": "KENYA-INFRASTRUCTURE", "url": "https://news.google.com/rss/search?q=(Kenya+OR+Mombasa+OR+Lamu)+AND+(port+OR+SGR+OR+KPLC+OR+geothermal+OR+infrastructure)&hl=en-KE&gl=KE&ceid=KE:en"},
+    {"source": "East Africa Regional Axis", "scope": "LOCAL", "theater": "EAST-AFRICA-EAC", "url": "https://news.google.com/rss/search?q=(Uganda+OR+Tanzania+OR+Rwanda+OR+Ethiopia+OR+Somalia+OR+Sudan)+AND+(trade+OR+border+OR+security+OR+EAC)&hl=en-KE&gl=KE&ceid=KE:en"}
+]
+
+BASE_NEWS_FEEDS = GLOBAL_NEWS_FEEDS + LOCAL_KENYA_NEWS_FEEDS
 NEWS_FEEDS = BASE_NEWS_FEEDS
 
 # Dynamic Rotating Topic Search Feeds (Queries on & around active subjects to prevent repetition)
@@ -5239,43 +5256,56 @@ SCHEDULED_BRIEFING_HOURS = {
 
 async def generate_full_global_tactical_brief(client: httpx.AsyncClient, slot_label: str = "") -> dict:
     """
-    Synthesizes a full, comprehensive Global Tactical Intelligence Briefing covering:
-    - Multi-Theater Kinetic Flashpoints (Middle East/Red Sea, Eastern Europe, Indo-Pacific)
-    - Macroeconomic, Commodities & Corridors (Crude Oil, Gold, FX, Central Banks, Shipping)
-    - Frontier Tech & Cyber Threats (Zero-Days, CISA KEV, AI Infrastructure)
-    - African Continent & Horn of Africa Strategic Pulse
-    - Forward Second-Order Risk & Chokepoint Forecast (7-30 Days)
-    - Actionable Defensive Protocols & Asymmetric Upside Positioning
+    Synthesizes an expansive, multi-source Global & Local Tactical Intelligence Briefing covering:
+    - High-volume Global News Wire (8-10 in-depth dispatches across war, politics & trade)
+    - High-volume Local Kenya & East Africa Wire (6-8 in-depth dispatches with local facts & shillings metrics)
+    - Macroeconomic, Commodities & Liquidity Corridors (Crude oil, Gold, KES/USD, central banks)
+    - Cyber Perimeter, Zero-Days & Infrastructure Hardening
+    - 7-30 Day Second-Order Risk & Chokepoint Forecast
+    - Concrete Defensive Protocols & Asymmetric Upside Opportunities
     """
-    logger.info(f"Synthesizing full comprehensive global tactical briefing for: {slot_label or 'SCHEDULED CADENCE'}...")
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; TacticalConstruct/5.0)"}
-    
-    # Curated high-signal wire feeds
-    feeds = [
-        {"source": "BBC World", "scope": "GLOBAL", "url": "https://feeds.bbci.co.uk/news/world/rss.xml"},
-        {"source": "Al Jazeera", "scope": "GLOBAL", "url": "https://www.aljazeera.com/xml/rss/all.xml"},
-        {"source": "The Guardian", "scope": "GLOBAL", "url": "https://www.theguardian.com/world/rss"},
-        {"source": "CNBC Macro", "scope": "MACRO", "url": "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664"},
-        {"source": "The Hacker News", "scope": "CYBER", "url": "https://feeds.feedburner.com/TheHackersNews"},
-        {"source": "Kenya Local Wire", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi&hl=en-KE&gl=KE&ceid=KE:en"},
-        {"source": "Red Sea Shipping", "scope": "MARITIME", "url": "https://news.google.com/rss/search?q=(%22Red+Sea%22+OR+%22Bab-el-Mandeb%22)+AND+(shipping+OR+freight)&hl=en-US&gl=US&ceid=US:en"}
-    ]
-    
-    raw_articles = []
-    for f in feeds:
+    logger.info(f"Synthesizing expanded high-volume global & local tactical briefing for: {slot_label or 'SCHEDULED CADENCE'}...")
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; TacticalConstruct/6.0)"}
+
+    # Harvest from all global and local streams concurrently
+    async def fetch_feed(f):
+        arts = []
         try:
             r = await client.get(f["url"], headers=headers, timeout=12)
             if r.status_code == 200:
-                root = ET.fromstring(r.content)
-                for item in root.findall(".//item")[:3]:
-                    title = (item.findtext("title") or "").strip()
-                    desc = re.sub(r"<[^>]+>", "", item.findtext("description") or "").strip()
-                    if title:
-                        raw_articles.append({"source": f["source"], "scope": f["scope"], "title": title, "desc": desc[:160]})
+                raw_text = r.text
+                items = re.findall(r'<item>([\s\S]*?)</item>', raw_text)
+                if not items:
+                    items = re.findall(r'<item[^>]*>([\s\S]*?)</item>', raw_text)
+                for it in items[:6]:
+                    t = re.search(r'<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?</title>', it)
+                    d = re.search(r'<description>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?</description>', it)
+                    s = re.search(r'<source[^>]*>(.*?)</source>', it)
+                    source_name = s.group(1).strip() if s else f["source"]
+                    if t:
+                        title = re.sub(r'<[^>]+>', '', t.group(1)).strip()
+                        desc = re.sub(r'<[^>]+>', '', d.group(1)).strip() if d else ""
+                        if title:
+                            arts.append({
+                                "source": source_name,
+                                "scope": f["scope"],
+                                "theater": f.get("theater", "GENERAL"),
+                                "title": title,
+                                "summary": desc[:200]
+                            })
         except Exception as fe:
-            logger.debug(f"[Briefing Feed Notice - {f['source']}]: {fe}")
-            
-    # Include latest CVE from CISA KEV if accessible
+            logger.debug(f"[Feed Harvest Notice - {f['source']}]: {fe}")
+        return arts
+
+    harvest_tasks = [fetch_feed(f) for f in GLOBAL_NEWS_FEEDS + LOCAL_KENYA_NEWS_FEEDS]
+    harvested_batches = await asyncio.gather(*harvest_tasks)
+    all_harvested = [a for b in harvested_batches for a in b]
+    
+    global_pool = [a for a in all_harvested if a["scope"] == "GLOBAL"]
+    local_pool = [a for a in all_harvested if a["scope"] == "LOCAL"]
+    logger.info(f"Harvested {len(all_harvested)} raw articles (Global: {len(global_pool)}, Local Kenya: {len(local_pool)}).")
+
+    # Ingest CISA KEV
     cisa_cves = []
     try:
         c_res = await client.get(CISA_KEV_URL, headers=headers, timeout=10)
@@ -5293,57 +5323,77 @@ Operator: Michael Obiero (Location: Nairobi, Kenya / EAT Timezone).
 Time: {time_str}
 Cadence Slot: {cadence_slot}
 
-INCOMING REAL-TIME GLOBAL TELEMETRY ({len(raw_articles)} wire headlines + {len(cisa_cves)} CISA KEV entries):
-Headlines:
-{json.dumps(raw_articles, indent=2)}
+REAL-TIME INGESTION POOL:
+GLOBAL ARTICLES ({len(global_pool)} gathered):
+{json.dumps(global_pool[:25], indent=2)}
 
-Recent CISA KEV Vulnerabilities:
+LOCAL KENYA & EAST AFRICAN ARTICLES ({len(local_pool)} gathered):
+{json.dumps(local_pool[:20], indent=2)}
+
+RECENT CISA KEV CVE ENTRIES:
 {json.dumps([{'cve': v.get('cveID'), 'vendor': v.get('vendorProject'), 'name': v.get('vulnerabilityName')} for v in cisa_cves], indent=2)}
 
-TASK:
-Synthesize Michael's FULL COMPREHENSIVE GLOBAL TACTICAL INTELLIGENCE BRIEFING for this exact cadence window.
-You are Cortana: razor-sharp, ultra-competent, highly articulate, calm, understated charisma.
+OPERATOR REQUIREMENT:
+"we need to have more news headlines both globally and locally and more information"
+Provide expansive, multi-theater coverage. Every headline must be paired with deep, dense, high-signal information:
+- Specific verified facts, players, institutions, numbers, locations, and actions.
+- Underlying cause and mechanical context.
+- Operational & second-order impact on global markets, supply chains, forex (KES/USD), technology, or operator positioning.
+
 CRITICAL LANGUAGE DIRECTIVE: Output 100% in pristine, sophisticated English. NEVER use or output any Sheng or Kiswahili words under any circumstances.
 
 Output a valid JSON object strictly matching this schema:
 {{
   "threat_level": "NOMINAL" | "ELEVATED" | "CRITICAL",
-  "headline_banner": "Single powerful strategic banner summarizing the global posture",
-  "executive_sitrep": "Dense, authoritative 2-paragraph overview synthesizing macro, kinetic, and diplomatic shifts across the globe.",
-  "global_geopolitics_wire": [
-    {{"theater": "MIDDLE EAST / RED SEA", "development": "Key event with tactical context", "impact": "Operational ripple effect"}},
-    {{"theater": "EASTERN EUROPE / BLACK SEA", "development": "Key event with tactical context", "impact": "Operational ripple effect"}},
-    {{"theater": "INDO-PACIFIC / ASIA", "development": "Key event with tactical context", "impact": "Operational ripple effect"}}
+  "headline_banner": "Single comprehensive strategic posture banner summarizing the multi-theater landscape",
+  "executive_overwatch": "Authoritative 2-paragraph synthesis summarizing the global macro, kinetic, and domestic Kenyan landscape.",
+  "global_news_wire": [
+    {{
+      "theater_or_category": "MIDDLE EAST / RED SEA" | "EASTERN EUROPE" | "INDO-PACIFIC" | "GLOBAL DIPLOMACY" | "ENERGY / COMMODITIES",
+      "headline": "Specific verified global headline",
+      "source": "Source Name",
+      "in_depth_details": "3-4 dense sentences explaining what occurred, the exact background, parties involved, numbers, and mechanical developments.",
+      "tactical_impact": "Operational ripple effect on shipping, energy, inflation, or defense."
+    }}
+  ],
+  "local_kenya_wire": [
+    {{
+      "domain": "NATIONAL GOVERNANCE & POLICY" | "ECONOMY, FOREX & CBK" | "INFRASTRUCTURE & PORTS" | "SILICON SAVANNAH & TECH" | "EAST AFRICA & HORN OF AFRICA",
+      "headline": "Specific local Kenyan or East African headline",
+      "source": "Source Name",
+      "in_depth_details": "3-4 dense sentences explaining the national or regional development with facts, institutions, shillings/dollar figures, and context.",
+      "tactical_impact": "Direct operational impact on local business, liquidity, connectivity, or security."
+    }}
   ],
   "macro_and_commodities": [
-    {{"asset_or_sector": "ENERGY & CRUDE OIL", "reading": "Current dynamics / price pressures", "impact": "Impact on logistics and fuel pricing"}},
-    {{"asset_or_sector": "CURRENCIES & MONETARY POLICY", "reading": "DXY / KES / Global FX dynamics", "impact": "Import inflation & liquidity"}},
-    {{"asset_or_sector": "GLOBAL SUPPLY CHAINS & FREIGHT", "reading": "Chokepoints / maritime routing", "impact": "Delivery times & freight indices"}}
+    {{"sector": "ENERGY & CRUDE OIL", "reading": "Current price pressures and supply mechanics", "impact": "Pass-through to logistics and power"}},
+    {{"sector": "FOREX & MONETARY POLICY", "reading": "KES/USD, DXY, and Central Bank posture", "impact": "Liquidity, import costs, and bond yields"}},
+    {{"sector": "GLOBAL SUPPLY CHAINS & FREIGHT", "reading": "Chokepoints, container rates, and transit times", "impact": "Mombasa clearing times and import lead times"}}
   ],
   "cyber_and_infrastructure": [
-    {{"vector": "ZERO-DAY / EXPLOIT INTEL", "detail": "Active campaign or critical CVE", "remediation": "Hardening protocol"}},
-    {{"vector": "TELECOM & SUBSEA CONNECTIVITY", "detail": "Routing, cable status or edge integrity", "remediation": "Redundancy check"}}
+    {{"vector": "ZERO-DAY & THREAT ACTORS", "detail": "Active exploit campaigns or CVEs", "hardening": "Remediation step"}},
+    {{"vector": "SUBSEA FIBER & CLOUD EDGE", "detail": "Regional routing and infrastructure resilience", "hardening": "Redundancy check"}}
   ],
-  "african_and_regional_pulse": "Authoritative analysis of East African / Horn of Africa corridors (Kenya, Sudan, Red Sea trade, regional trade/forex).",
-  "second_order_forecast": "Forward projections over next 7-30 days regarding commodities, inflation, logistical bottlenecks, and market risks.",
+  "second_order_forecast": "7-30 day predictive forecast covering inflation, supply chain bottlenecks, currency shifts, and geopolitical pivots.",
   "defensive_protocols": [
-    "Concrete actionable protocol 1",
-    "Concrete actionable protocol 2",
-    "Concrete actionable protocol 3"
+    "Specific actionable protocol 1",
+    "Specific actionable protocol 2",
+    "Specific actionable protocol 3"
   ],
   "asymmetric_upside": [
-    "High-leverage upside vector 1",
-    "High-leverage upside vector 2",
-    "High-leverage upside vector 3"
+    "Specific asymmetric positioning opportunity 1",
+    "Specific asymmetric positioning opportunity 2",
+    "Specific asymmetric positioning opportunity 3"
   ]
-}}"""
+}}
+IMPORTANT: Include at least 8 to 10 distinct items in global_news_wire, and at least 6 to 8 distinct items in local_kenya_wire!"""
 
     parsed = {}
     try:
         res = await call_llm_with_failover(
             client,
             [
-                {"role": "system", "content": SYSTEM_PERSONA + " You must return valid JSON."},
+                {"role": "system", "content": SYSTEM_PERSONA + " Return valid JSON."},
                 {"role": "user", "content": prompt}
             ],
             json_mode=True
@@ -5355,18 +5405,20 @@ Output a valid JSON object strictly matching this schema:
         parsed = {
             "threat_level": "ELEVATED",
             "headline_banner": "MULTI-THEATER EQUILIBRIUM: MARITIME CHOKEPOINTS, CYBER VECTORS, AND MACROECONOMIC CORRIDORS",
-            "executive_sitrep": "Global sensors indicate elevated kinetic posturing across Middle Eastern corridors alongside steady macroeconomic surveillance in commodity corridors.",
-            "global_geopolitics_wire": [
-                {"theater": "RED SEA / BAB-EL-MANDEB", "development": "Maritime commercial rerouting persists around Cape of Good Hope.", "impact": "Elevated bunker fuel surcharges and extended transit times to Mombasa."},
-                {"theater": "EASTERN EUROPE", "development": "Frontline logistics and energy infrastructure under continuous observation.", "impact": "Grain and fertilizer export pricing stability monitored."}
+            "executive_overwatch": "Global sensors indicate elevated kinetic posturing across Middle Eastern corridors alongside steady macroeconomic surveillance in commodity corridors.",
+            "global_news_wire": [
+                {"theater_or_category": "RED SEA / BAB-EL-MANDEB", "headline": "Maritime Commercial Rerouting Persists", "source": "Reuters", "in_depth_details": "Shipping lines continue navigating around Cape of Good Hope avoiding southern Red Sea chokepoints.", "tactical_impact": "Elevated bunker fuel surcharges and extended transit times to Mombasa."},
+                {"theater_or_category": "EASTERN EUROPE", "headline": "Energy Infrastructure Under Continuous Observation", "source": "BBC World", "in_depth_details": "Frontline logistics and regional power grids under surveillance.", "tactical_impact": "Grain and fertilizer export pricing stability monitored."}
+            ],
+            "local_kenya_wire": [
+                {"domain": "ECONOMY, FOREX & CBK", "headline": "Kenya CBK Forex Buffer Stabilization", "source": "Business Daily", "in_depth_details": "Central Bank maintains foreign exchange reserves supported by diaspora inflows and tea export earnings.", "tactical_impact": "Stabilizes shilling against dollar volatility."}
             ],
             "macro_and_commodities": [
-                {"asset_or_sector": "CRUDE OIL & ENERGY", "reading": "Brent crude trading range bound with structural supply friction.", "impact": "Direct pass-through into local fuel and transport tariffs."}
+                {"sector": "CRUDE OIL & ENERGY", "reading": "Brent crude trading range bound with structural supply friction.", "impact": "Direct pass-through into local fuel and transport tariffs."}
             ],
             "cyber_and_infrastructure": [
-                {"vector": "PERIMETER AUTHENTICATION", "detail": "Token replay and credential exfiltration campaigns active globally.", "remediation": "Rotate access tokens and enforce FIDO2 multi-factor policies."}
+                {"vector": "PERIMETER AUTHENTICATION", "detail": "Token replay and credential exfiltration campaigns active globally.", "hardening": "Rotate access tokens and enforce FIDO2 multi-factor policies."}
             ],
-            "african_and_regional_pulse": "East African trade corridors remain stable with focus on regional forex reserves and Northern Corridor logistics.",
             "second_order_forecast": "7-30 day window reflects moderate pressure on import clearing costs and tech hardware lead times.",
             "defensive_protocols": ["Verify off-site encrypted data backups.", "Maintain liquid reserve buffers in multi-currency holdings.", "Audit remote server access logs."],
             "asymmetric_upside": ["Automated code compounding across sovereign infrastructure.", "Positioning in high-yield local treasury securities.", "Capitalizing on cross-border software efficiencies."]
@@ -5377,8 +5429,8 @@ Output a valid JSON object strictly matching this schema:
     # Persist record to Supabase tactical_briefings
     record = {
         "threat_level": parsed.get("threat_level", "ELEVATED"),
-        "sitrep": parsed.get("executive_sitrep", ""),
-        "conflict_summary": json.dumps(parsed.get("global_geopolitics_wire", [])),
+        "sitrep": parsed.get("executive_overwatch", parsed.get("executive_sitrep", "")),
+        "conflict_summary": json.dumps(parsed.get("global_news_wire", [])),
         "future_risk_forecast": parsed.get("second_order_forecast", ""),
         "defensive_protocol": "\n".join(f"• {p}" for p in parsed.get("defensive_protocols", [])),
         "asymmetric_upside": "\n".join(f"• {u}" for u in parsed.get("asymmetric_upside", [])),
@@ -5388,7 +5440,6 @@ Output a valid JSON object strictly matching this schema:
     if SUPABASE_URL and SUPABASE_SERVICE_KEY:
         try:
             await client.post(f"{SUPABASE_URL}/rest/v1/tactical_briefings", headers=SUPABASE_HEADERS, json=record)
-            # Also store latest in bot_memory
             await client.post(
                 f"{SUPABASE_URL}/rest/v1/bot_memory?on_conflict=memory_key",
                 headers={**SUPABASE_HEADERS, "Prefer": "resolution=merge-duplicates"},
@@ -5426,34 +5477,54 @@ def format_full_global_tactical_brief(b: dict, slot_label: str, time_str: str) -
     threat_icon = "🔴" if threat == "CRITICAL" else ("🟡" if threat == "ELEVATED" else "🟢")
     
     lines = [
-        f"🛡️ *CORTANA // GLOBAL STRATEGIC TACTICAL DOSSIER*",
+        f"🛡️ *CORTANA // EXPANDED STRATEGIC INTELLIGENCE DOSSIER*",
         f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
         f"⏱️ *Cadence Slot:* {slot_label}",
         f"📡 *Timestamp:* {time_str}",
         f"{threat_icon} *Threat Level:* [{threat}]",
-        f"🎯 *Strategic Posture:* _{b.get('headline_banner', 'Global theater monitoring active.')}_",
+        f"🎯 *Strategic Posture:* _{b.get('headline_banner', 'Multi-theater intelligence active.')}_",
         f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n",
-        f"📊 *I. EXECUTIVE SITUATION & GLOBAL OVERWATCH*",
-        f"{b.get('executive_sitrep', '')}\n",
-        f"🌍 *II. COMPREHENSIVE GLOBAL GEOPOLITICS & KINETIC WIRE*"
+        f"📊 *I. EXECUTIVE MACRO & GEO-STRATEGIC OVERWATCH*",
+        f"{b.get('executive_overwatch', b.get('executive_sitrep', ''))}\n",
+        f"🌍 *II. COMPREHENSIVE GLOBAL INTELLIGENCE WIRE*"
     ]
     
-    for item in b.get("global_geopolitics_wire", []):
-        lines.append(f"• *[{item.get('theater', 'THEATER')}]:* {item.get('development', '')}\n  ↳ _Tactical Impact:_ {item.get('impact', '')}")
+    for item in b.get("global_news_wire", b.get("global_geopolitics_wire", [])):
+        cat = item.get("theater_or_category", item.get("theater", "GLOBAL"))
+        hd = item.get("headline", item.get("development", ""))
+        src = item.get("source", "Wire")
+        det = item.get("in_depth_details", "")
+        imp = item.get("tactical_impact", item.get("impact", ""))
+        lines.append(f"• 🌍 *[{cat}]:* {hd}\n  📰 _Source:_ {src}\n  ↳ _Details:_ {det}\n  ↳ _Tactical Impact:_ {imp}")
     lines.append("")
     
-    lines.append("📈 *III. MACROECONOMIC, COMMODITIES & SUPPLY CORRIDORS*")
+    lines.append("🦁 *III. IN-DEPTH KENYA & EAST AFRICAN NATIONAL PULSE*")
+    for item in b.get("local_kenya_wire", []):
+        dom = item.get("domain", "KENYA")
+        hd = item.get("headline", "")
+        src = item.get("source", "Local Wire")
+        det = item.get("in_depth_details", "")
+        imp = item.get("tactical_impact", "")
+        lines.append(f"• 🦁 *[{dom}]:* {hd}\n  📰 _Source:_ {src}\n  ↳ _Details:_ {det}\n  ↳ _Tactical Impact:_ {imp}")
+    if not b.get("local_kenya_wire") and b.get("african_and_regional_pulse"):
+        lines.append(b.get("african_and_regional_pulse"))
+    lines.append("")
+
+    lines.append("📈 *IV. MACROECONOMIC, COMMODITIES & LIQUIDITY MATRIX*")
     for item in b.get("macro_and_commodities", []):
-        lines.append(f"• *{item.get('asset_or_sector', 'SECTOR')}:* {item.get('reading', '')}\n  ↳ _Second-Order Effect:_ {item.get('impact', '')}")
+        sec = item.get("sector", item.get("asset_or_sector", "SECTOR"))
+        read = item.get("reading", "")
+        imp = item.get("impact", "")
+        lines.append(f"• *{sec}:* {read}\n  ↳ _Second-Order Effect:_ {imp}")
     lines.append("")
     
-    lines.append("💻 *IV. CYBER PERIMETER & CRITICAL INFRASTRUCTURE*")
+    lines.append("💻 *V. CYBER PERIMETER & CRITICAL INFRASTRUCTURE*")
     for item in b.get("cyber_and_infrastructure", []):
-        lines.append(f"• *{item.get('vector', 'VECTOR')}:* {item.get('detail', '')}\n  ↳ _Hardening:_ {item.get('remediation', '')}")
+        vec = item.get("vector", "VECTOR")
+        det = item.get("detail", "")
+        hard = item.get("hardening", item.get("remediation", ""))
+        lines.append(f"• *{vec}:* {det}\n  ↳ _Hardening Directive:_ {hard}")
     lines.append("")
-    
-    if b.get("african_and_regional_pulse"):
-        lines.append(f"🦁 *V. EAST AFRICA & HORN OF AFRICA STRATEGIC VECTOR*\n{b.get('african_and_regional_pulse')}\n")
         
     lines.append(f"🔮 *VI. 7-30 DAY RISK & SECOND-ORDER FORECAST*\n{b.get('second_order_forecast', '')}\n")
     
@@ -5466,7 +5537,7 @@ def format_full_global_tactical_brief(b: dict, slot_label: str, time_str: str) -
     for up in b.get("asymmetric_upside", []):
         lines.append(f"• {up}")
     lines.append("\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-    lines.append("_Comprehensive multi-sensor telemetry synthesized by Cortana._")
+    lines.append("_High-volume multi-sensor intelligence synthesized by Cortana._")
     
     return "\n".join(lines)
 

@@ -246,9 +246,15 @@ export default async function handler(req, res) {
     // 4. GLOBAL & REGIONAL NEWS RSS INGESTION
     // ==========================================================
     const newsFeeds = [
-      { name: "BBC News", scope: "GLOBAL", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
+      { name: "BBC World", scope: "GLOBAL", url: "https://feeds.bbci.co.uk/news/world/rss.xml" },
       { name: "Al Jazeera", scope: "GLOBAL", url: "https://www.aljazeera.com/xml/rss/all.xml" },
-      { name: "Google News Kenya", scope: "LOCAL", url: "https://news.google.com/rss/headlines/section/geo/KE?ceid=KE:en&hl=en-KE&gl=KE" }
+      { name: "The Guardian", scope: "GLOBAL", url: "https://www.theguardian.com/world/rss" },
+      { name: "France 24", scope: "GLOBAL", url: "https://www.france24.com/en/rss" },
+      { name: "CNBC Macro", scope: "GLOBAL", url: "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000664" },
+      { name: "Kenya Top News Wire", scope: "LOCAL", url: "https://news.google.com/rss/search?q=when:24h+(site:standardmedia.co.ke+OR+site:nation.africa+OR+site:the-star.co.ke+OR+site:capitalfm.co.ke)&hl=en-KE&gl=KE&ceid=KE:en" },
+      { name: "Kenya Economy & CBK", scope: "LOCAL", url: "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(CBK+OR+economy+OR+forex+OR+inflation+OR+NSE+OR+EPRA+OR+shilling+OR+Eurobond)&hl=en-KE&gl=KE&ceid=KE:en" },
+      { name: "Silicon Savannah Tech", scope: "LOCAL", url: "https://news.google.com/rss/search?q=(Kenya+OR+Nairobi)+AND+(Safaricom+OR+M-Pesa+OR+fintech+OR+startup+OR+%22data+center%22+OR+telecom)&hl=en-KE&gl=KE&ceid=KE:en" },
+      { name: "East Africa & EAC Regional", scope: "LOCAL", url: "https://news.google.com/rss/search?q=(Uganda+OR+Tanzania+OR+Rwanda+OR+Ethiopia+OR+Somalia+OR+Sudan)+AND+(trade+OR+border+OR+security+OR+EAC)&hl=en-KE&gl=KE&ceid=KE:en" }
     ];
 
     const freshHeadlines = [];
@@ -260,7 +266,7 @@ export default async function handler(req, res) {
         });
         if (rRes.ok) {
           const xml = await rRes.text();
-          const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, 5);
+          const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].slice(0, 8);
           for (const m of items) {
             const rawTitle = m[1].match(/<title>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/title>/)?.[1] || "";
             const rawLink = m[1].match(/<link>(?:<!\[CDATA\[)?([\s\S]*?)(?:\]\]>)?<\/link>/)?.[1] || "";
