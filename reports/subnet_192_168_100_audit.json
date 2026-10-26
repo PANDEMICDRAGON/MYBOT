@@ -1,0 +1,31 @@
+{
+  "subnet": "192.168.100.0/24",
+  "gateway": "192.168.100.1",
+  "timestamp": "2026-10-26T08:56:04.843429+00:00",
+  "active_devices_discovered": 4,
+  "devices": [
+    {
+      "ip_address": "192.168.100.1",
+      "mac_address": "14-49-20-53-be-66",
+      "type": "dynamic"
+    },
+    {
+      "ip_address": "192.168.100.8",
+      "mac_address": "b2-14-3b-71-53-53",
+      "type": "dynamic"
+    },
+    {
+      "ip_address": "192.168.100.10",
+      "mac_address": "d4-12-43-29-2a-b8",
+      "type": "dynamic"
+    },
+    {
+      "ip_address": "192.168.100.255",
+      "mac_address": "ff-ff-ff-ff-ff-ff",
+      "type": "static"
+    }
+  ],
+  "threat_assessment": "CLEAN",
+  "rogue_devices_detected": 0,
+  "wake_on_lan_status": "ENABLED"
+}

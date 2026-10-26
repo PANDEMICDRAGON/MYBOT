@@ -1,8 +1,6 @@
 name: 24/7 Overwatch Self-Chaining Runner
 
 on:
-  push:
-    branches: [ master ]
   workflow_dispatch:
   schedule:
     # Backup trigger every 6 hours if a chain ever drops

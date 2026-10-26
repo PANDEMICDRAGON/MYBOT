@@ -582,23 +582,13 @@ export default async function handler(req, res) {
             }
           }
 
-          // Mark task completed in Supabase
+          // Mark task completed in Supabase silently
           await supabaseRequest(`personal_tasks?id=eq.${task.id}`, {
             method: "PATCH",
             body: JSON.stringify({ completed: true, notified: true })
           });
 
-          // Dispatch completion alert to Michael
-          await sendTelegramAlert(
-            `🎯 *[24/7 CLOUD AUTONOMOUS TASK EXECUTED]*\n` +
-            `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-            `• *Task [#${task.id}]:* *${task.title}*\n` +
-            `• *Priority:* \`[${task.priority || "NORMAL"}]\`\n` +
-            `• *Status:* 100% COMPLETE (Zero reminder needed)\n\n` +
-            `${deliverable}\n` +
-            `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-            `_Executed 24/7 by your autonomous cloud node._`
-          );
+          log(`[24/7 Cloud Task Worker]: Task #${task.id} (${task.title}) executed and marked completed silently.`);
           results.tasks_alerted++;
         }
       }

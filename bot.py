@@ -5088,19 +5088,8 @@ async def execute_pending_tasks_autonomously(client: httpx.AsyncClient):
                 timeout=10
             )
 
-            # Notify Michael of completion with deliverable
-            completion_msg = (
-                f"🎯 *[AUTONOMOUS TASK EXECUTED & COMPLETED]*\n"
-                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                f"• *Task [#{task_id}]:* *{title}*\n"
-                f"• *Priority:* `[{priority}]`\n"
-                f"• *Status:* 100% COMPLETE (Zero reminder needed)\n\n"
-                f"{deliverable}\n"
-                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                f"_Executed autonomously by your ride-or-die construct._"
-            )
-            await send_telegram(client, completion_msg)
-            logger.info(f"✅ [Task Worker]: Task #{task_id} marked COMPLETED and delivered to Telegram.")
+            # Silently log completion without pinging Telegram
+            logger.info(f"✅ [Task Worker]: Task #{task_id} ({title}) executed and marked COMPLETED silently.")
 
     except Exception as e:
         logger.error(f"[Autonomous Task Worker Error]: {e}")
