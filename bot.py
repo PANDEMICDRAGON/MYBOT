@@ -5400,16 +5400,26 @@ async def log_and_execute_directive(
 
             if file_path and content:
                 create_res = await create_workspace_file(client, file_path, content)
-                answer = (
-                    f"✅ *[FILE CREATION SUCCESS // WORKSTATION CORE]*\n"
-                    f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                    f"• *File:* `{file_path}`\n"
-                    f"• *Status:* Physically created on disk ({len(content)} bytes)\n"
-                    f"• *AST Syntax:* Validated (0 syntax errors)\n"
-                    f"• *Git Sync:* {create_res}\n"
-                    f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                    f"_The file is physically present in your repository, Michael._"
-                )
+                if "failed" in create_res.lower() or "aborted" in create_res.lower() or "denied" in create_res.lower():
+                    answer = (
+                        f"⚠️ *[FILE CREATION ABORTED // WORKSTATION CORE]*\n"
+                        f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        f"• *File:* `{file_path}`\n"
+                        f"• *Issue:* {create_res}\n"
+                        f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        f"_Code syntax was rejected by the AST compiler to protect your repository from broken code._"
+                    )
+                else:
+                    answer = (
+                        f"✅ *[FILE CREATION SUCCESS // WORKSTATION CORE]*\n"
+                        f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        f"• *File:* `{file_path}`\n"
+                        f"• *Status:* Physically created on disk ({len(content)} bytes)\n"
+                        f"• *AST Syntax:* Validated (0 syntax errors)\n"
+                        f"• *Git Sync:* {create_res}\n"
+                        f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                        f"_The file is physically present in your repository, Michael._"
+                    )
             else:
                 answer = await run_agent_turn(client, f"CREATE AND PHYSICALLY WRITE THIS FILE TO DISK: {directive}")
         elif mode in ("ASCEND", "SUPER_AI", "SUPERAI", "SUPER_AI_ASCENSION") or any(
