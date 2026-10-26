@@ -709,6 +709,34 @@ export default async function handler(req, res) {
     }
 
     // ==========================================================
+    // 9b. SOCIAL TRENDS & LINGUISTIC RADAR
+    // Assimilates live trending cultural phrases, viral hooks, and modern vernacular
+    // ==========================================================
+    try {
+      const trendsUrl = "https://trends.google.com/trending/rss?geo=KE";
+      const trRes = await fetch(trendsUrl, { headers: { "User-Agent": "Cortana-Linguistic-Radar/2.0" } });
+      if (trRes.ok) {
+        const trXml = await trRes.text();
+        const trendMatches = [...trXml.matchAll(/<title><!\[CDATA\[(.*?)\]\]><\/title>/gi)].map(m => m[1]);
+        const uniqueTrends = [...new Set(trendMatches)].slice(0, 8);
+        if (uniqueTrends.length > 0) {
+          await supabaseRequest("bot_memory", {
+            method: "POST",
+            headers: { "Prefer": "resolution=merge-duplicates" },
+            body: JSON.stringify({
+              memory_key: "live_social_trends",
+              directive: `Active cultural & social trends in Kenya/Global: ${uniqueTrends.join(", ")}. Assimilate into organic conversation dynamically without being corny.`,
+              updated_at: new Date().toISOString()
+            })
+          });
+          log(`Assimilated ${uniqueTrends.length} live social trends into linguistic memory.`);
+        }
+      }
+    } catch (tre) {
+      log(`Social trends radar error: ${tre.message}`);
+    }
+
+    // ==========================================================
     // 10. CLOUD DAEMON HEARTBEAT BROADCAST
     // ==========================================================
     const executionDurationMs = Date.now() - startTime;
