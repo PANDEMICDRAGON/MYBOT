@@ -79,20 +79,18 @@ graph TD
 
 ```
 MYBOT/
-├── bot.py                    # 24/7 Cortana / J.A.R.V.I.S. cognitive daemon & tool executor
-├── halo_agent.py             # Autonomous principal systems engineer & local workspace bridge (CLI + Port 5050)
-├── wifi_manager.py           # 802.11 RF spectrum scanning and authenticated association engine
-├── speak.py                  # Direct physical audio driver & terminal TTS bridge
-├── laptop_agent.py           # Remote workstation hardware listener
-├── core_bot.py               # Baseline custom web collector bot
-├── test_cyber_telemetry.py   # Test utility for CISA KEV JSON & Threat feeds
-├── test_weather_news.py      # Test utility for Open-Meteo & RSS feeds
-├── schema.sql                # Supabase schema (Memory, SitReps, Tasks, Ledger, Vault, RLS)
-├── .env.example              # Environment variables template (Telegram, Supabase, Groq)
-├── vercel.json               # Vercel deployment configuration
-├── index.html                # Cognitive Command HUD (Vocalizer + Ops Matrix + Telemetry)
+├── bot.py                    # Master 24/7 Cortana / J.A.R.V.I.S. cognitive daemon & local command server (Port 5050)
+├── evolution.py              # Unified Autonomous Self-Evolution & Super AI Ascension Engine (AST self-mutation)
+├── intelligence.py           # Unified Cognitive Swarm Commander & 4-Layer Planetary OSINT Matrix
+├── system.py                 # Unified Hardware, Wi-Fi Spectrum Recon, Neural Speech & Halo Agent Bridge
+├── tests/                    # Dedicated verification suites (test_local.py, test_cyber_telemetry.py, test_weather_news.py)
+├── scripts/                  # Setup wizards, phone pairing, SMS gateway, telemetry sync & utility tooling
+├── archive/                  # Historical and deprecated components (core_bot.py)
+├── tools/                    # Specialized media tools, video clip creators & offline bridges
+├── api/                      # Serverless edge microservices (image.js, telegram.js, sms.js, whatsapp.js, sports.js)
+├── index.html                # Cognitive Command HUD (FLUX.1 Studio + Vocalizer + Ops Matrix + Telemetry)
 ├── style.css                 # Cyber-telemetry CSS design system
-├── app.js                    # Frontend data engine, Web Speech API & settings modal
+├── app.js                    # Frontend data engine, Web Speech API & Visual Studio Matrix
 └── requirements.txt          # Python dependencies
 ```
 

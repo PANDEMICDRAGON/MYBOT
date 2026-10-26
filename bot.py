@@ -31,9 +31,13 @@ import httpx
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 import edge_tts
-from wakeonlan import send_magic_packet
-import evolution_core
-import super_ai_ascension
+# Unified Consolidated Engines
+import evolution
+import intelligence
+import system
+# Aliases for backward compatibility
+evolution_core = evolution
+super_ai_ascension = evolution
 
 # Setup clean, informative logging
 logging.basicConfig(
