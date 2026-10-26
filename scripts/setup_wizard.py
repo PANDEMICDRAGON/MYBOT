@@ -227,5 +227,69 @@ async def run_wizard():
     print("2. Open your live Web Control HUD:")
     print("   https://telemetry-news-weather.vercel.app\n")
 
+async def test_telegram_link() -> bool:
+    """Verifies Telegram Bot Token and Chat ID connection."""
+    token = os.getenv("TELEGRAM_TOKEN", "").strip()
+    chat_id = os.getenv("TELEGRAM_CHAT_ID", "").strip()
+    print("\n" + "=" * 60)
+    print("🛰️ CORTANA / J.A.R.V.I.S. PHONE NEURAL LINK CHECK")
+    print("=" * 60)
+    if not token or token == "YOUR_TELEGRAM_BOT_TOKEN":
+        print("❌ TELEGRAM_TOKEN is missing in .env")
+        return False
+    if not chat_id or chat_id == "YOUR_TELEGRAM_CHAT_ID":
+        print("❌ TELEGRAM_CHAT_ID is missing in .env")
+        return False
+
+    async with httpx.AsyncClient(timeout=15) as client:
+        try:
+            me_resp = await client.get(f"https://api.telegram.org/bot{token}/getMe")
+            me_data = me_resp.json()
+            if not me_data.get("ok"):
+                print(f"❌ Telegram API rejected token: {me_data.get('description')}")
+                return False
+            bot_username = me_data["result"]["username"]
+            print(f"✅ Bot identified: @{bot_username}")
+
+            send_resp = await client.post(
+                f"https://api.telegram.org/bot{token}/sendMessage",
+                json={
+                    "chat_id": int(chat_id),
+                    "text": "🛰️ *CORTANA // J.A.R.V.I.S. NEURAL LINK VERIFIED*\n\nAutonomous Overwatch construct is linked to your device.",
+                    "parse_mode": "Markdown"
+                }
+            )
+            if send_resp.json().get("ok"):
+                print("🎉 SUCCESS! Verification ping received on your phone!")
+                return True
+            else:
+                print(f"⚠️ Could not deliver message to Chat ID {chat_id}")
+                return False
+        except Exception as e:
+            print(f"❌ Error contacting Telegram API: {e}")
+            return False
+
+def test_sms_gateway():
+    """Verifies Cellular SMS webhook endpoint."""
+    url = "https://telemetry-news-weather.vercel.app/api/sms"
+    phone = os.getenv("AUTHORIZED_PHONE_NUMBER", "+254700000000")
+    print("=" * 60)
+    print("🛰️ CORTANA CELLULAR SMS GATEWAY VERIFICATION")
+    print("=" * 60)
+    try:
+        r = httpx.get(url, timeout=10)
+        print(f"[Gateway Ping]: HTTP {r.status_code}")
+        if r.status_code == 200:
+            print("Response:", r.json())
+    except Exception as e:
+        print(f"Failed to ping gateway: {e}")
+
 if __name__ == "__main__":
-    asyncio.run(run_wizard())
+    sub = sys.argv[1].lower() if len(sys.argv) > 1 else "wizard"
+    if sub in ("--phone", "phone", "telegram"):
+        asyncio.run(test_telegram_link())
+    elif sub in ("--sms", "sms"):
+        test_sms_gateway()
+    else:
+        asyncio.run(run_wizard())
+

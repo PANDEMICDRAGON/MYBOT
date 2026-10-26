@@ -26,9 +26,11 @@ import shutil
 import logging
 import argparse
 import subprocess
+import wave
+import contextlib
 from pathlib import Path
 from dataclasses import dataclass
-from typing import Optional, List, Dict, Tuple
+from typing import Optional, List, Dict, Tuple, Any
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("ObiflameeClipCreator")
@@ -41,6 +43,75 @@ ASPECT_PRESETS = {
 }
 
 DEFAULT_WATERMARK = "@OBIFLAMEE"
+
+# =====================================================================
+# AUDIO CLIP DELIVERY SUBSYSTEM
+# =====================================================================
+BASE_DIR = Path(__file__).resolve().parent.parent
+CLIPS_DIR = BASE_DIR / "audio_clips"
+CLIPS_DIR.mkdir(exist_ok=True)
+
+def list_clips() -> List[str]:
+    return [p.name for p in CLIPS_DIR.glob("*.wav")]
+
+def convert_to_mp3(wav_path: Path, mp3_path: Path):
+    if not mp3_path.exists():
+        subprocess.run(["ffmpeg", "-y", "-i", str(wav_path), str(mp3_path)], check=True, capture_output=True)
+
+def preview_clip(wav_path: Path, preview_path: Path):
+    with contextlib.closing(wave.open(str(wav_path), 'r')) as wf:
+        params = wf.getparams()
+        frames = wf.readframes(min(10 * params.framerate, wf.getnframes()))
+    with contextlib.closing(wave.open(str(preview_path), 'w')) as wf:
+        wf.setparams(params)
+        wf.writeframes(frames)
+
+def get_clip_metadata() -> List[Dict[str, str]]:
+    clips = []
+    for wav in CLIPS_DIR.glob("*.wav"):
+        mp3 = wav.with_suffix('.mp3')
+        preview = wav.with_name(wav.stem + '_preview.wav')
+        try:
+            convert_to_mp3(wav, mp3)
+            preview_clip(wav, preview)
+        except Exception:
+            pass
+        clips.append({
+            "name": wav.stem,
+            "wav": str(wav.relative_to(BASE_DIR)),
+            "mp3": str(mp3.relative_to(BASE_DIR)),
+            "preview": str(preview.relative_to(BASE_DIR))
+        })
+    return clips
+
+# =====================================================================
+# FAST LOSSLESS VIDEO CLIPPER SUBSYSTEM
+# =====================================================================
+def clip_video(input_file: str, start: str, end: str = None, duration: str = None, output_file: str = None) -> str:
+    input_path = Path(input_file).resolve()
+    if not input_path.is_file():
+        raise FileNotFoundError(f"Input video not found: {input_path}")
+
+    if not output_file:
+        stem = input_path.stem
+        suffix = input_path.suffix
+        safe_start = str(start).replace(":", "-")
+        output_path = input_path.parent / f"{stem}_clip_{safe_start}{suffix}"
+    else:
+        output_path = Path(output_file).resolve()
+
+    cmd = ["ffmpeg", "-y", "-loglevel", "error", "-i", str(input_path)]
+    if start:
+        cmd.extend(["-ss", str(start)])
+    if duration:
+        cmd.extend(["-t", str(duration)])
+    elif end:
+        cmd.extend(["-to", str(end)])
+    cmd.extend(["-c", "copy", str(output_path)])
+
+    subprocess.run(cmd, check=True)
+    print(f"✅ Clip created: {output_path}")
+    return str(output_path)
 
 
 def check_ffmpeg_available() -> Tuple[bool, str]:

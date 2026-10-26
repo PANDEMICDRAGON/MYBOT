@@ -144,6 +144,65 @@ class CortanaSMSProcessor:
             logger.error(f"Failed to dispatch SMS via Africa's Talking: {e}")
             return {"status": "error", "message": str(e)}
 
+# =====================================================================
+# OFFLINE SERIAL GSM AT-MODEM HARDWARE SUBSYSTEM
+# =====================================================================
+class GSMModem:
+    """Hardware serial GSM modem driver for offline SMS transmission."""
+    def __init__(self, port: str = "/dev/ttyUSB0", baudrate: int = 115200, timeout: int = 5):
+        self.port = port
+        self.baudrate = baudrate
+        self.timeout = timeout
+        try:
+            import serial
+            self.ser = serial.Serial(port, baudrate, timeout=timeout)
+        except Exception as e:
+            logger.warning(f"Serial port {port} unavailable: {e}")
+            self.ser = None
+
+    def send_at(self, cmd: str, expected: str = None, timeout: int = 2):
+        if not self.ser:
+            return ""
+        import time
+        self.ser.write((cmd + "\r").encode())
+        time.sleep(timeout)
+        resp = self.ser.read_all().decode(errors='ignore')
+        logger.debug(f"AT Response: {resp.strip()}")
+        if expected and expected not in resp:
+            raise ValueError(f"Expected '{expected}' not in response: {resp}")
+        return resp
+
+    def send_sms(self, number: str, message: str):
+        if not self.ser:
+            logger.info(f"[SIMULATED GSM SEND] To: {number} Msg: {message}")
+            return "OK"
+        import time
+        self.send_at("AT+CMGF=1")
+        self.send_at(f'AT+CMGS="{number}"', "+CMGS")
+        self.ser.write((message + "\x1A").encode())
+        time.sleep(3)
+        resp = self.ser.read_all().decode(errors='ignore')
+        logger.info(f"SMS send response: {resp.strip()}")
+        return resp
+
+    def read_inbox(self):
+        if not self.ser:
+            return []
+        self.send_at("AT+CMGF=1")
+        raw = self.send_at("AT+CMGL=ALL", "+CMGL")
+        msgs = []
+        for line in raw.splitlines():
+            if line.startswith('+CMGL:'):
+                parts = line.split(',')
+                idx = parts[0].split(':')[1].strip()
+                sender = parts[2].strip('"')
+                msgs.append((idx, sender))
+        return msgs
+
+    def delete_message(self, idx: str):
+        if self.ser:
+            self.send_at(f"AT+CMGD={idx}")
+
 def run_simulation_cli():
     print("=" * 60)
     print("🌌 CORTANA SMS TELEPHONY BRIDGE — OFFLINE GSM MODULE")
@@ -168,5 +227,9 @@ def run_simulation_cli():
 if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "--sim":
         run_simulation_cli()
+    elif len(sys.argv) > 1 and sys.argv[1] == "--modem":
+        port = sys.argv[2] if len(sys.argv) > 2 else "/dev/ttyUSB0"
+        modem = GSMModem(port=port)
+        print(f"[GSM Modem] Initialized on {port}")
     else:
-        print("Cortana SMS Bridge Backend Module Ready. Use '--sim' to test CLI simulation.")
+        print("Cortana SMS Bridge Backend Module Ready. Use '--sim' to test CLI simulation or '--modem' for hardware.")

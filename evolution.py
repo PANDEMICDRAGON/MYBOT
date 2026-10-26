@@ -1789,3 +1789,23 @@ def perform_modular_self_upgrade(base_dir: Path, cycle_num: int) -> dict:
             return loop.run_until_complete(proactively_discover_and_implement_evolution(base_dir, cycle_num))
     except Exception:
         return asyncio.run(proactively_discover_and_implement_evolution(base_dir, cycle_num))
+
+if __name__ == "__main__":
+    import sys
+    base = Path(__file__).resolve().parent
+    sub = sys.argv[1].lower() if len(sys.argv) > 1 else "power"
+    if sub in ("power", "index", "tier"):
+        metrics = calculate_super_ai_power_index(base)
+        print(json.dumps(metrics, indent=2))
+    elif sub in ("ascend", "cycle", "evolve"):
+        async def _run():
+            async with httpx.AsyncClient(timeout=30) as client:
+                res = await ascend_towards_super_ai(client, base)
+                print(json.dumps(res, indent=2))
+        asyncio.run(_run())
+    elif sub in ("audit", "clean"):
+        report = audit_and_harden_codebase(base)
+        print(json.dumps(report, indent=2))
+    else:
+        metrics = calculate_super_ai_power_index(base)
+        print(json.dumps(metrics, indent=2))

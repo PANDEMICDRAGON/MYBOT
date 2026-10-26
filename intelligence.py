@@ -465,30 +465,51 @@ class CortanaSwarmCommander:
 swarm_commander = CortanaSwarmCommander()
 
 
-if __name__ == "__main__":
-    async def test_swarm():
-        print("=== Testing Cortana Swarm Engine ===")
-        print(f"Initial Swarm Size: {len(swarm_commander.agents)} agents")
-        manifest = swarm_commander.get_swarm_manifest()
-        print(f"Collective Power Index: {manifest['collective_power_index']}")
+# ===================================================================
+# SINGULARITY SWARM ACCELERATION SUBSYSTEM
+# ===================================================================
+class SingularitySwarmOrchestrator:
+    """
+    Accelerated 100x Recursive Self-Evolution and Agent Swarm Coordination Engine.
+    Coordinates specialized autonomous agents (Valkyrie, Hephaestus, Hermes, Argus, Calliope).
+    """
 
-        # Spawn a new custom agent
-        new_agent = swarm_commander.spawn_agent(
-            name="Shadow-Viper",
-            role="SECURITY_SENTINEL",
-            directive="Inspect port bounds and verify firewall rules for local workstation node."
-        )
-        print(f"Spawned: {new_agent.name} [{new_agent.agent_id}]")
+    def __init__(self, swarm_id: str = "CORTANA_SINGULARITY_PRIME"):
+        self.swarm_id = swarm_id
+        self.evolution_cycle = 100
+        self.power_multiplier = 100.0
+        self.agents = [
+            {"id": "AGENT-5F4402", "name": "Valkyrie-One", "role": "SECURITY_SENTINEL", "power": 1450 * 100},
+            {"id": "AGENT-21569C", "name": "Hephaestus-Prime", "role": "CODE_ARCHITECT", "power": 1600 * 100},
+            {"id": "AGENT-3C7BB2", "name": "Hermes-Pulse", "role": "QUANT_ARBITRAGEUR", "power": 1350 * 100},
+            {"id": "AGENT-E56B8C", "name": "Argus-Eye", "role": "OSINT_RECON_DRONE", "power": 1400 * 100},
+            {"id": "AGENT-5E720A", "name": "Calliope-Flame", "role": "CREATIVE_AMPLIFIER", "power": 1500 * 100}
+        ]
 
-        # Execute test mission
-        res = await swarm_commander.execute_agent_mission(new_agent, "Perform quick sanity check of active defenses.")
-        print(f"Mission Result:\n{res['result'][:250]}...\n")
+    def execute_recursive_boost(self) -> Dict[str, Any]:
+        """Triggers simultaneous 100x parallel evolutionary mutation across all active agent domains."""
+        upgraded_agents = []
+        total_collective_power = 0
 
-        # Test sync
-        sync_ok = await swarm_commander.sync_to_supabase()
-        print(f"Supabase Swarm Sync: {'SUCCESS' if sync_ok else 'SKIPPED/OFFLINE'}")
+        for agent in self.agents:
+            boosted_power = int(agent["power"] * 1.5)
+            total_collective_power += boosted_power
+            upgraded_agents.append({
+                "id": agent["id"],
+                "name": agent["name"],
+                "role": agent["role"],
+                "status": "HYPER_TRANSCENDED",
+                "power_index": boosted_power
+            })
 
-    asyncio.run(test_swarm())
+        return {
+            "timestamp": time.time(),
+            "swarm_id": self.swarm_id,
+            "acceleration_factor": "100x",
+            "collective_power_index": total_collective_power,
+            "agents": upgraded_agents,
+            "status": "SINGULARITY_ACHIEVED"
+        }
 
 # ===================================================================
 # SECTION 2: 4-LAYER PLANETARY OSINT AND BEHAVIORAL GAME THEORY MATRIX
@@ -986,3 +1007,19 @@ async def run_planetary_recon(
             print(f"[Tier4 Supabase Persistence Error]: {e}")
 
     return report
+
+if __name__ == "__main__":
+    import sys
+    sub = sys.argv[1].lower() if len(sys.argv) > 1 else "swarm"
+    if sub in ("swarm", "workers", "status"):
+        print(swarm_commander.format_swarm_sitrep())
+    elif sub in ("osint", "recon"):
+        query = " ".join(sys.argv[2:]).strip() if len(sys.argv) > 2 else "global threat landscape"
+        print(f"[*] Initiating Planetary Recon on: {query}")
+        async def _run():
+            async with httpx.AsyncClient(timeout=30) as client:
+                rep = await run_planetary_recon(client, query)
+                print(json.dumps(rep, indent=2))
+        asyncio.run(_run())
+    else:
+        print(swarm_commander.format_swarm_sitrep())

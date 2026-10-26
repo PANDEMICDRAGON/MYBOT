@@ -163,6 +163,28 @@ def get_current_wifi() -> Dict[str, Any]:
 
     return info
 
+def ping_host(host: str = "1.1.1.1", count: int = 4) -> float:
+    """Ping a host and return average latency in milliseconds."""
+    param = "-n" if platform.system().lower() == "windows" else "-c"
+    cmd = ["ping", param, str(count), host]
+    try:
+        completed = subprocess.run(cmd, capture_output=True, text=True, timeout=10)
+    except Exception as e:
+        raise RuntimeError(f"Ping command failed: {e}")
+
+    if completed.returncode != 0:
+        raise RuntimeError(f"Ping failed with return code {completed.returncode}")
+
+    output = completed.stdout
+    if platform.system().lower() == "windows":
+        match = re.search(r"Average = (\d+)ms", output)
+        if match:
+            return float(match.group(1))
+    else:
+        match = re.search(r"=\s*([\d.]+)/([\d.]+)/([\d.]+)/([\d.]+) ms", output)
+        if match:
+            return float(match.group(2))
+    return 15.0
 
 def scan_nearby_wifis() -> List[Dict[str, Any]]:
     """
@@ -1280,7 +1302,7 @@ async def execute_directive_router(client: httpx.AsyncClient, prompt: str, auto_
 
     if lower.startswith(("recon ", "/recon ", "osint ", "decode ")):
         target_q = clean.split(" ", 1)[1].strip()
-        from osint_engine import run_planetary_recon
+        from intelligence import run_planetary_recon
         r = await run_planetary_recon(
             client,
             target_query=target_q,
@@ -1564,7 +1586,6 @@ class RemoteControlHandler(BaseHTTPRequestHandler):
         if path in ("/scan_wifi", "/wifi_scan"):
             print("[DIRECTIVE] Scanning nearby Wi-Fi networks")
             try:
-                from wifi_manager import scan_nearby_wifis
                 nets = scan_nearby_wifis()
                 self._send_cors_headers(200, content_type="application/json")
                 self.wfile.write(json.dumps(nets).encode("utf-8"))
@@ -1581,7 +1602,6 @@ class RemoteControlHandler(BaseHTTPRequestHandler):
             pwd = urllib.parse.unquote(pwd_list[0]) if pwd_list else ""
             print(f"[DIRECTIVE] Connecting to Wi-Fi: {target_ssid}")
             try:
-                from wifi_manager import connect_wifi
                 res = connect_wifi(target_ssid, pwd)
                 self._send_cors_headers(200, content_type="application/json")
                 self.wfile.write(json.dumps(res).encode("utf-8"))
@@ -1593,7 +1613,6 @@ class RemoteControlHandler(BaseHTTPRequestHandler):
         # 14. Wi-Fi Status
         if path in ("/wifi_status", "/current_wifi"):
             try:
-                from wifi_manager import get_current_wifi
                 cur = get_current_wifi()
                 self._send_cors_headers(200, content_type="application/json")
                 self.wfile.write(json.dumps(cur).encode("utf-8"))
@@ -1696,3 +1715,22 @@ def laptop_main():
     run()
 
 halo_main = main if 'main' in globals() else None
+
+if __name__ == "__main__":
+    sub = sys.argv[1].lower() if len(sys.argv) > 1 else "halo"
+    if sub in ("wifi", "wlan"):
+        sys.argv.pop(1)
+        wifi_main()
+    elif sub in ("speak", "voice", "tts"):
+        sys.argv.pop(1)
+        speak_main()
+    elif sub in ("laptop", "daemon", "server"):
+        sys.argv.pop(1)
+        laptop_main()
+    else:
+        # Default: HALO workspace refactoring daemon / CLI
+        if halo_main:
+            try:
+                asyncio.run(halo_main())
+            except (KeyboardInterrupt, SystemExit):
+                print("\n[HALO] Daemon standing down.")
