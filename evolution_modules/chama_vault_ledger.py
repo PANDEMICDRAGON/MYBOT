@@ -15,7 +15,7 @@ logger = logging.getLogger(__name__)
 class ChamaVaultLedger:
     """
     Autonomous Chama & Merry-Go-Round Ledger optimized for offline-first operation in
-    Kitengela and Nairobi. Manages member rosters, automated contribution cycles,
+    Nairobi. Manages member rosters, automated contribution cycles,
     M-Pesa SMS parsing for automated deposit matching, loan issuing, and secure ledger hashing.
     """
     
@@ -195,7 +195,7 @@ if __name__ == "__main__":
     vault.register_member("MEM002", "Brenda Achieng", "+254722334455")
     
     # Create Cycle
-    vault.create_cycle("CYC2025-Q1", "Kitengela Tech Innovators Merry-Go-Round", 5000.0, "MONTHLY")
+    vault.create_cycle("CYC2025-Q1", "Nairobi Tech Innovators Merry-Go-Round", 5000.0, "MONTHLY")
     
     # Test M-Pesa SMS parsing
     sample_sms = "QWE1234567 Confirmed. Ksh5,000.00 received from BRENDA ACHIENG 254722334455 on 15/3/25"

@@ -1,4 +1,4 @@
-"""Kitengela Predictive Grid-Solar Energy Arbitrage Engine.
+"""Nairobi Predictive Grid-Solar Energy Arbitrage Engine.
 
 Optimizes local compute execution windows based on solar irradiance forecasts,
 battery state of charge, and Kenyan grid tariff schedules.
@@ -11,7 +11,7 @@ from datetime import datetime, time
 from typing import Dict, List, Optional
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("KitengelaGridArbitrage")
+logger = logging.getLogger("NairobiGridArbitrage")
 
 
 @dataclass
@@ -23,7 +23,7 @@ class EnergyProfile:
     load_demand_watts: float
 
 
-class KitengelaGridArbitrageEngine:
+class NairobiGridArbitrageEngine:
     """Predicts and schedules high-compute autonomous tasks based on power metrics."""
 
     def __init__(self, max_safe_watts: float = 1200.0) -> None:
@@ -33,7 +33,7 @@ class KitengelaGridArbitrageEngine:
     def evaluate_compute_window(self, profile: EnergyProfile) -> Dict[str, any]:
         """Evaluate if current or upcoming window is optimal for heavy execution."""
         try:
-            # Solar capacity estimation (assuming 1kW nominal panel setup in Kitengela)
+            # Solar capacity estimation (assuming 1kW nominal panel setup in Nairobi)
             estimated_solar_generation = profile.solar_irradiance_wm2 * 0.85
             total_available_power = estimated_solar_generation + (
                 (profile.battery_soc_percent / 100.0) * 2000.0
@@ -70,7 +70,7 @@ class KitengelaGridArbitrageEngine:
 
 
 if __name__ == "__main__":
-    engine = KitengelaGridArbitrageEngine()
+    engine = NairobiGridArbitrageEngine()
     sample_profile = EnergyProfile(
         timestamp=datetime.now(),
         solar_irradiance_wm2=750.0,

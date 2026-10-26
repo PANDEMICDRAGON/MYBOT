@@ -1,11 +1,11 @@
 """
 Module: matatu_sacco_optimizer.py
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Kitengela & Nairobi, Kenya)
+Operator: Michael Obiero (Nairobi & Nairobi, Kenya)
 
 Description:
 Provides telemetry ingestion, predictive maintenance tracking, daily fare revenue liquidity auditing,
-and driver performance analytics for Nairobi and Kitengela Matatu SACCO fleets.
+and driver performance analytics for Nairobi Matatu SACCO fleets.
 """
 
 import ast
@@ -79,7 +79,7 @@ class MatatuSaccoFleetEngine:
                 vehicle_id=packet.vehicle_id,
                 severity="MEDIUM",
                 component="Fuel Tank",
-                recommended_action=f"Low fuel warning ({packet.fuel_level_pct}%). Route to nearest Kitengela/Nairobi petrol station.",
+                recommended_action=f"Low fuel warning ({packet.fuel_level_pct}%). Route to nearest Nairobi/Nairobi petrol station.",
                 timestamp=now_str
             )
             self.alerts.append(alert)
@@ -117,8 +117,8 @@ if __name__ == "__main__":
 
     sample_packet = TelemetryPacket(
         vehicle_id="KCU-482Z",
-        sacco_name="Kitengela Nam Lolwe Express",
-        route="Kitengela - Nairobi CBD via Mombasa Road",
+        sacco_name="Nairobi Nam Lolwe Express",
+        route="Nairobi - Nairobi CBD via Mombasa Road",
         timestamp=datetime.now(timezone.utc).isoformat(),
         gps_lat=-1.4146,
         gps_lon=36.8710,
@@ -134,7 +134,7 @@ if __name__ == "__main__":
     for a in alerts:
         print(f" - [{a.severity}] {a.vehicle_id}: {a.recommended_action}")
 
-    revenue_audit = engine.audit_route_revenue("Kitengela - Nairobi CBD via Mombasa Road")
+    revenue_audit = engine.audit_route_revenue("Nairobi - Nairobi CBD via Mombasa Road")
     print(f"Route Audit Summary: {json.dumps(revenue_audit, indent=2)}")
 
     # Self-validation check under ast

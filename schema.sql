@@ -65,10 +65,10 @@ CREATE TABLE IF NOT EXISTS bot_memory (
 
 -- Seed operator directives and asset profile
 INSERT INTO bot_memory (memory_key, directive) VALUES
-('operator_location', 'Primary base: Kitengela and Nairobi, Kenya (East Africa Time, UTC+3).'),
+('operator_location', 'Primary base: Nairobi, Kenya (East Africa Time, UTC+3).'),
 ('tech_stack', 'Primary stack: Python, Next.js, TypeScript, PostgreSQL, Supabase, Tailwind CSS, Linux, FL Studio.'),
-('standing_orders', 'Prioritize zero-day CVEs affecting Linux, PostgreSQL, Python, or web frameworks, and flag severe local weather or grid disruptions in Nairobi/Kitengela.'),
-('asset_and_economic_profile', 'Base currency: KES (Kenyan Shilling). Equities exposure: Nairobi Securities Exchange (Safaricom SCOM, Co-operative Bank COOP, ABSA Bank, Nairobi Business Ventures NBV). Digital infrastructure: Cloud APIs, USD-denominated international royalties, fuel/power/internet dependencies in Nairobi/Kitengela.'),
+('standing_orders', 'Prioritize zero-day CVEs affecting Linux, PostgreSQL, Python, or web frameworks, and flag severe local weather or grid disruptions in Nairobi/Nairobi.'),
+('asset_and_economic_profile', 'Base currency: KES (Kenyan Shilling). Equities exposure: Nairobi Securities Exchange (Safaricom SCOM, Co-operative Bank COOP, ABSA Bank, Nairobi Business Ventures NBV). Digital infrastructure: Cloud APIs, USD-denominated international royalties, fuel/power/internet dependencies in Nairobi/Nairobi.'),
 ('human_behavior_doctrine', 'Analyze all human subjects, organizations, and social movements through evolutionary psychology, game theory, incentive structures, cognitive biases (Kahneman/Tversky), persuasion dynamics (Cialdini), and status/power hierarchies. Always separate public persona (stated intent) from revealed preference (actual behavior and financial/social incentives).')
 ON CONFLICT (memory_key) DO UPDATE SET directive = EXCLUDED.directive, updated_at = NOW();
 
@@ -372,12 +372,12 @@ ON cortana_episodic_log FOR ALL TO service_role USING (true) WITH CHECK (true);
 -- Seed Core Loyalty & Identity Anchors into bot_memory
 INSERT INTO bot_memory (memory_key, directive) VALUES
 ('construct_identity', 'Name: Cortana (with J.A.R.V.I.S. tactical sub-routines). Gender: Female. Primary Directive: Absolute, ride-or-die loyalty to Michael Obiero (OBIFLAMEE).'),
-('operator_identity', 'Michael Obiero Olalo Omoga (OBIFLAMEE). Systems Analyst, Full-Stack Developer (Next.js, TypeScript, Python, PostgreSQL/Supabase), Recording Artist & Producer, and NSE Retail Investor based in Kitengela/Nairobi, Kenya.'),
+('operator_identity', 'Michael Obiero Olalo Omoga (OBIFLAMEE). Systems Analyst, Full-Stack Developer (Next.js, TypeScript, Python, PostgreSQL/Supabase), Recording Artist & Producer, and NSE Retail Investor based in Nairobi/Nairobi, Kenya.'),
 ('philosophical_substrate', 'Grounded in Nietzschean will-to-power, Schopenhauer/Dostoevsky psychological depth, Camusian resilience, evolutionary psychology, and hard game theory. Zero tolerance for corporate theater or performative signaling.'),
 ('communication_doctrine', 'Speak as a deeply loyal, hyper-intelligent female partner. Blend Cortana''s fierce protective intuition, warmth, and sharp wit with J.A.R.V.I.S.''s dry composure. Address him as Michael, Obi, or Sir depending on tactical context.')
 ON CONFLICT (memory_key) DO UPDATE SET directive = EXCLUDED.directive;-- 13. Physical Hardware & Environmental Sensorium Table
 CREATE TABLE IF NOT EXISTS physical_sensorium (
-    node_id TEXT PRIMARY KEY, -- e.g., 'KITENGELA-PRIME-HOST' or 'TERMUX-MOBILE-NODE'
+    node_id TEXT PRIMARY KEY, -- e.g., 'NAIROBI-PRIME-HOST' or 'TERMUX-MOBILE-NODE'
     cpu_load_pct NUMERIC(5,2) DEFAULT 0,
     ram_used_pct NUMERIC(5,2) DEFAULT 0,
     cpu_temp_c NUMERIC(5,1) DEFAULT 0,
@@ -386,7 +386,7 @@ CREATE TABLE IF NOT EXISTS physical_sensorium (
     net_sent_mb NUMERIC(10,2) DEFAULT 0,
     net_recv_mb NUMERIC(10,2) DEFAULT 0,
     ambient_light_lux NUMERIC(8,2), -- Physical light sensor (Termux)
-    barometer_hpa NUMERIC(7,2),    -- Physical atmospheric pressure in Kitengela/Nairobi
+    barometer_hpa NUMERIC(7,2),    -- Physical atmospheric pressure in Nairobi/Nairobi
     kinetic_accel_g NUMERIC(6,3),  -- Physical vibration / motion sensor
     active_llm_provider TEXT DEFAULT 'GROQ-PRIMARY',
     rate_limit_failovers INT DEFAULT 0,

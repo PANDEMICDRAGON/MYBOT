@@ -9,7 +9,7 @@ logger = logging.getLogger("NairobiWaterAuditor")
 
 class NairobiWaterAuditor:
     """
-    Autonomous utility meter auditing engine tailored for Nairobi/Kitengela households.
+    Autonomous utility meter auditing engine tailored for Nairobi/Nairobi households.
     Tracks consumption metrics, detects unexpected volume spikes indicating leaks or
     billing estimation errors, and prepares tamper-proof meter logs.
     """
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     auditor = NairobiWaterAuditor()
     r1 = auditor.ingest_reading("2026-03-01T08:00:00", 120.5, "Initial baseline read")
     r2 = auditor.ingest_reading("2026-03-08T08:00:00", 135.0, "Weekly check")
-    r3 = auditor.ingest_reading("2026-03-10T08:00:00", 165.0, "Sudden jump - potential pipe leak in Kitengela compound")
+    r3 = auditor.ingest_reading("2026-03-10T08:00:00", 165.0, "Sudden jump - potential pipe leak in Nairobi compound")
     
     report = auditor.generate_audit_report()
     print(json.dumps(report, indent=2))

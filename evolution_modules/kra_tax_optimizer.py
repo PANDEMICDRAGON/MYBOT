@@ -147,7 +147,7 @@ class KRA_Tax_Optimizer:
 
 if __name__ == "__main__":
     # Test harness
-    optimizer = KRA_Tax_Optimizer("Michael Obiero", "Kitengela")
+    optimizer = KRA_Tax_Optimizer("Michael Obiero", "Nairobi")
     income = 1200000
     deductions = {"housing": 180000, "medical": 60000, "education": 120000}
     last_filing_date = datetime.now()

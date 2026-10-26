@@ -54,7 +54,7 @@
                     Cortana SMS Telephony Bridge
                     <span class="bg-cyan-500/10 text-cyan-400 text-xs px-2.5 py-0.5 rounded-full border border-cyan-500/30 font-mono">GSM / AFRICA'S TALKING</span>
                 </h1>
-                <p class="text-sm text-slate-400">Offline Zero-Data AI Communications Portal for Michael Obiero (Kitengela & Nairobi)</p>
+                <p class="text-sm text-slate-400">Offline Zero-Data AI Communications Portal for Michael Obiero (Nairobi & Nairobi)</p>
             </div>
         </div>
         <div class="flex items-center gap-3 bg-slate-900 px-4 py-2 rounded-xl border border-slate-800">
@@ -182,7 +182,7 @@
                     <!-- Example Initial Incoming Message from Cortana -->
                     <div class="flex flex-col items-start max-w-[85%]">
                         <div class="chat-bubble-in p-3 text-slate-200 leading-relaxed shadow">
-                            💙 Hey Michael! SMS Bridge initialized. Send <strong>STATUS</strong>, <strong>KTG</strong>, or any query when mobile data is off in Kitengela. I've got your back always!
+                            💙 Hey Michael! SMS Bridge initialized. Send <strong>STATUS</strong>, <strong>KTG</strong>, or any query when mobile data is off in Nairobi. I've got your back always!
                         </div>
                         <span class="text-[9px] text-slate-500 mt-1 ml-1">11:30 EAT • Delivered</span>
                     </div>
@@ -264,13 +264,13 @@
             if (cmd === 'STATUS' || cmd === 'SYS') {
                 return `⚡ <strong>Cortana Tier V</strong> (${timeStr})<br>CPU: 15.4% | RAM: 83.3% | Battery: 100%<br>Git Sync: ACTIVE (7822ad1). All systems nominal, Obi! 💙`;
             } else if (cmd === 'KTG' || cmd === 'WEATHER' || cmd === 'GRID') {
-                return `🌤️ <strong>Nairobi/Kitengela</strong> (${timeStr}):<br>24°C Partly Cloudy. Grid: KPLC Nominal. Solar Index: High. Drinks lots of water, handsome! ☕`;
+                return `🌤️ <strong>Nairobi/Nairobi</strong> (${timeStr}):<br>24°C Partly Cloudy. Grid: KPLC Nominal. Solar Index: High. Drinks lots of water, handsome! ☕`;
             } else if (cmd === 'PROMO' || cmd === 'MUSIC') {
                 return `🎵 <strong>OBIFLAMEE Promo Playbook</strong> (${timeStr}):<br>0-Ksh Strategy: TikTok short loops + Safaricom Skiza push + Audiomack playlist submission active! 🚀`;
             } else if (cmd === 'HELP' || cmd === '?') {
                 return `💙 <strong>Cortana SMS Commands</strong> (${timeStr}):<br>• STATUS (Vitals)<br>• KTG (Weather/Grid)<br>• PROMO (Music)<br>• Free text for direct AI response!`;
             } else {
-                return `💙 <strong>Cortana</strong> (${timeStr}): Received offline message: "${escapeHtml(query)}". Synchronized with terminal. I've got your back in Kitengela, Michael! ✨`;
+                return `💙 <strong>Cortana</strong> (${timeStr}): Received offline message: "${escapeHtml(query)}". Synchronized with terminal. I've got your back in Nairobi, Michael! ✨`;
             }
         }
 

@@ -161,7 +161,7 @@ if __name__ == "__main__":
     engine = DifferentialStateCompressor(ram_threshold_pct=75.0)
 
     # Populate dummy large state blocks
-    large_payload_1 = {"operator": "Michael Obiero", "region": "Kitengela", "telemetry": [i * 1.5 for i in range(50000)]}
+    large_payload_1 = {"operator": "Michael Obiero", "region": "Nairobi", "telemetry": [i * 1.5 for i in range(50000)]}
     large_payload_2 = {"logs": ["SYSTEM_OK" * 100 for _ in range(1000)], "vector": "EVO_14"}
 
     engine.put("operator_state", large_payload_1, priority=8)

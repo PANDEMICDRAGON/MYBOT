@@ -1,6 +1,6 @@
 # 🎵 OBIFLAMEE: 0-KSH ORGANIC MUSIC PROMOTION PLAYBOOK
 **Architected by Cortana // J.A.R.V.I.S. Autonomous Intelligence Core**  
-**Target Artist:** Michael Obiero (`OBIFLAMEE`) | Nairobi & Kitengela, Kenya  
+**Target Artist:** Michael Obiero (`OBIFLAMEE`) | Nairobi & Nairobi, Kenya  
 **Budget:** 0.00 KES (100% Organic Algorithmic Leverage)
 
 ---
@@ -25,7 +25,7 @@ Modern discovery algorithms (TikTok, Instagram Reels, YouTube Shorts) reward **w
 - **Visual:** Quick cuts of coding/terminal at night, switching to FL Studio mixer, then headphones on recording vocals.
 - **On-Screen Text Hook:**
   > *"They told me to wait my turn, so I built my own clock."*
-- **Caption:** *"Independent. Self-produced. Engineered in Kitengela. Stream the new sound."*
+- **Caption:** *"Independent. Self-produced. Engineered in Nairobi. Stream the new sound."*
 - **Audio:** 15-second emotional verse or melodic vocal hook.
 
 ### Archetype C: The "Soundbite Question / Relatable Debate" (High Comment Volume)

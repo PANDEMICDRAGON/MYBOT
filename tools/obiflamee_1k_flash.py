@@ -2,7 +2,7 @@
 \"\"\"
 OBIFLAMEE KES 1,000 RAPID CASH INJECTION ENGINE
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Kitengela & Nairobi, Kenya)
+Operator: Michael Obiero (Nairobi & Nairobi, Kenya)
 \"\"\"
 
 import sys
@@ -30,7 +30,7 @@ def generate_flash_strategies():
         },
         {
             "id": 3,
-            "title": "Kitengela Local Tech/Crypto Consultation",
+            "title": "Nairobi Local Tech/Crypto Consultation",
             "action": "Quick call or WhatsApp advisory on setting up secure wallets or Python automation scripts for local small businesses.",
             "target": "1 local business owner @ KES 1,000 flat fee",
             "execution_time": "20 minutes",

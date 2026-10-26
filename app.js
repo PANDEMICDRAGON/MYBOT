@@ -101,7 +101,7 @@ function isConfigured() {
 }
 
 const LIVE_WEATHER_STATIONS = [
-  { city: "Kitengela", scope: "LOCAL", lat: -1.4746, lon: 36.9614 },
+  { city: "Nairobi", scope: "LOCAL", lat: -1.2921, lon: 36.8219 },
   { city: "Nairobi", scope: "LOCAL", lat: -1.2921, lon: 36.8219 },
   { city: "London", scope: "GLOBAL", lat: 51.5074, lon: -0.1278 },
   { city: "New York", scope: "GLOBAL", lat: 40.7128, lon: -74.0060 },
@@ -369,7 +369,7 @@ function renderSoulAndSensorium() {
   const reflections = appState.experientialReflections || [];
   const latest = reflections[0] || {
     trigger_event: "Construct Initialization",
-    internal_thought: "Physical sensorium calibrated to Kitengela host workstation. All tactical channels locked in with Operator Michael.",
+    internal_thought: "Physical sensorium calibrated to Nairobi host workstation. All tactical channels locked in with Operator Michael.",
     emotional_resonance: "Locked-In",
     created_at: new Date().toISOString()
   };
@@ -445,7 +445,7 @@ function renderSoulAndSensorium() {
 
 function vocalizeLatestReflection() {
   const latest = (appState.experientialReflections && appState.experientialReflections[0]) ? appState.experientialReflections[0] : null;
-  const thought = latest ? latest.internal_thought : "Physical sensorium calibrated to Kitengela host workstation. All tactical channels locked in with Operator Michael.";
+  const thought = latest ? latest.internal_thought : "Physical sensorium calibrated to Nairobi host workstation. All tactical channels locked in with Operator Michael.";
   const resonance = latest ? latest.emotional_resonance : "Locked-In";
   const speakPayload = `Cortana reflection: ${resonance}. ${thought}`;
   speakText(speakPayload);
@@ -696,7 +696,7 @@ function initGlobalRadar() {
       ctx.fillText(fp.name.split(" ")[0], bx + 8, by + 3);
     });
 
-    // Anchor Center (Kitengela / Nairobi)
+    // Anchor Center (Nairobi / Nairobi)
     ctx.fillStyle = "#10b981";
     ctx.beginPath();
     ctx.arc(cx, cy, 4, 0, 2 * Math.PI);
@@ -704,7 +704,7 @@ function initGlobalRadar() {
     ctx.fillStyle = "#34d399";
     ctx.font = "bold 9px 'JetBrains Mono', monospace";
     ctx.textAlign = "center";
-    ctx.fillText("NAIROBI / KITENGELA", cx, cy + 14);
+    ctx.fillText("NAIROBI / NAIROBI", cx, cy + 14);
   }
   draw();
 }
@@ -794,7 +794,7 @@ const DEFAULT_OSINT_TARGETS = [
     scores: [88, 72, 94, 96, 68],
     footprint_summary: "Dominant power transmission grid holding national statutory monopoly. Monitored for substation telemetry, regional transformer load shedding, and billing metering APIs.",
     behavioral_profile: "Risk-averse corporate utility bureaucracy operating under intense legislative audit scrutiny. Highly reactive to unplanned blackout trends and consumer tariff disputes.",
-    strategic_approchement: "Interface via enterprise bulk metering telemetry; verify backup fuel generators in Kitengela node during regional grid fluctuations."
+    strategic_approchement: "Interface via enterprise bulk metering telemetry; verify backup fuel generators in Nairobi node during regional grid fluctuations."
   },
   {
     id: 2,
@@ -812,7 +812,7 @@ const DEFAULT_OSINT_TARGETS = [
     scores: [82, 60, 88, 92, 85],
     footprint_summary: "Strategic Bab el-Mandeb and Mombasa shipping lane connecting Middle East crude, European electronics, and African container freight.",
     behavioral_profile: "Geopolitically volatile; container rates and war-risk insurance premiums fluctuate dynamically based on regional security dispatches.",
-    strategic_approchement: "Pre-order hardware supplies 30 days ahead; maintain buffer stocks in Nairobi/Kitengela storage facilities."
+    strategic_approchement: "Pre-order hardware supplies 30 days ahead; maintain buffer stocks in Nairobi/Nairobi storage facilities."
   }
 ];
 
@@ -4038,7 +4038,7 @@ function initGodsEyeTriangulation() {
     ctx.font = "bold 8px 'JetBrains Mono', monospace";
     ctx.textAlign = "center";
     ctx.fillText("FACIAL RECON: 99.4%", targetX, targetY - 22);
-    ctx.fillText("LOC: KITENGELA", targetX, targetY + 28);
+    ctx.fillText("LOC: NAIROBI", targetX, targetY + 28);
 
     requestAnimationFrame(draw);
   }

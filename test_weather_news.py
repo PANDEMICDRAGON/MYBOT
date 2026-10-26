@@ -13,7 +13,7 @@ if sys.stdout and hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8")
 
 WEATHER_LOCATIONS = [
-    {"city": "Kitengela", "scope": "LOCAL", "lat": -1.4746, "lon": 36.9614},
+    {"city": "Nairobi", "scope": "LOCAL", "lat": -1.2921, "lon": 36.8219},
     {"city": "Nairobi", "scope": "LOCAL", "lat": -1.2921, "lon": 36.8219},
     {"city": "London", "scope": "GLOBAL", "lat": 51.5074, "lon": -0.1278},
     {"city": "New York", "scope": "GLOBAL", "lat": 40.7128, "lon": -74.0060},
@@ -28,7 +28,7 @@ NEWS_FEEDS = [
     {"source": "NYT World", "scope": "GLOBAL", "url": "https://rss.nytimes.com/services/xml/rss/nyt/World.xml"},
     {"source": "WSJ World", "scope": "GLOBAL", "url": "https://feeds.a.dj.com/rss/RSSWorldNews.xml"},
     {"source": "The Guardian World", "scope": "GLOBAL", "url": "https://www.theguardian.com/world/rss"},
-    {"source": "Kenya Local Wire", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi+OR+Kitengela&hl=en-KE&gl=KE&ceid=KE:en"}
+    {"source": "Kenya Local Wire", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi+OR+Nairobi&hl=en-KE&gl=KE&ceid=KE:en"}
 ]
 
 CONFLICT_AND_MACRO_FEEDS = [

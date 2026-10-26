@@ -678,9 +678,9 @@
   {
     "cycle_num": 44,
     "vector_id": "EVO_NAIROBI_KPLC_PREPAY_GRID_SNIFFER_V1",
-    "title": "Nairobi & Kitengela KPLC Prepay Meter Token & Power Stability Grid Sniffer",
+    "title": "Nairobi KPLC Prepay Meter Token & Power Stability Grid Sniffer",
     "domain": "OPERATOR_AMPLIFICATION",
-    "rationale": "To protect operator Michael Obiero from unexpected power outages and token inflation surges in Kitengela and Nairobi by monitoring Kenya Power (KPLC) token balance anomalies, predicting consumption burn rate, and securely queuing emergency backup solar/generator triggers.",
+    "rationale": "To protect operator Michael Obiero from unexpected power outages and token inflation surges in Nairobi by monitoring Kenya Power (KPLC) token balance anomalies, predicting consumption burn rate, and securely queuing emergency backup solar/generator triggers.",
     "file_path": "evolution_modules\\nairobi_kplc_prepay_sniffer.py",
     "code_size": 3814,
     "applied_at": "2026-10-26 12:08:37 EAT",

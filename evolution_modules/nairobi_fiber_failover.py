@@ -4,7 +4,7 @@ import random
 from typing import Dict, List, Optional
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [FIBER_FAILOVER] %(levelname)s: %(message)s')
-logger = logging.getLogger('KitengelaFiberFailover')
+logger = logging.getLogger('NairobiFiberFailover')
 
 class ISPPath:
     def __init__(self, name: str, gateway: str, base_latency_ms: float, cost_per_gb: float):
@@ -16,7 +16,7 @@ class ISPPath:
         self.consecutive_failures = 0
         self.current_latency = base_latency_ms
 
-class KitengelaFiberFailoverEngine:
+class NairobiFiberFailoverEngine:
     def __init__(self):
         self.paths: List[ISPPath] = [
             ISPPath("Safaricom_FTTH_Primary", "192.168.100.1", 12.5, 2.0),
@@ -24,7 +24,7 @@ class KitengelaFiberFailoverEngine:
             ISPPath("Safaricom_4K_LTE_Failover", "10.0.0.1", 45.0, 5.0)
         ]
         self.active_path: Optional[ISPPath] = self.paths[0]
-        logger.info("Initialized Kitengela-Nairobi ISP Failover Engine with %d paths.", len(self.paths))
+        logger.info("Initialized Nairobi-Nairobi ISP Failover Engine with %d paths.", len(self.paths))
 
     def probe_path(self, path: ISPPath) -> bool:
         # Simulate network probing with jitter and occasional packet drops
@@ -51,7 +51,7 @@ class KitengelaFiberFailoverEngine:
         healthy_paths = [p for p in self.paths if p.is_healthy]
         
         if not healthy_paths:
-            logger.critical("CRITICAL: All ISP paths down in Kitengela node! Activating emergency loopback.")
+            logger.critical("CRITICAL: All ISP paths down in Nairobi node! Activating emergency loopback.")
             return "EMERGENCY_LOOPBACK"
         
         # Select best path based on latency
@@ -79,7 +79,7 @@ class KitengelaFiberFailoverEngine:
         }
 
 if __name__ == "__main__":
-    engine = KitengelaFiberFailoverEngine()
+    engine = NairobiFiberFailoverEngine()
     for cycle in range(3):
         print(f"--- Cycle {cycle + 1} ---")
         selected = engine.evaluate_and_switch()

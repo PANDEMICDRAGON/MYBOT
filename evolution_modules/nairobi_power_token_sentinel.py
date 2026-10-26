@@ -1,7 +1,7 @@
 """
 Module: nairobi_power_token_sentinel.py
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Kitengela & Nairobi, Kenya)
+Operator: Michael Obiero (Nairobi & Nairobi, Kenya)
 Description: Predicts KPLC prepaid token depletion, correlates grid stability with local microclimate/solar status, and manages automated emergency top-up alerts.
 """
 
@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [Pow
 
 class PowerTokenSentinel:
     """
-    Monitors, forecasts, and manages prepaid KPLC smart meter tokens for residences in Kitengela and Nairobi.
+    Monitors, forecasts, and manages prepaid KPLC smart meter tokens for residences in Nairobi.
     """
     def __init__(self, meter_number: str, initial_tokens_kwh: float, burn_rate_kwh_per_hour: float):
         self.meter_number = meter_number

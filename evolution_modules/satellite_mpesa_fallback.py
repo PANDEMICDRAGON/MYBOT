@@ -55,7 +55,7 @@ class SatelliteMpesaFallbackEngine:
             logger.info(f"Telemetry successfully relayed via M-Pesa USSD encrypted sidechannel. Latency: {latency:.2f}ms")
             return {"status": "SUCCESS", "channel": "MPESA_USSD_FALLBACK", "ussd_frame": ussd_frame, "latency_ms": latency}
         
-        logger.critical("All transmission channels failed! Node isolated in Kitengela/Nairobi mesh.")
+        logger.critical("All transmission channels failed! Node isolated in Nairobi/Nairobi mesh.")
         return {"status": "FAILED", "channel": "NONE"}
 
     def _ping_starlink(self) -> bool:
@@ -71,7 +71,7 @@ if __name__ == "__main__":
     engine = SatelliteMpesaFallbackEngine()
     test_payload = {
         "operator": "Michael Obiero",
-        "location": "Kitengela-Nairobi Corridor",
+        "location": "Nairobi-Nairobi Corridor",
         "system_state": "SECURE",
         "battery": "100%"
     }

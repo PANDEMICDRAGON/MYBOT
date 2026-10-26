@@ -1,7 +1,7 @@
-"""Nairobi & Kitengela Emergency Hospital Bed & Critical Care Triage Dispatcher.
+"""Nairobi & Nairobi Emergency Hospital Bed & Critical Care Triage Dispatcher.
 
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Kitengela & Nairobi, Kenya)
+Operator: Michael Obiero (Nairobi & Nairobi, Kenya)
 """
 
 import ast
@@ -15,7 +15,7 @@ logger = logging.getLogger("HospitalBedTriage")
 
 
 class HospitalBedTriageEngine:
-    """Manages real-time hospital bed capacity, oxygen reserves, and emergency routing for Nairobi & Kitengela."""
+    """Manages real-time hospital bed capacity, oxygen reserves, and emergency routing for Nairobi & Nairobi."""
 
     def __init__(self) -> None:
         self.hospitals: Dict[str, Dict] = {
@@ -35,8 +35,8 @@ class HospitalBedTriageEngine:
                 "oxygen_litres": 45000,
                 "emergency_ready": True,
             },
-            "Kitengela Sub-County Hospital": {
-                "zone": "Kitengela Town",
+            "Nairobi Sub-County Hospital": {
+                "zone": "Nairobi Town",
                 "icu_total": 10,
                 "icu_available": 2,
                 "hdu_available": 4,
@@ -105,7 +105,7 @@ class HospitalBedTriageEngine:
         """Exports current regional medical readiness as JSON."""
         return json.dumps({
             "timestamp": time.time(),
-            "region": "Kitengela & Nairobi",
+            "region": "Nairobi & Nairobi",
             "facilities": self.hospitals
         }, indent=2)
 
@@ -114,9 +114,9 @@ if __name__ == "__main__":
     print("Initializing Cortana Hospital Bed Triage Engine...")
     engine = HospitalBedTriageEngine()
     
-    # Test triage for critical patient in Kitengela
-    recommendation = engine.triage_emergency_routing(patient_condition="critical", zone_preference="Kitengela Town")
-    print("Kitengela Triage Recommendation:", json.dumps(recommendation, indent=2))
+    # Test triage for critical patient in Nairobi
+    recommendation = engine.triage_emergency_routing(patient_condition="critical", zone_preference="Nairobi Town")
+    print("Nairobi Triage Recommendation:", json.dumps(recommendation, indent=2))
 
     # Test update and Nairobi routing
     engine.update_facility_status("Aga Khan University Hospital Nairobi", icu_avail=7, hdu_avail=9, oxygen=18000)

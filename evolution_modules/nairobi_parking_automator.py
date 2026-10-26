@@ -1,7 +1,7 @@
 """
 Module: nairobi_parking_automator.py
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Kitengela & Nairobi)
+Operator: Michael Obiero (Nairobi & Nairobi)
 Description: Autonomous Nairobi County & Kajiado County parking fee calculator,
              e-Citizen ticket generation scheduler, M-Pesa toll integration stub,
              and clamp-prevention countdown sentinel.
@@ -17,12 +17,12 @@ logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [PARKING_SENTINEL]
 logger = logging.getLogger("NairobiParkingAutomator")
 
 class NairobiParkingAutomator:
-    """Manages municipal parking zones, fee schedules, and automated STK payment triggers for Nairobi and Kitengela."""
+    """Manages municipal parking zones, fee schedules, and automated STK payment triggers for Nairobi."""
 
     ZONE_FEES = {
         "NAIROBI_CBD": 200.0,
         "NAIROBI_ZONED_ANNEX": 100.0,
-        "KITENGELA_MUNICIPAL": 50.0,
+        "NAIROBI_MUNICIPAL": 50.0,
         "OUTER_COUNTY_ZONE": 40.0
     }
 

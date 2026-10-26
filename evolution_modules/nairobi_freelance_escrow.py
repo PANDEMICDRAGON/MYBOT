@@ -122,7 +122,7 @@ class NairobiFreelanceEscrowEngine:
 if __name__ == "__main__":
     engine = NairobiFreelanceEscrowEngine()
     milestones_spec = [
-        {"milestone_id": "M1", "description": "Kitengela IoT Microclimate Node Firmware", "amount_kes": 25000.0},
+        {"milestone_id": "M1", "description": "Nairobi IoT Microclimate Node Firmware", "amount_kes": 25000.0},
         {"milestone_id": "M2", "description": "Nairobi Cloud Dashboard Integration", "amount_kes": 40000.0}
     ]
     

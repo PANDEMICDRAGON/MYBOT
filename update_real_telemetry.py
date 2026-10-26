@@ -15,7 +15,7 @@ print("Collecting real live planetary & cyber telemetry...")
 
 # 1. Real Weather from Open-Meteo
 WEATHER_LOCATIONS = [
-    {"city": "Kitengela", "scope": "LOCAL", "lat": -1.4746, "lon": 36.9614},
+    {"city": "Nairobi", "scope": "LOCAL", "lat": -1.2921, "lon": 36.8219},
     {"city": "Nairobi", "scope": "LOCAL", "lat": -1.2921, "lon": 36.8219},
     {"city": "London", "scope": "GLOBAL", "lat": 51.5074, "lon": -0.1278},
     {"city": "New York", "scope": "GLOBAL", "lat": 40.7128, "lon": -74.0060},
@@ -83,7 +83,7 @@ NEWS_SOURCES = [
     {"source": "BBC World", "scope": "GLOBAL", "url": "https://feeds.bbci.co.uk/news/world/rss.xml"},
     {"source": "Al Jazeera", "scope": "GLOBAL", "url": "https://www.aljazeera.com/xml/rss/all.xml"},
     {"source": "Defense One", "scope": "GLOBAL", "url": "https://www.defenseone.com/rss/all/"},
-    {"source": "Kenya Local Wire", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi+OR+Kitengela&hl=en-KE&gl=KE&ceid=KE:en"}
+    {"source": "Kenya Local Wire", "scope": "LOCAL", "url": "https://news.google.com/rss/search?q=Kenya+OR+Nairobi+OR+Nairobi&hl=en-KE&gl=KE&ceid=KE:en"}
 ]
 
 real_news = []
@@ -203,14 +203,14 @@ for line in arp_out.splitlines():
 print(f"Real LAN devices discovered: {len(real_lan)} nodes.")
 
 # 5. Real Synthesized Tactical SitRep based on actual live readings
-kitengela_temp = next((w["temp_c"] for w in real_weather if w["city"] == "Kitengela"), 30.0)
-kitengela_cond = next((w["condition"] for w in real_weather if w["city"] == "Kitengela"), "Clear")
+nairobi_temp = next((w["temp_c"] for w in real_weather if w["city"] == "Nairobi"), 30.0)
+nairobi_cond = next((w["condition"] for w in real_weather if w["city"] == "Nairobi"), "Clear")
 active_cves_count = len(real_cyber)
 top_conflict_headline = real_conflicts[0]["headline"] if real_conflicts else "Maritime and regional logistics corridors monitored."
 
 real_sitrep = {
     "threat_level": "ELEVATED" if real_conflicts else "NOMINAL",
-    "sitrep": f"[THREAT LEVEL: ELEVATED]\nLive telemetry active across Nairobi & Kitengela ({kitengela_temp}°C, {kitengela_cond}). Planetary sensors online across London, New York, and Tokyo. CISA KEV catalog actively tracking {active_cves_count} exploited zero-day CVEs. Major global wire feeds (BBC, Al Jazeera, CNN, Defense One) ingested in real time. Local Wi-Fi mesh synchronized with {len(real_lan)} active hardware nodes on subnet 192.168.100.0/24.",
+    "sitrep": f"[THREAT LEVEL: ELEVATED]\nLive telemetry active across Nairobi & Nairobi ({nairobi_temp}°C, {nairobi_cond}). Planetary sensors online across London, New York, and Tokyo. CISA KEV catalog actively tracking {active_cves_count} exploited zero-day CVEs. Major global wire feeds (BBC, Al Jazeera, CNN, Defense One) ingested in real time. Local Wi-Fi mesh synchronized with {len(real_lan)} active hardware nodes on subnet 192.168.100.0/24.",
     "conflict_summary": f"Kinetic War Flashpoints: {top_conflict_headline}. Horn of Africa, Red Sea, and Eastern European theaters monitored continuously.",
     "future_risk_forecast": "7-30 Day Horizon: Shipping rerouting around Cape of Good Hope sustaining elevated marine insurance rates into Mombasa port. Central Bank of Kenya macro indicators and domestic currency spreads monitored.",
     "defensive_protocol": "1. Verify integrity of all SSH/ADB endpoints across local 192.168.100.0/24 nodes.\n2. Cross-reference CISA KEV CVE listings against active Python/Linux/Node runtime environments.\n3. Maintain liquidity hedges against import shipping surcharges.",

@@ -26,7 +26,7 @@ class PowerTelemetry:
 
 class SolarPowerAwareLoadBalancer:
     """
-    Manages autonomous background workloads for Cortana in Kitengela,
+    Manages autonomous background workloads for Cortana in Nairobi,
     shifting heavy computing tasks based on real-time solar generation
     and battery state of charge.
     """
@@ -81,7 +81,7 @@ class SolarPowerAwareLoadBalancer:
 if __name__ == "__main__":
     balancer = SolarPowerAwareLoadBalancer()
     
-    # Simulate solar telemetry during Kitengela midday
+    # Simulate solar telemetry during Nairobi midday
     telemetry = PowerTelemetry(
         grid_available=True,
         solar_generation_watts=800.0,

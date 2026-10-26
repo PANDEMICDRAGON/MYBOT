@@ -12,15 +12,15 @@ logger = logging.getLogger("OfflineVoiceSynapse")
 class OfflineVoiceSynapse:
     """
     Provides secure, offline voice-command parsing, deterministic audio feature hashing,
-    and cryptographic voiceprint verification for operator Michael Obiero in Kitengela.
+    and cryptographic voiceprint verification for operator Michael Obiero in Nairobi.
     Ensures local command execution without cloud reliance or data leakage.
     """
-    def __init__(self, authorized_operator_hash: str, salt: bytes = b"kitengela_voice_salt_v1"):
+    def __init__(self, authorized_operator_hash: str, salt: bytes = b"nairobi_voice_salt_v1"):
         self.authorized_operator_hash = authorized_operator_hash
         self.salt = salt
         self.command_registry: Dict[str, callable] = {}
         self.audit_log: list = []
-        logger.info("OfflineVoiceSynapse initialized for Kitengela operational theater.")
+        logger.info("OfflineVoiceSynapse initialized for Nairobi operational theater.")
 
     def register_command(self, phrase_slug: str, callback: callable) -> None:
         """Register an execution callback for a verified voice command slug."""
@@ -82,15 +82,15 @@ class OfflineVoiceSynapse:
 
 if __name__ == "__main__":
     # Test Harness for OfflineVoiceSynapse
-    test_audio = b"SIMULATED_MIC_STREAM_OBIER0_VOICE_SAMPLE_KITENGELA"
-    hasher = hashlib.blake2b(digest_size=32, salt=b"kitengela_voice_salt_v1")
+    test_audio = b"SIMULATED_MIC_STREAM_OBIER0_VOICE_SAMPLE_NAIROBI"
+    hasher = hashlib.blake2b(digest_size=32, salt=b"nairobi_voice_salt_v1")
     hasher.update(test_audio)
     correct_hash = hasher.hexdigest()
 
     synapse = OfflineVoiceSynapse(authorized_operator_hash=correct_hash)
     
     def sample_grid_action(ctx):
-        return "Kitengela Solar Grid Arbitrage manually overridden via voice."
+        return "Nairobi Solar Grid Arbitrage manually overridden via voice."
 
     synapse.register_command("override_solar_grid", sample_grid_action)
 

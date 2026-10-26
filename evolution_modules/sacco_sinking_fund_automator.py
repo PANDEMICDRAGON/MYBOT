@@ -1,10 +1,10 @@
 """
-Nairobi & Kitengela Matatu SACCO Sinking Fund & Accident Claims Automator
+Nairobi & Nairobi Matatu SACCO Sinking Fund & Accident Claims Automator
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Kitengela/Nairobi, Kenya)
+Operator: Michael Obiero (Nairobi/Nairobi, Kenya)
 
 Automates SACCO vehicle risk pooling, collects daily sinking fund contributions via M-Pesa simulation,
-calculates actuarial risk tiers based on route telemetry (e.g., Nairobi-Kitengela highway vs Nairobi CBD-Umoja),
+calculates actuarial risk tiers based on route telemetry (e.g., Nairobi-Nairobi highway vs Nairobi CBD-Umoja),
 and automates accident claim disbursements.
 """
 
@@ -123,12 +123,12 @@ class SaccoSinkingFundEngine:
         }
 
 if __name__ == "__main__":
-    print("=== TESTING NAIROBI & KITENGELA SACCO SINKING FUND AUTOMATOR ===")
+    print("=== TESTING NAIROBI & NAIROBI SACCO SINKING FUND AUTOMATOR ===")
     sacco = SaccoSinkingFundEngine(sacco_name="KiteNai Metro Travellers SACCO")
     
     # Register vehicles
-    sacco.register_vehicle("KBC 452Z", "Kitengela - Nairobi CBD", "John Kamau")
-    sacco.register_vehicle("KDD 891A", "Kitengela - Kitengela EPZ", "Amina Mohammed")
+    sacco.register_vehicle("KBC 452Z", "Nairobi - Nairobi CBD", "John Kamau")
+    sacco.register_vehicle("KDD 891A", "Nairobi - Nairobi EPZ", "Amina Mohammed")
     
     # Process contributions
     sacco.process_daily_contribution("KBC 452Z", 500.0)

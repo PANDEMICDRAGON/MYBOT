@@ -1,7 +1,7 @@
 """
-Kitengela Offline KRA PIN & Tax Compliance Verification Engine
+Nairobi Offline KRA PIN & Tax Compliance Verification Engine
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Kitengela & Nairobi, Kenya)
+Operator: Michael Obiero (Nairobi & Nairobi, Kenya)
 
 Provides a deterministic, cryptographic validation routine for Kenyan Revenue
 Authority (KRA) PIN formats, checksum algorithms, and locally cached tax
@@ -20,7 +20,7 @@ class OfflineKRAPinValidator:
     
     KRA_REGEX = re.compile(r"^[A0-9][0-9]{9}[A-Z]$")
     
-    def __init__(self, master_secret: bytes = b"cortana_kitengela_kra_seed_v1") -> None:
+    def __init__(self, master_secret: bytes = b"cortana_nairobi_kra_seed_v1") -> None:
         self.master_secret = master_secret
         self._compliance_cache: Dict[str, Dict[str, Any]] = {}
 

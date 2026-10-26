@@ -1,7 +1,7 @@
 """
 Module: kra_customs_import_sentinel.py
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Kitengela & Nairobi, Kenya)
+Operator: Michael Obiero (Nairobi & Nairobi, Kenya)
 Description: Provides automated KRA HS code lookup, import duty, VAT, and IDF/RDL levy calculation, along with JKIA/Mombasa port clearance bottleneck forecasting.
 """
 
@@ -44,7 +44,7 @@ class TaxAssessmentResult:
 class KRACustomsValuator:
     """
     Evaluates import duties and estimates customs clearance timelines for shipments
-    arriving for Michael Obiero in Nairobi/Kitengela.
+    arriving for Michael Obiero in Nairobi/Nairobi.
     """
     def __init__(self, current_usd_rate: float = 132.50):
         self.exchange_rate = current_usd_rate

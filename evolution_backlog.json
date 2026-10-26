@@ -5,7 +5,7 @@
     {
       "cycle_num": 44,
       "vector_id": "EVO_NAIROBI_KPLC_PREPAY_GRID_SNIFFER_V1",
-      "title": "Nairobi & Kitengela KPLC Prepay Meter Token & Power Stability Grid Sniffer",
+      "title": "Nairobi KPLC Prepay Meter Token & Power Stability Grid Sniffer",
       "domain": "OPERATOR_AMPLIFICATION",
       "file": "evolution_modules\\nairobi_kplc_prepay_sniffer.py",
       "status": "IMPLEMENTED"

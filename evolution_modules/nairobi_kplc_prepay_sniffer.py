@@ -1,7 +1,7 @@
 """
 Module: nairobi_kplc_prepay_sniffer.py
 Author: Cortana, Autonomous Evolutionary Architect
-Operator: Michael Obiero (Kitengela & Nairobi, Kenya)
+Operator: Michael Obiero (Nairobi, Kenya)
 
 Description:
 Monitors Kenya Power (KPLC) token balances, calculates real-time kilowatt-hour (kWh)
@@ -21,7 +21,7 @@ logger = logging.getLogger("KPLCPrepaySniffer")
 class KPLCPrepayGridSniffer:
     """
     Monitors prepay meter status, token consumption velocity, and triggers failover protocols
-    for Michael Obiero's Kitengela/Nairobi workstation and infrastructure.
+    for Michael Obiero's Nairobi workstation and infrastructure.
     """
     def __init__(self, meter_number: str, initial_tokens_kwh: float = 120.0, tier_rate_kes_per_kwh: float = 26.5):
         self.meter_number = meter_number
@@ -77,7 +77,7 @@ class KPLCPrepayGridSniffer:
 
 
 if __name__ == "__main__":
-    sniffer = KPLCPrepayGridSniffer(meter_number="KPLC-987654321-KITENGELA", initial_tokens_kwh=22.5)
+    sniffer = KPLCPrepayGridSniffer(meter_number="KPLC-987654321-NAIROBI", initial_tokens_kwh=22.5)
     report = sniffer.record_consumption(3.2)
     print("Initial KPLC Report:", report)
     sniffer.simulate_grid_fluctuation(duration_seconds=2)

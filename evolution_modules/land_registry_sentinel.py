@@ -1,7 +1,7 @@
 """
-Kitengela & Nairobi Land Registry Title Deed & Encumbrance Verification Sentinel
+Nairobi & Nairobi Land Registry Title Deed & Encumbrance Verification Sentinel
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Kitengela & Nairobi, Kenya)
+Operator: Michael Obiero (Nairobi & Nairobi, Kenya)
 """
 
 import hashlib
@@ -16,14 +16,14 @@ logger = logging.getLogger("LandRegistrySentinel")
 class LandRegistrySentinel:
     """
     Validates title deeds, checks encumbrances, and generates cryptographic
-    proofs of parcel ownership for properties in Kitengela and Nairobi.
+    proofs of parcel ownership for properties in Nairobi.
     """
 
     def __init__(self, registry_db: Optional[Dict[str, Dict[str, Any]]] = None):
         self.registry_db = registry_db or {
             "KRT-NGEL-4482": {
                 "parcel_number": "KRT-NGEL-4482",
-                "location": "Kitengela Milimani",
+                "location": "Nairobi Milimani",
                 "registered_owner": "Michael Obiero",
                 "id_number": "87654321",
                 "size_hectares": 0.05,
@@ -114,13 +114,13 @@ if __name__ == "__main__":
     sentinel = LandRegistrySentinel()
     
     # Test valid property check for Michael Obiero
-    result_kitengela = sentinel.verify_title_deed("KRT-NGEL-4482", "Michael Obiero", "87654321")
-    print("Kitengela Verification Result:", json.dumps(result_kitengela, indent=2))
+    result_nairobi = sentinel.verify_title_deed("KRT-NGEL-4482", "Michael Obiero", "87654321")
+    print("Nairobi Verification Result:", json.dumps(result_nairobi, indent=2))
 
     # Test fraudulent claim attempt
     result_fraud = sentinel.verify_title_deed("KRT-NGEL-4482", "Cartona Imposter", "00000000")
     print("Fraudulent Verification Result:", json.dumps(result_fraud, indent=2))
 
     # Test encumbrance addition
-    enc_result = sentinel.register_encumbrance("KRT-NGEL-4482", "CAVEAT", "Kitengela High Court", 0.0)
+    enc_result = sentinel.register_encumbrance("KRT-NGEL-4482", "CAVEAT", "Nairobi High Court", 0.0)
     print("Encumbrance Registration Result:", json.dumps(enc_result, indent=2))

@@ -24,7 +24,7 @@ class AutonomousNeuralAuditor:
     Autonomous Neural Intrusion Detection & Behavior Anomaly Auditor (AURA).
     Monitors system telemetry, file integrity, and process anomalies for operator Michael Obiero.
     """
-    def __init__(self, baseline_salt: str = "kitengela_secure_salt"):
+    def __init__(self, baseline_salt: str = "nairobi_secure_salt"):
         self.baseline_salt = baseline_salt
         self.threat_registry: List[AnomalyReport] = []
         self.known_safe_signatures: set = set()
@@ -78,7 +78,7 @@ class AutonomousNeuralAuditor:
 
     def run_full_system_sweep(self) -> Dict[str, Any]:
         """Executes a full system sweep and returns diagnostic audit metrics."""
-        logger.info("Initiating full system behavior sweep across Kitengela-Nairobi nodes...")
+        logger.info("Initiating full system behavior sweep across Nairobi-Nairobi nodes...")
         sweep_results = {
             "timestamp": time.time(),
             "hostname": socket.gethostname(),

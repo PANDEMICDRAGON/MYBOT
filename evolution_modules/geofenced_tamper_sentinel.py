@@ -29,10 +29,10 @@ class GeofencedTamperSentinel:
     def __init__(self, config: PerimeterConfig) -> None:
         self.config = config
         self.networks = [ipaddress.ip_network(net) for net in config.allowed_subnets]
-        # Reference point for Kitengela/Nairobi anchor (e.g., Kitengela town center)
+        # Reference point for Nairobi/Nairobi anchor (e.g., Nairobi town center)
         self.anchor_location = (-1.5065, 36.9679)
         self.is_sealed = False
-        logger.info("GeofencedTamperSentinel initialized for Kitengela/Nairobi operations.")
+        logger.info("GeofencedTamperSentinel initialized for Nairobi/Nairobi operations.")
 
     def _verify_ip(self, ip_str: str) -> bool:
         try:
@@ -71,7 +71,7 @@ class GeofencedTamperSentinel:
         
         if not location_valid:
             threat_detected = True
-            reasons.append(f"Geofence breach: Distance {distance_km:.2f}km from Kitengela anchor exceeds limit.")
+            reasons.append(f"Geofence breach: Distance {distance_km:.2f}km from Nairobi anchor exceeds limit.")
 
         if packet.chassis_intrusion_flag:
             threat_detected = True
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     )
     sentinel = GeofencedTamperSentinel(cfg)
     
-    # Test normal packet within Kitengela region
+    # Test normal packet within Nairobi region
     pkt_normal = TelemetryPacket(
         client_ip="192.168.1.55",
         gps_coords=(-1.5100, 36.9600),

@@ -1,7 +1,7 @@
 """
 Module: aura_key_rotator.py
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Kitengela, Nairobi, Kenya)
+Operator: Michael Obiero (Nairobi, Kenya)
 
 Description:
 Provides zero-knowledge ephemeral cryptographic key generation, automatic hardware-
@@ -38,7 +38,7 @@ class AutonomousKeyRotator:
 
     def _derive_key(self, generation: int) -> bytes:
         """Derives a cryptographically secure key using HMAC-SHA256 and system entropy."""
-        context_seed = f"CORTANA_KITENGELA_GEN_{generation}_{os.getpid()}".encode('utf-8')
+        context_seed = f"CORTANA_NAIROBI_GEN_{generation}_{os.getpid()}".encode('utf-8')
         h = hmac.new(self.master_salt, context_seed, hashlib.sha256)
         # Mix in physical or pseudo-random OS entropy
         h.update(os.urandom(16))
@@ -120,7 +120,7 @@ if __name__ == "__main__":
     print("Initializing Autonomous Key Rotator Test Harness...")
     rotator = AutonomousKeyRotator(rotation_interval_seconds=1)
     
-    test_secret = "CONFIDENTIAL_MPESA_LEDGER_TX_98312_KITENGELA"
+    test_secret = "CONFIDENTIAL_MPESA_LEDGER_TX_98312_NAIROBI"
     envelope = rotator.encrypt_payload(test_secret)
     print(f"Encrypted Envelope (Gen {envelope['generation']}): {json.dumps(envelope, indent=2)}")
     

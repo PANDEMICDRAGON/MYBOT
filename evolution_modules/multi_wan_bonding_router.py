@@ -1,6 +1,6 @@
 """
 Multi-WAN Bonding Router & Dynamic QoS Failover Engine
-Targeted for East Africa / Nairobi & Kitengela ISP infrastructure (Safaricom, Airtel, Zuku, Starlink).
+Targeted for East Africa / Nairobi & Nairobi ISP infrastructure (Safaricom, Airtel, Zuku, Starlink).
 """
 
 import asyncio
@@ -171,8 +171,8 @@ if __name__ == "__main__":
     async def main():
         router = MultiWANBondingRouter()
 
-        # Register Kitengela / Nairobi WAN Interfaces
-        router.register_interface("safaricom_fiber", "Safaricom Home Fiber (Kitengela)", cost_score=1)
+        # Register Nairobi / Nairobi WAN Interfaces
+        router.register_interface("safaricom_fiber", "Safaricom Home Fiber (Nairobi)", cost_score=1)
         router.register_interface("airtel_5g", "Airtel 5G Mobile (Nairobi CBD)", cost_score=3)
         router.register_interface("starlink_sat", "Starlink Satellite Backup", cost_score=5)
 
@@ -184,14 +184,14 @@ if __name__ == "__main__":
         # Critical Payload Dispatch (Should duplicate over Safaricom + Airtel)
         critical_data = TelemetryPayload(
             payload_id="PAYLOAD_CRIT_001",
-            data={"command": "EMERGENCY_OPERATOR_ALERT", "location": "Kitengela"},
+            data={"command": "EMERGENCY_OPERATOR_ALERT", "location": "Nairobi"},
             priority=PacketPriority.CRITICAL
         )
         res_crit = await router.dispatch_payload(critical_data)
         print("Critical Dispatch Result:", res_crit)
 
         # Simulate Safaricom Fiber degradation/failure
-        logger.warning("Simulating Safaricom Fiber connection failure in Kitengela...")
+        logger.warning("Simulating Safaricom Fiber connection failure in Nairobi...")
         router.update_metrics("safaricom_fiber", latency_ms=620.0, jitter_ms=85.0, packet_loss_pct=40.0)
 
         # High Priority Payload Dispatch (Should automatically switch to Airtel 5G)

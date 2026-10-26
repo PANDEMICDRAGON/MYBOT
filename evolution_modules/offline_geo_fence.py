@@ -8,7 +8,7 @@ from typing import Dict, List, Optional, Tuple
 
 
 class GeoFenceViolationException(Exception):
-    """Raised when the system detects a breach of the Kitengela/Nairobi perimeter."""
+    """Raised when the system detects a breach of the Nairobi/Nairobi perimeter."""
     pass
 
 
@@ -17,9 +17,9 @@ class OfflineGeoFenceEnforcer:
 
     def __init__(self, master_secret: bytes, allowed_zones: Optional[List[Dict[str, float]]] = None):
         self.master_secret = master_secret
-        # Default zones: Kitengela core & Nairobi node
+        # Default zones: Nairobi core & Nairobi node
         self.allowed_zones = allowed_zones or [
-            {"name": "Kitengela Base", "lat": -1.4854, "lon": 36.9691, "radius_km": 5.0},
+            {"name": "Nairobi Base", "lat": -1.4854, "lon": 36.9691, "radius_km": 5.0},
             {"name": "Nairobi Outpost", "lat": -1.2921, "lon": 36.8219, "radius_km": 15.0}
         ]
         self.violation_log: List[Dict[str, any]] = []
@@ -42,7 +42,7 @@ class OfflineGeoFenceEnforcer:
         return hmac.new(self.master_secret, payload, hashlib.sha256).hexdigest()
 
     def verify_perimeter(self, current_lat: float, current_lon: float, timestamp: float, signature: str) -> bool:
-        """Verifies location integrity and checks if within permitted Kitengela/Nairobi zones."""
+        """Verifies location integrity and checks if within permitted Nairobi/Nairobi zones."""
         expected_sig = self.sign_telemetry(current_lat, current_lon, timestamp)
         if not hmac.compare_digest(expected_sig, signature):
             raise GeoFenceViolationException("CRITICAL: Cryptographic signature mismatch on location telemetry! Possible spoofing.")
@@ -74,17 +74,17 @@ class OfflineGeoFenceEnforcer:
 
 if __name__ == "__main__":
     print("[*] Initializing Offline Geo-Fence Enforcer Test Harness...")
-    secret = b"cortana_kitengela_secure_seed_2026"
+    secret = b"cortana_nairobi_secure_seed_2026"
     enforcer = OfflineGeoFenceEnforcer(master_secret=secret)
 
-    # Test valid Kitengela coordinates (-1.4854, 36.9691)
+    # Test valid Nairobi coordinates (-1.4854, 36.9691)
     test_lat, test_lon = -1.4800, 36.9600
     now = time.time()
     sig = enforcer.sign_telemetry(test_lat, test_lon, now)
 
     try:
         res = enforcer.verify_perimeter(test_lat, test_lon, now, sig)
-        print(f"[+] Perimeter check passed inside Kitengela: {res}")
+        print(f"[+] Perimeter check passed inside Nairobi: {res}")
     except Exception as e:
         print(f"[-] Unexpected failure: {e}")
 

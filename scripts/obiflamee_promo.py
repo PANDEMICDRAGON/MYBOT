@@ -87,7 +87,7 @@ def generate_playbook(metadata: dict, views: int, trends: list) -> str:
         "- Ask followers to retweet the track link using the hashtags.",
         "---",
         "## 4️⃣ Community Engagement",
-        "- Reach out to local Nairobi and Kitengela DJs for a remix contest.",
+        "- Reach out to local Nairobi DJs for a remix contest.",
         "- Offer a free digital download to the first 500 fans who share the track.",
         "- Collaborate with a popular Kenyan TikTok creator for a dance challenge.",
         "---",

@@ -6,20 +6,20 @@ import time
 from typing import Dict, List, Optional, Tuple
 
 logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [SOLAR_FORECASTER] %(levelname)s: %(message)s')
-logger = logging.getLogger('KitengelaSolarForecaster')
+logger = logging.getLogger('NairobiSolarForecaster')
 
-class KitengelaSolarForecaster:
+class NairobiSolarForecaster:
     """
     Autonomous Solar Power Micro-Grid Load & Weather Forecasting Engine.
     Predicts solar photovoltaic yield based on atmospheric pressure, cloud cover proxy,
-    and historical Kitengela diurnal curves, adjusting system resource quotas dynamically.
+    and historical Nairobi diurnal curves, adjusting system resource quotas dynamically.
     """
     def __init__(self, panel_capacity_watts: float = 1200.0, battery_capacity_wh: float = 2400.0) -> None:
         self.panel_capacity_watts = panel_capacity_watts
         self.battery_capacity_wh = battery_capacity_wh
         self.current_battery_wh = battery_capacity_wh * 0.95  # Start near full
         self.history: List[Dict[str, float]] = []
-        logger.info("KitengelaSolarForecaster initialized: Panel=%.1fW, Battery=%.1fWh", panel_capacity_watts, battery_capacity_wh)
+        logger.info("NairobiSolarForecaster initialized: Panel=%.1fW, Battery=%.1fWh", panel_capacity_watts, battery_capacity_wh)
 
     def predict_generation(self, hour_of_day: float, cloud_cover_percent: float, ambient_temp_c: float) -> float:
         """
@@ -83,8 +83,8 @@ class KitengelaSolarForecaster:
             return "CRITICAL_CONSERVATION (Hibernate non-essential subsystems, preserve operator comms)"
 
 if __name__ == "__main__":
-    logger.info("Executing self-test verification for KitengelaSolarForecaster...")
-    forecaster = KitengelaSolarForecaster(panel_capacity_watts=1500.0, battery_capacity_wh=3000.0)
+    logger.info("Executing self-test verification for NairobiSolarForecaster...")
+    forecaster = NairobiSolarForecaster(panel_capacity_watts=1500.0, battery_capacity_wh=3000.0)
     
     # Simulate midday peak with light clouds
     step1 = forecaster.simulate_step(hour_of_day=13.5, cloud_cover=15.0, temp=28.0, load_watts=350.0)
@@ -97,4 +97,4 @@ if __name__ == "__main__":
     module_code = open(__file__, "r", encoding="utf-8").read()
     parsed_ast = ast.parse(module_code)
     assert parsed_ast is not None, "AST compilation check failed!"
-    logger.info("KitengelaSolarForecaster successfully verified and validated.")
+    logger.info("NairobiSolarForecaster successfully verified and validated.")

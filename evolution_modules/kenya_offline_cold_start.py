@@ -177,7 +177,7 @@ if __name__ == "__main__":
     engine = ColdStartEngine(state_dir="/tmp/cortana_test_state")
     
     # Test 1: Save state
-    test_data = {"operator": "Michael Obiero", "location": "Kitengela", "status": "online"}
+    test_data = {"operator": "Michael Obiero", "location": "Nairobi", "status": "online"}
     snapshot = engine.save_state(test_data)
     assert snapshot.version == 1
     assert snapshot.checksum == engine._compute_checksum(test_data)

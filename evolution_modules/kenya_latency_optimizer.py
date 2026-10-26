@@ -21,7 +21,7 @@ class LatencyProfile:
 class KenyaLatencyOptimizer:
     """
     Proactively profiles network latency to optimize timeout settings
-    for operations in Kenya (Kitengela/Nairobi). Adapts to local ISP conditions.
+    for operations in Kenya (Nairobi/Nairobi). Adapts to local ISP conditions.
     """
     
     def __init__(self, base_timeout: float = 5.0, min_timeout: float = 1.0, max_timeout: float = 30.0):

@@ -1,5 +1,5 @@
 """
-Kitengela Offline Biometric Credential Vault & Air-Gapped Authorization Engine
+Nairobi Offline Biometric Credential Vault & Air-Gapped Authorization Engine
 Designed for Cortana's Autonomous Evolutionary Architecture.
 Provides localized zero-knowledge cryptographic unlocking for emergency overrides without cloud dependencies.
 """
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     
     # Test Enrollment
     enrolled = vault.enroll_template(
-        operator_id="Michael_Obiero_Kitengela",
+        operator_id="Michael_Obiero_Nairobi",
         biometric_sample="sample_fingerprint_vector_9812",
         secret_passphrase="Nairobi-Secure-Override-2025"
     )

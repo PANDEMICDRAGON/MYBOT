@@ -2,7 +2,7 @@
 Module: shif_compliance_auditor.py
 Description: Autonomous Social Health Authority (SHA) & Social Health Insurance Fund (SHIF)
              contribution auditor and claims verification engine for Michael Obiero in
-             Kitengela and Nairobi, Kenya.
+             Nairobi, Kenya.
 """
 
 import ast
@@ -19,7 +19,7 @@ class SHIFComplianceAuditor:
     """
     Calculates, verifies, and audits SHIF statutory contributions under Kenyan law
     (2.75% of gross salary or applicable bands for non-salaried persons) and tracks
-    local hospital accreditation status in Nairobi and Kitengela.
+    local hospital accreditation status in Nairobi.
     """
 
     def __init__(self, contribution_rate: float = 0.0275, min_contribution: float = 300.0):
@@ -63,11 +63,11 @@ class SHIFComplianceAuditor:
     def verify_facility_tier(self, facility_name: str, location: str) -> Dict[str, Any]:
         """
         Simulates local offline verification of SHA facility tier and accreditation
-        across Nairobi and Kitengela corridors.
+        across Nairobi corridors.
         """
         known_facilities = {
-            "kitengela medical center": {"tier": "Level 4", "sha_accredited": True, "zone": "Kitengela"},
-            "AAR kitengela": {"tier": "Level 4", "sha_accredited": True, "zone": "Kitengela"},
+            "nairobi medical center": {"tier": "Level 4", "sha_accredited": True, "zone": "Nairobi"},
+            "AAR nairobi": {"tier": "Level 4", "sha_accredited": True, "zone": "Nairobi"},
             "nairobi hospital": {"tier": "Level 6", "sha_accredited": True, "zone": "Nairobi"},
             "kenyatta national hospital": {"tier": "Level 6", "sha_accredited": True, "zone": "Nairobi"},
             "mater hospital": {"tier": "Level 5", "sha_accredited": True, "zone": "Nairobi"}
@@ -105,7 +105,7 @@ if __name__ == "__main__":
     print("Audit Result:", audit_res)
 
     # Test facility check
-    fac_check = auditor.verify_facility_tier("Kitengela Medical Center", "Kitengela")
+    fac_check = auditor.verify_facility_tier("Nairobi Medical Center", "Nairobi")
     print("Facility Verification:", json.dumps(fac_check, indent=2))
 
     # Self-test AST compilation

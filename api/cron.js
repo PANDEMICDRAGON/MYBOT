@@ -180,8 +180,8 @@ export default async function handler(req, res) {
     // 3. WEATHER TELEMETRY INGESTION (Open-Meteo API)
     // ==========================================================
     const cities = [
-      { city: "Kitengela", lat: -1.47, lon: 36.96, scope: "LOCAL" },
-      { city: "Nairobi", lat: -1.29, lon: 36.82, scope: "LOCAL" },
+      { city: "Nairobi", lat: -1.2921, lon: 36.8219, scope: "LOCAL" },
+      { city: "Mombasa", lat: -4.0435, lon: 39.6682, scope: "REGIONAL" },
       { city: "London", lat: 51.51, lon: -0.13, scope: "GLOBAL" },
       { city: "New York", lat: 40.71, lon: -74.01, scope: "GLOBAL" },
       { city: "Tokyo", lat: 35.68, lon: 139.69, scope: "GLOBAL" }
@@ -372,7 +372,7 @@ export default async function handler(req, res) {
         log("Synthesizing fresh tactical sitrep...");
         const headlinesText = freshHeadlines.slice(0, 8).map(h => `- [${h.source}] ${h.title}`).join("\n");
         const prompt = 
-          `Synthesize a real-time, military-grade strategic intelligence sitrep for Operator Michael Obiero (Kitengela/Nairobi, Kenya).\n` +
+          `Synthesize a real-time, military-grade strategic intelligence sitrep for Operator Michael Obiero (Nairobi/Nairobi, Kenya).\n` +
           `Recent headlines:\n${headlinesText}\n\n` +
           `Return ONLY a raw JSON object with these exact keys:\n` +
           `{"threat_level": "NOMINAL"|"ELEVATED"|"CRITICAL", "sitrep": "2 concise sentences of tactical summary", "conflict_summary": "1 sentence on global conflicts", "future_risk_forecast": "1 sentence on economic/cyber forecast", "defensive_protocol": "1 specific operational safety protocol", "asymmetric_upside": "1 high-leverage economic or tech advantage"}`;

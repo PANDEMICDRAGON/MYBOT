@@ -12,11 +12,11 @@ logger = logging.getLogger("MatatuMeshRelay")
 class OfflineMatatuMeshRelay:
     """
     Facilitates opportunistic delay-tolerant networking (DTN) for Cortana and operator
-    Michael Obiero between Kitengela and Nairobi using mobile public transit (Matatu)
+    Michael Obiero between Nairobi using mobile public transit (Matatu)
     nodes as physical data mules when cellular infrastructure fails.
     """
     
-    def __init__(self, node_id: str = "CORTANA_KITENGELA_NODE_01", secret_key: bytes = b"kitengela-nairobi-transit-key"):
+    def __init__(self, node_id: str = "CORTANA_NAIROBI_NODE_01", secret_key: bytes = b"nairobi-nairobi-transit-key"):
         self.node_id = node_id
         self.secret_key = secret_key
         self.packet_store: Dict[str, Dict] = {}
@@ -113,12 +113,12 @@ class OfflineMatatuMeshRelay:
 
 if __name__ == "__main__":
     print("Initializing Offline Matatu Fleet Mesh Relay Test Harness...")
-    mesh = OfflineMatatuMeshRelay(node_id="KITENGELA_BASE_01")
+    mesh = OfflineMatatuMeshRelay(node_id="NAIROBI_BASE_01")
     
     # Create a test emergency telemetry bundle
-    pkt = mesh.create_payload(destination="NAIROBI_HQ", payload_data={"alert": "Kitengela perimeter secure, solar surplus nominal."})
+    pkt = mesh.create_payload(destination="NAIROBI_HQ", payload_data={"alert": "Nairobi perimeter secure, solar surplus nominal."})
     
-    # Simulate transit mule vehicle coming into range from Route 125 (Kitengela-Nairobi)
+    # Simulate transit mule vehicle coming into range from Route 125 (Nairobi-Nairobi)
     simulated_mule_payload = [pkt]
     accepted, ids = mesh.ingest_transit_node_data(vehicle_id="MATATU_KBN_452A", incoming_packets=simulated_mule_payload)
     assert accepted == 1

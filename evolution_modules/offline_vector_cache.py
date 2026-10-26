@@ -1,7 +1,7 @@
 """Local Ephemeral Vector Embedding Cache & Offline Semantic Search Engine.
 
 Provides robust, zero-dependency offline semantic indexing and retrieval for Cortana's
-local knowledge base, ensuring continuous operation during network partitions in Kitengela and Nairobi.
+local knowledge base, ensuring continuous operation during network partitions in Nairobi.
 """
 
 import json
@@ -119,9 +119,9 @@ if __name__ == "__main__":
     cache = OfflineVectorCache()
     
     cache.upsert(
-        doc_id="kitengela_solar_01",
-        content="Kitengela microgrid solar battery optimization protocols and inverter telemetry.",
-        metadata={"location": "Kitengela", "category": "energy"}
+        doc_id="nairobi_solar_01",
+        content="Nairobi microgrid solar battery optimization protocols and inverter telemetry.",
+        metadata={"location": "Nairobi", "category": "energy"}
     )
     cache.upsert(
         doc_id="nairobi_routing_02",
@@ -129,7 +129,7 @@ if __name__ == "__main__":
         metadata={"location": "Nairobi", "category": "network"}
     )
     
-    query = "How to optimize solar battery load in Kitengela?"
+    query = "How to optimize solar battery load in Nairobi?"
     print(f"Query: '{query}'")
     results = cache.search(query, top_k=2)
     

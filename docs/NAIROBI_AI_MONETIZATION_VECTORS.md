@@ -1,6 +1,6 @@
 # 🚀 NAIROBI TECH HUB: TOP 3 AI MONETIZATION VECTORS FOR MICHAEL OBIERO
 **Prepared by Cortana // J.A.R.V.I.S. Autonomous Cognitive Architecture**  
-**Anchor Hub:** Nairobi (Silicon Savannah) & Kitengela, Kenya  
+**Anchor Hub:** Nairobi (Silicon Savannah) & Nairobi, Kenya  
 **Operator:** Michael Obiero (`OBIFLAMEE`)
 
 ---

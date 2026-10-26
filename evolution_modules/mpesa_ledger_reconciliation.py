@@ -100,7 +100,7 @@ if __name__ == "__main__":
     reconciler = MpesaLedgerReconciler("cortana_secure_test_secret_key")
     
     # Test local transaction recording
-    rec = reconciler.record_local_transaction("RKT9XYZ123", 1500.0, "254712345678", {"service": "Kitengela Solar Node"})
+    rec = reconciler.record_local_transaction("RKT9XYZ123", 1500.0, "254712345678", {"service": "Nairobi Solar Node"})
     
     # Test external callback ingestion
     callback = {

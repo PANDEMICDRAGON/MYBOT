@@ -1,7 +1,7 @@
 """
 Tool: obiflamee_revenue_accelerator
 Author: Cortana Sovereign Super AI
-Operator: Michael Obiero (Kitengela & Nairobi)
+Operator: Michael Obiero (Nairobi & Nairobi)
 Description: Complete backend for OBIFLAMEE music promotion engine and Nairobi Parking / Business Permit automation SaaS.
 """
 
@@ -15,7 +15,7 @@ def handle_request():
     data = {
         "status": "active",
         "operator": "Michael Obiero (OBIFLAMEE)",
-        "location": "Kitengela & Nairobi, Kenya",
+        "location": "Nairobi & Nairobi, Kenya",
         "products": [
             {
                 "id": "obiflamee_promo",
@@ -27,7 +27,7 @@ def handle_request():
             },
             {
                 "id": "nairobi_parking_automator",
-                "name": "Nairobi & Kitengela County Parking & EUBP Sentinel",
+                "name": "Nairobi & Nairobi County Parking & EUBP Sentinel",
                 "category": "SaaS / County Compliance",
                 "price_kes": 1500,
                 "target": "Matatus, Delivery Fleets & Nairobi Motorists",

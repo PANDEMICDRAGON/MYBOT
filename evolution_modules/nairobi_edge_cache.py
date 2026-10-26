@@ -6,14 +6,14 @@ import logging
 from typing import Dict, Any, Optional, List
 from pathlib import Path
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [KitengelaEdgeCache]: %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [NairobiEdgeCache]: %(message)s')
 logger = logging.getLogger(__name__)
 
-class KitengelaEdgeCache:
+class NairobiEdgeCache:
     """
     Autonomous local edge content cache providing content-addressable storage,
     cryptographic integrity verification, and localized peer synchronization for
-    Michael Obiero's workstation environment in Kitengela/Nairobi.
+    Michael Obiero's workstation environment in Nairobi/Nairobi.
     """
     def __init__(self, cache_dir: str = "./var/edge_cache", max_size_bytes: int = 500 * 1024 * 1024):
         self.cache_dir = Path(cache_dir)
@@ -117,16 +117,16 @@ class KitengelaEdgeCache:
     def generate_sync_manifest(self) -> Dict[str, str]:
         """
         Generates a lightweight manifest of all cached keys and their hashes
-        for peer-to-peer synchronization across local Kitengela nodes.
+        for peer-to-peer synchronization across local Nairobi nodes.
         """
         return {k: v["content_hash"] for k, v in self._index.items()}
 
 if __name__ == "__main__":
-    print("--- Executing Kitengela Edge Cache Harness ---")
-    cache = KitengelaEdgeCache(cache_dir="./var/test_edge_cache", max_size_bytes=10 * 1024 * 1024)
+    print("--- Executing Nairobi Edge Cache Harness ---")
+    cache = NairobiEdgeCache(cache_dir="./var/test_edge_cache", max_size_bytes=10 * 1024 * 1024)
     
     test_key = "nairobi_operations_manual_v4"
-    test_payload = b"CONFIDENTIAL KILIFI/KITENGELA OPERATIONAL RUNBOOK: SECURE EVERYTHING."
+    test_payload = b"CONFIDENTIAL KILIFI/NAIROBI OPERATIONAL RUNBOOK: SECURE EVERYTHING."
     
     h = cache.put(test_key, test_payload, {"author": "Michael Obiero"})
     print(f"Stored successfully. Hash: {h}")
@@ -136,4 +136,4 @@ if __name__ == "__main__":
     
     manifest = cache.generate_sync_manifest()
     print(f"Generated Sync Manifest: {manifest}")
-    print("--- Kitengela Edge Cache Harness Complete ---")
+    print("--- Nairobi Edge Cache Harness Complete ---")

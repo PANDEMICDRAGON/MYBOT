@@ -101,12 +101,12 @@ if __name__ == "__main__":
     
     # Seed cache
     cacher.store(
-        "What is the current solar power generation status in Kitengela?",
-        "Kitengela micro-grid solar generation is at 4.2 kW, operating at 94% efficiency."
+        "What is the current solar power generation status in Nairobi?",
+        "Nairobi micro-grid solar generation is at 4.2 kW, operating at 94% efficiency."
     )
     
     # Test semantic hit
-    query = "Current solar power status Kitengela"
+    query = "Current solar power status Nairobi"
     res = cacher.lookup(query)
     print(f"[+] Query: '{query}'")
     print(f"[+] Response Found: {res}")

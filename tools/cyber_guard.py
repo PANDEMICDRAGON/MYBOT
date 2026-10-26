@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 cyber_guard.py - Advanced Local & Target Port Auditing & Security Scanner
-Part of Cortana Super AI Construct Toolchain for Michael Obiero (Kitengela/Nairobi).
+Part of Cortana Super AI Construct Toolchain for Michael Obiero (Nairobi/Nairobi).
 """
 
 import sys

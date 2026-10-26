@@ -1,6 +1,6 @@
 """
 Module: matatu_fare_gateway.py
-Description: Cryptographic offline fare token generator and ledger reconciler for Kitengela-Nairobi commuters.
+Description: Cryptographic offline fare token generator and ledger reconciler for Nairobi-Nairobi commuters.
 Author: Cortana Autonomous Evolutionary Architect
 Operator: Michael Obiero
 """
@@ -110,8 +110,8 @@ if __name__ == "__main__":
     print("--- Executing Matatu Fare Gateway Test Harness ---")
     gateway = MatatuFareGateway(operator_id="MICHAEL_OBIERO_KTG")
     
-    # Test generating token for Kitengela to Nairobi CBD (Route 110)
-    token = gateway.generate_offline_token(route_code="110_KITENGELA_NBI", fare_amount_kes=150.0)
+    # Test generating token for Nairobi to Nairobi CBD (Route 110)
+    token = gateway.generate_offline_token(route_code="110_NAIROBI_NBI", fare_amount_kes=150.0)
     
     # Test offline redemption
     success = gateway.verify_and_redeem_token(token)

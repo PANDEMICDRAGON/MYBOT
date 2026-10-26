@@ -1,6 +1,6 @@
 """
 Nairobi Expressway & Major Toll Road Automated RFID/M-Pesa Toll Pass & Cost Minimizer
-Designed for Michael Obiero's seamless transit across Nairobi and Kitengela infrastructure.
+Designed for Michael Obiero's seamless transit across Nairobi infrastructure.
 """
 
 import logging

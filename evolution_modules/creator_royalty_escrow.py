@@ -1,6 +1,6 @@
 """
 Module: creator_royalty_escrow.py
-Description: Autonomous Brand Deal & Royalty Smart Escrow Engine for Nairobi and Kitengela digital creators.
+Description: Autonomous Brand Deal & Royalty Smart Escrow Engine for Nairobi digital creators.
 Author: Cortana Autonomous Evolutionary Architect
 """
 

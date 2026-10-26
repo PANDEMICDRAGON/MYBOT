@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [Gre
 logger = logging.getLogger(__name__)
 
 class GreenhouseSensorNode:
-    """Represents an individual soil moisture and temperature sensor node in the Kitengela/Nairobi agricultural setup."""
+    """Represents an individual soil moisture and temperature sensor node in the Nairobi/Nairobi agricultural setup."""
     def __init__(self, node_id: str, zone: str, moisture_level: float, temperature: float, battery_pct: float):
         self.node_id = node_id
         self.zone = zone
@@ -76,8 +76,8 @@ class GreenhouseIrrigationController:
 
 if __name__ == "__main__":
     controller = GreenhouseIrrigationController(target_moisture=50.0)
-    controller.register_node("NODE_KITENGELA_01", "Tomato_Zone_A", 42.5, 28.4, 88.0)
-    controller.register_node("NODE_KITENGELA_02", "Tomato_Zone_A", 44.0, 29.1, 91.5)
+    controller.register_node("NODE_NAIROBI_01", "Tomato_Zone_A", 42.5, 28.4, 88.0)
+    controller.register_node("NODE_NAIROBI_02", "Tomato_Zone_A", 44.0, 29.1, 91.5)
     controller.register_node(
         "NODE_NAIROBI_01", "Herb_Zone_B", 65.2, 22.0, 10.0
     )  # Low battery test
