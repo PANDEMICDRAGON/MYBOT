@@ -412,8 +412,8 @@ export default async function handler(req, res) {
       }
     }
 
-    // 2.65 High-Fidelity Holographic Visual Synthesis Engine (/image, /imagine, /draw, /avatar, or "generate image of...")
-    const imagePrefixes = ["/image", "/imagine", "/draw", "/avatar", "/art", "generate image", "create image", "render image", "draw an image", "create an avatar", "generate an avatar"];
+    // 2.65 High-Fidelity Humanlike Visual Synthesis & Avatar Engine (/image, /imagine, /draw, /avatar, or "generate image of...")
+    const imagePrefixes = ["/image", "/imagine", "/draw", "/avatar", "/art", "generate image", "create image", "render image", "draw an image", "create an avatar", "generate an avatar", "make an avatar"];
     const isImageDirective = imagePrefixes.some(p => lowerText.startsWith(p) || lowerText.includes(p));
 
     if (isImageDirective) {
@@ -428,26 +428,38 @@ export default async function handler(req, res) {
           break;
         }
       }
-      if (!promptText || promptText.length < 2) {
-        promptText = "ultra-detailed cybernetic holographic AI avatar portrait of Cortana with glowing cyan neural circuits, octane render, 8k resolution";
+
+      const isAvatar = lowerText.includes("avatar") || lowerText.startsWith("/avatar");
+      let finalPrompt = "";
+      let modelChoice = "flux-realism";
+      let aestheticLabel = "Hyper-Realistic Human (Non-Artificial)";
+
+      if (isAvatar) {
+        const customDetail = promptText && promptText.length > 2 ? `, ${promptText}` : "";
+        finalPrompt = `stunning close-up editorial portrait of an authentic real human woman in her late 20s, warm intelligent captivating eyes with natural moisture and realistic catchlights, subtle empathetic confident smile, natural skin texture with visible fine pores and subtle freckles, authentic subsurface scattering, soft textured hairstyle with realistic fine strands, soft directional natural window light, shot on 85mm f/1.4 lens, 35mm film photography aesthetic, creamy bokeh background, highly detailed authentic human photography, no cgi, no 3d render, no plastic skin, no doll, no uncanny valley${customDetail}`;
+        aestheticLabel = "Photorealistic Human Avatar (Higgsfield / FLUX Realism)";
+        await sendTelegramReply(chatId, `👤 *[CORTANA HUMANLIKE AVATAR]*\nSynthesizing hyper-realistic human avatar (natural skin pores, authentic eyes, 85mm portrait optics)...`);
+      } else {
+        if (!promptText || promptText.length < 2) {
+          promptText = "stunning portrait of a real human being, candid lighting, authentic skin texture";
+        }
+        finalPrompt = `${promptText}, masterpiece 35mm photograph, natural human skin texture with real pores, authentic subsurface scattering, sharp eyes, natural lighting, shot on 85mm f/1.4 lens, raw candid photograph, no 3d render, no cartoon, no plastic`;
+        aestheticLabel = "Photorealistic Realism";
+        await sendTelegramReply(chatId, `🎨 *[CORTANA VISUAL SYNTHESIS]*\nSynthesizing photorealistic rendering for: '_${promptText}_'...`);
       }
 
-      await sendTelegramReply(chatId, `🎨 *[CORTANA VISUAL SYNTHESIS]*\nSynthesizing photorealistic rendering for: '_${promptText}_' via FLUX.1 neural engine...`);
-
       const seed = Math.floor(Math.random() * 1000000);
-      const styleTokens = "masterpiece, 8k photorealistic portrait, sharp focus, cinematic studio lighting, octane render, subsurface scattering";
-      const finalPrompt = `${promptText}, ${styleTokens}`;
       const encoded = encodeURIComponent(finalPrompt);
-      const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?model=flux&width=1024&height=1024&nologo=true&seed=${seed}`;
+      const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?model=${modelChoice}&width=1024&height=1024&nologo=true&seed=${seed}`;
 
       const photoCaption = 
-        `🎨 *[CORTANA VISUAL SYNTHESIS // FLUX.1]*\n` +
+        `👤 *[CORTANA HUMANLIKE AVATAR // REALISM CORE]*\n` +
         `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-        `✨ *Prompt:* \`${promptText}\`\n` +
-        `⚙️ *Engine:* \`Black Forest Labs FLUX.1 (1024x1024)\`\n` +
-        `🔮 *Seed:* \`${seed}\` | *Aesthetic:* \`Photorealistic Diffusion\`\n` +
+        `✨ *Subject:* \`${promptText || "Cortana Human Avatar"}\`\n` +
+        `⚙️ *Engine:* \`Black Forest Labs FLUX Realism • Higgsfield Architecture\`\n` +
+        `🔬 *Aesthetic:* \`${aestheticLabel}\`\n` +
         `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-        `_Visual asset synthesized and delivered directly to your terminal._`;
+        `_Warm, authentic human presence synthesized directly to your phone._`;
 
       const sentPhoto = await sendTelegramPhoto(chatId, imageUrl, photoCaption);
       if (!sentPhoto) {

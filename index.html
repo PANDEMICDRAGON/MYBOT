@@ -493,15 +493,15 @@
     </section>
 
     <!-- ===================================================================
-         HOLOGRAPHIC VISUAL SYNTHESIS & AI AVATAR STUDIO (FLUX.1 ENGINE)
+         HUMANLIKE AVATAR // HIGGSFIELD AI (SOUL v2) & FLUX.1 REALISM STUDIO
          =================================================================== -->
     <section id="visual-studio-section" class="draggable-hud-panel hud-panel hud-panel-chamfer p-6 sm:p-8 relative space-y-6" draggable="true" data-panel-id="visual-studio-section">
       <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
         <div class="flex items-center gap-2">
           <span class="drag-icon">⠿</span>
-          <span class="drag-title">[ DRAG TO REARRANGE TILE // HOLOGRAPHIC VISUAL SYNTHESIS & AVATAR STUDIO ]</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // HUMANLIKE AVATAR &amp; HIGGSFIELD VISUAL STUDIO ]</span>
         </div>
-        <span class="drag-hint">FLUX-MKVII</span>
+        <span class="drag-hint">SOULv2-FLUX</span>
       </div>
       <div class="tech-stripe absolute top-0 left-0 right-0"></div>
 
@@ -509,27 +509,66 @@
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-cyan-500/20 pb-4">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/40 flex items-center justify-center text-xl shadow-[0_0_15px_rgba(0,240,255,0.2)]">
-            🎨
+            👩
           </div>
           <div>
             <h2 class="text-base sm:text-lg font-black tracking-widest text-white uppercase font-display flex items-center gap-2">
-              <span>VISUAL SYNTHESIS</span> // <span class="text-cyan-400 glow-cyan">FLUX.1 STUDIO</span>
+              <span>HUMANLIKE AVATAR</span> // <span class="text-cyan-400 glow-cyan">HIGGSFIELD &amp; FLUX STUDIO</span>
               <span class="text-[9px] px-2 py-0.5 rounded font-mono bg-purple-950/80 text-purple-300 border border-purple-500/40 tracking-normal hidden sm:inline-block">
-                PHOTOREALISTIC 8K
+                SOUL v2 + FLUX REALISM
               </span>
             </h2>
             <p class="text-xs text-slate-400 font-mono mt-0.5">
-              High-resolution neural diffusion engine for character avatars, holographic entities & concept art.
+              Dual-engine neural generation (Higgsfield AI SOUL v2 + Black Forest Labs FLUX.1 Realism) for authentic, lifelike human character avatars.
             </p>
           </div>
         </div>
 
-        <div class="flex items-center gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <button id="btn-toggle-higgsfield-modal" class="text-[10px] font-mono px-2.5 py-1 rounded bg-purple-950/80 text-purple-300 border border-purple-500/40 hover:border-purple-300 hover:bg-purple-900/60 transition-all flex items-center gap-1.5 cursor-pointer" title="Configure Higgsfield AI Key">
+            <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+            <span id="higgsfield-status-label">⚡ HIGGSFIELD AI: CONFIGURE</span>
+          </button>
           <span id="visual-engine-badge" class="text-[10px] font-mono px-2.5 py-1 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-500/40 flex items-center gap-1.5">
             <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-            <span>BLACK FOREST LABS FLUX.1</span>
+            <span id="visual-engine-label">FLUX.1 REALISM ACTIVE</span>
           </span>
         </div>
+      </div>
+
+      <!-- Higgsfield AI Key Drawer / Embedded Configuration -->
+      <div id="higgsfield-key-drawer" class="hidden p-4 rounded-lg bg-purple-950/40 border border-purple-500/40 space-y-3">
+        <div class="flex items-center justify-between border-b border-purple-500/20 pb-2">
+          <div class="flex items-center gap-2 text-xs font-mono font-bold text-white">
+            <span class="text-purple-400">⚡</span>
+            <span>HIGGSFIELD AI (SOUL v2) EMBEDDED ENGINE INTEGRATION</span>
+          </div>
+          <button id="btn-close-higgsfield-drawer" class="text-slate-400 hover:text-white text-xs font-mono">&times; CLOSE</button>
+        </div>
+        <p class="text-[11px] text-slate-300 font-mono">
+          Enter your Higgsfield API Key (or <code class="text-purple-300 font-bold">KEY_ID:KEY_SECRET</code>). When set, requests route directly through Higgsfield AI SOUL v2 (<code class="text-purple-300">higgsfield-ai/soul/v2/standard</code>) for photorealistic human avatars. When unconfigured, the system automatically uses Black Forest Labs FLUX.1 Realism at zero cost.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center gap-2">
+          <input 
+            type="password" 
+            id="higgsfield-key-input" 
+            placeholder="Enter Higgsfield API Key or KEY_ID:KEY_SECRET..." 
+            class="w-full sm:flex-1 bg-slate-950 border border-purple-500/40 rounded px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-purple-300 placeholder:text-slate-600"
+          />
+          <button 
+            id="btn-save-higgsfield-key" 
+            class="w-full sm:w-auto px-4 py-1.5 rounded bg-purple-700 hover:bg-purple-600 text-white font-mono text-xs font-bold transition-all shadow-[0_0_12px_rgba(168,85,247,0.4)]"
+          >
+            LINK HIGGSFIELD ENGINE
+          </button>
+          <button 
+            id="btn-clear-higgsfield-key" 
+            class="w-full sm:w-auto px-3 py-1.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-mono text-xs transition-all"
+          >
+            Clear
+          </button>
+        </div>
+        <div id="higgsfield-key-feedback" class="text-[10px] font-mono text-purple-300"></div>
       </div>
 
       <!-- Studio Layout: Left Controls (5 cols) & Right Canvas (7 cols) -->
@@ -542,25 +581,25 @@
           <div class="space-y-1.5">
             <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
               <span class="flex items-center gap-1.5 text-cyan-300 font-bold">
-                <span>⚡</span> AVATAR & CONCEPT PRESETS
+                <span>👤</span> LIFELIKE HUMAN AVATAR PRESETS
               </span>
               <span class="text-[10px] text-slate-500">1-Click Load</span>
             </div>
             <div class="flex flex-wrap gap-1.5" id="visual-preset-container">
-              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-950/50 transition-all flex items-center gap-1" data-preset="cortana">
-                👑 Cortana Avatar
+              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-950/50 transition-all flex items-center gap-1" data-preset="cortana_human">
+                👩 Cortana Human Persona
               </button>
-              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-purple-300 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-950/50 transition-all flex items-center gap-1" data-preset="unsc">
-                🌌 UNSC Construct
+              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-purple-300 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-950/50 transition-all flex items-center gap-1" data-preset="operator_twin">
+                🧑 Operator Digital Twin
               </button>
-              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-amber-300 border border-amber-500/30 hover:border-amber-400 hover:bg-amber-950/50 transition-all flex items-center gap-1" data-preset="jarvis">
-                🤖 Stark Arc Hologram
+              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-amber-300 border border-amber-500/30 hover:border-amber-400 hover:bg-amber-950/50 transition-all flex items-center gap-1" data-preset="candid_35mm">
+                📸 Candid 35mm Street
               </button>
-              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-emerald-300 border border-emerald-500/30 hover:border-emerald-400 hover:bg-emerald-950/50 transition-all flex items-center gap-1" data-preset="nairobi">
-                🏙️ Cyber Nairobi 2077
+              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-emerald-300 border border-emerald-500/30 hover:border-emerald-400 hover:bg-emerald-950/50 transition-all flex items-center gap-1" data-preset="beauty_portrait">
+                🌟 Studio Beauty Portrait
               </button>
-              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-rose-300 border border-rose-500/30 hover:border-rose-400 hover:bg-rose-950/50 transition-all flex items-center gap-1" data-preset="warrior">
-                🦁 Maasai Cyber-Warrior
+              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-rose-300 border border-rose-500/30 hover:border-rose-400 hover:bg-rose-950/50 transition-all flex items-center gap-1" data-preset="maasai_portrait">
+                🦁 Maasai Cultural Portrait
               </button>
             </div>
           </div>
@@ -584,14 +623,17 @@
               🔮 AESTHETIC STYLE MATRIX
             </span>
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5" id="visual-style-selector">
-              <button class="style-preset-chip active text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-cyan-500/40 text-slate-300 text-center" data-style="photorealistic">
-                📸 Photorealistic 8K
+              <button class="style-preset-chip active text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-cyan-500/40 text-cyan-300 text-center" data-style="humanlike">
+                👤 Human Realism
               </button>
-              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="cybernetic">
-                🔮 Cyber Hologram
+              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="photorealistic">
+                📸 Photorealistic 8K
               </button>
               <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="cinematic">
                 🎬 Cinematic Movie
+              </button>
+              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="cybernetic">
+                🔮 Cyber Hologram
               </button>
               <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="octane3d">
                 💎 3D Octane Render
@@ -634,7 +676,7 @@
 
             <button id="btn-visual-generate" class="hud-btn w-full bg-gradient-to-r from-cyan-950 via-slate-900 to-purple-950 border border-cyan-400 hover:border-cyan-300 text-cyan-200 hover:text-white py-3 px-4 font-bold text-xs font-mono tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.2)] transition-all">
               <span class="text-base">✨</span>
-              <span id="btn-visual-label">SYNTHESIZE HIGH-RES VISUAL</span>
+              <span id="btn-visual-label">SYNTHESIZE HUMANLIKE AVATAR</span>
             </button>
           </div>
         </div>

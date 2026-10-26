@@ -2550,22 +2550,24 @@ async def start_local_command_server(port: int = 5050):
                 try:
                     payload = json.loads(body_bytes.decode("utf-8", errors="ignore")) if body_bytes else {}
                     img_prompt = payload.get("prompt", "")
-                    img_style = payload.get("style", "photorealistic")
+                    img_style = payload.get("style", "humanlike")
                     img_ratio = payload.get("ratio", "1:1")
                     img_seed = payload.get("seed")
+                    img_engine = payload.get("engine", "auto")
                     relay_tg = bool(payload.get("relay_telegram", False))
                     async with httpx.AsyncClient(timeout=45) as hclient:
-                        res_img = await generate_image_asset(hclient, prompt=img_prompt, style_preset=img_style, aspect_ratio=img_ratio, seed=img_seed)
+                        res_img = await generate_image_asset(hclient, prompt=img_prompt, style_preset=img_style, aspect_ratio=img_ratio, seed=img_seed, engine=img_engine)
                         tg_dispatched = False
                         if relay_tg and TELEGRAM_TOKEN and AUTHORIZED_CHAT_ID:
+                            engine_name = res_img["record"].get("model", "FLUX Realism")
                             caption = (
-                                f"🎨 *[CORTANA VISUAL SYNTHESIS // FLUX.1 CORE]*\n"
+                                f"👤 *[CORTANA HUMANLIKE AVATAR // {engine_name.toUpperCase() if hasattr(engine_name, 'toUpperCase') else str(engine_name).upper()}]*\n"
                                 f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
                                 f"✨ *Subject:* `{img_prompt}`\n"
-                                f"⚙️ *Engine:* `Black Forest Labs FLUX.1`\n"
-                                f"🔮 *Aesthetic:* `{img_style.upper()}`\n"
+                                f"⚙️ *Engine:* `{engine_name}`\n"
+                                f"🔬 *Aesthetic:* `{img_style.upper()} (Photorealistic Human)`\n"
                                 f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
-                                f"_Visual asset synthesized via Web HUD Studio._"
+                                f"_Lifelike human presence synthesized via Web HUD Studio._"
                             )
                             if res_img.get("image_bytes"):
                                 tg_dispatched = await send_telegram_photo(hclient, res_img["image_bytes"], caption)
@@ -6184,13 +6186,14 @@ async def send_telegram_photo(client: httpx.AsyncClient, photo_source, caption: 
 async def generate_image_asset(
     client: httpx.AsyncClient,
     prompt: str,
-    style_preset: str = "photorealistic",
+    style_preset: str = "humanlike",
     aspect_ratio: str = "1:1",
     seed: int = None,
-    save_locally: bool = True
+    save_locally: bool = True,
+    engine: str = "auto"
 ) -> dict:
     """
-    Generates high-fidelity visual assets powered by Black Forest Labs FLUX.1.
+    Generates high-fidelity visual assets powered by Higgsfield AI SOUL v2 & Black Forest Labs FLUX.1 Realism.
     Downloads and archives the physical image to 'generated_images/' on disk,
     updates Supabase bot_memory, and returns image metadata.
     """
@@ -6203,25 +6206,75 @@ async def generate_image_asset(
     width, height = ratio_map.get(aspect_ratio, (1024, 1024))
     
     style_modifiers = {
-        "photorealistic": "masterpiece, 8k photorealistic portrait, intricate facial details, sharp focus, cinematic studio lighting, shot on 35mm lens, subsurface scattering, octane render",
-        "cybernetic": "holographic cybernetic AI construct, glowing cyan and electric blue neural circuits, translucent particle matrix, Stark Industries / Halo Cortana UNSC aesthetic, volumetric neon lighting, 8k octane render",
-        "cinematic": "cinematic movie still, dramatic chiaroscuro lighting, shallow depth of field, anamorphic lens flare, 8k resolution, IMAX masterpiece, atmospheric particles and mist",
-        "anime": "masterpiece anime digital artwork, crisp lines, Makoto Shinkai vibrant aesthetic, Studio Ghibli cinematic lighting, stunning atmospheric composition",
-        "octane3d": "3D Octane render, raytraced reflections, metallic and glass textures, photorealistic materials, Unreal Engine 5 aesthetic, volumetric lighting, 8k"
+        "humanlike": "hyper-realistic candid portrait of an authentic real human being, lifelike expressive eyes with natural moisture and fine reflections, natural skin pores, realistic skin micro-texture, subtle natural imperfections, authentic subsurface scattering, real human hair texture, soft directional studio lighting, shot on 85mm f/1.4 lens, 35mm photograph, shallow depth of field, creamy bokeh, real photography, no plastic skin, no 3d render, no cgi, no doll",
+        "photorealistic": "masterpiece 35mm portrait photograph, natural human skin texture with real pores, authentic subsurface scattering, sharp eyes, natural lighting, shot on 85mm f/1.4 lens, raw candid photograph, no 3d render, no cartoon, no plastic",
+        "editorial": "high-fashion editorial magazine portrait photograph, authentic human model, natural skin texture, sophisticated studio lighting, shot on Hasselblad medium format camera, Vogue aesthetic, 8k",
+        "cinematic": "cinematic 35mm motion picture still, authentic human characters, natural skin tones, dramatic soft lighting, shallow depth of field, Panavision anamorphic lens, realistic film grain, photorealistic",
+        "cybernetic": "futuristic cybernetic human portrait, real human face with subtle chrome neural inlays, translucent holographic HUD reflections, volumetric lighting, photorealistic cinematic portrait"
     }
-    modifier = style_modifiers.get(style_preset.lower(), style_modifiers["photorealistic"])
-    clean_prompt = prompt.strip() if prompt else "cybernetic holographic AI avatar portrait of Cortana with glowing cyan circuits"
+    modifier = style_modifiers.get(style_preset.lower(), style_modifiers["humanlike"])
+    clean_prompt = prompt.strip() if prompt else "stunning portrait of a real human woman in her late 20s, natural skin texture with fine pores, expressive warm eyes, authentic subsurface scattering, shot on 85mm f/1.4 lens"
     enhanced_prompt = f"{clean_prompt}, {modifier}"
     
     actual_seed = seed if seed is not None else random.randint(1, 999999)
-    encoded_prompt = urllib.parse.quote(enhanced_prompt)
-    image_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?model=flux&width={width}&height={height}&nologo=true&seed={actual_seed}"
+    image_url = None
+    engine_used = "Black Forest Labs FLUX.1 Realism"
+
+    # 1. Tier 1: Higgsfield SOUL v2 if credentials present
+    hf_key = os.getenv("HIGGSFIELD_KEY") or (
+        f"{os.getenv('HIGGSFIELD_KEY_ID')}:{os.getenv('HIGGSFIELD_KEY_SECRET')}"
+        if os.getenv('HIGGSFIELD_KEY_ID') and os.getenv('HIGGSFIELD_KEY_SECRET')
+        else None
+    )
+
+    if hf_key and (engine in ("higgsfield", "auto")):
+        try:
+            logger.info("Attempting Higgsfield AI SOUL v2 generation...")
+            hf_res = await client.post(
+                "https://api.higgsfield.ai/higgsfield-ai/soul/v2/standard",
+                headers={
+                    "Authorization": f"Key {hf_key}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "prompt": enhanced_prompt,
+                    "resolution": "1080p",
+                    "aspect_ratio": "9:16" if aspect_ratio == "9:16" else ("16:9" if aspect_ratio == "16:9" else "1:1"),
+                    "enhance_prompt": True
+                },
+                timeout=15.0
+            )
+            if hf_res.status_code in (200, 202):
+                hf_data = hf_res.json()
+                status_url = hf_data.get("status_url")
+                if status_url:
+                    for _ in range(12):
+                        await asyncio.sleep(4.0)
+                        poll_res = await client.get(status_url, headers={"Authorization": f"Key {hf_key}"}, timeout=10.0)
+                        if poll_res.status_code == 200:
+                            poll_data = poll_res.json()
+                            if poll_data.get("status") == "completed" and poll_data.get("output"):
+                                out = poll_data["output"]
+                                image_url = out[0] if isinstance(out, list) else (out.get("url") if isinstance(out, dict) else out)
+                                engine_used = "Higgsfield AI SOUL v2"
+                                logger.info(f"Higgsfield SOUL v2 completed: {image_url}")
+                                break
+                            elif poll_data.get("status") in ("failed", "canceled"):
+                                break
+        except Exception as e_hf:
+            logger.warning(f"[Higgsfield Dispatch Fallback]: {e_hf}")
+
+    # 2. Tier 2: FLUX.1 Realism Engine
+    if not image_url:
+        encoded_prompt = urllib.parse.quote(enhanced_prompt)
+        image_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?model=flux-realism&width={width}&height={height}&nologo=true&seed={actual_seed}"
+        engine_used = "Black Forest Labs FLUX.1 Realism"
     
     local_file_path = None
     image_bytes = None
     
     try:
-        logger.info(f"Downloading FLUX.1 visual synthesis for: '{clean_prompt[:50]}...'")
+        logger.info(f"Downloading {engine_used} asset for: '{clean_prompt[:50]}...'")
         img_resp = await client.get(image_url, timeout=40)
         if img_resp.status_code == 200 and len(img_resp.content) > 1000:
             image_bytes = img_resp.content
@@ -6230,7 +6283,7 @@ async def generate_image_asset(
                 out_dir.mkdir(parents=True, exist_ok=True)
                 slug = re.sub(r'[^a-zA-Z0-9]', '_', clean_prompt[:25]).strip('_').lower()
                 ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
-                local_file = out_dir / f"flux_{ts}_{slug}_{actual_seed}.jpg"
+                local_file = out_dir / f"avatar_{ts}_{slug}_{actual_seed}.jpg"
                 with open(local_file, "wb") as f:
                     f.write(image_bytes)
                 local_file_path = str(local_file)
@@ -6248,7 +6301,7 @@ async def generate_image_asset(
         "height": height,
         "seed": actual_seed,
         "local_path": local_file_path,
-        "model": "Black Forest Labs FLUX.1",
+        "model": engine_used,
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     

@@ -1,5 +1,6 @@
 // api/image.js - Vercel Serverless Function
-// High-Fidelity Holographic Visual Synthesis Engine powered by Black Forest Labs FLUX.1
+// High-Fidelity Humanlike Visual Synthesis & Avatar Engine
+// Powered by Higgsfield AI SOUL v2 & Black Forest Labs FLUX.1 Realism
 // Operates 24/7 on Vercel's global edge infrastructure with direct Telegram photo relay.
 
 export default async function handler(req, res) {
@@ -7,7 +8,7 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, x-operator-passcode");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, x-operator-passcode, x-higgsfield-key");
 
   if (req.method === "OPTIONS") {
     return res.status(200).end();
@@ -26,13 +27,13 @@ export default async function handler(req, res) {
     "4:5": { width: 896, height: 1120, label: "Portrait (4:5)" }
   };
 
-  // Style matrix modifier tokens
+  // Aesthetic modifiers optimized for authentic human realism (eliminates artificial plastic/CGI look)
   const styleModifiers = {
-    photorealistic: "masterpiece, 8k photorealistic portrait, intricate facial details, sharp focus, cinematic studio lighting, shot on 35mm lens, subsurface scattering, octane render",
-    cybernetic: "holographic cybernetic AI construct, glowing cyan and electric blue neural circuits, translucent particle matrix, Stark Industries / Halo Cortana UNSC aesthetic, volumetric neon lighting, 8k octane render",
-    cinematic: "cinematic movie still, dramatic chiaroscuro lighting, shallow depth of field, anamorphic lens flare, 8k resolution, IMAX masterpiece, atmospheric particles and mist",
-    anime: "masterpiece anime digital artwork, crisp lines, Makoto Shinkai vibrant aesthetic, Studio Ghibli cinematic lighting, stunning atmospheric composition",
-    octane3d: "3D Octane render, raytraced reflections, metallic and glass textures, photorealistic materials, Unreal Engine 5 aesthetic, volumetric lighting, 8k"
+    humanlike: "hyper-realistic candid portrait of an authentic real human being, lifelike expressive eyes with natural moisture and fine reflections, natural skin pores, realistic skin micro-texture, subtle natural imperfections, authentic subsurface scattering, real human hair texture, soft directional studio lighting, shot on 85mm f/1.4 lens, 35mm photograph, shallow depth of field, creamy bokeh, real photography, no plastic skin, no 3d render, no cgi, no doll",
+    photorealistic: "masterpiece 35mm portrait photograph, natural human skin texture with real pores, authentic subsurface scattering, sharp eyes, natural lighting, shot on 85mm f/1.4 lens, raw candid photograph, no 3d render, no cartoon, no plastic",
+    editorial: "high-fashion editorial magazine portrait photograph, authentic human model, natural skin texture, sophisticated studio lighting, shot on Hasselblad medium format camera, Vogue aesthetic, 8k",
+    cinematic: "cinematic 35mm motion picture still, authentic human characters, natural skin tones, dramatic soft lighting, shallow depth of field, Panavision anamorphic lens, realistic film grain, photorealistic",
+    cybernetic: "futuristic cybernetic human portrait, real human face with subtle chrome neural inlays, translucent holographic HUD reflections, volumetric lighting, photorealistic cinematic portrait"
   };
 
   try {
@@ -48,19 +49,76 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Visual prompt is required." });
     }
 
-    const style = (params.style || "photorealistic").toLowerCase();
+    const style = (params.style || "humanlike").toLowerCase();
     const ratio = params.ratio || "1:1";
     const dimensions = ratioMap[ratio] || ratioMap["1:1"];
     const shouldRelayTelegram = params.relay_telegram === true || params.relay_telegram === "true";
     const seed = params.seed ? parseInt(params.seed, 10) : Math.floor(Math.random() * 1000000);
 
     // Build enhanced prompt
-    const modifier = styleModifiers[style] || styleModifiers.photorealistic;
+    const modifier = styleModifiers[style] || styleModifiers.humanlike;
     const finalPrompt = `${rawPrompt}, ${modifier}`;
 
-    // Direct FLUX.1 generation endpoint (Black Forest Labs FLUX.1 via high-speed edge CDN)
-    const encodedPrompt = encodeURIComponent(finalPrompt);
-    const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=flux&width=${dimensions.width}&height=${dimensions.height}&nologo=true&seed=${seed}`;
+    // Higgsfield AI API Credential Check
+    const hfKey = params.higgsfield_key || req.headers["x-higgsfield-key"] || process.env.HIGGSFIELD_KEY || 
+      (process.env.HIGGSFIELD_KEY_ID && process.env.HIGGSFIELD_KEY_SECRET ? `${process.env.HIGGSFIELD_KEY_ID}:${process.env.HIGGSFIELD_KEY_SECRET}` : null);
+
+    let imageUrl = null;
+    let engineUsed = "Black Forest Labs FLUX.1 Realism";
+
+    // 1. TIER 1: If Higgsfield API credentials present, synthesize via Higgsfield SOUL v2
+    if (hfKey && (params.engine === "higgsfield" || !params.engine)) {
+      try {
+        const hfRes = await fetch("https://api.higgsfield.ai/higgsfield-ai/soul/v2/standard", {
+          method: "POST",
+          headers: {
+            "Authorization": `Key ${hfKey}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            prompt: finalPrompt,
+            resolution: "1080p",
+            aspect_ratio: ratio === "9:16" ? "9:16" : (ratio === "16:9" ? "16:9" : "1:1"),
+            enhance_prompt: true
+          }),
+          signal: AbortSignal.timeout(15000)
+        });
+
+        if (hfRes.ok) {
+          const hfData = await hfRes.json();
+          const statusUrl = hfData.status_url;
+          if (statusUrl) {
+            // Poll for completion (up to 12 attempts * 4s = ~48s)
+            for (let i = 0; i < 12; i++) {
+              await new Promise(resolve => setTimeout(resolve, 4000));
+              const pollRes = await fetch(statusUrl, {
+                headers: { "Authorization": `Key ${hfKey}` },
+                signal: AbortSignal.timeout(10000)
+              });
+              if (pollRes.ok) {
+                const pollData = await pollRes.json();
+                if (pollData.status === "completed" && pollData.output) {
+                  imageUrl = Array.isArray(pollData.output) ? pollData.output[0] : (pollData.output.url || pollData.output);
+                  engineUsed = "Higgsfield AI SOUL v2";
+                  break;
+                } else if (pollData.status === "failed" || pollData.status === "canceled") {
+                  break;
+                }
+              }
+            }
+          }
+        }
+      } catch (hfErr) {
+        console.warn("[Higgsfield SOUL Dispatch Fallback]:", hfErr.message);
+      }
+    }
+
+    // 2. TIER 2: High-Performance FLUX.1 Realism Engine (Active Default / Fallback)
+    if (!imageUrl) {
+      const encodedPrompt = encodeURIComponent(finalPrompt);
+      imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?model=flux-realism&width=${dimensions.width}&height=${dimensions.height}&nologo=true&seed=${seed}`;
+      engineUsed = "Black Forest Labs FLUX.1 Realism";
+    }
 
     let telegramDispatched = false;
     let telegramError = null;
@@ -69,13 +127,13 @@ export default async function handler(req, res) {
     if (shouldRelayTelegram && token && authorizedChatId) {
       try {
         const caption = 
-          `🎨 *[CORTANA VISUAL SYNTHESIS // FLUX.1 CORE]*\n` +
+          `👤 *[CORTANA HUMANLIKE AVATAR // ${engineUsed.toUpperCase()}]*\n` +
           `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
           `✨ *Subject:* \`${rawPrompt}\`\n` +
-          `⚙️ *Engine:* \`Black Forest Labs FLUX.1 (${dimensions.width}x${dimensions.height})\`\n` +
-          `🔮 *Aesthetic:* \`${style.toUpperCase()}\` | *Seed:* \`${seed}\`\n` +
+          `⚙️ *Engine:* \`${engineUsed} (${dimensions.width}x${dimensions.height})\`\n` +
+          `🔬 *Aesthetic:* \`${style.toUpperCase()} (Photorealistic Human)\` | *Seed:* \`${seed}\`\n` +
           `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-          `_Visual asset synthesized and delivered directly to your phone._`;
+          `_Lifelike human avatar synthesized and delivered directly to your phone._`;
 
         const tgRes = await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
           method: "POST",
@@ -91,7 +149,7 @@ export default async function handler(req, res) {
         if (tgRes.ok) {
           telegramDispatched = true;
         } else {
-          // Retry without parse_mode in case of formatting mismatch
+          // Retry without parse_mode in case of markdown formatting mismatch
           const tgRes2 = await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -124,6 +182,7 @@ export default async function handler(req, res) {
           width: dimensions.width,
           height: dimensions.height,
           seed: seed,
+          engine: engineUsed,
           telegram_sent: telegramDispatched,
           created_at: new Date().toISOString()
         };
@@ -155,7 +214,8 @@ export default async function handler(req, res) {
       ratio: ratio,
       dimensions: dimensions,
       seed: seed,
-      model: "Black Forest Labs FLUX.1",
+      model: engineUsed,
+      higgsfield_enabled: Boolean(hfKey),
       telegram_dispatched: telegramDispatched,
       telegram_error: telegramError,
       timestamp: new Date().toISOString()

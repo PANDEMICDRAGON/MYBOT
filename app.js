@@ -6131,33 +6131,100 @@ window.loadDashboard = async function() {
 // =====================================================================
 
 const VISUAL_PRESETS = {
-  cortana: "High-tech holographic AI avatar of Cortana, glowing ethereal cyan cybernetic data streams, translucent illuminated skin, intricate glowing circuits, photorealistic 8K, cinematic lighting, futuristic halo aesthetic",
-  unsc: "Futuristic UNSC orbital intelligence construct, monolithic cybernetic holographic AI entity, deep violet and crystalline blue lighting, hyper-detailed data halo, sci-fi military command interface, 8K octane render",
-  jarvis: "Futuristic Tony Stark Arc Hologram visualizer, glowing geometric golden and cyan holographic rings, floating data nodes, hyper-detailed 3D volumetric HUD, sleek billionaire lab backdrop",
-  nairobi: "Cyberpunk Nairobi 2077 at night, towering holographic skyscrapers, futuristic matatus flying on magnetic levitation tracks, neon purple and emerald lighting, photorealistic cinematic street level view",
-  warrior: "Futuristic Maasai cyber-warrior, wearing traditional shuka with woven glowing fiber-optic circuits and chrome cybernetic armor, standing against a high-tech Rift Valley savannah at sunset, 8K cinematic portrait"
+  cortana_human: "Hyper-realistic portrait of an intelligent charismatic woman in her late 20s, dark brunette hair styled neatly, piercing hazel-green eyes with natural catchlights, authentic skin texture with visible fine pores and delicate subsurface scattering, calm confident smile, dressed in tailored executive minimalist charcoal blazer, soft studio rim lighting, 85mm f/1.4 photography, high detail 8k, master photography, no cgi, no plastic skin",
+  operator_twin: "Hyper-realistic photorealistic portrait of an African digital operator and systems strategist in Nairobi, warm amber studio lighting, natural skin texture, sharp focused eyes, refined modern technical turtleneck, shallow depth of field, 85mm lens, award-winning authentic editorial portrait",
+  candid_35mm: "Candid 35mm street photography portrait of a stunning woman smiling naturally, natural golden hour sunlight, authentic imperfections, subtle laugh lines, natural hair strands blowing slightly in the breeze, vibrant authentic city background, shot on Leica M11 35mm f/1.4",
+  beauty_portrait: "High-end studio beauty editorial portrait of a woman, natural glowing skin, subtle lip tint, visible authentic skin pores, fine natural lashes, soft diffused octabox lighting, sharp focus on eyes, 8k resolution, photorealistic masterpiece, authentic human anatomy",
+  maasai_portrait: "Striking authentic documentary portrait of a proud Kenyan woman adorned in intricate traditional beadwork necklace, warm sunset light reflecting off smooth authentic skin, natural expressive brown eyes, beautiful authentic cultural elegance, shot on Hasselblad H6D-100c"
 };
 
 const RANDOM_VISUAL_IDEAS = [
-  "Ethereal digital AI avatar emerging from a cascading stream of shimmering cyan quantum code, photorealistic 8K, volumetric studio lighting, subsurface scattering",
-  "Sleek cybernetic intelligence core floating in zero gravity inside a glass bridge cockpit overlooking Earth at sunrise, photorealistic 8K octane render",
-  "Cyberpunk tactical intelligence operative sitting at an ultra-wide holographic command deck overlooking a neon rain-drenched megacity, cinematic lighting",
-  "Majestic mechanical cyber-lion with glowing crystalline mane standing upon a monolithic data obelisk, dramatic twilight lighting, 8K wallpaper",
-  "Hyper-detailed futuristic cyber-samurai helmet with glowing cyan HUD visor, weathered matte-black carbon fiber armor, cinematic anamorphic lens flare",
-  "Hyper-realistic futuristic android android portrait, translucent porcelain skin revealing delicate gold and cyan neural micro-wiring, cinematic depth of field, 8K"
+  "Photorealistic 85mm portrait of an authentic woman with natural warm smile, delicate freckles, natural skin pores, soft window lighting, lifelike human expression, no cgi, no artificial render",
+  "Authentic cinematic 35mm film photograph of an intelligent cyber systems architect in a minimalist glass studio, natural skin texture, lifelike eyes, soft daylight",
+  "High-end editorial beauty portrait, natural skin details, true subsurface scattering, subtle catchlights in hazel eyes, clean studio lighting, 8k authentic photography",
+  "Candid portrait of an operator smiling warmly in a sunlit modern workspace, realistic hair strands, authentic human features, 85mm f/1.4 lens, natural bokeh",
+  "Intimate 50mm portrait of a serene woman looking at the camera, authentic skin texture, natural soft daylight, subtle depth of field, true human photorealism",
+  "Editorial portrait of a poised African female strategist in Nairobi, authentic complexion, natural skin pores, elegant minimalist attire, studio softbox lighting"
 ];
 
 let currentVisualState = {
-  style: "photorealistic",
+  style: "humanlike",
   ratio: "1:1",
   currentImageUrl: null,
   currentPrompt: "",
-  dimensions: { width: 1024, height: 1024 }
+  dimensions: { width: 1024, height: 1024 },
+  higgsfieldKey: localStorage.getItem("ai_hud_higgsfield_key") || ""
 };
 
 function initVisualSynthesisStudio() {
   const container = document.getElementById("visual-studio-section");
   if (!container) return;
+
+  // Higgsfield Key UI Elements
+  const higgsfieldDrawer = document.getElementById("higgsfield-key-drawer");
+  const btnToggleDrawer = document.getElementById("btn-toggle-higgsfield-modal");
+  const btnCloseDrawer = document.getElementById("btn-close-higgsfield-drawer");
+  const higgsInput = document.getElementById("higgsfield-key-input");
+  const btnSaveHiggs = document.getElementById("btn-save-higgsfield-key");
+  const btnClearHiggs = document.getElementById("btn-clear-higgsfield-key");
+  const higgsFeedback = document.getElementById("higgsfield-key-feedback");
+  const higgsStatusLabel = document.getElementById("higgsfield-status-label");
+  const visualEngineLabel = document.getElementById("visual-engine-label");
+
+  function updateHiggsfieldUIState() {
+    const key = localStorage.getItem("ai_hud_higgsfield_key") || "";
+    currentVisualState.higgsfieldKey = key;
+    if (key) {
+      if (higgsStatusLabel) higgsStatusLabel.textContent = "⚡ HIGGSFIELD AI: LINKED";
+      if (visualEngineLabel) visualEngineLabel.textContent = "HIGGSFIELD SOUL v2 ACTIVE";
+      if (higgsInput) higgsInput.value = key;
+      if (higgsFeedback) higgsFeedback.textContent = "✓ Higgsfield AI key linked. Primary avatar synthesis routed to SOUL v2.";
+    } else {
+      if (higgsStatusLabel) higgsStatusLabel.textContent = "⚡ HIGGSFIELD AI: CONFIGURE";
+      if (visualEngineLabel) visualEngineLabel.textContent = "FLUX.1 REALISM ACTIVE";
+      if (higgsInput) higgsInput.value = "";
+      if (higgsFeedback) higgsFeedback.textContent = "ℹ No key linked. Defaulting to Black Forest Labs FLUX.1 Realism.";
+    }
+  }
+
+  updateHiggsfieldUIState();
+
+  if (btnToggleDrawer && higgsfieldDrawer) {
+    btnToggleDrawer.addEventListener("click", () => {
+      higgsfieldDrawer.classList.toggle("hidden");
+      if (!higgsfieldDrawer.classList.contains("hidden") && higgsInput) {
+        higgsInput.focus();
+      }
+    });
+  }
+
+  if (btnCloseDrawer && higgsfieldDrawer) {
+    btnCloseDrawer.addEventListener("click", () => {
+      higgsfieldDrawer.classList.add("hidden");
+    });
+  }
+
+  if (btnSaveHiggs && higgsInput) {
+    btnSaveHiggs.addEventListener("click", () => {
+      const val = higgsInput.value.trim();
+      if (val) {
+        localStorage.setItem("ai_hud_higgsfield_key", val);
+        updateHiggsfieldUIState();
+        if (typeof playSciFiChirp === "function") playSciFiChirp("confirm");
+        setTimeout(() => {
+          if (higgsfieldDrawer) higgsfieldDrawer.classList.add("hidden");
+        }, 1200);
+      }
+    });
+  }
+
+  if (btnClearHiggs) {
+    btnClearHiggs.addEventListener("click", () => {
+      localStorage.removeItem("ai_hud_higgsfield_key");
+      updateHiggsfieldUIState();
+      if (typeof playSciFiChirp === "function") playSciFiChirp("blip");
+    });
+  }
 
   // 1. Avatar & Concept Presets
   document.querySelectorAll(".visual-preset-btn").forEach(btn => {
@@ -6195,12 +6262,12 @@ function initVisualSynthesisStudio() {
     chip.addEventListener("click", () => {
       if (typeof playSciFiChirp === "function") playSciFiChirp("blip");
       document.querySelectorAll(".style-preset-chip").forEach(c => {
-        c.classList.remove("active", "border-cyan-500/40", "text-slate-300");
+        c.classList.remove("active", "border-cyan-500/40", "text-cyan-300");
         c.classList.add("border-slate-700", "text-slate-400");
       });
-      chip.classList.add("active", "border-cyan-500/40", "text-slate-300");
+      chip.classList.add("active", "border-cyan-500/40", "text-cyan-300");
       chip.classList.remove("border-slate-700", "text-slate-400");
-      currentVisualState.style = chip.getAttribute("data-style") || "photorealistic";
+      currentVisualState.style = chip.getAttribute("data-style") || "humanlike";
     });
   });
 
@@ -6236,9 +6303,12 @@ function initVisualSynthesisStudio() {
       }
 
       // Enter Synthesis State
+      const storedHiggsKey = localStorage.getItem("ai_hud_higgsfield_key") || "";
       if (typeof playSciFiChirp === "function") playSciFiChirp("confirm");
       btnGenerate.disabled = true;
-      if (btnLabel) btnLabel.textContent = "SYNTHESIZING FLUX.1 NEURAL ASSET...";
+      if (btnLabel) {
+        btnLabel.textContent = storedHiggsKey ? "SYNTHESIZING WITH HIGGSFIELD AI (SOUL v2)..." : "SYNTHESIZING WITH FLUX.1 REALISM...";
+      }
       if (scannerBeam) scannerBeam.classList.remove("hidden");
 
       const payload = {
@@ -6246,7 +6316,14 @@ function initVisualSynthesisStudio() {
         style: currentVisualState.style,
         ratio: currentVisualState.ratio,
         relay_telegram: relayCheckbox ? relayCheckbox.checked : true,
+        higgsfield_key: storedHiggsKey,
+        engine: storedHiggsKey ? "higgsfield" : "flux",
         seed: Math.floor(Math.random() * 900000) + 100000
+      };
+
+      const requestHeaders = {
+        "Content-Type": "application/json",
+        ...(storedHiggsKey ? { "x-higgsfield-key": storedHiggsKey } : {})
       };
 
       let resultData = null;
@@ -6255,7 +6332,7 @@ function initVisualSynthesisStudio() {
       try {
         const localRes = await fetch("http://127.0.0.1:5050/api/image", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: requestHeaders,
           body: JSON.stringify(payload),
           signal: AbortSignal.timeout(35000)
         });
@@ -6271,7 +6348,7 @@ function initVisualSynthesisStudio() {
         try {
           const edgeRes = await fetch("/api/image", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: requestHeaders,
             body: JSON.stringify(payload),
             signal: AbortSignal.timeout(45000)
           });
@@ -6288,17 +6365,18 @@ function initVisualSynthesisStudio() {
 
       // Reset Button State
       btnGenerate.disabled = false;
-      if (btnLabel) btnLabel.textContent = "SYNTHESIZE HIGH-RES VISUAL";
+      if (btnLabel) btnLabel.textContent = "SYNTHESIZE HUMANLIKE AVATAR";
       if (scannerBeam) scannerBeam.classList.add("hidden");
 
       if (resultData && (resultData.image_url || resultData.imageUrl)) {
         const finalUrl = resultData.image_url || resultData.imageUrl;
-        displayVisualAsset(finalUrl, prompt, currentVisualState.style, currentVisualState.ratio, resultData.dimensions);
+        displayVisualAsset(finalUrl, prompt, currentVisualState.style, currentVisualState.ratio, resultData.dimensions, resultData.engine);
         saveAndRenderGallery({
           imageUrl: finalUrl,
           prompt: prompt,
           style: currentVisualState.style,
           ratio: currentVisualState.ratio,
+          engine: resultData.engine || (storedHiggsKey ? "higgsfield" : "flux"),
           timestamp: new Date().toISOString()
         });
         if (typeof playSciFiChirp === "function") playSciFiChirp("success");
@@ -6367,7 +6445,7 @@ function initVisualSynthesisStudio() {
   loadInitialVisualArtifact();
 }
 
-function displayVisualAsset(url, prompt, style = "photorealistic", ratio = "1:1", dimensions = null) {
+function displayVisualAsset(url, prompt, style = "humanlike", ratio = "1:1", dimensions = null, engine = null) {
   currentVisualState.currentImageUrl = url;
   currentVisualState.currentPrompt = prompt;
   currentVisualState.style = style;
@@ -6392,7 +6470,8 @@ function displayVisualAsset(url, prompt, style = "photorealistic", ratio = "1:1"
   }
   if (metaRes) {
     const dimText = dimensions ? `${dimensions.width}x${dimensions.height}` : (ratio === "1:1" ? "1024x1024" : ratio);
-    metaRes.textContent = `${dimText} • FLUX.1`;
+    const resolvedEngine = engine === "higgsfield" || currentVisualState.higgsfieldKey ? "HIGGSFIELD SOUL v2" : "FLUX.1 REALISM";
+    metaRes.textContent = `${dimText} • ${resolvedEngine}`;
   }
   if (link) {
     link.href = url;
