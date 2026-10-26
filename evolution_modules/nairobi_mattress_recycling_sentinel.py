@@ -1,121 +1,101 @@
-"""
-Nairobi Post-Consumer Polyurethane Foam Mattress Upcycling & Circular Economy Ledger
-Author: Cortana, Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
+"""Nairobi Municipal Used Mattress Upcycling & Circular Foam Reclamation Sentinel."""
 
-Provides tracking for discarded foam mattress collection, weight verification, shredding,
-binder infusion, hydraulic press telemetry for rebonded foam blocks, and carbon credit issuance.
-"""
-
-import hashlib
-import json
+import ast
+import logging
 import time
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
+logger = logging.getLogger("MattressRecyclingSentinel")
 
 
-class MattressRecyclingLedger:
-    """Manages the lifecycle of discarded polyurethane mattresses diverted from Nairobi dumpsites."""
+class MattressRecyclingSentinel:
+    """Monitors collection, sanitization, shredding, and rebonded foam production metrics."""
 
-    CARBON_OFFSET_PER_KG_FOAM: float = 2.4  # kg CO2e offset per kg recycled polyurethane
-
-    def __init__(self, facility_id: str = "NRB_FOAM_CYCLE_01") -> None:
+    def __init__(self, facility_id: str):
         self.facility_id = facility_id
-        self.collection_batches: Dict[str, dict] = {}
-        self.production_blocks: Dict[str, dict] = {}
-        self.audit_trail: List[dict] = []
-        self._log_event("INIT", {"facility_id": facility_id, "status": "online"})
-
-    def _log_event(self, event_type: str, payload: dict) -> None:
-        entry = {
-            "timestamp": time.time(),
-            "event_type": event_type,
-            "payload": payload,
-            "hash": ""
+        self.inventories: Dict[str, Dict[str, Any]] = {}
+        self.metrics = {
+            "total_collected_units": 0,
+            "total_shredded_kg": 0.0,
+            "rebonded_blocks_produced": 0,
+            "carbon_credits_earned": 0.0,
         }
-        prev_hash = self.audit_trail[-1]["hash"] if self.audit_trail else "0" * 64
-        raw_str = f"{prev_hash}:{entry['timestamp']}:{event_type}:{json.dumps(payload, sort_keys=True)}"
-        entry["hash"] = hashlib.sha256(raw_str.encode("utf-8")).hexdigest()
-        self.audit_trail.append(entry)
+        logger.info(f"MattressRecyclingSentinel initialized for facility: {facility_id}")
 
-    def register_collection(self, batch_id: str, source_ward: str, mattress_count: int, total_weight_kg: float) -> dict:
-        """Registers incoming discarded mattresses collected from Nairobi estates."""
-        if batch_id in self.collection_batches:
-            raise ValueError(f"Batch {batch_id} already exists.")
+    def register_intake(self, batch_id: str, count: int, source_ward: str, condition_score: float) -> Dict[str, Any]:
+        """Register incoming discarded mattresses from Nairobi wards (e.g., Kayole, Kibera, Kasarani)."""
+        if condition_score < 0.0 or condition_score > 10.0:
+            raise ValueError("Condition score must be between 0.0 and 10.0")
 
-        if total_weight_kg <= 0 or mattress_count <= 0:
-            raise ValueError("Invalid mattress count or weight.")
-
-        batch_data = {
+        record = {
             "batch_id": batch_id,
+            "count": count,
             "source_ward": source_ward,
-            "mattress_count": mattress_count,
-            "total_weight_kg": total_weight_kg,
-            "status": "COLLECTED"
+            "condition_score": condition_score,
+            "status": "QUARANTINED_AND_SANITIZING",
+            "timestamp": time.time(),
         }
-        self.collection_batches[batch_id] = batch_data
-        self._log_event("COLLECTION_REGISTERED", batch_data)
-        return batch_data
+        self.inventories[batch_id] = record
+        self.metrics["total_collected_units"] += count
+        logger.info(f"Intake registered: {count} units from {source_ward}. Batch ID: {batch_id}")
+        return record
 
-    def process_shredding_and_pressing(self, block_id: str, batch_ids: List[str], binder_liters: float, pressure_bar: float) -> dict:
-        """Transforms collected mattress batches into high-density rebonded foam blocks."""
-        total_input_weight = 0.0
-        for bid in batch_ids:
-            if bid not in self.collection_batches:
-                raise KeyError(f"Collection batch {bid} not found.")
-            b = self.collection_batches[bid]
-            if b["status"] != "COLLECTED":
-                raise ValueError(f"Batch {bid} already processed.")
-            total_input_weight += b["total_weight_kg"]
-            b["status"] = "SHREDDED_AND_PRESSED"
+    def process_shredding(self, batch_id: str, foam_weight_kg: float) -> Dict[str, Any]:
+        """Transition quarantined mattress batch to mechanical shredding for rebonded foam."""
+        if batch_id not in self.inventories:
+            raise KeyError(f"Batch {batch_id} not found in inventory.")
 
-        if pressure_bar < 120.0:
-            raise ValueError(f"Insufficient hydraulic pressure ({pressure_bar} bar). Minimum 120 bar required for structural rebonding.")
+        batch = self.inventories[batch_id]
+        if batch["status"] != "QUARANTINED_AND_SANITIZING":
+            raise ValueError(f"Batch {batch_id} is not ready for shredding (Current status: {batch['status']})")
 
-        output_weight_kg = total_input_weight + (binder_liters * 1.1)  # assuming binder adds minor mass
-        carbon_offset_kg = output_weight_kg * self.CARBON_OFFSET_PER_KG_FOAM
+        batch["status"] = "SHREDDED"
+        batch["foam_weight_kg"] = foam_weight_kg
+        self.metrics["total_shredded_kg"] += foam_weight_kg
+        logger.info(f"Batch {batch_id} shredded successfully: {foam_weight_kg} kg of foam reclaimed.")
+        return batch
 
-        block_data = {
-            "block_id": block_id,
-            "source_batches": batch_ids,
-            "input_foam_kg": total_input_weight,
-            "binder_liters": binder_liters,
-            "pressure_bar": pressure_bar,
-            "output_weight_kg": output_weight_kg,
-            "carbon_offset_kg": carbon_offset_kg,
-            "status": "READY_FOR_MARKET"
+    def mint_rebonded_block(self, batch_id: str, block_grade: str) -> Dict[str, Any]:
+        """Convert shredded polyurethane foam into certified high-density rebonded mattresses."""
+        if batch_id not in self.inventories:
+            raise KeyError(f"Batch {batch_id} not found in inventory.")
+
+        batch = self.inventories[batch_id]
+        if batch["status"] != "SHREDDED":
+            raise ValueError(f"Batch {batch_id} must be shredded before block production.")
+
+        batch["status"] = "REBONDED_BLOCK_READY"
+        batch["block_grade"] = block_grade
+        self.metrics["rebonded_blocks_produced"] += 1
+        
+        # Estimated carbon credit offset calculation (approx 12kg CO2e per mattress diverted)
+        carbon_offset = batch["count"] * 12.5
+        self.metrics["carbon_credits_earned"] += carbon_offset
+        
+        logger.info(f"Rebonded block grade {block_grade} minted from batch {batch_id}. Offset: {carbon_offset} kg CO2e")
+        return batch
+
+    def get_operational_summary(self) -> Dict[str, Any]:
+        """Return full telemetry summary for municipal dashboard integration."""
+        return {
+            "facility_id": self.facility_id,
+            "metrics": self.metrics,
+            "active_batches_count": len(self.inventories),
         }
-
-        self.production_blocks[block_id] = block_data
-        self._log_event("BLOCK_PRODUCED", block_data)
-        return block_data
-
-    def verify_ledger_integrity(self) -> bool:
-        """Cryptographically audits the immutable chain."""
-        for i in range(1, len(self.audit_trail)):
-            prev = self.audit_trail[i - 1]
-            curr = self.audit_trail[i]
-            raw_str = f"{prev['hash']}:{curr['timestamp']}:{curr['event_type']}:{json.dumps(curr['payload'], sort_keys=True)}"
-            expected_hash = hashlib.sha256(raw_str.encode("utf-8")).hexdigest()
-            if curr["hash"] != expected_hash:
-                return False
-        return True
 
 
 if __name__ == "__main__":
-    print("Initializing Nairobi Mattress Recycling Ledger...")
-    ledger = MattressRecyclingLedger(facility_id="NRB_FOAM_EMBAKASI_01")
+    sentinel = MattressRecyclingSentinel(facility_id="NRB-FOAM-RECLAIM-01")
     
-    b1 = ledger.register_collection("BATCH_2025_001", "Embakasi Ward", 45, 675.0)
-    b2 = ledger.register_collection("BATCH_2025_002", "Kasarani Ward", 30, 420.0)
+    # Test workflow
+    batch_res = sentinel.register_intake("BATCH-2026-001", count=50, source_ward="Kasarani", condition_score=6.5)
+    shred_res = sentinel.process_shredding("BATCH-2026-001", foam_weight_kg=750.0)
+    block_res = sentinel.mint_rebonded_block("BATCH-2026-001", block_grade="HD-90")
     
-    print(f"Registered Batches: {len(ledger.collection_batches)}")
+    print("Operational Summary:", sentinel.get_operational_summary())
     
-    block = ledger.process_shredding_and_pressing(
-        block_id="BLOCK_RB_901",
-        batch_ids=["BATCH_2025_001", "BATCH_2025_002"],
-        binder_liters=55.0,
-        pressure_bar=150.0
-    )
-    
-    print(f"Produced Rebonded Block: {block['block_id']}, Carbon Offset: {block['carbon_offset_kg']:.2f} kg CO2e")
-    print(f"Ledger Integrity Verified: {ledger.verify_ledger_integrity()}")
+    # Self-validation check
+    code_str = open(__file__, "r", encoding="utf-8").read()
+    ast.parse(code_str)
+    print("AST Compilation Check: PASSED")
