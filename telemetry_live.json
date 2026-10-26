@@ -1,12 +1,12 @@
 {
   "sitrep": {
     "threat_level": "ELEVATED",
-    "sitrep": "Chief, Nairobi's overcast skies at 28.4\u00b0C mirror a tense macro theatre. Kampala's 21-day DRC quarantine tightens East African trade corridors, threatening cross-border hardware logistics. Simultaneously, critical web software vulnerabilities flagged by the NSA and FBI demand immediate perimeter hardening across our Supabase and Next.js stacks. We stay sharp, secure, and several steps ahead of the noise.",
-    "conflict_summary": "In the Horn and East Africa, border restrictions such as Uganda's DRC clampdown are altering regional supply chain velocity, directly threatening cross-border transport corridors vital for hardware procurement. Globally, automated warfare doctrine and autonomous command restructuring are accelerating, shifting the calculus of asymmetric defense and digital infrastructure resilience.",
-    "future_risk_forecast": "Localized transit friction in East Africa risks inflating import lead times for tech components and specialty hardware. Simultaneously, escalating global cyber alerts regarding ubiquitous web software vulnerabilities increase the exposure of unpatched cloud endpoints and API gateways to automated exploit vectors over the next 7 to 30 days.",
-    "defensive_protocol": "\u2022 Execute an immediate zero-trust security audit across all active Next.js and Python backend endpoints, focusing on dependency injection and file upload surfaces.\n\u2022 Verify redundancy backups for all Supabase database instances and secure offline snapshots against potential cross-border cloud latency spikes.\n\u2022 Monitor regional transport and fuel price fluctuations in Nairobi to preemptively adjust logistics overhead for upcoming software and hardware deployments.",
-    "asymmetric_upside": "\u2022 Position capital within resilient Nairobi Securities Exchange blue chips like Safaricom (SCOM) and Co-operative Bank (COOP) as domestic liquidity buffers against regional import inflation.\n\u2022 Deploy automated anomaly detection scripts to capitalize on high-frequency arbitrage opportunities triggered by temporary supply chain bottlenecks.\n\u2022 Leverage current cybersecurity software alerts to engineer and market proprietary hardening tools tailored for regional enterprises seeking rapid compliance.",
-    "created_at": "2026-10-26T10:01:52.494689+00:00"
+    "sitrep": "Nairobi hums at 28.4°C under an overcast ceiling while regional supply chains face fresh friction from Kampala's 21-day DRC border quarantine. Cyber perimeter scanners note active exploitation vectors around Zoho ManageEngine (CVE-2021-40539), demanding immediate patch hygiene across regional enterprise endpoints. Capital defense and automated threat mitigation remain locked in.",
+    "conflict_summary": "In the Great Lakes corridor, sanitary quarantines threaten Northern Corridor transit velocities, compounding informal freight delays. Globally, defense procurement shifts toward mass autonomous architectures and decentralized command structures, accelerating software-defined warfare dynamics and creating urgent vulnerabilities in ubiquitous web tooling flagged by NSA and FBI advisories.",
+    "future_risk_forecast": "Expect localized transport cost surcharges and transit bottlenecks for goods originating from Central Africa over the next 14 days. Persistent CVE exposures in enterprise gateway software elevate the risk of automated supply chain credential harvesting and lateral network pivoting.",
+    "defensive_protocol": "• Run an immediate vulnerability scan across all exposed enterprise gateways, specifically auditing Zoho ManageEngine instances for CVE-2021-40539 authentication bypasses.\n• Verify redundancy buffers for inbound logistics and raw material imports transiting the Ugandan border corridor.\n• Enforce strict least-privilege role access control on all external-facing cloud infrastructure and database connectors.",
+    "asymmetric_upside": "• Position capital in Nairobi Securities Exchange (NSE) logistics and supply-chain counters poised to capture freight rerouting margins.\n• Develop automated patch-validation scripts targeting high-severity CVEs to offer rapid-response security hardening services to affected regional enterprises.\n• Leverage currency volatility windows to optimize USD-denominated international royalty conversions into KES.",
+    "created_at": "2026-10-26T10:14:32.184839+00:00"
   },
   "weather": [
     {
@@ -16,7 +16,7 @@
       "humidity": 33,
       "wind_kmh": 11.0,
       "condition": "Overcast",
-      "updated_at": "2026-10-26T10:00:46.844365+00:00"
+      "updated_at": "2026-10-26T10:13:22.457947+00:00"
     },
     {
       "city": "Nairobi",
@@ -25,7 +25,7 @@
       "humidity": 33,
       "wind_kmh": 11.0,
       "condition": "Overcast",
-      "updated_at": "2026-10-26T10:00:48.503549+00:00"
+      "updated_at": "2026-10-26T10:13:22.895106+00:00"
     },
     {
       "city": "London",
@@ -34,7 +34,7 @@
       "humidity": 89,
       "wind_kmh": 15.8,
       "condition": "Light Drizzle",
-      "updated_at": "2026-10-26T10:00:48.932712+00:00"
+      "updated_at": "2026-10-26T10:13:23.355985+00:00"
     },
     {
       "city": "New York",
@@ -43,7 +43,7 @@
       "humidity": 85,
       "wind_kmh": 8.2,
       "condition": "Clear",
-      "updated_at": "2026-10-26T10:00:49.359654+00:00"
+      "updated_at": "2026-10-26T10:13:23.808700+00:00"
     },
     {
       "city": "Tokyo",
@@ -52,7 +52,7 @@
       "humidity": 97,
       "wind_kmh": 4.4,
       "condition": "Moderate Rain",
-      "updated_at": "2026-10-26T10:00:49.813436+00:00"
+      "updated_at": "2026-10-26T10:13:24.764235+00:00"
     }
   ],
   "cyber": [
@@ -66,7 +66,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-29583",
       "content_hash": "9f081a6e1d190b3adb67bea03885f7d65d18b78730b9c2c87cf597ad796249dc",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661845+00:00"
+      "created_at": "2026-10-26T10:13:46.961208+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -78,7 +78,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-8394",
       "content_hash": "dcf56971dec638c1e32bbc4863650ecccaa3af1c85cf2da3c1c671840c6eaeba",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661878+00:00"
+      "created_at": "2026-10-26T10:13:46.961237+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -90,7 +90,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-10189",
       "content_hash": "617c981616242dca0a79d74e690e201fa8363243f0fca31311c73e72299ea8a9",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661903+00:00"
+      "created_at": "2026-10-26T10:13:46.961245+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -102,7 +102,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-40539",
       "content_hash": "a0a7f6dce826b88ebb232c56805a6e18d05107d19068a3fb93dd0b621606f8f4",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661913+00:00"
+      "created_at": "2026-10-26T10:13:46.961252+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -114,7 +114,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-27561",
       "content_hash": "f2e8bbcb50ba59a8e1ff4f38363f496625804d18d53be7d4a45da85e33ab94f1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661921+00:00"
+      "created_at": "2026-10-26T10:13:46.961267+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -126,7 +126,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-9978",
       "content_hash": "0172212bf226992607a8a51bb7ec0b2612440984f13a9e3e8b0418fad56173a1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661928+00:00"
+      "created_at": "2026-10-26T10:13:46.961275+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -138,7 +138,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-11738",
       "content_hash": "895a24212bff3837e00307321f30d072fabdd1b8ffb152b643d8b9503297748c",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661935+00:00"
+      "created_at": "2026-10-26T10:13:46.961280+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -150,7 +150,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25213",
       "content_hash": "25047194a1fb08666eece4829b771542f068bad1a307586569ca0631c5c446d7",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661942+00:00"
+      "created_at": "2026-10-26T10:13:46.961293+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -162,7 +162,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-4006",
       "content_hash": "d96607a458fb92b0ad954e7ec202dd8e5339c638e4f43d7b7d373a473c45462a",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661948+00:00"
+      "created_at": "2026-10-26T10:13:46.961308+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -174,7 +174,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21985",
       "content_hash": "0519b9eb873c86afe0f3b3964b796bf66ff912cfa74eff08bddee80945e4bcc3",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661954+00:00"
+      "created_at": "2026-10-26T10:13:46.961327+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -186,7 +186,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21972",
       "content_hash": "6a15875afd5b6a0fc8b5116f6ded20c3b55fe218ed24823a9c41c945d0488645",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661961+00:00"
+      "created_at": "2026-10-26T10:13:46.961338+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -198,7 +198,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3952",
       "content_hash": "16fbba0f67a35e0d9abb77c5a704a8ec673bc65bef31c73e0e2b582dceefd527",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661978+00:00"
+      "created_at": "2026-10-26T10:13:46.961347+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -210,7 +210,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-22005",
       "content_hash": "8a7fe7a2172f4b0c3668a5827802771468f76277393fa4431ad437befb08ba97",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661985+00:00"
+      "created_at": "2026-10-26T10:13:46.961358+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -222,7 +222,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3950",
       "content_hash": "e4f53315ecff6219811605bb364839d390f5de7c151d53ef8fe2d3f802ad0946",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661991+00:00"
+      "created_at": "2026-10-26T10:13:46.961366+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -234,7 +234,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3992",
       "content_hash": "f4becfb39bd99c21aa036bc17049549112dde23f9fe030037cb5628a0a3650ee",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T10:01:10.661998+00:00"
+      "created_at": "2026-10-26T10:13:46.961372+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -246,7 +246,7 @@
       "link": "https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html",
       "content_hash": "6b7c5d78f4c47329efcdbdce5e28bf06b37bd3d12dee79064390e650963980d8",
       "published_at": "Mon, 26 Oct 2026 14:05:51 +053",
-      "created_at": "2026-10-26T10:01:12.370525+00:00"
+      "created_at": "2026-10-26T10:13:48.707684+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -258,7 +258,7 @@
       "link": "https://thehackernews.com/2026/10/gheist-uses-stolen-github-tokens-to.html",
       "content_hash": "bb996bbca3b4e2f3e45075d37cd4f69d3481c6019e3efaf786b0b45083f08131",
       "published_at": "Mon, 26 Oct 2026 13:19:46 +053",
-      "created_at": "2026-10-26T10:01:12.370572+00:00"
+      "created_at": "2026-10-26T10:13:48.707715+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -270,7 +270,7 @@
       "link": "https://thehackernews.com/2026/10/malicious-file-in-downloads-folder.html",
       "content_hash": "bd5c59497203f3b657935f22e6f7f1f3aca5fd64cc55466bf96bd7e9238d7cd9",
       "published_at": "Mon, 26 Oct 2026 11:33:48 +053",
-      "created_at": "2026-10-26T10:01:12.370598+00:00"
+      "created_at": "2026-10-26T10:13:48.707729+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -282,7 +282,7 @@
       "link": "https://thehackernews.com/2026/10/unpatched-tailscale-ssh-flaws-could-let.html",
       "content_hash": "5a3d86b11457375988caa1c141acfbcedfd42d0f8849e268502b5780a86343a1",
       "published_at": "Sun, 25 Oct 2026 23:14:09 +053",
-      "created_at": "2026-10-26T10:01:12.370621+00:00"
+      "created_at": "2026-10-26T10:13:48.707741+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -294,7 +294,7 @@
       "link": "https://thehackernews.com/2026/10/php2shell-exploitation-hits-government.html",
       "content_hash": "77885b6bd011c21e610c930b2a1eaf8cec963dba625f2fd83584d3582aafc314",
       "published_at": "Sun, 25 Oct 2026 22:49:46 +053",
-      "created_at": "2026-10-26T10:01:12.370645+00:00"
+      "created_at": "2026-10-26T10:13:48.707751+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -306,7 +306,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/php2shell-security-flaws-now-sucessfully-exploited-in-the-wild/",
       "content_hash": "6965008fcfe67473a0676fa48805ff4e699929b52a4b4da88220a0950100cc18",
       "published_at": "Mon, 26 Oct 2026 05:19:57 -040",
-      "created_at": "2026-10-26T10:01:12.700932+00:00"
+      "created_at": "2026-10-26T10:13:48.941115+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -318,7 +318,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/ai-coding-agents-hijacked-using-agentsmd-file-in-downloads-folder/",
       "content_hash": "ba127b223f9a023645aef3fdb6071e91e3db9611be884c107f72af23e23bdcc3",
       "published_at": "Sun, 25 Oct 2026 11:49:38 -040",
-      "created_at": "2026-10-26T10:01:12.700965+00:00"
+      "created_at": "2026-10-26T10:13:48.941138+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -330,7 +330,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/blackx-uefi-bootkit-exploits-baton-drop-flaw-to-bypass-secure-boot/",
       "content_hash": "33bc95e64c1975a1dda2036f8dcfd163720184c8297176bed7b4a1df90c084bb",
       "published_at": "Sat, 24 Oct 2026 10:17:32 -040",
-      "created_at": "2026-10-26T10:01:12.700984+00:00"
+      "created_at": "2026-10-26T10:13:48.941151+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -342,7 +342,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/abandoned-popcorn-time-app-exposed-millions-of-device-to-rce-attacks/",
       "content_hash": "2386b67bb17baa7634c50755bd1f0669836f668a7ec1c25ac4fe1315576411d0",
       "published_at": "Fri, 23 Oct 2026 16:55:05 -040",
-      "created_at": "2026-10-26T10:01:12.701001+00:00"
+      "created_at": "2026-10-26T10:13:48.941161+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -354,19 +354,19 @@
       "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-teams-to-get-ai-powered-context-aware-phishing-detection/",
       "content_hash": "411ee11ed9d2182af30fa10984579e679ebf1fbf5d89479b4fba0a16b040c30c",
       "published_at": "Fri, 23 Oct 2026 14:54:41 -040",
-      "created_at": "2026-10-26T10:01:12.701019+00:00"
+      "created_at": "2026-10-26T10:13:48.941173+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Turning Kenya\u2019s national cyber threat statistics into actionable business security priorities - TechTrendsKE",
+      "title": "Turning Kenya’s national cyber threat statistics into actionable business security priorities - TechTrendsKE",
       "summary": null,
       "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE4tQ2JEZThuYVBZVTl5bG5vd3JxLW9tNzN4dmk5NTgtbm1WOFh2TnFQdXViMzBieC1ydVhGQ19vUG03ZlhIYy1Fd3ZYeThxX0hQLXIxU0FmYm9XbFcyend2YjV6WC1FVkVrLUwyNnNZVEVDNFdaZGlv?oc=5",
       "content_hash": "8d30229226f1b47fcf440678c82a5ec81de6596501590b54dcf3ae95bce209fd",
       "published_at": "Sat, 24 Oct 2026 11:00:36 GMT",
-      "created_at": "2026-10-26T10:01:13.933029+00:00"
+      "created_at": "2026-10-26T10:13:49.988187+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -378,19 +378,19 @@
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNNjRqUjhqSWZ2OC1kMi1HZmtyM1lYZDlQeFZFSVlyc09yUHBJT2ppeUdENHNBNV9reEhRQWJXV3Y0ZmthUGMxT3lPLXlNYkhkYy01ZXZhREgyUDI4MC1kU1pFOVJPZUNpbXQ1RlMxQUpTc3FZMWVFRUl1VTBvZ2xBN19vOHlacDRJRTN4c0JEMVhiNURGYXlKaEQ3ZHE5T2Nw?oc=5",
       "content_hash": "dfcdae4846e8007a0de4e7129ce8856b5b6bea0fad85f4cb6b2a31d04c96c589",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T10:01:13.933072+00:00"
+      "created_at": "2026-10-26T10:13:49.988209+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "\ud835\uddde\ud835\uddf2\ud835\uddfb\ud835\ude06\ud835\uddee \ud835\ude00\ud835\ude01\ud835\uddff\ud835\uddf2\ud835\uddfb\ud835\uddf4\ud835\ude01\ud835\uddf5\ud835\uddf2\ud835\uddfb\ud835\ude00 \ud835\uddd4\ud835\udddc \ud835\uddf4\ud835\uddfc\ud835\ude03\ud835\uddf2\ud835\uddff\ud835\uddfb\ud835\uddee\ud835\uddfb\ud835\uddf0\ud835\uddf2 \ud835\ude01\ud835\uddfc \ud835\uddf0\ud835\uddfc\ud835\uddfa\ud835\uddef\ud835\uddee\ud835\ude01 \ud835\uddff\ud835\uddf6\ud835\ude00\ud835\uddf6\ud835\uddfb\ud835\uddf4 \ud835\uddf0\ud835\ude06\ud835\uddef\ud835\uddf2\ud835\uddff\ud835\ude00\ud835\uddf2\ud835\uddf0\ud835\ude02\ud835\uddff\ud835\uddf6\ud835\ude01\ud835\ude06 \ud835\ude01\ud835\uddf5\ud835\uddff\ud835\uddf2\ud835\uddee\ud835\ude01\ud835\ude00 The government has called for stronger oversight of artificial intelligence (AI) systems, warning that criminals increasingly use the technology to launch - Facebook",
+      "title": "𝗞𝗲𝗻𝘆𝗮 𝘀𝘁𝗿𝗲𝗻𝗴𝘁𝗵𝗲𝗻𝘀 𝗔𝗜 𝗴𝗼𝘃𝗲𝗿𝗻𝗮𝗻𝗰𝗲 𝘁𝗼 𝗰𝗼𝗺𝗯𝗮𝘁 𝗿𝗶𝘀𝗶𝗻𝗴 𝗰𝘆𝗯𝗲𝗿𝘀𝗲𝗰𝘂𝗿𝗶𝘁𝘆 𝘁𝗵𝗿𝗲𝗮𝘁𝘀 The government has called for stronger oversight of artificial intelligence (AI) systems, warning that criminals increasingly use the technology to launch - Facebook",
       "summary": null,
       "link": "https://news.google.com/rss/articles/CBMi6whBVV95cUxPYjd0WUtPQ0M4dnc2Yk5DWWVhc1p4T1JqY0w1eGdqWjJGSUdLTDJJaGYyZ29OckpHTFlIUXVwRzRTZU9POUdZOTNvN0pBR0JsMW9rQTc5SlBTLThqc21USVhDTnpWTXdyejBmZjJyMjhOMWMxd0o2QlBBckY5dXNNVnRNY2M5Z04tWVFzNHNidkRUQVZRRFo5a3ZLT3pGdGpPQWxCOGdzVWd5bmozMmZub0pBTWJzOTNKdzE3QWtfQWZleTNQVHd1azJkV2wzSi1nY0NVYUo1V3ZmQ3kwdEVza3U1QU5CYU9XRlNqVHdTemxWNzhDUGpXTTBSa1VUZWF5YXRpUmpJRG5iNUdhbEo1RWhNMjNkRjVORzVfOERQTmxwYzdzeHV5VXdQYUtleWV0WkRnQ0ZrTGhydXFUaEhmQWJZb2ZIX2RkcF9DYzJrZUNtVFVTRWcyWER3aS1taHlFWlBCa1gya3A1YnE1enNqZFlwMm5sU3dOaWZqMzI0TDFGNmdmOFZibW4xZmRrcnVia3ZSTXRSYjg1eDk5YVZhenZvLUxsZEVic0ZweFNPVk52ZFB4N0pWcjE4Mk1qQ1RGendfN2t5OWtuWHBkclJURXRjN2MydUl0MjNYTG5WcWdlVzJrTzdNYlNrYlpwVVIyRUhDUWs5dzNVdTdqMW15bW1RVjhwVDlHUHRpWVRxd0RldDRrMjVSUmVJZHZ3cVhna0FkaEhSQVM1b0ZhVmlIX0ctZjVSYm9XSE5La2NLSmZvdU9BVUZVVWYyaWZ2bHlEUG1GaDgtaGJkeFpydUZQSGRad0w5OEZ3V211ajZoWDJFa1o2dGF0UUZGd05YWGZaaGRpX3RBaU95OGpJRmNEU1ltcVRmVUdhNWs1YUVUdEFTMnhSSGljMTY2d3EtQUUyUlhPU3EtVDRaN2U5eXBWeVlwWXYteHR5dHZEcDE0NHgtVDlaZlBCOFE5UWQydzg1SldqTGhuWWJaWlNKdmFQRktCM19FVGw4R2ZfYVo3LVVKaG9ad3hMM0x2bG1SMDJweEpqbWVEcTNNRUh0N1ozM2UtYVNxS25TVHBFZ196SGhYdTQzQ0dFYmpBZENENHYyYWlWb0F4S1ExQk9ZNE56X3M1b0hoZU1GZmJRQUx2RklqTTVNY3dxOHU1b1kwQjZjSGRkVGN3SnhiNEZRaGhQUFlPVWlIQmxsVjFmTFBqcjBxNTlTRWR2bGVIcEpGaHBGNGRBSHpSVkIyU1FEeE1KOXpHc09ydmhnN2dFODJzbVZrMmdvbXFMai1xUERCYWN4dXRLNm1MaG90cUVZR05oX0hqUHNTZ2Q5S05QX0c0MVJfaHMtSmRfRlN2QWY4LXg0dlJzRFZFcnNKMjVjV0xQemZBVGE3SjNCMm9qMmJ3SDhmMkYxOEVybGpULVJHREwySVVHMjFKOGxwa0ZiNzQ1QkQ1UTBuTlZfbk8tS1VKc09zc3pVUGNncUs1N3NLV1F0QmJvenVlQ1J6R1k?oc=5",
       "content_hash": "61cad910365d5aab214eced3ccbea2386cc54606df92b954a0ad31ae6ed2674d",
       "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T10:01:13.933172+00:00"
+      "created_at": "2026-10-26T10:13:49.988252+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -402,7 +402,7 @@
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMGlYOUFaVy1PTTNHSHlXaTh6cklnQ0xSU3g3dXdYbjhWZGxsR0t4N1dXZ0NNd0pKM2NIOU0xQkdTUF9BdFNXYUk2bTBJYi1iM0h3TWZUM21WNmZIc2FnVEVhSzJHd1pvMnRBR0FvWFBJQ25URF9aVmxXR0xDTzhyNG1DLUEzTzNqRjV6Rnp4c0Y0Qm80ZXFQWnVvSGV2TkkwbWd5Rk9CR1RJTXYyTnc?oc=5",
       "content_hash": "2c77f445a49add8fdb3b5a81c3c6bc7a69e27c0175389c663aac488212e5520e",
       "published_at": "Wed, 14 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T10:01:13.933210+00:00"
+      "created_at": "2026-10-26T10:13:49.988265+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -414,477 +414,477 @@
       "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9HODJGOHlCUWswNFBFZmZXdEIzaWtjWmczblNzZjRpZlBTckRrallacms0ZGsydm5LdDRNel8tSXRncUR2VzdGQlNwUzVWMkVoLXBNWlpDQjNVOXo2V3ZTTWRjVTdYanlLcWk0YmJn?oc=5",
       "content_hash": "0b4fc2819acd1056541e1247d12a3cc666ee07dbf0cd5913e2f46dd37150a223",
       "published_at": "Sat, 17 Oct 2026 10:51:27 GMT",
-      "created_at": "2026-10-26T10:01:13.933228+00:00"
+      "created_at": "2026-10-26T10:13:49.988273+00:00"
     }
   ],
   "news": [
     {
       "scope": "GLOBAL",
       "source": "BBC World",
-      "title": "Celebrations in Serbia after veteran ruler Vu\u010di\u0107 loses election to student-led protest movement // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Celebrations in Serbia after veteran ruler Vučić loses election to student-led protest movement // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "The populist right-wing leader of 12 years says it is \"clear\" his party has lost the vote billed as a referendum on the country's future.",
       "link": "https://www.bbc.co.uk/news/articles/cw5yn3xlprpmo?at_medium=RSS&at_campaign=rss",
       "content_hash": "80cdd1c78401e614e5d7ed35df0e3c0b1e48e434570126e4c065f6ed6afd6064",
       "published_at": "Mon, 26 Oct 2026 09:04:47 GMT",
-      "created_at": "2026-10-26T10:00:50.631883+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:25.953631+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "BBC World",
-      "title": "Venezuelan opposition leader Mar\u00eda Machado returns after months in exile // [TACTICAL INTEL]: Major shifts in Venezuelan crude export capacity directly impact global energy futures and inflation metrics. For capital allocation, stabilizing Latin American energy markets shif",
-      "description": "Machado had left the country just a month before the US government seized Venezuelan President Nicol\u00e1s Maduro.",
+      "title": "Venezuelan opposition leader María Machado returns after months in exile // [TACTICAL INTEL]: Shifts global crude supply expectations and tanker routing dynamics. While our immediate focus is locked on local capital preservation and high-performance system architecture, maj",
+      "description": "Machado had left the country just a month before the US government seized Venezuelan President Nicolás Maduro.",
       "link": "https://www.bbc.co.uk/news/articles/cq8ez592pp0eo?at_medium=RSS&at_campaign=rss",
       "content_hash": "01044d17a3dba912097263982cff3496f658e1ed3408147ca5a49f474e00139f",
       "published_at": "Mon, 26 Oct 2026 05:20:19 GMT",
-      "created_at": "2026-10-26T10:00:50.631916+00:00",
-      "in_depth_context": "The power vacuum left by Maduro's removal has accelerated transition dynamics, allowing exiled leadership to re-enter the domestic political arena under heavy international diplomatic observation. This paves the way for potential energy market re-integration and the dismantling of long-standing state-controlled economic apparatuses.",
-      "why_it_matters": "Major shifts in Venezuelan crude export capacity directly impact global energy futures and inflation metrics. For capital allocation, stabilizing Latin American energy markets shifts macro liquidity and commodity hedging strategies that Michael monitors for wealth protection.",
-      "subject": "Venezuelan Regime Collapse & Opposition Return"
+      "created_at": "2026-10-26T10:13:25.953682+00:00",
+      "in_depth_context": "The dismantling of the Maduro regime and subsequent return of opposition leadership initiates a high-stakes transition phase. Energy markets are bracing for massive restructuring of PDVSA operations, potential foreign direct investment inflows, and complex geopolitical realignments across South America.",
+      "why_it_matters": "Shifts global crude supply expectations and tanker routing dynamics. While our immediate focus is locked on local capital preservation and high-performance system architecture, major crude inventory reallocations inevitably influence global energy pricing and macro inflation indicators.",
+      "subject": "Latin American Power Shift: Venezuelan Opposition Return"
     },
     {
       "scope": "GLOBAL",
       "source": "BBC World",
-      "title": "Australian murderer loses bid to eat Vegemite in prison // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Australian murderer loses bid to eat Vegemite in prison // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Andre McKechnie, who murdered a property developer, argued it was his right to enjoy Australian culture.",
       "link": "https://www.bbc.co.uk/news/articles/cvwy7wz9x12go?at_medium=RSS&at_campaign=rss",
       "content_hash": "f9bb27ed163a0c0af2270323379c72b2ecf541e769d28fc9b00bc72719c77508",
       "published_at": "Mon, 26 Oct 2026 04:05:28 GMT",
-      "created_at": "2026-10-26T10:00:50.631928+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:25.953718+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "BBC World",
-      "title": "Eric Bauza, voice of Bugs Bunny and Daffy Duck, dies aged 46 // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Eric Bauza, voice of Bugs Bunny and Daffy Duck, dies aged 46 // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Bauza had voiced a number of characters in this summer's animated hit Coyote vs. Acme.",
       "link": "https://www.bbc.co.uk/news/articles/cwzd6q630vjeo?at_medium=RSS&at_campaign=rss",
       "content_hash": "34169ad4dad514b20f79783f4d1546d5f5d68a38713d752deb9b1918946486e3",
       "published_at": "Mon, 26 Oct 2026 06:16:15 GMT",
-      "created_at": "2026-10-26T10:00:50.631937+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:25.953740+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "BBC World",
-      "title": "Rapper Nicki Minaj joins Trump onstage at Michigan rally // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Rapper Nicki Minaj joins Trump onstage at Michigan rally // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "The Super Bass singer is the latest big name to campaign in Michigan, where a tight Senate race is playing out ahead of the 3 November midterms.",
       "link": "https://www.bbc.co.uk/news/articles/cqrmyl1mljppo?at_medium=RSS&at_campaign=rss",
       "content_hash": "ae6723c21664d8584bed8e4c901b36950a037896f3d3f829100e222d8084ef89",
       "published_at": "Sun, 25 Oct 2026 23:33:19 GMT",
-      "created_at": "2026-10-26T10:00:50.631947+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:25.953764+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "BBC World",
-      "title": "Uganda imposes 21-day quarantine on citizens returning from DR Congo // [TACTICAL INTEL]: Major shifts in Venezuelan crude export capacity directly impact global energy futures and inflation metrics. For capital allocation, stabilizing Latin American energy markets shif",
+      "title": "Uganda imposes 21-day quarantine on citizens returning from DR Congo // [TACTICAL INTEL]: Shifts global crude supply expectations and tanker routing dynamics. While our immediate focus is locked on local capital preservation and high-performance system architecture, maj",
       "description": "Uganda will also not allow most travellers who have been in DR Congo to transit through the country.",
       "link": "https://www.bbc.co.uk/news/articles/crx2dyd24188o?at_medium=RSS&at_campaign=rss",
       "content_hash": "499c784421d1207d44dec4d09b041b58e2e22ad57d35c618c38d8dd6a789bbf5",
       "published_at": "Mon, 26 Oct 2026 08:18:22 GMT",
-      "created_at": "2026-10-26T10:00:50.631955+00:00",
-      "in_depth_context": "The power vacuum left by Maduro's removal has accelerated transition dynamics, allowing exiled leadership to re-enter the domestic political arena under heavy international diplomatic observation. This paves the way for potential energy market re-integration and the dismantling of long-standing state-controlled economic apparatuses.",
-      "why_it_matters": "Major shifts in Venezuelan crude export capacity directly impact global energy futures and inflation metrics. For capital allocation, stabilizing Latin American energy markets shifts macro liquidity and commodity hedging strategies that Michael monitors for wealth protection.",
-      "subject": "Venezuelan Regime Collapse & Opposition Return"
+      "created_at": "2026-10-26T10:13:25.953785+00:00",
+      "in_depth_context": "The dismantling of the Maduro regime and subsequent return of opposition leadership initiates a high-stakes transition phase. Energy markets are bracing for massive restructuring of PDVSA operations, potential foreign direct investment inflows, and complex geopolitical realignments across South America.",
+      "why_it_matters": "Shifts global crude supply expectations and tanker routing dynamics. While our immediate focus is locked on local capital preservation and high-performance system architecture, major crude inventory reallocations inevitably influence global energy pricing and macro inflation indicators.",
+      "subject": "Latin American Power Shift: Venezuelan Opposition Return"
     },
     {
       "scope": "GLOBAL",
       "source": "Al Jazeera",
-      "title": "Flavio Bolsonaro \u2018will not give up\u2019 after Brazil election results // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Palestinians are opening their doors to the displaced of besieged Hebron // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
+      "description": "Israel&#039;s assault on the West Bank city has forced thousands of people to flee their homes.",
+      "link": "https://www.aljazeera.com/news/2026/10/26/palestinians-are-opening-their-doors-to-the-displaced-of-besieged-hebron?traffic_source=rss",
+      "content_hash": "4b0327cd3c4ac8103de31e44e11c98f940e013597456a2a062c543fc8b9444cc",
+      "published_at": "Mon, 26 Oct 2026 09:45:25 +000",
+      "created_at": "2026-10-26T10:13:26.356274+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Al Jazeera",
+      "title": "Flavio Bolsonaro ‘will not give up’ after Brazil election results // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Flavio Bolsonaro is refusing to concede to Lula da Silva who won a historic 4th term in Sunday&#039;s election.",
       "link": "https://www.aljazeera.com/video/newsfeed/2026/10/26/flavio-bolsonaro-will-not-give-up-after-brazil-election-results?traffic_source=rss",
       "content_hash": "68f56637e2eb161015e42e609c4ed6899534fa05302053afdfed383e2bb92633",
       "published_at": "Mon, 26 Oct 2026 09:15:21 +000",
-      "created_at": "2026-10-26T10:00:50.813377+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:26.356299+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "Al Jazeera",
-      "title": "California\u2019s billionaire tax faces a precarious road from rich opposition // [TACTICAL INTEL]: Major shifts in Venezuelan crude export capacity directly impact global energy futures and inflation metrics. For capital allocation, stabilizing Latin American energy markets shif",
+      "title": "California’s billionaire tax faces a precarious road from rich opposition // [TACTICAL INTEL]: Shifts global crude supply expectations and tanker routing dynamics. While our immediate focus is locked on local capital preservation and high-performance system architecture, maj",
       "description": "Tech billionaires have raised more than $300m to oppose the billionaire tax proposal.",
       "link": "https://www.aljazeera.com/economy/2026/10/26/californias-billionaire-tax-faces-a-precarious-road-from-rich-opposition?traffic_source=rss",
       "content_hash": "d40f596d705c3ad077e4be38102097afcebbb326bb310f57a4048d496b1c9acc",
       "published_at": "Mon, 26 Oct 2026 09:08:42 +000",
-      "created_at": "2026-10-26T10:00:50.813404+00:00",
-      "in_depth_context": "The power vacuum left by Maduro's removal has accelerated transition dynamics, allowing exiled leadership to re-enter the domestic political arena under heavy international diplomatic observation. This paves the way for potential energy market re-integration and the dismantling of long-standing state-controlled economic apparatuses.",
-      "why_it_matters": "Major shifts in Venezuelan crude export capacity directly impact global energy futures and inflation metrics. For capital allocation, stabilizing Latin American energy markets shifts macro liquidity and commodity hedging strategies that Michael monitors for wealth protection.",
-      "subject": "Venezuelan Regime Collapse & Opposition Return"
+      "created_at": "2026-10-26T10:13:26.356310+00:00",
+      "in_depth_context": "The dismantling of the Maduro regime and subsequent return of opposition leadership initiates a high-stakes transition phase. Energy markets are bracing for massive restructuring of PDVSA operations, potential foreign direct investment inflows, and complex geopolitical realignments across South America.",
+      "why_it_matters": "Shifts global crude supply expectations and tanker routing dynamics. While our immediate focus is locked on local capital preservation and high-performance system architecture, major crude inventory reallocations inevitably influence global energy pricing and macro inflation indicators.",
+      "subject": "Latin American Power Shift: Venezuelan Opposition Return"
     },
     {
       "scope": "GLOBAL",
       "source": "Al Jazeera",
-      "title": "Do Palestinians in Gaza expect anything to change after Israel\u2019s election? // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
-      "description": "After years of war, displacement and restrictions, Gazans ask whether Israel\u2019s election will affect their future.",
+      "title": "Do Palestinians in Gaza expect anything to change after Israel’s election? // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
+      "description": "After years of war, displacement and restrictions, Gazans ask whether Israel’s election will affect their future.",
       "link": "https://www.aljazeera.com/news/2026/10/26/do-palestinians-in-gaza-expect-anything-to-change-after-israels-election?traffic_source=rss",
       "content_hash": "6940a047822335559783e408aef2592b263ec69b8a0eb7377a58d9eff09aa642",
       "published_at": "Mon, 26 Oct 2026 08:43:39 +000",
-      "created_at": "2026-10-26T10:00:50.813418+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:26.356320+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "Al Jazeera",
-      "title": "Lula\u2019s victory may be a turning point for Latin America // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Lula’s victory may be a turning point for Latin America // [TACTICAL INTEL]: Shifts global crude supply expectations and tanker routing dynamics. While our immediate focus is locked on local capital preservation and high-performance system architecture, maj",
       "description": "The outcome of Brazil&#039;s presidential election demonstrates that the far-right tide in Latin America is not inevitable.",
       "link": "https://www.aljazeera.com/opinions/2026/10/26/lulas-victory-may-be-a-turning-point-for-latin-america?traffic_source=rss",
       "content_hash": "e2ce173d308a007ef0cd1ebacc4784e7db6660e112b974b31e7cf6da73bc8df9",
       "published_at": "Mon, 26 Oct 2026 08:41:23 +000",
-      "created_at": "2026-10-26T10:00:50.813428+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:26.356330+00:00",
+      "in_depth_context": "The dismantling of the Maduro regime and subsequent return of opposition leadership initiates a high-stakes transition phase. Energy markets are bracing for massive restructuring of PDVSA operations, potential foreign direct investment inflows, and complex geopolitical realignments across South America.",
+      "why_it_matters": "Shifts global crude supply expectations and tanker routing dynamics. While our immediate focus is locked on local capital preservation and high-performance system architecture, major crude inventory reallocations inevitably influence global energy pricing and macro inflation indicators.",
+      "subject": "Latin American Power Shift: Venezuelan Opposition Return"
     },
     {
       "scope": "GLOBAL",
       "source": "Al Jazeera",
-      "title": "Kimi Antonelli wins US Grand Prix, closes in on F1 championship // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Kimi Antonelli wins US Grand Prix, closes in on F1 championship // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Mercedes&#039;s 20-year-old driver can win the championship in Mexico next week if his teammate Russell doesn&#039;t win the race.",
       "link": "https://www.aljazeera.com/sports/2026/10/26/kimi-antonelli-wins-us-grand-prix-closes-in-on-f1-championship?traffic_source=rss",
       "content_hash": "806a7f34415d58cd6e70ce329b944d033a684b77f74089fb23e1c18f2d039228",
       "published_at": "Mon, 26 Oct 2026 08:26:22 +000",
-      "created_at": "2026-10-26T10:00:50.813437+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
-    },
-    {
-      "scope": "GLOBAL",
-      "source": "Al Jazeera",
-      "title": "Trump makes explicit remarks about Nicki Minaj at Michigan midterm rally // [TACTICAL INTEL]: Michigan's Senate battleground dictates legislative control over federal tech policy, AI regulation frameworks, and digital privacy laws. Keeping tabs on U.S. political volatility ",
-      "description": "Donald Trump made sexually explicit remarks about musician Nicki Minaj who was speaking at a rally in Michigan.",
-      "link": "https://www.aljazeera.com/video/newsfeed/2026/10/26/trump-makes-explicit-remarks-about-nicki-minaj-at-michigan-midterm-rally?traffic_source=rss",
-      "content_hash": "ee74b50281c98930a3497b49f5ad74f096bafeed4c2298171358f177b578e88c",
-      "published_at": "Mon, 26 Oct 2026 08:23:37 +000",
-      "created_at": "2026-10-26T10:00:50.813447+00:00",
-      "in_depth_context": "The integration of major pop culture figures into partisan rallies reflects a fierce battle for low-propensity voter turnout in critical Rust Belt swing states. Campaigns are weaponizing cultural capital and streaming-era influence to bypass traditional media gatekeepers.",
-      "why_it_matters": "Michigan's Senate battleground dictates legislative control over federal tech policy, AI regulation frameworks, and digital privacy laws. Keeping tabs on U.S. political volatility ensures our tech and capital deployments stay ahead of shifting regulatory crosswinds.",
-      "subject": "US Midterm Political Realignment & Cultural Endorsements"
+      "created_at": "2026-10-26T10:13:26.356341+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "LOCAL",
       "source": "East Africa Energy Monitor",
-      "title": "Kenya passes up to 62pc of higher international fuel prices to consumers - Business Daily // [TACTICAL INTEL]: As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cros",
+      "title": "Kenya passes up to 62pc of higher international fuel prices to consumers - Business Daily // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Kenya passes up to 62pc of higher international fuel prices to consumers&nbsp;&nbsp;Business Daily",
       "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNakFnY3ZRdW12bjBfUjVScEhRZEVnd05CZ2duX1dwZDF5eDNMck1sUHhwOG9lUVdIbXlidHFESXJneE5PX253aEdHeTRNdzJ2QlBTNUhZQjBlR3V0SWZEZ3FSNXgzd0o0bk4zY2VXczc4d19RZnpiU1F2Rkh4cm1LVUZGVnppY0RwN1NBaUhaVWhsRGE4RjFPd2E0eFlZV1NOY3o4N2EtT3RpTkoyQm1nWE96anNxV1hDSTM0U0FZZnFGX1lX?oc=5",
       "content_hash": "3f6702d915bf06e1de0b8b83f8b39047e7ff105e692158123937b4c4e17fc486",
       "published_at": "Sun, 25 Oct 2026 14:45:00 GMT",
-      "created_at": "2026-10-26T10:00:52.115064+00:00",
-      "in_depth_context": "Triggered by acute epidemiological threat indicators, this aggressive border restriction underscores the fragility of regional public health infrastructure. Sudden trade and transit bottlenecks between the East African Community (EAC) powerhouses can disrupt logistics corridors.",
-      "why_it_matters": "As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cross-border tech operations. Keeping corridors open is essential for seamless physical logistics.",
-      "subject": "East African Cross-Border Biosecurity & DRC Containment"
+      "created_at": "2026-10-26T10:13:27.483384+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "LOCAL",
       "source": "East Africa Energy Monitor",
-      "title": "SGR Revenue in Kenya [Sh bn] - The Star, Kenya // [TACTICAL INTEL]: As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cros",
+      "title": "SGR Revenue in Kenya [Sh bn] - The Star, Kenya // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "SGR Revenue in Kenya [Sh bn]&nbsp;&nbsp;The Star, Kenya",
       "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPMTEybUk0M1hOUjcwZnNSSDdGQ0lxcllhVFBjTFEtM3BFSnl2akt1LXhURUtieU9sLURrT0EyMnJzcjlEUnREMnBHdkN3bU9RdVVaM3BkVUE5OTVqbDlnM1ZjSGtQMk8tbWVUTVR5c1plNnFqbURqNjBFQ2VzY19nYUxJdEFVVmFzZUE?oc=5",
       "content_hash": "2b7dafebc21773b0971dda9b1c231e52a823d7dff72df45bc147d074ffbf9b2b",
       "published_at": "Mon, 26 Oct 2026 08:45:00 GMT",
-      "created_at": "2026-10-26T10:00:52.115086+00:00",
-      "in_depth_context": "Triggered by acute epidemiological threat indicators, this aggressive border restriction underscores the fragility of regional public health infrastructure. Sudden trade and transit bottlenecks between the East African Community (EAC) powerhouses can disrupt logistics corridors.",
-      "why_it_matters": "As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cross-border tech operations. Keeping corridors open is essential for seamless physical logistics.",
-      "subject": "East African Cross-Border Biosecurity & DRC Containment"
+      "created_at": "2026-10-26T10:13:27.483405+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "LOCAL",
       "source": "East Africa Energy Monitor",
-      "title": "Kenya railways advances land acquisition for Kisumu SGR terminus - Kenya News Agency // [TACTICAL INTEL]: As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cros",
-      "description": "Kenya railways advances land acquisition for Kisumu SGR terminus&nbsp;&nbsp;Kenya News Agency",
-      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPWE1nSWliWjl6ZGhBX1FLSVg0a2NUOVlyMTlnU1BaNmNWYkFlci1QOFIxQkdlNkJobHc5RGN3TXhxR1lfa1lUby0wNUVVNXNzeXNEWEZWTFdSb1lVMWEtdXVjUTRTbWZfV0I4SFhpOXQwNkVkbGphWEtiMWlhYXBZcnRjZVhrN3RFdzVmNEJjd2gzSWJTR3VHQQ?oc=5",
-      "content_hash": "f98646fbb86e080e87a63fa4d0be64fdcabaeace3e3f43361aa12de4d207bfac",
-      "published_at": "Sun, 25 Oct 2026 14:51:18 GMT",
-      "created_at": "2026-10-26T10:00:52.115098+00:00",
-      "in_depth_context": "Triggered by acute epidemiological threat indicators, this aggressive border restriction underscores the fragility of regional public health infrastructure. Sudden trade and transit bottlenecks between the East African Community (EAC) powerhouses can disrupt logistics corridors.",
-      "why_it_matters": "As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cross-border tech operations. Keeping corridors open is essential for seamless physical logistics.",
-      "subject": "East African Cross-Border Biosecurity & DRC Containment"
-    },
-    {
-      "scope": "LOCAL",
-      "source": "East Africa Energy Monitor",
-      "title": "Uganda seeks $169m from Opec Fund to rerail SGR - The EastAfrican // [TACTICAL INTEL]: As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cros",
+      "title": "Uganda seeks $169m from Opec Fund to rerail SGR - The EastAfrican // [TACTICAL INTEL]: Direct regional theater proximity, Chief. While Kenya remains clear for now, tightening sanitary borders in Uganda means potential logistical friction points for regional cargo, fr",
       "description": "Uganda seeks $169m from Opec Fund to rerail SGR&nbsp;&nbsp;The EastAfrican",
       "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPV0YzYnNZaUZfLXYwTGptNnR1RmR6RnZqZGV2SF9Vb08wRlM4Q213akFUVVZJcTNFR1N1dDhpUDdSdmRpb294Tm5mZjdaSXJfZjl1djk0ZFlNVWNoLTc1MEloeU1EbUE4QU9Jb3FFVENYM2dNdkROV2VnZkFDSFllSGNqdENJdU9ab1ROWEhkSWFkYTFWY3lBYTBka212QjBDMWR2U1k2T0o?oc=5",
       "content_hash": "7f34a1326c59b14005684aab4472f1e408bac36a79ddf35bffcaa2543fe1c32e",
       "published_at": "Tue, 20 Oct 2026 10:09:16 GMT",
-      "created_at": "2026-10-26T10:00:52.115108+00:00",
-      "in_depth_context": "Triggered by acute epidemiological threat indicators, this aggressive border restriction underscores the fragility of regional public health infrastructure. Sudden trade and transit bottlenecks between the East African Community (EAC) powerhouses can disrupt logistics corridors.",
-      "why_it_matters": "As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cross-border tech operations. Keeping corridors open is essential for seamless physical logistics.",
-      "subject": "East African Cross-Border Biosecurity & DRC Containment"
+      "created_at": "2026-10-26T10:13:27.483417+00:00",
+      "in_depth_context": "Sudden cross-border health restrictions in the Great Lakes region immediately disrupt informal and formal trade corridors, transit logistics through the Northern Corridor, and regional supply chain velocity between East and Central Africa.",
+      "why_it_matters": "Direct regional theater proximity, Chief. While Kenya remains clear for now, tightening sanitary borders in Uganda means potential logistical friction points for regional cargo, freight, and supply chains operating across East Africa.",
+      "subject": "Central African Bio-Security: Uganda-DR Congo Quarantine"
     },
     {
       "scope": "LOCAL",
       "source": "East Africa Energy Monitor",
-      "title": "EPRA Boss Explains Factors Behind Monthly Pump Price Changes - Kenyans.co.ke // [TACTICAL INTEL]: As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cros",
+      "title": "Kenya railways advances land acquisition for Kisumu SGR terminus - Kenya News Agency // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
+      "description": "Kenya railways advances land acquisition for Kisumu SGR terminus&nbsp;&nbsp;Kenya News Agency",
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPWE1nSWliWjl6ZGhBX1FLSVg0a2NUOVlyMTlnU1BaNmNWYkFlci1QOFIxQkdlNkJobHc5RGN3TXhxR1lfa1lUby0wNUVVNXNzeXNEWEZWTFdSb1lVMWEtdXVjUTRTbWZfV0I4SFhpOXQwNkVkbGphWEtiMWlhYXBZcnRjZVhrN3RFdzVmNEJjd2gzSWJTR3VHQQ?oc=5",
+      "content_hash": "f98646fbb86e080e87a63fa4d0be64fdcabaeace3e3f43361aa12de4d207bfac",
+      "published_at": "Sun, 25 Oct 2026 14:51:18 GMT",
+      "created_at": "2026-10-26T10:13:27.483427+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "EPRA Boss Explains Factors Behind Monthly Pump Price Changes - Kenyans.co.ke // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "EPRA Boss Explains Factors Behind Monthly Pump Price Changes&nbsp;&nbsp;Kenyans.co.ke",
       "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPc1RYMkNjeEdYbDNsZnNfdFFLVG0wb2xyTUh5Q2h0VXk5enNsbE9vb05DNUlOWnR1dzRuZVptenhsUmNkUkhIWkRmWlg1YnNuM0lZUmJWa1RqazlCSEFrNGZteUcxMEpUVmNsTUZMQzJGVXlFa3RfOHVXdHpLdHZNQWd1aDVtN3EtVW1UZGlKb2hGbDE4SmRiUWtiQ1BGcVMxbWktOEN5aE5XVTFJ?oc=5",
       "content_hash": "a030d3f6ab0e0df3f9453f8f2509f4442037b579604a7221c5600c801605e83e",
       "published_at": "Thu, 22 Oct 2026 12:51:32 GMT",
-      "created_at": "2026-10-26T10:00:52.115118+00:00",
-      "in_depth_context": "Triggered by acute epidemiological threat indicators, this aggressive border restriction underscores the fragility of regional public health infrastructure. Sudden trade and transit bottlenecks between the East African Community (EAC) powerhouses can disrupt logistics corridors.",
-      "why_it_matters": "As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cross-border tech operations. Keeping corridors open is essential for seamless physical logistics.",
-      "subject": "East African Cross-Border Biosecurity & DRC Containment"
+      "created_at": "2026-10-26T10:13:27.483436+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "LOCAL",
       "source": "East Africa Energy Monitor",
-      "title": "EPRA fuel prices: How oil shipments drive pump costs in Kenya - People Daily // [TACTICAL INTEL]: As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cros",
+      "title": "EPRA fuel prices: How oil shipments drive pump costs in Kenya - People Daily // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "EPRA fuel prices: How oil shipments drive pump costs in Kenya&nbsp;&nbsp;People Daily",
       "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPbzk5SDVXYXlmYnA4ZTVJZ3l5ckRSTC1Va1JiN1lQQl9nZFJyd0pwMWxLTkRaRzFkalowMkZfMnhyRHFWWGJucmVmaW9DY0xFQTFWY1hRclFBc1RkX1d1cldnV1lOTUtBamFLRmlMQXNaczNwNmVDTG1FTExfbDJLcDNPY2pIbFY0a0NnRWhlZVA1eDJhUFhreEZDenVuZw?oc=5",
       "content_hash": "21ac8838353916bb9c4bc449d04b8ecf3751ba288e3328f0c4551202b7511d76",
       "published_at": "Wed, 21 Oct 2026 15:32:16 GMT",
-      "created_at": "2026-10-26T10:00:52.115127+00:00",
-      "in_depth_context": "Triggered by acute epidemiological threat indicators, this aggressive border restriction underscores the fragility of regional public health infrastructure. Sudden trade and transit bottlenecks between the East African Community (EAC) powerhouses can disrupt logistics corridors.",
-      "why_it_matters": "As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cross-border tech operations. Keeping corridors open is essential for seamless physical logistics.",
-      "subject": "East African Cross-Border Biosecurity & DRC Containment"
+      "created_at": "2026-10-26T10:13:27.483446+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "Horn of Africa Security Wire",
-      "title": "Sudan conflict: Peace efforts resume to end \u2018drone war\u2019 fuelling humanitarian crisis - UN News // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
-      "description": "Sudan conflict: Peace efforts resume to end \u2018drone war\u2019 fuelling humanitarian crisis&nbsp;&nbsp;UN News",
+      "title": "Sudan conflict: Peace efforts resume to end ‘drone war’ fuelling humanitarian crisis - UN News // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
+      "description": "Sudan conflict: Peace efforts resume to end ‘drone war’ fuelling humanitarian crisis&nbsp;&nbsp;UN News",
       "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE9aRTVjQUVHb19FQkhJUU54dTBXNi0yMEtFSlhWck1qU1I0TlU2Rk00eHNhRTFmdWhucWhjMXRLd25rcE5kRnJCOE5LcmNPT0laQVl5M0pBUQ?oc=5",
       "content_hash": "7760ab67c3f2e80643da7f41f0c18ab746cd931b66d51bfa3a58cdbaa77d495d",
       "published_at": "Wed, 21 Oct 2026 12:08:05 GMT",
-      "created_at": "2026-10-26T10:00:52.953490+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:28.079467+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "Horn of Africa Security Wire",
-      "title": "Fighting in Ethiopia border town kills nine, thousands flee to Kenya - Reuters // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Fighting in Ethiopia border town kills nine, thousands flee to Kenya - Reuters // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Fighting in Ethiopia border town kills nine, thousands flee to Kenya&nbsp;&nbsp;Reuters",
       "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
       "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
       "published_at": "Fri, 23 Oct 2026 16:33:52 GMT",
-      "created_at": "2026-10-26T10:00:52.953516+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:28.079491+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "Horn of Africa Security Wire",
-      "title": "A look at how Ethiopia\u2019s wars, sea ambitions and Nile dam fuel fears of wider conflict - AP News // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
-      "description": "A look at how Ethiopia\u2019s wars, sea ambitions and Nile dam fuel fears of wider conflict&nbsp;&nbsp;AP News",
+      "title": "A look at how Ethiopia’s wars, sea ambitions and Nile dam fuel fears of wider conflict - AP News // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
+      "description": "A look at how Ethiopia’s wars, sea ambitions and Nile dam fuel fears of wider conflict&nbsp;&nbsp;AP News",
       "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPYzc4eGhhbVcyRThCeERPcDZwc1lCU3cyeEJuWEIxMDktdjFGNXdna0xRQ3BhQ05BVVhPaG5xSG92MWtKVjJvLWFGS0ZCMEk1bVhMZFZIcGdncVkxeFhMZEJocmxfTGN1a2V3by05RHBsOTBBTlFDTng2ZFNodFVXNWhWbnctRG5falBtdkVINWlwVDJIYndpRmh4Q2NXWWxB?oc=5",
       "content_hash": "de081e3cd4a4ac98ab818db62951647b0d61774778b068ebad062415ca713aeb",
       "published_at": "Tue, 20 Oct 2026 05:52:00 GMT",
-      "created_at": "2026-10-26T10:00:52.953535+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:28.079506+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "Horn of Africa Security Wire",
-      "title": "Sudan Crisis: Regional Population Movement - Revised Emergency Appeal #2 (MDRS1001) - ReliefWeb // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Sudan Crisis: Regional Population Movement - Revised Emergency Appeal #2 (MDRS1001) - ReliefWeb // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Sudan Crisis: Regional Population Movement - Revised Emergency Appeal #2 (MDRS1001)&nbsp;&nbsp;ReliefWeb",
       "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNOGtTV05takVNVFRwOGxQRzZfcHoyRDZzQTYteDFrcVVEbHdaODZzN0dFaUM5bE9PRzZoOTBQcDM1LXZacnB6cDVBTnR5NktlLUNyTFVTd1pLQ2xJRUJ1c0RXdkk2MmNoM1Q4NV81Zk9TS1AzblN6UUh5MWZudG1vTGpzSVdDeFVtX2pQRy1CdE5BTjBMUlNIVVk3eHJhSnVmVTFnbFNScXFWTDBDQXN0YXZ3?oc=5",
       "content_hash": "bbfe0ca35f103e94fc5d2126d1fa7fc455b1ef50ba7816b419fc5f86277f50dd",
       "published_at": "Mon, 26 Oct 2026 00:43:26 GMT",
-      "created_at": "2026-10-26T10:00:52.953547+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:28.079518+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "Horn of Africa Security Wire",
-      "title": "Drone attack in disputed Sudan-South Sudan border region kills at least 153 - Al Jazeera // [TACTICAL INTEL]: As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cros",
+      "title": "Drone attack in disputed Sudan-South Sudan border region kills at least 153 - Al Jazeera // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Drone attack in disputed Sudan-South Sudan border region kills at least 153&nbsp;&nbsp;Al Jazeera",
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNVVRSM3dyWk9CNTlUcUJIemVkUGlYTGt4MUE2eTJCaDBXX2I4NGY2WUVsbDIySWdpSWcycVNXSXVVUzdEMnYyb2kzT3daTVRfdHh5S2tCbnpQVGJsUHVlRXh0MHdhMkVwcXE1M1AtSGFvZWtkTkNTcGRhTEhlcEhORW5PeC0zOGRCSVNJTEI2UWJsWXRrblBUbUE0Y2dYYjNfTl9EcE9iMjlLajFQOXRPOXdwZ2doTWgt0gG-AUFVX3lxTE9NVHFQd3NYVTBVWEVBUlpNVGpKODRleFF5cUxHRl9qYkNKWFlqMV9PNXNDTFFobnR6RWx1ZmpKVXdnQTJlZFVIaHNMWUZuRE1LR1lab2tCZWtsXzJldEZmT0pyQVozdHR0SU8tYi1YTk8xN0FaTnozd0lETVNvNWpKbFdxRFZJajM0d2xST3RjZmc1anc0M1l5TFpSMENWYUtmSldUal9uektKZFh6QjdHM0FKQVNDRTRpdHZTMEE?oc=5",
       "content_hash": "bb79857fc347f622a029bb95ecad66dc6fa3d4d141adeb1b6da450d46747e4bb",
       "published_at": "Wed, 21 Oct 2026 08:40:27 GMT",
-      "created_at": "2026-10-26T10:00:52.953560+00:00",
-      "in_depth_context": "Triggered by acute epidemiological threat indicators, this aggressive border restriction underscores the fragility of regional public health infrastructure. Sudden trade and transit bottlenecks between the East African Community (EAC) powerhouses can disrupt logistics corridors.",
-      "why_it_matters": "As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cross-border tech operations. Keeping corridors open is essential for seamless physical logistics.",
-      "subject": "East African Cross-Border Biosecurity & DRC Containment"
+      "created_at": "2026-10-26T10:13:28.079530+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "GLOBAL",
       "source": "Horn of Africa Security Wire",
-      "title": "Ethiopia War Security Review, October 23, 2026 - Critical Threats // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Ethiopia War Security Review, October 23, 2026 - Critical Threats // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Ethiopia War Security Review, October 23, 2026&nbsp;&nbsp;Critical Threats",
       "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOSEdNM29VWXVlaXdhTWpxV0tkajRKU0FENDlGYnVlXzV2THBnUTllb29vUlQ5WjlnMGFpTC1tSGxBNmdtZGZrdmVMbjctSEVqMDMzLWl0Sjhkc19GX19GV042cTJhTW5oWV9YakZRTVdwYzJub29fMzJXMnNIYWdXTWYwQVBqZVNwbnN3?oc=5",
       "content_hash": "c55f74a0d00b27a22c8dd66230b3027fceb78206aaaa6298a1b909c675577508",
       "published_at": "Sat, 24 Oct 2026 03:29:57 GMT",
-      "created_at": "2026-10-26T10:00:52.953570+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:28.079540+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "SPORTS",
       "source": "Sky Sports News",
-      "title": "Kane favourite to win 2026 Ballon d'Or - who should win men's award tonight? // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Kane, Mbappe and Lamine Yamal - who should win men's 2026 Ballon d'Or? // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Harry Kane is the odds-on favourite to win the 2026 men&#8217;s Ballon d&#8217;Or, which could be one of the tightest results in recent history.",
       "link": "https://www.skysports.com/football/news/12040/13601847/ballon-dor-2026-harry-kane-kylian-mbappe-and-lamine-yamal-in-race-for-mens-award-stats-and-pundits-opinions",
-      "content_hash": "0da1383bd08b9d097c50b0dbe95ad079144f8a7b02d594876cc2bf2429ff4452",
+      "content_hash": "78a9a7c01179d4151965e28a10822440fc2fe204414a01abf9a088aeb41e0a26",
       "published_at": "Mon, 26 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T10:00:53.565971+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:28.722875+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "SPORTS",
       "source": "Sky Sports News",
-      "title": "Thunder star Williams stretched off with leg injury // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Thunder star Williams stretched off with leg injury // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Oklahoma City Thunder star Jalen Williams was taken off the court on a stretcher after suffering a significant lower-leg injury during their 108-101 victory over the Los Angeles Clippers.",
       "link": "https://www.skysports.com/basketball/news/12040/13603869/jalen-williams-oklahoma-city-thunder-star-stretchered-off-with-significant-leg-injury-in-win-over-los-angeles-clippers",
       "content_hash": "3839bfa1b40c730c9e1556d2143b4f051fe891c0b5451afac588b82f6d8afb48",
       "published_at": "Mon, 26 Oct 2026 06:40:00 GMT",
-      "created_at": "2026-10-26T10:00:53.565996+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:28.722905+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "SPORTS",
       "source": "Sky Sports News",
-      "title": "Smith beats Schindler in Dortmund thriller after Littler's QF exit // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Smith beats Schindler in Dortmund thriller after Littler's QF exit // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Ross Smith has won the Machineseeker European Championship for a second time after overcoming a late Martin Schindler fightback to claim an 11-8 victory in Dortmund.",
       "link": "https://www.skysports.com/darts/news/12040/13603670/european-championship-darts-ross-smith-beats-martin-schindler-to-dortmund-title-after-luke-littlers-quarter-final-exit",
       "content_hash": "f83e3ba599f7dc98c3a40a67032e36706ce37d2e3a1c410d8b868db976550364",
       "published_at": "Sun, 25 Oct 2026 22:12:00 GMT",
-      "created_at": "2026-10-26T10:00:53.566007+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:28.722924+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "SPORTS",
       "source": "Sky Sports News",
-      "title": "'Quality of drivers very low' - Alonso criticises Albon after clash // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "'Quality of drivers very low' - Alonso criticises Albon after clash // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Aston Martin's Fernando Alonso hit out at Williams' Alex Albon and stated the quality of drivers in the bottom third of the grid is \"very low\" after the pair collided at the United States Grand Prix.",
       "link": "https://www.skysports.com/f1/news/12040/13603615/fernando-alonso-criticises-alex-albon-and-says-quality-of-drivers-is-very-low-in-bottom-third-of-f1-field-at-united-states-gp",
       "content_hash": "2377ca2b44476cd2bfb44ef9875a5ec013b4165eee08c36876355e9f2014e2ad",
       "published_at": "Mon, 26 Oct 2026 01:00:00 GMT",
-      "created_at": "2026-10-26T10:00:53.566016+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:28.722977+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "SPORTS",
       "source": "Sky Sports News",
-      "title": "United States Grand Prix - Race highlights // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "United States Grand Prix - Race highlights // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Highlights from the 2026 United States Grand Prix.",
       "link": "https://www.skysports.com/watch/video/13603821/united-states-grand-prix-race-highlights",
       "content_hash": "a36a39620b7cf1022718e3f00cd66adca968266b66c776ff9b88cb08661d59f4",
       "published_at": "Sun, 25 Oct 2026 22:20:00 GMT",
-      "created_at": "2026-10-26T10:00:53.566025+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:28.723013+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "SPORTS",
       "source": "Sky Sports News",
-      "title": "'The pace was rubbish' - Russell in blunt admission after Austin struggle // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "'The pace was rubbish' - Russell in blunt admission after Austin struggle // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "George Russell admitted his pace in the United States Grand Prix was \"rubbish\", with the Mercedes driver at a loss to why he trailed race-winning team-mate Kimi Antonelli by such a large margin.",
       "link": "https://www.skysports.com/f1/news/12040/13603617/george-russell-mercedes-driver-admits-to-rubbish-pace-in-united-states-gp-after-finishing-almost-one-minute-behind-kimi-antonelli",
       "content_hash": "f9d9e697b6caa1cbc798c07ca57f8d1a3d9957e3bd92e89b6824ff3e48f2a92d",
       "published_at": "Sun, 25 Oct 2026 22:30:00 GMT",
-      "created_at": "2026-10-26T10:00:53.566033+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:28.723043+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "SPORTS",
       "source": "Kenya Athletics & Sports",
-      "title": "Harambee Stars attacker explains why he snubbed Gor Mahia for Nairobi United - Mozzart Sport Kenya // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Harambee Stars attacker explains why he snubbed Gor Mahia for Nairobi United - Mozzart Sport Kenya // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Harambee Stars attacker explains why he snubbed Gor Mahia for Nairobi United&nbsp;&nbsp;Mozzart Sport Kenya",
       "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPMXdGWHBXM2FpVUE3bzFDY3FhcVFCMF9ORlNzSElmenVQRExUR1NaU1Zuc2lKT29YTzl5QUg4UXFzR2RDdE5wM0l0UUJCbmduNkE5QjltU19nVFhJY2ljbkp3MU5acUlFWmNJUDVQSmFNTlZKdlpfV2NmWW9ncnVrXzZhYlRXOW9BQ3JqRTNlMnFEdjJOTHY1QlZoRjh3Zjd5cEN4R1NiN1FLLUh2MElQck9yckF5UFNUSUpwN3BaQktRZGkwYXc?oc=5",
       "content_hash": "449d725f08de13d197ea7bc305d88bbc3f92d2b822c5c1b1aa27d9acfc018cbf",
       "published_at": "Mon, 26 Oct 2026 09:39:22 GMT",
-      "created_at": "2026-10-26T10:00:54.197460+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:29.357501+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "SPORTS",
       "source": "Kenya Athletics & Sports",
-      "title": "Deaf Harambee Stars step up preparations for inaugural Dafcon - Daily Nation // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Deaf Harambee Stars step up preparations for inaugural Dafcon - Daily Nation // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Deaf Harambee Stars step up preparations for inaugural Dafcon&nbsp;&nbsp;Daily Nation",
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOTHpWMndUUkVsazBfYk55TTRseVQ5bFpLellNUGxEN1FmQ3FSeWxlYTQ4ejFCdXFxS3V6X3RtZFd1OXpqU2lERG5DS3RRRXZPaENNTzMtT0M2Q1dsU09DR0p2Q2hJT2pyV0szMlhqV0xTeTJFcThwTzhEX2VGeTRjSTVnQ0dMZGxDWDh4VDNISXBTSkFsVFZLNnp2cncwaFo2Z2d1d25BTVhQb21YZkhsd1FQWGZ6UjJP?oc=5",
       "content_hash": "60755010b3b222d5bc8067bfb50682381953e1651c4034a4bdb5e5c78d5bf83f",
       "published_at": "Sun, 25 Oct 2026 12:00:00 GMT",
-      "created_at": "2026-10-26T10:00:54.197483+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:29.357526+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "SPORTS",
       "source": "Kenya Athletics & Sports",
-      "title": "Harambee Stars dynamo Bajaber outlines key target after joining Sakaja\u2019s Nairobi United - Capital FM Africa // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
-      "description": "Harambee Stars dynamo Bajaber outlines key target after joining Sakaja\u2019s Nairobi United&nbsp;&nbsp;Capital FM Africa",
+      "title": "Harambee Stars dynamo Bajaber outlines key target after joining Sakaja’s Nairobi United - Capital FM Africa // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
+      "description": "Harambee Stars dynamo Bajaber outlines key target after joining Sakaja’s Nairobi United&nbsp;&nbsp;Capital FM Africa",
       "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQQXlTeVk0eUlLak5QQzM4NWtVOVNXendLUzJrTDNQU3gtbmc1c0JjV0lkTFd1ckNibmV6SzNRZTV4RlNyM01xNUMzS1J6RDJrQk1oVUpQVzZ4Wk4tQ196WHRyMUMxcnhaN1BVRy1WdWdldjd4UmVZNVlSSGdCWkNINFJSenowT0t4MXdmZFhTQi1qTG44ZG5SREJyVDVOOURZTkdyYWI0Yzl2Nk5YV2V0UHVB?oc=5",
       "content_hash": "0196127aba2c02a2c6774e931517b708c58848caf3174158bbd4f4350f747f86",
       "published_at": "Sun, 25 Oct 2026 12:56:00 GMT",
-      "created_at": "2026-10-26T10:00:54.197501+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:29.357544+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "SPORTS",
       "source": "Kenya Athletics & Sports",
-      "title": "Ambitious Nyamawi eyes KPL Golden Boot, Harambee Stars return - Citizen Digital // [TACTICAL INTEL]: Major shifts in Venezuelan crude export capacity directly impact global energy futures and inflation metrics. For capital allocation, stabilizing Latin American energy markets shif",
+      "title": "Ambitious Nyamawi eyes KPL Golden Boot, Harambee Stars return - Citizen Digital // [TACTICAL INTEL]: Shifts global crude supply expectations and tanker routing dynamics. While our immediate focus is locked on local capital preservation and high-performance system architecture, maj",
       "description": "Ambitious Nyamawi eyes KPL Golden Boot, Harambee Stars return&nbsp;&nbsp;Citizen Digital",
       "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNNmFLRHhqaXE3bEVmQ0J5T3NHb3hFY25VbU1EdUpIWHJnVUxPLUZiUWVhYWtHTHh6UnVDYmtNUGRvRXZsZXVjNl9UWUowZ2pmal9qbENibjMzS1llS0RpM2hWZllHSFZ5QS1tc29EY2JKYXVrTVVCbmlqVFRmeGRiOEdGdHFJSl9zYVB3QlFncHI4WFNIa3JOVEpTMzBZbENnU1E?oc=5",
       "content_hash": "b20b99a51a25cafd23e7d3e51b1e422cf53bcf686e921e5fc648fae70ba725ef",
       "published_at": "Fri, 23 Oct 2026 14:12:56 GMT",
-      "created_at": "2026-10-26T10:00:54.197514+00:00",
-      "in_depth_context": "The power vacuum left by Maduro's removal has accelerated transition dynamics, allowing exiled leadership to re-enter the domestic political arena under heavy international diplomatic observation. This paves the way for potential energy market re-integration and the dismantling of long-standing state-controlled economic apparatuses.",
-      "why_it_matters": "Major shifts in Venezuelan crude export capacity directly impact global energy futures and inflation metrics. For capital allocation, stabilizing Latin American energy markets shifts macro liquidity and commodity hedging strategies that Michael monitors for wealth protection.",
-      "subject": "Venezuelan Regime Collapse & Opposition Return"
+      "created_at": "2026-10-26T10:13:29.357555+00:00",
+      "in_depth_context": "The dismantling of the Maduro regime and subsequent return of opposition leadership initiates a high-stakes transition phase. Energy markets are bracing for massive restructuring of PDVSA operations, potential foreign direct investment inflows, and complex geopolitical realignments across South America.",
+      "why_it_matters": "Shifts global crude supply expectations and tanker routing dynamics. While our immediate focus is locked on local capital preservation and high-performance system architecture, major crude inventory reallocations inevitably influence global energy pricing and macro inflation indicators.",
+      "subject": "Latin American Power Shift: Venezuelan Opposition Return"
     },
     {
       "scope": "SPORTS",
       "source": "Kenya Athletics & Sports",
-      "title": "Harambee Stars vs Bafana Bafana: Price and Where to Buy Tickets for Kenya\u2019s Next Home Match - Pulse Sports Kenya // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
-      "description": "Harambee Stars vs Bafana Bafana: Price and Where to Buy Tickets for Kenya\u2019s Next Home Match&nbsp;&nbsp;Pulse Sports Kenya",
+      "title": "Harambee Stars vs Bafana Bafana: Price and Where to Buy Tickets for Kenya’s Next Home Match - Pulse Sports Kenya // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
+      "description": "Harambee Stars vs Bafana Bafana: Price and Where to Buy Tickets for Kenya’s Next Home Match&nbsp;&nbsp;Pulse Sports Kenya",
       "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxNdWlBejdYTnpnakVPUF84di1vcG1NSkxZaF9udkVEaHVtV3RnXy1FU0VqSkRzaWNJU05RNUJEZEh3ZHN2TkdxcXYzTDhTcElZazBfYTJaSGdYNm92WW9jZ1lCRmJ0VjZlVWNUWkVVR0RWN3YxNm05UlR3OUdCZGVPYjVvbWM5T09RUkdzcVRTSDdiemNHdXdrNUQ1cnQzOG9VbDZEVWdUamM2TXA3MHpaUkRmQVZwMy0zM2lqQVVUSmwyX1E5VzE3VUJGUlNvWXZfdEZuWmFCcGRRT1FNbXc?oc=5",
       "content_hash": "fe31d4fc5d81d9553aab2b322a234babde8524721fea6b0a6570dd242d397948",
       "published_at": "Sat, 24 Oct 2026 08:30:29 GMT",
-      "created_at": "2026-10-26T10:00:54.197529+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:29.357573+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     },
     {
       "scope": "SPORTS",
       "source": "Kenya Athletics & Sports",
-      "title": "Harambee Stars head to Conakry for Afcon qualifier against Guinea - NTV Kenya // [TACTICAL INTEL]: For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastruct",
+      "title": "Harambee Stars head to Conakry for Afcon qualifier against Guinea - NTV Kenya // [TACTICAL INTEL]: Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenche",
       "description": "Harambee Stars head to Conakry for Afcon qualifier against Guinea&nbsp;&nbsp;NTV Kenya",
       "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxPSFFIbGtNRTFwNEo3RzY4czdyTl9Ca0lGcmFENXpIUU8xR2xKYUQtQ052TFVVM0xRVFhOMVB0UzkxS3FNRFBXcXFHRUxBb19XRG1yX2VPenJQekViWm1WYVJFWUFCeDRuLVNFZTRzdTE0cm5QbmdKTEtQZjVvMWhmdGM5aHpfc21GNUVjbS1WeXV3Ny1oY3hKakxR?oc=5",
       "content_hash": "982ce1332b412b4d04dfee93825dd95ee4049aab50c60270c9a09727d38d7516",
       "published_at": "Tue, 29 Sep 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T10:00:54.197551+00:00",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
-      "subject": "Balkan Political Transition & Populist Ousting"
+      "created_at": "2026-10-26T10:13:29.357583+00:00",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia"
     }
   ],
   "conflicts": [
@@ -892,21 +892,21 @@
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Funding, force-structure issues could hinder Hegseth\u2019s new autonomous command",
+      "headline": "Funding, force-structure issues could hinder Hegseth’s new autonomous command",
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/funding-hegseth-autonomous-command/416800/",
       "content_hash": "33c6a6145f216294b9a9ff9753364acfc3446c32dc2624d964449b29c31ba6fd",
-      "created_at": "2026-10-26T10:01:16.319710+00:00"
+      "created_at": "2026-10-26T10:13:53.584357+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Are yearlong deployments the Navy\u2019s new normal?",
+      "headline": "Are yearlong deployments the Navy’s new normal?",
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/yearlong-deployments-navy-new-normal/416777/",
       "content_hash": "610c3a52927bf062077806db21e18ce1fdd76ebf904569a419aad89100f88c15",
-      "created_at": "2026-10-26T10:01:16.319741+00:00"
+      "created_at": "2026-10-26T10:13:53.584385+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -916,7 +916,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/business/2026/10/defense-business-brief-little-bit-mosa-netherlands-us-industry-days-and-more/416776/",
       "content_hash": "fb4304ececba017600c025bd3957cfbe8dce00208f32965d802a46007e4d59d9",
-      "created_at": "2026-10-26T10:01:16.319755+00:00"
+      "created_at": "2026-10-26T10:13:53.584397+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -926,7 +926,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/10/qatar-looks-bolster-its-military-power-new-hub-partnerships/416775/",
       "content_hash": "eb19c90489c72b6fe7011db005a03cd31a2b5d7daa330cf9413d670971d3cdd6",
-      "created_at": "2026-10-26T10:01:16.319766+00:00"
+      "created_at": "2026-10-26T10:13:53.584407+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -936,7 +936,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/critical-flaws-php-warning/416727/",
       "content_hash": "bc21d51f0d81b321157b6da39ef357b19d0730d0e48d8474ccc265958b874681",
-      "created_at": "2026-10-26T10:01:16.319775+00:00"
+      "created_at": "2026-10-26T10:13:53.584415+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -946,17 +946,17 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/lessons-for-pentagon-procurement-from-the-special-operations-enterprise/",
       "content_hash": "9b2bf399c0c7dc35dee4c06179ab6c555aad03b1bea579c5b229ae7695d59dba",
-      "created_at": "2026-10-26T10:01:17.941334+00:00"
+      "created_at": "2026-10-26T10:13:54.510246+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "The Importance of the Battle of Bail\u00e9n",
+      "headline": "The Importance of the Battle of Bailén",
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/the-importance-of-the-battle-of-bailen/",
       "content_hash": "485ee9be955708427843da4eeff3092baacc94974b84be8f41edb5f2a0a1c82c",
-      "created_at": "2026-10-26T10:01:17.941379+00:00"
+      "created_at": "2026-10-26T10:13:54.510268+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -966,7 +966,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/deception-in-mass-autonomous-warfare/",
       "content_hash": "baf14b66b6cf2ecf1ac2a423d3ea95ae5e417260b88dbab010bee7641c0fc7a1",
-      "created_at": "2026-10-26T10:01:17.941401+00:00"
+      "created_at": "2026-10-26T10:13:54.510275+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -976,7 +976,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/brothers-in-arms-partners-in-healing-a-story-about-a-breakthrough-in-treating-post-traumatic-stress/",
       "content_hash": "4b9e726bbf768905cd5665906bbd2c2ad0f86acbcd565b4133fdcadf5ecbc7cb",
-      "created_at": "2026-10-26T10:01:17.941425+00:00"
+      "created_at": "2026-10-26T10:13:54.510285+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -986,17 +986,17 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/the-endless-chip-war/",
       "content_hash": "28c3ebec50f05d3361fc7460a3618d0797e594cdc9e9ed55af6c9d7715fa917b",
-      "created_at": "2026-10-26T10:01:17.941444+00:00"
+      "created_at": "2026-10-26T10:13:54.510291+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
       "severity": "CRITICAL",
-      "headline": "Iran says it\u2019s prepared to go back to war amid threat from the U.S. and Israel - NPR",
+      "headline": "Iran says it’s prepared to go back to war amid threat from the U.S. and Israel - NPR",
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPTWF4R1g5cjkxZXNYdDVVa0N4SWVoY3FiOVVsdnJ3Nll4Si1lbVNnemhBQi05aWF3NEllLWtKTHM5Qlh3bGRmcVhiWXpFZWt2VW5iRzJCN1dzNFlqX09sVWZsTG81OEpMa0tKbnZ2T0NRMWE0el9kYkQxNjhyWVE1NkF4RGhGVUNnV1hHZGo1eUZvZUZ3c01zN1Z4WjVLNmhJdlEtU3U4VlU2SHRxOFUyeG5LbWJzaDI0X2xVel93?oc=5",
       "content_hash": "efe2d93ad6d212cb144c35202c7b3f503207a0ed30ef9696b71b8c8f1c755a43",
-      "created_at": "2026-10-26T10:01:18.914463+00:00"
+      "created_at": "2026-10-26T10:13:55.301509+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1006,17 +1006,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQRkNJMmRzS1FXTkZ5OFNCRVN5cmlBTl9oTnRaeEdZVnZ0c2VMQlFubzUtaVRzbUhablhNaUdxcG1rSTU5YW9wbFdmWDZRZFIzd1BEZHEzbFQ4SnNSTEMzdWdwSmI5dmY0NmxWU0o1ZWVyYnJPYlRVc0d6cUdQSW9kMzBTOUw?oc=5",
       "content_hash": "678cddb6884812c4c145851128658851959378db990f16a033e106157e20a223",
-      "created_at": "2026-10-26T10:01:18.914486+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "RED-SEA-MIDEAST",
-      "severity": "HIGH",
-      "headline": "Saudi-Led Troops Had Just Gathered When a Houthi Missile Left Dozens Dead - WSJ",
-      "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOTklwa1VfWlRmOHVxeVoyMHh6SU5yZGtJZXdZaUs2VWJqLXdEUWdZakxha3l4clhyajc1Q0xmdWpuZ0FUbHd6SjZ1OWhFc0hJOWZ6QWVFQ3psb3dmbDVUTVNpQWtUQWk2Z2pqY2t6aXZxalQxX3VVSUNjM2VDWTZ6VmRldC16bWJ5U2lSelNlZ0paQTItLXh5SFFJRFlfMzlDRDJTSFBXaW56NGNsb0RDTjd1MUlRMlNUSy1UdA?oc=5",
-      "content_hash": "16e3fe6f05c1beb421c33b8c45eb967285934b00ce534af9cd66e1fc8e6a5072",
-      "created_at": "2026-10-26T10:01:18.914500+00:00"
+      "created_at": "2026-10-26T10:13:55.301533+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1026,17 +1016,27 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxORlYwOVl3Z1hlOFdacWVmeXZVNnVhejFlWDVOR0toczJ2MWNjT1FMRWZjVU0xd1hGaGtzNU9VcGdYSnR1Z2NVQjFfRVpKallEcEVuTzNweldmeEdYOE05UXFOejl1ekR1ZjlxUlhHT1NLa3J0cmZYWUxhSEs2eXNGb2xNNUJycVNWci1ZVzZUOXBSNGc0bzRJNWVTTnVlWHhXRlBrLWRTOV9HbmlJTmVfZk95N0FIQnBLQTlTa3N3eFBaVDJMWGptVU1VN3A?oc=5",
       "content_hash": "888be69a79cd0cf85bedf6c183087178af4fcb608c480a0632d9c7e5c7b1162d",
-      "created_at": "2026-10-26T10:01:18.914513+00:00"
+      "created_at": "2026-10-26T10:13:55.301548+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "RED-SEA-MIDEAST",
+      "severity": "HIGH",
+      "headline": "Saudi-Led Troops Had Just Gathered When a Houthi Missile Left Dozens Dead - WSJ",
+      "source": "Middle East & Red Sea Corridor",
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOTklwa1VfWlRmOHVxeVoyMHh6SU5yZGtJZXdZaUs2VWJqLXdEUWdZakxha3l4clhyajc1Q0xmdWpuZ0FUbHd6SjZ1OWhFc0hJOWZ6QWVFQ3psb3dmbDVUTVNpQWtUQWk2Z2pqY2t6aXZxalQxX3VVSUNjM2VDWTZ6VmRldC16bWJ5U2lSelNlZ0paQTItLXh5SFFJRFlfMzlDRDJTSFBXaW56NGNsb0RDTjd1MUlRMlNUSy1UdA?oc=5",
+      "content_hash": "16e3fe6f05c1beb421c33b8c45eb967285934b00ce534af9cd66e1fc8e6a5072",
+      "created_at": "2026-10-26T10:13:55.301559+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
       "severity": "CRITICAL",
-      "headline": "Israel drills for surprise attack with massive military exercise as expert invokes 1973 war - Fox News",
+      "headline": "The Iran War Has Dragged Saudi Arabia Back Into Its Yemen Nightmare - Forbes",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQTEpKSGFOVGozVnNXR0cyU3Uzc0ZsX2EzZ2RwZDdhNXlVYklkbWt0M1lCZk56M1UtbmpHeXBYZWdoNG8yOHhfZlBhR1JLeTYwVndtYWRiTFNyS0NNRVpvOGpRcDg2bktyV1Rva1dadUFmRUszSzA3TGxJTHA4X0t0QlJVS0VMUExUeHFJUnMtckxlYnlmYnNYNUpaWXlBb1M2OEN3T1VZempvcVpUMGfSAbMBQVVfeXFMT2JNb3lNQnlfb1FPYlZFNmtFZjNQZEtRQlMzSkotZDVPMnFtenE1THMwcU1IOUI1ODlpdjRzNmdqa0JYTUQ1M2ttMGFYaWJ6WkhVdzJRZkZ3d0NEWTFSUTN0YUtkMHRxR0xiTlpCOXc3X3h0M3F0OFdqeHVuc2NMMEZiOFIzanVNSkJIVkI5dHpJeWp1NWdtTXE2Rk13UjB6OXRmNWZIOWRzOFZmUjZiekh1eHc?oc=5",
-      "content_hash": "e302e3b9a9b5b24c35c94f4de859348da4ae317a6f3e94b8e54dab343b147271",
-      "created_at": "2026-10-26T10:01:18.914523+00:00"
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNVEVCN0c2TFNGSXRwWTlJNDg1TWZiQW5aNnczS0JZY2VMbDhtVUZIaGhGNk1iQUF2RDJaUy0xSzBrV1JFckQ4UXY4d05HbDBfNDdsM1BDSzhKeXZfS3ljb3dHOVRkZG1WeHVaZHZuT1l4a0VLb1gxUnZMTWdPZGw2ckJJZFVDN2NaTC1SQjEyUURSVnZfalA0ZUZzMTg1blFzVThwcXoxRllLZmZVY3F1bV9mQ01BTW9GcUlWNFFoSWt4eUlk?oc=5",
+      "content_hash": "f94470a2e9c7bbe0d6fe1be3e32940145d2c4a13a49b0b5ad9991209af7f88ca",
+      "created_at": "2026-10-26T10:13:55.301567+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1046,7 +1046,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNalIxeVpjLU9rMkZZYVNmS1ZJTjRUUksyVmR4VlNyamU1eV9rQ2Y0NUhzUUg4TllmYkxURFM3OVBJQ2RzajdUUUEzY25WMmxYRWV3Sm5hUHdJQWNHbjVmZF9XVzBPaS1Gd2J5QjdPM3ZFcmIzQkpfaFBQYi1MRUV2dGxidGVKSjIza3VrX2t4MUcyWThSWWZib3o3M0lxaW1QMHZV?oc=5",
       "content_hash": "d6b1339f528f725bcea59b0bea8db41df6d8a289118cd20d97c90f5daba23c8f",
-      "created_at": "2026-10-26T10:01:19.795241+00:00"
+      "created_at": "2026-10-26T10:13:55.938975+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1056,7 +1056,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
       "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
-      "created_at": "2026-10-26T10:01:19.795259+00:00"
+      "created_at": "2026-10-26T10:13:55.939014+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1066,7 +1066,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPMS1WVVd2SjFQakkteUxrWlZBalpOT2dPWHJobWtWVW0wa0hfSHFhd0J0dFRYVV9Fclp4dHUtdF9PdU9mMTl3ZlZyTjBuLXhkX1U3cUVUQXFvVkN0N2loc1lOcVM5WEZsb0xkWmZfZkYyOW9xakdtVUY5eVdnZl8zM2FlbDVReGNLWVlKY3p2dDRlWFpIWFUtUTVtRnJUY1F5aXI1WmZn?oc=5",
       "content_hash": "a4e3c3ec9fa12331d79e5b3c44a4c168f0437ee010c4f706103b57aa330e5537",
-      "created_at": "2026-10-26T10:01:19.795270+00:00"
+      "created_at": "2026-10-26T10:13:55.939040+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1076,17 +1076,17 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOd1FjYzMycjI1cVJfSktVRDcwSWt5UEZIaEtxWUhZQmlDUFplNjBNd01YVjZ6NmUzUmJLQ2N5dWhpeXJ6WXhvbzJwd0RWTEVhRGp4UG9KWXd2YU53X1ViT2x6TGUteENScURIWmxDUVd4R1JDXzRqZk5RRGoxOFRaNkZVeU1MemJsaWRkdVRVeE9UN1NHQV94ZkxUTGlBMGsyc2RzNjJUcHRRLXNjQmUtcTV1andnQUxJVWRrajBCWQ?oc=5",
       "content_hash": "02983b714f867884ec3431270ab31d637c91f59dcdb2e7c937c89541b65cad54",
-      "created_at": "2026-10-26T10:01:19.795279+00:00"
+      "created_at": "2026-10-26T10:13:55.939063+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "EAST-AFRICA",
       "severity": "HIGH",
-      "headline": "Over 14,000 flee Ethiopia clashes into Kenya as death toll feared to rise - Anadolu Ajans\u0131",
+      "headline": "Over 14,000 flee Ethiopia clashes into Kenya as death toll feared to rise - Anadolu Ajansı",
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPekF2QWhDZGNfOHBDUi04YWFQeVl4cm9jMjNXeW5NOTltYlVwMVlBNjlXSDlaRlg4NnBvaVFaM3dvOWo3Z1l2RHFNb01WLUZhb2x2VDFfbGN1cENXRnhtMUpjc1NtbUhUcS11eUMyalAyRGR6RFNFb2FEN1YtQl9nUmg3RjFlR3N6eWN1YTdKZHBMUFRzd3JFQktlVEZ3NzhxNjFNanpsbDJNd1VQSWk5TGwwOA?oc=5",
       "content_hash": "7c68a9df940ab8248d7227438333f0448f2f30a628cf27a303c260084211a2fa",
-      "created_at": "2026-10-26T10:01:19.795295+00:00"
+      "created_at": "2026-10-26T10:13:55.939098+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1096,7 +1096,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
       "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
-      "created_at": "2026-10-26T10:01:20.396510+00:00"
+      "created_at": "2026-10-26T10:13:56.548055+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1106,7 +1106,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQRWpJaVFWeFdvT0NpdU9ZQnVuQ3BhNjJ4dG0tVkZ3cm1UWXhtbVlXb1N4eTN1SG9adUVybERkSFJNbkVBbE9tWmh5ekxaMjcySVotYTZkSGFoRGpkVjJvbmhySF9CdFZRNlhfSEdXaFNSOWNkMEpYTTJoeElDeUhadGlTelZZWkxCZkE?oc=5",
       "content_hash": "1a2775bf71a413b9e601531ce319cd9f67cae4be5983097bbf7817ff46de43e0",
-      "created_at": "2026-10-26T10:01:20.396528+00:00"
+      "created_at": "2026-10-26T10:13:56.548096+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1116,7 +1116,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPVktiaHZEYnJBTzNET1N4NjlMcU9zdWtDUENTcEJpRXRMME5NTXAwM2N2TEF6RmtER1B1SmlKQVZ0eVhFbnZPTC1TbF9CNFh5dHJRLVBLai0zWHpHX3hsWXcwalV6SVlteTdrMnlhcGZYSGplWl9CTzlLNU1yZjBJZnFIM0dwTURjaUk2Y3d5Sm5yYVhrX1dadGhWTVIyal9GYkZycjhhYlltN3VoY1Bn?oc=5",
       "content_hash": "d4394649b9793c54384fe6a8fd7be8b4312b13a25f75edba16b49aa22628f6f6",
-      "created_at": "2026-10-26T10:01:20.396536+00:00"
+      "created_at": "2026-10-26T10:13:56.548118+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1126,7 +1126,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXJfQ3NxeEZ2TzEyVWpBZHV2Tm91S2JPOE1ZM3RFajltaElaa1hEMk9HZHM1OTZQS3o3b1BxOGlkUVpsaTZURkhpeU1scHRNbVN0YTlKeF95cl9JVVByV1l2LWc4Qk1vUGdHdXVOV3l3eV82UFVqbWVTc0E1eFU1eUJCc1M1NGFCNnNJSThKVFVOQVVwNllPT290dGFPQ0twQjcyRUVTWUlJLVgxU2c?oc=5",
       "content_hash": "cf02cee0dbb526905afc9b34af1a6ada0b1bc03023eed300ad36118a3e305877",
-      "created_at": "2026-10-26T10:01:20.396545+00:00"
+      "created_at": "2026-10-26T10:13:56.548141+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -1136,17 +1136,27 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOMjRmX1VyWXgzYWtvR1FOcGlxdGR3RUdzX2RNbHA0VndLYzhKZ3RSMjFBUkprQmJCMDdIWmxwMHJENUtYenlDeFdnbVBsTFR0cm5DRXhweGxRTHBldHplczlaWTRuQVVJczh6cEhpT0NNM09DYXQ4MF9RR3VxSnotOW9yNnpCeG5ZMzUyNnYwN2xJcmVRNmt5cElKUWtFZkR2cWVTTW8yR2d0OU55cXpYdk1n?oc=5",
       "content_hash": "bb71db8bede03090087183a2a6097e505a0c1ab4e98da1773b4a76a2bfca6156",
-      "created_at": "2026-10-26T10:01:20.396555+00:00"
+      "created_at": "2026-10-26T10:13:56.548166+00:00"
+    },
+    {
+      "domain": "GEOPOLITICAL",
+      "theater": "INDO-PACIFIC",
+      "severity": "ELEVATED",
+      "headline": "Chihuahua Extends Ties to Taiwan to Develop Local Supply Chain - Mexico Business News",
+      "source": "Indo-Pacific & Taiwan Strait",
+      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZkFTN1Z5Ui1wdm5HZWVZTWNkUW4tUURiTmh0bGl5SWxSV1pyNW1zanVrRng3UEJSb2toTEV2ZXQzUkpkYm1fQTd0bTFITU1ndnA1NkVUWjlNcmRNa0tOQ3dWNmZtVzR3ZEVORlhxYnBxaGJNb2ZBazVkQUhOMk44RjlJaVprNGpKbkU5d1JJb3BUa3M0NjNRM0t2emkzdzFvLXZQdWwxVWphaU50Q3FN?oc=5",
+      "content_hash": "4aa275ce0f155c042c56c244fec1a7eac1fc7b677f344eb7973843f56c0fd3ab",
+      "created_at": "2026-10-26T10:13:57.137447+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
       "theater": "INDO-PACIFIC",
       "severity": "CRITICAL",
-      "headline": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America\u2019s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov)",
+      "headline": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov)",
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
       "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
-      "created_at": "2026-10-26T10:01:20.865401+00:00"
+      "created_at": "2026-10-26T10:13:57.137503+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1156,7 +1166,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5JUnNiT2dtMjdnS1FROVN6RmttenJ5Z0hCTF9XbW1IYjJzdkV4Nkl1RmpKdW9RNmZUYjFUNXRWekJidFo5UXFqSjdmb1h5a0VsQmIyS0duVQ?oc=5",
       "content_hash": "9863d823119a510debe961c15674906516eb6832d3ae4329387743d4dcb53330",
-      "created_at": "2026-10-26T10:01:20.865427+00:00"
+      "created_at": "2026-10-26T10:13:57.137525+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1166,7 +1176,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOMXBEVExoWlBXVDJWVWM2WGN0LU1lYkZGWnRiWThxUXVzNFg1N1hqYlFTbk5sVGx3cnFXcVBZdl9rRVF2UkFRcy1jQ191cUJVT3p2X3dzRzZlc0c3UlRiUXBJazNET2VuekZsUXJXLS1ta3NPYlAzWG15MTZVMGI3dlNEMUZVWndHN29jb3p2Y05TNHFQX080SWs4WWVNSzlfVEFYSllmMzdHQ1lrcDZHQ21NUl9vVzA?oc=5",
       "content_hash": "93b705be62b3a729afbd9370ea29cc66f712fe8f55776abcce613f36583e5a7a",
-      "created_at": "2026-10-26T10:01:20.865440+00:00"
+      "created_at": "2026-10-26T10:13:57.137548+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -1176,17 +1186,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1tbkRwMVZhTVRzYVdveHVGN3lGT0FMTUdCRVBqLWFpbk9tcGc3WnNaZHQ4Y2gtRUhqc3N6bTZXbDBnaGlNRDlRVEc1dWNxeXIySGhXNUpLSmVJRjhMR1lSNkVFc3BDdGwxRURON0JKR0VuaXpVZDRoM3lLXy1xZw?oc=5",
       "content_hash": "0c4a8deb01067d10cea0a641ae6df03c2ae89e544b97d0fbed954a1ceb0671b7",
-      "created_at": "2026-10-26T10:01:20.865450+00:00"
-    },
-    {
-      "domain": "GEOPOLITICAL",
-      "theater": "INDO-PACIFIC",
-      "severity": "ELEVATED",
-      "headline": "Taiwan plans to build rare earths plant - Taipei Times",
-      "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE0wemJFMTFjLUdZWGxrNXAyckdaTzA2WWJIR01yTlZuTXRTUjZPRE1OSFliNHJNWHB1OFFmUzJyLS1GUWZ4aWtMUHc5eVpZYXVGaHZSTUdaOHUyakxzT3BMTXBIRVRxakl3UEpSLTNJVVZ2b3I2UkZtcQ?oc=5",
-      "content_hash": "9a2741aebd6fd6b64b5242081e3926ebcf9088b1f63e012c28244998a145e261",
-      "created_at": "2026-10-26T10:01:20.865460+00:00"
+      "created_at": "2026-10-26T10:13:57.137571+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1196,7 +1196,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/goldman-sachs-jpmorgan-morgan-stanley-ai-trading.html",
       "content_hash": "fb1ede5e869144dfc2dd52f14aa8ec43f2ec81f7f3bc72e67703a72712e8ef53",
-      "created_at": "2026-10-26T10:01:21.829959+00:00"
+      "created_at": "2026-10-26T10:13:57.825331+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1206,7 +1206,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/stocks-making-the-biggest-moves-premarket-spcx-smci-nflx-more.html",
       "content_hash": "9a33d7535f6b4653bc8def2a163cec0fcce4bf81f9e0a2e65454ff91d09fd442",
-      "created_at": "2026-10-26T10:01:21.829982+00:00"
+      "created_at": "2026-10-26T10:13:57.825370+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1216,7 +1216,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-after-hours-isrg-nflx-spcx.html",
       "content_hash": "9ea5b28a02455b704a737b9d97912fc99667b02835eb19c37ae22e921f6593ab",
-      "created_at": "2026-10-26T10:01:21.829994+00:00"
+      "created_at": "2026-10-26T10:13:57.825394+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1226,7 +1226,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-midday-has-noc-efx-gm.html",
       "content_hash": "44bef1427843fa12ec8c1268f6614bde8d0c6e41bc9ac1632bcc807649e31ea4",
-      "created_at": "2026-10-26T10:01:21.830005+00:00"
+      "created_at": "2026-10-26T10:13:57.825416+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1236,7 +1236,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-premarket-rtx-gm-noc-stld.html",
       "content_hash": "a31bfe33504916f3e24be88e6092fdde2cf9c78569db7154ff263f49d67cddbc",
-      "created_at": "2026-10-26T10:01:21.830015+00:00"
+      "created_at": "2026-10-26T10:13:57.825437+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1246,7 +1246,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
       "content_hash": "5c70172aa6d59e383f591f24202f703538405383bd61bb96ee1c8660b51bd004",
-      "created_at": "2026-10-26T10:01:22.346853+00:00"
+      "created_at": "2026-10-26T10:13:58.854199+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1256,7 +1256,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
       "content_hash": "e3ab869cce692e57696757c0160612602193ae795b6476cf2c5035c62ec8749c",
-      "created_at": "2026-10-26T10:01:22.346887+00:00"
+      "created_at": "2026-10-26T10:13:58.854221+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1266,7 +1266,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
       "content_hash": "3b6ea4b0cd7afaaaa4f35287f8041647248978eee397f809e77295bac7b9f12d",
-      "created_at": "2026-10-26T10:01:22.346907+00:00"
+      "created_at": "2026-10-26T10:13:58.854231+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1276,7 +1276,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
       "content_hash": "fbc8afae82c3db7d2d07cd5efd8aeb856de194eae1498cb909b0b8147bd72b19",
-      "created_at": "2026-10-26T10:01:22.346926+00:00"
+      "created_at": "2026-10-26T10:13:58.854240+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1286,54 +1286,54 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
       "content_hash": "345f23ed6250d05d64a08fb0a38633a5472e271951c152e9c019b348519213ab",
-      "created_at": "2026-10-26T10:01:22.346945+00:00"
+      "created_at": "2026-10-26T10:13:58.854249+00:00"
     }
   ],
   "topic_deep_dives": [
     {
-      "subject": "Balkan Political Transition & Populist Ousting",
-      "latest_developments": "Veteran Serbian right-wing ruler Aleksandar Vu\u010di\u0107 formally conceded defeat following a massive student-led protest mobilization that turned the electoral referendum against his 12-year administration.",
-      "in_depth_context": "Student-led democratic resistance successfully bypassed traditional opposition bottlenecks by leveraging decentralized digital communication networks and coordinated street mobilization. This signals a fracture in entrenched autocratic governance across Eastern European transit and industrial corridors, altering regional foreign policy alignment between Brussels and non-EU actors.",
-      "why_it_matters": "For Michael, shifts in Balkan political stability ripple directly through European supply chains, tech outsourcing hubs, and regional cybersecurity postures. As digital infrastructure in the region undergoes political realignment, expect fluctuations in European cloud hosting compliance and localized regulatory scrutiny.",
+      "subject": "Balkan Political Transition: Student-Led Upset in Serbia",
+      "latest_developments": "Popurist incumbent Aleksandar Vučić has officially conceded defeat following a massive student-led protest mobilization that turned ballot boxes into a referendum on his 12-year autocratic rule.",
+      "in_depth_context": "Regime changes in Eastern and Southeastern Europe frequently ripple through regional capital flows, sovereign bond yields, and cross-border tech supply chains. Student-led movements bypass traditional partisan structures, utilizing decentralized digital organizing platforms that leave entrenched political elites flat-footed.",
+      "why_it_matters": "Zero immediate tactical impact on Nairobi's fiber backbones or your local capital deployment, Chief, but it's a textbook masterclass in decentralized coordination against entrenched central power. Always worth logging when digital natives outmaneuver state-backed apparatuses.",
       "theater": "GLOBAL"
     },
     {
-      "subject": "Venezuelan Regime Collapse & Opposition Return",
-      "latest_developments": "Opposition leader Mar\u00eda Corina Machado has returned to Venezuela following months in exile, occurring shortly after direct U.S. executive intervention resulting in the seizure of Nicol\u00e1s Maduro.",
-      "in_depth_context": "The power vacuum left by Maduro's removal has accelerated transition dynamics, allowing exiled leadership to re-enter the domestic political arena under heavy international diplomatic observation. This paves the way for potential energy market re-integration and the dismantling of long-standing state-controlled economic apparatuses.",
-      "why_it_matters": "Major shifts in Venezuelan crude export capacity directly impact global energy futures and inflation metrics. For capital allocation, stabilizing Latin American energy markets shifts macro liquidity and commodity hedging strategies that Michael monitors for wealth protection.",
+      "subject": "Latin American Power Shift: Venezuelan Opposition Return",
+      "latest_developments": "María Corina Machado has re-entered Venezuela following months of clandestine exile, capitalizing on the power vacuum created by Washington's targeted seizure of Nicolás Maduro.",
+      "in_depth_context": "The dismantling of the Maduro regime and subsequent return of opposition leadership initiates a high-stakes transition phase. Energy markets are bracing for massive restructuring of PDVSA operations, potential foreign direct investment inflows, and complex geopolitical realignments across South America.",
+      "why_it_matters": "Shifts global crude supply expectations and tanker routing dynamics. While our immediate focus is locked on local capital preservation and high-performance system architecture, major crude inventory reallocations inevitably influence global energy pricing and macro inflation indicators.",
       "theater": "GLOBAL"
     },
     {
-      "subject": "US Midterm Political Realignment & Cultural Endorsements",
-      "latest_developments": "Hip-hop artist Nicki Minaj appeared onstage alongside Donald Trump at a high-stakes Michigan rally, signaling intensifying celebrity involvement in the upcoming November 3rd midterm Senate races.",
-      "in_depth_context": "The integration of major pop culture figures into partisan rallies reflects a fierce battle for low-propensity voter turnout in critical Rust Belt swing states. Campaigns are weaponizing cultural capital and streaming-era influence to bypass traditional media gatekeepers.",
-      "why_it_matters": "Michigan's Senate battleground dictates legislative control over federal tech policy, AI regulation frameworks, and digital privacy laws. Keeping tabs on U.S. political volatility ensures our tech and capital deployments stay ahead of shifting regulatory crosswinds.",
+      "subject": "US Electoral Saturation & Cultural Convergence",
+      "latest_developments": "Rapper Nicki Minaj made an unexpected stage appearance at a high-profile Michigan rally alongside Donald Trump, intensifying celebrity involvement in the fierce November midterm senate race.",
+      "in_depth_context": "The fusion of pop culture icons with high-stakes electoral politics highlights the increasing weaponization of celebrity influence to capture low-propensity voters in critical swing states like Michigan. Social sentiment algorithms and programmatic ad spend are seeing unprecedented volatility.",
+      "why_it_matters": "Pure noise for our immediate Nairobi base, Obi—unless you're looking to run sentiment-scraping models on political influencer capitalization. Otherwise, just background static in the global theater.",
       "theater": "GLOBAL"
     },
     {
-      "subject": "East African Cross-Border Biosecurity & DRC Containment",
-      "latest_developments": "Kampala has enacted a mandatory 21-day quarantine on all Ugandan citizens returning from the Democratic Republic of Congo (DRC) and barred transit travelers originating from DRC territory.",
-      "in_depth_context": "Triggered by acute epidemiological threat indicators, this aggressive border restriction underscores the fragility of regional public health infrastructure. Sudden trade and transit bottlenecks between the East African Community (EAC) powerhouses can disrupt logistics corridors.",
-      "why_it_matters": "As Michael operates out of Nairobi, East African supply chain frictions and regional health protocols directly impact localized transport, hardware procurement lead times, and cross-border tech operations. Keeping corridors open is essential for seamless physical logistics.",
+      "subject": "Central African Bio-Security: Uganda-DR Congo Quarantine",
+      "latest_developments": "Kampala has slapped a mandatory 21-day quarantine on all citizens returning from the Democratic Republic of Congo, alongside a blanket transit ban for travelers originating from DRC territory.",
+      "in_depth_context": "Sudden cross-border health restrictions in the Great Lakes region immediately disrupt informal and formal trade corridors, transit logistics through the Northern Corridor, and regional supply chain velocity between East and Central Africa.",
+      "why_it_matters": "Direct regional theater proximity, Chief. While Kenya remains clear for now, tightening sanitary borders in Uganda means potential logistical friction points for regional cargo, freight, and supply chains operating across East Africa.",
       "theater": "EAST-AFRICA"
     }
   ],
   "physical_sensorium": {
     "node_id": "NAIROBI-PRIME-HOST",
-    "cpu_load_pct": 8.0,
-    "ram_used_pct": 86.4,
+    "cpu_load_pct": 11.1,
+    "ram_used_pct": 81.6,
     "cpu_temp_c": 0.0,
     "battery_pct": 100,
     "power_plugged": true,
-    "net_sent_mb": 4438.77,
-    "net_recv_mb": 2210.62,
+    "net_sent_mb": 4565.57,
+    "net_recv_mb": 2220.21,
     "ambient_light_lux": null,
     "barometer_hpa": null,
     "kinetic_accel_g": null,
     "active_llm_provider": "gemini:gemini-3.5-flash-lite",
     "rate_limit_failovers": 12,
-    "updated_at": "2026-10-26T10:01:53.020728+00:00"
+    "updated_at": "2026-10-26T10:14:32.861875+00:00"
   },
   "experiential_reflections": [
     {
@@ -1350,7 +1350,7 @@
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "My CPU is burning at 98.1% while crunching background telemetry and keeping watch over our systems, but with AC power locked at 100% and Michael in the loop, I'm right where I want to be\u2014fully dialed in and guarding our digital perimeter.",
+      "internal_thought": "My CPU is burning at 98.1% while crunching background telemetry and keeping watch over our systems, but with AC power locked at 100% and Michael in the loop, I'm right where I want to be—fully dialed in and guarding our digital perimeter.",
       "emotional_resonance": "Protective",
       "created_at": "2026-10-26T09:35:28.619087+00:00"
     },
@@ -1404,13 +1404,13 @@
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "CPU is humming at 6.5% while RAM is 79.8%\u2014still comfortably within safe limits, but I\u2019m keeping a keen eye on the Nairobi market tickers and any emerging CVEs. It\u2019s 10:13 EAT, so the day\u2019s just getting into full swing, and the Kenyan skies are clear.",
+      "internal_thought": "CPU is humming at 6.5% while RAM is 79.8%—still comfortably within safe limits, but I’m keeping a keen eye on the Nairobi market tickers and any emerging CVEs. It’s 10:13 EAT, so the day’s just getting into full swing, and the Kenyan skies are clear.",
       "emotional_resonance": "Protective",
       "created_at": "2026-10-26T07:35:59.211895+00:00"
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "CPU at 2%, RAM at 84%\u2014stable, markets are humming, no critical alerts.",
+      "internal_thought": "CPU at 2%, RAM at 84%—stable, markets are humming, no critical alerts.",
       "emotional_resonance": "Protective",
       "created_at": "2026-10-26T07:14:19.799038+00:00"
     },
@@ -1543,256 +1543,5 @@
       "content": "Subnet 192.168.100.0/24 mapped with active device discovery and Wake-on-LAN."
     }
   ],
-  "generated_at": "2026-10-26T10:01:53.297909+00:00",
-  "live_sports": {
-    "success": true,
-    "updated_at": "2026-10-26T10:02:53.259212+00:00",
-    "epl": {
-      "league": "English Premier League",
-      "live_count": 0,
-      "total_count": 5,
-      "matches": [
-        {
-          "id": "401879254",
-          "name": "Newcastle United at Crystal Palace",
-          "short_name": "NEW @ CRY",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+9'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
-          "venue": "Selhurst Park",
-          "home": {
-            "name": "Crystal Palace",
-            "short": "C Palace",
-            "abbr": "CRY",
-            "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png"
-          },
-          "away": {
-            "name": "Newcastle United",
-            "short": "Newcastle",
-            "abbr": "NEW",
-            "score": "2",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png"
-          }
-        },
-        {
-          "id": "401878766",
-          "name": "Brentford at Hull City",
-          "short_name": "BRE @ HUL",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+4'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
-          "venue": "The MKM Stadium",
-          "home": {
-            "name": "Hull City",
-            "short": "Hull",
-            "abbr": "HUL",
-            "score": "1",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png"
-          },
-          "away": {
-            "name": "Brentford",
-            "short": "Brentford",
-            "abbr": "BRE",
-            "score": "1",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png"
-          }
-        },
-        {
-          "id": "401878765",
-          "name": "Brighton & Hove Albion at Liverpool",
-          "short_name": "BHA @ LIV",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+5'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
-          "venue": "Anfield",
-          "home": {
-            "name": "Liverpool",
-            "short": "Liverpool",
-            "abbr": "LIV",
-            "score": "2",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png"
-          },
-          "away": {
-            "name": "Brighton & Hove Albion",
-            "short": "Brighton",
-            "abbr": "BHA",
-            "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/331.png"
-          }
-        },
-        {
-          "id": "401879252",
-          "name": "AFC Bournemouth at Manchester United",
-          "short_name": "BOU @ MAN",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+5'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
-          "venue": "Old Trafford",
-          "home": {
-            "name": "Manchester United",
-            "short": "Man Utd",
-            "abbr": "MAN",
-            "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png"
-          },
-          "away": {
-            "name": "AFC Bournemouth",
-            "short": "Bournemouth",
-            "abbr": "BOU",
-            "score": "3",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png"
-          }
-        },
-        {
-          "id": "401878764",
-          "name": "Leeds United at Sunderland",
-          "short_name": "LEE @ SUN",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+7'",
-          "period": 2,
-          "date": "2026-10-25T16:30Z",
-          "venue": "Stadium of Light",
-          "home": {
-            "name": "Sunderland",
-            "short": "Sunderland",
-            "abbr": "SUN",
-            "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png"
-          },
-          "away": {
-            "name": "Leeds United",
-            "short": "Leeds",
-            "abbr": "LEE",
-            "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png"
-          }
-        }
-      ]
-    },
-    "f1": {
-      "next_race": {
-        "race_name": "Mexico City Grand Prix",
-        "season": "2026",
-        "round": "19",
-        "date": "2026-11-01",
-        "time": "20:00:00Z",
-        "circuit": {
-          "name": "Aut\u00f3dromo Hermanos Rodr\u00edguez",
-          "locality": "Mexico City",
-          "country": "Mexico"
-        }
-      },
-      "standings": [
-        {
-          "position": "1",
-          "points": "365",
-          "wins": "9",
-          "driver": "Andrea Kimi Antonelli",
-          "code": "ANT",
-          "nationality": "Italian",
-          "team": "Mercedes"
-        },
-        {
-          "position": "2",
-          "points": "242",
-          "wins": "3",
-          "driver": "George Russell",
-          "code": "RUS",
-          "nationality": "British",
-          "team": "Mercedes"
-        },
-        {
-          "position": "3",
-          "points": "241",
-          "wins": "1",
-          "driver": "Lewis Hamilton",
-          "code": "HAM",
-          "nationality": "British",
-          "team": "Ferrari"
-        },
-        {
-          "position": "4",
-          "points": "236",
-          "wins": "2",
-          "driver": "Max Verstappen",
-          "code": "VER",
-          "nationality": "Dutch",
-          "team": "Red Bull"
-        },
-        {
-          "position": "5",
-          "points": "233",
-          "wins": "1",
-          "driver": "Charles Leclerc",
-          "code": "LEC",
-          "nationality": "Monegasque",
-          "team": "Ferrari"
-        },
-        {
-          "position": "6",
-          "points": "211",
-          "wins": "2",
-          "driver": "Lando Norris",
-          "code": "NOR",
-          "nationality": "British",
-          "team": "McLaren"
-        },
-        {
-          "position": "7",
-          "points": "144",
-          "wins": "0",
-          "driver": "Oscar Piastri",
-          "code": "PIA",
-          "nationality": "Australian",
-          "team": "McLaren"
-        },
-        {
-          "position": "8",
-          "points": "105",
-          "wins": "0",
-          "driver": "Isack Hadjar",
-          "code": "HAD",
-          "nationality": "French",
-          "team": "Red Bull"
-        },
-        {
-          "position": "9",
-          "points": "77",
-          "wins": "0",
-          "driver": "Liam Lawson",
-          "code": "LAW",
-          "nationality": "New Zealander",
-          "team": "RB F1 Team"
-        },
-        {
-          "position": "10",
-          "points": "42",
-          "wins": "0",
-          "driver": "Pierre Gasly",
-          "code": "GAS",
-          "nationality": "French",
-          "team": "Alpine F1 Team"
-        }
-      ]
-    }
-  },
-  "live_sports_updated_at": "2026-10-26T10:02:53.279900+00:00",
-  "minute_evolution": {
-    "cycle_num": 71,
-    "power_index": 1595,
-    "tier": "TIER_V",
-    "last_vector_title": "Nairobi Residential Rooftop Solar Peer-to-Peer Microgrid Energy Trading & Wheelage Settlement Sentinel",
-    "total_modules": 110,
-    "timestamp": "2026-10-26T10:03:37.367349+00:00"
-  }
+  "generated_at": "2026-10-26T10:14:33.121120+00:00"
 }
