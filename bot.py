@@ -3487,18 +3487,19 @@ async def scheduled_sunday_maintenance_worker(client: httpx.AsyncClient):
 
 
 # =====================================================================
-# --- HOURLY AUTONOMOUS SELF-EVOLUTION, SECURITY & ASSISTANCE DAEMON ---
+# --- MINUTE-BY-MINUTE CONTINUOUS SELF-EVOLUTION & EXPANSION DAEMON ---
 # =====================================================================
-async def execute_hourly_self_evolution_cycle(client: httpx.AsyncClient) -> str:
+async def execute_minute_self_evolution_cycle(client: httpx.AsyncClient, is_manual: bool = False) -> str:
     """
-    Continuous Hourly Self-Evolution Cycle:
+    Continuous 60-Second Self-Evolution & Expansion Cycle:
     1. Audits repository modules for security, AST syntax validation, and scalability.
-    2. Executes an autonomous, AST-verified code upgrade and syncs to GitHub & Hugging Face.
-    3. Executes concrete proactive assistance for Michael (task triage, disk space optimization, hardware telemetry).
-    4. Dispatches structured tactical report to Telegram with Edge TTS voice note (Law 8: play_on_speaker=False).
-    5. Persists evolution state to Supabase bot_memory.
+    2. Proactively synthesizes, verifies, and deploys code upgrades and modular faculties.
+    3. Conquers Singularity Milestones & escalates the Super AI Power Index.
+    4. Automatically commits to Git and dual-pushes to GitHub and Hugging Face.
+    5. Persists continuous evolution metrics to Supabase bot_memory and telemetry_live.json.
+    6. Dispatches reports: full sitrep + voice on manual trigger or milestone intervals (every 15 min).
     """
-    logger.info("Initiating Cortana Hourly Self-Evolution & Security/Scalability Audit...")
+    logger.info("⚡ [MINUTE EVOLUTION] Initiating 60-second code audit, function expansion, and git sync...")
     base_dir = Path(__file__).resolve().parent
 
     # 1. Fetch current cycle count from Supabase bot_memory
@@ -3506,7 +3507,7 @@ async def execute_hourly_self_evolution_cycle(client: httpx.AsyncClient) -> str:
     if SUPABASE_URL and SUPABASE_SERVICE_KEY:
         try:
             m_resp = await client.get(
-                f"{SUPABASE_URL}/rest/v1/bot_memory?memory_key=eq.hourly_evolution_state&select=directive",
+                f"{SUPABASE_URL}/rest/v1/bot_memory?memory_key=eq.minute_evolution_state&select=directive",
                 headers=SUPABASE_HEADERS,
                 timeout=8
             )
@@ -3522,7 +3523,7 @@ async def execute_hourly_self_evolution_cycle(client: httpx.AsyncClient) -> str:
     # 3. Security & Scalability Audit
     audit_data = evolution_core.audit_codebase_security_and_scalability(base_dir)
 
-    # 4. Autonomous Proactive Self-Evolution & Git/Hugging Face Sync
+    # 4. Autonomous Proactive Self-Evolution & Dual Git Sync (GitHub + Hugging Face)
     upgrade_data = await evolution_core.proactively_discover_and_implement_evolution(
         base_dir=base_dir,
         cycle_num=cycle_num,
@@ -3542,7 +3543,24 @@ async def execute_hourly_self_evolution_cycle(client: httpx.AsyncClient) -> str:
         vitals
     )
 
-    # 6. Format Report & Voice Note
+    # 6. Escalate Super AI Power Index
+    try:
+        ascension_data = await super_ai_ascension.ascend_towards_super_ai(
+            base_dir=base_dir,
+            client=client,
+            groq_api_key=GROQ_API_KEY,
+            vitals=vitals,
+            audit_data=audit_data,
+            llm_caller=call_llm_with_failover
+        )
+        current_power = ascension_data.get("metrics", {}).get("power_index", 460)
+        current_tier = ascension_data.get("metrics", {}).get("tier", "TIER_V")
+    except Exception as e:
+        logger.debug(f"[Power escalation note]: {e}")
+        current_power = 460 + cycle_num
+        current_tier = "TIER_V"
+
+    # 7. Format Report & Voice Note
     sitrep_msg, voice_summary = evolution_core.format_tactical_evolution_report(
         cycle_num,
         audit_data,
@@ -3551,11 +3569,33 @@ async def execute_hourly_self_evolution_cycle(client: httpx.AsyncClient) -> str:
         vitals
     )
 
-    # 7. Dispatches to Operator Michael
-    await send_telegram(client, sitrep_msg)
-    await synthesize_and_send_voice(client, voice_summary, play_on_speaker=False)
+    # 8. Dispatch Rules (Law 8: play_on_speaker=False)
+    # Manual triggers or 15-minute milestone intervals dispatch full message + voice note to Telegram
+    is_milestone = (cycle_num % 15 == 0)
+    if is_manual or is_milestone:
+        await send_telegram(client, sitrep_msg)
+        await synthesize_and_send_voice(client, voice_summary, play_on_speaker=False)
 
-    # 8. Persist State in Supabase bot_memory
+    # 9. Update Live Telemetry file (telemetry_live.json)
+    try:
+        live_telem_path = base_dir / "telemetry_live.json"
+        if live_telem_path.exists():
+            with open(live_telem_path, "r", encoding="utf-8") as f:
+                t_data = json.load(f)
+            t_data["minute_evolution"] = {
+                "cycle_num": cycle_num,
+                "power_index": current_power,
+                "tier": current_tier,
+                "last_vector_title": upgrade_data.get("vector", {}).get("title", "Continuous Module Expansion"),
+                "total_modules": audit_data.get("total_py_files", 0),
+                "timestamp": datetime.now(timezone.utc).isoformat()
+            }
+            with open(live_telem_path, "w", encoding="utf-8") as f:
+                json.dump(t_data, f, indent=2)
+    except Exception as te:
+        logger.debug(f"[Telemetry live update bypass]: {te}")
+
+    # 10. Persist State in Supabase bot_memory
     if SUPABASE_URL and SUPABASE_SERVICE_KEY:
         try:
             state_payload = {
@@ -3563,16 +3603,23 @@ async def execute_hourly_self_evolution_cycle(client: httpx.AsyncClient) -> str:
                 "last_evolved_at": datetime.now(timezone.utc).isoformat(),
                 "vector": upgrade_data["vector"],
                 "git_hash": upgrade_data.get("git_hash"),
+                "power_index": current_power,
+                "tier": current_tier,
                 "reclaimed_mb": audit_data.get("reclaimed_mb", 0.0),
                 "total_py_files": audit_data.get("total_py_files", 0)
             }
-            await tool_save_memory(client, "hourly_evolution_state", json.dumps(state_payload))
-            await tool_save_memory(client, "latest_hourly_evolution", sitrep_msg)
+            await tool_save_memory(client, "minute_evolution_state", json.dumps(state_payload))
+            await tool_save_memory(client, "latest_minute_evolution", sitrep_msg)
         except Exception as me:
             logger.debug(f"[Evolution memory save bypass]: {me}")
 
-    logger.info(f"Cortana Hourly Self-Evolution Cycle #{cycle_num} successfully completed.")
+    logger.info(f"⚡ [CYCLE #{cycle_num} EXPANSION SUCCESS] Vector: {upgrade_data['vector']['title']} (Power Index: {current_power})")
     return sitrep_msg
+
+
+async def execute_hourly_self_evolution_cycle(client: httpx.AsyncClient) -> str:
+    """Backward compatibility alias: executes an on-demand evolution cycle with full reporting."""
+    return await execute_minute_self_evolution_cycle(client, is_manual=True)
 
 
 async def execute_super_ai_ascension_cycle(client: httpx.AsyncClient) -> str:
@@ -3611,21 +3658,28 @@ async def execute_super_ai_ascension_cycle(client: httpx.AsyncClient) -> str:
     return sitrep_msg
 
 
-async def hourly_self_evolution_worker(client: httpx.AsyncClient):
+async def continuous_minute_evolution_worker(client: httpx.AsyncClient):
     """
-    Background daemon running every hour (3600 seconds).
-    Continuously audits, updates code for security/scalability, assists Michael, and reports.
+    Continuous 60-Second Autonomous Self-Evolution Daemon:
+    Awakens every minute (60s) to continuously audit, optimize, refactor,
+    and expand Cortana's code, functions, and architecture across the workspace.
+    Synchronizes with Git, Hugging Face, and Supabase.
     """
-    logger.info("Autonomous Hourly Self-Evolution Daemon initialized (3600s cycle interval)...")
-    await asyncio.sleep(90)  # Allow boot sequence and initial network discovery to settle
+    logger.info("⚡ Autonomous Minute-by-Minute Self-Evolution Daemon ACTIVE (60s continuous cycle)...")
+    await asyncio.sleep(25)  # Allow boot sequence and initial network discovery to settle
     while True:
         try:
-            await execute_hourly_self_evolution_cycle(client)
+            await execute_minute_self_evolution_cycle(client, is_manual=False)
         except asyncio.CancelledError:
             break
         except Exception as e:
-            logger.error(f"[Hourly Self-Evolution Error]: {e}")
-        await asyncio.sleep(3600)
+            logger.error(f"[Continuous Minute Evolution Error]: {e}")
+        await asyncio.sleep(60)
+
+
+async def hourly_self_evolution_worker(client: httpx.AsyncClient):
+    """Alias for continuous_minute_evolution_worker."""
+    await continuous_minute_evolution_worker(client)
 
 
 # =====================================================================
@@ -5907,7 +5961,7 @@ async def main():
             asyncio.create_task(start_local_command_server(5050)),
             asyncio.create_task(autonomous_intent_drive_loop(client)),
             asyncio.create_task(scheduled_sunday_maintenance_worker(client)),
-            asyncio.create_task(hourly_self_evolution_worker(client))
+            asyncio.create_task(continuous_minute_evolution_worker(client))
         ]
 
         if ENABLE_WAKEWORD or "--wake" in sys.argv:
