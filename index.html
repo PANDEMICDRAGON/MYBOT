@@ -493,6 +493,216 @@
     </section>
 
     <!-- ===================================================================
+         HOLOGRAPHIC VISUAL SYNTHESIS & AI AVATAR STUDIO (FLUX.1 ENGINE)
+         =================================================================== -->
+    <section id="visual-studio-section" class="draggable-hud-panel hud-panel hud-panel-chamfer p-6 sm:p-8 relative space-y-6" draggable="true" data-panel-id="visual-studio-section">
+      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
+        <div class="flex items-center gap-2">
+          <span class="drag-icon">⠿</span>
+          <span class="drag-title">[ DRAG TO REARRANGE TILE // HOLOGRAPHIC VISUAL SYNTHESIS & AVATAR STUDIO ]</span>
+        </div>
+        <span class="drag-hint">FLUX-MKVII</span>
+      </div>
+      <div class="tech-stripe absolute top-0 left-0 right-0"></div>
+
+      <!-- Header & Engine Badge -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-cyan-500/20 pb-4">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/40 flex items-center justify-center text-xl shadow-[0_0_15px_rgba(0,240,255,0.2)]">
+            🎨
+          </div>
+          <div>
+            <h2 class="text-base sm:text-lg font-black tracking-widest text-white uppercase font-display flex items-center gap-2">
+              <span>VISUAL SYNTHESIS</span> // <span class="text-cyan-400 glow-cyan">FLUX.1 STUDIO</span>
+              <span class="text-[9px] px-2 py-0.5 rounded font-mono bg-purple-950/80 text-purple-300 border border-purple-500/40 tracking-normal hidden sm:inline-block">
+                PHOTOREALISTIC 8K
+              </span>
+            </h2>
+            <p class="text-xs text-slate-400 font-mono mt-0.5">
+              High-resolution neural diffusion engine for character avatars, holographic entities & concept art.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <span id="visual-engine-badge" class="text-[10px] font-mono px-2.5 py-1 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-500/40 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>BLACK FOREST LABS FLUX.1</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Studio Layout: Left Controls (5 cols) & Right Canvas (7 cols) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        
+        <!-- Left Column: Controls & Prompt Matrix -->
+        <div class="lg:col-span-5 space-y-4">
+          
+          <!-- Avatar Quick-Template Presets -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span class="flex items-center gap-1.5 text-cyan-300 font-bold">
+                <span>⚡</span> AVATAR & CONCEPT PRESETS
+              </span>
+              <span class="text-[10px] text-slate-500">1-Click Load</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5" id="visual-preset-container">
+              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-950/50 transition-all flex items-center gap-1" data-preset="cortana">
+                👑 Cortana Avatar
+              </button>
+              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-purple-300 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-950/50 transition-all flex items-center gap-1" data-preset="unsc">
+                🌌 UNSC Construct
+              </button>
+              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-amber-300 border border-amber-500/30 hover:border-amber-400 hover:bg-amber-950/50 transition-all flex items-center gap-1" data-preset="jarvis">
+                🤖 Stark Arc Hologram
+              </button>
+              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-emerald-300 border border-emerald-500/30 hover:border-emerald-400 hover:bg-emerald-950/50 transition-all flex items-center gap-1" data-preset="nairobi">
+                🏙️ Cyber Nairobi 2077
+              </button>
+              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-rose-300 border border-rose-500/30 hover:border-rose-400 hover:bg-rose-950/50 transition-all flex items-center gap-1" data-preset="warrior">
+                🦁 Maasai Cyber-Warrior
+              </button>
+            </div>
+          </div>
+
+          <!-- Prompt Matrix -->
+          <div class="space-y-1.5">
+            <div class="flex items-center justify-between text-[11px] font-mono text-slate-300">
+              <span class="font-bold flex items-center gap-1 text-white">
+                <span class="text-cyan-400">▶</span> VISUAL DIRECTIVE PROMPT
+              </span>
+              <button id="btn-visual-random" class="text-[10px] text-cyan-400 hover:text-cyan-200 transition-colors flex items-center gap-1">
+                <span>🎲 Surprise Me</span>
+              </button>
+            </div>
+            <textarea id="visual-prompt-input" rows="3" class="w-full bg-slate-950/90 text-slate-100 font-mono text-xs rounded border border-cyan-500/30 focus:border-cyan-400 focus:outline-none p-3 resize-none shadow-inner transition-all placeholder:text-slate-600 focus:shadow-[0_0_15px_rgba(0,240,255,0.2)]" placeholder="Describe the avatar, character portrait, or scene in detail..."></textarea>
+          </div>
+
+          <!-- Style Aesthetic Matrix -->
+          <div class="space-y-1.5">
+            <span class="text-[11px] font-mono font-bold text-slate-300 block">
+              🔮 AESTHETIC STYLE MATRIX
+            </span>
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5" id="visual-style-selector">
+              <button class="style-preset-chip active text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-cyan-500/40 text-slate-300 text-center" data-style="photorealistic">
+                📸 Photorealistic 8K
+              </button>
+              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="cybernetic">
+                🔮 Cyber Hologram
+              </button>
+              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="cinematic">
+                🎬 Cinematic Movie
+              </button>
+              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="octane3d">
+                💎 3D Octane Render
+              </button>
+              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="anime">
+                🎨 Anime Artwork
+              </button>
+            </div>
+          </div>
+
+          <!-- Aspect Ratio & Resolution Selector -->
+          <div class="space-y-1.5">
+            <span class="text-[11px] font-mono font-bold text-slate-300 block">
+              📐 ASPECT RATIO
+            </span>
+            <div class="grid grid-cols-3 gap-1.5" id="visual-ratio-selector">
+              <button class="ratio-chip active text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-purple-500/40 text-slate-300 text-center" data-ratio="1:1">
+                1:1 (Avatar 1024x1024)
+              </button>
+              <button class="ratio-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-ratio="9:16">
+                9:16 (Phone Portrait)
+              </button>
+              <button class="ratio-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-ratio="16:9">
+                16:9 (Cinematic 1344x768)
+              </button>
+            </div>
+          </div>
+
+          <!-- Relay to Telegram & Action Button -->
+          <div class="pt-2 space-y-3">
+            <div class="flex items-center justify-between text-xs font-mono">
+              <label class="flex items-center gap-2 cursor-pointer select-none text-slate-300 hover:text-white">
+                <input type="checkbox" id="visual-relay-telegram" class="rounded border-slate-700 text-cyan-500 focus:ring-0 bg-slate-950 cursor-pointer" checked />
+                <span class="flex items-center gap-1.5">
+                  <span>📱 Transmit to Telegram Phone</span>
+                  <span class="text-[9px] px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-400 border border-cyan-500/30">Auto-push</span>
+                </span>
+              </label>
+            </div>
+
+            <button id="btn-visual-generate" class="hud-btn w-full bg-gradient-to-r from-cyan-950 via-slate-900 to-purple-950 border border-cyan-400 hover:border-cyan-300 text-cyan-200 hover:text-white py-3 px-4 font-bold text-xs font-mono tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.2)] transition-all">
+              <span class="text-base">✨</span>
+              <span id="btn-visual-label">SYNTHESIZE HIGH-RES VISUAL</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: Visual Stage / Canvas & Output -->
+        <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
+          <div class="visual-canvas-wrapper relative aspect-square sm:aspect-auto sm:min-h-[380px] w-full flex items-center justify-center bg-slate-950/80 rounded-lg border border-cyan-500/30 overflow-hidden shadow-2xl">
+            
+            <!-- Scanning Laser (Hidden by default, active while generating) -->
+            <div id="visual-scanner-beam" class="visual-loading-scanner hidden"></div>
+
+            <!-- Placeholder Screen -->
+            <div id="visual-placeholder-state" class="text-center p-8 space-y-3 flex flex-col items-center justify-center">
+              <div class="w-16 h-16 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-3xl text-cyan-400 animate-pulse">
+                🔮
+              </div>
+              <div>
+                <p class="text-sm font-bold text-white font-display uppercase tracking-widest">
+                  Visual Synthesis Standby
+                </p>
+                <p class="text-xs text-slate-400 font-mono mt-1 max-w-sm">
+                  Select a template or type your visual concept. Black Forest Labs FLUX.1 will compile an 8K photorealistic asset.
+                </p>
+              </div>
+            </div>
+
+            <!-- Active Canvas Display -->
+            <div id="visual-active-canvas" class="hidden relative w-full h-full flex flex-col items-center justify-center p-2">
+              <img id="visual-main-image" src="" alt="Cortana Synthesized Asset" class="max-h-[420px] w-auto max-w-full rounded object-contain border border-cyan-500/40 shadow-2xl transition-all" />
+              
+              <!-- Quick Canvas Overlay Bar -->
+              <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between p-2 rounded bg-slate-950/85 backdrop-blur-md border border-cyan-500/30 text-[11px] font-mono">
+                <div class="flex items-center gap-2 truncate max-w-[65%]">
+                  <span class="text-cyan-400 font-bold truncate" id="visual-meta-title">Cortana Prototype</span>
+                  <span class="text-[9px] px-1.5 py-0.5 rounded bg-cyan-900/60 text-cyan-200 border border-cyan-500/30 hidden sm:inline-block" id="visual-meta-res">1024x1024</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <button id="btn-visual-download" class="px-2 py-1 rounded bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-cyan-500/40 transition-colors" title="Download High-Res">
+                    💾 Save
+                  </button>
+                  <button id="btn-visual-send-tg" class="px-2 py-1 rounded bg-cyan-950 hover:bg-cyan-900 text-cyan-200 border border-cyan-500/50 transition-colors" title="Send to Telegram">
+                    🚀 Telegram
+                  </button>
+                  <a id="btn-visual-link" href="#" target="_blank" class="px-2 py-1 rounded bg-purple-950 hover:bg-purple-900 text-purple-200 border border-purple-500/50 transition-colors" title="Open Full Screen">
+                    ↗
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom: Recent Visual Gallery Strip -->
+          <div class="space-y-1.5 border-t border-cyan-500/20 pt-3">
+            <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
+              <span class="text-cyan-400 uppercase tracking-wider font-bold">Recent Synthesized Artifacts</span>
+              <span id="visual-gallery-count">0 archived</span>
+            </div>
+            <div class="flex items-center gap-2 overflow-x-auto pb-1" id="visual-gallery-strip">
+              <div class="text-[10px] font-mono text-slate-600 italic py-1">Synthesize your first image to populate gallery strip.</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================================================================
          1. J.A.R.V.I.S. & HALO CORTANA STRATEGIC THREAT & ASYMMETRIC GAUGES
          =================================================================== -->
     <section id="strategic-matrix-section" class="draggable-hud-panel hud-panel franchise-jarvis p-5 sm:p-6 relative space-y-5" draggable="true" data-panel-id="strategic-matrix-section">

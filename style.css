@@ -2281,5 +2281,85 @@ body.theme-starwars .hud-panel {
   color: #94a3b8;
 }
 
+/* ==========================================================================
+   HOLOGRAPHIC VISUAL SYNTHESIS & AVATAR STUDIO
+   ========================================================================== */
+.visual-canvas-wrapper {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--hud-border);
+  background: radial-gradient(circle at center, rgba(0, 240, 255, 0.04) 0%, rgba(3, 6, 15, 0.88) 100%);
+  transition: all 0.3s ease;
+}
+
+.visual-canvas-wrapper:hover {
+  border-color: var(--hud-border-bright);
+  box-shadow: 0 0 25px var(--hud-cyan-dim);
+}
+
+.visual-loading-scanner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--hud-cyan), #ffffff, var(--hud-cyan), transparent);
+  box-shadow: 0 0 15px var(--hud-cyan);
+  animation: visualScan 1.8s ease-in-out infinite alternate;
+  z-index: 20;
+}
+
+@keyframes visualScan {
+  0% { top: 0%; opacity: 0.9; }
+  100% { top: 98%; opacity: 0.9; }
+}
+
+.style-preset-chip {
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.style-preset-chip:hover {
+  border-color: var(--hud-cyan);
+  color: #ffffff;
+}
+
+.style-preset-chip.active {
+  background: rgba(0, 240, 255, 0.16) !important;
+  border-color: var(--hud-cyan) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 12px var(--hud-cyan-dim);
+}
+
+.ratio-chip {
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ratio-chip:hover {
+  border-color: var(--hud-violet);
+  color: #ffffff;
+}
+
+.ratio-chip.active {
+  background: rgba(168, 85, 247, 0.2) !important;
+  border-color: var(--hud-violet) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 12px var(--hud-violet-dim);
+}
+
+.gallery-thumb {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gallery-thumb:hover {
+  transform: scale(1.08);
+  border-color: var(--hud-cyan);
+  box-shadow: 0 0 10px var(--hud-cyan-dim);
+}
+
+
 
 

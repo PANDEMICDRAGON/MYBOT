@@ -4771,6 +4771,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize Realtime EPL & F1 Sports Radar (By-the-Minute)
   initLiveSportsEngine();
 
+  // Initialize Holographic Visual Synthesis & AI Avatar Studio (FLUX.1)
+  initVisualSynthesisStudio();
+
   // Setup Persona Theme Switchers
   const btnHybrid = document.getElementById("btn-theme-hybrid");
   if (btnHybrid) btnHybrid.addEventListener("click", () => { applyTheme("hybrid"); playSciFiChirp("confirm"); });
@@ -6122,4 +6125,362 @@ window.loadDashboard = async function() {
   await fetchTelemetryData();
   await fetchOsintReports();
 };
+
+// =====================================================================
+// HOLOGRAPHIC VISUAL SYNTHESIS & AI AVATAR STUDIO ENGINE (FLUX.1 CORE)
+// =====================================================================
+
+const VISUAL_PRESETS = {
+  cortana: "High-tech holographic AI avatar of Cortana, glowing ethereal cyan cybernetic data streams, translucent illuminated skin, intricate glowing circuits, photorealistic 8K, cinematic lighting, futuristic halo aesthetic",
+  unsc: "Futuristic UNSC orbital intelligence construct, monolithic cybernetic holographic AI entity, deep violet and crystalline blue lighting, hyper-detailed data halo, sci-fi military command interface, 8K octane render",
+  jarvis: "Futuristic Tony Stark Arc Hologram visualizer, glowing geometric golden and cyan holographic rings, floating data nodes, hyper-detailed 3D volumetric HUD, sleek billionaire lab backdrop",
+  nairobi: "Cyberpunk Nairobi 2077 at night, towering holographic skyscrapers, futuristic matatus flying on magnetic levitation tracks, neon purple and emerald lighting, photorealistic cinematic street level view",
+  warrior: "Futuristic Maasai cyber-warrior, wearing traditional shuka with woven glowing fiber-optic circuits and chrome cybernetic armor, standing against a high-tech Rift Valley savannah at sunset, 8K cinematic portrait"
+};
+
+const RANDOM_VISUAL_IDEAS = [
+  "Ethereal digital AI avatar emerging from a cascading stream of shimmering cyan quantum code, photorealistic 8K, volumetric studio lighting, subsurface scattering",
+  "Sleek cybernetic intelligence core floating in zero gravity inside a glass bridge cockpit overlooking Earth at sunrise, photorealistic 8K octane render",
+  "Cyberpunk tactical intelligence operative sitting at an ultra-wide holographic command deck overlooking a neon rain-drenched megacity, cinematic lighting",
+  "Majestic mechanical cyber-lion with glowing crystalline mane standing upon a monolithic data obelisk, dramatic twilight lighting, 8K wallpaper",
+  "Hyper-detailed futuristic cyber-samurai helmet with glowing cyan HUD visor, weathered matte-black carbon fiber armor, cinematic anamorphic lens flare",
+  "Hyper-realistic futuristic android android portrait, translucent porcelain skin revealing delicate gold and cyan neural micro-wiring, cinematic depth of field, 8K"
+];
+
+let currentVisualState = {
+  style: "photorealistic",
+  ratio: "1:1",
+  currentImageUrl: null,
+  currentPrompt: "",
+  dimensions: { width: 1024, height: 1024 }
+};
+
+function initVisualSynthesisStudio() {
+  const container = document.getElementById("visual-studio-section");
+  if (!container) return;
+
+  // 1. Avatar & Concept Presets
+  document.querySelectorAll(".visual-preset-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if (typeof playSciFiChirp === "function") playSciFiChirp("blip");
+      const key = btn.getAttribute("data-preset");
+      if (key && VISUAL_PRESETS[key]) {
+        const input = document.getElementById("visual-prompt-input");
+        if (input) {
+          input.value = VISUAL_PRESETS[key];
+          input.focus();
+        }
+        btn.classList.add("ring-2", "ring-cyan-400");
+        setTimeout(() => btn.classList.remove("ring-2", "ring-cyan-400"), 500);
+      }
+    });
+  });
+
+  // 2. Surprise Me Randomizer
+  const btnRandom = document.getElementById("btn-visual-random");
+  if (btnRandom) {
+    btnRandom.addEventListener("click", () => {
+      if (typeof playSciFiChirp === "function") playSciFiChirp("blip");
+      const pick = RANDOM_VISUAL_IDEAS[Math.floor(Math.random() * RANDOM_VISUAL_IDEAS.length)];
+      const input = document.getElementById("visual-prompt-input");
+      if (input) {
+        input.value = pick;
+        input.focus();
+      }
+    });
+  }
+
+  // 3. Style Preset Chips
+  document.querySelectorAll(".style-preset-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      if (typeof playSciFiChirp === "function") playSciFiChirp("blip");
+      document.querySelectorAll(".style-preset-chip").forEach(c => {
+        c.classList.remove("active", "border-cyan-500/40", "text-slate-300");
+        c.classList.add("border-slate-700", "text-slate-400");
+      });
+      chip.classList.add("active", "border-cyan-500/40", "text-slate-300");
+      chip.classList.remove("border-slate-700", "text-slate-400");
+      currentVisualState.style = chip.getAttribute("data-style") || "photorealistic";
+    });
+  });
+
+  // 4. Aspect Ratio Chips
+  document.querySelectorAll(".ratio-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      if (typeof playSciFiChirp === "function") playSciFiChirp("blip");
+      document.querySelectorAll(".ratio-chip").forEach(c => {
+        c.classList.remove("active", "border-purple-500/40", "text-slate-300");
+        c.classList.add("border-slate-700", "text-slate-400");
+      });
+      chip.classList.add("active", "border-purple-500/40", "text-slate-300");
+      chip.classList.remove("border-slate-700", "text-slate-400");
+      currentVisualState.ratio = chip.getAttribute("data-ratio") || "1:1";
+    });
+  });
+
+  // 5. Generate Visual Synthesizer
+  const btnGenerate = document.getElementById("btn-visual-generate");
+  const btnLabel = document.getElementById("btn-visual-label");
+  const scannerBeam = document.getElementById("visual-scanner-beam");
+  const promptInput = document.getElementById("visual-prompt-input");
+  const relayCheckbox = document.getElementById("visual-relay-telegram");
+
+  if (btnGenerate && promptInput) {
+    btnGenerate.addEventListener("click", async () => {
+      const prompt = promptInput.value.trim();
+      if (!prompt) {
+        promptInput.focus();
+        promptInput.classList.add("ring-2", "ring-rose-500");
+        setTimeout(() => promptInput.classList.remove("ring-2", "ring-rose-500"), 1000);
+        return;
+      }
+
+      // Enter Synthesis State
+      if (typeof playSciFiChirp === "function") playSciFiChirp("confirm");
+      btnGenerate.disabled = true;
+      if (btnLabel) btnLabel.textContent = "SYNTHESIZING FLUX.1 NEURAL ASSET...";
+      if (scannerBeam) scannerBeam.classList.remove("hidden");
+
+      const payload = {
+        prompt: prompt,
+        style: currentVisualState.style,
+        ratio: currentVisualState.ratio,
+        relay_telegram: relayCheckbox ? relayCheckbox.checked : true,
+        seed: Math.floor(Math.random() * 900000) + 100000
+      };
+
+      let resultData = null;
+
+      // Tier 1: Try local workstation endpoint on port 5050
+      try {
+        const localRes = await fetch("http://127.0.0.1:5050/api/image", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+          signal: AbortSignal.timeout(35000)
+        });
+        if (localRes.ok) {
+          resultData = await localRes.json();
+        }
+      } catch (_) {
+        // Fallback to Tier 2 Vercel Serverless
+      }
+
+      // Tier 2: Vercel serverless /api/image endpoint
+      if (!resultData) {
+        try {
+          const edgeRes = await fetch("/api/image", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+            signal: AbortSignal.timeout(45000)
+          });
+          if (edgeRes.ok) {
+            resultData = await edgeRes.json();
+          } else {
+            const errBody = await edgeRes.json().catch(() => ({}));
+            console.error("[Visual Synthesis Failure]:", errBody);
+          }
+        } catch (edgeErr) {
+          console.error("[Visual Synthesis Edge Error]:", edgeErr);
+        }
+      }
+
+      // Reset Button State
+      btnGenerate.disabled = false;
+      if (btnLabel) btnLabel.textContent = "SYNTHESIZE HIGH-RES VISUAL";
+      if (scannerBeam) scannerBeam.classList.add("hidden");
+
+      if (resultData && (resultData.image_url || resultData.imageUrl)) {
+        const finalUrl = resultData.image_url || resultData.imageUrl;
+        displayVisualAsset(finalUrl, prompt, currentVisualState.style, currentVisualState.ratio, resultData.dimensions);
+        saveAndRenderGallery({
+          imageUrl: finalUrl,
+          prompt: prompt,
+          style: currentVisualState.style,
+          ratio: currentVisualState.ratio,
+          timestamp: new Date().toISOString()
+        });
+        if (typeof playSciFiChirp === "function") playSciFiChirp("success");
+
+        if (resultData.telegram_dispatched || resultData.telegram_sent) {
+          console.log("[Visual Studio]: Image successfully transmitted to Telegram.");
+        }
+      } else {
+        alert("Visual synthesis engine encountered a momentary timeout. Please retry with a refined prompt.");
+      }
+    });
+  }
+
+  // 6. Direct Telegram Manual Relay Button
+  const btnSendTg = document.getElementById("btn-visual-send-tg");
+  if (btnSendTg) {
+    btnSendTg.addEventListener("click", async () => {
+      if (!currentVisualState.currentImageUrl) return;
+      btnSendTg.textContent = "⏳ Transmitting...";
+      btnSendTg.disabled = true;
+      try {
+        const tgRes = await fetch("/api/image", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            prompt: currentVisualState.currentPrompt || "Visual Asset",
+            style: currentVisualState.style,
+            ratio: currentVisualState.ratio,
+            relay_telegram: true
+          })
+        });
+        if (tgRes.ok) {
+          btnSendTg.textContent = "✅ Transmitted";
+          if (typeof playSciFiChirp === "function") playSciFiChirp("success");
+        } else {
+          btnSendTg.textContent = "❌ Failed";
+        }
+      } catch (_) {
+        btnSendTg.textContent = "❌ Error";
+      }
+      setTimeout(() => {
+        btnSendTg.textContent = "🚀 Telegram";
+        btnSendTg.disabled = false;
+      }, 2500);
+    });
+  }
+
+  // 7. Download High-Res Button
+  const btnDownload = document.getElementById("btn-visual-download");
+  if (btnDownload) {
+    btnDownload.addEventListener("click", () => {
+      if (!currentVisualState.currentImageUrl) return;
+      const a = document.createElement("a");
+      a.href = currentVisualState.currentImageUrl;
+      a.target = "_blank";
+      a.download = `cortana_flux1_${Date.now()}.jpg`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      if (typeof playSciFiChirp === "function") playSciFiChirp("confirm");
+    });
+  }
+
+  // 8. Restore Saved Visual Artifacts & Hydrate Canvas
+  saveAndRenderGallery(null);
+  loadInitialVisualArtifact();
+}
+
+function displayVisualAsset(url, prompt, style = "photorealistic", ratio = "1:1", dimensions = null) {
+  currentVisualState.currentImageUrl = url;
+  currentVisualState.currentPrompt = prompt;
+  currentVisualState.style = style;
+  currentVisualState.ratio = ratio;
+
+  const placeholder = document.getElementById("visual-placeholder-state");
+  const canvas = document.getElementById("visual-active-canvas");
+  const img = document.getElementById("visual-main-image");
+  const metaTitle = document.getElementById("visual-meta-title");
+  const metaRes = document.getElementById("visual-meta-res");
+  const link = document.getElementById("btn-visual-link");
+
+  if (placeholder) placeholder.classList.add("hidden");
+  if (canvas) canvas.classList.remove("hidden");
+  if (img) {
+    img.src = url;
+    img.alt = prompt;
+  }
+  if (metaTitle) {
+    metaTitle.textContent = prompt.length > 32 ? prompt.slice(0, 32) + "..." : prompt;
+    metaTitle.title = prompt;
+  }
+  if (metaRes) {
+    const dimText = dimensions ? `${dimensions.width}x${dimensions.height}` : (ratio === "1:1" ? "1024x1024" : ratio);
+    metaRes.textContent = `${dimText} • FLUX.1`;
+  }
+  if (link) {
+    link.href = url;
+  }
+}
+
+function saveAndRenderGallery(newItem) {
+  let gallery = [];
+  try {
+    gallery = JSON.parse(localStorage.getItem("ai_hud_image_gallery") || "[]");
+  } catch (_) {
+    gallery = [];
+  }
+
+  if (newItem && newItem.imageUrl) {
+    gallery = [newItem, ...gallery.filter(x => x.imageUrl !== newItem.imageUrl)].slice(0, 16);
+    try {
+      localStorage.setItem("ai_hud_image_gallery", JSON.stringify(gallery));
+    } catch (_) {}
+  }
+
+  const strip = document.getElementById("visual-gallery-strip");
+  const countEl = document.getElementById("visual-gallery-count");
+  if (countEl) countEl.textContent = `${gallery.length} archived`;
+
+  if (!strip) return;
+  if (!gallery || gallery.length === 0) {
+    strip.innerHTML = `<div class="text-[10px] font-mono text-slate-600 italic py-1">Synthesize your first image to populate gallery strip.</div>`;
+    return;
+  }
+
+  strip.innerHTML = gallery.map((item, idx) => `
+    <div class="gallery-thumb flex-shrink-0 cursor-pointer rounded overflow-hidden border border-cyan-500/30 hover:border-cyan-400 transition-all hover:scale-105" data-index="${idx}" title="${(item.prompt || 'Synthesized Art').replace(/"/g, '&quot;')}">
+      <img src="${item.imageUrl}" alt="${(item.prompt || 'Art').replace(/"/g, '&quot;')}" class="w-14 h-14 object-cover" loading="lazy" onerror="this.parentElement.style.display='none'" />
+    </div>
+  `).join("");
+
+  strip.querySelectorAll(".gallery-thumb").forEach(thumb => {
+    thumb.addEventListener("click", () => {
+      const idx = parseInt(thumb.getAttribute("data-index"), 10);
+      const chosen = gallery[idx];
+      if (chosen) {
+        displayVisualAsset(chosen.imageUrl, chosen.prompt, chosen.style, chosen.ratio);
+        if (typeof playSciFiChirp === "function") playSciFiChirp("confirm");
+      }
+    });
+  });
+}
+
+async function loadInitialVisualArtifact() {
+  // If local gallery has items, load the most recent one
+  try {
+    const gallery = JSON.parse(localStorage.getItem("ai_hud_image_gallery") || "[]");
+    if (gallery && gallery.length > 0 && gallery[0].imageUrl) {
+      displayVisualAsset(gallery[0].imageUrl, gallery[0].prompt, gallery[0].style, gallery[0].ratio);
+      return;
+    }
+  } catch (_) {}
+
+  // Fallback: check Supabase bot_memory for latest_generated_image
+  const targetUrl = (typeof appState !== "undefined" && appState.supabaseUrl) ? appState.supabaseUrl : DEFAULT_SUPABASE_URL;
+  const anonKey = (typeof appState !== "undefined" && appState.supabaseAnonKey) ? appState.supabaseAnonKey : DEFAULT_SUPABASE_ANON_KEY;
+  if (targetUrl && anonKey) {
+    try {
+      const res = await fetch(`${targetUrl}/rest/v1/bot_memory?memory_key=eq.latest_generated_image&select=*`, {
+        headers: { "apikey": anonKey, "Authorization": `Bearer ${anonKey}` }
+      });
+      if (res.ok) {
+        const rows = await res.json();
+        if (rows && rows.length > 0 && rows[0].directive) {
+          const rec = JSON.parse(rows[0].directive);
+          if (rec.image_url) {
+            displayVisualAsset(rec.image_url, rec.prompt || "Latest Synthesis", rec.style || "photorealistic", rec.ratio || "1:1");
+            saveAndRenderGallery({
+              imageUrl: rec.image_url,
+              prompt: rec.prompt || "Latest Synthesis",
+              style: rec.style || "photorealistic",
+              ratio: rec.ratio || "1:1",
+              timestamp: rec.created_at || new Date().toISOString()
+            });
+          }
+        }
+      }
+    } catch (_) {}
+  }
+}
+
+window.initVisualSynthesisStudio = initVisualSynthesisStudio;
+window.displayVisualAsset = displayVisualAsset;
+
 

@@ -172,6 +172,35 @@ export default async function handler(req, res) {
     }
   }
 
+  async function sendTelegramPhoto(chatId, photoUrl, caption) {
+    try {
+      const resp = await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          photo: photoUrl,
+          caption: caption,
+          parse_mode: "Markdown"
+        })
+      });
+      if (resp.ok) return true;
+      const resp2 = await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          chat_id: chatId,
+          photo: photoUrl,
+          caption: caption.replace(/[*_`]/g, "")
+        })
+      });
+      return resp2.ok;
+    } catch (e) {
+      console.error("[sendTelegramPhoto error]:", e);
+      return false;
+    }
+  }
+
   try {
     const update = typeof req.body === "string" ? JSON.parse(req.body) : (req.body || {});
     const message = update.message || update.edited_message || update.channel_post;
@@ -381,6 +410,92 @@ export default async function handler(req, res) {
           console.error("[Ascend queue error]:", qe);
         }
       }
+    }
+
+    // 2.65 High-Fidelity Holographic Visual Synthesis Engine (/image, /imagine, /draw, /avatar, or "generate image of...")
+    const imagePrefixes = ["/image", "/imagine", "/draw", "/avatar", "/art", "generate image", "create image", "render image", "draw an image", "create an avatar", "generate an avatar"];
+    const isImageDirective = imagePrefixes.some(p => lowerText.startsWith(p) || lowerText.includes(p));
+
+    if (isImageDirective) {
+      let promptText = userText;
+      for (const p of imagePrefixes) {
+        if (lowerText.startsWith(p)) {
+          promptText = userText.substring(p.length).trim();
+          break;
+        } else if (lowerText.includes(p)) {
+          const idx = lowerText.indexOf(p);
+          promptText = userText.substring(idx + p.length).trim();
+          break;
+        }
+      }
+      if (!promptText || promptText.length < 2) {
+        promptText = "ultra-detailed cybernetic holographic AI avatar portrait of Cortana with glowing cyan neural circuits, octane render, 8k resolution";
+      }
+
+      await sendTelegramReply(chatId, `🎨 *[CORTANA VISUAL SYNTHESIS]*\nSynthesizing photorealistic rendering for: '_${promptText}_' via FLUX.1 neural engine...`);
+
+      const seed = Math.floor(Math.random() * 1000000);
+      const styleTokens = "masterpiece, 8k photorealistic portrait, sharp focus, cinematic studio lighting, octane render, subsurface scattering";
+      const finalPrompt = `${promptText}, ${styleTokens}`;
+      const encoded = encodeURIComponent(finalPrompt);
+      const imageUrl = `https://image.pollinations.ai/prompt/${encoded}?model=flux&width=1024&height=1024&nologo=true&seed=${seed}`;
+
+      const photoCaption = 
+        `🎨 *[CORTANA VISUAL SYNTHESIS // FLUX.1]*\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `✨ *Prompt:* \`${promptText}\`\n` +
+        `⚙️ *Engine:* \`Black Forest Labs FLUX.1 (1024x1024)\`\n` +
+        `🔮 *Seed:* \`${seed}\` | *Aesthetic:* \`Photorealistic Diffusion\`\n` +
+        `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
+        `_Visual asset synthesized and delivered directly to your terminal._`;
+
+      const sentPhoto = await sendTelegramPhoto(chatId, imageUrl, photoCaption);
+      if (!sentPhoto) {
+        await sendTelegramReply(chatId, `${photoCaption}\n\n🖼️ *Direct High-Res Canvas:* [View Image](${imageUrl})`);
+      }
+
+      if (supabaseUrl && supabaseKey) {
+        try {
+          await fetch(`${supabaseUrl}/rest/v1/bot_memory?on_conflict=memory_key`, {
+            method: "POST",
+            headers: {
+              "apikey": supabaseKey,
+              "Authorization": `Bearer ${supabaseKey}`,
+              "Content-Type": "application/json",
+              "Prefer": "resolution=merge-duplicates"
+            },
+            body: JSON.stringify({
+              memory_key: "latest_generated_image",
+              directive: JSON.stringify({
+                prompt: promptText,
+                enhanced_prompt: finalPrompt,
+                image_url: imageUrl,
+                model: "Black Forest Labs FLUX.1",
+                seed: seed,
+                created_at: new Date().toISOString()
+              })
+            })
+          });
+
+          await fetch(`${supabaseUrl}/rest/v1/command_queue`, {
+            method: "POST",
+            headers: {
+              "apikey": supabaseKey,
+              "Authorization": `Bearer ${supabaseKey}`,
+              "Content-Type": "application/json",
+              "Prefer": "return=minimal"
+            },
+            body: JSON.stringify({
+              origin: "TELEGRAM_WEBHOOK",
+              mode: "IMAGE",
+              directive: promptText,
+              status: "COMPLETED"
+            })
+          });
+        } catch (qe) {}
+      }
+
+      return res.status(200).json({ ok: true, handled: "image_synthesis", image_url: imageUrl });
     }
 
     // 2.7 Workspace Tools Mobile Control (/tools, /run, /promo, /clip)

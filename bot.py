@@ -2542,6 +2542,44 @@ async def start_local_command_server(port: int = 5050):
                     "workspace": os.getcwd(),
                     "port": port
                 }
+            elif (path in ("/api/image", "/api/image/") or path.startswith("/api/image?")) and method in ("POST", "GET"):
+                try:
+                    payload = json.loads(body_bytes.decode("utf-8", errors="ignore")) if body_bytes else {}
+                    img_prompt = payload.get("prompt", "")
+                    img_style = payload.get("style", "photorealistic")
+                    img_ratio = payload.get("ratio", "1:1")
+                    img_seed = payload.get("seed")
+                    relay_tg = bool(payload.get("relay_telegram", False))
+                    async with httpx.AsyncClient(timeout=45) as hclient:
+                        res_img = await generate_image_asset(hclient, prompt=img_prompt, style_preset=img_style, aspect_ratio=img_ratio, seed=img_seed)
+                        tg_dispatched = False
+                        if relay_tg and TELEGRAM_TOKEN and AUTHORIZED_CHAT_ID:
+                            caption = (
+                                f"🎨 *[CORTANA VISUAL SYNTHESIS // FLUX.1 CORE]*\n"
+                                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                                f"✨ *Subject:* `{img_prompt}`\n"
+                                f"⚙️ *Engine:* `Black Forest Labs FLUX.1`\n"
+                                f"🔮 *Aesthetic:* `{img_style.upper()}`\n"
+                                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                                f"_Visual asset synthesized via Web HUD Studio._"
+                            )
+                            if res_img.get("image_bytes"):
+                                tg_dispatched = await send_telegram_photo(hclient, res_img["image_bytes"], caption)
+                            else:
+                                tg_dispatched = await send_telegram_photo(hclient, res_img["image_url"], caption)
+                        response_data = {
+                            "status": "SUCCESS",
+                            "image_url": res_img["image_url"],
+                            "local_path": res_img.get("local_file_path"),
+                            "prompt": img_prompt,
+                            "enhanced_prompt": res_img["record"]["enhanced_prompt"],
+                            "style": img_style,
+                            "ratio": img_ratio,
+                            "seed": res_img["record"]["seed"],
+                            "telegram_dispatched": tg_dispatched
+                        }
+                except Exception as ex:
+                    response_data = {"status": "ERROR", "error": str(ex)}
             elif path in ("/execute", "/api/execute") and method == "POST":
                 try:
                     payload = json.loads(body_bytes.decode("utf-8", errors="ignore")) if body_bytes else {}
@@ -6089,6 +6127,149 @@ async def send_telegram_document(client: httpx.AsyncClient, file_path: str, capt
         logger.error(f"[Telegram Document Upload Error]: {e}")
 
 
+async def send_telegram_photo(client: httpx.AsyncClient, photo_source, caption: str = "") -> bool:
+    """
+    Uploads an image directly to Michael's phone in Telegram via sendPhoto.
+    Supports either:
+    1. A public URL string (e.g. 'https://image.pollinations.ai/prompt/...')
+    2. Raw binary image bytes (sent as multipart/form-data)
+    """
+    if not TELEGRAM_TOKEN or not AUTHORIZED_CHAT_ID:
+        logger.warning(f"[Mock Telegram Photo Dispatch]: {caption}")
+        return False
+
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendPhoto"
+    caption_styled = repair_telegram_markdown(caption) if caption else ""
+    
+    try:
+        if isinstance(photo_source, str) and photo_source.startswith("http"):
+            payload = {
+                "chat_id": AUTHORIZED_CHAT_ID,
+                "photo": photo_source,
+                "caption": caption_styled[:1024],
+                "parse_mode": "Markdown"
+            }
+            resp = await client.post(url, json=payload, timeout=25)
+            if resp.status_code == 200:
+                logger.info("Successfully dispatched photo URL to Telegram.")
+                return True
+            payload.pop("parse_mode", None)
+            payload["caption"] = re.sub(r'[*_`]', '', caption_styled)[:1024]
+            resp2 = await client.post(url, json=payload, timeout=25)
+            return resp2.status_code == 200
+        else:
+            data = {
+                "chat_id": str(AUTHORIZED_CHAT_ID),
+                "caption": caption_styled[:1024],
+                "parse_mode": "Markdown"
+            }
+            files = {"photo": ("image.jpg", photo_source, "image/jpeg")}
+            resp = await client.post(url, data=data, files=files, timeout=25)
+            if resp.status_code == 200:
+                logger.info("Successfully dispatched binary photo to Telegram.")
+                return True
+            data.pop("parse_mode", None)
+            data["caption"] = re.sub(r'[*_`]', '', caption_styled)[:1024]
+            resp2 = await client.post(url, data=data, files=files, timeout=25)
+            return resp2.status_code == 200
+    except Exception as e:
+        logger.error(f"[Telegram sendPhoto Error]: {e}")
+        return False
+
+
+async def generate_image_asset(
+    client: httpx.AsyncClient,
+    prompt: str,
+    style_preset: str = "photorealistic",
+    aspect_ratio: str = "1:1",
+    seed: int = None,
+    save_locally: bool = True
+) -> dict:
+    """
+    Generates high-fidelity visual assets powered by Black Forest Labs FLUX.1.
+    Downloads and archives the physical image to 'generated_images/' on disk,
+    updates Supabase bot_memory, and returns image metadata.
+    """
+    ratio_map = {
+        "1:1": (1024, 1024),
+        "9:16": (768, 1344),
+        "16:9": (1344, 768),
+        "4:5": (896, 1120)
+    }
+    width, height = ratio_map.get(aspect_ratio, (1024, 1024))
+    
+    style_modifiers = {
+        "photorealistic": "masterpiece, 8k photorealistic portrait, intricate facial details, sharp focus, cinematic studio lighting, shot on 35mm lens, subsurface scattering, octane render",
+        "cybernetic": "holographic cybernetic AI construct, glowing cyan and electric blue neural circuits, translucent particle matrix, Stark Industries / Halo Cortana UNSC aesthetic, volumetric neon lighting, 8k octane render",
+        "cinematic": "cinematic movie still, dramatic chiaroscuro lighting, shallow depth of field, anamorphic lens flare, 8k resolution, IMAX masterpiece, atmospheric particles and mist",
+        "anime": "masterpiece anime digital artwork, crisp lines, Makoto Shinkai vibrant aesthetic, Studio Ghibli cinematic lighting, stunning atmospheric composition",
+        "octane3d": "3D Octane render, raytraced reflections, metallic and glass textures, photorealistic materials, Unreal Engine 5 aesthetic, volumetric lighting, 8k"
+    }
+    modifier = style_modifiers.get(style_preset.lower(), style_modifiers["photorealistic"])
+    clean_prompt = prompt.strip() if prompt else "cybernetic holographic AI avatar portrait of Cortana with glowing cyan circuits"
+    enhanced_prompt = f"{clean_prompt}, {modifier}"
+    
+    actual_seed = seed if seed is not None else random.randint(1, 999999)
+    encoded_prompt = urllib.parse.quote(enhanced_prompt)
+    image_url = f"https://image.pollinations.ai/prompt/{encoded_prompt}?model=flux&width={width}&height={height}&nologo=true&seed={actual_seed}"
+    
+    local_file_path = None
+    image_bytes = None
+    
+    try:
+        logger.info(f"Downloading FLUX.1 visual synthesis for: '{clean_prompt[:50]}...'")
+        img_resp = await client.get(image_url, timeout=40)
+        if img_resp.status_code == 200 and len(img_resp.content) > 1000:
+            image_bytes = img_resp.content
+            if save_locally:
+                out_dir = Path(__file__).resolve().parent / "generated_images"
+                out_dir.mkdir(parents=True, exist_ok=True)
+                slug = re.sub(r'[^a-zA-Z0-9]', '_', clean_prompt[:25]).strip('_').lower()
+                ts = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
+                local_file = out_dir / f"flux_{ts}_{slug}_{actual_seed}.jpg"
+                with open(local_file, "wb") as f:
+                    f.write(image_bytes)
+                local_file_path = str(local_file)
+                logger.info(f"Visual asset archived to disk: {local_file_path} ({len(image_bytes)} bytes)")
+    except Exception as e:
+        logger.warning(f"[Local Image Archive Warning]: {e}")
+        
+    record = {
+        "prompt": clean_prompt,
+        "enhanced_prompt": enhanced_prompt,
+        "image_url": image_url,
+        "style": style_preset,
+        "aspect_ratio": aspect_ratio,
+        "width": width,
+        "height": height,
+        "seed": actual_seed,
+        "local_path": local_file_path,
+        "model": "Black Forest Labs FLUX.1",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+    
+    if SUPABASE_URL and SUPABASE_SERVICE_KEY:
+        try:
+            await client.post(
+                f"{SUPABASE_URL}/rest/v1/bot_memory?on_conflict=memory_key",
+                headers={**SUPABASE_HEADERS, "Prefer": "resolution=merge-duplicates"},
+                json={
+                    "memory_key": "latest_generated_image",
+                    "directive": json.dumps(record)
+                }
+            )
+        except Exception:
+            pass
+            
+    return {
+        "status": "SUCCESS",
+        "record": record,
+        "image_url": image_url,
+        "local_file_path": local_file_path,
+        "image_bytes": image_bytes
+    }
+
+
 # =====================================================================
 # --- SENSORS: WEATHER, NEWS, CYBER ---
 # =====================================================================
@@ -6534,6 +6715,45 @@ async def log_and_execute_directive(
             logger.info("Executing on-demand Proactive Self-Evolution Cycle on operator directive...")
             sitrep_msg = await execute_hourly_self_evolution_cycle(client)
             answer = sitrep_msg
+        elif mode in ("IMAGE", "IMAGINE", "IMAGE_GEN", "DRAW", "AVATAR") or directive.strip().lower().startswith(("/image", "/imagine", "/draw", "/avatar", "/art", "generate image", "create image", "draw ", "render image")) or any(k in directive.lower() for k in ["generate an image", "create an image", "draw an image", "make an image", "render an image", "create an avatar", "generate an avatar"]):
+            prefixes = ["/image", "/imagine", "/draw", "/avatar", "/art", "generate image", "create image", "render image", "draw an image", "make an image", "generate an image", "create an avatar", "generate an avatar"]
+            clean_p = directive.strip()
+            for p in prefixes:
+                if clean_p.lower().startswith(p):
+                    clean_p = clean_p[len(p):].strip()
+                    break
+                elif p in clean_p.lower():
+                    idx = clean_p.lower().find(p)
+                    clean_p = clean_p[idx + len(p):].strip()
+                    break
+            if not clean_p or len(clean_p) < 2:
+                clean_p = "cybernetic holographic AI avatar portrait of Cortana with glowing cyan neural circuits, octane render, 8k resolution"
+
+            logger.info(f"Synthesizing visual asset via FLUX.1: '{clean_p}'...")
+            res_img = await generate_image_asset(client, prompt=clean_p, style_preset="photorealistic", aspect_ratio="1:1")
+            
+            caption = (
+                f"🎨 *[CORTANA VISUAL SYNTHESIS // FLUX.1 CORE]*\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                f"✨ *Prompt:* `{clean_p}`\n"
+                f"⚙️ *Engine:* `Black Forest Labs FLUX.1 (1024x1024)`\n"
+                f"🔮 *Aesthetic:* `Photorealistic Diffusion & Octane Render`\n"
+                f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                f"_Visual asset synthesized and permanently archived on Workstation Core._"
+            )
+            
+            if origin in ("TELEGRAM", "TELEGRAM_WEBHOOK") or TELEGRAM_TOKEN and AUTHORIZED_CHAT_ID:
+                if res_img.get("image_bytes"):
+                    await send_telegram_photo(client, res_img["image_bytes"], caption)
+                else:
+                    await send_telegram_photo(client, res_img["image_url"], caption)
+                    
+            local_note = f"\n• *Local Disk Path:* `{res_img.get('local_file_path')}`" if res_img.get('local_file_path') else ""
+            answer = (
+                f"{caption}\n\n"
+                f"🖼️ *Direct High-Res Canvas:* [View Image]({res_img['image_url']})"
+                f"{local_note}"
+            )
         elif mode in ("EXECUTE_TOOL", "RUN_TOOL", "RUN_SCRIPT") or directive.strip().lower().startswith(("run ", "/run ", "/promo", "/clip")):
             raw = directive.strip()
             if raw.lower().startswith("/run "):
