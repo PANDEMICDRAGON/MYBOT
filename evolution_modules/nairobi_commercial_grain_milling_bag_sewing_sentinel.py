@@ -1,117 +1,74 @@
 """
-Nairobi Commercial Grain Milling Bag Sewing & Thread Tension Sentinel
-Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
+Nairobi Commercial Grain Milling Bag Sewing & Closure Sentinel
 
-Monitors industrial bag-closing sewing heads, needle vibration harmonics, motor current draw,
-and thread tension to prevent package seal failures in Nairobi grain packaging plants.
+Monitors high-speed bag stitching heads, thread tension, cutter actuation,
+and skip-stitch optical sensors in Nairobi commercial grain milling plants.
 """
 
 import time
 import logging
-import statistics
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, Any, List
 
-# Configure logging
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [BagSewingSentinel]: %(message)s')
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("BagSewingSentinel")
 
-
-class BagSewingTelemetry:
-    """Represents a single telemetry reading from a bag-closing sewing machine head."""
-    def __init__(self, machine_id: str, motor_amps: float, vibration_rms: float, thread_tension_cn: float, bags_packaged: int):
+class BagSewingSentinel:
+    def __init__(self, machine_id: str, max_thread_tension_n: float = 45.0):
         self.machine_id = machine_id
-        self.motor_amps = motor_amps  # Amperes
-        self.vibration_rms = vibration_rms  # mm/s RMS
-        self.thread_tension_cn = thread_tension_cn  # Centinewtons
-        self.bags_packaged = bags_packaged
-        self.timestamp = time.time()
+        self.max_thread_tension_n = max_thread_tension_n
+        self.total_bags_stitched = 0
+        self.stitch_errors_detected = 0
+        self.operational_status = "IDLE"
 
+    def inspect_bag_closure(self, telemetry: Dict[str, Any]) -> Dict[str, Any]:
+        """Analyzes telemetry from the bag closing and sewing head."""
+        tension = telemetry.get("thread_tension_n", 25.0)
+        rpm = telemetry.get("sewing_head_rpm", 1800.0)
+        skip_stitch = telemetry.get("skip_stitch_detected", False)
+        cutter_active = telemetry.get("thread_cutter_actuated", True)
 
-class BagSewingSentinelEngine:
-    """Analyzes sewing machine telemetry, detects anomalies, and manages thread integrity."""
-    def __init__(self, machine_id: str, target_tension_cn: float = 45.0, max_vibration: float = 3.5):
-        self.machine_id = machine_id
-        self.target_tension_cn = target_tension_cn
-        self.max_vibration = max_vibration
-        self.history: List[BagSewingTelemetry] = []
-        self.maintenance_flag = False
-        self.alarm_count = 0
-
-    def ingest(self, telemetry: BagSewingTelemetry) -> Dict[str, Any]:
-        """Ingests telemetry, evaluates health status, and returns operational diagnostics."""
-        self.history.append(telemetry)
-        if len(self.history) > 1000:
-            self.history.pop(0)
-
+        alerts: List[str] = []
         status = "OPTIMAL"
-        actions = []
 
-        # Check vibration threshold (indicative of needle wear or bearing misalignment)
-        if telemetry.vibration_rms > self.max_vibration:
+        if tension > self.max_thread_tension_n:
+            alerts.append(f"HIGH_THREAD_TENSION: {tension}N exceeds limit {self.max_thread_tension_n}N")
             status = "WARNING"
-            actions.append("REDUCE_CONVEYOR_SPEED")
-            self.alarm_count += 1
+        elif tension < 10.0:
+            alerts.append(f"LOW_THREAD_TENSION: {tension}N indicates potential thread breakage")
+            status = "CRITICAL"
 
-        # Check thread tension deviation (loose stitch or thread snap risk)
-        tension_delta = abs(telemetry.thread_tension_cn - self.target_tension_cn)
-        if tension_delta > 10.0:
-            status = "CRITICAL" if tension_delta > 18.0 else "WARNING"
-            actions.append("ADJUST_TENSION_SOLENOID")
-            self.alarm_count += 1
+        if skip_stitch:
+            alerts.append("SKIP_STITCH_OPTICAL_FAULT: Defective seal detected on bag hem")
+            status = "CRITICAL"
+            self.stitch_errors_detected += 1
 
-        # Check motor current overload (material jam or gearbox binding)
-        if telemetry.motor_amps > 4.8:
-            status = "EMERGENCY_STOP"
-            actions.append("HALT_SEWING_HEAD_MOTOR")
-            self.maintenance_flag = True
-            self.alarm_count += 1
+        if not cutter_active and telemetry.get("bag_passed", False):
+            alerts.append("CUTTER_FAILURE: Thread tail not severed after bag exit")
+            status = "WARNING"
 
-        logging.info(f"Machine {self.machine_id} status: {status} | Tension: {telemetry.thread_tension_cn} cN | Vib: {telemetry.vibration_rms} mm/s")
+        self.total_bags_stitched += 1
+        self.operational_status = status
 
         return {
             "machine_id": self.machine_id,
             "status": status,
-            "tension_delta": round(tension_delta, 2),
-            "recommended_actions": actions,
-            "maintenance_flag": self.maintenance_flag,
-            "total_alarm_count": self.alarm_count
+            "rpm": rpm,
+            "tension": tension,
+            "alerts": alerts,
+            "total_bags_stitched": self.total_bags_stitched,
+            "stitch_errors_detected": self.stitch_errors_detected,
+            "timestamp": time.time()
         }
-
-    def get_summary(self) -> Dict[str, Any]:
-        """Returns aggregated telemetry summary statistics."""
-        if not self.history:
-            return {"status": "NO_DATA"}
-
-        tensions = [t.thread_tension_cn for t in self.history]
-        vibrations = [t.vibration_rms for t in self.history]
-        total_bags = self.history[-1].bags_packaged - self.history[0].bags_packaged
-
-        return {
-            "machine_id": self.machine_id,
-            "samples_analyzed": len(self.history),
-            "avg_tension_cn": round(statistics.mean(tensions), 2),
-            "max_vibration_recorded": round(max(vibrations), 2),
-            "bags_packaged_in_window": max(0, total_bags),
-            "maintenance_required": self.maintenance_flag
-        }
-
 
 if __name__ == "__main__":
-    print("[INIT] Executing Nairobi Commercial Grain Milling Bag Sewing Sentinel test harness...")
-    sentinel = BagSewingSentinelEngine(machine_id="SEW-IND-NRB-04", target_tension_cn=42.0, max_vibration=3.0)
-
-    # Simulate incoming telemetry stream
-    test_telemetry = [
-        BagSewingTelemetry("SEW-IND-NRB-04", 2.1, 1.8, 41.5, 1200),
-        BagSewingTelemetry("SEW-IND-NRB-04", 2.3, 2.2, 43.0, 1215),
-        BagSewingTelemetry("SEW-IND-NRB-04", 3.9, 3.4, 55.2, 1230),  # Tension spike
-        BagSewingTelemetry("SEW-IND-NRB-04", 5.1, 4.2, 30.0, 1232),  # Motor overload & jam
-    ]
-
-    for tel in test_telemetry:
-        result = sentinel.ingest(tel)
-        print(f"-> Ingest Result: {result}")
-
-    summary = sentinel.get_summary()
-    print(f"-> Sentinel Summary: {summary}")
-    print("[SUCCESS] Bag Sewing Sentinel test completed successfully.")
+    logger.info("Initializing Nairobi Commercial Grain Milling Bag Sewing & Closure Sentinel...")
+    sentinel = BagSewingSentinel(machine_id="SEW-LINE-04")
+    sample_telemetry = {
+        "thread_tension_n": 28.5,
+        "sewing_head_rpm": 1850.0,
+        "skip_stitch_detected": False,
+        "thread_cutter_actuated": True,
+        "bag_passed": True
+    }
+    report = sentinel.inspect_bag_closure(sample_telemetry)
+    logger.info(f"Diagnostic Report: {report}")
