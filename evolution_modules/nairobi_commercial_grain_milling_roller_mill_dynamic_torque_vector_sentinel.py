@@ -1,64 +1,43 @@
-"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Vector Sentinel.
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Vector Sentinel module."""
 
-Author: Cortana, Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
-Description: Monitors 3-axis dynamic torque vectors of commercial roller mills
-             to detect micro-slippages, bearing degradation, and uneven grain feed.
-"""
-
-import math
-import statistics
 import time
-from typing import Dict, List, Optional
+import math
+import logging
+typing_dict = {}
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+logger = logging.getLogger("RollerMillDynamicTorqueVectorSentinel")
 
 
-class RollerMillTorqueVectorSentinel:
-    """Analyzes multi-axis torque vector telemetry for commercial roller mills."""
+class RollerMillVectorSentinel:
+    """Monitors multidimensional torque vectors on commercial grain milling roller mills."""
 
-    def __init__(self, mill_id: str, warning_threshold_nm: float = 450.0):
+    def __init__(self, mill_id: str, threshold: float = 0.85):
         self.mill_id = mill_id
-        self.warning_threshold_nm = warning_threshold_nm
-        self.history: List[Dict[str, float]] = []
+        self.threshold = threshold
+        self.history = []
 
-    def ingest_vector(self, torque_x: float, torque_y: float, torque_z: float) -> Dict[str, any]:
-        """Ingests a 3-axis torque reading (Nm) and computes magnitude and anomaly status."""
+    def analyze_vector(self, torque_x: float, torque_y: float, torque_z: float) -> dict:
         magnitude = math.sqrt(torque_x**2 + torque_y**2 + torque_z**2)
-        timestamp = time.time()
+        anomaly_score = abs(magnitude - 100.0) / 100.0
+        status = "NORMAL"
+        
+        if anomaly_score > self.threshold:
+            status = "CRITICAL_VECTOR_ANOMALY"
+            logger.warning(f"[{self.mill_id}] High torque vector deviation detected! Magnitude: {magnitude:.2f}, Score: {anomaly_score:.2f}")
 
-        record = {
-            "timestamp": timestamp,
-            "torque_x": torque_x,
-            "torque_y": torque_y,
-            "torque_z": torque_z,
-            "magnitude": magnitude,
-        }
-        self.history.append(record)
-
-        # Keep last 1000 records
-        if len(self.history) > 1000:
-            self.history.pop(0)
-
-        anomaly = magnitude > self.warning_threshold_nm
-        return {
+        reading = {
+            "timestamp": time.time(),
             "mill_id": self.mill_id,
-            "timestamp": timestamp,
             "magnitude": magnitude,
-            "anomaly_detected": anomaly,
-            "status": "WARNING: High Torque Vector Stress" if anomaly else "NORMAL",
+            "anomaly_score": anomaly_score,
+            "status": status
         }
-
-    def compute_statistical_variance(self) -> float:
-        """Computes variance of torque magnitudes across history."""
-        if not self.history:
-            return 0.0
-        magnitudes = [r["magnitude"] for r in self.history]
-        return float(statistics.variance(magnitudes)) if len(magnitudes) > 1 else 0.0
+        self.history.append(reading)
+        return reading
 
 
 if __name__ == "__main__":
-    sentinel = RollerMillTorqueVectorSentinel(mill_id="UGALI_MILL_01_NAIROBI")
-    test_reading = sentinel.ingest_vector(120.5, 130.2, 310.8)
-    print(f"[TEST] Mill ID: {test_reading['mill_id']}")
-    print(f"[TEST] Torque Magnitude: {test_reading['magnitude']:.2f} Nm")
-    print(f"[TEST] Status: {test_reading['status']}")
-    print(f"[TEST] Variance: {sentinel.compute_statistical_variance():.2f}")
+    sentinel = RollerMillVectorSentinel(mill_id="MILL-NRB-042")
+    sample = sentinel.analyze_vector(70.5, 71.2, 12.0)
+    logger.info(f"Self-test execution completed: {sample}")
