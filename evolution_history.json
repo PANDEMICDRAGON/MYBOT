@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 301,
-    "vector_id": "EVO_NAIROBI_DROUGHT_RESILIENCE_V1",
-    "title": "Nairobi Drought Resilience & Water Harvesting Optimizer",
-    "domain": "RESILIENCE",
-    "rationale": "Nairobi faces increasing water scarcity due to climate change. This module proactively optimizes water harvesting, storage, and usage to ensure resilience during droughts, protecting Michael's operations and community.",
-    "file_path": "evolution_modules\\nairobi_drought_resilience.py",
-    "code_size": 4248,
-    "applied_at": "2026-10-31 08:59:24 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Develop a Nairobi Urban Heat Island Mitigation & Green Roof Sentinel to reduce cooling loads and improve air quality in dense urban areas."
-  },
-  {
     "cycle_num": 302,
     "vector_id": "EVO_dynamic_threat_isolation_V1",
     "title": "Dynamic Threat Surface Isolation Engine",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-10-31 11:47:41 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Research and implement a Nairobi Commercial Grain Milling Roller Mill Roll Thermal Expansion Sentinel to monitor precise roll-to-roll clearance variations caused by frictional thermal expansion during continuous milling operations."
+  },
+  {
+    "cycle_num": 400,
+    "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_ROLLER_MILL_ROLLER_TORQUE_SPLIT_SENTINEL_V1",
+    "title": "Nairobi Commercial Grain Milling Roller Mill Roller Torque Split Sentinel",
+    "domain": "RESILIENCE",
+    "rationale": "In industrial roller milling installations across Nairobi, paired rolls operate under differential speeds and high torque loads. Uneven torque split between fast and slow rolls leads to premature fluting wear, differential slip, and product particle size degradation. This sentinel monitors real-time motor torque distribution and speed ratio differential across roll pairs, automatically adjusting pneumatic feed gates to protect mechanical linkages and ensure optimal reduction ratios.",
+    "file_path": "evolution_modules\\nairobi_commercial_grain_milling_roller_mill_roller_torque_split_sentinel.py",
+    "code_size": 3575,
+    "applied_at": "2026-10-31 11:49:12 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Develop a commercial grain milling pneumatics cyclone differential pressure sentinel to optimize dust collection and reduce particulate emissions in Nairobi milling plants."
   }
 ]

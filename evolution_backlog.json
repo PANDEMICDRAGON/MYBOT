@@ -1,7 +1,15 @@
 {
-  "last_updated": "2026-10-31T08:47:41.952000+00:00",
-  "active_hypothesis": "Research and implement a Nairobi Commercial Grain Milling Roller Mill Roll Thermal Expansion Sentinel to monitor precise roll-to-roll clearance variations caused by frictional thermal expansion during continuous milling operations.",
+  "last_updated": "2026-10-31T08:49:12.101851+00:00",
+  "active_hypothesis": "Develop a commercial grain milling pneumatics cyclone differential pressure sentinel to optimize dust collection and reduce particulate emissions in Nairobi milling plants.",
   "discovered_vectors": [
+    {
+      "cycle_num": 400,
+      "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_ROLLER_MILL_ROLLER_TORQUE_SPLIT_SENTINEL_V1",
+      "title": "Nairobi Commercial Grain Milling Roller Mill Roller Torque Split Sentinel",
+      "domain": "RESILIENCE",
+      "file": "evolution_modules\\nairobi_commercial_grain_milling_roller_mill_roller_torque_split_sentinel.py",
+      "status": "IMPLEMENTED"
+    },
     {
       "cycle_num": 399,
       "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_ROLLER_MILL_DYNAMIC_RESONANCE_SENTINEL_V1",
@@ -392,14 +400,6 @@
       "title": "Nairobi Commercial Grain Milling Meal Cooler & Pneumatic Receiver Sentinel",
       "domain": "RESILIENCE",
       "file": "evolution_modules\\nairobi_commercial_grain_milling_meal_cooler_sentinel.py",
-      "status": "IMPLEMENTED"
-    },
-    {
-      "cycle_num": 350,
-      "vector_id": "EVO_NAIROBI_MILLING_SIEVING_BRAN_FINISHER_V1",
-      "title": "Nairobi Commercial Grain Milling Bran Finisher & Detacher Sentinel",
-      "domain": "RESILIENCE",
-      "file": "evolution_modules\\nairobi_commercial_grain_milling_bran_finisher_sentinel.py",
       "status": "IMPLEMENTED"
     }
   ],
