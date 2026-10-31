@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 217,
-    "vector_id": "EVO_MEMORY_LEAK_SENTINEL_V1_C217",
-    "title": "Tracemalloc Memory Leak Sentinel & Heap Monitor",
-    "domain": "RESILIENCE",
-    "rationale": "Periodically audits Python heap allocations to prevent slow workstation memory drift.",
-    "file_path": "evolution_modules\\memory_leak_sentinel.py",
-    "code_size": 1354,
-    "applied_at": "2026-10-26 18:16:17 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Kenyan Regional Multi-Node Latency & DNS Heatmap Prober"
-  },
-  {
     "cycle_num": 218,
     "vector_id": "EVO_KENYA_LATENCY_HEATMAP_V1_C218",
     "title": "Kenyan Regional Multi-Node Latency & DNS Heatmap Prober",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-10-31 09:18:34 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Develop a predictive maintenance system for EV charging stations using machine learning to forecast failures and optimize resource allocation."
+  },
+  {
+    "cycle_num": 314,
+    "vector_id": "EVO_adaptive_quantum_threat_model_v1",
+    "title": "Adaptive Quantum-Resilient Threat Modeling Engine",
+    "domain": "SECURITY",
+    "rationale": "Current hardware stress (CPU 95.9% load) indicates aggressive attack surface expansion. Introducing a lightweight, post‑quantum‑aware threat modeling engine enables Cortana to continuously evaluate emerging threats, prioritize mitigation, and offload decision‑making from the core runtime, thereby preserving performance while hardening security.",
+    "file_path": "evolution_modules\\adaptive_quantum_threat_model.py",
+    "code_size": 6607,
+    "applied_at": "2026-10-31 09:19:57 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Future work will explore a self‑optimizing quantum‑resilient anomaly‑correlation engine that automatically tunes signature patterns using federated learning across Nairobi's edge devices."
   }
 ]
