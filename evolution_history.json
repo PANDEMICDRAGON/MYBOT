@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 155,
-    "vector_id": "EVO_CIRCUIT_BREAKER_V1_C155",
-    "title": "Autonomous Adaptive Circuit Breaker & API Cascade Isolator",
-    "domain": "RESILIENCE",
-    "rationale": "Prevents upstream external sensorium and API outages from cascading into bot thread lockups.",
-    "file_path": "evolution_modules\\circuit_breaker_isolator.py",
-    "code_size": 2040,
-    "applied_at": "2026-10-31 18:40:53 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Workstation Heuristic Anomaly Detector & Pre-emptive Memory Throttling"
-  },
-  {
     "cycle_num": 156,
     "vector_id": "EVO_ADAPTIVE_ZTP_ENGINE_V1",
     "title": "Adaptive Zero-Trust Policy Engine",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-10-31 23:20:25 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Zero-Trust Secret Masking Stream for Outbound LLM Telemetry"
+  },
+  {
+    "cycle_num": 255,
+    "vector_id": "EVO_ZERO_TRUST_MASKER_V1_C255",
+    "title": "Zero-Trust Secret Masking Stream for Outbound LLM Telemetry",
+    "domain": "SECURITY",
+    "rationale": "Deep regular-expression boundary filter intercepting API tokens, private keys, and session cookies.",
+    "file_path": "evolution_modules\\zero_trust_masker.py",
+    "code_size": 256,
+    "applied_at": "2026-10-31 23:22:35 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Dynamic Operator Velocity Index & Focused Milestone Tracker"
   }
 ]
