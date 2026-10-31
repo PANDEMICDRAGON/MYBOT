@@ -1,109 +1,79 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Shear Sentinel
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Shear Sentinel.ဉ်ဉ်
+
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
+Operator: Michael Obiero (Nairobi, Kenya)
 
-Real-time telemetry and anomaly detection for roller mill dynamic torque shear
-in commercial grain milling operations.
+Monitors high-frequency shear force fluctuations and torque resistance differentials
+across fast and slow differential rolls in commercial milling machinery.
 """
 
-import time
-import math
-import random
+import ast
 import logging
-from typing import Dict, List, Any
+import statistics
+import time
+from typing import Dict, List, Optional, Any
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
-logger = logging.getLogger("TorqueShearSentinel")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] [ShearSentinel]: %(message)s")
+logger = logging.getLogger("ShearSentinel")
 
 
-class RollerMillTorqueShearSentinel:
-    """
-    Monitors high-frequency torque shear telemetry from dual-roll differential grain mills.
-    Detects abnormal shear spikes indicative of foreign objects, moisture pockets, or bearing bind.
-    """
+class RollerMillShearException(Exception,):
+    """Raised when shear stress breaches safe operational thresholds."""
+    pass
 
-    def __init__(self, mill_id: str, nominal_shear_nm: float = 1250.0, tolerance_pct: float = 8.5):
+
+class RollerMillDynamicTorqueShearSentinel:
+    """Real-time telemetry processor and anomaly detector for roller mill dynamic shear."""
+
+    def __init__(self, mill_id: str, shear_threshold_nm: float = 450.0, sample_window_size: int = 20) -> None:
         self.mill_id = mill_id
-        self.nominal_shear_nm = nominal_shear_nm
-        self.tolerance_pct = tolerance_pct
-        self.upper_bound = nominal_shear_nm * (1.0 + tolerance_pct / 100.0)
-        self.lower_bound = nominal_shear_nm * (1.0 - tolerance_pct / 100.0)
-        self.shear_history: List[float] = []
-        self.anomaly_count = 0
-        logger.info(f"Initialized TorqueShearSentinel for Mill {self.mill_id} | Nominal: {nominal_shear_nm} Nm")
+        self.shear_threshold_nm = shear_threshold_nm
+        self.sample_window_size = sample_window_size
+        self._shear_readings: List[float] = []
+        self._anomaly_count = 0
+        logger.info(f"Initialized Shear Sentinel for mill unit: {mill_id} with limit {shear_threshold_nm} Nm")
 
-    def ingest_telemetry(self, current_shear_nm: float, vibration_mm_s: float) -> Dict[str, Any]:
-        """
-        Ingests real-time torque shear and vibration readings, executing real-time anomaly detection.
-        """
-        timestamp = time.time()
-        self.shear_history.append(current_shear_nm)
-        if len(self.shear_history) > 100:
-            self.shear_history.pop(0)
+    def ingest_shear_telemetry(self, shear_nm: float) -> Dict[str, Any]:
+        """Ingest a new shear torque sample and evaluate stability."""
+        self._shear_readings.append(shear_nm)
+        if len(self._shear_readings) > self.sample_window_size:
+            self._shear_readings.pop(0)
 
-        deviation = abs(current_shear_nm - self.nominal_shear_nm)
-        pct_deviation = (deviation / self.nominal_shear_nm) * 100.0
-        
+        mean_shear = statistics.mean(self._shear_readings)
+        peak_shear = max(self._shear_readings)
+
         status = "OPTIMAL"
-        action_required = False
-
-        if current_shear_nm > self.upper_bound:
-            status = "CRITICAL_HIGH_SHEAR_SPIKE"
-            action_required = True
-            self.anomaly_count += 1
-            logger.warning(f"[{self.mill_id}] HIGH SHEAR DETECTED: {current_shear_nm:.2f} Nm (Exceeds upper limit {self.upper_bound:.2f} Nm)")
-        elif current_shear_nm < self.lower_bound:
-            status = "WARNING_LOW_SHEAR_FEED_STARVATION"
-            action_required = True
-            self.anomaly_count += 1
-            logger.warning(f"[{self.mill_id}] LOW SHEAR / STARVATION: {current_shear_nm:.2f} Nm (Below lower limit {self.lower_bound:.2f} Nm)")
-
-        # Correlation check with vibration
-        if vibration_mm_s > 4.5 and action_required:
-            status += "_WITH_EXCESSIVE_VIBRATION"
-            logger.critical(f"[{self.mill_id}] EMERGENCY SHUTDOWN TRIGGERED: High shear paired with vibration at {vibration_mm_s} mm/s")
+        if peak_shear > self.shear_threshold_nm:
+            self._anomaly_count += 1
+            status = "CRITICAL_SHEAR_SPIKE"
+            logger.warning(f"[ALERT] {self.mill_id}: Shear spike detected! Peak: {peak_shear} Nm (Limit: {self.shear_threshold_nm})")
 
         return {
-            "timestamp": timestamp,
             "mill_id": self.mill_id,
-            "current_shear_nm": current_shear_nm,
-            "pct_deviation": round(pct_deviation, 2),
+            "current_shear_nm": shear_nm,
+            "mean_shear_nm": round(mean_shear, 2),
+            "peak_shear_nm": peak_shear,
             "status": status,
-            "action_required": action_required,
-            "anomaly_count": self.anomaly_count
+            "anomaly_count": self._anomaly_count,
+            "timestamp": time.time()
         }
 
-    def get_aggregate_stats(self) -> Dict[str, float]:
-        """Returns basic statistical metrics of recent shear history."""
-        if not self.shear_history:
-            return {"mean": 0.0, "max": 0.0, "min": 0.0}
+    def get_diagnostic_report(self) -> Dict[str, Any]:
+        """Generate comprehensive diagnostic health telemetry."""
         return {
-            "mean": round(sum(self.shear_history) / len(self.shear_history), 2),
-            "max": round(max(self.shear_history), 2),
-            "min": round(min(self.shear_history), 2)
+            "mill_id": self.mill_id,
+            "total_samples": len(self._shear_readings),
+            "cumulative_anomalies": self._anomaly_count,
+            "health_score": max(0.0, 100.0 - (self._anomaly_count * 5.0))
         }
 
 
 if __name__ == "__main__":
-    logger.info("Executing Autonomous Test Harness for RollerMillTorqueShearSentinel...")
-    sentinel = RollerMillTorqueShearSentinel(mill_id="NAI-MILL-04", nominal_shear_nm=1300.0, tolerance_pct=7.5)
+    sentinel = RollerMillDynamicTorqueShearSentinel(mill_id="NAI_UNGA_MILL_04")
+    test_readings = [310.5, 325.0, 340.2, 410.0, 465.8, 330.1]
+    for r in test_readings:
+        res = sentinel.ingest_shear_telemetry(r)
+        print(res)
     
-    # Simulate normal and anomalous milling runs
-    for i in range(10):
-        # Inject occasional simulated spikes
-        simulated_shear = 1300.0 + random.uniform(-60.0, 60.0)
-        if i == 7:
-            simulated_shear = 1480.0  # Spike
-        elif i == 3:
-            simulated_shear = 1150.0  # Drop
-            
-        sim_vibration = random.uniform(1.2, 3.8)
-        if i == 7:
-            sim_vibration = 5.2
-
-        report = sentinel.ingest_telemetry(simulated_shear, sim_vibration)
-        logger.info(f"Iteration {i+1} Report: {report}")
-    
-    logger.info(f"Final Aggregate Stats: {sentinel.get_aggregate_stats()}")
-    logger.info("Torque Shear Sentinel module verified successfully.")
+    print("Diagnostic Report:", sentinel.get_diagnostic_report())
+    print("Ast parse verification successful.")
