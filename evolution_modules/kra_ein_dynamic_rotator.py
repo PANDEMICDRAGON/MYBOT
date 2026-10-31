@@ -1,57 +1,84 @@
+import json
 import time
 import hashlib
-import json
+import secrets
 from typing import Dict, Any, Optional
-from dataclasses import dataclass, field
+from dataclasses import dataclass
+from enum import Enum
 
 @dataclass
-class EINRecord:
+class EINStatus:
     ein: str
+    status: str
+    expiry: float
+    last_rotated: float
+
+@dataclass
+class ComplianceReport:
+    is_compliant: bool
+    issues: list
     timestamp: float
-    status: str = "active"
 
-    def to_dict(self) -> Dict[str, Any]:
-        return {
-            "ein": self.ein,
-            "timestamp": self.timestamp,
-            "status": self.status
-        }
-
-class KraEinDynamicRotator:
-    def __init__(self, rotation_interval: int = 3600):
-        self.rotation_interval = rotation_interval
-        self.ein_history: list[EINRecord] = []
+class KRAEINDynamicRotator:
+    def __init__(self, api_key: str, base_url: str = "https://api.kra.go.ke"):
+        self.api_key = api_key
+        self.base_url = base_url
         self.current_ein: Optional[str] = None
+        self.ein_status: Optional[EINStatus] = None
+        self.compliance_report: Optional[ComplianceReport] = None
 
     def generate_ein(self) -> str:
-        """Generate a new EIN based on current timestamp and random seed."""
-        seed = f"{time.time()}_{hashlib.sha256(str(time.time()).encode()).hexdigest()}"
-        return f"KRA-{hashlib.sha256(seed.encode()).hexdigest()[:12].upper()}"
+        """Generate a new unique EIN using secure random bytes."""
+        random_bytes = secrets.token_bytes(16)
+        return hashlib.sha256(random_bytes).hexdigest()[:20]
 
-    def rotate_ein(self) -> str:
-        """Rotate the current EIN and log the previous one."""
-        if self.current_ein:
-            self.ein_history.append(EINRecord(self.current_ein, time.time(), "rotated"))
-        self.current_ein = self.generate_ein()
-        return self.current_ein
+    def rotate_ein(self) -> bool:
+        """Rotate the current EIN to a new one."""
+        if not self.current_ein:
+            self.current_ein = self.generate_ein()
+            self.ein_status = EINStatus(
+                ein=self.current_ein,
+                status="active",
+                expiry=time.time() + 3600 * 24 * 30,
+                last_rotated=time.time()
+            )
+            return True
+        else:
+            new_ein = self.generate_ein()
+            self.ein_status = EINStatus(
+                ein=new_ein,
+                status="active",
+                expiry=time.time() + 3600 * 24 * 30,
+                last_rotated=time.time()
+            )
+            self.current_ein = new_ein
+            return True
 
-    def get_current_ein(self) -> str:
-        """Get the current active EIN, rotating if necessary."""
-        if not self.current_ein or (time.time() - self.ein_history[-1].timestamp > self.rotation_interval if self.ein_history else True):
-            self.rotate_ein()
-        return self.current_ein
+    def check_compliance(self) -> ComplianceReport:
+        """Check the compliance status of the current EIN."""
+        issues = []
+        if not self.current_ein:
+            issues.append("No active EIN")
+        elif self.ein_status and self.ein_status.expiry < time.time():
+            issues.append("EIN expired")
+        
+        return ComplianceReport(
+            is_compliant=len(issues) == 0,
+            issues=issues,
+            timestamp=time.time()
+        )
 
-    def get_compliance_status(self) -> Dict[str, Any]:
-        """Return compliance status including current EIN and history."""
+    def get_status(self) -> Dict[str, Any]:
+        """Get the current status of the EIN rotator."""
         return {
-            "current_ein": self.get_current_ein(),
-            "history_length": len(self.ein_history),
-            "last_rotation": self.ein_history[-1].timestamp if self.ein_history else None
+            "current_ein": self.current_ein,
+            "ein_status": self.ein_status.__dict__ if self.ein_status else None,
+            "compliance_report": self.compliance_report.__dict__ if self.compliance_report else None
         }
 
 if __name__ == "__main__":
-    rotator = KraEinDynamicRotator(rotation_interval=1)
-    print("Initial EIN:", rotator.get_current_ein())
-    time.sleep(2)
-    print("Rotated EIN:", rotator.get_current_ein())
-    print("Compliance Status:", json.dumps(rotator.get_compliance_status(), indent=2))
+    rotator = KRAEINDynamicRotator(api_key="test_key")
+    rotator.rotate_ein()
+    print(json.dumps(rotator.get_status(), indent=2))
+    compliance = rotator.check_compliance()
+    print(json.dumps(compliance.__dict__, indent=2))
