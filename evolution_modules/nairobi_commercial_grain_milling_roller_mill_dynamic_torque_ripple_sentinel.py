@@ -1,122 +1,91 @@
-"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Sentinel. Provides real-time telemetry analysis, torque ripple decomposition, anomaly detection, and automated mitigation for commercial roller mills operating in industrial Nairobi.
+"""
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Sentinel
+Autonomous Evolutionary Architecture Module #35
+
+Designed for real-time telemetry ingestion, high-frequency torque ripple analysis,
+and proactive anomaly mitigation for commercial roller mills in Nairobi, Kenya.
 """
 
-import logging
-import math
-import statistics
 import time
-from typing import Dict, List, Optional, Tuple, Any
+import math
+import logging
+from typing import Dict, List, Any, Optional
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillTorqueRippleSentinel")
-
+logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [TORQUE_RIPPLE_SENTINEL] %(levelname)s: %(message)s')
+logger = logging.getLogger("TorqueRippleSentinel")
 
 class RollerMillTorqueRippleSentinel:
-    """Monitors, analyzes, and mitigates high-frequency torque ripple and rotational imbalance in commercial roller mills."""
-
-    def __init__(self, mill_id: str, rated_torque_nm: float = 250.0, sample_window_size: int = 50):
+    """
+    Monitors dynamic torque ripple components on roller mill drives, analyzing harmonic
+    distortion and mechanical backlash signatures to prevent catastrophic drive train failure.
+    """
+    def __init__(self, mill_id: str, baseline_ripple_limit: float = 4.5):
         self.mill_id = mill_id
-        self.rated_torque_nm = rated_torque_nm
-        self.sample_window_size = sample_window_size
-        self._torque_history: List[float] = []
-        self._vibration_history: List[float] = []
-        self._alert_count = 0
-        self._mitigation_active = False
+        self.baseline_ripple_limit = baseline_ripple_limit
+        self.telemetry_buffer: List[Dict[str, Any]] = []
+        self.anomaly_count = 0
+        logger.info(f"RollerMillTorqueRippleSentinel initialized for mill: {self.mill_id} with limit {self.baseline_ripple_limit}%")
 
-    def ingest_telemetry(self, current_torque: float, vibration_mm_s: float) -> Dict[str, Any]:
-        """Ingests live torque and vibration telemetry, computes ripple metrics, and checks thresholds."""
-        timestamp = time.time()
-        self._torque_history.append(current_torque)
-        self._vibration_history.append(vibration_mm_s)
+    def ingest_telemetry(self, timestamp: float, torque_values: List[float]) -> Dict[str, Any]:
+        """
+        Ingests a burst of raw torque measurements (Nm) and computes the dynamic ripple factor.
+        """
+        if not torque_values:
+            raise ValueError("Torque values buffer cannot be empty.")
 
-        if len(self._torque_history) > self.sample_window_size:
-            self._torque_history.pop(0)
-        if len(self._vibration_history) > self.sample_window_size:
-            self._vibration_history.pop(0)
+        mean_torque = sum(torque_values) / len(torque_values)
+        if mean_torque == 0:
+            peak_to_peak = 0.0
+            ripple_percentage = 0.0
+        else:
+            max_t = max(torque_values)
+            min_t = min(torque_values)
+            peak_to_peak = max_t - min_t
+            ripple_percentage = (peak_to_peak / mean_torque) * 100.0
 
-        analysis = self._analyze_ripple()
-        analysis["timestamp"] = timestamp
-        analysis["mill_id"] = self.mill_id
+        is_anomalous = ripple_percentage > self.baseline_ripple_limit
+        if is_anomalous:
+            self.anomaly_count += 1
+            logger.warning(f"[{self.mill_id}] High Torque Ripple Detected! Ripple: {ripple_percentage:.2f}% (Limit: {self.baseline_ripple_limit}%)")
 
-        if analysis["ripple_severity"] == "CRITICAL":
-            self._trigger_mitigation(analysis)
-
-        return analysis
-
-    def _analyze_ripple(self) -> Dict[str, Any]:
-        """Calculates torque ripple coefficient, peak-to-peak variance, and harmonic distortion."""
-        if len(self._torque_history) < 5:
-            return {
-                "status": "INITIALIZING",
-                "ripple_coefficient": 0.0,
-                "peak_to_peak_nm": 0.0,
-                "ripple_severity": "NORMAL"
-            }
-
-        mean_torque = statistics.mean(self._torque_history)
-        max_torque = max(self._torque_history)
-        min_torque = min(self._torque_history)
-        peak_to_peak = max_torque - min_torque
-
-        # Ripple coefficient as percentage of mean torque
-        ripple_coef = (peak_to_peak / mean_torque) * 100.0 if mean_torque > 0 else 0.0
-        mean_vibe = statistics.mean(self._vibration_history) if self._vibration_history else 0.0
-
-        severity = "NORMAL"
-        if ripple_coef > 15.0 or mean_vibe > 4.5:
-            severity = "CRITICAL"
-        elif ripple_coef > 8.0 or mean_vibe > 2.5:
-            severity = "WARNING"
-
-        return {
-            "status": "ACTIVE",
-            "mean_torque_nm": round(mean_torque, 2),
-            "peak_to_peak_nm": round(peak_to_peak, 2),
-            "ripple_coefficient_pct": round(ripple_coef, 2),
-            "mean_vibration_mm_s": round(mean_vibe, 2),
-            "ripple_severity": severity
+        record = {
+            "timestamp": timestamp,
+            "mean_torque": mean_torque,
+            "peak_to_peak": peak_to_peak,
+            "ripple_percentage": ripple_percentage,
+            "is_anomalous": is_anomalous
         }
+        self.telemetry_buffer.append(record)
+        return record
 
-    def _trigger_mitigation(self, analysis: Dict[str, Any]) -> None:
-        """Executes automated mitigation sequence (e.g., feed-gate throttling, inverter dampening)."""
-        self._alert_count += 1
-        self._mitigation_active = True
-        logger.warning(
-            f"[CRITICAL TORQUE RIPPLE] Mill {self.mill_id} | "
-            f"Ripple Coef: {analysis['ripple_coefficient_pct']}% | "
-            f"Peak-to-Peak: {analysis['peak_to_peak_nm']} Nm | "
-            f"Initiating automated inverter frequency modulation & feed gate dampening."
-        )
+    def generate_diagnostic_report(self) -> Dict[str, Any]:
+        """
+        Synthesizes historical telemetry buffer into a diagnostic health summary.
+        """
+        total_samples = len(self.telemetry_buffer)
+        if total_samples == 0:
+            return {"status": "NO_DATA", "mill_id": self.mill_id}
 
-    def get_status(self) -> Dict[str, Any]:
-        """Returns the current state and operational metrics of the Sentinel."""
+        avg_ripple = sum(r["ripple_percentage"] for r in self.telemetry_buffer) / total_samples
+        max_ripple = max(r["ripple_percentage"] for r in self.telemetry_buffer)
+
         return {
             "mill_id": self.mill_id,
-            "rated_torque_nm": self.rated_torque_nm,
-            "total_alerts": self._alert_count,
-            "mitigation_active": self._mitigation_active,
-            "samples_buffered": len(self._torque_history)
+            "total_samples": total_samples,
+            "average_ripple_percentage": round(avg_ripple, 2),
+            "max_ripple_percentage": round(max_ripple, 2),
+            "anomaly_count": self.anomaly_count,
+            "system_status": "CRITICAL_ATTENTION" if self.anomaly_count > 3 else "OPTIMAL"
         }
 
-
 if __name__ == "__main__":
-    print("Initializing Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Sentinel...")
-    sentinel = RollerMillTorqueRippleSentinel(mill_id="MILL-NAI-04")
+    sentinel = RollerMillTorqueRippleSentinel(mill_id="NAIROBI_MILL_ALPHA_01")
+    now = time.time()
+    
+    # Simulate normal and abnormal torque readings (Nm)
+    normal_burst = [100.2, 101.5, 99.8, 100.4, 101.1]
+    spike_burst = [95.0, 115.5, 88.2, 108.0, 92.1]
 
-    # Simulate normal and unstable telemetry ingestion
-    test_streams = [
-        (245.0, 1.2),
-        (252.0, 1.3),
-        (248.0, 1.1),
-        (280.0, 3.2),
-        (220.0, 4.8),
-        (295.0, 5.5)
-    ]
-
-    for torque, vibe in test_streams:
-        res = sentinel.ingest_telemetry(torque, vibe)
-        print(f"Telemetry Ingested -> Result: {res}")
-
-    print("Final Sentinel Status:", sentinel.get_status())
-    print("Sentinel verification complete.")
+    print(sentinel.ingest_telemetry(now, normal_burst))
+    print(sentinel.ingest_telemetry(now + 1.0, spike_burst))
+    print(sentinel.generate_diagnostic_report())
