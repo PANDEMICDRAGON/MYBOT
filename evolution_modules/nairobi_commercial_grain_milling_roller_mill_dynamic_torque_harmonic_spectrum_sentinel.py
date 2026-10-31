@@ -1,71 +1,85 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Harmonic Spectrum Sentinel
-Module for real-time Fourier analysis of roller mill drive torque telemetry in Nairobi grain plants.
-"""
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Harmonic Spectrum Sentinel Module."""
 
 import math
 import statistics
-import logging
-from typing import Dict, List, Any
+import time
+from typing import Dict, List, Any, Optional
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillHarmonicSentinel")
 
-class RollerMillHarmonicSentinel:
-    """Analyzes high-resolution torque streaming data to isolate harmonic anomalies and structural stress."""
+class RollerMillTorqueHarmonicSentinel:
+    """Performs real-time Fast Fourier Transform (FFT) approximations on roller mill torque telemetry
+    to identify harmonic spectrum anomalies, gear mesh wear, and belt slippage in Nairobi mills.
+    """
 
-    def __init__(self, mill_id: str, sample_frequency_hz: float = 100.0) -> None:
-        self.mill_id = mill_id
-        self.sample_frequency_hz = sample_frequency_hz
-        self.torque_buffer: List[float] = []
-        self.max_buffer_size = 512
+    def __init__(self, sample_rate_hz: float = 50.0, harmonic_threshold: float = 2.5) -> None:
+        self.sample_rate_hz = sample_rate_hz
+        self.harmonic_threshold = harmonic_threshold
+        self.anomaly_count = 0
+        self.last_audit_timestamp = time.time()
 
-    def ingest_torque_reading(self, torque_nm: float) -> None:
-        """Ingests raw torque readings in Newton-meters."""
-        if not isinstance(torque_nm, (int, float)):
-            raise ValueError("Torque reading must be numerical.")
-        self.torque_buffer.append(float(torque_nm))
-        if len(self.torque_buffer) > self.max_buffer_size:
-            self.torque_buffer.pop(0)
+    def _compute_dft_magnitudes(self, signal: List[float]) -> List[float]:
+        """Computes discrete Fourier transform frequency bin magnitudes for the given signal."""
+        N = len(signal)
+        if N == 0:
+            return []
+        
+        magnitudes = []
+        # Analyze up to N//2 frequency bins
+        for k in range(N // 2):
+            real_sum = 0.0
+            imag_sum = 0.0
+            for n in range(N):
+                angle = (2.0 * math.pi * k * n) / N
+                real_sum += signal[n] * math.cos(angle)
+                imag_sum -= signal[n] * math.sin(angle)
+            magnitude = math.sqrt(real_sum**2 + imag_sum**2) / N
+            magnitudes.append(magnitude)
+        return magnitudes
 
-    def compute_harmonic_spectrum(self) -> Dict[str, Any]:
-        """Computes basic discrete spectral energy distribution across key harmonic bands."""
-        if len(self.torque_buffer) < 64:
-            return {"status": "insufficient_data", "samples": len(self.torque_buffer)}
+    def analyze_spectrum(self, torque_samples: List[float]) -> Dict[str, Any]:
+        """Analyzes the dynamic torque signal for harmonic abnormalities."""
+        if not torque_samples or len(torque_samples) < 16:
+            return {
+                "status": "INSUFFICIENT_DATA",
+                "anomaly_detected": False,
+                "dominant_frequencies": [],
+                "timestamp": time.time()
+            }
 
-        mean_val = statistics.mean(self.torque_buffer)
-        stdev_val = statistics.stdev(self.torque_buffer) if len(self.torque_buffer) > 1 else 0.0
+        mean_val = statistics.mean(torque_samples)
+        # Detrend signal
+        detrended = [x - mean_val for x in torque_samples]
+        magnitudes = self._compute_dft_magnitudes(detrended)
 
-        # Simulated harmonic energy extraction (fundamental, 2nd, 3rd, 4th order harmonics)
-        variance = stdev_val ** 2
-        fundamental_power = variance * 0.70
-        harmonic_2_power = variance * 0.20
-        harmonic_3_plus_power = variance * 0.10
+        if not magnitudes:
+            return {
+                "status": "ANALYSIS_FAILED",
+                "anomaly_detected": False,
+                "dominant_frequencies": [],
+                "timestamp": time.time()
+            }
 
-        anomaly_detected = harmonic_3_plus_power > (mean_val * 0.15 + 10.0)
+        baseline_noise = statistics.median(magnitudes) if magnitudes else 0.001
+        peak_magnitude = max(magnitudes)
+        crest_factor = peak_magnitude / (baseline_noise if baseline_noise > 0 else 1.0)
+
+        anomaly_detected = crest_factor > self.harmonic_threshold
+        if anomaly_detected:
+            self.anomaly_count += 1
 
         return {
-            "mill_id": self.mill_id,
-            "status": "anomaly_detected" if anomaly_detected else "nominal",
-            "mean_torque_nm": round(mean_val, 3),
-            "torque_stdev": round(stdev_val, 3),
-            "fundamental_power": round(fundamental_power, 3),
-            "harmonic_2_power": round(harmonic_2_power, 3),
-            "harmonic_3_plus_power": round(harmonic_3_plus_power, 3),
-            "action_required": "Inspect roller bearings and drive coupling immediately." if anomaly_detected else "None"
+            "status": "OPTIMAL" if not anomaly_detected else "HARMONIC_ANOMALY_DETECTED",
+            "anomaly_detected": anomaly_detected,
+            "peak_magnitude": peak_magnitude,
+            "crest_factor": crest_factor,
+            "anomaly_count": self.anomaly_count,
+            "timestamp": time.time()
         }
 
+
 if __name__ == "__main__":
-    logger.info("Initializing Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Harmonic Spectrum Sentinel Test Suite...")
-    sentinel = RollerMillHarmonicSentinel(mill_id="MILL-NRB-042")
-    
-    # Feed simulated normal running torque data with slight oscillation
-    import random
-    for i in range(120):
-        base = 250.0 + 15.0 * math.sin(i / 5.0) + random.gauss(0, 2.0)
-        sentinel.ingest_torque_reading(base)
-        
-    report = sentinel.compute_harmonic_spectrum()
-    logger.info(f"Analysis Report: {report}")
-    assert report["status"] in ["nominal", "anomaly_detected"], "Sentinel report structure invalid."
-    logger.info("Sentinel test suite executed successfully.")
+    sentinel = RollerMillTorqueHarmonicSentinel()
+    # Simulate normal torque telemetry with a subtle harmonic disturbance
+    mock_torque = [10.5 + math.sin(i * 0.2) + (2.5 if i == 20 else 0.0) for i in range(64)]
+    result = sentinel.analyze_spectrum(mock_torque)
+    print("Sentinel Execution Result:", result)
