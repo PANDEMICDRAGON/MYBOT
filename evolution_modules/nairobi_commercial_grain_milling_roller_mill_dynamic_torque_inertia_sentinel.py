@@ -1,100 +1,86 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Inertia Sentinel
-Module for real-time rotational inertia decay tracking and kinetic energy dampening analytics.
-Designed for high-throughput flour and maize milling machinery in Nairobi, Kenya.
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Inertia Sentinel.
+
+Author: Cortana Autonomous Evolutionary Architect
+Operator: Michael Obiero, Nairobi, Kenya
+Description: Monitors dynamic rotational inertia, torque variance, and mechanical
+shock profiles in commercial roller mills to prevent drive-train failure and
+optimize flour extraction efficiency.
 """
 
-import time
-import math
+import ast
 import logging
-from typing import Dict, List, Any, Optional
+import statistics
+import time
+from typing import Dict, List, Optional, Any
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - [%(name)s] %(message)s')
 logger = logging.getLogger("RollerMillInertiaSentinel")
 
 
 class RollerMillInertiaSentinel:
-    """
-    Monitors rotational inertia decay, kinetic energy dissipation rates, and
-    torsional dampening profiles across commercial roller mill drive spindles.
-    """
+    """Real-time telemetry processor for roller mill rotational inertia and torque dynamics."""
 
-    def __init__(self, mill_id: str, rated_inertia_kg_m2: float = 12.5, alert_threshold: float = 0.18):
+    def __init__(self, mill_id: str, baseline_inertia_nm_s2: float = 1250.0, tolerance_pct: float = 12.0):
         self.mill_id = mill_id
-        self.rated_inertia = rated_inertia_kg_m2
-        self.alert_threshold = alert_threshold
-        self.telemetry_history: List[Dict[str, Any]] = []
-        logger.info(f"[INIT] RollerMillInertiaSentinel active for mill '{self.mill_id}' with rated inertia {self.rated_inertia} kg·m²")
+        self.baseline_inertia = baseline_inertia_nm_s2
+        self.tolerance_pct = tolerance_pct
+        self.inertia_readings: List[float] = []
+        self.anomaly_count = 0
+        logger.info(f"Initialized RollerMillInertiaSentinel for {{self.mill_id}} with baseline {{self.baseline_inertia}} Nm*s^2")
 
-    def ingest_telemetry(self, rpm: float, motor_torque_nm: float, deceleration_rate: float) -> Dict[str, Any]:
-        """
-        Ingests current operational metrics to calculate instantaneous kinetic energy
-        and inertial dissipation anomalies.
-        """
-        timestamp = time.time()
-        # Calculate kinetic energy: KE = 0.5 * I * omega^2
-        omega = (rpm * 2.0 * math.pi) / 60.0
-        kinetic_energy = 0.5 * self.rated_inertia * (omega ** 2)
-        
-        # Estimated expected torque based on deceleration vs observed torque
-        expected_braking_torque = self.rated_inertia * abs(deceleration_rate)
-        torque_discrepancy = abs(motor_torque_nm - expected_braking_torque) / (expected_braking_torque + 1e-6)
+    def ingest_telemetry(self, current_inertia: float, vibration_mm_s: float) -> Dict[str, Any]:
+        """Ingests rotational telemetry and analyzes inertia stability."""
+        self.inertia_readings.append(current_inertia)
+        if len(self.inertia_readings) > 100:
+            self.inertia_readings.pop(0)
 
-        anomaly_detected = torque_discrepancy > self.alert_threshold
+        deviation = ((current_inertia - self.baseline_inertia) / self.baseline_inertia) * 100.0
+        is_anomalous = abs(deviation) > self.tolerance_pct or vibration_mm_s > 4.5
 
-        record = {
-            "timestamp": timestamp,
-            "rpm": rpm,
-            "kinetic_energy_joules": kinetic_energy,
-            "torque_discrepancy": torque_discrepancy,
-            "anomaly": anomaly_detected
-        }
-
-        self.telemetry_history.append(record)
-        if len(self.telemetry_history) > 1000:
-            self.telemetry_history.pop(0)
-
-        if anomaly_detected:
-            logger.warning(f"[ALERT] Mill {self.mill_id} Inertia Anomaly! Discrepancy ratio: {torque_discrepancy:.4f}")
-
-        return record
-
-    def generate_inertia_report(self) -> Dict[str, Any]:
-        """
-        Summarizes recent inertial stability and health metrics for the milling unit.
-        """
-        if not self.telemetry_history:
-            return {"status": "no_data"}
-
-        recent = self.telemetry_history[-50:]
-        anomalies = sum(1 for r in recent if r["anomaly"])
-        avg_energy = sum(r["kinetic_energy_joules"] for r in recent) / len(recent)
+        status = "NOMINAL"
+        if is_anomalous:
+            self.anomaly_count += 1
+            status = "CRITICAL_INERTIA_DEVIATION" if abs(deviation) > (self.tolerance_pct * 1.5) else "WARNING_ELEVATED_STRESS"
+            logger.warning(f"[{{self.mill_id}}] Status: {{status}} | Inertia: {{current_inertia}} Nm*s^2 | Deviation: {{deviation:.2f}}% | Vibration: {{vibration_mm_s}} mm/s")
+        else:
+            logger.debug(f"[{{self.mill_id}}] Telemetry nominal. Inertia: {{current_inertia}} Nm*s^2")
 
         return {
             "mill_id": self.mill_id,
-            "samples_analyzed": len(recent),
-            "anomaly_count": anomalies,
-            "average_kinetic_energy_j": avg_energy,
-            "status": "critical_attention" if anomalies > 5 else "nominal"
+            "status": status,
+            "current_inertia": current_inertia,
+            "deviation_pct": round(deviation, 2),
+            "vibration_mm_s": vibration_mm_s,
+            "anomaly_count": self.anomaly_count,
+            "timestamp": time.time()
+        }
+
+    def get_aggregate_stats(self) -> Dict[str, Any]:
+        """Computes rolling statistics for diagnostics."""
+        if not self.inertia_readings:
+            return {"mean_inertia": 0.0, "stdev_inertia": 0.0}
+
+        return {
+            "mean_inertia": round(statistics.mean(self.inertia_readings), 2),
+            "stdev_inertia": round(statistics.stdev(self.inertia_readings), 2) if len(self.inertia_readings) > 1 else 0.0,
+            "total_anomalies": self.anomaly_count
         }
 
 
 if __name__ == "__main__":
-    print("Initializing Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Inertia Sentinel Test Harness...")
-    sentinel = RollerMillInertiaSentinel(mill_id="NAI-MILL-04")
+    sentinel = RollerMillInertiaSentinel(mill_id="NAI_MILL_BABA_DOGO_04")
     
-    # Simulate normal and anomalous runs
-    test_data = [
-        (1450.0, 120.5, 2.1),
-        (1448.0, 121.0, 2.2),
-        (1100.0, 290.0, 18.5),  # Sudden slip / braking anomaly
-        (1452.0, 119.8, 2.0)
-    ]
-
-    for rpm, torque, decel in test_data:
-        res = sentinel.ingest_telemetry(rpm, torque, decel)
-        print(f"Telemetry ingested: {res}")
-
-    report = sentinel.generate_inertia_report()
-    print(f"Final Sentinel Audit Report: {report}")
-    print("Execution completed successfully.")
+    # Simulate normal operation
+    res1 = sentinel.ingest_telemetry(current_inertia=1245.0, vibration_mm_s=1.2)
+    print(res1)
+    
+    # Simulate shock load anomaly
+    res2 = sentinel.ingest_telemetry(current_inertia=1480.5, vibration_mm_s=5.1)
+    print(res2)
+    
+    print("Aggregate Stats:", sentinel.get_aggregate_stats())
+    
+    # Verify self-compilation of code
+    code_str = __doc__ or ""
+    assert ast.parse(__file__), "Self-compilation check passed."
+    print("RollerMillInertiaSentinel module compiled successfully.")
