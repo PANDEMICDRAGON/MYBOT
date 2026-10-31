@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 236,
-    "vector_id": "EVO_PAYLOAD_INTEGRITY_SIGNER_V1_C236",
-    "title": "HMAC-SHA256 Payload Integrity Signer & Replay Protector",
-    "domain": "SECURITY",
-    "rationale": "Cryptographically signs command queue directives to prevent man-in-the-middle tampering.",
-    "file_path": "evolution_modules\\payload_signer.py",
-    "code_size": 1485,
-    "applied_at": "2026-10-26 19:02:06 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Nairobi & Nairobi Microclimate Correlation Sentinel"
-  },
-  {
     "cycle_num": 237,
     "vector_id": "EVO_MICROCLIMATE_CORRELATOR_V1_C237",
     "title": "Nairobi & Nairobi Microclimate Correlation Sentinel",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-10-31 09:48:06 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Nairobi Commercial Grain Milling Vector Pneumatic Lift & Cyclone Dust Separation Sentinel"
+  },
+  {
+    "cycle_num": 333,
+    "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_GRAIN_CLEANER_AIR_ASPIRATION_SENTINEL_V1",
+    "title": "Nairobi Commercial Grain Milling Grain Cleaner Air Aspiration & Separator Sentinel",
+    "domain": "RESILIENCE",
+    "rationale": "To protect commercial grain mills in Nairobi against chaff, foreign debris, and light kernel impurities, this sentinel monitors and optimizes pneumatic air aspiration velocity, cyclone separator differential pressure, and vibrating screen amplitude to guarantee pristine separation before milling stones or roller mills.",
+    "file_path": "evolution_modules\\nairobi_commercial_grain_milling_grain_cleaner_air_aspiration_sentinel.py",
+    "code_size": 3423,
+    "applied_at": "2026-10-31 09:49:51 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Nairobi Commercial Grain Milling Scale & Packaging Net Weight Sentinel"
   }
 ]
