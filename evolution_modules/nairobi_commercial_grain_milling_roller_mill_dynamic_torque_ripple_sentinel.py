@@ -1,63 +1,73 @@
 """
 Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Sentinel
 
-Monitor high-frequency torque ripple harmonics on commercial roller mill drives
-in Nairobi's milling plants to predict shaft fatigue, coupling wear, and gear degradation.
+Monitor instantaneous angular velocity and harmonic torque ripples on commercial roller mill
+shafts to detect asymmetrical bearing wear, belt harmonic resonance, or incipient mechanical binding.
 """
 
-import logging
+import math
 import time
-import random
-from typing import Dict, Any, List
+import logging
+from typing import Dict, Any, List, Optional
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
-logger = logging.getLogger("RollerMillDynamicTorqueRippleSentinel")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("RollerMillTorqueRippleSentinel")
 
-class RollerMillDynamicTorqueRippleSentinel:
-    def __init__(self, mill_id: str, rated_torque_nm: float = 450.0, ripple_threshold_pct: float = 8.5):
+class RollerMillTorqueRippleSentinel:
+    def __init__(self, mill_id: str, nominal_rpm: float = 750.0, ripple_threshold_pct: float = 5.0):
         self.mill_id = mill_id
-        self.rated_torque_nm = rated_torque_nm
+        self.nominal_rpm = nominal_rpm
         self.ripple_threshold_pct = ripple_threshold_pct
-        self.anomaly_count = 0
-        logger.info(f"Initialized Dynamic Torque Ripple Sentinel for Roller Mill {self.mill_id} (Rated: {self.rated_torque_nm} Nm)")
+        self.telemetry_history: List[Dict[str, float]] = []
 
-    def analyze_torque_waveform(self, torque_samples: List[float]) -> Dict[str, Any]:
-        if not torque_samples:
-            return {"status": "ERROR", "message": "Empty torque sample set"}
+    def ingest_telemetry(self, timestamp: float, instantaneous_rpm: float, torque_nm: float) -> Dict[str, Any]:
+        """Ingest instantaneous shaft speed and torque to compute ripple indices."""
+        rpm_deviation = abs(instantaneous_rpm - self.nominal_rpm)
+        deviation_pct = (rpm_deviation / self.nominal_rpm) * 100.0
         
-        mean_torque = sum(torque_samples) / len(torque_samples)
-        peak_torque = max(torque_samples)
-        min_torque = min(torque_samples)
-        peak_to_peak = peak_torque - min_torque
+        self.telemetry_history.append({
+            "timestamp": timestamp,
+            "rpm": instantaneous_rpm,
+            "torque": torque_nm,
+            "deviation": deviation_pct
+        })
         
-        # Ripple percentage calculation
-        ripple_pct = (peak_to_peak / mean_torque) * 100.0 if mean_torque > 0 else 0.0
-        
-        status = "OPTIMAL"
-        if ripple_pct > self.ripple_threshold_pct:
+        if len(self.telemetry_history) > 100:
+            self.telemetry_history.pop(0)
+
+        return self._evaluate_ripple(instantaneous_rpm, torque_nm, deviation_pct)
+
+    def _evaluate_ripple(self, rpm: float, torque: float, deviation_pct: float) -> Dict[str, Any]:
+        status = "NOMINAL"
+        action = "NONE"
+
+        if deviation_pct > self.ripple_threshold_pct:
             status = "WARNING"
-            self.anomaly_count += 1
-            logger.warning(f"[{self.mill_id}] High Torque Ripple Detected! Ripple: {ripple_pct:.2f}% (Threshold: {self.ripple_threshold_pct}%)")
-        else:
-            logger.info(f"[{self.mill_id}] Torque ripple nominal: {ripple_pct:.2f}%")
+            action = "MONITOR_DRIVE_BELT_TENSION"
+        if deviation_pct > (self.ripple_threshold_pct * 2.0):
+            status = "CRITICAL"
+            action = "INITIATE_EMERGENCY_ROLLER_SLOWDOWN"
+            logger.error(f"[CRITICAL] Mill {self.mill_id}: Torque ripple spike detected! Deviation: {deviation_pct:.2f}%")
 
         return {
             "mill_id": self.mill_id,
-            "mean_torque_nm": round(mean_torque, 2),
-            "peak_to_peak_nm": round(peak_to_peak, 2),
-            "ripple_percentage": round(ripple_pct, 2),
             "status": status,
-            "anomaly_count": self.anomaly_count,
+            "action": action,
+            "current_rpm": rpm,
+            "torque_nm": torque,
+            "deviation_pct": deviation_pct,
             "timestamp": time.time()
         }
 
 if __name__ == "__main__":
-    sentinel = RollerMillDynamicTorqueRippleSentinel(mill_id="RM-NAIROBI-WEST-04")
-    # Simulate normal and anomalous torque waveform captures
-    normal_samples = [440.0 + random.uniform(-15, 15) for _ in range(100)]
-    result_normal = sentinel.analyze_torque_waveform(normal_samples)
-    print("Normal Test Result:", result_normal)
-
-    anomalous_samples = [450.0 + random.uniform(-60, 65) for _ in range(100)]
-    result_anomaly = sentinel.analyze_torque_waveform(anomalous_samples)
-    print("Anomalous Test Result:", result_anomaly)
+    sentinel = RollerMillTorqueRippleSentinel(mill_id="UGUNJA_MILL_04")
+    now = time.time()
+    test_readings = [
+        (750.0, 120.5),
+        (742.1, 128.0),
+        (731.5, 142.3),
+        (710.0, 165.0)
+    ]
+    for i, (rpm, tq) in enumerate(test_readings):
+        res = sentinel.ingest_telemetry(now + i, rpm, tq)
+        print(f"Reading {i}: Status -> {res['status']}, Action -> {res['action']}, Deviation -> {res['deviation_pct']:.2f}%")
