@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 378,
-    "vector_id": "EVO_NAIROBI_COMERCIAL_GRAIN_MILLING_REEL_CLEANER_SENTINEL_V1",
-    "title": "Nairobi Commercial Grain Milling Reel Cleaner Vibration & Blockage Sentinel",
-    "domain": "RESILIENCE",
-    "rationale": "The reel cleaner is the primary pre-milling cleaning stage. Blockages or vibration anomalies here cause downstream contamination and equipment damage. This sentinel proactively monitors vibration spectra and throughput to detect blockages before they impact the roller mills, ensuring continuous, high-quality production for Nairobi grain processors.",
-    "file_path": "evolution_modules\\nairobi_commercial_grain_milling_reel_cleaner_sentinel.py",
-    "code_size": 4728,
-    "applied_at": "2026-10-31 11:11:08 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Nairobi Commercial Grain Milling Aspiration System Static Pressure & Filter Load Sentinel"
-  },
-  {
     "cycle_num": 379,
     "vector_id": "EVO_GRAIN_MILLING_ROLLER_MILL_THERMAL_DRIFT_SENTINEL_V1",
     "title": "Nairobi Commercial Grain Milling Roller Mill Roll Thermal Drift & Bearing Temp Sentinel",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-10-31 14:09:29 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Research and construct a Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Viscosity Sentinel to analyze lubricant shear degradation under heavy grain processing loads."
+  },
+  {
+    "cycle_num": 23,
+    "vector_id": "EVO_GRAIN_MILLING_DYNAMIC_TORQUE_PHASE_SENTINEL_V1",
+    "title": "Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Phase Sentinel",
+    "domain": "RESILIENCE",
+    "rationale": "Expanding upon previous dynamic torque and mechanical roller mill sentinels in Nairobi's commercial grain milling industry, this module monitors phase angle shifts and power factor anomalies in roller mill drive motors to prevent stator overload and catastrophic gearbox failure.",
+    "file_path": "evolution_modules\\nairobi_commercial_grain_milling_roller_mill_dynamic_torque_phase_sentinel.py",
+    "code_size": 3150,
+    "applied_at": "2026-10-31 14:11:23 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Next, Cortana will engineer the Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Transient Sentinel to capture micro-second impulse spikes during hard kernel impact phases."
   }
 ]
