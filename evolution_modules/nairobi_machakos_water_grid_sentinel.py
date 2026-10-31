@@ -1,191 +1,95 @@
 import time
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List, Optional, Dict, Any
 from enum import Enum
-import random
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 
-class GridStatus(Enum):
-    NORMAL = "NORMAL"
-    LOW_PRESSURE = "LOW_PRESSURE"
-    HIGH_PRESSURE = "HIGH_PRESSURE"
-    LEAK_SUSPECTED = "LEAK_SUSPECTED"
-    OFFLINE = "OFFLINE"
+class WaterQualityStatus(Enum):
+    """Enum representing the quality status of the water."""
+    OPTIMAL = "optimal"
+    DEGRADED = "degraded"
+    CRITICAL = "critical"
 
 
 @dataclass
-class SensorReading:
+class WaterMetrics:
+    """Data class to hold water metrics."""
+    pressure_bar: float
+    flow_rate_lps: float
+    turbidity_ntu: float
+    ph_level: float
+    chlorine_ppm: float
     timestamp: float
-    pressure_kpa: float
-    flow_rate_m3_h: float
-    temperature_c: float
-    battery_level: int
 
-
-@dataclass
-class GridNode:
-    node_id: str
-    location: str
-    status: GridStatus = GridStatus.NORMAL
-    last_reading: Optional[SensorReading] = None
-    readings_history: List[SensorReading] = field(default_factory=list)
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert metrics to a dictionary."""
+        return {
+            "pressure_bar": self.pressure_bar,
+            "flow_rate_lps": self.flow_rate_lps,
+            "turbidity_ntu": self.turbidity_ntu,
+            "ph_level": self.ph_level,
+            "chlorine_ppm": self.chlorine_ppm,
+            "timestamp": self.timestamp
+        }
 
 
 class WaterGridSentinel:
-    """
-    A sentinel system for monitoring the Nairobi-Machakos water grid.
-    
-    This class simulates the monitoring of pressure and flow rates across
-    multiple nodes in the water distribution network. It detects anomalies
-    such as leaks, pressure drops, and flow irregularities.
-    """
+    """Class to monitor and manage the Nairobi Machakos water grid."""
 
-    def __init__(self, nodes: List[GridNode]):
-        self.nodes = {node.node_id: node for node in nodes}
-        self.alerts: List[Dict[str, Any]] = []
-        self.thresholds = {
-            "min_pressure_kpa": 200,
-            "max_pressure_kpa": 600,
-            "min_flow_m3_h": 10,
-            "max_flow_m3_h": 500,
-            "leak_flow_drop_threshold": 0.8  # 20% drop indicates potential leak
-        }
+    def __init__(self, pressure_threshold: float = 2.0, flow_threshold: float = 50.0, turbidity_threshold: float = 5.0):
+        """Initialize the WaterGridSentinel with thresholds."""
+        self.pressure_threshold = pressure_threshold
+        self.flow_threshold = flow_threshold
+        self.turbidity_threshold = turbidity_threshold
+        self.metrics_history: List[WaterMetrics] = []
+        self.status = WaterQualityStatus.OPTIMAL
 
-    def simulate_reading(self, node: GridNode) -> SensorReading:
-        """Simulate a sensor reading for a given node."""
-        base_pressure = random.uniform(300, 500)
-        base_flow = random.uniform(50, 300)
-        
-        # Introduce anomalies with low probability
-        if random.random() < 0.05:
-            base_pressure *= random.uniform(0.5, 0.7)  # Low pressure
-        elif random.random() < 0.05:
-            base_pressure *= random.uniform(1.2, 1.5)  # High pressure
-        elif random.random() < 0.03:
-            base_flow *= random.uniform(0.5, 0.7)  # Potential leak
+    def record_metrics(self, pressure_bar: float, flow_rate_lps: float, turbidity_ntu: float, ph_level: float, chlorine_ppm: float) -> None:
+        """Record new water metrics."""
+        metrics = WaterMetrics(pressure_bar, flow_rate_lps, turbidity_ntu, ph_level, chlorine_ppm, time.time())
+        self.metrics_history.append(metrics)
+        self._update_status(metrics)
 
-        return SensorReading(
-            timestamp=time.time(),
-            pressure_kpa=base_pressure,
-            flow_rate_m3_h=base_flow,
-            temperature_c=random.uniform(15, 25),
-            battery_level=random.randint(50, 100)
-        )
+    def _update_status(self, metrics: WaterMetrics) -> None:
+        """Update the status based on the latest metrics."""
+        if metrics.pressure_bar < self.pressure_threshold or metrics.flow_rate_lps < self.flow_threshold:
+            self.status = WaterQualityStatus.CRITICAL
+        elif metrics.turbidity_ntu > self.turbidity_threshold:
+            self.status = WaterQualityStatus.DEGRADED
+        else:
+            self.status = WaterQualityStatus.OPTIMAL
 
-    def update_node(self, node_id: str) -> None:
-        """Update a node with a new simulated reading and check for anomalies."""
-        if node_id not in self.nodes:
-            raise ValueError(f"Node {node_id} not found")
+    def get_status(self) -> WaterQualityStatus:
+        """Get the current status of the water grid."""
+        return self.status
 
-        node = self.nodes[node_id]
-        reading = self.simulate_reading(node)
-        node.last_reading = reading
-        node.readings_history.append(reading)
+    def get_metrics_history(self) -> List[WaterMetrics]:
+        """Get the history of water metrics."""
+        return self.metrics_history
 
-        # Keep only the last 100 readings
-        if len(node.readings_history) > 100:
-            node.readings_history.pop(0)
-
-        self._check_anomalies(node)
-
-    def _check_anomalies(self, node: GridNode) -> None:
-        """Check for anomalies in the node's latest reading."""
-        if not node.last_reading:
-            return
-
-        reading = node.last_reading
-        status = GridStatus.NORMAL
-
-        if reading.pressure_kpa < self.thresholds["min_pressure_kpa"]:
-            status = GridStatus.LOW_PRESSURE
-        elif reading.pressure_kpa > self.thresholds["max_pressure_kpa"]:
-            status = GridStatus.HIGH_PRESSURE
-
-        # Check for potential leak: significant drop in flow rate
-        if len(node.readings_history) >= 2:
-            prev_reading = node.readings_history[-2]
-            if prev_reading.flow_rate_m3_h > 0:
-                flow_ratio = reading.flow_rate_m3_h / prev_reading.flow_rate_m3_h
-                if flow_ratio < self.thresholds["leak_flow_drop_threshold"]:
-                    status = GridStatus.LEAK_SUSPECTED
-
-        node.status = status
-
-        if status != GridStatus.NORMAL:
-            alert = {
-                "node_id": node.node_id,
-                "location": node.location,
-                "status": status.value,
-                "pressure_kpa": reading.pressure_kpa,
-                "flow_rate_m3_h": reading.flow_rate_m3_h,
-                "timestamp": reading.timestamp
-            }
-            self.alerts.append(alert)
-            logger.warning(f"Anomaly detected at {node.location}: {status.value}")
-
-    def get_alerts(self) -> List[Dict[str, Any]]:
-        """Return all alerts generated by the sentinel."""
-        return self.alerts
-
-    def get_node_status(self, node_id: str) -> GridStatus:
-        """Return the current status of a specific node."""
-        if node_id not in self.nodes:
-            raise ValueError(f"Node {node_id} not found")
-        return self.nodes[node_id].status
-
-    def get_summary(self) -> Dict[str, Any]:
-        """Return a summary of the grid's current state."""
-        status_counts = {status: 0 for status in GridStatus}
-        for node in self.nodes.values():
-            status_counts[node.status] += 1
-
-        return {
-            "total_nodes": len(self.nodes),
-            "status_counts": status_counts,
-            "total_alerts": len(self.alerts)
-        }
-
-
-def create_sample_grid() -> WaterGridSentinel:
-    """Create a sample water grid with several nodes."""
-    nodes = [
-        GridNode("N1", "Nairobi Central"),
-        GridNode("N2", "Westlands"),
-        GridNode("N3", "Kilimani"),
-        GridNode("N4", "Machakos Town"),
-        GridNode("N5", "Machakos Rural")
-    ]
-    return WaterGridSentinel(nodes)
+    def predict_failure(self) -> bool:
+        """Predict if a failure is imminent based on recent metrics."""
+        if len(self.metrics_history) < 3:
+            return False
+        recent_metrics = self.metrics_history[-3:]
+        pressure_trend = [m.pressure_bar for m in recent_metrics]
+        flow_trend = [m.flow_rate_lps for m in recent_metrics]
+        if all(pressure_trend[i] > pressure_trend[i+1] for i in range(len(pressure_trend)-1)) and \
+           all(flow_trend[i] > flow_trend[i+1] for i in range(len(flow_trend)-1)):
+            return True
+        return False
 
 
 if __name__ == "__main__":
-    # Initialize the sentinel
-    sentinel = create_sample_grid()
-
-    # Simulate 10 readings for each node
-    for _ in range(10):
-        for node_id in sentinel.nodes:
-            sentinel.update_node(node_id)
-        time.sleep(0.1)  # Simulate time between readings
-
-    # Print summary
-    summary = sentinel.get_summary()
-    print("\n=== Water Grid Summary ===")
-    print(f"Total Nodes: {summary['total_nodes']}")
-    print(f"Status Counts: {summary['status_counts']}")
-    print(f"Total Alerts: {summary['total_alerts']}")
-
-    # Print recent alerts
-    if sentinel.get_alerts():
-        print("\n=== Recent Alerts ===")
-        for alert in sentinel.get_alerts()[-5:]:
-            print(f"Node: {alert['node_id']} | Location: {alert['location']} | "
-                  f"Status: {alert['status']} | Pressure: {alert['pressure_kpa']:.2f} kPa | "
-                  f"Flow: {alert['flow_rate_m3_h']:.2f} m³/h")
-    else:
-        print("\nNo alerts generated.")
+    sentinel = WaterGridSentinel()
+    sentinel.record_metrics(2.5, 60.0, 3.0, 7.0, 0.5)
+    sentinel.record_metrics(2.4, 58.0, 4.0, 7.1, 0.5)
+    sentinel.record_metrics(2.3, 55.0, 6.0, 7.2, 0.4)
+    print(f"Status: {sentinel.get_status()}")
+    print(f"Failure Predicted: {sentinel.predict_failure()}")
+    print(f"Metrics History: {sentinel.get_metrics_history()}")
