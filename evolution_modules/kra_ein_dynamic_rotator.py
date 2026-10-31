@@ -1,84 +1,115 @@
-import json
-import time
-import hashlib
+import logging
 import secrets
-from typing import Dict, Any, Optional
-from dataclasses import dataclass
-from enum import Enum
+import time
+from typing import Dict, List, Optional
 
-@dataclass
-class EINStatus:
-    ein: str
-    status: str
-    expiry: float
-    last_rotated: float
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-@dataclass
-class ComplianceReport:
-    is_compliant: bool
-    issues: list
-    timestamp: float
 
-class KRAEINDynamicRotator:
-    def __init__(self, api_key: str, base_url: str = "https://api.kra.go.ke"):
-        self.api_key = api_key
-        self.base_url = base_url
-        self.current_ein: Optional[str] = None
-        self.ein_status: Optional[EINStatus] = None
-        self.compliance_report: Optional[ComplianceReport] = None
+class KraEinDynamicRotator:
+    """
+    A class to handle the dynamic rotation of KRA Electronic Identification Numbers (EINs)
+    and ensure compliance with Kenyan tax regulations.
+    """
 
-    def generate_ein(self) -> str:
-        """Generate a new unique EIN using secure random bytes."""
-        random_bytes = secrets.token_bytes(16)
-        return hashlib.sha256(random_bytes).hexdigest()[:20]
+    def __init__(self, initial_ein: str, rotation_interval: int = 3600):
+        """
+        Initialize the KraEinDynamicRotator.
 
-    def rotate_ein(self) -> bool:
-        """Rotate the current EIN to a new one."""
-        if not self.current_ein:
-            self.current_ein = self.generate_ein()
-            self.ein_status = EINStatus(
-                ein=self.current_ein,
-                status="active",
-                expiry=time.time() + 3600 * 24 * 30,
-                last_rotated=time.time()
-            )
-            return True
-        else:
-            new_ein = self.generate_ein()
-            self.ein_status = EINStatus(
-                ein=new_ein,
-                status="active",
-                expiry=time.time() + 3600 * 24 * 30,
-                last_rotated=time.time()
-            )
-            self.current_ein = new_ein
-            return True
+        Args:
+            initial_ein (str): The initial EIN to start with.
+            rotation_interval (int): The interval in seconds after which the EIN should be rotated.
+        """
+        self.current_ein = initial_ein
+        self.rotation_interval = rotation_interval
+        self.last_rotation_time = time.time()
+        self.ein_history: List[str] = [initial_ein]
 
-    def check_compliance(self) -> ComplianceReport:
-        """Check the compliance status of the current EIN."""
-        issues = []
-        if not self.current_ein:
-            issues.append("No active EIN")
-        elif self.ein_status and self.ein_status.expiry < time.time():
-            issues.append("EIN expired")
-        
-        return ComplianceReport(
-            is_compliant=len(issues) == 0,
-            issues=issues,
-            timestamp=time.time()
-        )
+    def generate_new_ein(self) -> str:
+        """
+        Generate a new secure EIN.
 
-    def get_status(self) -> Dict[str, Any]:
-        """Get the current status of the EIN rotator."""
-        return {
-            "current_ein": self.current_ein,
-            "ein_status": self.ein_status.__dict__ if self.ein_status else None,
-            "compliance_report": self.compliance_report.__dict__ if self.compliance_report else None
-        }
+        Returns:
+            str: A newly generated EIN.
+        """
+        new_ein = secrets.token_hex(16)
+        logger.info(f"Generated new EIN: {new_ein}")
+        return new_ein
+
+    def rotate_ein(self) -> str:
+        """
+        Rotate the current EIN to a new one.
+
+        Returns:
+            str: The newly rotated EIN.
+        """
+        if time.time() - self.last_rotation_time < self.rotation_interval:
+            logger.warning("Rotation interval not yet reached. Skipping rotation.")
+            return self.current_ein
+
+        new_ein = self.generate_new_ein()
+        self.current_ein = new_ein
+        self.last_rotation_time = time.time()
+        self.ein_history.append(new_ein)
+        logger.info(f"EIN rotated to: {new_ein}")
+        return new_ein
+
+    def get_current_ein(self) -> str:
+        """
+        Retrieve the current EIN.
+
+        Returns:
+            str: The current EIN.
+        """
+        return self.current_ein
+
+    def get_ein_history(self) -> List[str]:
+        """
+        Retrieve the history of all rotated EINs.
+
+        Returns:
+            List[str]: A list of all EINs used.
+        """
+        return self.ein_history
+
+    def validate_ein(self, ein: str) -> bool:
+        """
+        Validate if the provided EIN is the current one.
+
+        Args:
+            ein (str): The EIN to validate.
+
+        Returns:
+            bool: True if the EIN is valid, False otherwise.
+        """
+        return ein == self.current_ein
+
+
+def main():
+    """
+    Main function to test the KraEinDynamicRotator.
+    """
+    initial_ein = "initial_ein_12345"
+    rotator = KraEinDynamicRotator(initial_ein, rotation_interval=1)
+
+    # Test initial state
+    assert rotator.get_current_ein() == initial_ein
+    assert rotator.get_ein_history() == [initial_ein]
+
+    # Test rotation
+    time.sleep(1.1)
+    new_ein = rotator.rotate_ein()
+    assert rotator.get_current_ein() == new_ein
+    assert rotator.get_ein_history() == [initial_ein, new_ein]
+
+    # Test validation
+    assert rotator.validate_ein(new_ein)
+    assert not rotator.validate_ein(initial_ein)
+
+    logger.info("All tests passed successfully.")
+
 
 if __name__ == "__main__":
-    rotator = KRAEINDynamicRotator(api_key="test_key")
-    rotator.rotate_ein()
-    print(json.dumps(rotator.get_status(), indent=2))
-    compliance = rotator.check_compliance()
-    print(json.dumps(compliance.__dict__, indent=2))
+    main()
