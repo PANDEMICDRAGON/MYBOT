@@ -6707,6 +6707,87 @@ async def sync_conflict_and_macro(client: httpx.AsyncClient) -> list[dict]:
 
 
 # =====================================================================
+# --- REVERSE ENGINEERING ENGINE & BINARY ANALYSIS BOT ---
+# =====================================================================
+async def handle_reverse_engineer_directive(client: httpx.AsyncClient, directive: str) -> str:
+    """
+    Cortana Industrial Reverse Engineering Bot handler.
+    Analyzes binaries, scripts, APKs, URLs, endpoints, credentials, or strings.
+    """
+    raw = re.sub(r"^/(re|reverse)\s*", "", directive.strip(), flags=re.I).strip()
+    try:
+        from evolution_modules.reverse_engineer import analyze_file, summarize
+    except Exception as ie:
+        return f"⚠️ Reverse Engineering Suite unavailable: {ie}"
+
+    if not raw or raw.lower() in ("help", "--help", "-h"):
+        return (
+            "🔬 *CORTANA REVERSE ENGINEERING SUITE (INDUSTRIAL INTEL)*\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            "• Analyze a file: `/re <file_path>` (e.g. `/re bot.py` or `/re path/to/app.apk`)\n"
+            "• Analyze a URL: `/re https://target-domain.com/asset.js`\n"
+            "• Scan code snippet: `/re <raw code or base64>`\n"
+            "• *Upload in chat:* Drag & drop any APK, EXE, DLL, or script into Telegram to analyze automatically!\n"
+            "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        )
+
+    base_dir = Path(__file__).resolve().parent
+    temp_dir = base_dir / "scratch" / "reverse_eng"
+    temp_dir.mkdir(parents=True, exist_ok=True)
+
+    target_file = None
+    is_url = raw.startswith("http://") or raw.startswith("https://")
+
+    if is_url:
+        try:
+            url_target = raw.split()[0]
+            logger.info(f"[ReverseEng] Fetching remote artifact: {url_target}")
+            headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) ReverseEngineeringCore/4.0"}
+            resp = await client.get(url_target, headers=headers, timeout=25, follow_redirects=True)
+            if resp.status_code == 200:
+                parsed_url = urllib.parse.urlparse(url_target)
+                name = Path(parsed_url.path).name or "downloaded_target.bin"
+                target_file = temp_dir / name
+                target_file.write_bytes(resp.content)
+            else:
+                return f"❌ *Failed to fetch target from URL:* HTTP {resp.status_code}"
+        except Exception as e:
+            return f"❌ *Network probe error while downloading target:* {e}"
+    else:
+        # Check local path
+        p = Path(raw)
+        if not p.is_absolute():
+            p = base_dir / raw
+        if p.is_file():
+            target_file = p
+        else:
+            # Check if raw is a code snippet
+            if len(raw) > 30 and ("def " in raw or "function" in raw or "eval(" in raw or "import " in raw or ";" in raw):
+                target_file = temp_dir / "analyzed_snippet.txt"
+                target_file.write_text(raw, encoding="utf-8")
+            else:
+                # Search workspace for file match
+                matches = list(base_dir.rglob(f"*{raw}*"))
+                file_matches = [m for m in matches if m.is_file() and not any(part in str(m) for part in [".git", "__pycache__", ".venv"])]
+                if file_matches:
+                    target_file = file_matches[0]
+                else:
+                    return (
+                        f"⚠️ *Target not found:* `{raw}`\n"
+                        f"Specify an existing file path, URL, or upload the file directly to Telegram chat."
+                    )
+
+    try:
+        logger.info(f"[ReverseEng] Analyzing target: {target_file}")
+        report = analyze_file(str(target_file))
+        summary = summarize(report)
+        return summary
+    except Exception as ex:
+        logger.error(f"[ReverseEng Execution Error]: {ex}")
+        return f"❌ *Reverse engineering analysis failed:* {ex}"
+
+
+# =====================================================================
 # --- UNIFIED COMMAND QUEUE & DEEP-DIVE RESEARCH PIPELINE ---
 # =====================================================================
 async def log_and_execute_directive(
@@ -6863,6 +6944,54 @@ async def log_and_execute_directive(
                 f"🖼️ *Direct High-Res Canvas:* [View Image]({res_img['image_url']})"
                 f"{local_note}"
             )
+        elif mode in ("MODULES", "MODULE_LIST") or directive.strip().lower() in ("/modules", "modules", "/module", "module", "/modules_list", "/modules list", "list modules", "show modules"):
+            from evolution_modules.registry import list_modules_summary
+            answer = list_modules_summary()
+        elif directive.strip().lower().startswith(("/modules search ", "modules search ", "/module search ", "module search ")):
+            query = re.sub(r"^/modules?\s+search\s+", "", directive.strip(), flags=re.I).strip()
+            from evolution_modules.registry import registry
+            matches = registry.search(query, limit=10)
+            if not matches:
+                answer = f"🔍 *No modules found matching:* `{query}`\n\nTry broad terms like `milling`, `mpesa`, `solar`, `scada`, `security`, or `reverse`."
+            else:
+                lines = [
+                    f"🔍 *MODULE SEARCH RESULTS // '{query}'* ({len(matches)} matches)",
+                    f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+                ]
+                for m in matches:
+                    doc_snippet = m['doc'].split('\n')[0][:100] if m.get('doc') else 'Autonomous module'
+                    lines.append(f"• {m['domain_icon']} *{m['name']}*")
+                    lines.append(f"  _{doc_snippet}_")
+                    lines.append(f"  ↳ Run: `/run {m['name']}` | Info: `/module {m['name']}`\n")
+                lines.append(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n💡 _Tap any `/run <name>` to execute instantly._")
+                answer = "\n".join(lines)
+        elif directive.strip().lower().startswith(("/module info ", "/module ", "module info ", "module ")):
+            target = re.sub(r"^/module(\s+info)?\s+", "", directive.strip(), flags=re.I).strip()
+            from evolution_modules.registry import registry
+            info = registry.get_info(target)
+            if not info:
+                answer = f"⚠️ *Module not found:* `{target}`\nUse `/modules search {target}` to find matching names."
+            else:
+                lines = [
+                    f"🧩 *MODULE DOSSIER // `{info['name']}`*",
+                    f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━",
+                    f"🏷️ *Domain:* {info['domain_icon']} {info['domain_title']}",
+                    f"💾 *Size:* `{round(info['file_size'] / 1024, 1)} KB`",
+                    f"📝 *Description:*",
+                    f"_{info['doc'][:350]}_"
+                ]
+                if info.get("classes"):
+                    lines.append("\n🏛️ *Classes & Methods:*")
+                    for c in info["classes"][:3]:
+                        methods_str = ", ".join(f"`{m}()`" for m in c.get("methods", [])[:5])
+                        lines.append(f"• `{c['name']}`: {methods_str or 'Initialized'}")
+                if info.get("functions"):
+                    lines.append(f"\n⚙️ *Functions:* {', '.join(f'`{f}()`' for f in info['functions'][:6])}")
+                lines.append(f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
+                lines.append(f"▶️ *Execute this module now:* `/run {info['name']}`")
+                answer = "\n".join(lines)
+        elif directive.strip().lower().startswith(("/re", "/reverse", "reverse engineer", "re ")):
+            answer = await handle_reverse_engineer_directive(client, directive.strip())
         elif mode in ("EXECUTE_TOOL", "RUN_TOOL", "RUN_SCRIPT") or directive.strip().lower().startswith(("run ", "/run ", "/promo", "/clip")):
             raw = directive.strip()
             if raw.lower().startswith("/run "):
@@ -6883,14 +7012,16 @@ async def log_and_execute_directive(
                 base_dir / tool_target,
                 base_dir / "scripts" / tool_target,
                 base_dir / "tools" / tool_target,
+                base_dir / "evolution_modules" / tool_target,
                 base_dir / f"{tool_target}.py",
                 base_dir / "scripts" / f"{tool_target}.py",
                 base_dir / "tools" / f"{tool_target}.py",
+                base_dir / "evolution_modules" / f"{tool_target}.py",
             ]
             resolved_tool = next((c for c in candidates if c.is_file()), None)
 
             if not resolved_tool:
-                all_tools = list((base_dir / "scripts").glob("*.py")) + list((base_dir / "tools").glob("*.py"))
+                all_tools = list((base_dir / "scripts").glob("*.py")) + list((base_dir / "tools").glob("*.py")) + list((base_dir / "evolution_modules").glob("*.py"))
                 for t in all_tools:
                     if tool_target.lower() in t.stem.lower():
                         resolved_tool = t
@@ -6901,8 +7032,8 @@ async def log_and_execute_directive(
                 if tool_args:
                     cmd_parts.extend(shlex.split(tool_args))
 
-                logger.info(f"Executing tool on workstation: {' '.join(cmd_parts)}")
-                snapshot_dirs = [base_dir / "scripts", base_dir / "tools"]
+                logger.info(f"Executing tool/module on workstation: {' '.join(cmd_parts)}")
+                snapshot_dirs = [base_dir / "scripts", base_dir / "tools", base_dir / "scratch"]
                 before_files = set(f for d in snapshot_dirs if d.exists() for f in d.glob("*") if f.is_file())
 
                 proc = None
@@ -6929,20 +7060,22 @@ async def log_and_execute_directive(
                     if nf.suffix.lower() in (".csv", ".json", ".txt", ".png", ".jpg", ".mp4", ".mp3", ".wav"):
                         await send_telegram_document(client, str(nf), f"📊 Artifact generated by {resolved_tool.name}: {nf.name}")
 
-                clean_out = out_text[:3500] if out_text else "[Tool completed with exit code 0 and produced no text output]"
+                clean_out = out_text[:3500] if out_text else "[Module completed with exit code 0 and produced no text output]"
                 answer = (
-                    f"📊 *[TOOL EXECUTION RESULTS // `{resolved_tool.name}`]:*\n"
+                    f"📊 *[EXECUTION RESULTS // `{resolved_tool.name}`]:*\n"
                     f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
                     f"```\n{clean_out}\n```\n"
                     f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
                     f"_Executed on Workstation Core. Output delivered directly to your phone._"
                 )
             else:
-                available = [f.stem for f in (base_dir / "scripts").glob("*.py")] + [f.stem for f in (base_dir / "tools").glob("*.py")]
                 answer = (
-                    f"⚠️ *[TOOL NOT FOUND]*\n"
+                    f"⚠️ *[MODULE OR TOOL NOT FOUND]*\n"
                     f"Could not locate `{tool_target}` in workspace.\n\n"
-                    f"*Available Tools to Run from Phone:*\n" + "\n".join(f"• `/run {t}`" for t in sorted(set(available)))
+                    f"💡 *Options:*\n"
+                    f"• Type `/modules` to view all 335+ categorized industrial modules\n"
+                    f"• Type `/modules search {tool_target}` to find matching modules\n"
+                    f"• Type `/re <file_or_url>` to run the Reverse Engineering suite"
                 )
         elif mode in ("SWARM", "AGENT_SWARM", "SPAWN_AGENT", "SWARM_COMMAND") or directive.strip().lower().startswith(("/swarm", "swarm", "make agents", "make as many agents", "spawn agent", "spawn agents", "deploy swarm", "swarm command")):
             answer = await handle_swarm_directive(client, directive)
@@ -7081,6 +7214,28 @@ async def telegram_poller(client: httpx.AsyncClient):
                         logger.info("Incoming visual asset. Extracting via Vision OCR...")
                         extracted = await analyze_telegram_photo(client, best_photo, caption)
                         user_text = f"[DOCUMENT OCR PAYLOAD]: {extracted}\nOperator Instruction: {caption}"
+
+                    elif "document" in msg:
+                        doc = msg["document"]
+                        file_id = doc.get("file_id")
+                        file_name = doc.get("file_name", "unnamed_binary")
+                        caption = msg.get("caption", "").strip()
+                        logger.info(f"Incoming document/binary asset: '{file_name}'. Initiating reverse engineering pipeline...")
+                        try:
+                            file_resp = await client.get(f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/getFile", params={"file_id": file_id}, timeout=15)
+                            if file_resp.status_code == 200:
+                                t_path = file_resp.json().get("result", {}).get("file_path", "")
+                                content_resp = await client.get(f"https://api.telegram.org/file/bot{TELEGRAM_TOKEN}/{t_path}", timeout=45)
+                                if content_resp.status_code == 200:
+                                    save_dir = Path(__file__).resolve().parent / "scratch" / "reverse_eng"
+                                    save_dir.mkdir(parents=True, exist_ok=True)
+                                    saved_path = save_dir / file_name
+                                    saved_path.write_bytes(content_resp.content)
+                                    user_text = f"/re {str(saved_path)}"
+                                    await send_telegram(client, f"🔬 *Received document `{file_name}` ({round(len(content_resp.content)/1024, 1)} KB).*\n_Running automated reverse engineering & binary analysis..._")
+                        except Exception as de:
+                            logger.error(f"[Document Ingestion Error]: {de}")
+                            user_text = f"Document received: {file_name}. (Failed to download: {de})"
 
                     if user_text:
                         global latest_telegram_event

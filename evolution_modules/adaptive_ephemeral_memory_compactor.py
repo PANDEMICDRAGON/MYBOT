@@ -171,7 +171,7 @@ if __name__ == "__main__":
     mock_cache = [bytearray(1024 * 1024) for _ in range(5)]  # 5 MB transient cache
 
     def clear_mock_cache() -> int:
-        nonlocal mock_cache
+        global mock_cache
         freed = sum(len(b) for b in mock_cache)
         mock_cache.clear()
         return freed
