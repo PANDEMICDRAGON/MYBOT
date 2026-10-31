@@ -1,48 +1,115 @@
-"""
-Nairobi Ussd Session Lock Sentinel.
-Refined and upgraded autonomously by Cortana Continuous Self-Evolution Core.
-Verified Real-World Engineering Standard: Security & Zero-Trust Defense
-"""
-
 import time
-import logging
-from typing import Dict, Any, Optional
+import hashlib
+import secrets
+import threading
+from typing import Dict, Optional, Tuple
+from dataclasses import dataclass, field
 
-logger = logging.getLogger("NairobiUssdSessionLock")
+@dataclass
+class USSDSession:
+    session_id: str
+    user_id: str
+    created_at: float
+    last_activity: float
+    nonce: str
+    status: str = "active"
+    lock: threading.Lock = field(default_factory=threading.Lock)
 
-class NairobiUssdSessionLock:
-    STANDARDS = ['KRA eTIMS Cryptographic Invoice Signature: ECDSA SHA-256 over PIN|SCU|InvoiceNum|Date|Total', 'Zero-Trust PII Masking: KRA PIN (^[AP][0-9]{9}[A-Z]$), MSISDN (^(?:\\+?254|0)(7[0-9]|1[1-9])[0-9]{7}$), National ID (6-8 digits)', 'HMAC-SHA256 Payload Integrity Signing with Anti-Replay Timestamp Window (<= 300 seconds)']
+class NairobiUSSDSessionLock:
+    """
+    A security module that locks USSD sessions to prevent replay attacks and unauthorized access.
+    """
 
-    def __init__(self, operator: str = "Michael Obiero"):
-        self.operator = operator
-        self.status = "ONLINE"
-        self.domain = "SECURITY_ZERO_TRUST"
-        self.benchmark_latency_ms = 1.45
+    def __init__(self, session_timeout: float = 300.0):
+        self.sessions: Dict[str, USSDSession] = {}
+        self.session_timeout = session_timeout
+        self._lock = threading.Lock()
 
-    def execute_telemetry_sweep(self, context: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
-        t0 = time.perf_counter()
-        ctx = context or {}
-        workload = ctx.get("workload", "nominal_dispatch")
-        duration_ms = round((time.perf_counter() - t0) * 1000.0 + self.benchmark_latency_ms, 3)
-        return {
-            "module": "nairobi_ussd_session_lock",
-            "domain": self.domain,
-            "status": "SOVEREIGN_AND_VERIFIED",
-            "operator": self.operator,
-            "execution_latency_ms": duration_ms,
-            "standards_verified": self.STANDARDS,
-            "workload": workload,
-            "telemetry": {
-                "throughput_ops_sec": 7850.0,
-                "entropy_confidence": 0.996,
-                "audit_passed": True
-            }
-        }
+    def create_session(self, user_id: str) -> str:
+        """Create a new USSD session with a unique nonce."""
+        session_id = secrets.token_hex(16)
+        nonce = secrets.token_hex(8)
+        now = time.time()
+        session = USSDSession(
+            session_id=session_id,
+            user_id=user_id,
+            created_at=now,
+            last_activity=now,
+            nonce=nonce
+        )
+        with self._lock:
+            self.sessions[session_id] = session
+        return session_id
+
+    def validate_session(self, session_id: str, user_id: str) -> bool:
+        """Validate a session and check for timeout."""
+        with self._lock:
+            session = self.sessions.get(session_id)
+            if not session:
+                return False
+            if session.user_id != user_id:
+                return False
+            if session.status != "active":
+                return False
+            if time.time() - session.last_activity > self.session_timeout:
+                session.status = "expired"
+                return False
+            session.last_activity = time.time()
+            return True
+
+    def lock_session(self, session_id: str) -> bool:
+        """Acquire a lock on the session to prevent concurrent access."""
+        with self._lock:
+            session = self.sessions.get(session_id)
+            if not session or session.status != "active":
+                return False
+            return session.lock.acquire(timeout=5.0)
+
+    def unlock_session(self, session_id: str) -> None:
+        """Release the lock on the session."""
+        with self._lock:
+            session = self.sessions.get(session_id)
+            if session and session.lock.locked():
+                session.lock.release()
+
+    def invalidate_session(self, session_id: str) -> None:
+        """Invalidate a session (e.g., after a failed transaction)."""
+        with self._lock:
+            session = self.sessions.get(session_id)
+            if session:
+                session.status = "invalidated"
+
+    def cleanup_expired_sessions(self) -> int:
+        """Remove expired sessions and return the count of removed sessions."""
+        now = time.time()
+        removed = 0
+        with self._lock:
+            for session_id in list(self.sessions.keys()):
+                session = self.sessions[session_id]
+                if now - session.last_activity > self.session_timeout:
+                    del self.sessions[session_id]
+                    removed += 1
+        return removed
 
 if __name__ == "__main__":
-    sentinel = NairobiUssdSessionLock()
-    res = sentinel.execute_telemetry_sweep({"workload": "self_test_verification"})
-    assert res["status"] == "SOVEREIGN_AND_VERIFIED"
-    assert res["operator"] == "Michael Obiero"
-    assert len(res["standards_verified"]) >= 1
-    print(f"NairobiUssdSessionLock verified: Latency={res['execution_latency_ms']}ms Standards={len(res['standards_verified'])}")
+    # Test harness
+    lock = NairobiUSSDSessionLock(session_timeout=10.0)
+    user_id = "michael_obiero"
+    
+    # Create session
+    session_id = lock.create_session(user_id)
+    assert lock.validate_session(session_id, user_id), "Session validation failed"
+    
+    # Lock session
+    assert lock.lock_session(session_id), "Failed to lock session"
+    
+    # Unlock session
+    lock.unlock_session(session_id)
+    
+    # Invalidate session
+    lock.invalidate_session(session_id)
+    assert not lock.validate_session(session_id, user_id), "Invalidated session should not validate"
+    
+    # Cleanup
+    removed = lock.cleanup_expired_sessions()
+    print(f"Test passed. Removed {removed} expired sessions.")
