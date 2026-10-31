@@ -1,7 +1,15 @@
 {
-  "last_updated": "2026-10-31T06:46:39.305287+00:00",
-  "active_hypothesis": "Cortana plans to develop a commercial grain milling dust explosion prevention and spark mitigation sentinel next to secure grain processing infrastructure in Nairobi.",
+  "last_updated": "2026-10-31T06:48:06.819329+00:00",
+  "active_hypothesis": "Nairobi Commercial Grain Milling Vector Pneumatic Lift & Cyclone Dust Separation Sentinel",
   "discovered_vectors": [
+    {
+      "cycle_num": 332,
+      "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_MOISTURE_SPECTROSCOPY_SENTINEL_V1",
+      "title": "Nairobi Commercial Grain Milling Moisture & NIR Spectroscopy Sentinel",
+      "domain": "RESILIENCE",
+      "file": "evolution_modules\\nairobi_commercial_grain_milling_moisture_spectroscopy_sentinel.py",
+      "status": "IMPLEMENTED"
+    },
     {
       "cycle_num": 331,
       "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_SILO_FUMIGATION_SENTINEL_V1",
@@ -392,14 +400,6 @@
       "title": "Operator Intent Amplifier",
       "domain": "OPERATOR_AMPLIFICATION",
       "file": "evolution_modules\\operator_intent_amplifier.py",
-      "status": "IMPLEMENTED"
-    },
-    {
-      "cycle_num": 283,
-      "vector_id": "EVO_KRA_EIN_DYNAMIC_ROTATOR_V1",
-      "title": "KRA EIN Dynamic Rotator & Compliance Sentinel",
-      "domain": "SECURITY",
-      "file": "evolution_modules\\kra_ein_dynamic_rotator.py",
       "status": "IMPLEMENTED"
     }
   ],
