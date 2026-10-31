@@ -1,10 +1,8 @@
 """
 Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Vector Sentinel
-Autonomous Evolutionary Architecture Module #446
-
-Monitors multi-axis torque vector trajectories on commercial roller mills
-in Nairobi, Kenya, ensuring optimal grain reduction ratios and preventing
-catastrophic spindle fracture.
+Designed for Cortana's Autonomous Evolutionary Architecture.
+Monitors multidimensional torque vectors, phase angle deviations, and mechanical load vectors
+of commercial roller mills in Nairobi industrial zones.
 """
 
 import time
@@ -12,84 +10,100 @@ import math
 import logging
 from typing import Dict, List, Any, Optional
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - [%(name)s] %(message)s')
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
 logger = logging.getLogger("RollerMillTorqueVectorSentinel")
-
-
-class RollerMillVectorAnomaly:
-    """Represents a detected torque vector anomaly on roller mill spindles."""
-    def __init__(self, mill_id: str, vector_magnitude: float, angle_deg: float, severity: str):
-        self.timestamp = time.time()
-        self.mill_id = mill_id
-        self.vector_magnitude = vector_magnitude
-        self.angle_deg = angle_deg
-        self.severity = severity
-
-    def to_dict(self) -> Dict[str, Any]:
-        return {
-            "timestamp": self.timestamp,
-            "mill_id": self.mill_id,
-            "vector_magnitude": self.vector_magnitude,
-            "angle_deg": self.angle_deg,
-            "severity": self.severity
-        }
 
 
 class RollerMillTorqueVectorSentinel:
     """
-    Computes 2D torque vector components (axial vs tangential) from dual-drive
-    roller mill sensors to detect asymmetrical grain feeding or roller skewing.
+    Computes and analyzes dynamic torque vectors, instantaneous angular velocity shifts,
+    and vector magnitude variations to preempt mechanical failure in roller mills.
     """
-    def __init__(self, magnitude_threshold: float = 85.0, angle_drift_limit: float = 12.5):
-        self.magnitude_threshold = magnitude_threshold
-        self.angle_drift_limit = angle_drift_limit
-        self.anomalies: List[RollerMillVectorAnomaly] = []
 
-    def analyze_torque_vector(self, mill_id: str, axial_torque: float, tangential_torque: float) -> Optional[RollerMillVectorAnomaly]:
+    def __init__(self, mill_id: str, nominal_torque_nm: float = 450.0, warning_threshold_ratio: float = 1.25):
+        self.mill_id = mill_id
+        self.nominal_torque_nm = nominal_torque_nm
+        self.warning_threshold_ratio = warning_threshold_ratio
+        self.telemetry_history: List[Dict[str, Any]] = []
+        logger.info(f"Initialized RollerMillTorqueVectorSentinel for mill: {mill_id}")
+
+    def analyze_vector(self, tangential_torque: float, axial_torque: float, radial_torque: float, rpm: float) -> Dict[str, Any]:
         """
-        Calculates resultant torque vector magnitude and directional angle.
-        Triggers an anomaly if thresholds are breached.
+        Analyzes current torque components (tangential, axial, radial) and computes the resultant
+        torque vector magnitude and vector divergence angle.
         """
-        magnitude = math.sqrt(axial_torque ** 2 + tangential_torque ** 2)
-        angle_rad = math.atan2(tangential_torque, axial_torque if axial_torque != 0 else 1e-6)
-        angle_deg = math.degrees(angle_rad)
+        resultant_magnitude = math.sqrt(tangential_torque**2 + axial_torque**2 + radial_torque**2)
+        
+        # Prevent division by zero
+        safe_nominal = self.nominal_torque_nm if self.nominal_torque_nm > 0 else 1.0
+        load_ratio = resultant_magnitude / safe_nominal
+        
+        # Calculate vector divergence angle relative to pure tangential ideal (degrees)
+        # Ideal vector has axial and radial components close to 0
+        non_tangential = math.sqrt(axial_torque**2 + radial_torque**2)
+        divergence_angle_deg = math.degrees(math.atan2(non_tangential, max(tangential_torque, 1e-5)))
+        
+        status = "OPTIMAL"
+        action_required = False
+        
+        if load_ratio > self.warning_threshold_ratio or divergence_angle_deg > 25.0:
+            status = "WARNING_HIGH_VECTOR_STRESS"
+            action_required = True
+            logger.warning(
+                f"[ALERT] Mill {self.mill_id}: Torque Vector Stress Detected! "
+                f"Magnitude: {resultant_magnitude:.2f} Nm (Ratio: {load_ratio:.2f}), "
+                f"Divergence Angle: {divergence_angle_deg:.2f}°"
+            )
 
-        severity = "NORMAL"
-        if magnitude > self.magnitude_threshold:
-            severity = "CRITICAL_OVERLOAD"
-        elif abs(angle_deg) > self.angle_drift_limit:
-            severity = "WARNING_SKEW_DRIFT"
+        telemetry_record = {
+            "timestamp": time.time(),
+            "mill_id": self.mill_id,
+            "tangential_torque": tangential_torque,
+            "axial_torque": axial_torque,
+            "radial_torque": radial_torque,
+            "rpm": rpm,
+            "resultant_magnitude": resultant_magnitude,
+            "load_ratio": load_ratio,
+            "divergence_angle_deg": divergence_angle_deg,
+            "status": status,
+            "action_required": action_required
+        }
 
-        if severity != "NORMAL":
-            anomaly = RollerMillVectorAnomaly(mill_id, magnitude, angle_deg, severity)
-            self.anomalies.append(anomaly)
-            logger.warning(f"[VECTOR_BREACH] Mill {mill_id} -> Magnitude: {magnitude:.2f}Nm, Angle: {angle_deg:.2f}°, Severity: {severity}")
-            return anomaly
+        self.telemetry_history.append(telemetry_record)
+        if len(self.telemetry_history) > 1000:
+            self.telemetry_history.pop(0)
 
-        return None
+        return telemetry_record
 
-    def get_recent_anomalies(self) -> List[Dict[str, Any]]:
-        return [a.to_dict() for a in self.anomalies]
+    def get_aggregate_metrics(self) -> Dict[str, Any]:
+        """Returns summary statistics over recorded telemetry window."""
+        if not self.telemetry_history:
+            return {"status": "NO_DATA"}
+
+        magnitudes = [rec["resultant_magnitude"] for rec in self.telemetry_history]
+        angles = [rec["divergence_angle_deg"] for rec in self.telemetry_history]
+        
+        return {
+            "mill_id": self.mill_id,
+            "samples_recorded": len(self.telemetry_history),
+            "avg_resultant_magnitude": sum(magnitudes) / len(magnitudes),
+            "max_resultant_magnitude": max(magnitudes),
+            "avg_divergence_angle_deg": sum(angles) / len(angles),
+            "max_divergence_angle_deg": max(angles)
+        }
 
 
 if __name__ == "__main__":
-    sentinel = RollerMillTorqueVectorSentinel(magnitude_threshold=80.0, angle_drift_limit=10.0)
+    print("Executing RollerMillTorqueVectorSentinel test harness...")
+    sentinel = RollerMillTorqueVectorSentinel(mill_id="NAIROBI_MILL_INDUSTRIAL_AREA_04")
     
     # Simulate normal operation
-    sentinel.analyze_torque_vector("MILL_INDUSTRIAL_AREA_01", 45.2, 5.1)
+    res1 = sentinel.analyze_vector(tangential_torque=440.0, axial_torque=12.0, radial_torque=15.0, rpm=750.0)
+    print(f"Normal telemetry: {res1}")
     
-    # Simulate skew drift anomaly
-    sentinel.analyze_torque_vector(
-        mill_id="MILL_INDUSTRIAL_AREA_02",
-        axial_torque=50.0,
-        tangential_torque=25.0  # Causes excessive angle drift
-    )
+    # Simulate abnormal stress / bearing misalignment / roller bind
+    res2 = sentinel.analyze_vector(tangential_torque=590.0, axial_torque=85.0, radial_torque=110.0, rpm=720.0)
+    print(f"Abnormal telemetry: {res2}")
     
-    # Simulate critical overload
-    sentinel.analyze_torque_vector(
-        mill_id="MILL_INDUSTRIAL_AREA_03",
-        axial_torque=85.0,
-        tangential_torque=40.0
-    )
-    
-    print(f"Total Vector Anomalies Logged: {len(sentinel.get_recent_anomalies())}")
+    print("Aggregate Metrics:", sentinel.get_aggregate_metrics())
+    print("Test harness execution complete.")
