@@ -1,7 +1,15 @@
 {
-  "last_updated": "2026-10-31T07:11:19.794589+00:00",
-  "active_hypothesis": "Research and implement a Nairobi Commercial Grain Milling Purifier & Middlings Classification Sentinel to monitor mesh screen oscillation and air aspiration split accuracy.",
+  "last_updated": "2026-10-31T07:14:16.911692+00:00",
+  "active_hypothesis": "Implement a commercial grain milling tempering bin moisture feedback regulator sentinel.",
   "discovered_vectors": [
+    {
+      "cycle_num": 345,
+      "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_DISCHARGE_ROTARY_VALVE_SENTINEL_V1",
+      "title": "Nairobi Commercial Grain Milling Discharge Rotary Valve Sentinel",
+      "domain": "RESILIENCE",
+      "file": "evolution_modules\\nairobi_commercial_grain_milling_discharge_rotary_valve_sentinel.py",
+      "status": "IMPLEMENTED"
+    },
     {
       "cycle_num": 344,
       "vector_id": "EVO_GRAIN_MILLING_PNEUMATIC_LIFT_SENTINEL_V1",
@@ -392,14 +400,6 @@
       "title": "Operator Intent Predictor",
       "domain": "OPERATOR_AMPLIFICATION",
       "file": "evolution_modules\\operator_intent_predictor.py",
-      "status": "IMPLEMENTED"
-    },
-    {
-      "cycle_num": 296,
-      "vector_id": "EVO_NAIROBI_BIO_REACTOR_SENTINEL_V1",
-      "title": "Nairobi Municipal Bioreactor Digestion & Energy Recovery Sentinel",
-      "domain": "RESILIENCE",
-      "file": "evolution_modules\\nairobi_bio_reactor_sentinel.py",
       "status": "IMPLEMENTED"
     }
   ],
