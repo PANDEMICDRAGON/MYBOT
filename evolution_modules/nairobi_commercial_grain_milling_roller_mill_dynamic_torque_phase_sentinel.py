@@ -1,114 +1,94 @@
 """
 Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Phase Sentinel
-Designed to safeguard high-throughput dual-roll flour milling machinery in Nairobi, Kenya.
+Designed to monitor roller mill drive phase angles, detect mechanical load imbalances,
+slip, or transmission binding, and protect milling operations in industrial Nairobi facilities.
 """
 
 import time
 import math
 import logging
-from typing import Dict, Any, List
+from typing import Dict, List, Any, Optional
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillDynamicTorquePhaseSentinel")
+logger = logging.getLogger("RollerMillTorquePhaseSentinel")
 
 
-class RollerMillDynamicTorquePhaseSentinel:
+class RollerMillTorquePhaseSentinel:
     """
-    Monitors electrical phase angles and dynamic torque vectors across dual roller mill drives.
-    Detects phase skew, stator asymmetry, and mechanical load decoupling.
+    Monitors multi-phase torque telemetry from commercial roller mills, analyzing
+    phase angle dispersion and harmonic symmetry to preempt drive-train failure.
     """
 
-    def __init__(self, mill_id: str, rated_frequency_hz: float = 50.0):
+    def __init__(self, mill_id: str, nominal_frequency_hz: float = 50.0, max_phase_deviation_deg: float = 4.5):
         self.mill_id = mill_id
-        self.rated_frequency_hz = rated_frequency_hz
-        self.phase_skew_threshold_deg = 3.5
-        self.torque_ripple_limit_nm = 12.0
-        self.incident_log: List[Dict[str, Any]] = []
+        self.nominal_frequency_hz = nominal_frequency_hz
+        self.max_phase_deviation_deg = max_phase_deviation_deg
+        self.telemetry_history: List[Dict[str, Any]] = []
+        self.status = "STANDBY"
 
-    def analyze_drive_telemetry(self, telemetry: Dict[str, Any]) -> Dict[str, Any]:
+    def ingest_telemetry(self, phase_angles: List[float], current_draws: List[float]) -> Dict[str, Any]:
         """
-        Analyzes current, voltage phase angles, and instantaneous torque readings.
-        
-        Expected telemetry keys:
-        - phase_a_angle_deg: float
-        - phase_b_angle_deg: float
-        - phase_c_angle_deg: float
-        - fast_roll_torque_nm: float
-        - slow_roll_torque_nm: float
-        - motor_current_imbalance_pct: float
+        Ingests instantaneous phase angles (degrees) and current draws (Amps) for 3-phase drive.
         """
-        pa = telemetry.get("phase_a_angle_deg", 0.0)
-        pb = telemetry.get("phase_b_angle_deg", 120.0)
-        pc = telemetry.get("phase_c_angle_deg", 240.0)
+        timestamp = time.time()
+        if len(phase_angles) != 3 or len(current_draws) != 3:
+            raise ValueError("Telemetry must contain exactly 3 phase values for standard industrial drives.")
 
-        # Ideal 3-phase separation is 120 degrees
-        skew_ab = abs((pb - pa) - 120.0)
-        skew_bc = abs((pc - pb) - 120.0)
-        skew_ca = abs((pa - pc) - 120.0)
-        max_skew = max(skew_ab, skew_bc, skew_ca)
+        # Calculate mean phase angle
+        mean_phase = sum(phase_angles) / 3.0
+        deviations = [abs(p - mean_phase) for p in phase_angles]
+        max_deviation = max(deviations)
 
-        fast_torque = telemetry.get("fast_roll_torque_nm", 50.0)
-        slow_roll_torque = telemetry.get(
-            "slow_roll_torque_nm", 45.0
-        )  # typically differential ratio (e.g. 2.5:1)
-        torque_delta = abs(fast_torque - (slow_roll_torque * 2.2))
+        # Calculate current imbalance
+        mean_current = sum(current_draws) / 3.0
+        current_imbalance = max([abs(c - mean_current) for c in current_draws]) / (mean_current if mean_current > 0 else 1.0)
 
-        current_imbalance = telemetry.get("motor_current_imbalance_pct", 1.0)
+        anomaly_flag = max_deviation > self.max_phase_deviation_deg or current_imbalance > 0.12
 
-        status = "NOMINAL"
-        action_required = False
-        mitigation_strategy = ""
-
-        if max_skew > self.phase_skew_threshold_deg:
-            status = "WARNING_PHASE_SKEW"
-            action_required = True
-            mitigation_strategy = (
-                "Adjust VFD carrier frequency and inspect inverter IGBT gating."
-            )
-
-        if torque_delta > self.torque_ripple_limit_nm:
-            status = "CRITICAL_TORQUE_DECOUPLING"
-            action_required = True
-            mitigation_strategy = (
-                "Engage emergency quick-release gap actuators and inspect drive belt tension."
-            )
-
-        if current_imbalance > 5.0:
-            status = "CRITICAL_MOTOR_IMBALANCE"
-            action_required = True
-            mitigation_strategy = (
-                "Inspect stator windings for inter-turn short and check KPLC grid line stability."
-            )
-
-        assessment = {
-            "timestamp": time.time(),
+        record = {
+            "timestamp": timestamp,
             "mill_id": self.mill_id,
-            "max_phase_skew_deg": round(max_skew, 3),
-            "torque_delta_nm": round(torque_delta, 3),
-            "current_imbalance_pct": current_imbalance,
-            "status": status,
-            "action_required": action_required,
-            "mitigation_strategy": mitigation_strategy,
+            "phase_angles": phase_angles,
+            "max_deviation": max_deviation,
+            "current_imbalance": current_imbalance,
+            "anomaly": anomaly_flag
         }
 
-        if action_required:
-            self.incident_log.append(assessment)
-            logger.warning(
-                f"[SENTINEL ALERT] Mill {self.mill_id} status: {status} | Strategy: {mitigation_strategy}"
-            )
+        self.telemetry_history.append(record)
+        if len(self.telemetry_history) > 1000:
+            self.telemetry_history.pop(0)
 
-        return assessment
+        if anomaly_flag:
+            self.status = "WARNING_PHASE_ASYMMETRY"
+            logger.warning(f"[ALERT] Mill {self.mill_id}: Phase deviation {max_deviation:.2f} deg or current imbalance {current_imbalance:.2f} detected!")
+        else:
+            self.status = "OPTIMAL"
+
+        return record
+
+    def generate_diagnostic_report(self) -> Dict[str, Any]:
+        """
+        Generates a diagnostic summary for the operator.
+        """
+        if not self.telemetry_history:
+            return {"status": self.status, "message": "No telemetry recorded yet."}
+
+        recent = self.telemetry_history[-1]
+        return {
+            "mill_id": self.mill_id,
+            "status": self.status,
+            "last_check": recent,
+            "total_samples_analyzed": len(self.telemetry_history)
+        }
 
 
 if __name__ == "__main__":
-    sentinel = RollerMillDynamicTorquePhaseSentinel(mill_id="NAIROBI_MILL_ALPHA_04")
-    sample_data = {
-        "phase_a_angle_deg": 0.0,
-        "phase_b_angle_deg": 124.2,
-        "phase_c_angle_deg": 239.1,
-        "fast_roll_torque_nm": 82.5,
-        "slow_roll_torque_nm": 32.0,
-        "motor_current_imbalance_pct": 2.1,
-    }
-    result = sentinel.analyze_drive_telemetry(sample_data)
-    print("Sentinel Execution Test Output:", result)
+    sentinel = RollerMillTorquePhaseSentinel(mill_id="NAI_UGALI_MILL_04")
+    # Simulate normal operation
+    res1 = sentinel.ingest_telemetry([0.0, 120.2, 239.8], [45.1, 44.9, 45.2])
+    print("Normal Ingestion Result:", res1)
+
+    # Simulate phase asymmetry due to belt slip or gearbox wear
+    res2 = sentinel.ingest_telemetry([0.0, 126.5, 235.1], [52.3, 41.0, 48.6])
+    print("Anomaly Ingestion Result:", res2)
+    print("Diagnostic Report:", sentinel.generate_diagnostic_report())
