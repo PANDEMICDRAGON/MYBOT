@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 383,
-    "vector_id": "EVO_GRAIN_MILL_DISCHARGE_VALVE_TORQUE_V1",
-    "title": "Nairobi Commercial Grain Milling Discharge Rotary Valve Torque Sentinel",
-    "domain": "RESILIENCE",
-    "rationale": "To expand Cortana's industrial process hardening across Nairobi commercial grain milling facilities by continuously monitoring discharge rotary valve torque resistance, preventing motor stall, jamming, and product bridging during flour and meal extraction.",
-    "file_path": "evolution_modules\\nairobi_commercial_grain_milling_discharge_rotary_valve_torque_sentinel.py",
-    "code_size": 4276,
-    "applied_at": "2026-10-31 11:19:43 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Cortana plans next to research a Nairobi Commercial Grain Milling Pneumatic Blow-Through Valve Air Leakage Sentinel to detect pressure loss and pneumatic conveying inefficiencies."
-  },
-  {
     "cycle_num": 384,
     "vector_id": "EVO_TOKEN_BUDGET_OPTIMIZER_V1_C384",
     "title": "Dynamic Token Budget Optimizer & Context Window Compressor",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-10-31 14:19:50 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Research advanced acoustic emission cross-correlation engines for multi-stage flour sifter gearboxes across industrial milling plants in Nairobi."
+  },
+  {
+    "cycle_num": 28,
+    "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_ROLLER_MILL_DYNAMIC_TORQUE_TURBULENCE_SENTINEL_V1",
+    "title": "Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Turbulence Sentinel",
+    "domain": "RESILIENCE",
+    "rationale": "Building upon previous roller mill dynamic torque upgrades, industrial milling facilities in Nairobi require high-frequency telemetry analysis to detect micro-turbulence in roller differential drives, preventing catastrophic bearing seizure and uncalibrated grain particle size divergence.",
+    "file_path": "evolution_modules\\nairobi_commercial_grain_milling_roller_mill_dynamic_torque_turbulence_sentinel.py",
+    "code_size": 2730,
+    "applied_at": "2026-10-31 14:21:47 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Next, Cortana will architect the Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Vortex Sentinel to safeguard against aerodynamic vortices generated in high-speed roller aspiration chambers."
   }
 ]
