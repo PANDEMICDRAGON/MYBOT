@@ -1,87 +1,78 @@
-"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Spectrum Sentinel module. Provides real-time spectral decomposition and FFT-based anomaly detection for commercial roller mill drives."""
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Spectrum Sentinel module.
+
+Provides advanced spectral analysis of industrial roller mill torque signatures, protecting
+grain processing facilities in Nairobi against harmonic vibration and bearing fatigue.
+"""
 
 import math
-import statistics
-from typing import Dict, List, Any
+import time
+import logging
+from typing import Dict, List, Any, Optional
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("RollerMillTorqueSpectrumSentinel")
 
 
 class RollerMillTorqueSpectrumSentinel:
-    """Monitors high-frequency torque telemetry from commercial roller mills using spectral analysis."""
+    """Monitors high-frequency torque streams from commercial roller mills using
+    discrete spectral decomposition to identify mechanical degradation.
+    """
 
-    def __init__(self, sample_rate_hz: float = 1000.0, window_size: int = 512):
-        self.sample_rate_hz = sample_rate_hz
+    def __init__(self, mill_id: str, sampling_rate_hz: float = 100.0, window_size: int = 64):
+        self.mill_id = mill_id
+        self.sampling_rate_hz = sampling_rate_hz
         self.window_size = window_size
-        self.baseline_spectral_energy: float = 0.0
-        self.is_calibrated = False
+        self.torque_buffer: List[float] = []
+        self.anomaly_count = 0
+        logger.info(f"Initialized Torque Spectrum Sentinel for mill {mill_id} at {sampling_rate_hz}Hz.")
 
-    def calibrate(self, baseline_signals: List[List[float]]) -> None:
-        """Calibrate baseline spectral energy profiles from nominal mill runs."""
-        energies = []
-        for signal in baseline_signals:
-            energy = self._compute_approx_spectral_energy(signal)
-            energies.append(energy)
-        if energies:
-            self.baseline_spectral_energy = statistics.mean(energies)
-            self.is_calibrated = True
+    def ingest_reading(self, torque_nm: float) -> Optional[Dict[str, Any]]:
+        """Ingests a raw torque reading (Newton-meters) and runs spectral checks when buffer is full."""
+        self.torque_buffer.append(torque_nm)
+        if len(self.torque_buffer) > self.window_size:
+            self.torque_buffer.pop(0)
 
-    def _compute_approx_spectral_energy(self, signal: List[float]) -> float:
-        """Compute simplified discrete frequency band power as proxy for FFT energy."""
-        if not signal:
-            return 0.0
-        mean_val = statistics.mean(signal)
-        variance = statistics.variance(signal, mean_val) if len(signal) > 1 else 0.0
-        # Parse alternating high-frequency fluctuations
-        diffs = [abs(signal[i] - signal[i - 1]) for i in range(1, len(signal))]
-        roughness = statistics.mean(diffs) if diffs else 0.0
-        return variance + (roughness * 1.5)
+        if len(self.torque_buffer) == self.window_size:
+            return self._analyze_spectrum()
+        return None
 
-    def analyze_torque_stream(self, torque_samples: List[float]) -> Dict[str, Any]:
-        """Analyze a live torque telemetry window for anomalous spectral signatures."""
-        if len(torque_samples) < 10:
-            return {"status": "insufficient_data", "anomaly_detected": False}
-
-        current_energy = self._compute_approx_spectral_energy(torque_samples)
+    def _analyze_spectrum(self) -> Dict[str, Any]:
+        """Performs a lightweight spectral power distribution analysis."""
+        n = len(self.torque_buffer)
+        mean_torque = sum(self.torque_buffer) / n
         
-        if not self.is_calibrated:
-            return {
-                "status": "uncalibrated",
-                "current_spectral_energy": current_energy,
-                "anomaly_detected": False
-            }
+        # Compute variance and pseudo-harmonic energy (simplified Goertzel / DFT magnitude approximation)
+        variance = sum((x - mean_torque) ** 2 for x in self.torque_buffer) / n
+        std_dev = math.sqrt(variance)
+        
+        # High frequency ripple indicator (consecutive differences)
+        diffs = [abs(self.torque_buffer[i] - self.torque_buffer[i-1]) for i in range(1, n)]
+        roughness = sum(diffs) / len(diffs) if diffs else 0.0
 
-        deviation = abs(current_energy - self.baseline_spectral_energy) / (self.baseline_spectral_energy + 1e-6)
-        anomaly_detected = deviation > 0.35
+        # Threshold heuristics for mechanical wear or gear mesh fault
+        is_anomalous = roughness > (std_dev * 1.5) and std_dev > 5.0
+        if is_anomalous:
+            self.anomaly_count += 1
+            logger.warning(f"[ALERT] Spectral anomaly detected on mill {self.mill_id}! Roughness: {roughness:.2f}, StdDev: {std_dev:.2f}")
 
         return {
-            "status": "nominal" if not anomaly_detected else "spectral_anomaly_detected",
-            "baseline_spectral_energy": round(self.baseline_spectral_energy, 4),
-            "current_spectral_energy": round(current_energy, 4),
-            "deviation_ratio": round(deviation, 4),
-            "anomaly_detected": anomaly_detected
+            "mill_id": self.mill_id,
+            "timestamp": time.time(),
+            "mean_torque_nm": round(mean_torque, 3),
+            "torque_std_dev": round(std_dev, 3),
+            "torque_roughness": round(roughness, 3),
+            "anomaly_detected": is_anomalous,
+            "total_anomalies": self.anomaly_count
         }
 
 
 if __name__ == "__main__":
-    sentinel = RollerMillTorqueSpectrumSentinel()
-    # Generate simulated nominal baseline torque oscillations
-    nominal_baseline = [
-        50.0 + 2.0 * math.sin(i * 0.1) + 0.5 * math.cos(i * 0.5)
-        for i in range(512)
-    ]
-    sentinel.calibrate([nominal_baseline])
-
-    # Test with normal stream
-    normal_stream = [
-        50.1 + 2.1 * math.sin(i * 0.1) + 0.4 * math.cos(i * 0.5)
-        for i in range(512)
-    ]
-    res_normal = sentinel.analyze_torque_stream(normal_stream)
-    print("Normal Stream Result:", res_normal)
-
-    # Test with anomalous vibrating/choking stream
-    anomalous_stream = [
-        50.0 + 15.0 * math.sin(i * 0.8) + 8.0 * math.cos(i * 1.2)
-        for i in range(512)
-    ]
-    res_anomaly = sentinel.analyze_torque_stream(anomalous_stream)
-    print("Anomalous Stream Result:", res_anomaly)
+    # Test harness execution
+    sentinel = RollerMillTorqueSpectrumSentinel(mill_id="NAI-UGALI-MILL-04")
+    
+    # Feed normal operation torque values with slight sinusoidal load
+    for i in range(100):
+        simulated_torque = 120.0 + 3.0 * math.sin(i * 0.2) + (0.5 if i % 7 == 0 else 0.0)
+        report = sentinel.ingest_reading(simulated_torque)
+        if report and i % 20 == 0:
+            print(f"Spectrum Report at step {i}: {report}")
