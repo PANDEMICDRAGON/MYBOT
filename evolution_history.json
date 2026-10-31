@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 118,
-    "vector_id": "EVO_TOKEN_BUDGET_OPTIMIZER_V1_C118",
-    "title": "Dynamic Token Budget Optimizer & Context Window Compressor",
-    "domain": "PERFORMANCE",
-    "rationale": "Compresses multi-turn prompt context to preserve token ceilings and prevent rate limiting.",
-    "file_path": "evolution_modules\\token_budget_optimizer.py",
-    "code_size": 1389,
-    "applied_at": "2026-10-31 17:19:44 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Tracemalloc Memory Leak Sentinel & Cache Eviction Monitor"
-  },
-  {
     "cycle_num": 119,
     "vector_id": "EVO_MEMORY_LEAK_SENTINEL_V1_C119",
     "title": "Tracemalloc Memory Leak Sentinel & Heap Monitor",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-10-31 21:56:36 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Tracemalloc Memory Leak Sentinel & Cache Eviction Monitor"
+  },
+  {
+    "cycle_num": 217,
+    "vector_id": "EVO_MEMORY_LEAK_SENTINEL_V1_C217",
+    "title": "Tracemalloc Memory Leak Sentinel & Heap Monitor",
+    "domain": "RESILIENCE",
+    "rationale": "Periodically audits Python heap allocations to prevent slow workstation memory drift.",
+    "file_path": "evolution_modules\\memory_leak_sentinel.py",
+    "code_size": 1354,
+    "applied_at": "2026-10-31 21:58:48 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Kenyan Regional Multi-Node Latency & DNS Heatmap Prober"
   }
 ]
