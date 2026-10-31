@@ -1,82 +1,97 @@
-"""Nairobi Commercial Grain Milling Pneumatic Sifter Sentinel.
-
-Protects high-capacity pneumatic flour sifters in Nairobi milling facilities by monitoring
-air pressure differentials, particle entrainment velocity, screen mesh blinding, and vibration anomalies.
+"""
+Nairobi Commercial Grain Milling Pneumatic Sifter Sentinel
+Module for real-time monitoring and anomaly detection of pneumatic sifting units
+in industrial flour and grain processing plants across Nairobi, Kenya.
 """
 
-import ast
-import logging
-import random
 import time
-from typing import Dict, Any, List
+import math
+import random
+import logging
+from typing import Dict, Any, List, Optional
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
-logger = logging.getLogger("PneumaticSifterSentinel")
-
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [PneumaticSifterSentinel]: %(message)s')
+logger = logging.getLogger('PneumaticSifterSentinel')
 
 class PneumaticSifterSentinel:
-    """Monitors and optimizes pneumatic sifter operations for industrial grain mills."""
-
-    def __init__(self, sifter_id: str, target_air_velocity_ms: float = 22.5):
+    """
+    Monitors pneumatic pressure, sifter screen tension, airflow velocity,
+    and particle sizing efficiency for commercial grain milling lines.
+    """
+    def __init__(self, sifter_id: str = "PS-NBO-01"):
         self.sifter_id = sifter_id
-        self.target_air_velocity = target_air_velocity_ms
-        self.mesh_integrity_status = "OPTIMAL"
-        self.differential_pressure_kpa = 1.4
+        self.is_active = False
         self.metrics_history: List[Dict[str, Any]] = []
+        logger.info(f"PneumaticSifterSentinel initialized for unit {self.sifter_id}")
 
-    def sample_sensors(self) -> Dict[str, Any]:
-        """Simulates telemetry sampling from pneumatic sifter sensors."""
-        # Introduce minor stochastic fluctuations
-        air_velocity = round(self.target_air_velocity + random.uniform(-1.5, 1.8), 2)
-        diff_pressure = round(self.differential_pressure_kpa + random.uniform(-0.2, 0.3), 2)
-        vibration_mm_s = round(random.uniform(0.8, 3.5), 2)
-        
-        # Check for blinding or clogging conditions
-        blinding_detected = diff_pressure > 2.0 or air_velocity < 19.0
+    def start_monitoring(self) -> None:
+        """Activate telemetry collection and safety protocols."""
+        self.is_active = True
+        logger.info(f"Sentinel active on pneumatic sifter {self.sifter_id}")
+
+    def sample_telemetry(self) -> Dict[str, float]:
+        """Simulate or capture live sensor readings from the pneumatic sifter."""
+        # Normal operating parameters with slight stochastic variance
+        delta_p = round(random.gauss(1.25, 0.05), 3)       # kPa pressure drop across screen
+        airflow_mps = round(random.gauss(18.5, 0.8), 2)    # meters per second
+        vibration_hz = round(random.gauss(49.8, 0.3), 2)   # screen oscillation frequency
+        reject_rate = round(random.gauss(2.1, 0.15), 2)    # percentage of oversize/reject particles
         
         telemetry = {
             "timestamp": time.time(),
-            "sifter_id": self.sifter_id,
-            "air_velocity_ms": air_velocity,
-            "differential_pressure_kpa": diff_pressure,
-            "vibration_mm_s": vibration_mm_s,
-            "blinding_detected": blinding_detected
+            "delta_pressure_kpa": delta_p,
+            "airflow_velocity_mps": airflow_mps,
+            "vibration_frequency_hz": vibration_hz,
+            "reject_rate_pct": reject_rate
         }
         self.metrics_history.append(telemetry)
-        if len(self.metrics_history) > 100:
+        if len(self.metrics_history) > 1000:
             self.metrics_history.pop(0)
-            
         return telemetry
 
-    def evaluate_and_mitigate(self, telemetry: Dict[str, Any]) -> Dict[str, str]:
-        """Evaluates sifter telemetry and applies corrective pneumatic adjustments if necessary."""
-        actions = {"status": "NORMAL", "adjustment": "NONE"}
-        
-        if telemetry["blinding_detected"]:
-            self.mesh_integrity_status = "WARNING_BLINDING"
-            actions["status"] = "ALERT"
-            actions["adjustment"] = "PULSE_REVERSE_AIR_JET_TRIGGERED"
-            logger.warning(f"[{self.sifter_id}] Mesh blinding detected! Differential pressure: {telemetry['differential_pressure_kpa']} kPa. Triggering reverse air purge.")
-        elif telemetry["vibration_mm_s"] > 3.0:
-            actions["status"] = "CAUTION"
-            actions["adjustment"] = "REDUCE_FEED_GATE_RATE"
-            logger.info(f"[{self.sifter_id}] Elevated vibration ({telemetry['vibration_mm_s']} mm/s). Reducing feed rate.")
-        else:
-            self.mesh_integrity_status = "OPTIMAL"
-            logger.debug(f"[{self.sifter_id}] Pneumatic sifter operating within nominal parameters.")
-            
-        return actions
+    def evaluate_health(self, telemetry: Dict[str, float]) -> Dict[str, Any]:
+        """Analyze telemetry for blinding, choking, or pressure anomalies."""
+        alerts = []
+        status = "OPTIMAL"
 
+        # Check for screen blinding (high pressure drop)
+        if telemetry["delta_pressure_kpa"] > 1.50:
+            alerts.append("WARNING: High pressure drop detected across sifter screen (potential blinding).")
+            status = "DEGRADED"
+        elif telemetry["delta_pressure_kpa"] < 0.90:
+            alerts.append("WARNING: Low pressure drop detected (possible screen tear or air leak).")
+            status = "DEGRADED"
+
+        # Check airflow velocity
+        if telemetry["airflow_velocity_mps"] < 15.0:
+            alerts.append("CRITICAL: Airflow velocity insufficient for pneumatic lift and separation.")
+            status = "CRITICAL"
+
+        # Check vibration frequency stability
+        if abs(telemetry["vibration_frequency_hz"] - 50.0) > 1.5:
+            alerts.append("WARNING: Sifter oscillation frequency drift detected.")
+            if status != "CRITICAL":
+                status = "WARNING"
+
+        return {
+            "sifter_id": self.sifter_id,
+            "status": status,
+            "alerts": alerts,
+            "metrics": telemetry
+        }
+
+    def execute_safety_purge(self) -> bool:
+        """Trigger pneumatic reverse-pulse clean cycle to clear blocked mesh screen."""
+        logger.warning(f"Executing emergency pneumatic reverse-pulse purge on {self.sifter_id}...")
+        time.sleep(0.1) # Simulate hardware actuator latency
+        logger.info(f"Purge cycle completed successfully for {self.sifter_id}.")
+        return True
 
 if __name__ == "__main__":
-    print("Initializing Nairobi Commercial Grain Milling Pneumatic Sifter Sentinel...")
-    sentinel = PneumaticSifterSentinel(sifter_id="SIFTER-NAI-01")
-    for _ in range(3):
-        telemetry_data = sentinel.sample_sensors()
-        response = sentinel.evaluate_and_mitigate(telemetry_data)
-        print(f"Telemetry: {telemetry_data} | Action: {response}")
-    
-    # Self-validation check
-    source_code = open(__file__, "r", encoding="utf-8").read()
-    ast.parse(source_code)
-    print("AST Compilation Check: PASSED successfully.")
+    sentinel = PneumaticSifterSentinel("PS-NBO-ALPHA")
+    sentinel.start_monitoring()
+    sample = sentinel.sample_telemetry()
+    assessment = sentinel.evaluate_health(sample)
+    logger.info(f"Initial Health Assessment: {assessment}")
+    if assessment["status"] != "OPTIMAL":
+        sentinel.execute_safety_purge()
