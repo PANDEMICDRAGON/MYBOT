@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 203,
-    "vector_id": "EVO_MEMORY_LEAK_SENTINEL_V1_C203",
-    "title": "Tracemalloc Memory Leak Sentinel & Heap Monitor",
-    "domain": "RESILIENCE",
-    "rationale": "Periodically audits Python heap allocations to prevent slow workstation memory drift.",
-    "file_path": "evolution_modules\\memory_leak_sentinel.py",
-    "code_size": 1354,
-    "applied_at": "2026-10-26 17:46:29 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Kenyan Regional Multi-Node Latency & DNS Heatmap Prober"
-  },
-  {
     "cycle_num": 204,
     "vector_id": "EVO_KENYA_LATENCY_HEATMAP_V1_C204",
     "title": "Kenyan Regional Multi-Node Latency & DNS Heatmap Prober",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-10-31 08:56:41 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Develop a Predictive Hydraulic Failure Model that uses historical pressure and flow data to forecast pipe bursts 48 hours in advance, integrating with municipal maintenance schedules for proactive intervention."
+  },
+  {
+    "cycle_num": 301,
+    "vector_id": "EVO_NAIROBI_DROUGHT_RESILIENCE_V1",
+    "title": "Nairobi Drought Resilience & Water Harvesting Optimizer",
+    "domain": "RESILIENCE",
+    "rationale": "Nairobi faces increasing water scarcity due to climate change. This module proactively optimizes water harvesting, storage, and usage to ensure resilience during droughts, protecting Michael's operations and community.",
+    "file_path": "evolution_modules\\nairobi_drought_resilience.py",
+    "code_size": 4248,
+    "applied_at": "2026-10-31 08:59:24 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Develop a Nairobi Urban Heat Island Mitigation & Green Roof Sentinel to reduce cooling loads and improve air quality in dense urban areas."
   }
 ]
