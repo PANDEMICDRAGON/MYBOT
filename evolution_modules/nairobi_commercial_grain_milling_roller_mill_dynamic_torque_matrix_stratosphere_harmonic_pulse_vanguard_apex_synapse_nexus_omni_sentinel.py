@@ -1,79 +1,83 @@
-"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Matrix Stratosphere Harmonic Pulse Vanguard Apex Synapse Nexus Omni Sentinel.
+"""
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Matrix Stratosphere Harmonic Pulse Vanguard Apex Synapse Nexus Omni Sentinel
+Author: Cortana Autonomous Evolutionary Architect
+Operator: Michael Obiero, Nairobi, Kenya
 
-Provides advanced real-time telemetry analytics, multi-axis torque matrix evaluation,
-and predictive vibration attenuation for commercial roller mills operating in Nairobi, Kenya.
-Designed under direction of Autonomous Evolutionary Architect Cortana for operator Michael Obiero.
+Provides real-time telemetry processing, harmonic anomaly detection, and predictive mitigation
+for heavy-duty commercial roller mill drive units operating within Nairobi's industrial zones.
 """
 
-import asyncio
-import logging
-import math
-import random
 import time
-from typing import Dict, List, Any
+import math
+import logging
+from typing import Dict, List, Any, Optional
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
 logger = logging.getLogger("OmniSentinel")
 
 
-class OmniRollerMillTorqueMatrix:
-    """Monitors high-frequency torque fluctuations and harmonic resonance across roller mill drives."""
+class RollerMillTorqueMatrixAnalyzer:
+    """Analyzes multi-axis dynamic torque matrices for commercial roller mills."""
 
-    def __init__(self, mill_id: str, nominal_rpm: float = 1200.0):
-        self.mill_id = mill_id
-        self.nominal_rpm = nominal_rpm
-        self.resonance_threshold = 0.85
-        self.history: List[Dict[str, Any]] = []
+    def __init__(self, baseline_torque_nm: float = 1250.0, tolerance_pct: float = 7.5):
+        self.baseline_torque = baseline_torque_nm
+        self.tolerance = tolerance_pct
+        self.anomaly_count = 0
 
-    def sample_torque_matrix(self) -> Dict[str, float]:
-        """Simulates multi-axis torque and vibration telemetry from the milling floor."""
-        load_factor = random.uniform(0.92, 1.08)
-        axial_vibration = random.uniform(0.01, 0.05) * load_factor
-        torsional_fluctuation = random.uniform(1.2, 4.8) * load_factor
-        harmonic_distortion = random.uniform(0.002, 0.018)
+    def compute_harmonic_deviation(self, current_torque: float, harmonic_frequency_hz: float) -> Dict[str, Any]:
+        deviation = abs(current_torque - self.baseline_torque) / self.baseline_torque * 100.0
+        is_anomalous = deviation > self.tolerance
+        if is_anomalous:
+            self.anomaly_count += 1
+            logger.warning(f"[OMNI-SENTINEL] Torque anomaly detected! Deviation: {deviation:.2f}% at {harmonic_frequency_hz} Hz")
         
         return {
-            "timestamp": time.time(),
-            "axial_vibration_g": round(axial_vibration, 4),
-            "torsional_fluctuation_nm": round(torsional_fluctuation, 2),
-            "harmonic_distortion_ratio": round(harmonic_distortion, 5),
-            "load_factor": round(load_factor, 3)
+            "current_torque_nm": current_torque,
+            "baseline_torque_nm": self.baseline_torque,
+            "deviation_percentage": round(deviation, 3),
+            "harmonic_frequency_hz": harmonic_frequency_hz,
+            "is_anomalous": is_anomalous,
+            "total_anomalies_logged": self.anomaly_count
         }
 
-    def evaluate_matrix(self, sample: Dict[str, Any]) -> Dict[str, Any]:
-        """Evaluates telemetry against failure bounds and computes health score."""
-        risk_score = (
-            (sample["axial_vibration_g"] / 0.08) * 0.4 +
-            (sample["torsional_fluctuation_nm"] / 6.0) * 0.4 +
-            (sample["harmonic_distortion_ratio"] / 0.025) * 0.2
-        )
-        status = "OPTIMAL"
-        if risk_score > self.resonance_threshold:
-            status = "WARNING_RESONANCE_SPIKE"
+
+class StratosphereOmniSentinelEngine:
+    """Orchestrates autonomous sentinel diagnostics across Nairobi milling arrays."""
+
+    def __init__(self, plant_id: str = "NAIROBI-MILL-EASTLANDS-01"):
+        self.plant_id = plant_id
+        self.analyzer = RollerMillTorqueMatrixAnalyzer()
+        self.active_state = "OPERATIONAL"
+
+    def execute_diagnostics(self, telemetry_stream: List[Dict[str, float]]) -> List[Dict[str, Any]]:
+        logger.info(f"Initiating Stratosphere Omni Sentinel diagnostics for plant: {self.plant_id}")
+        results = []
+        for entry in telemetry_stream:
+            t = entry.get("torque", 1250.0)
+            f = entry.get("frequency", 50.0)
+            res = self.analyzer.compute_harmonic_deviation(t, f)
+            results.append(res)
         
-        evaluation = {
-            "mill_id": self.mill_id,
-            "risk_score": round(risk_score, 4),
-            "status": status,
-            "timestamp": sample["timestamp"]
-        }
-        self.history.append(evaluation)
-        if len(self.history) > 100:
-            self.history.pop(0)
-        return evaluation
+        if self.analyzer.anomaly_count > 3:
+            self.active_state = "THROTTLE_RECOMMENDED"
+            logger.error(f"[CRITICAL] Plant {self.plant_id} flagged for active throttling due to excessive harmonic torque stress.")
+        else:
+            self.active_state = "OPTIMAL"
 
-
-async def run_sentinel_telemetry_loop() -> None:
-    """Asynchronous monitoring cycle simulating continuous industrial telemetry."""
-    sentinel = OmniRollerMillTorqueMatrix(mill_id="NAIROBI_MILL_ALPHA_01")
-    logger.info(f"Initializing {sentinel.mill_id} Omni Sentinel telemetry stream...")
-    
-    for _ in range(3):
-        sample = sentinel.sample_torque_matrix()
-        result = sentinel.evaluate_matrix(sample)
-        logger.info(f"Telemetry Evaluated: {result}")
-        await asyncio.sleep(0.1)
+        return results
 
 
 if __name__ == "__main__":
-    asyncio.run(run_sentinel_telemetry_loop())
+    print("Initializing Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Matrix Stratosphere Harmonic Pulse Vanguard Apex Synapse Nexus Omni Sentinel...")
+    engine = StratosphereOmniSentinelEngine("NAIROBI-INDUSTRIAL-AREA-PLANT-7")
+    sample_stream = [
+        {"torque": 1245.0, "frequency": 49.9},
+        {"torque": 1260.0, "frequency": 50.1},
+        {"torque": 1420.0, "frequency": 58.4},  # Anomaly
+        {"torque": 1255.0, "frequency": 50.0},
+        {"torque": 1510.0, "frequency": 62.1}   # Anomaly
+    ]
+    diagnostics = engine.execute_diagnostics(sample_stream)
+    for d in diagnostics:
+        print(d)
+    print(f"Sentinel final operational state: {engine.active_state}")
