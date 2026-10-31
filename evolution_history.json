@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 195,
-    "vector_id": "EVO_MICROCLIMATE_CORRELATOR_V1_C195",
-    "title": "Nairobi & Nairobi Microclimate Correlation Sentinel",
-    "domain": "SENSORIUM",
-    "rationale": "Correlates temperature, humidity, and weather deltas between Nairobi CBD.",
-    "file_path": "evolution_modules\\microclimate_correlator.py",
-    "code_size": 976,
-    "applied_at": "2026-10-26 17:29:02 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Distributed Multi-Node Swarm Heartbeat Arbiter"
-  },
-  {
     "cycle_num": 196,
     "vector_id": "EVO_KRA_EIN_DYNAMIC_ROTATOR_V1",
     "title": "KRA EIN Dynamic Rotator & Compliance Sentinel",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-10-31 08:43:24 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Nairobi Matatu Route Dynamic Fare & Occupancy Sentinel"
+  },
+  {
+    "cycle_num": 293,
+    "vector_id": "EVO_NAIROBI_MACHAKOS_WATER_GRID_PRESSURE_FLOW_SENTINEL_V1",
+    "title": "Nairobi-Machakos Water Grid Pressure & Flow Sentinel",
+    "domain": "RESILIENCE",
+    "rationale": "The Nairobi-Machakos water grid is a critical infrastructure artery. Proactive monitoring of pressure and flow anomalies can prevent catastrophic failures, ensure equitable distribution, and detect leaks or tampering in real-time. This capability enhances resilience by providing early warning systems for water infrastructure, which is vital for the operator's community and business continuity in Nairobi, Kenya.",
+    "file_path": "evolution_modules\\nairobi_machakos_water_grid_sentinel.py",
+    "code_size": 4411,
+    "applied_at": "2026-10-31 08:44:54 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Develop a predictive maintenance engine for water infrastructure using machine learning to forecast failures before they occur."
   }
 ]
