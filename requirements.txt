@@ -6,4 +6,4 @@ wakeonlan>=4.0.0
 psutil>=5.9.0
 aiohttp>=3.9.0
 SpeechRecognition>=3.10.0
-pywin32>=312; sys_platform == 'win32'
+supabase>=2.0.0

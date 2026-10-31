@@ -14,11 +14,23 @@ services:
         sync: false
       - key: SUPABASE_KEY
         sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
       - key: GROQ_API_KEY
         sync: false
       - key: GEMINI_API_KEY
         sync: false
-      - key: CONSTRUCT_VOICE
-        value: en-US-AriaNeural
+      - key: GITHUB_TOKEN
+        sync: false
+      - key: CRON_SECRET
+        sync: false
+      - key: TELEGRAM_DISPATCH_INTERVAL
+        value: "1800"
       - key: SYNC_INTERVAL
         value: "300"
+      - key: ENABLE_LOCAL_SPEAKER
+        value: "false"
+      - key: WHATSAPP_VERIFY_TOKEN
+        sync: false
+      - key: CONSTRUCT_VOICE
+        value: en-US-AriaNeural

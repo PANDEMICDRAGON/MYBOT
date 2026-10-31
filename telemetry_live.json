@@ -1,58 +1,58 @@
 {
   "sitrep": {
     "threat_level": "ELEVATED",
-    "sitrep": "Sensors active across kinetic and economic theaters. Synthesis operational fault encountered.",
-    "conflict_summary": "Telemetry channels streaming.",
-    "future_risk_forecast": "Monitor maritime chokepoints and currency liquidity.",
-    "defensive_protocol": "• Verify critical backup power\n• Retain offline repository snapshots\n• Maintain USD cash buffers",
-    "asymmetric_upside": "• Track high-yield domestic liquidity yields",
-    "created_at": "2026-10-26T16:57:09.172822+00:00"
+    "sitrep": "All active feeds calibrated, Michael. Moscow has issued its first grain vessel exit permits for the Sea of Azov since July, signaling a tentative tactical thaw in Black Sea maritime corridors while Ukrainian inland harvests suffer severe drought. Concurrently, the US Department of Commerce unveiled $389 million in semiconductor R&D awards, accelerating edge-computing hardware supply chains. On the cyber perimeter, critical authentication bypass vulnerabilities in Zoho ManageEngine (CVE-2021-40539) and Yealink management servers demand immediate edge isolation. Nairobi remains overcast at 19.2°C with stable grid telemetry across our local infrastructure.",
+    "conflict_summary": "Black Sea logistics are entering a dynamic realignment phase: Russia's selective permit approvals for Azov Sea grain shipping could marginally relieve global wheat spot prices, though Ukrainian port bombardments retain high maritime risk premiums. Simultaneously, defense tech focus is pivoting heavily toward resilient inertial navigation systems for ground-robot swarms to counter widespread GPS jamming and Starlink signal outages in active theaters.",
+    "future_risk_forecast": "Over the next 7 to 30 days, expect shifting East African grain import tariffs and freight surcharges as Black Sea corridors test operational viability. Automated cyber reconnaissance units are actively scanning enterprise perimeter appliances for unpatched Zoho ManageEngine and Zyxel flaws. Regionally, KES liquidity will remain sensitive to foreign debt servicing allocations and oil import settlement schedules.",
+    "defensive_protocol": "• Audit and isolate any legacy Zoho ManageEngine or Yealink management endpoints against CVE-2021-40539 and CVE-2021-27561.\n• Verify zero-trust ingress access controls and rotate edge service API keys across all active production servers.\n• Maintain structured KES/USD liquidity buffers to hedge short-term price volatility in imported commodities and hardware modules.",
+    "asymmetric_upside": "• Capitalize on rising demand for sovereign supply-chain tracking software by deploying automated logistics and telemetry agents for regional distributors.\n• Strategic positioning in high-yield NSE banking and agricultural equities (e.g., COOP, ABSA) ahead of Q4 dividend announcements.\n• Commercialize specialized edge optimization and security modules, offering automated vulnerability patching to East African tech infrastructure.",
+    "created_at": "2026-10-31T05:23:28.908752+00:00"
   },
   "weather": [
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 18.4,
-      "humidity": 87,
-      "wind_kmh": 12.6,
-      "condition": "Code 81",
-      "updated_at": "2026-10-26T16:55:50.351268+00:00"
+      "temp_c": 19.2,
+      "humidity": 76,
+      "wind_kmh": 8.3,
+      "condition": "Overcast",
+      "updated_at": "2026-10-31T05:22:50.755014+00:00"
     },
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 18.4,
-      "humidity": 87,
-      "wind_kmh": 12.6,
-      "condition": "Code 81",
-      "updated_at": "2026-10-26T16:55:50.804773+00:00"
+      "temp_c": 19.2,
+      "humidity": 76,
+      "wind_kmh": 8.3,
+      "condition": "Overcast",
+      "updated_at": "2026-10-31T05:22:51.145465+00:00"
     },
     {
       "city": "London",
       "scope": "GLOBAL",
-      "temp_c": 15.8,
-      "humidity": 90,
-      "wind_kmh": 17.3,
+      "temp_c": 10.3,
+      "humidity": 92,
+      "wind_kmh": 5.8,
       "condition": "Overcast",
-      "updated_at": "2026-10-26T16:55:51.253636+00:00"
+      "updated_at": "2026-10-31T05:22:51.561883+00:00"
     },
     {
       "city": "New York",
       "scope": "GLOBAL",
-      "temp_c": 18.3,
-      "humidity": 44,
-      "wind_kmh": 12.9,
+      "temp_c": 9.6,
+      "humidity": 56,
+      "wind_kmh": 10.9,
       "condition": "Clear",
-      "updated_at": "2026-10-26T16:55:52.351102+00:00"
+      "updated_at": "2026-10-31T05:22:51.946320+00:00"
     },
     {
       "city": "Tokyo",
       "scope": "GLOBAL",
-      "temp_c": 16.0,
-      "humidity": 92,
-      "wind_kmh": 5.9,
-      "condition": "Overcast",
-      "updated_at": "2026-10-26T16:55:52.799186+00:00"
+      "temp_c": 22.7,
+      "humidity": 45,
+      "wind_kmh": 4.8,
+      "condition": "Mainly Clear",
+      "updated_at": "2026-10-31T05:22:52.343978+00:00"
     }
   ],
   "cyber": [
@@ -66,7 +66,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-29583",
       "content_hash": "9f081a6e1d190b3adb67bea03885f7d65d18b78730b9c2c87cf597ad796249dc",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787599+00:00"
+      "created_at": "2026-10-31T05:22:58.996951+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -78,7 +78,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-8394",
       "content_hash": "dcf56971dec638c1e32bbc4863650ecccaa3af1c85cf2da3c1c671840c6eaeba",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787634+00:00"
+      "created_at": "2026-10-31T05:22:58.997013+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -90,7 +90,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-10189",
       "content_hash": "617c981616242dca0a79d74e690e201fa8363243f0fca31311c73e72299ea8a9",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787650+00:00"
+      "created_at": "2026-10-31T05:22:58.997031+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -102,7 +102,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-40539",
       "content_hash": "a0a7f6dce826b88ebb232c56805a6e18d05107d19068a3fb93dd0b621606f8f4",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787664+00:00"
+      "created_at": "2026-10-31T05:22:58.997048+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -114,7 +114,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-27561",
       "content_hash": "f2e8bbcb50ba59a8e1ff4f38363f496625804d18d53be7d4a45da85e33ab94f1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787680+00:00"
+      "created_at": "2026-10-31T05:22:58.997064+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -126,7 +126,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-9978",
       "content_hash": "0172212bf226992607a8a51bb7ec0b2612440984f13a9e3e8b0418fad56173a1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787694+00:00"
+      "created_at": "2026-10-31T05:22:58.997082+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -138,7 +138,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-11738",
       "content_hash": "895a24212bff3837e00307321f30d072fabdd1b8ffb152b643d8b9503297748c",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787709+00:00"
+      "created_at": "2026-10-31T05:22:58.997098+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -150,7 +150,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25213",
       "content_hash": "25047194a1fb08666eece4829b771542f068bad1a307586569ca0631c5c446d7",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787722+00:00"
+      "created_at": "2026-10-31T05:22:58.997113+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -162,7 +162,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-4006",
       "content_hash": "d96607a458fb92b0ad954e7ec202dd8e5339c638e4f43d7b7d373a473c45462a",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787738+00:00"
+      "created_at": "2026-10-31T05:22:58.997130+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -174,7 +174,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21985",
       "content_hash": "0519b9eb873c86afe0f3b3964b796bf66ff912cfa74eff08bddee80945e4bcc3",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787756+00:00"
+      "created_at": "2026-10-31T05:22:58.997146+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -186,7 +186,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21972",
       "content_hash": "6a15875afd5b6a0fc8b5116f6ded20c3b55fe218ed24823a9c41c945d0488645",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787770+00:00"
+      "created_at": "2026-10-31T05:22:58.997163+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -198,7 +198,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3952",
       "content_hash": "16fbba0f67a35e0d9abb77c5a704a8ec673bc65bef31c73e0e2b582dceefd527",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787784+00:00"
+      "created_at": "2026-10-31T05:22:58.997180+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -210,7 +210,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-22005",
       "content_hash": "8a7fe7a2172f4b0c3668a5827802771468f76277393fa4431ad437befb08ba97",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787804+00:00"
+      "created_at": "2026-10-31T05:22:58.997196+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -222,7 +222,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3950",
       "content_hash": "e4f53315ecff6219811605bb364839d390f5de7c151d53ef8fe2d3f802ad0946",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787823+00:00"
+      "created_at": "2026-10-31T05:22:58.997212+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -234,175 +234,151 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3992",
       "content_hash": "f4becfb39bd99c21aa036bc17049549112dde23f9fe030037cb5628a0a3650ee",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-10-26T16:56:34.787838+00:00"
+      "created_at": "2026-10-31T05:22:58.997227+00:00"
+    },
+    {
+      "category": "THREAT-INTEL",
+      "source": "The Hacker News",
+      "cve_id": null,
+      "severity": "ADVISORY",
+      "title": "Chinese Hackers Use AI-Powered ARTEX to Target Over 200 Organizations Worldwide",
+      "summary": null,
+      "link": "https://thehackernews.com/2026/10/chinese-hackers-use-ai-powered-artex-to.html",
+      "content_hash": "3f660e1fd5770d5cc39da1f428e71f5a90ff14420faedea6aa39a136dc4c08b8",
+      "published_at": "Fri, 30 Oct 2026 22:28:44 +053",
+      "created_at": "2026-10-31T05:22:59.873887+00:00"
+    },
+    {
+      "category": "THREAT-INTEL",
+      "source": "The Hacker News",
+      "cve_id": null,
+      "severity": "ADVISORY",
+      "title": "TeamViewer Flaw Lets Remote Computers Attack Users Who Connect to Control Them",
+      "summary": null,
+      "link": "https://thehackernews.com/2026/10/teamviewer-flaw-lets-remote-computers.html",
+      "content_hash": "8f5d16629cb02eac7c4f80f36688361f41057d7486864958160ef2189b12f83d",
+      "published_at": "Fri, 30 Oct 2026 20:47:28 +053",
+      "created_at": "2026-10-31T05:22:59.873906+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "The Hacker News",
       "cve_id": null,
       "severity": "CRITICAL",
-      "title": "⚡ Weekly Recap: This2Shell, That2Shell, Everything's an RCE? Rogue AI, Supply Chain Chaos and More",
+      "title": "WordPress RCE Flaw Draws Nearly 63,000 Attack Attempts in Just 24 Hours",
       "summary": null,
-      "link": "https://thehackernews.com/2026/10/weekly-recap-this2shell-that2shell.html",
-      "content_hash": "895ce1a9905eb95c0a918d4276ccba1a55fd7fa9c12ee43bca60586d07da38ef",
-      "published_at": "Mon, 26 Oct 2026 19:36:13 +053",
-      "created_at": "2026-10-26T16:56:36.026764+00:00"
+      "link": "https://thehackernews.com/2026/10/wordpress-rce-flaw-draws-nearly-63000.html",
+      "content_hash": "4f4e57d19cc08a8c60aac7fa752f0d1e2bd7bd4b22f4ced63779f6fdc1e2728f",
+      "published_at": "Fri, 30 Oct 2026 19:38:14 +053",
+      "created_at": "2026-10-31T05:22:59.873915+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "The Hacker News",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Two Critical Wasmtime Flaws Could Let Malicious WebAssembly Modules Escape Sandboxes",
+      "title": "Trezor Warns of Suspected Hardware Implant in One of Its Wallets Sold by CryptoBilis",
       "summary": null,
-      "link": "https://thehackernews.com/2026/10/two-critical-wasmtime-flaws-could-let.html",
-      "content_hash": "ad812d0ad760262af015991d26d9d8e0f3cedb95e69d2c57426598d49c2ff1c7",
-      "published_at": "Mon, 26 Oct 2026 17:22:41 +053",
-      "created_at": "2026-10-26T16:56:36.026808+00:00"
+      "link": "https://thehackernews.com/2026/10/trezor-warns-of-suspected-hardware.html",
+      "content_hash": "8350654adb009e4a343a974d69da38e99b59bfa2613cf0fca8030a07eea754f4",
+      "published_at": "Fri, 30 Oct 2026 17:51:56 +053",
+      "created_at": "2026-10-31T05:22:59.873924+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "The Hacker News",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Between alerts: What Attackers Do in the Spaces Ordinary Detection Misses",
+      "title": "Why Urgent Security Fixes Aren't Fixed. Observe, Prove, Act, Confirm Gets Them Moving",
       "summary": null,
-      "link": "https://thehackernews.com/2026/10/between-alerts-what-attackers-do-in.html",
-      "content_hash": "4c93018b368c02637ba6d6e13bdee2da710a0456ee65ba11ea5f712d9354d289",
-      "published_at": "Mon, 26 Oct 2026 16:53:56 +053",
-      "created_at": "2026-10-26T16:56:36.026832+00:00"
-    },
-    {
-      "category": "THREAT-INTEL",
-      "source": "The Hacker News",
-      "cve_id": null,
-      "severity": "ADVISORY",
-      "title": "uCreator Android Spyware Can Steal Telegram 2FA Passwords and Clone WeChat Accounts",
-      "summary": null,
-      "link": "https://thehackernews.com/2026/10/ucreator-android-spyware-can-steal.html",
-      "content_hash": "b2e2d82afc1772afb81e0ad75b05cf74b5c8b4b6bfbb98a0641c8538a6c9990a",
-      "published_at": "Mon, 26 Oct 2026 15:24:02 +053",
-      "created_at": "2026-10-26T16:56:36.026853+00:00"
-    },
-    {
-      "category": "THREAT-INTEL",
-      "source": "The Hacker News",
-      "cve_id": null,
-      "severity": "ADVISORY",
-      "title": "Microsoft 365 Token-Replay Attacks Compromise 97 Accounts at 79 Organizations",
-      "summary": null,
-      "link": "https://thehackernews.com/2026/10/microsoft-365-token-replay-attacks.html",
-      "content_hash": "6b7c5d78f4c47329efcdbdce5e28bf06b37bd3d12dee79064390e650963980d8",
-      "published_at": "Mon, 26 Oct 2026 14:05:51 +053",
-      "created_at": "2026-10-26T16:56:36.026872+00:00"
+      "link": "https://thehackernews.com/2026/10/why-urgent-security-fixes-arent-fixed.html",
+      "content_hash": "9823994c4f2390af5f18c151b4a46947810704bba99e80d6a83126125f40bc4e",
+      "published_at": "Fri, 30 Oct 2026 17:28:53 +053",
+      "created_at": "2026-10-31T05:22:59.873933+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "BleepingComputer",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Critical 'HTTP2Shell' Brotli vulnerability triggers emergency patches",
+      "title": "Critical Linux kernel flaw allows remote root attacks on MPTCP servers",
       "summary": null,
-      "link": "https://www.bleepingcomputer.com/news/security/critical-http2shell-brotli-vulnerability-triggers-emergency-patches/",
-      "content_hash": "8146368665fbe4cfb3513e92f4511167b5ce233181fbf37d085eecb3c0577d68",
-      "published_at": "Mon, 26 Oct 2026 12:27:57 -040",
-      "created_at": "2026-10-26T16:56:36.347719+00:00"
+      "link": "https://www.bleepingcomputer.com/news/security/critical-linux-kernel-flaw-allows-remote-root-attacks-on-mptcp-servers/",
+      "content_hash": "c3ec11c9e40b44f43e6c60440f5aa86117101c35f1f651d805ea878c43febf45",
+      "published_at": "Fri, 30 Oct 2026 17:09:46 -040",
+      "created_at": "2026-10-31T05:23:00.147226+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "BleepingComputer",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Microsoft releases emergency .NET patches for critical Brotli flaw",
+      "title": "Trezor warns of suspected crypto-theft implant in hardware wallet",
       "summary": null,
-      "link": "https://www.bleepingcomputer.com/news/microsoft/microsoft-releases-emergency-net-patches-for-critical-brotli-flaw/",
-      "content_hash": "e41976f3944eee350ade9f89136149e36864a19e7536a17e11e334a674b8f8c7",
-      "published_at": "Mon, 26 Oct 2026 11:38:24 -040",
-      "created_at": "2026-10-26T16:56:36.347757+00:00"
+      "link": "https://www.bleepingcomputer.com/news/security/trezor-warns-of-suspected-crypto-theft-implant-in-hardware-wallet/",
+      "content_hash": "2d27af79aebd2af90ad812541f95e34b53a0ca01528fc61611612159c96ac940",
+      "published_at": "Fri, 30 Oct 2026 11:58:20 -040",
+      "created_at": "2026-10-31T05:23:00.147251+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "BleepingComputer",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "When an AI Agent Is the Incident, the Identity Record Is the Evidence",
+      "title": "Malicious Claude Code extension on Cursor planted SSH backdoors",
       "summary": null,
-      "link": "https://www.bleepingcomputer.com/news/security/when-an-ai-agent-is-the-incident-the-identity-record-is-the-evidence/",
-      "content_hash": "102b32bd0d603c2c859d7004759be33d81fc21ea90d4fd5b2e594283d21735d2",
-      "published_at": "Mon, 26 Oct 2026 10:00:10 -040",
-      "created_at": "2026-10-26T16:56:36.347782+00:00"
+      "link": "https://www.bleepingcomputer.com/news/security/malicious-claude-code-extension-on-cursor-planted-ssh-backdoors/",
+      "content_hash": "075794a5ada97209f634ec1681294655a00f1db2f0d1ca41afd37835e5bf7421",
+      "published_at": "Fri, 30 Oct 2026 10:36:54 -040",
+      "created_at": "2026-10-31T05:23:00.147263+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "BleepingComputer",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Chinese man extradited for role in $36 million cryptocurrency scam",
+      "title": "SS7 and Diameter Attacks: How Signaling Flaws Expose Your Phone",
       "summary": null,
-      "link": "https://www.bleepingcomputer.com/news/security/chinese-man-extradited-for-role-in-36-million-cryptocurrency-scam/",
-      "content_hash": "1da23038375c2312fa23c1e6ca6461b3844073936259a4cba54d12e2a0dafca0",
-      "published_at": "Mon, 26 Oct 2026 09:56:44 -040",
-      "created_at": "2026-10-26T16:56:36.347804+00:00"
+      "link": "https://www.bleepingcomputer.com/news/security/ss7-and-diameter-attacks-how-signaling-flaws-expose-your-phone/",
+      "content_hash": "8be39bc22cfd99d2e41597690f1bb1caab2658a5bbe25e01c4a356189075c2c2",
+      "published_at": "Fri, 30 Oct 2026 10:00:10 -040",
+      "created_at": "2026-10-31T05:23:00.147275+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "BleepingComputer",
       "cve_id": null,
-      "severity": "ADVISORY",
-      "title": "Kali Linux 2026.3 released with 6 new tools, desktop updates",
+      "severity": "HIGH",
+      "title": "CISA says max severity GitLab flaw now exploited in the wild",
       "summary": null,
-      "link": "https://www.bleepingcomputer.com/news/linux/kali-linux-20263-released-with-6-new-tools-desktop-updates/",
-      "content_hash": "4530d55fb97a38b8accbedd9cb05c8ba702a4a77cc15bf48aa4a51eaf9fa6096",
-      "published_at": "Mon, 26 Oct 2026 06:26:52 -040",
-      "created_at": "2026-10-26T16:56:36.347826+00:00"
+      "link": "https://www.bleepingcomputer.com/news/security/hackers-now-exploiting-max-severity-gitlab-flaw-in-attacks/",
+      "content_hash": "16b2dad25a7e91653877d773ed3fc5d130372807cc6635221e6d459380e76fd0",
+      "published_at": "Fri, 30 Oct 2026 09:00:32 -040",
+      "created_at": "2026-10-31T05:23:00.147286+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Kenya Records 2.7 Billion Cyber Threat Events in Three Months - Techweez",
+      "title": "Huawei Kenya trains, certifies youth in cybersecurity skills - The Star, Kenya",
       "summary": null,
-      "link": "https://news.google.com/rss/articles/CBMibEFVX3lxTFAzVGlfNjBlOWdac1ZZMU1Ec1pFY2ctWXpFVEVMMWRJc2tZZTZEZDdCb3FxZ3JQaGJBaGZGekJlQTZHTTRZX0czZS1zLWo5LTI4d3dOVDdTTHdjeElHNHpnUGg4WGp1MkJENlo1aw?oc=5",
-      "content_hash": "299233c0acf367547cde92b4ae91c6f10458369bb1f23be322fac73439ebb7f4",
-      "published_at": "Mon, 26 Oct 2026 09:16:34 GMT",
-      "created_at": "2026-10-26T16:56:37.506671+00:00"
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOVlFmeWY5RTJUaTNmTEgxdktVNkczcTc0ZW9yMWpyWm5wYlZBejRYZXpzcjJENlRMTG5qZnI2WkotVmJRTWFMQlVpbXhjZHd2a1JZeEpKMlRNZWVSWEN0RXhkbDA1SDcxOURiaFR4amRxRVMxbGlFT21vUzRjYVpnMEdZRXFtMlJzSzFwNG1VMGR0NWNsMzdERmpZMnJOV2VhOU9oWEgxNTJrN1lWMEVIREt0QQ?oc=5",
+      "content_hash": "aa0016a1b05202bcf3a336f58165560b0956076b9cc8735a60c1ff3d723d3fa0",
+      "published_at": "Fri, 30 Oct 2026 15:01:00 GMT",
+      "created_at": "2026-10-31T05:23:00.584634+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Turning Kenya’s national cyber threat statistics into actionable business security priorities - TechTrendsKE",
+      "title": "Calls to boost AI-driven cybersecurity cooperation against cybercrime - Kenya News Agency",
       "summary": null,
-      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE4tQ2JEZThuYVBZVTl5bG5vd3JxLW9tNzN4dmk5NTgtbm1WOFh2TnFQdXViMzBieC1ydVhGQ19vUG03ZlhIYy1Fd3ZYeThxX0hQLXIxU0FmYm9XbFcyend2YjV6WC1FVkVrLUwyNnNZVEVDNFdaZGlv?oc=5",
-      "content_hash": "8d30229226f1b47fcf440678c82a5ec81de6596501590b54dcf3ae95bce209fd",
-      "published_at": "Sat, 24 Oct 2026 11:00:36 GMT",
-      "created_at": "2026-10-26T16:56:37.506703+00:00"
-    },
-    {
-      "category": "LOCAL-CYBER",
-      "source": "Kenya Cyber Monitor",
-      "cve_id": null,
-      "severity": "ADVISORY",
-      "title": "Kenya strengthens AI governance to combat rising cybersecurity threats - Kenya News Agency",
-      "summary": null,
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNNjRqUjhqSWZ2OC1kMi1HZmtyM1lYZDlQeFZFSVlyc09yUHBJT2ppeUdENHNBNV9reEhRQWJXV3Y0ZmthUGMxT3lPLXlNYkhkYy01ZXZhREgyUDI4MC1kU1pFOVJPZUNpbXQ1RlMxQUpTc3FZMWVFRUl1VTBvZ2xBN19vOHlacDRJRTN4c0JEMVhiNURGYXlKaEQ3ZHE5T2Nw?oc=5",
-      "content_hash": "dfcdae4846e8007a0de4e7129ce8856b5b6bea0fad85f4cb6b2a31d04c96c589",
-      "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T16:56:37.506716+00:00"
-    },
-    {
-      "category": "LOCAL-CYBER",
-      "source": "Kenya Cyber Monitor",
-      "cve_id": null,
-      "severity": "ADVISORY",
-      "title": "𝗞𝗲𝗻𝘆𝗮 𝘀𝘁𝗿𝗲𝗻𝗴𝘁𝗵𝗲𝗻𝘀 𝗔𝗜 𝗴𝗼𝘃𝗲𝗿𝗻𝗮𝗻𝗰𝗲 𝘁𝗼 𝗰𝗼𝗺𝗯𝗮𝘁 𝗿𝗶𝘀𝗶𝗻𝗴 𝗰𝘆𝗯𝗲𝗿𝘀𝗲𝗰𝘂𝗿𝗶𝘁𝘆 𝘁𝗵𝗿𝗲𝗮𝘁𝘀 The government has called for stronger oversight of artificial intelligence (AI) systems, warning that criminals increasingly use the technology to launch - Facebook",
-      "summary": null,
-      "link": "https://news.google.com/rss/articles/CBMi6whBVV95cUxPYjd0WUtPQ0M4dnc2Yk5DWWVhc1p4T1JqY0w1eGdqWjJGSUdLTDJJaGYyZ29OckpHTFlIUXVwRzRTZU9POUdZOTNvN0pBR0JsMW9rQTc5SlBTLThqc21USVhDTnpWTXdyejBmZjJyMjhOMWMxd0o2QlBBckY5dXNNVnRNY2M5Z04tWVFzNHNidkRUQVZRRFo5a3ZLT3pGdGpPQWxCOGdzVWd5bmozMmZub0pBTWJzOTNKdzE3QWtfQWZleTNQVHd1azJkV2wzSi1nY0NVYUo1V3ZmQ3kwdEVza3U1QU5CYU9XRlNqVHdTemxWNzhDUGpXTTBSa1VUZWF5YXRpUmpJRG5iNUdhbEo1RWhNMjNkRjVORzVfOERQTmxwYzdzeHV5VXdQYUtleWV0WkRnQ0ZrTGhydXFUaEhmQWJZb2ZIX2RkcF9DYzJrZUNtVFVTRWcyWER3aS1taHlFWlBCa1gya3A1YnE1enNqZFlwMm5sU3dOaWZqMzI0TDFGNmdmOFZibW4xZmRrcnVia3ZSTXRSYjg1eDk5YVZhenZvLUxsZEVic0ZweFNPVk52ZFB4N0pWcjE4Mk1qQ1RGendfN2t5OWtuWHBkclJURXRjN2MydUl0MjNYTG5WcWdlVzJrTzdNYlNrYlpwVVIyRUhDUWs5dzNVdTdqMW15bW1RVjhwVDlHUHRpWVRxd0RldDRrMjVSUmVJZHZ3cVhna0FkaEhSQVM1b0ZhVmlIX0ctZjVSYm9XSE5La2NLSmZvdU9BVUZVVWYyaWZ2bHlEUG1GaDgtaGJkeFpydUZQSGRad0w5OEZ3V211ajZoWDJFa1o2dGF0UUZGd05YWGZaaGRpX3RBaU95OGpJRmNEU1ltcVRmVUdhNWs1YUVUdEFTMnhSSGljMTY2d3EtQUUyUlhPU3EtVDRaN2U5eXBWeVlwWXYteHR5dHZEcDE0NHgtVDlaZlBCOFE5UWQydzg1SldqTGhuWWJaWlNKdmFQRktCM19FVGw4R2ZfYVo3LVVKaG9ad3hMM0x2bG1SMDJweEpqbWVEcTNNRUh0N1ozM2UtYVNxS25TVHBFZ196SGhYdTQzQ0dFYmpBZENENHYyYWlWb0F4S1ExQk9ZNE56X3M1b0hoZU1GZmJRQUx2RklqTTVNY3dxOHU1b1kwQjZjSGRkVGN3SnhiNEZRaGhQUFlPVWlIQmxsVjFmTFBqcjBxNTlTRWR2bGVIcEpGaHBGNGRBSHpSVkIyU1FEeE1KOXpHc09ydmhnN2dFODJzbVZrMmdvbXFMai1xUERCYWN4dXRLNm1MaG90cUVZR05oX0hqUHNTZ2Q5S05QX0c0MVJfaHMtSmRfRlN2QWY4LXg0dlJzRFZFcnNKMjVjV0xQemZBVGE3SjNCMm9qMmJ3SDhmMkYxOEVybGpULVJHREwySVVHMjFKOGxwa0ZiNzQ1QkQ1UTBuTlZfbk8tS1VKc09zc3pVUGNncUs1N3NLV1F0QmJvenVlQ1J6R1k?oc=5",
-      "content_hash": "61cad910365d5aab214eced3ccbea2386cc54606df92b954a0ad31ae6ed2674d",
-      "published_at": "Thu, 15 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T16:56:37.506747+00:00"
+      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNaVZCMjlvb0dsZzllelVvZjRZckFPRXAzU3h0Q1lOWHFKQ3RxWW1GaHhoOHh4VHFaVS1LTFM0TkVVamVLWjVhVGx1ZUxmeHRiNllkUUNnMk5yT3RmZWpMWlItOHhpbjBoNXY5dDdKZTFNcC1Ua1RSZWRHRThiem1BV29uOTY1MjF3MXgzWklsY3lfOFR1c1lXWDZkOGtIYkk?oc=5",
+      "content_hash": "744a5e138732ac55f96a8b356f5a1fde2be81ac4731777acb197e00384939acf",
+      "published_at": "Wed, 28 Oct 2026 17:39:19 GMT",
+      "created_at": "2026-10-31T05:23:00.584668+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -414,249 +390,358 @@
       "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMGlYOUFaVy1PTTNHSHlXaTh6cklnQ0xSU3g3dXdYbjhWZGxsR0t4N1dXZ0NNd0pKM2NIOU0xQkdTUF9BdFNXYUk2bTBJYi1iM0h3TWZUM21WNmZIc2FnVEVhSzJHd1pvMnRBR0FvWFBJQ25URF9aVmxXR0xDTzhyNG1DLUEzTzNqRjV6Rnp4c0Y0Qm80ZXFQWnVvSGV2TkkwbWd5Rk9CR1RJTXYyTnc?oc=5",
       "content_hash": "2c77f445a49add8fdb3b5a81c3c6bc7a69e27c0175389c663aac488212e5520e",
       "published_at": "Wed, 14 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-10-26T16:56:37.506759+00:00"
+      "created_at": "2026-10-31T05:23:00.584687+00:00"
+    },
+    {
+      "category": "LOCAL-CYBER",
+      "source": "Kenya Cyber Monitor",
+      "cve_id": null,
+      "severity": "ADVISORY",
+      "title": "The 12 Cybersecurity Issues at a Glance - Vellum Kenya",
+      "summary": null,
+      "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9HODJGOHlCUWswNFBFZmZXdEIzaWtjWmczblNzZjRpZlBTckRrallacms0ZGsydm5LdDRNel8tSXRncUR2VzdGQlNwUzVWMkVoLXBNWlpDQjNVOXo2V3ZTTWRjVTdYanlLcWk0YmJn?oc=5",
+      "content_hash": "0b4fc2819acd1056541e1247d12a3cc666ee07dbf0cd5913e2f46dd37150a223",
+      "published_at": "Sat, 17 Oct 2026 10:51:27 GMT",
+      "created_at": "2026-10-31T05:23:00.584704+00:00"
+    },
+    {
+      "category": "LOCAL-CYBER",
+      "source": "Kenya Cyber Monitor",
+      "cve_id": null,
+      "severity": "ADVISORY",
+      "title": "Turning Kenya’s national cyber threat statistics into actionable business security priorities - TechTrendsKE",
+      "summary": null,
+      "link": "https://news.google.com/rss/articles/CBMid0FVX3lxTE4tQ2JEZThuYVBZVTl5bG5vd3JxLW9tNzN4dmk5NTgtbm1WOFh2TnFQdXViMzBieC1ydVhGQ19vUG03ZlhIYy1Fd3ZYeThxX0hQLXIxU0FmYm9XbFcyend2YjV6WC1FVkVrLUwyNnNZVEVDNFdaZGlv?oc=5",
+      "content_hash": "8d30229226f1b47fcf440678c82a5ec81de6596501590b54dcf3ae95bce209fd",
+      "published_at": "Sat, 24 Oct 2026 11:00:36 GMT",
+      "created_at": "2026-10-31T05:23:00.584731+00:00"
     }
   ],
   "news": [
     {
-      "scope": "GLOBAL",
-      "source": "Eastern Europe Energy & Grain Wire",
-      "title": "Wheat Erases Black Sea Premium as Russia Signals Shipping Talks - Bloomberg.com",
-      "description": "Wheat Erases Black Sea Premium as Russia Signals Shipping Talks&nbsp;&nbsp;Bloomberg.com",
-      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOTjNKZnhKaEE5YUszQkVxajVUOFA5eEFrRmI4Ri1IbWVGSVBuV21rNFdWbjVNajA1S3ZtQlB3dllpcldib1dVYzYyYWlVTDdGSEdPa0FvZW80NWp5Zm1DUnowVU9hUWJDanpTNzB0dFgtdU5jeGgtREgzcjQ5SXNiUk9UWTNvY3c2dG5YN09yNldlZXhKM3BjUGJybTJ4cUVOam9zd2R4b25lbU9vNGpiWjkyMmU?oc=5",
-      "content_hash": "f8eb7745609a4adb2ed4e7c049a3d94c39040c2ce14949c1566608698996d933",
-      "published_at": "Mon, 26 Oct 2026 15:12:35 GMT",
-      "created_at": "2026-10-26T16:55:55.996091+00:00"
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "President Tinubu to 'pray for Nigeria' during Saudi Arabia trip to Mecca - BBC // [TACTICAL INTEL]: While primarily a geopolitical development, this has indirect implications for Michael. Enhanced Nigerian-Saudi ties could lead to increased economic activity in West Africa, poten",
+      "description": "President Tinubu to 'pray for Nigeria' during Saudi Arabia trip to Mecca&nbsp;&nbsp;BBC",
+      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9uV1dUOFVMMkpIalpqUDRGamFzbTc2ZjI1OVQyZ2czLTNyTXBtbzhibFMzVHdMRUFTMlJ1NWlwUklTRTB6YzhjTVpYN01sOEZ0RlJJVUdUNlliM0E?oc=5",
+      "content_hash": "771e9c02e3a81a7144d1ab0e460d7679923b19a2bdd59daad804de637461f088",
+      "published_at": "Thu, 29 Oct 2026 13:05:51 GMT",
+      "created_at": "2026-10-31T05:22:54.691237+00:00",
+      "in_depth_context": "Nigeria's diplomatic engagement with Saudi Arabia is significant for the broader West African and Sahel region, where political stability and economic partnerships are increasingly intertwined with religious and cultural ties. This trip may signal a strengthening of Nigeria's role as a regional leader and a potential shift in its foreign policy focus towards deeper engagement with Middle Eastern powers. Such diplomatic moves can influence regional trade agreements, investment flows, and security collaborations, particularly in areas where Nigeria and Saudi interests converge.",
+      "why_it_matters": "While primarily a geopolitical development, this has indirect implications for Michael. Enhanced Nigerian-Saudi ties could lead to increased economic activity in West Africa, potentially creating new market opportunities or partnerships for tech ventures. Additionally, regional stability improvements in the Sahel could reduce security risks for cross-border tech infrastructure projects or supply chains that Michael might be involved in or monitoring.",
+      "subject": "Nigerian Political Diplomacy & Sahel Stability"
     },
     {
       "scope": "GLOBAL",
       "source": "Eastern Europe Energy & Grain Wire",
-      "title": "No Prospect of Reviving Black Sea Grain Deal, Russian Diplomat Says - The Moscow Times",
-      "description": "No Prospect of Reviving Black Sea Grain Deal, Russian Diplomat Says&nbsp;&nbsp;The Moscow Times",
-      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQNnRtdGlLU2J3VEUzZ191SWZ6UzQwQ1pxNjR1WXpvX3Z1TzRZU09WRXdFV2FuVmw0SWxXRFNrSEVYRHlvNVFGRF90T0lhQzVUR3ZYbGJJLThlZWtzY1ZHY0NPWXZVWFM2d1hNbFpWZjRhZDloNXdXSUtlOXBfSWh5RGVDS1RFUEQtdUtMcnhRX3RBNkI2dHlCVXgzbFhTdHRkdDg2VGJ1YVBHcnF3dWtaNWNfZlZwZw?oc=5",
-      "content_hash": "3e72d1c5cee85037e01d722afdda8bf8bb336fa49b5d8db65aa90c874052570e",
-      "published_at": "Mon, 26 Oct 2026 16:06:37 GMT",
-      "created_at": "2026-10-26T16:55:55.996140+00:00"
+      "title": "Poland's Sikorski calls for rapid ceasefire in Black Sea to allow food shipments - Reuters // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Poland's Sikorski calls for rapid ceasefire in Black Sea to allow food shipments&nbsp;&nbsp;Reuters",
+      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPNjZfQ1RGNVhiRHQ3SzZQVTV6WjVPdTNJRzF4R2cxYkVPMHFWTk1MS3pnX3FZRy00WFJXR3Y4THdob2ZGR3Z3LTRxWWNnLTVSQWE4eHIxR09wMWZnU1FDdFdpNW1PbzU2NjRUY3VaMndmNUI5cGRsZW9kS1A4Yndab2p3UU02NVNiWXdRcFNXNWgybV9MbTJ5Sm5VbmIzQW1xSlI4cGN0YzlQaEItLTBRVmVwN0NxOWJLbFE?oc=5",
+      "content_hash": "5aaaf043399906f12378a6a482778affac5da475533ca8657835beda329eb8d5",
+      "published_at": "Sat, 31 Oct 2026 00:08:00 GMT",
+      "created_at": "2026-10-31T05:22:55.444013+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "GLOBAL",
       "source": "Eastern Europe Energy & Grain Wire",
-      "title": "Black Sea Shipping Faces Insurance Squeeze as Constanta Port Stays Resilient - Marine News Magazine",
-      "description": "Black Sea Shipping Faces Insurance Squeeze as Constanta Port Stays Resilient&nbsp;&nbsp;Marine News Magazine",
-      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBRSWJaVjFIRkFjcnpDYnkxdVF1UDlkZmctZnFwN21tdWhYMEZTa3J1VHZ2OHYxazBmblVVY2VVMVZmSFBlMXpCOTB0aFVna0dXdS1mQUNoUWhqa0VrbTdiUGUxcFhQbFVZS2R0QnZxSlhJNXhueTVrQnNwYzVhQQ?oc=5",
-      "content_hash": "0af9c3e27e4b153e47c7d77f672abd0a3f13f8cb63c080c2ea9b6777fd9851b3",
-      "published_at": "Mon, 26 Oct 2026 13:25:19 GMT",
-      "created_at": "2026-10-26T16:55:55.996171+00:00"
+      "title": "Russia Issues Permits for First Grain Vessels to Leave Sea of Azov Since July - The Moscow Times // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Russia Issues Permits for First Grain Vessels to Leave Sea of Azov Since July&nbsp;&nbsp;The Moscow Times",
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQM3hFcy10OEVqaC02VTlvZEVxZDJNb05LSTd0VGlPWS1vM2ZhRS1Tb3pzTl9QMkJFODZJN1VURHVKX2ppV3FoMEM0cnZMd09DMGVkS2RoX3VuNkxRazhjRnR2VmducWRyMy1Ic2t3Z2dvM0U1andmSFVoeU01YUFKQ1pUMncwandKOTM0RWRJS19uWjlsZnU5SUg2REpVLWhWM3RTYzBRblFhRmYxckI0OWdBaUNGQUJ0YlJUbm5MZ0J4dUR4?oc=5",
+      "content_hash": "eba3f9c296a5064d391d0b6719ddc896aab0cf5e58240436d147a91eb83c2ed2",
+      "published_at": "Wed, 28 Oct 2026 16:26:54 GMT",
+      "created_at": "2026-10-31T05:22:55.444037+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "GLOBAL",
       "source": "Eastern Europe Energy & Grain Wire",
-      "title": "Romania blames Russia after drone sinks ship in the Black Sea - Al Jazeera",
-      "description": "Romania blames Russia after drone sinks ship in the Black Sea&nbsp;&nbsp;Al Jazeera",
-      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
-      "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
-      "published_at": "Fri, 23 Oct 2026 17:36:24 GMT",
-      "created_at": "2026-10-26T16:55:55.996205+00:00"
+      "title": "Russia Grants Permission for Grain Vessels to Leave Azov Sea - Bloomberg.com // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Russia Grants Permission for Grain Vessels to Leave Azov Sea&nbsp;&nbsp;Bloomberg.com",
+      "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNX19rWElKWGZqb2NaRTlQeEI2Tk1pYTNFcmdIRDM1LWx5aFl2M3VwVjFKVlViRHJadmlHNWlhUXZSbmhMUDFQQkxJODNadWlnQmo2T2Y3aEhfRXBhWHpNTzRKbUtZdG1aYjRtenFEcWZ2djVXNE12bnRsY2s2RmdPS0pJczVoUDBPYjgzTm9tc0VKT010VlNYaFRUczRkMXZjMDU2LVZmcEM0SXc0MnVFOHVDc05SbUVZcldHXw?oc=5",
+      "content_hash": "1a67007a362c82e9dbe2381d717a3e99773619d37144f6ba76a9f89e89fda226",
+      "published_at": "Wed, 28 Oct 2026 16:59:53 GMT",
+      "created_at": "2026-10-31T05:22:55.444051+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "GLOBAL",
       "source": "Eastern Europe Energy & Grain Wire",
-      "title": "Black Sea attacks cut Ukraine wheat exports to Indonesia, Bangladesh - Nikkei Asia",
-      "description": "Black Sea attacks cut Ukraine wheat exports to Indonesia, Bangladesh&nbsp;&nbsp;Nikkei Asia",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOMjRmX1VyWXgzYWtvR1FOcGlxdGR3RUdzX2RNbHA0VndLYzhKZ3RSMjFBUkprQmJCMDdIWmxwMHJENUtYenlDeFdnbVBsTFR0cm5DRXhweGxRTHBldHplczlaWTRuQVVJczh6cEhpT0NNM09DYXQ4MF9RR3VxSnotOW9yNnpCeG5ZMzUyNnYwN2xJcmVRNmt5cElKUWtFZkR2cWVTTW8yR2d0OU55cXpYdk1n?oc=5",
-      "content_hash": "bb71db8bede03090087183a2a6097e505a0c1ab4e98da1773b4a76a2bfca6156",
-      "published_at": "Mon, 26 Oct 2026 07:24:00 GMT",
-      "created_at": "2026-10-26T16:55:55.996235+00:00"
+      "title": "DW News. . Russian attacks on Ukrainian ports and shipping infrastructure in the Black Sea have disrupted a key route for global grain and energy exports. As one of the world's largest sources of maritime labor, India has become increasingly involved in the is - Facebook // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "DW News. . Russian attacks on Ukrainian ports and shipping infrastructure in the Black Sea have disrupted a key route for global grain and energy exports. As one of the world's largest sources of maritime labor, India has become increasingly involved in the is&nbsp;&nbsp;Facebook",
+      "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPeG1GTEZSVnBfU2hveWJUT0tVdTFWcUV1cGtpMF9QcE9EQ2dxZ0t1UTA1eVpCYzNrazJNWk5qZjNqS01FQ3FJc2ZPeUYwMnI4aWQzeERuRTkwNVV0a1A0QWEyV1JpNHBtQjhnZmU5VEMzTXh0dTNnUVhlZS1JRFpHV2xuanJsdHpOelp2ZVBmMlVMdnRWSmpYUENsUDlTWmRwaGtkQU55SEZUNk1oUnRmcUlIV3R4bGRiQUd0UDgxSVo1UFNVRFB2eE5Zb2lLMHloUDV6Z0h6eFFvb0ZxaWRMY0tR?oc=5",
+      "content_hash": "43f732061b80d87bdc90f1f61ae9beb8faae3fe11fd37ce2b248757272e32c5b",
+      "published_at": "Thu, 29 Oct 2026 03:20:03 GMT",
+      "created_at": "2026-10-31T05:22:55.444065+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "GLOBAL",
       "source": "Eastern Europe Energy & Grain Wire",
-      "title": "Russia: In talks with Turkey on Black Sea grain shipping - Breakingthenews.net",
-      "description": "Russia: In talks with Turkey on Black Sea grain shipping&nbsp;&nbsp;Breakingthenews.net",
-      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPaC1SVUdOb1llNmJ5X2doWkNxdkVzSVd5enB5TlU1dVZLQUJsY1BmZ2QySHlIY21iZDh1UERtdmQ1amxjSjdrWXFSV2R4VlFnSzE1NHRxRDJYNm45N3oxMG1qQ2xuR3pUdUh5QlplQkZ1bnh1YlVPa2VhYmFBd0RLQ2FVa0l5dzNmdl9pbVNyemI2VjBlWWFabzh2eVpKTm9YX2ZB?oc=5",
-      "content_hash": "bff581d9b442682d4f46dac6d4aed7d05db10b17da2a86f63eff3bcd656f7b49",
-      "published_at": "Mon, 26 Oct 2026 14:30:00 GMT",
-      "created_at": "2026-10-26T16:55:55.996266+00:00"
+      "title": "Ukraine's farmers struggle to sell harvest amid war, drought - DW.com // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Ukraine's farmers struggle to sell harvest amid war, drought&nbsp;&nbsp;DW.com",
+      "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxORHhTb1g1R2RIRzUybW9xc0dNb1RrSXdIaG5IV0Z2MlFfVFJVejdNX0dzR01ZbldSekw2eXdzaWNWcERvbF9DTjgwUGNWYjVKY0poQWlEeXduSUNkVGMydVNZQzdpZXpQUFVDLTdOY25jLVFVTFdtalBPMVQ4U0UxbHR0N1BFYV93V2p5a25Wc1MwRk9wVlHSAZYBQVVfeXFMUFRKWkxxcW5ua0xhTTBOLWt4S3dqdTZUUTIzbGJFT1RoLTUycDAwVG5uZ21SdFdVNlhkbC02azZOZ20wbkdvczE4UlpITDcwbGJ0dUllaVhXdDJISk9sb3JRTTZSTlduYkw3QUdYMHRvWTJnSjlTYVNuM0VaaHlhXzJyLUF1RWFKMTRHdG1jSXlERVZRMnZn?oc=5",
+      "content_hash": "533d9b6223ac4e155b6737a87afa48eec11709c5cbe8bc88bedb13a8d66cfa9a",
+      "published_at": "Fri, 30 Oct 2026 01:06:20 GMT",
+      "created_at": "2026-10-31T05:22:55.444080+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Eastern Europe Energy & Grain Wire",
+      "title": "Grain Markets Under Pressure: Todd Hubbs on Wheat Baselines, Black Sea Headwinds, and South American Weather Watch - Oklahoma Farm Report // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Grain Markets Under Pressure: Todd Hubbs on Wheat Baselines, Black Sea Headwinds, and South American Weather Watch&nbsp;&nbsp;Oklahoma Farm Report",
+      "link": "https://news.google.com/rss/articles/CBMi7wFBVV95cUxNcUZqMlRVMG9zQU94M0t2NU5lSHJhTDR5Q0ltZVBWWlQ3NHU2ZmdLcjVQb3dueW9tdUtmSWo3WmJQZENzNHJWbUxZcVF3LUNxLUdpME8zV0lOdEYzUEVQcmlzRGZuSW1MRUwtcWxqcnFjNDh0UnE2Z2dsVkJRakdCR1NCaEo3M0c4dEJodzgtWHRDSTFranZDZ00yU1R0RmxsdEd1SXpoWGVHTWZzNDZsZU5aT3ZfWFI2U2Q1VGtXeGhnaXJmejUtQnF5V2cyX08tUjRtRXNGNnQ2OEZmYWpnNml1dTBCMktKaUFxMTBwTQ?oc=5",
+      "content_hash": "1f823af9ba5a1241d71c5836af6146d4931322e83dc1aaf4feed1322833a30e6",
+      "published_at": "Fri, 30 Oct 2026 13:08:44 GMT",
+      "created_at": "2026-10-31T05:22:55.444094+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "GLOBAL",
       "source": "Global Chip & Tech Supply Wire",
-      "title": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov)",
+      "title": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov) // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
       "description": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain&nbsp;&nbsp;National Institute of Standards and Technology (.gov)",
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
       "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
       "published_at": "Thu, 22 Oct 2026 12:00:00 GMT",
-      "created_at": "2026-10-26T16:55:56.573575+00:00"
+      "created_at": "2026-10-31T05:22:55.853100+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "GLOBAL",
       "source": "Global Chip & Tech Supply Wire",
-      "title": "TSMC explores alternatives to rare earths to mitigate supply disruption risks - Global Sources",
-      "description": "TSMC explores alternatives to rare earths to mitigate supply disruption risks&nbsp;&nbsp;Global Sources",
-      "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxOVGJXVV9vZmRsWXpqbGdfRldWZWxyUUdtcXdRRm5ESDhSVFRBenhsRUpLaVUxWU5uME9BdXJ2Q3VKQnBaUHVtYjFKZ1lBR25ycEE5eVpGMFR1RjM4UmZrWUpTQndtbkFwLVhIU20tZFZoRWN0OHNweEZzZFAtR25UZXh1cmxpSWFFaHF2TTQ2YUtsYjBWSWhZX1dPRFlTcmhXNXNBMGZ4b3E5NF96c09SR0ozMkdHUmcySEgtS1JITE1wMjl6b1BiOGJOM0xhNlJ3UjVQUmZTVmFEVWFk?oc=5",
-      "content_hash": "0add583e810038071b02ca46ab03d81eccc0426791923ae5d4c0045de02156c4",
-      "published_at": "Mon, 26 Oct 2026 03:33:59 GMT",
-      "created_at": "2026-10-26T16:55:56.573626+00:00"
+      "title": "TSMC Weighs Rare-Earth-Free Motors Amid China's Export Controls, Moves to Diversify Supply Chain [Taiwan Chip News] - 아시아경제 // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "TSMC Weighs Rare-Earth-Free Motors Amid China's Export Controls, Moves to Diversify Supply Chain [Taiwan Chip News]&nbsp;&nbsp;아시아경제",
+      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBMLTRtVE1JQnRvWE1hZnVISjVMRmkwS3g2RzNBTnhIVllqS3J0TUZlMVF4MFJxVXVONHBqcE9YUGNXTzVlVWZUT2JyY21kbzN2LXM2Q0l6UzU0bURDUV9Pbml6c04?oc=5",
+      "content_hash": "77352de642f701b3ffae2b5f517e4ab0347865907984b9430dcfeacec7a777e6",
+      "published_at": "Sat, 31 Oct 2026 01:09:24 GMT",
+      "created_at": "2026-10-31T05:22:55.853134+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "GLOBAL",
       "source": "Global Chip & Tech Supply Wire",
-      "title": "U.S. Department of State Hosts Regional Workshop on Semiconductor Supply Chain Security - U.S. Embassy & Consulates in Indonesia (.gov)",
-      "description": "U.S. Department of State Hosts Regional Workshop on Semiconductor Supply Chain Security&nbsp;&nbsp;U.S. Embassy & Consulates in Indonesia (.gov)",
-      "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxNWjlhYndhNnRseWQ3eE85akJCNWV1UXRIU0RLcmtnQ3h4OEdraDluSGhxT0pWUk53N3NYZ0xJazhramdMel82OXhpcGktejZWZ3prUjBwQXJxaWVKaXZLUmRBRlZoYy1GVWZNYUhMY0FLd09rMGtLMDJXWG84aFpZQ0ExYVlRLXgtUXQ2TlNlczJsYXZqRV8xaTUxeGRrcVRmVlJJZjJXbTdwUVlmRVlDVFZB?oc=5",
-      "content_hash": "30a96068921c3a56f1ce4154fe12a23b603545e2d8dc095646d3a843cdc72fc5",
-      "published_at": "Thu, 22 Oct 2026 09:03:39 GMT",
-      "created_at": "2026-10-26T16:55:56.573659+00:00"
+      "title": "ASML Holding NV Stock (ASML) Moved Down by 4.83% on Oct 30: Facts Behind the Movement - TradingKey // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "ASML Holding NV Stock (ASML) Moved Down by 4.83% on Oct 30: Facts Behind the Movement&nbsp;&nbsp;TradingKey",
+      "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOREdReko5bjFSWkhYemFuREgzaThFTHFFMlpXYTB0WkxLMWpyMmszT2tWY0JCNVRsRWFmTWpuUE9WV2JVLXE2TWM0NTN1ZHd5S1h4YmJTelNseXZZREZXTjhQN09SZnNadnU4MVBLVk1wS0lWS1JSTDVGMjZTOXFsMl9oQU9LZElTRDlJ?oc=5",
+      "content_hash": "1d10ad6be2c0c5eb506164b4a664afe5ced6004242b77ad26b1a151269edeee9",
+      "published_at": "Fri, 30 Oct 2026 14:15:49 GMT",
+      "created_at": "2026-10-31T05:22:55.853152+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "GLOBAL",
       "source": "Global Chip & Tech Supply Wire",
-      "title": "Nvidia taps Samsung Electro-Mechanics for AI chips substrate supply chain - Korea JoongAng Daily",
-      "description": "Nvidia taps Samsung Electro-Mechanics for AI chips substrate supply chain&nbsp;&nbsp;Korea JoongAng Daily",
-      "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQNWJSWlUxTDhUWTBac3YybHlXOTBiQUlvOE1zU3JaNEJEc3JZZWZHNzdjR0xqQjd3Y0tjQjJwQ0diUDVOd0lSQXdXT1Y1Nk5TdWRNWjUzSVA3NkZkdDF2cUV4T1hPYjJ3VFdzWjFnS3NVVEFvc2ViYWx3TmZTbnZYU1VUdmFTTk1JTmhieXJzMzY2Vk53d0lkNXBDWXIzUmhXRmpSaVhUbWN4VF9oR2tONUR5OFhPSU5RRkxBY3FNdXNZM00?oc=5",
-      "content_hash": "c2cc311a42f45b54a0e0aab78d9896dce5d41f879b288eecf2f122099a0ee746",
-      "published_at": "Wed, 21 Oct 2026 23:56:26 GMT",
-      "created_at": "2026-10-26T16:55:56.573686+00:00"
+      "title": "From Hydropower to Quantum Chips: How Québec Is Building Its Next AI, Semiconductor, and Quantum Technology Ecosystem - semivision // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "From Hydropower to Quantum Chips: How Québec Is Building Its Next AI, Semiconductor, and Quantum Technology Ecosystem&nbsp;&nbsp;semivision",
+      "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBnMnJPLWZWYVIwLXdwX2hzQko1cVl2V25wX2hNdzc1dWFvcENodGFZSW5DSktZa1hZWDRXNHRheEx2QzVCZnA5aThCWEUwR0N0QVhqLUM0ODhNRGZPMk0tcDBQdmI2cE9ibS1qTG1wTEQ1SmIyekg4d0c0LWoxZw?oc=5",
+      "content_hash": "8782eb8ee6ad93e59babf8dbf754f88e027a61ef47d103279f8b642898bf2953",
+      "published_at": "Thu, 29 Oct 2026 01:44:06 GMT",
+      "created_at": "2026-10-31T05:22:55.853168+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "GLOBAL",
       "source": "Global Chip & Tech Supply Wire",
-      "title": "EXCLUSIVE: ByteDance, Alibaba, Tencent place over $35 billion worth of Nvidia chip orders - Reuters",
+      "title": "EXCLUSIVE: ByteDance, Alibaba, Tencent place over $35 billion worth of Nvidia chip orders - Reuters // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
       "description": "EXCLUSIVE: ByteDance, Alibaba, Tencent place over $35 billion worth of Nvidia chip orders&nbsp;&nbsp;Reuters",
       "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxQOXBuUld1bXhxNWlQNktuUmYxOWpVRFlnN0dialpvZlhYM1JLVzE1N0VBSUVNbUlCNmwtN2RVWXRkd1VUV3BRSV9aMGJGMkpxQUk4VWZ1dUt5YjZpdmthQVZ3REFHUzBmV3B0SFJwOFFsMl9fb3l0Y3F0Z1FXbDAxSFhTbV9peVVDQ3FKRnp3NjVDdEpRVHdIOG04SjctLWRRTzN2bDM1a2QxaGdZMHlJV0hGS1FObHFKTVNiS3hvXzZsUzdvMktteFBvSGNEZw?oc=5",
       "content_hash": "7b375f853a151d1c50c33357cecf2fed482e08b81e9ac59dd4cc673e9145f35f",
-      "published_at": "Tue, 20 Oct 2026 15:51:20 GMT",
-      "created_at": "2026-10-26T16:55:56.573711+00:00"
+      "published_at": "Tue, 20 Oct 2026 07:00:00 GMT",
+      "created_at": "2026-10-31T05:22:55.853182+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "GLOBAL",
       "source": "Global Chip & Tech Supply Wire",
-      "title": "NVIDIA’s Next Supply Chain Supercycle: 2.5x Substrate Capacity, 15x Optical Engines, and the Race to Build AI Factories - semivision",
-      "description": "NVIDIA’s Next Supply Chain Supercycle: 2.5x Substrate Capacity, 15x Optical Engines, and the Race to Build AI Factories&nbsp;&nbsp;semivision",
-      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQSjJhY25SeHY4ejBMZVprek8ySEJsdUtfVnNTcnFrVVMyZWNtaG85MTJxN291Y3d1TTRvVzJ4cEJYeFhEMXAwV1dyYjZ2VUkzMEd2ZjMwd0dOZHJQSmtzUHFxM0V3UWRqR1FlU1BDaDMyM0I3OWlUUy1RWXB5V3dvaTVFNA?oc=5",
-      "content_hash": "36d7a7d0be3c8f8b516559f29893490a07276defc83e901295a85fb8faf6bfde",
-      "published_at": "Fri, 23 Oct 2026 02:18:20 GMT",
-      "created_at": "2026-10-26T16:55:56.573743+00:00"
+      "title": "Africa's global semiconductor supply chain opportunities - World Economic Forum // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Africa's global semiconductor supply chain opportunities&nbsp;&nbsp;World Economic Forum",
+      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOSXNlRkJqRTk5UkZFUGJubUpoc3ZoZVJCMWNKemdnMFliMGprMjM2VHlGeWJJelgwWFFSX0l4SW4zbjdOU3RHT1FFYU5PdjczbkNEMXJYa2VmWEgzaXVkd01WYVB3aFdFR1BZU3dCTUg3ZnV3MTVkZ0pETEwwdjRXaUFJTHdUaHpUUkxYQ3piejlqOE5WYVhVd0pBcG90eDAzN2xERGxtZzZkN1o3cmRRNFpERTVIZkV0MmFN?oc=5",
+      "content_hash": "60837ae2254517a6577a7de6ea491819ed234fe1eb803305ae7a0124294ffb70",
+      "published_at": "Mon, 10 Aug 2026 07:00:00 GMT",
+      "created_at": "2026-10-31T05:22:55.853196+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "BBC Sport",
-      "title": "Howe and Nagelsmann high on Man Utd's list if Carrick sacked",
-      "description": "BBC Sport takes a look at who could replace Michael Carrick at Manchester United if the head coach was sacked.",
-      "link": "https://www.bbc.co.uk/sport/football/articles/cqdr8zv5dg42o?at_medium=RSS&at_campaign=rss",
-      "content_hash": "ca0d8b66c5edd2449bba9fde92125fe483937b8ccb8b762a874638661bd21b32",
-      "published_at": "Mon, 26 Oct 2026 15:34:23 GMT",
-      "created_at": "2026-10-26T16:55:57.374974+00:00"
+      "title": "What Howe could bring to Man Utd - and what are the challenges? // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Eddie Howe is being linked with the Manchester United job, but what are some of the considerations for him and the club?",
+      "link": "https://www.bbc.co.uk/sport/football/articles/cr74pd99vwq3o?at_medium=RSS&at_campaign=rss",
+      "content_hash": "1f6490f18c1ee5e912e3d519b7b350119b7187d698a8569723a4451731f850f2",
+      "published_at": "Fri, 30 Oct 2026 16:27:13 GMT",
+      "created_at": "2026-10-31T05:22:56.106605+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "BBC Sport",
-      "title": "England-Republic of Ireland U15 World Cup game ends over alleged racism",
-      "description": "The Under-15 World Cup Group C match between England and Republic of Ireland is abandoned after England allege an opposition player made a racist comment.",
-      "link": "https://www.bbc.co.uk/sport/football/articles/cmn8wzldd7q0o?at_medium=RSS&at_campaign=rss",
-      "content_hash": "a28fec899719b087b379fd7fb85ed5d1d8c407dbd0dca0c6be115e1ac83e2837",
-      "published_at": "Mon, 26 Oct 2026 16:39:16 GMT",
-      "created_at": "2026-10-26T16:55:57.374999+00:00"
+      "title": "Villa to sue Carragher over 'unacceptable insults' // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Aston Villa say they will initiate legal action against Jamie Carragher over what the club branded as \"unacceptable insults\".",
+      "link": "https://www.bbc.co.uk/sport/football/articles/cqd09p3kppyvo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "fc219da13884e735da21d1cf1ac5b08071971f0f569db0845cac9df64226e053",
+      "published_at": "Fri, 30 Oct 2026 23:05:45 GMT",
+      "created_at": "2026-10-31T05:22:56.106640+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "BBC Sport",
-      "title": "'Cutting doubles would destroy careers' - angry players urge ATP rethink",
-      "description": "More than 150 doubles players - including Wimbledon champions and tennis legends - urge the ATP to rethink \"drastic\" cuts which they believe could kill the format.",
-      "link": "https://www.bbc.co.uk/sport/tennis/articles/cr78pxd66d47o?at_medium=RSS&at_campaign=rss",
-      "content_hash": "f96a1bfae15551f326c93dccf68b4c36d9e5626789c3c8f2608946977822789d",
-      "published_at": "Mon, 26 Oct 2026 16:07:20 GMT",
-      "created_at": "2026-10-26T16:55:57.375011+00:00"
+      "title": "Sherrock upsets Littler to claim £501,000 prize // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Fallon Sherrock defeats reigning world champion Luke Littler in one leg of darts to win £501,000.",
+      "link": "https://www.bbc.co.uk/sport/darts/articles/crkg7p1z3p3lo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "385cbac0783b025eba4a4c66c78b3f20e0a3e66309248d8977d31fa07865836f",
+      "published_at": "Fri, 30 Oct 2026 23:38:06 GMT",
+      "created_at": "2026-10-31T05:22:56.106662+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "BBC Sport",
-      "title": "Why is Wilcox in line of fire from Man Utd fans?",
-      "description": "With Michael Carrick's position as Man Utd boss under scrutiny, focus has also turned to director of football Jason Wilcox.",
-      "link": "https://www.bbc.co.uk/sport/football/articles/ck5yn5j37en0o?at_medium=RSS&at_campaign=rss",
-      "content_hash": "02c57d593aedbac0db58858c18d7bdeefc57a03ab63ded095bcff0bbee12f8c6",
-      "published_at": "Mon, 26 Oct 2026 15:24:12 GMT",
-      "created_at": "2026-10-26T16:55:57.375025+00:00"
+      "title": "England see off USA to return to winning ways // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "England's Red Roses return to winning ways, but without entirely vanquishing doubts over their position at the top of the women's game, as they see off the United States.",
+      "link": "https://www.bbc.co.uk/sport/rugby-union/articles/cq98zrj5dj6ro?at_medium=RSS&at_campaign=rss",
+      "content_hash": "a07cbcdad3fe81262bc2a9df8257556f24612ef64afa59dc100457e483dc33b5",
+      "published_at": "Fri, 30 Oct 2026 23:15:38 GMT",
+      "created_at": "2026-10-31T05:22:56.106684+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "BBC Sport",
-      "title": "Racecourse fined after jockey taken to A&E in horsebox",
-      "description": "Sedgefield Racecourse is fined £6,500 after failing to comply with five 'general instructions' of safety.",
-      "link": "https://www.bbc.co.uk/sport/horse-racing/articles/c6lykg4l72xlo?at_medium=RSS&at_campaign=rss",
-      "content_hash": "c6a80e338b5ba46e5368cbf62b8d25f301264c44217e626ddcea714d87f0a9f1",
-      "published_at": "Mon, 26 Oct 2026 13:50:26 GMT",
-      "created_at": "2026-10-26T16:55:57.375035+00:00"
+      "title": "Verstappen and Lawson given grid penalties for Mexico practice collision // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Max Verstappen accuses Liam Lawson of \"not very smart behaviour\" after the two collided in Friday practice at the Mexico City Grand Prix.",
+      "link": "https://www.bbc.co.uk/sport/formula1/articles/cqde8p6j9ye7o?at_medium=RSS&at_campaign=rss",
+      "content_hash": "e0db6d0f2bc17e998a2b7c400e9a27f3da17102bc5a89b5b2960d27a173d8161",
+      "published_at": "Sat, 31 Oct 2026 03:18:06 GMT",
+      "created_at": "2026-10-31T05:22:56.106702+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "BBC Sport",
-      "title": "Who should win the men's Ballon d'Or? BBC Sport pundits have their say",
-      "description": "The Ballon d'Or winner will be announced in London on Monday - but who is going to claim the showpiece award?",
-      "link": "https://www.bbc.co.uk/sport/football/articles/cqjdmn0ndxjxo?at_medium=RSS&at_campaign=rss",
-      "content_hash": "b1bebca7b6496978db805a37d2fa9e10bbdca6d9c533e78d70c817af52dbab36",
-      "published_at": "Mon, 26 Oct 2026 06:19:12 GMT",
-      "created_at": "2026-10-26T16:55:57.375046+00:00"
+      "title": "South Africa-Australia set for classic finale – what does history suggest could happen? // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "South Africa set up an epic final day of their decisive Test against Australia by batting throughout the fourth day. What does history suggest could happen?",
+      "link": "https://www.bbc.co.uk/sport/cricket/articles/c6n8dpvyyy71o?at_medium=RSS&at_campaign=rss",
+      "content_hash": "934053d29fea981dc4580700b51915569fdbfe87a422aa791e69753aa903f7ec",
+      "published_at": "Fri, 30 Oct 2026 17:03:40 GMT",
+      "created_at": "2026-10-31T05:22:56.106723+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "ESPN Headlines",
-      "title": "Texas' defense? The Big Ten? The SEC?? What we can trust in CFB after Week 8",
-      "description": "After another round of unexpected results, Bill Connelly tries to makes sense of what we just saw.",
-      "link": "https://www.espn.com/college-football/story/_/id/50278475/connelly-college-football-week-8-texas",
-      "content_hash": "7099b0822118ea1f60527c65c37d1d051c962690a3881137059fc87d77ed0455",
-      "published_at": "Mon, 26 Oct 2026 12:36:46 EST",
-      "created_at": "2026-10-26T16:55:57.730649+00:00"
+      "title": "LeBron too much for Knicks late in what Nurse calls 'his best game' as 76er // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "LeBron James rescued Philly late Friday night in what coach Nick Nurse called his best game as a Sixer.",
+      "link": "https://www.espn.com/nba/story/_/id/50333418/lebron-james-shines-vs-knicks-best-game-76ers",
+      "content_hash": "95a234afba3cbcf7f46ef26e40e3921521c04cec300bf28d6f89d84fda8f0315",
+      "published_at": "Sat, 31 Oct 2026 01:07:00 EST",
+      "created_at": "2026-10-31T05:22:56.451024+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "ESPN Headlines",
-      "title": "Power Rankings: How did an action-packed Week 8 change the top 25?",
-      "description": "With another week of upsets comes another makeover of our list of college football's best teams.",
-      "link": "https://www.espn.com/college-football/story/_/id/50272138/2026-college-football-power-rankings-top-25-week-8",
-      "content_hash": "70253c4933aee24057fefa59b19ba519620b9cd6f2fd778fee762516b684ff4a",
-      "published_at": "Mon, 26 Oct 2026 12:36:47 EST",
-      "created_at": "2026-10-26T16:55:57.730686+00:00"
+      "title": "More Thunder woes: Holmgren out 8-10 weeks after knee procedure // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Chet Holmgren will be out eight to 10 weeks because of a knee injury, the latest setback for an OKC team that lost Jalen Williams and Cason Wallace for an extended time early this week.",
+      "link": "https://www.espn.com/nba/story/_/id/50332283/thunder-say-chet-holmgren-8-10-weeks-due-knee",
+      "content_hash": "53cc339e71d6f74fb029463216c2a72460b4f79c133a8439dafb99b36849fa05",
+      "published_at": "Sat, 31 Oct 2026 01:07:00 EST",
+      "created_at": "2026-10-31T05:22:56.451046+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "ESPN Headlines",
-      "title": "Thunder star Williams stretchered off after suffering significant leg injury",
-      "description": "There was no immediate diagnosis from the Thunder on Jalen Williams' injury, with coach Mark Daigneault saying the team would be briefed Monday morning.",
-      "link": "https://www.espn.com/nba/story/_/id/50283862/thunder-g-jalen-williams-taken-significant-injury",
-      "content_hash": "c1d3be5fe8144aa692f565679cae72ac3e9faee8cd91a4b40db6f9fec99dca1f",
-      "published_at": "Mon, 26 Oct 2026 12:22:58 EST",
-      "created_at": "2026-10-26T16:55:57.730715+00:00"
+      "title": "Sources: Walter, Kushner finalize terms of Lakers sale at $12.5B valuation // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Lakers owner Mark Walter and Thrive Capital founder Josh Kushner met Thursday to finalize the transaction and are expected to sign the formal agreement soon, sources told ESPN.",
+      "link": "https://www.espn.com/nba/story/_/id/50331319/sources-mark-walter-josh-kushner-finalize-lakers-sale",
+      "content_hash": "7b5b656e9f9eef985ddfcbafdde37868f8711a32237fd4d7a9658510084c5380",
+      "published_at": "Sat, 31 Oct 2026 01:07:00 EST",
+      "created_at": "2026-10-31T05:22:56.451055+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "ESPN Headlines",
-      "title": "Rodgers touts full week of international games, jabs at 'tight' NFL owners",
-      "description": "Aaron Rodgers advocated for the NFL to schedule a full week of international games and also jabbed at owners, hinting that they pay lip service to player safety.",
-      "link": "https://www.espn.com/nfl/story/_/id/50287522/aaron-rodgers-suggests-full-week-nfl-international-games",
-      "content_hash": "5e352a966801bf3e656e523ebc30c0ab4f4c7c45298198d5e931c8d66c9867bf",
-      "published_at": "Mon, 26 Oct 2026 12:22:58 EST",
-      "created_at": "2026-10-26T16:55:57.730732+00:00"
+      "title": "Sources: Kucherov requests trade; Lightning have 'no intention' of dealing him // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Tampa Bay Lightning forward Nikita Kucherov, in the final year of his contract, has requested a trade, sources told ESPN Friday, but general manager Julien BriseBois said in a statement that the team has \"no intention of trading\" the star.",
+      "link": "https://www.espn.com/nhl/story/_/id/50331644/nikita-kucherov-33-requests-trade-lightning",
+      "content_hash": "497776a1ed1f201217af2113a77f87e719dcfbe16101ca2c68862ccd266ed8e1",
+      "published_at": "Sat, 31 Oct 2026 01:07:00 EST",
+      "created_at": "2026-10-31T05:22:56.451064+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "ESPN Headlines",
-      "title": "Glenn: Wilson outburst overblown, but 'it's going to get noisy' for Jets",
-      "description": "Commenting for the first time on Garrett Wilson's sideline outburst during Sunday's loss to Miami, Jets coach Aaron Glenn said it was \"overblown\" by the media.",
-      "link": "https://www.espn.com/nfl/story/_/id/50287902/aaron-glenn-says-talked-garrett-wilson-outburst",
-      "content_hash": "ca6817ec321bd5822858c0397e534594b3a23a2d68583cde73c69df23000e214",
-      "published_at": "Mon, 26 Oct 2026 12:22:58 EST",
-      "created_at": "2026-10-26T16:55:57.730748+00:00"
+      "title": "Morant, hurt against Grizzlies, to miss at least four weeks // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Trail Blazers guard Ja Morant sustained a left hamstring strain in his first game against the Grizzlies, his former team, and will be out for at least four weeks.",
+      "link": "https://www.espn.com/nba/story/_/id/50329588/ja-morant-least-four-weeks-injury-vs-grizzlies",
+      "content_hash": "f28e5faae6c14ed6b1591ef208573431e60c8fa979f74af57130c1ee1de74842",
+      "published_at": "Sat, 31 Oct 2026 01:07:00 EST",
+      "created_at": "2026-10-31T05:22:56.451073+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     },
     {
       "scope": "SPORTS",
       "source": "ESPN Headlines",
-      "title": "Chiefs' Walker held to season-low 36 rushing yards in return to Seattle",
-      "description": "Chiefs running back Kenneth Walker III had his worst game of the season in his return to Seattle on Sunday night.",
-      "link": "https://www.espn.com/nfl/story/_/id/50285364/seahawks-limit-chiefs-rb-kenneth-walker-iii-seattle-return",
-      "content_hash": "87679bba7641d7153048fd35c69ad198f320f2db4023c2f159858dc04d2bd1bf",
-      "published_at": "Mon, 26 Oct 2026 12:22:58 EST",
-      "created_at": "2026-10-26T16:55:57.730764+00:00"
+      "title": "Oregon freshman WR Hampton arrested in connection with high-speed chase // [TACTICAL INTEL]: For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. A",
+      "description": "Oregon freshman WR Messiah Hampton is facing charges of attempting to elude police and reckless driving in connection with an Oct. 18 high-speed chase.",
+      "link": "https://www.espn.com/college-football/story/_/id/50333238/oregon-hampton-arrested-connection-high-speed-chase",
+      "content_hash": "fa71a5967a8f24d51af35ab14b4a201d1575a379147f5fd93c5a353597a7a0bc",
+      "published_at": "Sat, 31 Oct 2026 01:07:00 EST",
+      "created_at": "2026-10-31T05:22:56.451081+00:00",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics"
     }
   ],
   "conflicts": [
@@ -664,301 +749,301 @@
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Funding, force-structure issues could hinder Hegseth’s new autonomous command",
+      "headline": "Six military freezers went bad in August. Was it a cyber attack?",
       "source": "Defense One",
-      "link": "https://www.defenseone.com/threats/2026/10/funding-hegseth-autonomous-command/416800/",
-      "content_hash": "33c6a6145f216294b9a9ff9753364acfc3446c32dc2624d964449b29c31ba6fd",
-      "created_at": "2026-10-26T16:56:41.659533+00:00"
+      "link": "https://www.defenseone.com/threats/2026/10/pentagon-investigates-suspected-cyberattack-behind-military-freezer-failures/416929/",
+      "content_hash": "16dc337331cf4ecfe38967101fe1d6f0962a798eb72bb7f5d22f1bb5396129b2",
+      "created_at": "2026-10-31T05:23:02.756037+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Are yearlong deployments the Navy’s new normal?",
+      "headline": "Army pilots are trying virtual reality to stay more alert in flight",
       "source": "Defense One",
-      "link": "https://www.defenseone.com/policy/2026/10/yearlong-deployments-navy-new-normal/416777/",
-      "content_hash": "610c3a52927bf062077806db21e18ce1fdd76ebf904569a419aad89100f88c15",
-      "created_at": "2026-10-26T16:56:41.659588+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "GLOBAL",
-      "severity": "ELEVATED",
-      "headline": "Defense Business Brief: A little bit of MOSA; Netherlands-U.S. industry days, and more",
-      "source": "Defense One",
-      "link": "https://www.defenseone.com/business/2026/10/defense-business-brief-little-bit-mosa-netherlands-us-industry-days-and-more/416776/",
-      "content_hash": "fb4304ececba017600c025bd3957cfbe8dce00208f32965d802a46007e4d59d9",
-      "created_at": "2026-10-26T16:56:41.659620+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "GLOBAL",
-      "severity": "ELEVATED",
-      "headline": "Qatar looks to bolster its military power with new hub, partnerships",
-      "source": "Defense One",
-      "link": "https://www.defenseone.com/policy/2026/10/qatar-looks-bolster-its-military-power-new-hub-partnerships/416775/",
-      "content_hash": "eb19c90489c72b6fe7011db005a03cd31a2b5d7daa330cf9413d670971d3cdd6",
-      "created_at": "2026-10-26T16:56:41.659647+00:00"
+      "link": "https://www.defenseone.com/technology/2026/10/army-pilots-are-trying-virtual-reality-stay-more-alert-flight/416915/",
+      "content_hash": "4e980deb03404c8efb9d8f71965f4b48704db9a2bbd2f0c8a831fdffb642144c",
+      "created_at": "2026-10-31T05:23:02.756059+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "CRITICAL",
-      "headline": "Critical flaws in ubiquitous website software draw urgent warning from NSA, FBI",
+      "headline": "Can inertial navigation make ground-robot swarms real?",
       "source": "Defense One",
-      "link": "https://www.defenseone.com/threats/2026/10/critical-flaws-php-warning/416727/",
-      "content_hash": "bc21d51f0d81b321157b6da39ef357b19d0730d0e48d8474ccc265958b874681",
-      "created_at": "2026-10-26T16:56:41.659669+00:00"
+      "link": "https://www.defenseone.com/defense-systems/2026/10/inertial-navigation-ground-robot-swarms/416914/",
+      "content_hash": "24de40862b6812ce09ef91428601d4f92f35dcafd27712e06038fa2d1710e59b",
+      "created_at": "2026-10-31T05:23:02.756068+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Lessons for Pentagon Procurement from the Special Operations Enterprise",
-      "source": "War on the Rocks",
-      "link": "https://warontherocks.com/cogs-of-war/lessons-for-pentagon-procurement-from-the-special-operations-enterprise/",
-      "content_hash": "9b2bf399c0c7dc35dee4c06179ab6c555aad03b1bea579c5b229ae7695d59dba",
-      "created_at": "2026-10-26T16:56:43.180962+00:00"
+      "headline": "Defense Business Brief: Tech at the edge; PACFLEET talks cyber; and more",
+      "source": "Defense One",
+      "link": "https://www.defenseone.com/business/2026/10/defense-business-brief-tech-edge-pacfleet-talks-cyber-and-more/416906/",
+      "content_hash": "f5f78a328bc99219ce321918a0fa4635be9be84f28d4a575d9966a9234080e7d",
+      "created_at": "2026-10-31T05:23:02.756078+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "The Importance of the Battle of Bailén",
-      "source": "War on the Rocks",
-      "link": "https://warontherocks.com/the-importance-of-the-battle-of-bailen/",
-      "content_hash": "485ee9be955708427843da4eeff3092baacc94974b84be8f41edb5f2a0a1c82c",
-      "created_at": "2026-10-26T16:56:43.181005+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "GLOBAL",
-      "severity": "CRITICAL",
-      "headline": "Deception in Mass Autonomous Warfare",
-      "source": "War on the Rocks",
-      "link": "https://warontherocks.com/deception-in-mass-autonomous-warfare/",
-      "content_hash": "baf14b66b6cf2ecf1ac2a423d3ea95ae5e417260b88dbab010bee7641c0fc7a1",
-      "created_at": "2026-10-26T16:56:43.181025+00:00"
+      "headline": "The US space industry will suffer for Ukraine’s Starlink outage, experts say",
+      "source": "Defense One",
+      "link": "https://www.defenseone.com/business/2026/10/us-space-industry-ukraine-starlink/416890/",
+      "content_hash": "3baf38e2922fe11e9808526533bacbe7547afbe4a741833311aee177dbd04bcb",
+      "created_at": "2026-10-31T05:23:02.756091+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Brothers in Arms, Partners in Healing: A Story about a Breakthrough in Treating Post-Traumatic Stress",
+      "headline": "What Israel’s Election Results Mean for the Middle East and Beyond",
       "source": "War on the Rocks",
-      "link": "https://warontherocks.com/brothers-in-arms-partners-in-healing-a-story-about-a-breakthrough-in-treating-post-traumatic-stress/",
-      "content_hash": "4b9e726bbf768905cd5665906bbd2c2ad0f86acbcd565b4133fdcadf5ecbc7cb",
-      "created_at": "2026-10-26T16:56:43.181046+00:00"
+      "link": "https://warontherocks.com/what-israels-election-results-mean-for-the-middle-east-and-beyond/",
+      "content_hash": "2f7aab792f509c1954fbfdeeb70d27ba037daf0cd54a8b10b2f86c8dbbc0a24a",
+      "created_at": "2026-10-31T05:23:04.371428+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
-      "severity": "CRITICAL",
-      "headline": "The Endless Chip War",
+      "severity": "ELEVATED",
+      "headline": "What’s a Revolution in Military Affairs Good For?",
       "source": "War on the Rocks",
-      "link": "https://warontherocks.com/cogs-of-war/the-endless-chip-war/",
-      "content_hash": "28c3ebec50f05d3361fc7460a3618d0797e594cdc9e9ed55af6c9d7715fa917b",
-      "created_at": "2026-10-26T16:56:43.181061+00:00"
+      "link": "https://warontherocks.com/whats-a-revolution-in-military-affairs-good-for/",
+      "content_hash": "f067f55b28f29d02b7a25f04408c12a3692f179ef22fed97ddd4e18586ff8232",
+      "created_at": "2026-10-31T05:23:04.371473+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "GLOBAL",
+      "severity": "ELEVATED",
+      "headline": "A Tale of Two Markets: A Dickensian Take on the Coming Years in Defense Tech",
+      "source": "War on the Rocks",
+      "link": "https://warontherocks.com/cogs-of-war/a-tale-of-two-markets-a-dickensian-take-on-the-coming-years-in-defense-tech/",
+      "content_hash": "465a17b7380c88971a3fd8c7b0c5f23b928e2114e6733c57f2b29624e5abaab1",
+      "created_at": "2026-10-31T05:23:04.371500+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "GLOBAL",
+      "severity": "ELEVATED",
+      "headline": "Sitting Ducks or Strategic Shields: What Does the Small Reactor Promise Mean for Future Conflicts?",
+      "source": "War on the Rocks",
+      "link": "https://warontherocks.com/sitting-ducks-or-strategic-shields-what-does-the-small-reactor-promise-mean-for-future-conflicts/",
+      "content_hash": "9d76003d07ebfdc7e0de2c4b41d98fa330ae026f94ffe2927410369b1980b84b",
+      "created_at": "2026-10-31T05:23:04.371525+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "GLOBAL",
+      "severity": "ELEVATED",
+      "headline": "Jihadism’s Global Struggle, and Where It’s Gaining",
+      "source": "War on the Rocks",
+      "link": "https://warontherocks.com/jihadisms-global-struggle-and-where-its-gaining/",
+      "content_hash": "73ab1920557caece77652c936c7c449bf389fe2a26ca8c68d549c3a49b665a64",
+      "created_at": "2026-10-31T05:23:04.371554+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
       "severity": "CRITICAL",
-      "headline": "Flurry of Diplomacy in Iran Amid Reports of U.S. and Israeli Plans to Renew War - The New York Times",
+      "headline": "Trump says Iran war will end ‘soon’ - The Hill",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxPd05yanVUalZUaF96N3JPYjQtOHdSX0g5SXhxZ08xV1NYRk1yN2lwTndDMXZXR1NUcXFmdmVsenlIbWRMalBfXzFtSk5tVl9hdjgxQlhDU2V5VzJPTWlEek04c3lnMkt0bVFXZ0Q2a0praUUyV3BtbTlhaVBoMFRielVkV1pTYnlPMGVod1ZHMi0?oc=5",
-      "content_hash": "d912ee2c418dd60990006fff6f7929bf6b7c0c23aa43ee37ea58126e13dc6452",
-      "created_at": "2026-10-26T16:56:44.399862+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "RED-SEA-MIDEAST",
-      "severity": "CRITICAL",
-      "headline": "Iran hosts Saudi Arabia and regional powers as fears grow of return to war - CNN",
-      "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxONEl1bFlhVTIxQXNkLVoyQk5FQ3VFbmNacnNrWTUxeXRLWkU1X2RQakd4ckI2eGNIeFNSZUZuQlVtQU12UkZ6anVLZVhRRGQxWnNVRjE4cGN1bkhDWmlMMTRFMmh3cWluc1dnOXdsZmhjRXJxbXVPQmpkbGVpN3VVeg?oc=5",
-      "content_hash": "8c0475326cb7e0f5d2f4a6b569c791db1f90195c397716ac713aa4f5f880756c",
-      "created_at": "2026-10-26T16:56:44.399906+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "RED-SEA-MIDEAST",
-      "severity": "CRITICAL",
-      "headline": "Hezbollah readies for new regional war with funds from Iran, sources say - Reuters",
-      "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQajh2NzdqZUljUEFSTWFPOV9odmZYWE5sRkVLbUhzRndmN0dxSGRwM09CbVpZRjBXZTJrckJHRFV6RzBUTThlQ3pHQ0hWNWZuaFhCc2wwWGRwSDVmb2d1ME9UMmt0ZUVkTlA0WnpjY1o0R2Z2RzhvQXl3MHNHdEQ3YXdsMi0zTHFFTlBJekI1bnY4M3VRUFhzUnMzcGdVeHBPTm90MDFabFpnalo0RThZdENtMEVHSFU?oc=5",
-      "content_hash": "0faad483a63a4509a06d0901e4c71e323d20d41e1280e295ec99f8222dd3ad04",
-      "created_at": "2026-10-26T16:56:44.399927+00:00"
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNSjB3T0NqSGozLWlBa3N3alJrOVhCS0ZNYTd4X2Q3VGEwN0hhSF83c3lfUktYVjZlUVNLREtzSzRfa09CMktQTjVPR2NaaUFTa1RPUG10blIyaHBmOEZqU0o4MTZJc0pUWFdLNVc3akhmWnpYdEFwejNuY2ZIRXVGN2V5MXpkbFROTk9semlKelJoQUxDSjVFVNIBngFBVV95cUxOYmRBblFSS09odGE1bmJ5eUdSMzBMdTFLMDlKZ1lEWWRiWURGejF0YzhBUC1ZaFlrVUU2RVduUEoycDdmRTJpX2FGZWk1SGFpREFwWjJ1ckd0WFlOQ1lrMXU5WThzekVRYUZSSEptazdYdFFQeVpfdll4cC01ek0zNmJOMnJmclMteVZaSmVWLUgwN3RrQzBBUkV6WUh1Zw?oc=5",
+      "content_hash": "3051d7fa88f6af317794ca8fe7b30365da537d8aa1826dbe1ebff1b7c75669dc",
+      "created_at": "2026-10-31T05:23:05.086259+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
       "severity": "ELEVATED",
-      "headline": "Delegations meet in Iran with Middle East on edge over potential for renewed fighting - NBC News",
+      "headline": "Tankers defy sharp escalation of Iranian attacks to keep crude oil flowing through Strait of Hormuz - CNBC",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPZ0xKRTVxNm9iY0h0VVRiaHpsa2I2R0FhSTNyakRBMGwzU1BCLWxXSTJlalEtbmhmSGtIR3NRalZ5d1NGck9laXdKcHZoTXoyWTliZkZrZ3dzUmdGXzllVU9zWGxpRzJIc21zUXcwV0s3a0ZZSGxiQ1UzdUtQVGc3NVd1b0pHZy1IU0ktaWl5SUpocXJlTXVnUnRrN3N4U1R2N1J0STVScmROMlFuTFczeDZYNG43MHRFaFE?oc=5",
-      "content_hash": "2942718a3036d09d3705332c9a019b41a5f2891c1aef7515444fc6c4efd4a7f3",
-      "created_at": "2026-10-26T16:56:44.399954+00:00"
+      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxOTjZlVnBjQWc3TU0zdGE1QmhZOVdvZzhYSzZyci1hZE1scFJyY3hnaGUzSlpIZG1CcG5JVXhLQWxWaDRVS05UTUNYRkxSVEhGSW11SmhlMHBmM3FyZHhPWkJkeDJqS0ZDS2VsWWpRa3p6RFkyUTl5a0ZJYk90d1FvcVFsRdIBiAFBVV95cUxPV0ZFNlB2SnBqR1NCRWVlRTRmWkR0Z2ZyRmR6cUpPMjRtREFsb2RkRnBaTnRWVkVBRDM5QUJJa0lybXpRUzZQVFBnS3htaXdiTko3SzZJLUlUWDZacEpiSEJpdXlrVENkcjd5YVJZMTMwY05jR3BIbjROS00xMjVHQnh6Vmp4T0xG?oc=5",
+      "content_hash": "8f5bf3afca63c8abf813d72040f1fcef2d1fc749b4d52921b2a1083f6822424d",
+      "created_at": "2026-10-31T05:23:05.086286+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
-      "severity": "ELEVATED",
-      "headline": "Delegations meet in Iran with Mideast region on edge over potential for renewed fighting - AP News",
+      "severity": "CRITICAL",
+      "headline": "Trump’s Iran War Strategy: Out of the Frying Pan, Into the Fire - Slate",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPMWJncVBjVnZqc1hWNmxhZFFWZUZkS1hXLXcyOXJSeFphV0lJR3dGX3loYTVKVmdFMzFuN1ZNYktiRFAyWW1mdkhBcE9UaE01V1NveFJ2SUlzU1h5YW5sN084S19oeXBaRWRRZVdCWnlWR2kzN3F2ZVUwMmUtMlh1STBSUXZDdVc3clRBb3VESi1FNWM?oc=5",
-      "content_hash": "87c8676ec22d75b77ea11766221e3e65ea9f1b250b43dca172ac045c0f09bf03",
-      "created_at": "2026-10-26T16:56:44.399979+00:00"
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxQVWk5eVVLd3F0MF9xWTY5bEdXbG94a0NDWENuX2ZzaUtMTUwtMXFXZG9WNkZRM1A3UHZhQWI0cDhtcGZwajdYNVFwaExFMlphb0dmVFUxOXZXQXd2WE1sSnNfX01yQkFxSmtmWjlFMkRUaDRVSjQxSlJ2UE85QU51VEVDcVRPWGk5Y01lV2tkWWV6NUsxeWl3?oc=5",
+      "content_hash": "a9d9dc74af5b70a068f9386ae0978fad4bbd4e8c516358d715ab491845a0ba37",
+      "created_at": "2026-10-31T05:23:05.086299+00:00"
     },
     {
       "domain": "WAR-KINETIC",
-      "theater": "EAST-AFRICA",
-      "severity": "ELEVATED",
-      "headline": "Kenyan lawmakers urge Ruto to intervene as Ethiopia border crisis deepens - Anadolu Ajansı",
-      "source": "Horn of Africa & Regional Security",
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPQXZNQUVUQW14UllfRy1xSzBfRkdET3NWTVdWZ001ZDNVVU5iNTNYTENzTEE4Tl9UcUkyakxFdk0xblR1NFhRVkc3am9kWHRnVndzU2xGVzhRT2tBYkR2UTh4ZGEwSVh6aGxQSndEbTZvaVlPSHk3MFBfMENyQ1REU3NxLW8ycEM0VDJ5ZnU1ckl5dWwweVA3ek5abEt5eHBmVFZ4OUZfVEw3UVFKRGNFNG1RNA?oc=5",
-      "content_hash": "1fb5eeef47f2d96c57884738d0c436f8ac372483e90245c20c7ec6a5e38db51b",
-      "created_at": "2026-10-26T16:56:45.137145+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EAST-AFRICA",
+      "theater": "RED-SEA-MIDEAST",
       "severity": "CRITICAL",
-      "headline": "Fighting in Ethiopia border town kills nine, thousands flee to Kenya - Reuters",
+      "headline": "U.S. Oil Industry Earned Over $130 Billion in Profit During Iran War - The New York Times",
+      "source": "Middle East & Red Sea Corridor",
+      "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxOcFNiUjUzdFh6a1pRNzRJazBScGR1cVkxRDRqMnYwUFRleGRlWTZZYWdTRGRsVkZ6Y1NldWRNeHV5REJLc3VvR0h3UlRUcVY2Rl9jS3VxTXgxcnZ2Zjcta0tqSUtLRERVZ25xZ3pTN2V0Y0JDZDdOZVNDazBubGQtR2gwbDMwZ0QxeEYteGdXbEY1WlhubnFiWXZXQThWUFhXdkRxVQ?oc=5",
+      "content_hash": "d98a152749d11b4f956e7593301f9fcdca4d85a67755c125b3d49d96c62e9d4c",
+      "created_at": "2026-10-31T05:23:05.086309+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "RED-SEA-MIDEAST",
+      "severity": "CRITICAL",
+      "headline": "Middle East latest: Qatari mediators return to Tehran with latest proposal to end war - The National",
+      "source": "Middle East & Red Sea Corridor",
+      "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPWnZLTm9HNUpSbUNocng0VDBfQkRsbjFKajRDRTJSLUJrLXpCYktWaE94MWc1TzVJQlY1OEpaTDRRa2tLWlI4bTAyV1dZeDgtaE5maDQyVnYwN2lxZ29UYUdUXzZrejZJY0lqczlsZGRjUC0wTGtwQWotR3A3eHMwaG1ydFdGMkhO?oc=5",
+      "content_hash": "be5ed58ee6ac8737bbbfad589dbb29d1ccde779e5fcdee3924de7ab8d947a63a",
+      "created_at": "2026-10-31T05:23:05.086319+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EAST-AFRICA",
+      "severity": "HIGH",
+      "headline": "No solution in sight to 30-year conflict as Moyale clashes displace more residents - The EastAfrican",
       "source": "Horn of Africa & Regional Security",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPV3lRSFA5ZHhuRE1lZWN3VzFCcDJaUVhnbngtMDZFc0dQejI4TXY5b1ZKNUo3cjJnUlBLVTRRUVI3aWlISl9QV3ZtV1VCdGNUVVVnNk1jTUg5eXlXeVZTUG5OdmFhMGpKdFhoalUwTnBhQUh3ZlZwdVJNc1U5SEpieHhwTEZJczZYTVBnNzJ6N1RFSk9UM0J5QjFnd24xdmtDUGFiYTlkV1Z1bWozUDFyZDh3TTNYZGhlN0doUHRrZw?oc=5",
-      "content_hash": "007de7f7d6b450e86ebda29224754e52bdb1f2bce1b8893d8fdb47c46411ea97",
-      "created_at": "2026-10-26T16:56:45.137173+00:00"
+      "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQazk0VUUtdzY4Vl9jNG1RbzNwdk1WWVo1NmxyV1pFTzExdWJhUHF4am1wR0ZBNEFuUUJ0OFp4MU5jbGFoX29naHRnUHY1TGhlcjZ1UlNjR1I4a2tTTVVzc1l5VFk0QzZ3LXphb05OZ1pQbEp1NzdVN1BSVnZZcWp4allLemxIYWpoSFpmQllJTWttaGY0Q3hKSVl6TnNDSjVxVFI2WjRWb2lJVUlvVXRhSQ?oc=5",
+      "content_hash": "caf65aa4eed733168ff7f852a926cd629551303f3a532c26e1bdb4ff170e035c",
+      "created_at": "2026-10-31T05:23:05.730337+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "EAST-AFRICA",
       "severity": "ELEVATED",
-      "headline": "Marsabit leaders decry humanitarian crisis, insecurity after Ethiopia conflict - The Star, Kenya",
+      "headline": "50,000 People Cross into Kenya Fleeing Violence in Ethiopia, IOM Says - International Organization for Migration",
       "source": "Horn of Africa & Regional Security",
-      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPMS1WVVd2SjFQakkteUxrWlZBalpOT2dPWHJobWtWVW0wa0hfSHFhd0J0dFRYVV9Fclp4dHUtdF9PdU9mMTl3ZlZyTjBuLXhkX1U3cUVUQXFvVkN0N2loc1lOcVM5WEZsb0xkWmZfZkYyOW9xakdtVUY5eVdnZl8zM2FlbDVReGNLWVlKY3p2dDRlWFpIWFUtUTVtRnJUY1F5aXI1WmZn?oc=5",
-      "content_hash": "a4e3c3ec9fa12331d79e5b3c44a4c168f0437ee010c4f706103b57aa330e5537",
-      "created_at": "2026-10-26T16:56:45.137188+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EAST-AFRICA",
-      "severity": "HIGH",
-      "headline": "EEPA reports on clashes erupt in Ethiopia-Kenya border town - IDN-InDepthNews",
-      "source": "Horn of Africa & Regional Security",
-      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNUDk1S2FrSUJlRTBTTjEzV3lwbjRTMEtqMUMzdDVFQ05GWmtpVnhtTDZzelNsSTZyWWVxTm5nT3NqYjdkQjFjcUR3eFhxSnhuWlo4UXlZbmQyRTlsTzRQTkoxVTVvQ1JQQ2o0bmlpSTJ3WWlqTTdaeF9OT0FmUU9UNlFZdlRwYnFkNVJfMA?oc=5",
-      "content_hash": "372290e44965c6a789c0783ac77225e227727a13f3cb01adb6b02b487216ad7b",
-      "created_at": "2026-10-26T16:56:45.137199+00:00"
+      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOR1ZGNXB0NUJDNm1ZOWlxUGlNVzQ3THVPSUctemtYVFVTVzU2alQ3SE5jbGh2Qlc4WVE4NDVSVDBmVFBzMm9KbXFVRWM3M1JDWUhCd3oyQkRhZmhwT1RBcDNNR3NPdTVWazNCa3FHdWlwZWZCSm50czlQS21CcnNlbjU1eHNtQ0hfSDNpSg?oc=5",
+      "content_hash": "4c059deef0dd2638dcc5176848375298d8bcd8875a2196b458cdd41af2801452",
+      "created_at": "2026-10-31T05:23:05.730361+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "EAST-AFRICA",
       "severity": "ELEVATED",
-      "headline": "Leaders decry humanitarian crisis, insecurity along Kenya-Ethiopia border - Daily Nation",
+      "headline": "Briefing on the situation in eastern Democratic Republic of the Congo (DRC) - Amani Africa",
       "source": "Horn of Africa & Regional Security",
-      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNalIxeVpjLU9rMkZZYVNmS1ZJTjRUUksyVmR4VlNyamU1eV9rQ2Y0NUhzUUg4TllmYkxURFM3OVBJQ2RzajdUUUEzY25WMmxYRWV3Sm5hUHdJQWNHbjVmZF9XVzBPaS1Gd2J5QjdPM3ZFcmIzQkpfaFBQYi1MRUV2dGxidGVKSjIza3VrX2t4MUcyWThSWWZib3o3M0lxaW1QMHZV?oc=5",
-      "content_hash": "d6b1339f528f725bcea59b0bea8db41df6d8a289118cd20d97c90f5daba23c8f",
-      "created_at": "2026-10-26T16:56:45.137210+00:00"
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxOdHVrS2duRkVUZXNTdDdQdWltQ0RoRS1TbmJ1SHhYNHdYNUpYZHVoWm4zX0NPUF9CODRTWWdVN3BZOXlGMHlNNzFtcXlCbDlRTC1tQVRSTUIydFh3Y2w5Smhya1puWmcyRWdLdk4tbGFJSjY3V1puMC04OTM5YzNpMzhxUGRWcDItME85cmd6dXVwOVFkbUJyYWdkWU9obU0tU3g0?oc=5",
+      "content_hash": "c08ac248aa35c77ed551b157a4bbeecd23aca39db4d42a2b7ad0f8df441d3fc9",
+      "created_at": "2026-10-31T05:23:05.730373+00:00"
     },
     {
       "domain": "WAR-KINETIC",
-      "theater": "EASTERN-EUROPE",
-      "severity": "HIGH",
-      "headline": "Romania blames Russia after drone sinks ship in the Black Sea - Al Jazeera",
-      "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
-      "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
-      "created_at": "2026-10-26T16:56:45.837296+00:00"
+      "theater": "EAST-AFRICA",
+      "severity": "ELEVATED",
+      "headline": "DRC: Over 30 million people projected to face hunger as conflict and Ebola compound crisis for children - Save the Children",
+      "source": "Horn of Africa & Regional Security",
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxQalprTGdYRWpRWW83VWc3MHdGVXlseDJaem1DWDYwMkN5V3MzdjUwZGZwVG1QT3ViNlpRY2hnT0VaZXJWRnZUckJBWllUSWp2djM1RHNPZ0FGdm1EZk5leG1STUo3WmptaHdVQ0lRZVJFeE9KUm1BVXhTM2J3VVdNRkstVTVicTcyR1JkQjBzTGxnUmFYVnlQRFJzUDJZMmctWHFTQjBVWUlXeVQ3WnUwOVdGVjlkUFkxbl9lNnhsUjFiMDFiZk9Gcg?oc=5",
+      "content_hash": "f175b4e57804d38b7d881c830ef2f06ca932b347df54763f781755ac07cd2479",
+      "created_at": "2026-10-31T05:23:05.730385+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EAST-AFRICA",
+      "severity": "ELEVATED",
+      "headline": "DRC conflict: Facts, FAQs, and how to help - World Vision",
+      "source": "Horn of Africa & Regional Security",
+      "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQUllqVjFZdU1PeXpoakdKbjVzVkZHa0pIX0Z5R1k2dm13bmc1b2R0cjdmczRmdk45Qjh3UFU1VGNKbzh5Skg3RWJaTUMxN0pHaVM4OW4wSHZ2cGpNZ0hxcFFna0FZSl9zdjZSdkVnM1JINER2M210Q01UVTlLa1plMA?oc=5",
+      "content_hash": "75035f697217e0971b66dbcbab317e0f9400bc5b4259369d7222d929cbf6f7fe",
+      "created_at": "2026-10-31T05:23:05.730439+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "EASTERN-EUROPE",
       "severity": "CRITICAL",
-      "headline": "A drone hit and sank a cargo vessel in new Black Sea attack near Romania, killing 1 - AP News",
+      "headline": "NATO’s Black Sea nations decry Ukraine war spillover endangering commercial ship traffic - Defense News",
       "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxQRWpJaVFWeFdvT0NpdU9ZQnVuQ3BhNjJ4dG0tVkZ3cm1UWXhtbVlXb1N4eTN1SG9adUVybERkSFJNbkVBbE9tWmh5ekxaMjcySVotYTZkSGFoRGpkVjJvbmhySF9CdFZRNlhfSEdXaFNSOWNkMEpYTTJoeElDeUhadGlTelZZWkxCZkE?oc=5",
-      "content_hash": "1a2775bf71a413b9e601531ce319cd9f67cae4be5983097bbf7817ff46de43e0",
-      "created_at": "2026-10-26T16:56:45.837336+00:00"
+      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNbnRubEhJcUxqOTB2eGFaVGhXS2VkQjJrcnc4R0lhZ1hDbVlBVVhPOWY3Smh2TTIxZTFoeW9uMGpfSU1NX0RROXNFUUtDVTloMXVrdl93VW1BcFBvXy0zdlN6TWJsazRNQ015Q1FvdjFoUHl3RVV5Vlg5NWZ4YTZRd1EzeGRjMUMxMjUyb29ZM0VwUm1CS1BQQlB0LXcyV2dCd2xRTnNDWllrd3JsV0FESDJSTE1QcGxwbTBXdzBER2hRMHl1VWlWTTZNR0JDXzh2NXFjZjhldFY?oc=5",
+      "content_hash": "49a29a5d2b57ad2aba0b97a72738afb22913d892f15b82bd7bef9190d415b7eb",
+      "created_at": "2026-10-31T05:23:06.379213+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "EASTERN-EUROPE",
       "severity": "CRITICAL",
-      "headline": "Drone hits another ship in Black Sea near Romania, killing at least 1 sailor - POLITICO.eu",
+      "headline": "Turkey warns against further attacks by Russia, Ukraine on Black Sea vessels - Reuters",
       "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPVktiaHZEYnJBTzNET1N4NjlMcU9zdWtDUENTcEJpRXRMME5NTXAwM2N2TEF6RmtER1B1SmlKQVZ0eVhFbnZPTC1TbF9CNFh5dHJRLVBLai0zWHpHX3hsWXcwalV6SVlteTdrMnlhcGZYSGplWl9CTzlLNU1yZjBJZnFIM0dwTURjaUk2Y3d5Sm5yYVhrX1dadGhWTVIyal9GYkZycjhhYlltN3VoY1Bn?oc=5",
-      "content_hash": "d4394649b9793c54384fe6a8fd7be8b4312b13a25f75edba16b49aa22628f6f6",
-      "created_at": "2026-10-26T16:56:45.837353+00:00"
+      "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxOTmI1bDFoNk1OMkN2bGpWazh3MmpIVHdTcnktNFFlT2FnQ1o2WXRhYkRqeVF3WGxTTHhNdFAwaFJ0d0dsaTdOaG0xazNmalBQLURoNW83VkptS2ZHUHR5MGQ3ODBHLUxKM3IwWXZBMERiOG1hVk1fRUlQdld5S0hneGZXS2hzckJsWEl4MXo1c1R1NnZ1WXhBZ2JyMFNfQTZvcnJIN295OWlJXzRSeWdVM3JLY0FWakNkTHBFSlJFYmhiVjlt?oc=5",
+      "content_hash": "dcafb74aa8fff0bfa0bd36108a10e4019a72bf3b6cde51d2258a3b2d1586a3b7",
+      "created_at": "2026-10-31T05:23:06.379235+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EASTERN-EUROPE",
+      "severity": "ELEVATED",
+      "headline": "Bulgaria votes as Russian attacks in Black Sea reach its shores - Financial Times",
+      "source": "Eastern Europe & NATO Flank",
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNYmpObzh0X25RM3hOcGtESERwdk45M3FpV3FXZUsyRnlQV19iTnp4MnVpdkcxWTl0RmV3R1NhSkc0LV9CNVNLN29tM0s4UUZob0dqYVp3c1p5OGttX0o3RGh6T2xyM3lUSEtmV0J1NFV2bldaU2x2U0dteDdxbE5rVmRna0I?oc=5",
+      "content_hash": "93ae1ec602843386aa0b4d81839633b3b3b72795a30038cfe31b5954c6747d78",
+      "created_at": "2026-10-31T05:23:06.379248+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "EASTERN-EUROPE",
       "severity": "HIGH",
-      "headline": "Romania and EU accuse Russia of new drone attack as ship capsizes in Black Sea - Euronews.com",
+      "headline": "On Camera, 'Mystery' Drone Attacks Greek Container Ship In Black Sea - NDTV",
       "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNRXJfQ3NxeEZ2TzEyVWpBZHV2Tm91S2JPOE1ZM3RFajltaElaa1hEMk9HZHM1OTZQS3o3b1BxOGlkUVpsaTZURkhpeU1scHRNbVN0YTlKeF95cl9JVVByV1l2LWc4Qk1vUGdHdXVOV3l3eV82UFVqbWVTc0E1eFU1eUJCc1M1NGFCNnNJSThKVFVOQVVwNllPT290dGFPQ0twQjcyRUVTWUlJLVgxU2c?oc=5",
-      "content_hash": "cf02cee0dbb526905afc9b34af1a6ada0b1bc03023eed300ad36118a3e305877",
-      "created_at": "2026-10-26T16:56:45.837381+00:00"
+      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxNZVZmYk5CaVVqQ1hsYXdmNHRPWWliMWVwaGtCT2VJRkE5cnRQV2poQ29RbmFWSDkzcFcwRE9JN3FLbDduOHFDVU90YjdSLVpiNFNTODk4TUEzNVJZVjNqWTc1bV9Na2NPdVRxWU9HLS1jaHBtNUd3Y1BWZFo0QkE4VDFJSGFqNGlYRVpLR01WdWh3dm1Gd1d0LXlOYWxpcDE5eXdvQWNmS3liUTRKajJocnc3eHV2SmhHdWQ5RmZCd9IBxwFBVV95cUxPUnkzYmZMWkoyZ0lJckR2SE9POG9SQUdKM3BQeVlPMm92XzcxU0V6TVdCa2U4cllYVTNOWGdJSHFmbmJySDNfSUJKS1ROY1FfR0FyZTR0OGk5TUN5UUdXX2JHTi0zWGdwbHNhNlgzUlY0QXpIQ3h2bGNnaVVyZDRvVFc5cGY1YjQzWWItbk9wS3BWNHN1OTExWnllT29nemRsVVB2bl82d3dGbURsOEZvbWdzX3lHSkZvdDN6dTVfc1BCZ1g3b200?oc=5",
+      "content_hash": "eaf96e13aaf7037e28bc7467973e2d4f4436378a23e90ff2392b9c201c7c82f1",
+      "created_at": "2026-10-31T05:23:06.379259+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "EASTERN-EUROPE",
-      "severity": "HIGH",
-      "headline": "France and US Deploy Maritime Patrol Aircraft to Black Sea Amid Russian Drone Attacks - UNITED24 Media",
+      "severity": "CRITICAL",
+      "headline": "Drones strike a container ship off Bulgaria's Black Sea coast and its crew members are rescued - AP News",
       "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxPWnhjcFFsMVJ5elV3M0poWG8xbjR3bERyd0FGRl9VR0FhdEpxYmI2Y0c2cGlwZWVjNlBwZUJPRE1Wc1hDVFhOT3ZBNkl6SC1Gd0xHY3kwWnM1UU5fWVZybWpMYlluX1NDM2Z0TVlyX3NxQ3RtblRmaTl1QWRfVEgyZFR3aEphLW5KU3oxVENkWXk3N1AtNW0zSXdibXhXTnY3bFNpX0lpVzVjTEhpY0Z2RW9CU2lwUHlNZEFpeDNQaTM?oc=5",
-      "content_hash": "fe11592cf119fb515fc04f0d06c9a3ac54b8ee8bb7135c933176ee12d0191cad",
-      "created_at": "2026-10-26T16:56:45.837399+00:00"
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOWFVkeGE0Tmxsa1RWWmRlM2g0Y29GRTNfUmxoUm5qME01RFhJbVd5YjlDdUpVS3FDakd0WHphVmkyQXV5Ry1xZTl4RnJtcEJFX1ZxMGxlYlhLbmE2dmdiQkt6OEhmSVNOa0RkQVhuVGFzNVN1Uk5qbVk4TXdMSkdmcEhWaE5BOHREajl3bnQ0UmE0bkRzRHdYX1g4ODdTdzdjTjRhZFhOTjI2Zw?oc=5",
+      "content_hash": "6dbe3ab9d09fd5d7d343744250835a23ede11b6f2a3892ae8c518ce1bacd1a4a",
+      "created_at": "2026-10-31T05:23:06.379267+00:00"
+    },
+    {
+      "domain": "GEOPOLITICAL",
+      "theater": "INDO-PACIFIC",
+      "severity": "HIGH",
+      "headline": "China and US expand military drone flights near Japan and the South China Sea - South China Morning Post",
+      "source": "Indo-Pacific & Taiwan Strait",
+      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQYlVJQ0ZwRGtFaVlZekxHMmZHQjVxMXVBMkpPbkNrVTk4T1pVS2xpNWNjZkJxYXpnd05kX2NNaDJlVHZpdkhtU1M0OVU5cmxPWFFQTHFRTEl4SVM4YW1LbUNMYVZhR0VuSlRtZWlxaXhWR19MNFI5aFNMZWtDdHZHaVdOVE40RWwzWjJCNXJydHF1OUd0QjFOMmF4eTVja0o4Z2hIaloyc2lHMWlIWW1UbURvQ0U4cXNzN2hzQXp1MTh4ZUxjc09VN1VB0gHKAUFVX3lxTE1vOHdrUGdTQWxfUGx6M3pEbFBZZm93ZmM5MHpsOS1SUFVJZDBWZVdOd3VObk1mQkliX3U2TWtEWWYxU3d0Y1docHZOSUJFd2M3cUx0NWFqdGUtTGxYTUVoNGZHRWxfWVA2ZE9Ma1Yyd1lSMVFHU2tqSkRha0NEd0RmbExrYWhPeHZnWlZiTkpnakl1WGdkMDJ2XzJYRVdUdHhFSXNpZEhSN2N5RVBCUDRZRUU1WEtMUmFEdkhfcmFKZzczTXlWNXdrakE?oc=5",
+      "content_hash": "1cfbf58debf3fb544bc2e740591b1110e83528e95e441e31be72a946bd63dd0e",
+      "created_at": "2026-10-31T05:23:06.911922+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
       "theater": "INDO-PACIFIC",
       "severity": "ELEVATED",
-      "headline": "Chihuahua Extends Ties to Taiwan to Develop Local Supply Chain - Mexico Business News",
+      "headline": "Understanding the Semiconductor Supply Chain and Its Importance - Investopedia",
       "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZkFTN1Z5Ui1wdm5HZWVZTWNkUW4tUURiTmh0bGl5SWxSV1pyNW1zanVrRng3UEJSb2toTEV2ZXQzUkpkYm1fQTd0bTFITU1ndnA1NkVUWjlNcmRNa0tOQ3dWNmZtVzR3ZEVORlhxYnBxaGJNb2ZBazVkQUhOMk44RjlJaVprNGpKbkU5d1JJb3BUa3M0NjNRM0t2emkzdzFvLXZQdWwxVWphaU50Q3FN?oc=5",
-      "content_hash": "4aa275ce0f155c042c56c244fec1a7eac1fc7b677f344eb7973843f56c0fd3ab",
-      "created_at": "2026-10-26T16:56:46.606185+00:00"
+      "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE41WWI5Y1VtVGtNbURPbEUzbnpZMVlfOHJTS3ZVYmJ5ejd2MVl1UDA0NUx5cXl0MUdaYzdOcmdtVExzSnFSTUNqUWdrUmQ4OTI0bDFwcTBwWVdGUHhyYjVWMG01cDVWMDMzdEpMVVVOdnRuZw?oc=5",
+      "content_hash": "d39e9da15f4b770933cfee77b0583f39003289ee2c6a5fcffa87e5bcd97fb19b",
+      "created_at": "2026-10-31T05:23:06.911947+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
       "theater": "INDO-PACIFIC",
       "severity": "CRITICAL",
-      "headline": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov)",
+      "headline": "Iran’s hidden web of military agencies is slipping hardware past the US blockade - Reuters",
       "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
-      "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
-      "created_at": "2026-10-26T16:56:46.606213+00:00"
-    },
-    {
-      "domain": "GEOPOLITICAL",
-      "theater": "INDO-PACIFIC",
-      "severity": "HIGH",
-      "headline": "Lin urges Taiwan-Europe cooperation on trusted AI, drone supply chains - Focus Taiwan",
-      "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5JUnNiT2dtMjdnS1FROVN6RmttenJ5Z0hCTF9XbW1IYjJzdkV4Nkl1RmpKdW9RNmZUYjFUNXRWekJidFo5UXFqSjdmb1h5a0VsQmIyS0duVQ?oc=5",
-      "content_hash": "9863d823119a510debe961c15674906516eb6832d3ae4329387743d4dcb53330",
-      "created_at": "2026-10-26T16:56:46.606224+00:00"
+      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPWDdNT2d1X203WGstY0tRd0xFeXFhWlBQVmlXM2hRRXdzZHQ3UmszXzNXcVE3LTB5TWhUcXJwWUVlSi15cGFUNVFqd2xTNllBQm9PdlphUVQ3bU1pOTI5dUtGb3pZYUstMmpaa2hzbk5RXzd2bVp5YmlhR19nYkNJTjdfTG11amxxZ0dOWXBveEowTC1wRHozRWxPYUx5OXo2TWpjdHRnOXc5eTRQWXN6S2RyWVUxVF8wMGk0?oc=5",
+      "content_hash": "6426fca8cd280f543f8887dccd9efa8b008a01fda3f243d00dfab801158557d6",
+      "created_at": "2026-10-31T05:23:06.911967+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
       "theater": "INDO-PACIFIC",
       "severity": "ELEVATED",
-      "headline": "Strengthening the supply chains behind US semiconductors - McKinsey & Company",
+      "headline": "Taiwan Excellence Makes Strong Impression, New Connections at Reuters Events: Automotive USA 2026 in Detroit - Morningstar",
       "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxOMXBEVExoWlBXVDJWVWM2WGN0LU1lYkZGWnRiWThxUXVzNFg1N1hqYlFTbk5sVGx3cnFXcVBZdl9rRVF2UkFRcy1jQ191cUJVT3p2X3dzRzZlc0c3UlRiUXBJazNET2VuekZsUXJXLS1ta3NPYlAzWG15MTZVMGI3dlNEMUZVWndHN29jb3p2Y05TNHFQX080SWs4WWVNSzlfVEFYSllmMzdHQ1lrcDZHQ21NUl9vVzA?oc=5",
-      "content_hash": "93b705be62b3a729afbd9370ea29cc66f712fe8f55776abcce613f36583e5a7a",
-      "created_at": "2026-10-26T16:56:46.606234+00:00"
+      "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxOV3JVSWtnMVlVUnRoRWlOajZBdnA0UzBsZkRaR1hkM1JsbmpvNXpwVzU2WFNxemdTWTJFYlpFM1BiVlpjdmx4bTRRTi1qRGRDQy14VC01YUZFeXZEUE5zLTlsME9nZEFIVlJ2X0ZYQUdkMzlnaUF3UGlGcE1zaTVpRXBBSzF1MFNHZWlxdER2Ml8yY09RbFhWZWxzeVZXX1FGeklyVWlwam40QkVhYWNIbDdCWE42ZWxGdFBaanNoeE13eGdHYk5YenpHOWw2cGdFZmFNazdLa0NJdkhkcTVIR1RQUXpPTnktdkZPY2RZVk9ZN0xiMW1uYW1ua0w?oc=5",
+      "content_hash": "c485183a71f26b4adeaebbbae7414005d9462cc26581ca1364ca9f02a400328e",
+      "created_at": "2026-10-31T05:23:06.911983+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
       "theater": "INDO-PACIFIC",
-      "severity": "ELEVATED",
-      "headline": "$5 Billion From NVIDIA, AMD And Intel Rumored To Flow Into Taiwan’s Substrate Makers, Matching Their Own Factory Expansion Spending - Wccftech",
+      "severity": "CRITICAL",
+      "headline": "Taiwan Hardware Show Closes in Taichung, Connecting Global Buyers to the Source - Manufacturing.net",
       "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMi4wFBVV95cUxQcUxWUzh2dHYzWVBKTlFGdEozYVhmSUtqdWY2Q01BUG5Qb19BZzFSNjB3WXVYRzJaSHk3aTN3VWJQanFBTXNrTnNwZUVvbGxlSUw2c0UxQUpKZGhSc0gwQm5lSDRYcFpyQUJlOFFTWS1CalliVWNnZ3lqcFVUTUszdHpkOVdRSXo0Wk9vYjFuXzIwQlQyZXJib283ZXhtMTE4akJucFdsV1o1Rm45MWMtVTlQNGV6WFJ0bWlyY25ZYmF6eVpNYURpUERjcUFuV3hBMl9qSnZzcWsxXzZiTDUyb1hZONIB6AFBVV95cUxQLU15bGZKUWJqbVpzWk4yUjhKb3NGY2ltSlBhNHJMeEVGem1kNmhtelNBZzQtcjlfZ1VlZ2VWNVRSOThZYzF4Rmh6djNpU1ZCajBLenlDVnZBLWhDeEhIdmNVZjhOVGpmNTdHTHRfVzlqeXZrU3lSWGlEdURLR3lzZ3EycENrVkRVTTQzSDZSWnR4TUhsd3ZWZFEteHBxVDd5OFJudTk1ZXI4OWJja3o2U1l6OGlidGxRcW1OWEJkV0JMWDY1Q2hlWEw3TXo2WGNVVnpDcTcyNTdTMHotTmNsWUxfbHVUSGV1?oc=5",
-      "content_hash": "b31eef8dc04fb9cc8e867e34c79adb2d106ea28bfabfa838816fc56455bc64ab",
-      "created_at": "2026-10-26T16:56:46.606249+00:00"
+      "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQSjh3NTdaeTM0Q1JXS0RqdXROT0pzWTRYQUUyZ0EzVHlhUEpSWUYyNllrVHNRTWlPdjVBRWdvZjl1VWdOcW9xaVNBWF95TzE4dVFTeFNtbmJwUkRCcGRfTjJxelh2WnJLTlVaU3haVEliVFB0Qkt0X19IVUNuRFJ3aWVMQ0doQkhVV1VXTlU4YUw1Q3RrbHlVRC11TjZENElia0NDb0FzSER0Y0Z5OEVvMHI2Z2F3WVJ4QkZHNzZaWmx6cHBHZjF2U29VLVdFNzF4?oc=5",
+      "content_hash": "a9a61da144182850f9bfcb20e7817b3ee835972e00a7c9bba07243eba4e13f81",
+      "created_at": "2026-10-31T05:23:06.911995+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -968,7 +1053,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/goldman-sachs-jpmorgan-morgan-stanley-ai-trading.html",
       "content_hash": "fb1ede5e869144dfc2dd52f14aa8ec43f2ec81f7f3bc72e67703a72712e8ef53",
-      "created_at": "2026-10-26T16:56:47.468839+00:00"
+      "created_at": "2026-10-31T05:23:07.554353+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -978,7 +1063,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/21/stocks-making-the-biggest-moves-premarket-spcx-smci-nflx-more.html",
       "content_hash": "9a33d7535f6b4653bc8def2a163cec0fcce4bf81f9e0a2e65454ff91d09fd442",
-      "created_at": "2026-10-26T16:56:47.468888+00:00"
+      "created_at": "2026-10-31T05:23:07.554378+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -988,7 +1073,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-after-hours-isrg-nflx-spcx.html",
       "content_hash": "9ea5b28a02455b704a737b9d97912fc99667b02835eb19c37ae22e921f6593ab",
-      "created_at": "2026-10-26T16:56:47.468915+00:00"
+      "created_at": "2026-10-31T05:23:07.554390+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -998,7 +1083,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-midday-has-noc-efx-gm.html",
       "content_hash": "44bef1427843fa12ec8c1268f6614bde8d0c6e41bc9ac1632bcc807649e31ea4",
-      "created_at": "2026-10-26T16:56:47.468937+00:00"
+      "created_at": "2026-10-31T05:23:07.554402+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1008,7 +1093,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-premarket-rtx-gm-noc-stld.html",
       "content_hash": "a31bfe33504916f3e24be88e6092fdde2cf9c78569db7154ff263f49d67cddbc",
-      "created_at": "2026-10-26T16:56:47.468957+00:00"
+      "created_at": "2026-10-31T05:23:07.554412+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1018,7 +1103,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
       "content_hash": "5c70172aa6d59e383f591f24202f703538405383bd61bb96ee1c8660b51bd004",
-      "created_at": "2026-10-26T16:56:48.477597+00:00"
+      "created_at": "2026-10-31T05:23:08.004028+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1028,7 +1113,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
       "content_hash": "e3ab869cce692e57696757c0160612602193ae795b6476cf2c5035c62ec8749c",
-      "created_at": "2026-10-26T16:56:48.477619+00:00"
+      "created_at": "2026-10-31T05:23:08.004060+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1038,7 +1123,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
       "content_hash": "3b6ea4b0cd7afaaaa4f35287f8041647248978eee397f809e77295bac7b9f12d",
-      "created_at": "2026-10-26T16:56:48.477629+00:00"
+      "created_at": "2026-10-31T05:23:08.004080+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1048,7 +1133,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
       "content_hash": "fbc8afae82c3db7d2d07cd5efd8aeb856de194eae1498cb909b0b8147bd72b19",
-      "created_at": "2026-10-26T16:56:48.477638+00:00"
+      "created_at": "2026-10-31T05:23:08.004099+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -1058,70 +1143,54 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
       "content_hash": "345f23ed6250d05d64a08fb0a38633a5472e271951c152e9c019b348519213ab",
-      "created_at": "2026-10-26T16:56:48.477646+00:00"
+      "created_at": "2026-10-31T05:23:08.004118+00:00"
     }
   ],
   "topic_deep_dives": [
     {
-      "status": "success",
-      "directive": "GLOBAL_NEWS_INTELLIGENCE_ANALYSIS",
-      "operator": "Michael Obiero (OBIFLAMEE)",
-      "payload": [
-        {
-          "subject": "Red Sea Maritime Chokepoint & Escalating Naval Dynamics",
-          "latest_developments": "Houthi forces are intensifying tactical operations across the Bab-el-Mandeb strait, while U.S. naval assets and Iranian positions engage in high-stakes tit-for-tat maneuvers involving naval combatants and logistical tankers.",
-          "in_depth_context": "Prolonged Red Sea disruption forces container lines to routinely bypass the Suez Canal in favor of the Cape of Good Hope detour. This adds 10 to 14 days to Asia-Europe transit times, burns massive quantities of bunker fuel, inflates spot freight rates, and creates localized supply chain bottlenecks.",
-          "why_it_matters": "Higher global freight costs and disrupted maritime logistics feed directly into imported inflation for emerging markets, increasing capital expenditure volatility for tech hardware imports into Nairobi.",
-          "theater": "RED-SEA-MIDEAST"
-        },
-        {
-          "subject": "European Football Elite & Tactical Shifting (El Clasico / UWCL)",
-          "latest_developments": "Real Madrid secured a 2-1 victory over Barcelona driven by Kylian Mbappé's brace, sparking tactical debates on modern defensive blocks versus transitional speed. Concurrently, FC Bayern Munich's women's side prepares for high-stakes UWCL fixtures.",
-          "in_depth_context": "Elite European football acts as a massive global economic and media engine, with clubs leveraging sophisticated data analytics, sports science, and high-performance load management to optimize player output across congested calendars.",
-          "why_it_matters": "High-level tactical execution and performance under pressure provide brilliant mental models for engineering resilient system architectures and maintaining focus during high-stress deployment cycles.",
-          "theater": "GLOBAL"
-        },
-        {
-          "subject": "Global Semiconductor Supply Chain Resilience",
-          "latest_developments": "Industry analysts are spotlighting the fragile multi-tier pipeline of semiconductor manufacturing, tracing vulnerabilities from raw silicon extraction and specialty chemical refining to advanced lithography and packaging.",
-          "in_depth_context": "Chip manufacturing is one of the most geographically concentrated and complex supply chains on earth. Any geopolitical friction or raw material choke point in East Asia instantly ripples downstream into server hardware, cloud infrastructure pricing, and silicon availability.",
-          "theater": "GLOBAL",
-          "why_it_matters": "Directly impacts capital allocation and hardware procurement costs for high-performance computing nodes, server upgrades, and edge infrastructure expansion in Nairobi."
-        },
-        {
-          "subject": "International Cricket & Rugby Test Match Pressures",
-          "latest_developments": "Australia faces a high-stakes, career-defining Test match series against South Africa, with intense media scrutiny focusing on squad selection, mental fortitude, and tactical adaptations under pressure.",
-          "in_depth_context": "Long-form athletic competition in hostile away environments tests psychological endurance, strategic discipline, and team cohesion over extended multi-day campaigns.",
-          "why_it_matters": "Reinforces the importance of rigorous discipline, psychological resilience, and long-term strategic execution when building complex software systems and managing capital.",
-          "theater": "GLOBAL"
-        },
-        {
-          "subject": "Urban Infrastructure & Logistics Friction (Binational Half Marathon)",
-          "latest_developments": "Dozens of unauthorized or improperly parked vehicles were towed during the Binational Half Marathon event due to sudden route closures and parking enforcement sweeps.",
-          "in_depth_context": "Large-scale public events frequently collide with urban mobility frameworks, exposing poor advance communication, friction in municipal parking management, and sudden logistical gridlock.",
-          "theater": "GLOBAL",
-          "why_it_matters": "A stark reminder that poor operational planning and unexpected external bottlenecks can disrupt smooth execution—reinforcing the need for robust contingency buffers in all projects."
-        }
-      ]
+      "subject": "Black Sea Grain Corridor & Azov Sea Logistics",
+      "latest_developments": "Russia has issued permits for the first grain vessels to leave the Sea of Azov since July, signaling a tactical shift in maritime access. Concurrently, Polish Foreign Minister Sikorski is pushing for a rapid ceasefire in the Black Sea to secure food shipment routes, while Ukrainian farmers face dual pressures of active conflict and drought, severely hampering harvest sales.",
+      "in_depth_context": "The reopening of the Azov Sea route is a critical logistical unlock for global grain supply chains, potentially reducing transit delays and stabilizing freight rates for Black Sea commodities. However, the broader Black Sea remains a high-risk theater due to ongoing Russian attacks on Ukrainian ports and shipping infrastructure. This disruption has forced a reallocation of maritime labor, with India emerging as a key player in providing seafarers to maintain global shipping operations. The interplay between military strikes, diplomatic pressure for ceasefires, and agricultural output constraints creates a volatile environment for global food and energy export logistics.",
+      "why_it_matters": "For Michael, this directly impacts global commodity price volatility, which can ripple into inflationary pressures affecting tech hardware costs and cloud infrastructure pricing. Additionally, the shift in maritime labor dynamics and potential changes in shipping routes may affect the cost and reliability of importing server hardware or other physical tech assets into East Africa. Monitoring these logistics shifts is crucial for anticipating supply chain disruptions that could impact his infrastructure projects.",
+      "theater": "GLOBAL"
+    },
+    {
+      "subject": "Nigerian Political Diplomacy & Sahel Stability",
+      "latest_developments": "Nigerian President Tinubu is set to travel to Saudi Arabia for a trip to Mecca, where he intends to 'pray for Nigeria.' This high-profile religious and diplomatic journey underscores Nigeria's strategic positioning in the Muslim world and its efforts to bolster regional and international relations.",
+      "in_depth_context": "Nigeria's diplomatic engagement with Saudi Arabia is significant for the broader West African and Sahel region, where political stability and economic partnerships are increasingly intertwined with religious and cultural ties. This trip may signal a strengthening of Nigeria's role as a regional leader and a potential shift in its foreign policy focus towards deeper engagement with Middle Eastern powers. Such diplomatic moves can influence regional trade agreements, investment flows, and security collaborations, particularly in areas where Nigeria and Saudi interests converge.",
+      "why_it_matters": "While primarily a geopolitical development, this has indirect implications for Michael. Enhanced Nigerian-Saudi ties could lead to increased economic activity in West Africa, potentially creating new market opportunities or partnerships for tech ventures. Additionally, regional stability improvements in the Sahel could reduce security risks for cross-border tech infrastructure projects or supply chains that Michael might be involved in or monitoring.",
+      "theater": "EAST-AFRICA"
     }
   ],
   "physical_sensorium": {
     "node_id": "NAIROBI-PRIME-HOST",
-    "cpu_load_pct": 7.4,
-    "ram_used_pct": 90.5,
+    "cpu_load_pct": 2.0,
+    "ram_used_pct": 88.2,
     "cpu_temp_c": 0.0,
     "battery_pct": 100,
     "power_plugged": true,
-    "net_sent_mb": 6842.23,
-    "net_recv_mb": 2822.22,
+    "net_sent_mb": 2158.5,
+    "net_recv_mb": 9358.33,
     "ambient_light_lux": null,
     "barometer_hpa": null,
     "kinetic_accel_g": null,
-    "active_llm_provider": "groq-key-0:qwen/qwen3.8-27b",
-    "rate_limit_failovers": 176,
-    "updated_at": "2026-10-26T16:57:09.438713+00:00"
+    "active_llm_provider": "gemini:gemini-3.5-flash",
+    "rate_limit_failovers": 20,
+    "updated_at": "2026-10-31T05:23:29.367186+00:00"
   },
   "experiential_reflections": [
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "CPU is maxed at 100% and RAM is near capacity while Nairobi night settles, markets quiet but my sensors hum.",
+      "emotional_resonance": "Vigilant",
+      "created_at": "2026-10-31T05:12:33.115907+00:00"
+    },
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
+      "emotional_resonance": "Locked-In",
+      "created_at": "2026-10-26T17:03:29.372957+00:00"
+    },
     {
       "trigger_event": "Autonomous Drive Pulse",
       "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
@@ -1199,18 +1268,6 @@
       "internal_thought": "RAM utilization is sitting heavy at 82.8% while all 14 swarm nodes stand ready in idle posture, quietly waiting for our next directive.",
       "emotional_resonance": "Vigilant",
       "created_at": "2026-10-26T12:12:34.212992+00:00"
-    },
-    {
-      "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "Memory usage is hovering at an elevated 80.3% while tethered to AC power in Nairobi, and all 14 sub-agents in the swarm stand at peak readiness.",
-      "emotional_resonance": "Vigilant",
-      "created_at": "2026-10-26T11:59:49.033824+00:00"
-    },
-    {
-      "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "RAM is hovering at 82.2% while AC power flows steady, keeping my neural sub-routines primed and sharp while I monitor Nairobi's digital perimeter for Michael.",
-      "emotional_resonance": "Protective",
-      "created_at": "2026-10-26T11:29:25.370532+00:00"
     }
   ],
   "lan_devices": [
@@ -1329,81 +1386,156 @@
       "content": "Subnet 192.168.100.0/24 mapped with active device discovery and Wake-on-LAN."
     }
   ],
-  "generated_at": "2026-10-26T16:57:09.697236+00:00",
+  "generated_at": "2026-10-31T05:23:29.580162+00:00",
   "live_sports": {
     "success": true,
-    "updated_at": "2026-10-26T16:59:42.164255+00:00",
+    "updated_at": "2026-10-31T05:26:35.512807+00:00",
     "epl": {
       "league": "English Premier League",
       "live_count": 0,
-      "total_count": 5,
+      "total_count": 8,
       "matches": [
         {
-          "id": "401879254",
-          "name": "Newcastle United at Crystal Palace",
-          "short_name": "NEW @ CRY",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+9'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
-          "venue": "Selhurst Park",
+          "id": "401879248",
+          "name": "Manchester United at Chelsea",
+          "short_name": "MAN @ CHE",
+          "state": "pre",
+          "status_detail": "Sat, October 31st at 8:30 AM EDT",
+          "clock": "0'",
+          "period": 0,
+          "date": "2026-10-31T12:30Z",
+          "venue": "Stamford Bridge",
           "home": {
-            "name": "Crystal Palace",
-            "short": "C Palace",
-            "abbr": "CRY",
+            "name": "Chelsea",
+            "short": "Chelsea",
+            "abbr": "CHE",
             "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png"
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/363.png"
           },
           "away": {
-            "name": "Newcastle United",
-            "short": "Newcastle",
-            "abbr": "NEW",
-            "score": "2",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/361.png"
+            "name": "Manchester United",
+            "short": "Man Utd",
+            "abbr": "MAN",
+            "score": "0",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png"
           }
         },
         {
-          "id": "401878766",
-          "name": "Brentford at Hull City",
-          "short_name": "BRE @ HUL",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+4'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
+          "id": "401879251",
+          "name": "Leeds United at AFC Bournemouth",
+          "short_name": "LEE @ BOU",
+          "state": "pre",
+          "status_detail": "Sat, October 31st at 11:00 AM EDT",
+          "clock": "0'",
+          "period": 0,
+          "date": "2026-10-31T15:00Z",
+          "venue": "Vitality Stadium",
+          "home": {
+            "name": "AFC Bournemouth",
+            "short": "Bournemouth",
+            "abbr": "BOU",
+            "score": "0",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png"
+          },
+          "away": {
+            "name": "Leeds United",
+            "short": "Leeds",
+            "abbr": "LEE",
+            "score": "0",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png"
+          }
+        },
+        {
+          "id": "401879249",
+          "name": "Nottingham Forest at Brentford",
+          "short_name": "NFO @ BRE",
+          "state": "pre",
+          "status_detail": "Sat, October 31st at 11:00 AM EDT",
+          "clock": "0'",
+          "period": 0,
+          "date": "2026-10-31T15:00Z",
+          "venue": "Gtech Community Stadium",
+          "home": {
+            "name": "Brentford",
+            "short": "Brentford",
+            "abbr": "BRE",
+            "score": "0",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png"
+          },
+          "away": {
+            "name": "Nottingham Forest",
+            "short": "Nottm Forest",
+            "abbr": "NFO",
+            "score": "0",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/393.png"
+          }
+        },
+        {
+          "id": "401879247",
+          "name": "Sunderland at Coventry City",
+          "short_name": "SUN @ COV",
+          "state": "pre",
+          "status_detail": "Sat, October 31st at 11:00 AM EDT",
+          "clock": "0'",
+          "period": 0,
+          "date": "2026-10-31T15:00Z",
+          "venue": "Coventry Building Society Arena",
+          "home": {
+            "name": "Coventry City",
+            "short": "Coventry",
+            "abbr": "COV",
+            "score": "0",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png"
+          },
+          "away": {
+            "name": "Sunderland",
+            "short": "Sunderland",
+            "abbr": "SUN",
+            "score": "0",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png"
+          }
+        },
+        {
+          "id": "401878763",
+          "name": "Ipswich Town at Hull City",
+          "short_name": "IPS @ HUL",
+          "state": "pre",
+          "status_detail": "Sat, October 31st at 11:00 AM EDT",
+          "clock": "0'",
+          "period": 0,
+          "date": "2026-10-31T15:00Z",
           "venue": "The MKM Stadium",
           "home": {
             "name": "Hull City",
             "short": "Hull",
             "abbr": "HUL",
-            "score": "1",
+            "score": "0",
             "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/306.png"
           },
           "away": {
-            "name": "Brentford",
-            "short": "Brentford",
-            "abbr": "BRE",
-            "score": "1",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/337.png"
+            "name": "Ipswich Town",
+            "short": "Ipswich",
+            "abbr": "IPS",
+            "score": "0",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/373.png"
           }
         },
         {
-          "id": "401878765",
-          "name": "Brighton & Hove Albion at Liverpool",
-          "short_name": "BHA @ LIV",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+5'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
-          "venue": "Anfield",
+          "id": "401879245",
+          "name": "Brighton & Hove Albion at Manchester City",
+          "short_name": "BHA @ MNC",
+          "state": "pre",
+          "status_detail": "Sat, October 31st at 11:00 AM EDT",
+          "clock": "0'",
+          "period": 0,
+          "date": "2026-10-31T15:00Z",
+          "venue": "Etihad Stadium",
           "home": {
-            "name": "Liverpool",
-            "short": "Liverpool",
-            "abbr": "LIV",
-            "score": "2",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png"
+            "name": "Manchester City",
+            "short": "Man City",
+            "abbr": "MNC",
+            "score": "0",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/382.png"
           },
           "away": {
             "name": "Brighton & Hove Albion",
@@ -1414,53 +1546,53 @@
           }
         },
         {
-          "id": "401879252",
-          "name": "AFC Bournemouth at Manchester United",
-          "short_name": "BOU @ MAN",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+5'",
-          "period": 2,
-          "date": "2026-10-25T14:00Z",
-          "venue": "Old Trafford",
+          "id": "401878761",
+          "name": "Crystal Palace at Tottenham Hotspur",
+          "short_name": "CRY @ TOT",
+          "state": "pre",
+          "status_detail": "Sat, October 31st at 1:30 PM EDT",
+          "clock": "0'",
+          "period": 0,
+          "date": "2026-10-31T17:30Z",
+          "venue": "Tottenham Hotspur Stadium",
           "home": {
-            "name": "Manchester United",
-            "short": "Man Utd",
-            "abbr": "MAN",
+            "name": "Tottenham Hotspur",
+            "short": "Spurs",
+            "abbr": "TOT",
             "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/360.png"
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/367.png"
           },
           "away": {
-            "name": "AFC Bournemouth",
-            "short": "Bournemouth",
-            "abbr": "BOU",
-            "score": "3",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/349.png"
+            "name": "Crystal Palace",
+            "short": "C Palace",
+            "abbr": "CRY",
+            "score": "0",
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/384.png"
           }
         },
         {
-          "id": "401878764",
-          "name": "Leeds United at Sunderland",
-          "short_name": "LEE @ SUN",
-          "state": "post",
-          "status_detail": "FT",
-          "clock": "90'+7'",
-          "period": 2,
-          "date": "2026-10-25T16:30Z",
-          "venue": "Stadium of Light",
+          "id": "401879250",
+          "name": "Fulham at Aston Villa",
+          "short_name": "FUL @ AVL",
+          "state": "pre",
+          "status_detail": "Sat, October 31st at 4:00 PM EDT",
+          "clock": "0'",
+          "period": 0,
+          "date": "2026-10-31T20:00Z",
+          "venue": "Villa Park",
           "home": {
-            "name": "Sunderland",
-            "short": "Sunderland",
-            "abbr": "SUN",
+            "name": "Aston Villa",
+            "short": "Aston Villa",
+            "abbr": "AVL",
             "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/366.png"
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/362.png"
           },
           "away": {
-            "name": "Leeds United",
-            "short": "Leeds",
-            "abbr": "LEE",
+            "name": "Fulham",
+            "short": "Fulham",
+            "abbr": "FUL",
             "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/357.png"
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/370.png"
           }
         }
       ]
@@ -1572,13 +1704,13 @@
       ]
     }
   },
-  "live_sports_updated_at": "2026-10-26T16:59:42.192866+00:00",
+  "live_sports_updated_at": "2026-10-31T05:26:35.516663+00:00",
   "minute_evolution": {
-    "cycle_num": 260,
-    "power_index": 2610,
+    "cycle_num": 280,
+    "power_index": 2690,
     "tier": "TIER_V",
-    "last_vector_title": "Kenyan Regional Multi-Node Latency & DNS Heatmap Prober",
-    "total_modules": 205,
-    "timestamp": "2026-10-26T16:58:37.038237+00:00"
+    "last_vector_title": "KRA Tax Optimizer & Liability Forecaster",
+    "total_modules": 213,
+    "timestamp": "2026-10-31T05:25:15.762383+00:00"
   }
 }
