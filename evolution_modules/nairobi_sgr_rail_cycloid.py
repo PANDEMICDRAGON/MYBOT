@@ -1,148 +1,166 @@
-import time
+import ast
 import json
+import time
+from datetime import datetime, timedelta
+from typing import List, Dict, Any, Optional
 import random
-import logging
-from dataclasses import dataclass, field
-from typing import List, Dict, Optional, Tuple
-from enum import Enum
-import hashlib
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("SGR_Cycloid")
 
-class TransportMode(Enum):
-    RAIL = "rail"
-    BODA = "boda"
-    MATATU = "matatu"
-    TRUCK = "truck"
+class SGRTrain:
+    """Represents a Standard Gauge Railway train."""
 
-@dataclass
-class FreightUnit:
-    id: str
-    weight_kg: float
-    destination: str
-    priority: int  # 1 (low) to 5 (high)
-    current_mode: TransportMode = TransportMode.RAIL
-    status: str = "at_terminal"
-    timestamp: float = field(default_factory=time.time)
+    def __init__(self, train_id: str, origin: str, destination: str, cargo_weight: float, priority: int = 1):
+        self.train_id = train_id
+        self.origin = origin
+        self.destination = destination
+        self.cargo_weight = cargo_weight
+        self.priority = priority
+        self.status = "SCHEDULED"
+        self.scheduled_departure: Optional[datetime] = None
+        self.actual_departure: Optional[datetime] = None
+        self.actual_arrival: Optional[datetime] = None
 
-@dataclass
-class MicroLogisticsNode:
-    id: str
-    capacity_kg: float
-    speed_kmh: float
-    cost_per_km: float
-    reliability: float  # 0.0 to 1.0
-
-    def calculate_cost(self, distance_km: float) -> float:
-        return self.cost_per_km * distance_km
-
-class SGRRailCycloidOptimizer:
-    """
-    Optimizes the handoff of freight from SGR rail terminals to local micro-logistics nodes.
-    Uses a cycloid-based pathing algorithm to minimize total cost and time while respecting
-    weight and reliability constraints.
-    """
-
-    def __init__(self, terminal_id: str):
-        self.terminal_id = terminal_id
-        self.nodes: Dict[str, MicroLogisticsNode] = {}
-        self.pending_freight: List[FreightUnit] = []
-        self.dispatch_log: List[Dict] = []
-        self._seed = int(time.time())
-
-    def register_node(self, node: MicroLogisticsNode) -> None:
-        """Register a micro-logistics node (boda, matatu, truck)."""
-        self.nodes[node.id] = node
-        logger.info(f"Registered node {node.id} (mode: {node.capacity_kg}kg)")
-
-    def add_freight(self, freight: FreightUnit) -> None:
-        """Add a freight unit to the pending queue."""
-        self.pending_freight.append(freight)
-        logger.info(f"Added freight {freight.id} to queue")
-
-    def _cycloid_score(self, node: MicroLogisticsNode, freight: FreightUnit, distance_km: float) -> float:
-        """
-        Calculate a cycloid score for a node-freight pair.
-        Lower score is better. Factors in cost, time, reliability, and weight fit.
-        """
-        if freight.weight_kg > node.capacity_kg:
-            return float('inf')
-
-        cost = node.calculate_cost(distance_km)
-        time_estimate = distance_km / node.speed_kmh
-        reliability_penalty = (1.0 - node.reliability) * 100
-        weight_utilization = freight.weight_kg / node.capacity_kg
-        # Cycloid curve: penalizes low utilization and high cost
-        score = cost + (time_estimate * 10) + reliability_penalty + (1.0 - weight_utilization) * 5
-        return score
-
-    def optimize_dispatch(self, distance_km: float = 5.0) -> List[Dict]:
-        """
-        Optimize the dispatch of pending freight to available nodes.
-        Returns a list of dispatch instructions.
-        """
-        if not self.pending_freight:
-            return []
-
-        # Sort freight by priority (high to low)
-        sorted_freight = sorted(self.pending_freight, key=lambda f: f.priority, reverse=True)
-        dispatches = []
-        available_nodes = list(self.nodes.values())
-
-        for freight in sorted_freight:
-            best_node = None
-            best_score = float('inf')
-            for node in available_nodes:
-                score = self._cycloid_score(node, freight, distance_km)
-                if score < best_score:
-                    best_score = score
-                    best_node = node
-
-            if best_node:
-                freight.current_mode = TransportMode.BODA if best_node.capacity_kg < 50 else TransportMode.MATATU
-                freight.status = "dispatched"
-                dispatch = {
-                    "freight_id": freight.id,
-                    "node_id": best_node.id,
-                    "cost": best_node.calculate_cost(distance_km),
-                    "score": best_score,
-                    "timestamp": time.time()
-                }
-                dispatches.append(dispatch)
-                self.dispatch_log.append(dispatch)
-                logger.info(f"Dispatched freight {freight.id} to node {best_node.id} (score: {best_score:.2f})")
-            else:
-                freight.status = "unassigned"
-                logger.warning(f"No suitable node for freight {freight.id}")
-
-        self.pending_freight.clear()
-        return dispatches
-
-    def get_status(self) -> Dict:
-        """Return the current status of the optimizer."""
+    def to_dict(self) -> Dict[str, Any]:
         return {
-            "terminal_id": self.terminal_id,
-            "pending_freight": len(self.pending_freight),
-            "registered_nodes": len(self.nodes),
-            "total_dispatches": len(self.dispatch_log)
+            "train_id": self.train_id,
+            "origin": self.origin,
+            "destination": self.destination,
+            "cargo_weight": self.cargo_weight,
+            "priority": self.priority,
+            "status": self.status,
+            "scheduled_departure": self.scheduled_departure.isoformat() if self.scheduled_departure else None,
+            "actual_departure": self.actual_departure.isoformat() if self.actual_departure else None,
+            "actual_arrival": self.actual_arrival.isoformat() if self.actual_arrival else None
         }
 
+
+class NairobiSGRCycloidSentinel:
+    """
+    An autonomous sentinel that optimizes SGR freight train scheduling using a cycloid-based
+    predictive model to minimize congestion and maximize throughput in the Nairobi corridor.
+    """
+
+    def __init__(self, base_speed_kmh: float = 120.0, congestion_factor: float = 1.2):
+        self.base_speed_kmh = base_speed_kmh
+        self.congestion_factor = congestion_factor
+        self.trains: List[SGRTrain] = []
+        self.schedule_log: List[Dict[str, Any]] = []
+
+    def add_train(self, train: SGRTrain) -> None:
+        """Add a train to the scheduling queue."""
+        self.trains.append(train)
+
+    def calculate_optimal_departure(self, train: SGRTrain, current_time: datetime) -> datetime:
+        """
+        Calculate the optimal departure time using a cycloid function that models
+        Nairobi's traffic and weather patterns.
+        """
+        # Simulate a cycloid function for congestion
+        hour = current_time.hour
+        # Peak hours: 7-9 AM, 5-7 PM
+        if 7 <= hour <= 9 or 17 <= hour <= 19:
+            congestion_multiplier = self.congestion_factor
+        else:
+            congestion_multiplier = 1.0
+
+        # Cycloid adjustment: sin(pi * hour / 12) to model daily cycle
+        cycloid_adjustment = abs(__import__('math').sin(__import__('math').pi * hour / 12))
+        optimal_delay_minutes = int(cycloid_adjustment * 30 * congestion_multiplier)
+
+        return current_time + timedelta(minutes=optimal_delay_minutes)
+
+    def optimize_schedule(self, current_time: datetime) -> List[Dict[str, Any]]:
+        """
+        Optimize the schedule for all trains in the queue.
+        """
+        # Sort by priority (higher priority first)
+        self.trains.sort(key=lambda t: t.priority, reverse=True)
+
+        optimized_schedule = []
+        for train in self.trains:
+            optimal_departure = self.calculate_optimal_departure(train, current_time)
+            train.scheduled_departure = optimal_departure
+            train.status = "OPTIMIZED"
+
+            schedule_entry = {
+                "train_id": train.train_id,
+                "scheduled_departure": optimal_departure.isoformat(),
+                "priority": train.priority,
+                "cargo_weight": train.cargo_weight
+            }
+            optimized_schedule.append(schedule_entry)
+            self.schedule_log.append(schedule_entry)
+
+        return optimized_schedule
+
+    def simulate_journey(self, train: SGRTrain, current_time: datetime) -> Dict[str, Any]:
+        """
+        Simulate the journey of a train and update its status.
+        """
+        if train.scheduled_departure is None:
+            raise ValueError(f"Train {train.train_id} has no scheduled departure.")
+
+        # Simulate journey time based on distance and speed
+        distance_km = 100.0  # Assume 100km for simulation
+        journey_hours = distance_km / self.base_speed_kmh
+        journey_time = timedelta(hours=journey_hours)
+
+        train.actual_departure = train.scheduled_departure
+        train.actual_arrival = train.scheduled_departure + journey_time
+        train.status = "COMPLETED"
+
+        return {
+            "train_id": train.train_id,
+            "departure": train.actual_departure.isoformat(),
+            "arrival": train.actual_arrival.isoformat(),
+            "status": train.status
+        }
+
+    def get_schedule_summary(self) -> Dict[str, Any]:
+        """Get a summary of the current schedule."""
+        return {
+            "total_trains": len(self.trains),
+            "optimized_trains": len([t for t in self.trains if t.status == "OPTIMIZED"]),
+            "completed_trains": len([t for t in self.trains if t.status == "COMPLETED"]),
+            "schedule_log": self.schedule_log
+        }
+
+
+def main():
+    """Test harness for the Nairobi SGR Rail Cycloid Sentinel."""
+    try:
+        sentinel = NairobiSGRCycloidSentinel()
+        current_time = datetime.now()
+
+        # Add sample trains
+        train1 = SGRTrain("SGR-001", "Nairobi", "Mombasa", 50.0, priority=2)
+        train2 = SGRTrain("SGR-002", "Nairobi", "Mombasa", 30.0, priority=1)
+        train3 = SGRTrain("SGR-003", "Nairobi", "Mombasa", 70.0, priority=3)
+
+        sentinel.add_train(train1)
+        sentinel.add_train(train2)
+        sentinel.add_train(train3)
+
+        # Optimize schedule
+        optimized_schedule = sentinel.optimize_schedule(current_time)
+        print("Optimized Schedule:")
+        print(json.dumps(optimized_schedule, indent=2))
+
+        # Simulate journey for the highest priority train
+        journey_result = sentinel.simulate_journey(train3, current_time)
+        print("Journey Simulation:")
+        print(json.dumps(journey_result, indent=2))
+
+        # Get summary
+        summary = sentinel.get_schedule_summary()
+        print("Schedule Summary:")
+        print(json.dumps(summary, indent=2))
+
+        print("\nTest passed successfully.")
+    except Exception as e:
+        print(f"Test failed: {str(e)}")
+        raise
+
+
 if __name__ == "__main__":
-    # Test Harness
-    optimizer = SGRRailCycloidOptimizer("Nairobi_Rail_Terminal")
-
-    # Register nodes
-    optimizer.register_node(MicroLogisticsNode("boda_001", capacity_kg=50, speed_kmh=40, cost_per_km=2.0, reliability=0.95))
-    optimizer.register_node(MicroLogisticsNode("matatu_001", capacity_kg=500, speed_kmh=30, cost_per_km=5.0, reliability=0.90))
-    optimizer.register_node(MicroLogisticsNode("truck_001", capacity_kg=5000, speed_kmh=60, cost_per_km=10.0, reliability=0.98))
-
-    # Add freight
-    optimizer.add_freight(FreightUnit("F001", weight_kg=30, destination="Westlands", priority=5))
-    optimizer.add_freight(FreightUnit("F002", weight_kg=300, destination="Kilimani", priority=3))
-    optimizer.add_freight(FreightUnit("F003", weight_kg=2000, destination="Industrial Area", priority=1))
-
-    # Optimize
-    dispatches = optimizer.optimize_dispatch(distance_km=10.0)
-    print(json.dumps(dispatches, indent=2))
-    print(optimizer.get_status())
+    main()
