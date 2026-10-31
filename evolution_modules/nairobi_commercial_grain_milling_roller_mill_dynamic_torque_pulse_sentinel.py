@@ -1,97 +1,75 @@
+"""
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Pulse Sentinel
+Author: Cortana Autonomous Evolutionary Architect
+Operator: Michael Obiero, Nairobi, Kenya
+
+Monitors dynamic torque pulses, transient shock waves, and sudden torsional irregularities
+in heavy industrial roller mills processing grain in Nairobi.
+"""
+
 import time
 import math
+import random
 import logging
-from typing import Dict, List, Any, Optional
+from typing import Dict, Any, List
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
 logger = logging.getLogger("RollerMillTorquePulseSentinel")
 
 class RollerMillTorquePulseSentinel:
-    """
-    Monitors high-resolution dynamic torque pulse signatures in commercial roller mills
-    across Nairobi grain processing facilities, safeguarding heavy milling machinery.
-    """
-    
-    def __init__(self, mill_id: str, pulse_threshold_nm: float = 450.0, sample_window_size: int = 50):
+    def __init__(self, mill_id: str, nominal_torque_nm: float = 1250.0, pulse_threshold_multiplier: float = 1.75):
         self.mill_id = mill_id
-        self.pulse_threshold_nm = pulse_threshold_nm
-        self.sample_window_size = sample_window_size
-        self._torque_history: List[float] = []
-        self._anomaly_count = 0
+        self.nominal_torque_nm = nominal_torque_nm
+        self.pulse_threshold_multiplier = pulse_threshold_multiplier
+        self.pulse_limit = self.nominal_torque_nm * self.pulse_threshold_multiplier
+        self.anomaly_log: List[Dict[str, Any]] = []
 
-    def ingest_torque_reading(self, torque_nm: float, timestamp: Optional[float] = None) -> Dict[str, Any]:
-        """
-        Ingests a high-frequency torque reading, calculates moving differentials,
-        and identifies transient torque pulses.
-        """
-        ts = timestamp or time.time()
-        self._torque_history.append(torque_nm)
+    def analyze_torque_telemetry(self, current_torque: float, harmonic_jitter: float) -> Dict[str, Any]:
+        timestamp = time.time()
+        is_pulse_spike = current_torque > self.pulse_limit
+        shock_index = (current_torque / self.nominal_torque_nm) * (1.0 + abs(harmonic_jitter))
         
-        if len(self._torque_history) > self.sample_window_size:
-            self._torque_history.pop(0)
-            
-        pulse_delta = 0.0
-        is_pulse_anomaly = False
-        
-        if len(self._torque_history) >= 2:
-            pulse_delta = abs(self._torque_history[-1] - self._torque_history[-2])
-            if pulse_delta > self.pulse_threshold_nm:
-                self._anomaly_count += 1
-                is_pulse_anomaly = True
-                logger.warning(
-                    f"[ALERT] Roller Mill {self.mill_id}: Torque pulse anomaly detected! "
-                    f"Delta: {pulse_delta:.2f} Nm (Threshold: {self.pulse_threshold_nm} Nm)"
-                )
-                
+        status = "NOMINAL"
+        action = "NONE"
+
+        if is_pulse_spike:
+            status = "CRITICAL_TORQUE_PULSE"
+            action = "ENGAGE_INVERTER_CURRENT_LIMITER"
+            logger.warning(f"[{self.mill_id}] TORQUE PULSE SPIKE DETECTED: {current_torque:.2f} Nm (Limit: {self.pulse_limit:.2f} Nm)")
+            self.anomaly_log.append({
+                "timestamp": timestamp,
+                "torque": current_torque,
+                "jitter": harmonic_jitter,
+                "status": status
+            })
+        elif shock_index > 1.4:
+            status = "ELEVATED_SHOCK_WAVE"
+            action = "RAMP_DOWN_FEED_GATE"
+            logger.info(f"[{self.mill_id}] Elevated shock wave index: {shock_index:.2f}")
+
         return {
             "mill_id": self.mill_id,
-            "timestamp": ts,
-            "current_torque_nm": torque_nm,
-            "pulse_delta_nm": pulse_delta,
-            "is_anomaly": is_pulse_anomaly,
-            "total_anomalies": self._anomaly_count
-        }
-
-    def evaluate_health_index(self) -> Dict[str, Any]:
-        """
-        Evaluates the overall mechanical health index of the roller mill drive train.
-        """
-        if not self._torque_history:
-            return {"health_score": 100.0, "status": "NO_DATA"}
-            
-        mean_torque = sum(self._torque_history) / len(self._torque_history)
-        variance = sum((x - mean_torque) ** 2 for x in self._torque_history) / len(self._torque_history)
-        std_dev = math.sqrt(variance)
-        
-        # Penalty based on anomaly frequency and variance
-        penalty = min(50.0, (self._anomaly_count * 5.0) + (std_dev * 0.1))
-        health_score = max(0.0, 100.0 - penalty)
-        
-        status = "OPTIMAL"
-        if health_score < 75.0:
-            status = "DEGRADED"
-        if health_score < 40.0:
-            status = "CRITICAL"
-            
-        return {
-            "mill_id": self.mill_id,
-            "health_score": round(health_score, 2),
-            "mean_torque_nm": round(mean_torque, 2),
-            "torque_std_dev": round(std_dev, 2),
-            "anomaly_count": self._anomaly_count,
-            "status": status
+            "timestamp": timestamp,
+            "current_torque_nm": current_torque,
+            "shock_index": shock_index,
+            "status": status,
+            "action_recommended": action
         }
 
 if __name__ == "__main__":
-    print("Initializing Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Pulse Sentinel...")
-    sentinel = RollerMillTorquePulseSentinel(mill_id="NAI-MILL-ALPHA-04")
+    logger.info("Initializing Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Pulse Sentinel...")
+    sentinel = RollerMillTorquePulseSentinel(mill_id="NAI_UNGA_MILL_04")
     
-    # Simulate normal and spike telemetry
-    test_readings = [210.5, 215.0, 212.1, 680.0, 214.3, 211.0, 750.2, 213.8]
-    for val in test_readings:
-        result = sentinel.ingest_torque_reading(val)
-        print(f"Telemetry: {result}")
-        
-    health = sentinel.evaluate_health_index()
-    print(f"Final Health Evaluation: {health}")
-    print("Roller Mill Dynamic Torque Pulse Sentinel test execution completed successfully.")
+    # Simulate regular operation and a sudden grain-choke torque pulse
+    test_readings = [
+        (1200.0, 0.02),
+        (1230.0, 0.04),
+        (2350.0, 0.35),  # Hard foreign object choke pulse
+        (1210.0, 0.01)
+    ]
+
+    for torque, jitter in test_readings:
+        result = sentinel.analyze_torque_telemetry(torque, jitter)
+        logger.info(f"Telemetry Output: {result}")
+    
+    logger.info("Roller Mill Dynamic Torque Pulse Sentinel test sequence executed successfully.")
