@@ -1,94 +1,74 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Resonance Sentinel
-Autonomous Evolutionary Module for Cortana
-"""
-
-import time
-import math
-import random
 import logging
-from typing import Dict, Any, List
+import time
+import statistics
+from typing import Dict, List, Any, Optional
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("RollerMillTorqueResonanceSentinel")
 
 class RollerMillTorqueResonanceSentinel:
     """
-    Monitors high-frequency torque telemetry from commercial roller mills operating
-    in Nairobi milling plants, detecting destructive torsional resonance and dynamic chatter.
+    Monitors dynamic torque resonance signatures on commercial grain milling roller mills,
+    detecting micro-oscillations and structural harmonic stress before mechanical seizure.
     """
-    def __init__(self, mill_id: str, rated_rpm: float = 1200.0, resonance_threshold_hz: float = 45.0):
+    def __init__(self, mill_id: str, sample_rate_hz: float = 100.0, resonance_threshold_nm: float = 450.0):
         self.mill_id = mill_id
-        self.rated_rpm = rated_rpm
-        self.resonance_threshold_hz = resonance_threshold_hz
-        self.telemetry_history: List[Dict[str, Any]] = []
-        self.mitigation_active = False
+        self.sample_rate_hz = sample_rate_hz
+        self.resonance_threshold_nm = resonance_threshold_nm
+        self.torque_buffer: List[float] = []
+        self.max_buffer_size = 500
+        self.status = "NORMAL"
+        self.trip_count = 0
 
-    def ingest_telemetry(self, torque_nm: float, vibration_mm_s: float, current_rpm: float) -> Dict[str, Any]:
-        """Ingests real-time torque and vibration telemetry to evaluate resonance stress."""
-        timestamp = time.time()
-        # Fast Fourier Transform simulation on torque ripple vector
-        harmonic_spike = abs(math.sin(timestamp * 2.0 * math.pi * (self.resonance_threshold_hz / 10.0))) * vibration_mm_s
-        
-        status = "NOMINAL"
-        action = "NONE"
+    def ingest_torque_reading(self, torque_nm: float) -> Dict[str, Any]:
+        """
+        Ingests a real-time torque reading in Newton-meters (Nm), updates buffer,
+        and evaluates resonant anomalies.
+        """
+        self.torque_buffer.append(torque_nm)
+        if len(self.torque_buffer) > self.max_buffer_size:
+            self.torque_buffer.pop(0)
 
-        if harmonic_spike > 3.5 or vibration_mm_s > 7.0:
-            status = "CRITICAL_RESONANCE"
-            action = "AUTO_VFD_MODULATION_TRIGGERED"
-            self.mitigation_active = True
-        elif harmonic_spike > 2.0:
-            status = "WARNING"
-            action = "DAMPENING_ADJUSTMENT"
-            self.mitigation_active = False
-        else:
-            self.mitigation_active = False
+        anomaly_detected = False
+        variance = 0.0
+        mean_val = 0.0
 
-        record = {
-            "timestamp": timestamp,
-            "mill_id": self.mill_id,
-            "torque_nm": torque_nm,
-            "vibration_mm_s": vibration_mm_s,
-            "current_rpm": current_rpm,
-            "harmonic_spike": harmonic_spike,
-            "status": status,
-            "action": action
-        }
+        if len(self.torque_buffer) >= 10:
+            mean_val = statistics.mean(self.torque_buffer)
+            variance = statistics.variance(self.torque_buffer)
+            if abs(torque_nm - mean_val) > self.resonance_threshold_nm or variance > (self.resonance_threshold_nm * 0.5):
+                anomaly_detected = True
+                self.status = "TRIPPED_RESONANCE_ANOMALY"
+                self.trip_count += 1
+                logger.warning(f"[!] MILL {self.mill_id} RESONANCE SPIKE DETECTED: Torque={torque_nm}Nm, Mean={mean_val:.2f}Nm, Var={variance:.2f}")
+            else:
+                self.status = "NORMAL"
 
-        self.telemetry_history.append(record)
-        if len(self.telemetry_history) > 1000:
-            self.telemetry_history.pop(0)
-
-        return record
-
-    def generate_diagnostic_report(self) -> Dict[str, Any]:
-        """Summarizes machinery health and resonance incidents."""
-        if not self.telemetry_history:
-            return {"status": "NO_DATA"}
-
-        recent = self.telemetry_history[-100:]
-        critical_count = sum(1 for r in recent if r["status"] == "CRITICAL_RESONANCE")
-        
         return {
             "mill_id": self.mill_id,
-            "total_samples_analyzed": len(self.telemetry_history),
-            "recent_critical_events": critical_count,
-            "mitigation_status": self.mitigation_active,
-            "health_index": max(0.0, 100.0 - (critical_count * 5.0))
+            "current_torque_nm": torque_nm,
+            "mean_torque_nm": round(mean_val, 2),
+            "torque_variance": round(variance, 2),
+            "status": self.status,
+            "anomaly_detected": anomaly_detected,
+            "trip_count": self.trip_count,
+            "timestamp": time.time()
         }
 
+    def reset_sentinel(self) -> None:
+        """Resets sentinel status after operator inspection."""
+        self.status = "NORMAL"
+        self.torque_buffer.clear()
+        logger.info(f"[+] Mill {self.mill_id} dynamic torque resonance sentinel reset to NORMAL.")
+
 if __name__ == "__main__":
-    logger.info("Initializing Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Resonance Sentinel...")
-    sentinel = RollerMillTorqueResonanceSentinel(mill_id="MILL_NAIROBI_INDUSTRIAL_04")
-    
-    for i in range(5):
-        torque = 350.0 + random.uniform(-15.0, 25.0)
-        vibration = 2.1 + random.uniform(0.0, 6.0)
-        rpm = 1195.0 + random.uniform(-5.0, 5.0)
-        
-        res = sentinel.ingest_telemetry(torque, vibration, rpm)
-        logger.info(f"Telemetry Cycle {i+1}: Status -> {res['status']}, Action -> {res['action']}")
-        time.sleep(0.1)
-        
-    report = sentinel.generate_diagnostic_report()
-    logger.info(f"Diagnostic Report: {report}")
+    sentinel = RollerMillTorqueResonanceSentinel(mill_id="NAIROBI_MILL_04_UGALI_LINE")
+    # Simulate normal operation
+    for t in [120.5, 122.1, 119.8, 121.0, 120.2]:
+        res = sentinel.ingest_torque_reading(t)
+        print(res)
+    # Simulate resonant anomaly spike
+    spike_res = sentinel.ingest_torque_reading(750.0)
+    print(spike_res)
+    assert spike_res["anomaly_detected"] is True
+    print("RollerMillTorqueResonanceSentinel verification test passed successfully.")
