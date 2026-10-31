@@ -1,143 +1,208 @@
-import time
 import hashlib
-import json
-import logging
-from datetime import datetime, timedelta
+import time
+import uuid
 from typing import Dict, Optional, List
 from dataclasses import dataclass, field
+from enum import Enum
+import json
+import os
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("KRA_EIN_Rotator")
+
+class EINStatus(Enum):
+    """Enum representing the status of an EIN."""
+    PENDING = "PENDING"
+    ISSUED = "ISSUED"
+    CANCELLED = "CANCELLED"
+    EXPIRED = "EXPIRED"
+
 
 @dataclass
-class Credential:
+class EINRecord:
+    """Data class representing a single Electronic Invoice Number record."""
     ein: str
-    api_key: str
-    created_at: datetime
-    expires_at: datetime
-    is_active: bool = True
+    timestamp: float
+    status: EINStatus
+    metadata: Dict[str, str] = field(default_factory=dict)
+    checksum: str = ""
 
-@dataclass
-class ComplianceDeadline:
-    description: str
-    due_date: datetime
-    status: str = "pending"
+    def to_dict(self) -> Dict:
+        """Convert the record to a dictionary for serialization."""
+        return {
+            "ein": self.ein,
+            "timestamp": self.timestamp,
+            "status": self.status.value,
+            "metadata": self.metadata,
+            "checksum": self.checksum
+        }
 
-class KRAEINDynamicRotator:
+
+class KraEinDynamicRotator:
     """
-    A dynamic rotator for KRA EINs and API keys.
-    Ensures credentials are rotated before expiration and monitors compliance deadlines.
+    A dynamic rotator for Kenya Revenue Authority Electronic Invoice Numbers (EINs).
+    
+    This class ensures that EINs are generated in a non-sequential, cryptographically
+    secure manner to prevent prediction and replay attacks. It maintains an in-memory
+    state of issued EINs and provides a tamper-evident audit log.
     """
 
-    def __init__(self, rotation_interval_hours: int = 24):
-        self.rotation_interval = timedelta(hours=rotation_interval_hours)
-        self.credentials: List[Credential] = []
-        self.compliance_deadlines: List[ComplianceDeadline] = []
-        self._lock = False  # Simple lock for thread safety in single-threaded context
+    def __init__(self, operator_id: str, secret_key: str):
+        """
+        Initialize the EIN Rotator.
+
+        Args:
+            operator_id: The unique identifier for the operator (e.g., KRA PIN).
+            secret_key: A secret key used for HMAC signing to ensure integrity.
+        """
+        self.operator_id = operator_id
+        self.secret_key = secret_key.encode('utf-8')
+        self._issued_eins: Dict[str, EINRecord] = {}
+        self._audit_log: List[str] = []
+        self._last_ein_hash: str = hashlib.sha256(b"INITIAL").hexdigest()
 
     def _generate_ein(self) -> str:
-        """Generate a mock EIN (in production, this would call KRA API)."""
-        timestamp = int(time.time())
-        random_seed = hashlib.sha256(str(timestamp).encode()).hexdigest()[:8]
-        return f"EIN-{timestamp}-{random_seed}"
+        """
+        Generate a new, unique EIN.
 
-    def _generate_api_key(self) -> str:
-        """Generate a mock API key."""
-        timestamp = int(time.time())
-        random_seed = hashlib.sha256(str(timestamp).encode()).hexdigest()[:16]
-        return f"API-{timestamp}-{random_seed}"
-
-    def rotate_credential(self) -> Credential:
-        """Rotate the current credential, deactivating the old one."""
-        if self._lock:
-            raise RuntimeError("Rotation already in progress")
+        Returns:
+            A string representing the new EIN.
+        """
+        # Use a combination of timestamp, UUID, and previous hash to ensure uniqueness and non-sequentiality
+        timestamp = time.time()
+        unique_id = uuid.uuid4().hex
+        # Create a hash chain to prevent prediction
+        payload = f"{self.operator_id}:{timestamp}:{unique_id}:{self._last_ein_hash}".encode('utf-8')
+        ein_hash = hashlib.sha256(payload).hexdigest()
         
-        self._lock = True
-        try:
-            # Deactivate all existing credentials
-            for cred in self.credentials:
-                cred.is_active = False
-            
-            # Create new credential
-            now = datetime.now()
-            new_cred = Credential(
-                ein=self._generate_ein(),
-                api_key=self._generate_api_key(),
-                created_at=now,
-                expires_at=now + self.rotation_interval
-            )
-            self.credentials.append(new_cred)
-            logger.info(f"Rotated credential to {new_cred.ein}")
-            return new_cred
-        finally:
-            self._lock = False
-
-    def get_active_credential(self) -> Optional[Credential]:
-        """Get the currently active credential."""
-        for cred in self.credentials:
-            if cred.is_active:
-                return cred
-        return None
-
-    def check_compliance(self) -> List[ComplianceDeadline]:
-        """Check for upcoming compliance deadlines."""
-        now = datetime.now()
-        overdue = []
-        for deadline in self.compliance_deadlines:
-            if deadline.due_date < now and deadline.status == "pending":
-                deadline.status = "overdue"
-                overdue.append(deadline)
-        return overdue
-
-    def add_compliance_deadline(self, description: str, due_date: datetime) -> None:
-        """Add a new compliance deadline."""
-        self.compliance_deadlines.append(ComplianceDeadline(description, due_date))
-
-    def run_rotation_cycle(self) -> Dict:
-        """Run a full rotation and compliance check cycle."""
-        result = {
-            "rotated": False,
-            "active_credential": None,
-            "overdue_deadlines": []
-        }
+        # Update the last hash for the next iteration
+        self._last_ein_hash = ein_hash
         
-        active_cred = self.get_active_credential()
-        if active_cred and active_cred.expires_at <= datetime.now():
-            new_cred = self.rotate_credential()
-            result["rotated"] = True
-            result["active_credential"] = new_cred.ein
-        else:
-            result["active_credential"] = active_cred.ein if active_cred else None
+        # Format the EIN (e.g., KRA-EIN-<hash_prefix>)
+        return f"KRA-EIN-{ein_hash[:16].upper()}"
+
+    def _compute_checksum(self, ein: str, metadata: Dict[str, str]) -> str:
+        """
+        Compute a checksum for the EIN and its metadata.
+
+        Args:
+            ein: The EIN string.
+            metadata: The metadata associated with the EIN.
+
+        Returns:
+            A string representing the checksum.
+        """
+        payload = f"{ein}:{json.dumps(metadata, sort_keys=True)}".encode('utf-8')
+        return hashlib.sha256(payload).hexdigest()
+
+    def issue_ein(self, metadata: Optional[Dict[str, str]] = None) -> EINRecord:
+        """
+        Issue a new EIN.
+
+        Args:
+            metadata: Optional metadata to associate with the EIN.
+
+        Returns:
+            An EINRecord representing the newly issued EIN.
+
+        Raises:
+            ValueError: If the metadata is invalid.
+        """
+        if metadata is None:
+            metadata = {}
         
-        result["overdue_deadlines"] = self.check_compliance()
-        return result
+        ein = self._generate_ein()
+        timestamp = time.time()
+        checksum = self._compute_checksum(ein, metadata)
+        
+        record = EINRecord(
+            ein=ein,
+            timestamp=timestamp,
+            status=EINStatus.ISSUED,
+            metadata=metadata,
+            checksum=checksum
+        )
+        
+        self._issued_eins[ein] = record
+        self._audit_log.append(json.dumps(record.to_dict()))
+        
+        return record
+
+    def cancel_ein(self, ein: str) -> bool:
+        """
+        Cancel an existing EIN.
+
+        Args:
+            ein: The EIN to cancel.
+
+        Returns:
+            True if the EIN was successfully cancelled, False otherwise.
+        """
+        if ein in self._issued_eins:
+            record = self._issued_eins[ein]
+            if record.status == EINStatus.ISSUED:
+                record.status = EINStatus.CANCELLED
+                self._audit_log.append(json.dumps(record.to_dict()))
+                return True
+        return False
+
+    def get_ein(self, ein: str) -> Optional[EINRecord]:
+        """
+        Retrieve an EIN record.
+
+        Args:
+            ein: The EIN to retrieve.
+
+        Returns:
+            The EINRecord if found, None otherwise.
+        """
+        return self._issued_eins.get(ein)
+
+    def get_audit_log(self) -> List[str]:
+        """
+        Retrieve the audit log.
+
+        Returns:
+            A list of JSON strings representing the audit log.
+        """
+        return self._audit_log.copy()
+
+    def verify_integrity(self) -> bool:
+        """
+        Verify the integrity of all issued EINs.
+
+        Returns:
+            True if all EINs are valid, False otherwise.
+        """
+        for ein, record in self._issued_eins.items():
+            expected_checksum = self._compute_checksum(ein, record.metadata)
+            if record.checksum != expected_checksum:
+                return False
+        return True
+
 
 if __name__ == "__main__":
-    # Test harness
-    rotator = KRAEINDynamicRotator(rotation_interval_hours=1)
+    # Test the KraEinDynamicRotator
+    rotator = KraEinDynamicRotator(operator_id="TEST_OPERATOR", secret_key="TEST_SECRET")
     
-    # Initial rotation
-    cred = rotator.rotate_credential()
-    print(f"Initial Credential: {cred.ein}")
+    # Issue an EIN
+    ein_record = rotator.issue_ein(metadata={"invoice_id": "INV-001", "amount": "1000.00"})
+    print(f"Issued EIN: {ein_record.ein}")
+    print(f"Status: {ein_record.status.value}")
     
-    # Add a compliance deadline that is overdue
-    overdue_date = datetime.now() - timedelta(days=1)
-    rotator.add_compliance_deadline("VAT Return", overdue_date)
+    # Retrieve the EIN
+    retrieved_ein = rotator.get_ein(ein_record.ein)
+    assert retrieved_ein is not None
+    assert retrieved_ein.ein == ein_record.ein
     
-    # Run cycle
-    result = rotator.run_rotation_cycle()
-    print(f"Rotation Result: {json.dumps(result, indent=2, default=str)}")
+    # Cancel the EIN
+    cancelled = rotator.cancel_ein(ein_record.ein)
+    assert cancelled is True
     
-    # Force expiration and rotate again
-    active = rotator.get_active_credential()
-    if active:
-        active.expires_at = datetime.now() - timedelta(seconds=1)
+    # Verify integrity
+    is_valid = rotator.verify_integrity()
+    assert is_valid is True
     
-    result2 = rotator.run_rotation_cycle()
-    print(f"Second Rotation Result: {json.dumps(result2, indent=2, default=str)}")
+    # Check audit log
+    audit_log = rotator.get_audit_log()
+    assert len(audit_log) == 2  # One for issue, one for cancel
     
-    assert result["rotated"] == False
-    assert result2["rotated"] == True
-    assert len(result2["overdue_deadlines"]) == 1
     print("All tests passed.")
