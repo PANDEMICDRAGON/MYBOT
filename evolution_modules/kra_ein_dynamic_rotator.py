@@ -1,7 +1,10 @@
-import logging
-import secrets
+import uuid
 import time
+import hashlib
+import json
+from datetime import datetime, timedelta
 from typing import Dict, List, Optional
+import logging
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -10,73 +13,65 @@ logger = logging.getLogger(__name__)
 
 class KraEinDynamicRotator:
     """
-    A class to handle the dynamic rotation of KRA Electronic Identification Numbers (EINs)
-    and ensure compliance with Kenyan tax regulations.
+    A class to dynamically rotate and validate KRA Electronic Invoice Numbers (EINs).
+    
+    Attributes:
+        business_name (str): The name of the business.
+        pin (str): The KRA Personal Identification Number (PIN).
+        ein_cache (Dict[str, Dict]): A cache of recently generated EINs.
+        rotation_interval (int): The interval in seconds for rotating EINs.
     """
 
-    def __init__(self, initial_ein: str, rotation_interval: int = 3600):
+    def __init__(self, business_name: str, pin: str, rotation_interval: int = 3600):
         """
         Initialize the KraEinDynamicRotator.
 
         Args:
-            initial_ein (str): The initial EIN to start with.
-            rotation_interval (int): The interval in seconds after which the EIN should be rotated.
+            business_name (str): The name of the business.
+            pin (str): The KRA Personal Identification Number (PIN).
+            rotation_interval (int): The interval in seconds for rotating EINs.
         """
-        self.current_ein = initial_ein
+        self.business_name = business_name
+        self.pin = pin
+        self.ein_cache: Dict[str, Dict] = {}
         self.rotation_interval = rotation_interval
-        self.last_rotation_time = time.time()
-        self.ein_history: List[str] = [initial_ein]
+        self._last_rotation_time = time.time()
 
-    def generate_new_ein(self) -> str:
+    def generate_ein(self, invoice_data: Dict) -> str:
         """
-        Generate a new secure EIN.
+        Generate a new KRA EIN based on the provided invoice data.
+
+        Args:
+            invoice_data (Dict): The invoice data used to generate the EIN.
 
         Returns:
-            str: A newly generated EIN.
+            str: The generated EIN.
         """
-        new_ein = secrets.token_hex(16)
-        logger.info(f"Generated new EIN: {new_ein}")
-        return new_ein
+        # Create a unique identifier for the invoice
+        unique_id = str(uuid.uuid4())
+        timestamp = int(time.time())
 
-    def rotate_ein(self) -> str:
-        """
-        Rotate the current EIN to a new one.
+        # Create a hash of the invoice data and unique identifier
+        hash_input = f"{self.business_name}{self.pin}{unique_id}{timestamp}{json.dumps(invoice_data)}"
+        ein_hash = hashlib.sha256(hash_input.encode()).hexdigest()
 
-        Returns:
-            str: The newly rotated EIN.
-        """
-        if time.time() - self.last_rotation_time < self.rotation_interval:
-            logger.warning("Rotation interval not yet reached. Skipping rotation.")
-            return self.current_ein
+        # Format the EIN (example format: EIN-<hash>-<timestamp>)
+        ein = f"EIN-{ein_hash[:16]}-{timestamp}"
 
-        new_ein = self.generate_new_ein()
-        self.current_ein = new_ein
-        self.last_rotation_time = time.time()
-        self.ein_history.append(new_ein)
-        logger.info(f"EIN rotated to: {new_ein}")
-        return new_ein
+        # Cache the EIN
+        self.ein_cache[ein] = {
+            "ein": ein,
+            "invoice_data": invoice_data,
+            "generated_at": datetime.now().isoformat(),
+            "expires_at": (datetime.now() + timedelta(seconds=self.rotation_interval)).isoformat()
+        }
 
-    def get_current_ein(self) -> str:
-        """
-        Retrieve the current EIN.
-
-        Returns:
-            str: The current EIN.
-        """
-        return self.current_ein
-
-    def get_ein_history(self) -> List[str]:
-        """
-        Retrieve the history of all rotated EINs.
-
-        Returns:
-            List[str]: A list of all EINs used.
-        """
-        return self.ein_history
+        logger.info(f"Generated new EIN: {ein}")
+        return ein
 
     def validate_ein(self, ein: str) -> bool:
         """
-        Validate if the provided EIN is the current one.
+        Validate an existing EIN.
 
         Args:
             ein (str): The EIN to validate.
@@ -84,32 +79,73 @@ class KraEinDynamicRotator:
         Returns:
             bool: True if the EIN is valid, False otherwise.
         """
-        return ein == self.current_ein
+        if ein not in self.ein_cache:
+            logger.warning(f"EIN not found in cache: {ein}")
+            return False
 
+        ein_data = self.ein_cache[ein]
+        expires_at = datetime.fromisoformat(ein_data["expires_at"])
 
-def main():
-    """
-    Main function to test the KraEinDynamicRotator.
-    """
-    initial_ein = "initial_ein_12345"
-    rotator = KraEinDynamicRotator(initial_ein, rotation_interval=1)
+        if datetime.now() > expires_at:
+            logger.warning(f"EIN has expired: {ein}")
+            return False
 
-    # Test initial state
-    assert rotator.get_current_ein() == initial_ein
-    assert rotator.get_ein_history() == [initial_ein]
+        logger.info(f"EIN validated successfully: {ein}")
+        return True
 
-    # Test rotation
-    time.sleep(1.1)
-    new_ein = rotator.rotate_ein()
-    assert rotator.get_current_ein() == new_ein
-    assert rotator.get_ein_history() == [initial_ein, new_ein]
+    def rotate_eins(self) -> None:
+        """
+        Rotate all cached EINs that have expired.
+        """
+        current_time = time.time()
+        if current_time - self._last_rotation_time < self.rotation_interval:
+            return
 
-    # Test validation
-    assert rotator.validate_ein(new_ein)
-    assert not rotator.validate_ein(initial_ein)
+        expired_eins = []
+        for ein, data in self.ein_cache.items():
+            expires_at = datetime.fromisoformat(data["expires_at"])
+            if datetime.now() > expires_at:
+                expired_eins.append(ein)
 
-    logger.info("All tests passed successfully.")
+        for ein in expired_eins:
+            del self.ein_cache[ein]
+            logger.info(f"Rotated expired EIN: {ein}")
+
+        self._last_rotation_time = current_time
+        logger.info("EIN rotation completed.")
+
+    def get_active_eins(self) -> List[str]:
+        """
+        Retrieve all active (non-expired) EINs.
+
+        Returns:
+            List[str]: A list of active EINs.
+        """
+        active_eins = []
+        for ein, data in self.ein_cache.items():
+            expires_at = datetime.fromisoformat(data["expires_at"])
+            if datetime.now() <= expires_at:
+                active_eins.append(ein)
+
+        return active_eins
 
 
 if __name__ == "__main__":
-    main()
+    # Test the KraEinDynamicRotator
+    rotator = KraEinDynamicRotator("Test Business", "12345678901234567890", rotation_interval=60)
+
+    # Generate an EIN
+    invoice_data = {"amount": 1000, "customer": "John Doe"}
+    ein = rotator.generate_ein(invoice_data)
+    print(f"Generated EIN: {ein}")
+
+    # Validate the EIN
+    is_valid = rotator.validate_ein(ein)
+    print(f"EIN Valid: {is_valid}")
+
+    # Rotate EINs
+    rotator.rotate_eins()
+
+    # Get active EINs
+    active_eins = rotator.get_active_eins()
+    print(f"Active EINs: {active_eins}")
