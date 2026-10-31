@@ -1,61 +1,61 @@
 import logging
 import time
 import statistics
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - [%(levelname)s] - %(name)s - %(message)s')
-logger = logging.getLogger("DynamicTorqueComplianceSentinel")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+logger = logging.getLogger("RollerMillTorqueComplianceSentinel")
 
 class RollerMillTorqueComplianceSentinel:
     """
-    Monitors roller mill dynamic torque compliance against expected baseline distributions,
-    detecting micro-anomalies, slippage vectors, and mechanical binding forces.
+    Monitors dynamic torsional compliance across commercial roller mill drive rolls in Nairobi.
+    Detects anomalous micro-slip, twist deviations, and torsional rigidity degradation.
     """
-    def __init__(self, mill_id: str, torque_threshold_nm: float = 450.0):
+    def __init__(self, mill_id: str, compliance_threshold_nm: float = 145.0):
         self.mill_id = mill_id
-        self.torque_threshold_nm = torque_threshold_nm
-        self.history: List[float] = []
-        self.violations_detected = 0
+        self.compliance_threshold_nm = compliance_threshold_nm
+        self.torque_readings: List[float] = []
+        self.slip_events: int = 0
+        logger.info(f"Initialized RollerMillTorqueComplianceSentinel for mill: {mill_id}")
 
-    def ingest_telemetry(self, current_torque: float) -> Dict[str, Any]:
-        """
-        Ingests a torque reading, evaluates compliance, and updates internal state.
-        """
-        self.history.append(current_torque)
-        if len(self.history) > 100:
-            self.history.pop(0)
-
-        mean_torque = statistics.mean(self.history)
-        stdev_torque = statistics.stdev(self.history) if len(self.history) > 1 else 0.0
-
-        compliant = current_torque <= self.torque_threshold_nm
-        status = "NORMAL"
-
+    def record_torque_cycle(self, incoming_torque_nm: float, outgoing_torque_nm: float) -> Dict[str, Any]:
+        """Record differential torque and evaluate torsional compliance."""
+        differential = abs(incoming_torque_nm - outgoing_torque_nm)
+        self.torque_readings.append(differential)
+        
+        if len(self.torque_readings) > 1000:
+            self.torque_readings.pop(0)
+            
+        compliant = differential <= self.compliance_threshold_nm
         if not compliant:
-            self.violations_detected += 1
-            status = "CRITICAL_OVER_TORQUE"
-            logger.warning(f"[{self.mill_id}] Torque violation! Current: {current_torque} Nm > Threshold: {self.torque_threshold_nm} Nm")
-        elif stdev_torque > (self.torque_threshold_nm * 0.15):
-            status = "WARNING_HIGH_FLUTTER"
-            logger.info(f"[{self.mill_id}] High torque variance detected. Stdev: {stdev_torque:.2f}")
-
+            self.slip_events += int(1)
+            logger.warning(f"[{self.mill_id}] Torsional compliance violation! Differential: {differential:.2f} Nm")
+            
         return {
             "mill_id": self.mill_id,
-            "current_torque_nm": current_torque,
-            "mean_torque_nm": mean_torque,
-            "stdev_torque_nm": stdev_torque,
+            "incoming_torque_nm": incoming_torque_nm,
+            "outgoing_torque_nm": outgoing_torque_nm,
+            "differential_nm": differential,
             "compliant": compliant,
-            "status": status,
-            "total_violations": self.violations_detected,
+            "total_slip_events": self.slip_events,
             "timestamp": time.time()
         }
 
+    def get_diagnostics(self) -> Dict[str, Any]:
+        """Return aggregate torsional metrics."""
+        if not self.torque_readings:
+            return {"status": "no_data"}
+        return {
+            "mill_id": self.mill_id,
+            "mean_differential_nm": statistics.mean(self.torque_readings),
+            "max_differential_nm": max(self.torque_readings),
+            "slip_events": self.slip_events
+        }
+
 if __name__ == "__main__":
-    logger.info("Initializing Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Compliance Sentinel Test Harness...")
-    sentinel = RollerMillTorqueComplianceSentinel(mill_id="NAIROBI_MILL_UGALI_01", torque_threshold_nm=420.0)
-    
-    test_readings = [310.2, 315.5, 320.1, 410.0, 435.6, 318.0]
-    for r in test_readings:
-        res = sentinel.ingest_telemetry(r)
-        logger.info(f"Telemetry Result: {res}")
-    logger.info("Sentinel test harness completed successfully.")
+    sentinel = RollerMillTorqueComplianceSentinel("NAI-MILL-01")
+    res1 = sentinel.record_torque_cycle(1200.0, 1070.0)
+    print("Test Result 1:", res1)
+    res2 = sentinel.record_torque_cycle(1250.0, 1090.0)
+    print("Test Result 2:", res2)
+    print("Diagnostics:", sentinel.get_diagnostics())
