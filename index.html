@@ -498,267 +498,16 @@
     </section>
 
     <!-- ===================================================================
-         HUMANLIKE AVATAR // HIGGSFIELD AI (SOUL v2) & FLUX.1 REALISM STUDIO
+         AUTONOMOUS SYSTEMS & WORKING MODULES COMMAND BAY
+         391 OPERATIONAL INDUSTRIAL & PERSONAL WORKING SYSTEMS
          =================================================================== -->
-    <section id="visual-studio-section" class="draggable-hud-panel hud-panel hud-panel-chamfer p-6 sm:p-8 relative space-y-6" draggable="true" data-panel-id="visual-studio-section">
-      <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
-        <div class="flex items-center gap-2">
-          <span class="drag-icon">⠿</span>
-          <span class="drag-title">[ DRAG TO REARRANGE TILE // HUMANLIKE AVATAR &amp; HIGGSFIELD VISUAL STUDIO ]</span>
-        </div>
-        <span class="drag-hint">SOULv2-FLUX</span>
-      </div>
-      <div class="tech-stripe absolute top-0 left-0 right-0"></div>
-
-      <!-- Header & Engine Badge -->
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-cyan-500/20 pb-4">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-500/20 to-purple-500/20 border border-cyan-500/40 flex items-center justify-center text-xl shadow-[0_0_15px_rgba(0,240,255,0.2)]">
-            👩
-          </div>
-          <div>
-            <h2 class="text-base sm:text-lg font-black tracking-widest text-white uppercase font-display flex items-center gap-2">
-              <span>HUMANLIKE AVATAR</span> // <span class="text-cyan-400 glow-cyan">HIGGSFIELD &amp; FLUX STUDIO</span>
-              <span class="text-[9px] px-2 py-0.5 rounded font-mono bg-purple-950/80 text-purple-300 border border-purple-500/40 tracking-normal hidden sm:inline-block">
-                SOUL v2 + FLUX REALISM
-              </span>
-            </h2>
-            <p class="text-xs text-slate-400 font-mono mt-0.5">
-              Dual-engine neural generation (Higgsfield AI SOUL v2 + Black Forest Labs FLUX.1 Realism) for authentic, lifelike human character avatars.
-            </p>
-          </div>
-        </div>
-
-        <div class="flex flex-wrap items-center gap-2">
-          <button id="btn-toggle-higgsfield-modal" class="text-[10px] font-mono px-2.5 py-1 rounded bg-purple-950/80 text-purple-300 border border-purple-500/40 hover:border-purple-300 hover:bg-purple-900/60 transition-all flex items-center gap-1.5 cursor-pointer" title="Configure Higgsfield AI Key">
-            <span class="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
-            <span id="higgsfield-status-label">⚡ HIGGSFIELD AI: CONFIGURE</span>
-          </button>
-          <span id="visual-engine-badge" class="text-[10px] font-mono px-2.5 py-1 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-500/40 flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-            <span id="visual-engine-label">FLUX.1 REALISM ACTIVE</span>
-          </span>
-        </div>
-      </div>
-
-      <!-- Higgsfield AI Key Drawer / Embedded Configuration -->
-      <div id="higgsfield-key-drawer" class="hidden p-4 rounded-lg bg-purple-950/40 border border-purple-500/40 space-y-3">
-        <div class="flex items-center justify-between border-b border-purple-500/20 pb-2">
-          <div class="flex items-center gap-2 text-xs font-mono font-bold text-white">
-            <span class="text-purple-400">⚡</span>
-            <span>HIGGSFIELD AI (SOUL v2) EMBEDDED ENGINE INTEGRATION</span>
-          </div>
-          <button id="btn-close-higgsfield-drawer" class="text-slate-400 hover:text-white text-xs font-mono">&times; CLOSE</button>
-        </div>
-        <p class="text-[11px] text-slate-300 font-mono">
-          Enter your Higgsfield API Key (or <code class="text-purple-300 font-bold">KEY_ID:KEY_SECRET</code>). When set, requests route directly through Higgsfield AI SOUL v2 (<code class="text-purple-300">higgsfield-ai/soul/v2/standard</code>) for photorealistic human avatars. When unconfigured, the system automatically uses Black Forest Labs FLUX.1 Realism at zero cost.
-        </p>
-        <div class="flex flex-col sm:flex-row items-center gap-2">
-          <input 
-            type="password" 
-            id="higgsfield-key-input" 
-            placeholder="Enter Higgsfield API Key or KEY_ID:KEY_SECRET..." 
-            class="w-full sm:flex-1 bg-slate-950 border border-purple-500/40 rounded px-3 py-1.5 text-xs text-white font-mono focus:outline-none focus:border-purple-300 placeholder:text-slate-600"
-          />
-          <button 
-            id="btn-save-higgsfield-key" 
-            class="w-full sm:w-auto px-4 py-1.5 rounded bg-purple-700 hover:bg-purple-600 text-white font-mono text-xs font-bold transition-all shadow-[0_0_12px_rgba(168,85,247,0.4)]"
-          >
-            LINK HIGGSFIELD ENGINE
-          </button>
-          <button 
-            id="btn-clear-higgsfield-key" 
-            class="w-full sm:w-auto px-3 py-1.5 rounded bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 font-mono text-xs transition-all"
-          >
-            Clear
-          </button>
-        </div>
-        <div id="higgsfield-key-feedback" class="text-[10px] font-mono text-purple-300"></div>
-      </div>
-
-      <!-- Studio Layout: Left Controls (5 cols) & Right Canvas (7 cols) -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        <!-- Left Column: Controls & Prompt Matrix -->
-        <div class="lg:col-span-5 space-y-4">
-          
-          <!-- Avatar Quick-Template Presets -->
-          <div class="space-y-1.5">
-            <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
-              <span class="flex items-center gap-1.5 text-cyan-300 font-bold">
-                <span>👤</span> LIFELIKE HUMAN AVATAR PRESETS
-              </span>
-              <span class="text-[10px] text-slate-500">1-Click Load</span>
-            </div>
-            <div class="flex flex-wrap gap-1.5" id="visual-preset-container">
-              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-cyan-300 border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-950/50 transition-all flex items-center gap-1" data-preset="cortana_human">
-                👩 Cortana Human Persona
-              </button>
-              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-purple-300 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-950/50 transition-all flex items-center gap-1" data-preset="operator_twin">
-                🧑 Operator Digital Twin
-              </button>
-              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-amber-300 border border-amber-500/30 hover:border-amber-400 hover:bg-amber-950/50 transition-all flex items-center gap-1" data-preset="candid_35mm">
-                📸 Candid 35mm Street
-              </button>
-              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-emerald-300 border border-emerald-500/30 hover:border-emerald-400 hover:bg-emerald-950/50 transition-all flex items-center gap-1" data-preset="beauty_portrait">
-                🌟 Studio Beauty Portrait
-              </button>
-              <button class="visual-preset-btn text-[10px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-rose-300 border border-rose-500/30 hover:border-rose-400 hover:bg-rose-950/50 transition-all flex items-center gap-1" data-preset="maasai_portrait">
-                🦁 Maasai Cultural Portrait
-              </button>
-            </div>
-          </div>
-
-          <!-- Prompt Matrix -->
-          <div class="space-y-1.5">
-            <div class="flex items-center justify-between text-[11px] font-mono text-slate-300">
-              <span class="font-bold flex items-center gap-1 text-white">
-                <span class="text-cyan-400">▶</span> VISUAL DIRECTIVE PROMPT
-              </span>
-              <button id="btn-visual-random" class="text-[10px] text-cyan-400 hover:text-cyan-200 transition-colors flex items-center gap-1">
-                <span>🎲 Surprise Me</span>
-              </button>
-            </div>
-            <textarea id="visual-prompt-input" rows="3" class="w-full bg-slate-950/90 text-slate-100 font-mono text-xs rounded border border-cyan-500/30 focus:border-cyan-400 focus:outline-none p-3 resize-none shadow-inner transition-all placeholder:text-slate-600 focus:shadow-[0_0_15px_rgba(0,240,255,0.2)]" placeholder="Describe the avatar, character portrait, or scene in detail..."></textarea>
-          </div>
-
-          <!-- Style Aesthetic Matrix -->
-          <div class="space-y-1.5">
-            <span class="text-[11px] font-mono font-bold text-slate-300 block">
-              🔮 AESTHETIC STYLE MATRIX
-            </span>
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-1.5" id="visual-style-selector">
-              <button class="style-preset-chip active text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-cyan-500/40 text-cyan-300 text-center" data-style="humanlike">
-                👤 Human Realism
-              </button>
-              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="photorealistic">
-                📸 Photorealistic 8K
-              </button>
-              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="cinematic">
-                🎬 Cinematic Movie
-              </button>
-              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="cybernetic">
-                🔮 Cyber Hologram
-              </button>
-              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="octane3d">
-                💎 3D Octane Render
-              </button>
-              <button class="style-preset-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-style="anime">
-                🎨 Anime Artwork
-              </button>
-            </div>
-          </div>
-
-          <!-- Aspect Ratio & Resolution Selector -->
-          <div class="space-y-1.5">
-            <span class="text-[11px] font-mono font-bold text-slate-300 block">
-              📐 ASPECT RATIO
-            </span>
-            <div class="grid grid-cols-3 gap-1.5" id="visual-ratio-selector">
-              <button class="ratio-chip active text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-purple-500/40 text-slate-300 text-center" data-ratio="1:1">
-                1:1 (Avatar 1024x1024)
-              </button>
-              <button class="ratio-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-ratio="9:16">
-                9:16 (Phone Portrait)
-              </button>
-              <button class="ratio-chip text-[10px] font-mono py-1.5 px-2 rounded bg-slate-900 border border-slate-700 text-slate-400 text-center" data-ratio="16:9">
-                16:9 (Cinematic 1344x768)
-              </button>
-            </div>
-          </div>
-
-          <!-- Relay to Telegram & Action Button -->
-          <div class="pt-2 space-y-3">
-            <div class="flex items-center justify-between text-xs font-mono">
-              <label class="flex items-center gap-2 cursor-pointer select-none text-slate-300 hover:text-white">
-                <input type="checkbox" id="visual-relay-telegram" class="rounded border-slate-700 text-cyan-500 focus:ring-0 bg-slate-950 cursor-pointer" checked />
-                <span class="flex items-center gap-1.5">
-                  <span>📱 Transmit to Telegram Phone</span>
-                  <span class="text-[9px] px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-400 border border-cyan-500/30">Auto-push</span>
-                </span>
-              </label>
-            </div>
-
-            <button id="btn-visual-generate" class="hud-btn w-full bg-gradient-to-r from-cyan-950 via-slate-900 to-purple-950 border border-cyan-400 hover:border-cyan-300 text-cyan-200 hover:text-white py-3 px-4 font-bold text-xs font-mono tracking-wider flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(0,240,255,0.2)] transition-all">
-              <span class="text-base">✨</span>
-              <span id="btn-visual-label">SYNTHESIZE HUMANLIKE AVATAR</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Right Column: Visual Stage / Canvas & Output -->
-        <div class="lg:col-span-7 flex flex-col justify-between space-y-4">
-          <div class="visual-canvas-wrapper relative aspect-square sm:aspect-auto sm:min-h-[380px] w-full flex items-center justify-center bg-slate-950/80 rounded-lg border border-cyan-500/30 overflow-hidden shadow-2xl">
-            
-            <!-- Scanning Laser (Hidden by default, active while generating) -->
-            <div id="visual-scanner-beam" class="visual-loading-scanner hidden"></div>
-
-            <!-- Placeholder Screen -->
-            <div id="visual-placeholder-state" class="text-center p-8 space-y-3 flex flex-col items-center justify-center">
-              <div class="w-16 h-16 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-3xl text-cyan-400 animate-pulse">
-                🔮
-              </div>
-              <div>
-                <p class="text-sm font-bold text-white font-display uppercase tracking-widest">
-                  Visual Synthesis Standby
-                </p>
-                <p class="text-xs text-slate-400 font-mono mt-1 max-w-sm">
-                  Select a template or type your visual concept. Black Forest Labs FLUX.1 will compile an 8K photorealistic asset.
-                </p>
-              </div>
-            </div>
-
-            <!-- Active Canvas Display -->
-            <div id="visual-active-canvas" class="hidden relative w-full h-full flex flex-col items-center justify-center p-2">
-              <img id="visual-main-image" src="" alt="Cortana Synthesized Asset" class="max-h-[420px] w-auto max-w-full rounded object-contain border border-cyan-500/40 shadow-2xl transition-all" />
-              
-              <!-- Quick Canvas Overlay Bar -->
-              <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between p-2 rounded bg-slate-950/85 backdrop-blur-md border border-cyan-500/30 text-[11px] font-mono">
-                <div class="flex items-center gap-2 truncate max-w-[65%]">
-                  <span class="text-cyan-400 font-bold truncate" id="visual-meta-title">Cortana Prototype</span>
-                  <span class="text-[9px] px-1.5 py-0.5 rounded bg-cyan-900/60 text-cyan-200 border border-cyan-500/30 hidden sm:inline-block" id="visual-meta-res">1024x1024</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  <button id="btn-visual-download" class="px-2 py-1 rounded bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-cyan-500/40 transition-colors" title="Download High-Res">
-                    💾 Save
-                  </button>
-                  <button id="btn-visual-send-tg" class="px-2 py-1 rounded bg-cyan-950 hover:bg-cyan-900 text-cyan-200 border border-cyan-500/50 transition-colors" title="Send to Telegram">
-                    🚀 Telegram
-                  </button>
-                  <a id="btn-visual-link" href="#" target="_blank" class="px-2 py-1 rounded bg-purple-950 hover:bg-purple-900 text-purple-200 border border-purple-500/50 transition-colors" title="Open Full Screen">
-                    ↗
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bottom: Recent Visual Gallery Strip -->
-          <div class="space-y-1.5 border-t border-cyan-500/20 pt-3">
-            <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
-              <span class="text-cyan-400 uppercase tracking-wider font-bold">Recent Synthesized Artifacts</span>
-              <span id="visual-gallery-count">0 archived</span>
-            </div>
-            <div class="flex items-center gap-2 overflow-x-auto pb-1" id="visual-gallery-strip">
-              <div class="text-[10px] font-mono text-slate-600 italic py-1">Synthesize your first image to populate gallery strip.</div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ===================================================================
-         AUTONOMOUS EVOLUTION MODULES MATRIX & REAL-WORLD SPECIFICS STUDIO
-         =================================================================== -->
-    <section id="evolution-modules-section" class="draggable-hud-panel hud-panel franchise-halo p-5 sm:p-6 relative space-y-5" draggable="true" data-panel-id="evolution-modules-section">
+    <section id="evolution-modules-section" class="draggable-hud-panel hud-panel franchise-halo p-5 sm:p-6 relative space-y-6" draggable="true" data-panel-id="evolution-modules-section">
       <div class="panel-drag-handle" title="Click and drag to rearrange this panel">
         <div class="flex items-center gap-2">
           <span class="drag-icon text-amber-400">⠿</span>
-          <span class="drag-title text-amber-300 font-bold tracking-wider">[ DRAG TO REARRANGE TILE // AUTONOMOUS EVOLUTION MODULES MATRIX ]</span>
+          <span class="drag-title text-amber-300 font-bold tracking-wider">[ DRAG TO REARRANGE TILE // AUTONOMOUS SYSTEMS &amp; WORKING MODULES COMMAND BAY ]</span>
         </div>
-        <span class="drag-hint text-amber-400/80">EVO-STUDIO // 183 CAPABILITIES</span>
+        <span class="drag-hint text-amber-400/80">391 ACTIVE SYSTEMS // READY FOR USE</span>
       </div>
 
       <!-- Header & Real-World Accuracy Scoreboard -->
@@ -770,18 +519,21 @@
               AUTONOMOUS SOVEREIGN MATRIX
             </span>
             <span id="evo-total-badge" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-slate-800 text-amber-300 border border-amber-500/40">
-              182 MODULES LOADED
+              391 MODULES LOADED
             </span>
             <span id="evo-accuracy-badge" class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-emerald-950/80 text-emerald-300 border border-emerald-500/40">
               ACCURACY: 98.4% REAL-WORLD
             </span>
+            <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-cyan-950/80 text-cyan-300 border border-cyan-500/40">
+              REVERSE ENGINEERING: ONLINE
+            </span>
           </div>
           <h2 class="text-base sm:text-lg font-bold tracking-widest text-white uppercase font-display mt-2 flex items-center gap-2">
-            <span>⚡ AUTONOMOUS EVOLUTION MODULES STUDIO</span>
-            <span class="text-[11px] font-mono text-amber-400 font-normal">v4.8 Verified Engineering Spec</span>
+            <span>⚡ AUTONOMOUS WORKING SYSTEMS &amp; INDUSTRIAL MODULES</span>
+            <span class="text-[11px] font-mono text-amber-400 font-normal">v5.0 Operational Standard</span>
           </h2>
           <p class="text-xs text-slate-300 font-mono mt-0.5 max-w-3xl">
-            Live interactive telemetry and code inspection across all synthesized capabilities. Enforcing verified Kenyan statutory standards: EPRA Time-of-Use tariffs, Safaricom Daraja 2.0 API, KeNHA Expressway toll tiers, KRA eTIMS cryptographic signatures, and NEMA effluent standards.
+            All 391 engineered sovereign capabilities are compiled, AST-verified, and accessible for direct operational execution. Execute any module directly with real-time stdout, latency telemetry, and forensic inspection.
           </p>
         </div>
 
@@ -797,8 +549,108 @@
             <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
             </svg>
-            <span>RE-SCAN</span>
+            <span>RE-SCAN (391)</span>
           </button>
+        </div>
+      </div>
+
+      <!-- ===================================================================
+           INTERACTIVE WORKING SYSTEMS EXECUTION TERMINAL & REVERSE ENGINEERING HUB
+           =================================================================== -->
+      <div id="evo-live-workbench" class="rounded-lg bg-slate-950/90 border border-cyan-500/30 p-4 sm:p-5 space-y-4 shadow-xl shadow-cyan-950/30">
+        <!-- Workbench Bar: Title & Quick Shortcuts -->
+        <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 border-b border-cyan-500/20 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span class="text-xs font-mono font-bold tracking-wider text-cyan-300 uppercase">
+              LIVE SYSTEM RUNNER &amp; REVERSE ENGINEERING TERMINAL
+            </span>
+            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40">
+              READY
+            </span>
+          </div>
+
+          <!-- Quick System Launch Chips -->
+          <div class="flex items-center gap-1.5 flex-wrap text-[10px] font-mono">
+            <span class="text-slate-400 mr-1 hidden sm:inline">QUICK LAUNCH:</span>
+            <button class="evo-quick-launch-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-amber-300 border border-amber-500/30 transition cursor-pointer" data-module="reverse_engineer" data-target="bot.py" title="Run Reverse Engineering Suite on bot.py">
+              🔬 Reverse Engineer
+            </button>
+            <button class="evo-quick-launch-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-cyan-300 border border-cyan-500/30 transition cursor-pointer" data-module="mpesa_ledger_reconciliation" data-target="safaricom_stk_batch" title="Run Safaricom M-Pesa Ledger Reconciler">
+              💳 M-Pesa Reconciler
+            </button>
+            <button class="evo-quick-launch-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-emerald-300 border border-emerald-500/30 transition cursor-pointer" data-module="nairobi_aqua_scada_sentinel" data-target="nairobi_aquifer_plant" title="Run Nairobi Aqua SCADA Sentinel">
+              🏭 SCADA Industrial Engine
+            </button>
+            <button class="evo-quick-launch-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-purple-300 border border-purple-500/30 transition cursor-pointer" data-module="nairobi_grid_arbitrage" data-target="ci2_commercial_load" title="Run Nairobi Grid Arbitrage &amp; Tariff Optimizer">
+              ⚡ Grid Tariff Arbitrage
+            </button>
+            <button class="evo-quick-launch-chip px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-rose-300 border border-rose-500/30 transition cursor-pointer" data-module="nairobi_expressway_toll_optimizer" data-target="mlolongo_westlands_class3" title="Run Nairobi Expressway Toll Optimizer">
+              🚚 Expressway Toll
+            </button>
+          </div>
+        </div>
+
+        <!-- Controls: Module Selector, Target/Payload Input, Execution Buttons -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+          <!-- Module Selector -->
+          <div class="md:col-span-5 space-y-1">
+            <label class="text-[10px] font-mono uppercase text-slate-400 font-bold flex items-center justify-between">
+              <span>SELECT SYSTEM TO EXECUTE (391 AVAILABLE):</span>
+              <span id="evo-live-module-domain" class="text-amber-400">SECURITY_ZERO_TRUST</span>
+            </label>
+            <select id="evo-live-select" class="w-full bg-slate-900 border border-cyan-500/40 rounded px-2.5 py-1.5 text-xs text-cyan-200 font-mono focus:outline-none focus:border-cyan-400 cursor-pointer">
+              <!-- Populated dynamically with all 391 modules -->
+            </select>
+          </div>
+
+          <!-- Target / Payload Input -->
+          <div class="md:col-span-4 space-y-1">
+            <label class="text-[10px] font-mono uppercase text-slate-400 font-bold flex items-center justify-between">
+              <span>TARGET / WORKLOAD / FILE / URL:</span>
+              <span class="text-slate-500">OPTIONAL ARG</span>
+            </label>
+            <input 
+              type="text" 
+              id="evo-live-target-input" 
+              placeholder="e.g. bot.py, app.js, or JSON payload..." 
+              value="bot.py"
+              class="w-full bg-slate-900 border border-cyan-500/40 rounded px-3 py-1.5 text-xs text-white font-mono placeholder-slate-600 focus:outline-none focus:border-cyan-400"
+            />
+          </div>
+
+          <!-- Buttons -->
+          <div class="md:col-span-3 flex items-center gap-2">
+            <button id="btn-evo-live-run" class="flex-1 hud-btn bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/60 font-bold text-xs py-2 px-3 flex items-center justify-center gap-1.5 shadow-lg shadow-cyan-500/20 cursor-pointer" title="Execute this module in real time">
+              <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <span>⚡ EXECUTE</span>
+            </button>
+            <button id="btn-evo-live-re" class="hud-btn bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/60 font-bold text-xs py-2 px-3 flex items-center justify-center gap-1 cursor-pointer" title="Instantly reverse engineer the target">
+              <span>🔬 RE</span>
+            </button>
+            <button id="btn-evo-live-clear" class="hud-btn text-slate-400 hover:text-white border-slate-700 text-xs py-2 px-2 cursor-pointer" title="Clear terminal screen">
+              🧹
+            </button>
+          </div>
+        </div>
+
+        <!-- Terminal Output Viewport -->
+        <div class="relative rounded border border-slate-800 bg-black/90 p-3 font-mono text-xs overflow-hidden shadow-inner">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2 mb-2 text-[10px] text-slate-500">
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 inline-block"></span>
+              <span id="evo-live-term-status" class="text-emerald-400 font-bold">TERMINAL STANDBY // WORKSTATION READY</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span id="evo-live-term-meta" class="text-slate-400">Lat: 0.0ms | Code: 0</span>
+              <button id="btn-evo-live-copy" class="text-cyan-400 hover:text-cyan-200 transition cursor-pointer" title="Copy terminal output">📋 COPY</button>
+            </div>
+          </div>
+          <pre id="evo-live-terminal-output" class="whitespace-pre-wrap overflow-y-auto max-h-[300px] text-emerald-300/90 leading-relaxed font-mono select-text">[SYSTEM READY]: Select any of the 391 operational systems above and click '⚡ EXECUTE' or '▶ LAUNCH' on any module card below.
+Telemetry, verified statutory standards, and stdout will stream here directly.</pre>
         </div>
       </div>
 
@@ -820,34 +672,34 @@
 
           <!-- Active Filter Counter -->
           <div class="text-xs font-mono text-slate-400 flex items-center gap-2 justify-end">
-            <span id="evo-showing-count" class="text-amber-300 font-bold">Showing 182</span>
+            <span id="evo-showing-count" class="text-amber-300 font-bold">Showing 391</span>
             <span>of</span>
-            <span id="evo-total-count" class="text-white font-bold">182 Modules</span>
+            <span id="evo-total-count" class="text-white font-bold">391 Modules</span>
           </div>
         </div>
 
         <!-- Domain Filter Chips -->
         <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs font-mono" id="evo-domain-filters">
-          <button class="evo-filter-pill active px-3 py-1 rounded border border-amber-400 bg-amber-500/20 text-amber-200 font-bold transition" data-domain="ALL">
-            ALL (182)
+          <button class="evo-filter-pill active px-3 py-1 rounded border border-amber-400 bg-amber-500/20 text-amber-200 font-bold transition cursor-pointer" data-domain="ALL">
+            ALL (391)
           </button>
-          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition" data-domain="ENERGY_GRID">
-            ⚡ ENERGY & GRID (<span class="dom-count" data-dom="ENERGY_GRID">13</span>)
+          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition cursor-pointer" data-domain="SECURITY_ZERO_TRUST">
+            🛡️ SECURITY &amp; REVERSE ENG (<span class="dom-count" data-dom="SECURITY_ZERO_TRUST">82</span>)
           </button>
-          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition" data-domain="FINTECH_MPESA">
-            💳 MPESA & FINTECH (<span class="dom-count" data-dom="FINTECH_MPESA">16</span>)
+          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition cursor-pointer" data-domain="FINTECH_MPESA">
+            💳 MPESA &amp; FINTECH (<span class="dom-count" data-dom="FINTECH_MPESA">18</span>)
           </button>
-          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition" data-domain="MOBILITY_LOGISTICS">
-            🚚 MOBILITY & LOGISTICS (<span class="dom-count" data-dom="MOBILITY_LOGISTICS">17</span>)
+          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition cursor-pointer" data-domain="AGRO_CLIMATE">
+            🏭 INDUSTRIAL &amp; PRODUCTION (<span class="dom-count" data-dom="AGRO_CLIMATE">206</span>)
           </button>
-          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition" data-domain="AGRO_CLIMATE">
-            🌱 AGRO & CLIMATE (<span class="dom-count" data-dom="AGRO_CLIMATE">42</span>)
+          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition cursor-pointer" data-domain="ENERGY_GRID">
+            ⚡ ENERGY &amp; GRID (<span class="dom-count" data-dom="ENERGY_GRID">33</span>)
           </button>
-          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition" data-domain="SECURITY_ZERO_TRUST">
-            🛡️ SECURITY & ZERO-TRUST (<span class="dom-count" data-dom="SECURITY_ZERO_TRUST">68</span>)
+          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition cursor-pointer" data-domain="MOBILITY_LOGISTICS">
+            🚚 MOBILITY &amp; LOGISTICS (<span class="dom-count" data-dom="MOBILITY_LOGISTICS">21</span>)
           </button>
-          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition" data-domain="CIVIC_HEALTH">
-            🏛️ CIVIC & HEALTH (<span class="dom-count" data-dom="CIVIC_HEALTH">26</span>)
+          <button class="evo-filter-pill px-3 py-1 rounded border border-slate-700 bg-slate-900/80 text-slate-300 hover:border-amber-500/50 hover:text-white transition cursor-pointer" data-domain="CIVIC_HEALTH">
+            🏛️ CIVIC &amp; HEALTH (<span class="dom-count" data-dom="CIVIC_HEALTH">31</span>)
           </button>
         </div>
       </div>

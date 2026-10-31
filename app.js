@@ -4771,10 +4771,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize Realtime EPL & F1 Sports Radar (By-the-Minute)
   initLiveSportsEngine();
 
-  // Initialize Holographic Visual Synthesis & AI Avatar Studio (FLUX.1)
-  initVisualSynthesisStudio();
-
-  // Initialize Autonomous Evolution Modules Studio & Real-World Specifics
+  // Autonomous Working Systems & Reverse Engineering Studio
   initEvolutionModulesStudio();
 
   // Setup Persona Theme Switchers
@@ -6628,6 +6625,7 @@ async function loadEvolutionCatalog() {
     evoState.catalog = data;
     renderEvolutionScoreboard(data);
     renderEvolutionGrid();
+    populateLiveSystemSelector(data);
   } else {
     grid.innerHTML = `
       <div class="col-span-full py-8 text-center text-amber-400/80 font-mono text-xs">
@@ -6637,14 +6635,159 @@ async function loadEvolutionCatalog() {
   }
 }
 
+function populateLiveSystemSelector(catalog) {
+  const select = document.getElementById("evo-live-select");
+  const domainLabel = document.getElementById("evo-live-module-domain");
+  if (!select || !catalog || !catalog.modules) return;
+
+  const modules = [...catalog.modules].sort((a, b) => a.name.localeCompare(b.name));
+  
+  // Group by domain
+  const groups = {};
+  modules.forEach(m => {
+    const d = m.domain || "SECURITY_ZERO_TRUST";
+    if (!groups[d]) groups[d] = [];
+    groups[d].push(m);
+  });
+
+  let html = "";
+  for (const [dom, mods] of Object.entries(groups)) {
+    html += `<optgroup label="[${dom}] (${mods.length} systems)">`;
+    mods.forEach(m => {
+      const selected = m.name === "reverse_engineer" ? "selected" : "";
+      html += `<option value="${m.name}" data-domain="${dom}" ${selected}>${m.domain_icon || "⚙️"} ${m.name}</option>`;
+    });
+    html += `</optgroup>`;
+  }
+
+  select.innerHTML = html;
+
+  const activeOpt = select.options[select.selectedIndex];
+  if (activeOpt && domainLabel) {
+    domainLabel.textContent = activeOpt.getAttribute("data-domain") || "SECURITY_ZERO_TRUST";
+  }
+
+  select.addEventListener("change", () => {
+    const opt = select.options[select.selectedIndex];
+    if (opt && domainLabel) {
+      domainLabel.textContent = opt.getAttribute("data-domain") || "GENERAL";
+    }
+  });
+}
+
+async function executeLiveSystem(moduleName, targetOrContext) {
+  const terminal = document.getElementById("evo-live-terminal-output");
+  const statusEl = document.getElementById("evo-live-term-status");
+  const metaEl = document.getElementById("evo-live-term-meta");
+  const btnRun = document.getElementById("btn-evo-live-run");
+  const select = document.getElementById("evo-live-select");
+  const domainLabel = document.getElementById("evo-live-module-domain");
+
+  if (!moduleName) moduleName = select ? select.value : "reverse_engineer";
+  if (!moduleName) return;
+
+  if (select && select.value !== moduleName) {
+    select.value = moduleName;
+    const opt = select.options[select.selectedIndex];
+    if (opt && domainLabel) domainLabel.textContent = opt.getAttribute("data-domain") || "";
+  }
+
+  const targetInput = document.getElementById("evo-live-target-input");
+  const target = targetOrContext || (targetInput ? targetInput.value.trim() : "bot.py") || "bot.py";
+
+  if (statusEl) {
+    statusEl.textContent = `EXECUTING: ${moduleName} [KERNEL ACTIVE]...`;
+    statusEl.className = "text-amber-400 font-bold animate-pulse";
+  }
+  if (btnRun) {
+    btnRun.disabled = true;
+    btnRun.innerHTML = `<span class="animate-spin mr-1">⚙️</span> EXECUTING...`;
+  }
+  if (terminal) {
+    terminal.textContent = `[SYSTEM EXECUTION INITIALIZED: ${moduleName}]\nDispatching isolated kernel thread...\nTarget argument: ${target}\nKernel connection: Workstation RPC (:5050) / Edge Serverless...`;
+  }
+
+  const payload = {
+    action: "execute",
+    module: moduleName,
+    target: target,
+    context: {
+      target: target,
+      file_path: target,
+      workload: "live_operation",
+      operator: "Michael Obiero"
+    }
+  };
+
+  const startTime = performance.now();
+  const res = await fetchEvolutionEndpoint("execute", { module: moduleName }, "POST", payload);
+  const duration = Math.round(performance.now() - startTime);
+
+  if (btnRun) {
+    btnRun.disabled = false;
+    btnRun.innerHTML = `<svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg><span>⚡ EXECUTE</span>`;
+  }
+
+  if (res) {
+    const lat = res.duration_ms || duration;
+    const code = res.returncode !== undefined ? res.returncode : (res.status === "SUCCESS" || res.ok ? 0 : 1);
+    if (metaEl) metaEl.textContent = `Lat: ${lat}ms | Code: ${code}`;
+
+    if (code === 0 && (res.status === "SUCCESS" || res.ok)) {
+      if (statusEl) {
+        statusEl.textContent = `NOMINAL STATUS // EXIT CODE 0 // ${lat}ms`;
+        statusEl.className = "text-emerald-400 font-bold";
+      }
+      if (typeof playSciFiChirp === "function") playSciFiChirp("success");
+    } else {
+      if (statusEl) {
+        statusEl.textContent = `EXECUTION ALERT // CODE ${code}`;
+        statusEl.className = "text-rose-400 font-bold";
+      }
+    }
+
+    let out = `=================================================================\n`;
+    out += `⚡ OPERATIONAL SYSTEM: ${moduleName.toUpperCase()}\n`;
+    out += `🏷️ DOMAIN: ${res.domain || 'INDUSTRIAL'}\n`;
+    out += `⏱️ DURATION: ${lat}ms | EXIT CODE: ${code}\n`;
+    out += `=================================================================\n\n`;
+
+    if (res.stdout) out += res.stdout + "\n";
+    if (res.stderr) out += "\n[STDERR]:\n" + res.stderr + "\n";
+
+    if (res.standards_verified && res.standards_verified.length > 0) {
+      out += `\n[VERIFIED STATUTORY STANDARDS]:\n`;
+      res.standards_verified.forEach(s => { out += `  ✓ ${s}\n`; });
+    }
+
+    if (res.real_world_metrics) {
+      out += `\n[COMPUTED REAL-WORLD METRICS]:\n`;
+      out += JSON.stringify(res.real_world_metrics, null, 2) + "\n";
+    }
+
+    if (terminal) {
+      terminal.textContent = out;
+      terminal.scrollTop = 0;
+    }
+  } else {
+    if (statusEl) {
+      statusEl.textContent = `ERROR: UNABLE TO REACH RUNTIME DAEMON`;
+      statusEl.className = "text-rose-400 font-bold";
+    }
+    if (terminal) {
+      terminal.textContent = `[EXECUTION FAILURE]: Could not communicate with Workstation port 5050 daemon or serverless edge.\nPlease verify that bot.py daemon is running.`;
+    }
+  }
+}
+
 function renderEvolutionScoreboard(data) {
   const totalBadge = document.getElementById("evo-total-badge");
   const accBadge = document.getElementById("evo-accuracy-badge");
   const totalCount = document.getElementById("evo-total-count");
 
-  if (totalBadge) totalBadge.textContent = `${data.total_modules || 182} MODULES LOADED`;
+  if (totalBadge) totalBadge.textContent = `${data.total_modules || 391} MODULES LOADED`;
   if (accBadge) accBadge.textContent = `ACCURACY: ${data.average_accuracy || 98.4}% REAL-WORLD`;
-  if (totalCount) totalCount.textContent = `${data.total_modules || 182} Modules`;
+  if (totalCount) totalCount.textContent = `${data.total_modules || 391} Modules`;
 
   // Update domain filter counts
   if (data.domain_counts) {
@@ -6735,13 +6878,13 @@ function renderEvolutionGrid() {
 
         <!-- Action Buttons -->
         <div class="border-t border-slate-800/80 pt-2.5 flex items-center gap-1.5 mt-2">
-          <button class="btn-run-module flex-1 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 rounded py-1 px-2 text-[11px] font-mono font-bold flex items-center justify-center gap-1 transition" data-name="${m.name}" title="Execute isolated live self-test">
-            <span>▶ TEST</span>
+          <button class="btn-launch-module flex-1 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200 border border-cyan-500/50 rounded py-1 px-2 text-[11px] font-mono font-bold flex items-center justify-center gap-1 transition cursor-pointer" data-name="${m.name}" title="Launch and execute this system live">
+            <span>▶ LAUNCH</span>
           </button>
-          <button class="btn-inspect-module bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded py-1 px-2.5 text-[11px] font-mono transition" data-name="${m.name}" title="Inspect full source code and standards">
+          <button class="btn-inspect-module bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 rounded py-1 px-2.5 text-[11px] font-mono transition cursor-pointer" data-name="${m.name}" title="Inspect full source code and standards">
             <span>CODE</span>
           </button>
-          <button class="btn-refine-module bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded py-1 px-2 text-[11px] font-mono font-bold transition" data-name="${m.name}" title="Refine module with verified real-world standards">
+          <button class="btn-refine-module bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/40 rounded py-1 px-2 text-[11px] font-mono font-bold transition cursor-pointer" data-name="${m.name}" title="Refine module with verified real-world standards">
             <span>✨ REFINE</span>
           </button>
         </div>
@@ -6750,10 +6893,14 @@ function renderEvolutionGrid() {
   }).join("");
 
   // Attach card action listeners
-  grid.querySelectorAll(".btn-run-module").forEach(btn => {
+  grid.querySelectorAll(".btn-launch-module").forEach(btn => {
     btn.addEventListener("click", () => {
       const name = btn.getAttribute("data-name");
-      openEvolutionModal(name, true);
+      const targetInput = document.getElementById("evo-live-target-input");
+      const target = (targetInput && targetInput.value.trim()) ? targetInput.value.trim() : "bot.py";
+      executeLiveSystem(name, target);
+      const workbench = document.getElementById("evo-live-workbench");
+      if (workbench) workbench.scrollIntoView({ behavior: "smooth", block: "center" });
     });
   });
 
@@ -6979,6 +7126,59 @@ function initEvolutionModulesStudio() {
       });
     });
   }
+
+  // 9. Live System Runner & Reverse Engineering Terminal Controls
+  const btnLiveRun = document.getElementById("btn-evo-live-run");
+  if (btnLiveRun) {
+    btnLiveRun.addEventListener("click", () => {
+      const sel = document.getElementById("evo-live-select");
+      const inp = document.getElementById("evo-live-target-input");
+      executeLiveSystem(sel ? sel.value : "", inp ? inp.value : "");
+    });
+  }
+
+  const btnLiveRE = document.getElementById("btn-evo-live-re");
+  if (btnLiveRE) {
+    btnLiveRE.addEventListener("click", () => {
+      const inp = document.getElementById("evo-live-target-input");
+      const target = (inp && inp.value.trim()) ? inp.value.trim() : "bot.py";
+      executeLiveSystem("reverse_engineer", target);
+    });
+  }
+
+  const btnLiveClear = document.getElementById("btn-evo-live-clear");
+  if (btnLiveClear) {
+    btnLiveClear.addEventListener("click", () => {
+      const term = document.getElementById("evo-live-terminal-output");
+      if (term) term.textContent = "[TERMINAL CLEARED] Ready for next operational directive.";
+    });
+  }
+
+  const btnLiveCopy = document.getElementById("btn-evo-live-copy");
+  if (btnLiveCopy) {
+    btnLiveCopy.addEventListener("click", () => {
+      const term = document.getElementById("evo-live-terminal-output");
+      if (term) {
+        navigator.clipboard.writeText(term.textContent).then(() => {
+          btnLiveCopy.textContent = "✅ COPIED";
+          setTimeout(() => { btnLiveCopy.textContent = "📋 COPY"; }, 2000);
+        });
+      }
+    });
+  }
+
+  // Quick Launch System Chips
+  document.querySelectorAll(".evo-quick-launch-chip").forEach(chip => {
+    chip.addEventListener("click", () => {
+      const mod = chip.getAttribute("data-module");
+      const tgt = chip.getAttribute("data-target") || "bot.py";
+      const inp = document.getElementById("evo-live-target-input");
+      if (inp) inp.value = tgt;
+      executeLiveSystem(mod, tgt);
+      const workbench = document.getElementById("evo-live-workbench");
+      if (workbench) workbench.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+  });
 
   // Initial Load of Catalog
   loadEvolutionCatalog();

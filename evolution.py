@@ -2028,6 +2028,21 @@ def execute_evolution_module(base_dir: Path, module_name: str, context: dict = N
     t0 = time.perf_counter()
     try:
         cmd = [sys.executable, '-m', f'evolution_modules.{clean_name}']
+        inner_ctx = {}
+        if context and isinstance(context, dict):
+            if isinstance(context.get("context"), dict):
+                inner_ctx = context["context"]
+            else:
+                inner_ctx = context
+            target_arg = inner_ctx.get("target") or inner_ctx.get("file_path") or context.get("target") or context.get("file_path")
+            if target_arg:
+                cmd.append(str(target_arg))
+            elif inner_ctx.get("args") and isinstance(inner_ctx.get("args"), list):
+                cmd.extend([str(a) for a in inner_ctx["args"]])
+        if len(cmd) == 3 and clean_name == "reverse_engineer":
+            cmd.append("bot.py")
+        sub_env = dict(os.environ)
+        sub_env["PYTHONIOENCODING"] = "utf-8"
         res = subprocess.run(
             cmd,
             cwd=base_dir,
@@ -2035,7 +2050,8 @@ def execute_evolution_module(base_dir: Path, module_name: str, context: dict = N
             text=True,
             timeout=10,
             encoding='utf-8',
-            errors='replace'
+            errors='replace',
+            env=sub_env
         )
         duration_ms = round((time.perf_counter() - t0) * 1000.0, 2)
         stdout_txt = res.stdout.strip()
