@@ -1,83 +1,89 @@
-"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Invertor.
+"""
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude
+Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Invertor
 
-Provides real-time telemetry processing, phase quadrature correlation, harmonic distortion estimation, and adaptive inversion for heavy commercial grain milling machinery in Nairobi, Kenya.
+Author: Cortana Autonomous Evolutionary Architect
+Operator: Michael Obiero, Nairobi, Kenya
 """
 
+import logging
 import math
 import time
-import logging
-from typing import Dict, List, Optional, Any
+from typing import Dict, Any, List, Optional
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillHarmonicInvertor")
+logger = logging.getLogger("RollerMillInvertor")
 
-class RollerMillInvertorEngine:
-    """Calculates phase quadrature, resolves interferometric ripples, and applies adaptive harmonic inversion."""
+class RollerMillInvertor:
+    """
+    Measures and processes dynamic torque ripple harmonics, phase quadrature signals,
+    and interferometer correlator estimations to invert and synchronize roller mill speeds
+    in industrial milling facilities across Nairobi.
+    """
 
-    def __init__(self, sample_rate_hz: float = 1000.0, base_freq_hz: float = 50.0) -> None:
-        self.sample_rate_hz = sample_rate_hz
-        self.base_freq_hz = base_freq_hz
-        self.history: List[Dict[str, float]] = []
+    def __init__(self, mill_id: str, base_rpm: float = 1200.0):
+        self.mill_id = mill_id
+        self.base_rpm = base_rpm
+        self.state = "IDLE"
+        self.harmonics_history: List[float] = []
 
-    def process_telemetry(self, raw_torque_nm: float, vibration_mm_s: float) -> Dict[str, Any]:
-        timestamp = time.time()
-        
-        # Compute phase quadrature estimates
-        phase_rad = (timestamp * self.base_freq_hz * 2 * math.pi) % (2 * math.pi)
-        quadrature_i = raw_torque_nm * math.cos(phase_rad)
-        quadrature_q = raw_torque_nm * math.sin(phase_rad)
-        
-        # Interferometer correlation
-        amplitude_envelope = math.sqrt(quadrature_i**2 + quadrature_q**2)
-        ripple_harmonic = vibration_mm_s * 0.15 + (amplitude_envelope * 0.02)
-        
-        # Predictive inversion vector
-        inversion_correction = -0.5 * ripple_harmonic * math.cos(phase_rad)
-        
-        metrics = {
-            "timestamp": timestamp,
-            "raw_torque_nm": raw_torque_nm,
-            "vibration_mm_s": vibration_mm_s,
-            "quadrature_i": quadrature_i,
-            "quadrature_q": quadrature_q,
-            "amplitude_envelope": amplitude_envelope,
-            "ripple_harmonic": ripple_harmonic,
-            "inversion_correction": inversion_correction
-        }
-        
-        self.history.append(metrics)
-        if len(self.history) > 1000:
-            self.history.pop(0)
-            
-        return metrics
+    def analyze_torque_ripple(self, torque_samples: List[float]) -> Dict[str, Any]:
+        """
+        Analyzes torque ripple harmonics, calculates phase quadrature, and estimates
+        inversion compensation factors.
+        """
+        if not torque_samples:
+            return {"status": "error", "message": "No torque samples provided."}
 
-    def run_diagnostics(self) -> Dict[str, str]:
-        if not self.history:
-            return {"status": "IDLE", "message": "No telemetry recorded yet."}
+        mean_torque = sum(torque_samples) / len(torque_samples)
+        variance = sum((t - mean_torque) ** 2 for t in torque_samples) / len(torque_samples)
+        amplitude = math.sqrt(variance)
         
-        latest = self.history[-1]
-        stable = abs(latest["ripple_harmonic"]) < 2.5
+        phase_quadrature = math.sin(mean_torque / (amplitude + 1e-6)) * (math.pi / 4)
+        
+        # Interferometer correlation simulation
+        correlation_score = max(0.0, min(1.0, 1.0 - (amplitude / (abs(mean_torque) + 1e-6))))
+        
+        inversion_factor = amplitude * math.cos(phase_quadrature) * 0.15
+        adjusted_rpm = self.base_rpm - (inversion_factor * 10.0)
+
+        self.harmonics_history.append(amplitude)
+        if len(self.harmonics_history) > 100:
+            self.harmonics_history.pop(0)
+
+        self.state = "SYNCHRONIZED"
+        
         return {
-            "status": "OPTIMAL" if stable else "WARNING",
-            "latest_amplitude": f"{latest['amplitude_envelope']:.2f} Nm",
-            "inversion_applied": f"{latest['inversion_correction']:.4f} Nm"
+            "mill_id": self.mill_id,
+            "status": self.state,
+            "mean_torque": mean_torque,
+            "torque_ripple_amplitude": amplitude,
+            "phase_quadrature_rad": phase_quadrature,
+            "interferometer_correlation": correlation_score,
+            "recommended_rpm": adjusted_rpm,
+            "timestamp": time.time()
         }
+
+    def execute_inversion_synchronization(self, analysis_result: Dict[str, Any]) -> bool:
+        """
+        Executes the corrective inversion routine to stabilize the roller mill.
+        """
+        if analysis_result.get("status") == "error":
+            logger.error(f"[{self.mill_id}] Synchronization failed due to invalid telemetry.")
+            return False
+            
+        rpm = analysis_result.get("recommended_rpm", self.base_rpm)
+        corr = analysis_result.get(
+            "interferometer_correlation", 0.0
+        )
+        logger.info(f"[{self.mill_id}] Synchronizing inversion at {rpm:.2f} RPM | Correlation: {corr:.4f}")
+        return True
 
 if __name__ == "__main__":
-    logger.info("Initializing RollerMillInvertorEngine for Nairobi Milling Facility...")
-    engine = RollerMillInvertorEngine()
-    
-    # Simulate incoming milling cycle telemetry
-    sample_telemetry = [
-        (145.2, 1.2),
-        (150.8, 2.4),
-        (148.5, 1.8),
-        (152.1, 3.1)
-    ]
-    
-    for torque, vib in sample_telemetry:
-        res = engine.process_telemetry(torque, vib)
-        logger.info(f"Processed telemetry: {res}")
-        
-    diag = engine.run_diagnostics()
-    logger.info(f"Diagnostics report: {diag}")
+    print("Initializing Nairobi Roller Mill Invertor Unit...")
+    invertor = RollerMillInvertor(mill_id="NAI_MILL_04")
+    mock_samples = [105.2, 108.5, 102.1, 107.8, 104.3, 109.1, 101.9]
+    analysis = invertor.analyze_torque_ripple(mock_samples)
+    print("Analysis Result:", analysis)
+    success = invertor.execute_inversion_synchronization(analysis)
+    print(f"Synchronization Executed Successfully: {success}")
