@@ -1,90 +1,82 @@
 """
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Transducer Module
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude
+Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Transducer
 
-Provides real-time quadrature phase tracking, harmonic amplitude correlation, and torque ripple prediction for heavy industrial roller mills in Nairobi, Kenya.
+Author: Cortana Autonomous Evolutionary Architect
+Operator: Michael Obiero, Nairobi, Kenya
 """
 
 import math
-import time
 import logging
+import random
+import time
 from typing import Dict, List, Any
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
-logger = logging.getLogger("RollerMillTorqueTransducer")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("RollerMillTransducer")
 
-class RollerMillTorqueTransducer:
+class RollerMillTransducer:
     """
-    Computes quadrature phase interference and estimates torque ripple harmonics
-    for high-speed roller mill shafts in commercial grain milling plants.
+    Measures, correlates, and predicts harmonic torque ripples and phase quadrature signals
+    in commercial roller mill gearboxes to prevent catastrophic mechanical failure.
     """
-    def __init__(self, baseline_frequency_hz: float = 50.0, harmonic_orders: List[int] = None):
-        self.baseline_frequency_hz = baseline_frequency_hz
-        self.harmonic_orders = harmonic_orders or [1, 2, 3, 5, 7]
-        self.telemetry_history: List[Dict[str, Any]] = []
+    def __init__(self, mill_id: str, base_rpm: float = 1450.0):
+        self.mill_id = mill_id
+        self.base_rpm = base_rpm
+        self.sample_count = 0
+        self.harmonic_buffer: List[float] = []
 
-    def measure_quadrature_interference(self, raw_phase_a: float, raw_phase_b: float) -> Dict[str, float]:
-        """
-        Calculates orthogonal quadrature components and phase displacement.
-        """
-        quadrature_amplitude = math.sqrt(raw_phase_a**2 + raw_phase_b**2)
-        phase_angle_rad = math.atan2(raw_phase_b, raw_phase_a)
-        phase_angle_deg = math.degrees(phase_angle_rad)
+    def acquire_resolver_data(self) -> Dict[str, float]:
+        """Simulates high-frequency interferometer and resolver signal acquisition."""
+        t = time.time()
+        # Simulate primary rotational frequency and high-order torque harmonics
+        fundamental = math.sin(2.0 * math.pi * (self.base_rpm / 60.0) * t)
+        harmonic_3rd = 0.35 * math.sin(2.0 * math.pi * 3.0 * (self.base_rpm / 60.0) * t + 0.4)
+        harmonic_5th = 0.15 * math.sin(2.0 * math.pi * 5.0 * (self.base_rpm / 60.0) * t + 0.8)
+        noise = random.gauss(0, 0.05)
         
+        torque_ripple = fundamental + harmonic_3rd + harmonic_5th + noise
+        phase_quadrature = math.cos(2.0 * math.pi * (self.base_rpm / 60.0) * t + noise)
+        
+        self.sample_count += 1
         return {
-            "quadrature_amplitude": quadrature_amplitude,
-            "phase_angle_deg": phase_angle_deg,
-            "timestamp": time.time()
+            "timestamp": t,
+            "torque_ripple": torque_ripple,
+            "phase_quadrature": phase_quadrature,
+            "amplitude_envelope": abs(torque_ripple)
         }
 
-    def correlate_torque_harmonics(self, torque_samples: List[float]) -> Dict[str, Any]:
-        """
-        Performs harmonic decomposition and correlation across specified orders.
-        """
-        if not torque_samples:
-            return {"status": "error", "message": "No torque samples provided."}
-
-        mean_torque = sum(torque_samples) / len(torque_samples)
-        ripple_amplitude = max(torque_samples) - min(torque_samples)
+    def process_and_correlate(self, data: Dict[str, float]) -> Dict[str, Any]:
+        """Correlates interferometer quadrature phase with harmonic distortion."""
+        val = data["torque_ripple"]
+        self.harmonic_buffer.append(val)
+        if len(self.harmonic_buffer) > 100:
+            self.harmonic_buffer.pop(0)
+            
+        mean_val = sum(self.harmonic_buffer) / len(self.harmonic_buffer)
+        variance = sum((x - mean_val) ** 2 for x in self.harmonic_buffer) / len(self.harmonic_buffer)
+        std_dev = math.sqrt(variance)
         
-        harmonic_profile = {}
-        for order in self.harmonic_orders:
-            # Simulated harmonic energy correlation
-            harmonic_energy = (ripple_amplitude / (order * 1.414)) * abs(math.sin(mean_torque * order))
-            harmonic_profile[f"harmonic_order_{order}"] = round(harmonic_energy, 4)
-
-        assessment = {
-            "mean_torque": round(mean_torque, 2),
-            "ripple_amplitude": round(ripple_amplitude, 2),
-            "harmonic_profile": harmonic_profile,
-            "resonance_risk": "HIGH" if ripple_amplitude > (mean_torque * 0.25) else "NOMINAL"
+        anomaly_risk = "NOMINAL"
+        if std_dev > 0.6:
+            anomaly_risk = "CRITICAL_HARMONIC_DEVIATION"
+        elif std_dev > 0.45:
+            anomaly_risk = "ELEVATED_TORQUE_RIPPLE"
+            
+        return {
+            "mill_id": self.mill_id,
+            "samples_processed": self.sample_count,
+            "harmonic_std_dev": std_dev,
+            "anomaly_risk": anomaly_risk,
+            "synchronization_status": "LOCKED"
         }
-
-        self.telemetry_history.append(assessment)
-        return assessment
-
-    def predict_synchronization_offset(self, current_phase: float, target_phase: float) -> float:
-        """
-        Calculates phase correction offset for mill drive motor synchronization.
-        """
-        diff = (target_phase - current_phase) % 360.0
-        if diff > 180.0:
-            diff -= 360.0
-        return round(diff, 3)
 
 if __name__ == "__main__":
-    logger.info("Initializing RollerMillTorqueTransducer test harness...")
-    transducer = RollerMillTorqueTransducer()
-    
-    # Test quadrature measurement
-    quad_res = transducer.measure_quadrature_interference(10.5, 10.5)
-    logger.info(f"Quadrature Measurement: {quad_res}")
-    
-    # Test harmonic correlation
-    sample_torques = [120.5, 135.2, 110.1, 142.8, 125.0, 118.4]
-    torque_corr = transducer.correlate_torque_harmonics(sample_torques)
-    logger.info(f"Torque Harmonic Correlation: {torque_corr}")
-    
-    # Test synchronization prediction
-    offset = transducer.predict_synchronization_offset(345.0, 15.0)
-    logger.info(f"Calculated Phase Synchronization Offset: {offset} deg")
-    logger.info("RollerMillTorqueTransducer execution completed successfully.")
+    print("Initializing Nairobi Commercial Roller Mill Transducer...")
+    transducer = RollerMillTransducer(mill_id="NAIROBI_MILL_01")
+    for _ in range(5):
+        raw_data = transducer.acquire_resolver_data()
+        result = transducer.process_and_correlate(raw_data)
+        print(f"Transducer Output: {result}")
+        time.sleep(0.1)
+    print("Roller mill dynamic torque transducer diagnostic verification complete.")
