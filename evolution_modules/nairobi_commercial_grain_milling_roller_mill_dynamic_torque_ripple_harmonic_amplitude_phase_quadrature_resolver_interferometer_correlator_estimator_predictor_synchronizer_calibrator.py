@@ -1,62 +1,82 @@
 """
 Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Calibrator
 
-Autonomous component designed to calibrate and synchronize phase quadrature resolver interferometer signals for roller mill drive shafts in Nairobi grain processing plants.
+Provides advanced calibration and predictive compensation for mechanical torque ripples
+and harmonic phase quadrature distortions in high-throughput roller mill gearboxes across Nairobi.
 """
 
 import math
-import time
 import logging
-from typing import Dict, Any, List
+import statistics
+from typing import Dict, List, Optional, Any
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillCalibrator")
+logger = logging.getLogger("RollerMillTorqueCalibrator")
 
-class RollerMillCalibrator:
-    def __init__(self, mill_id: str, nominal_rpm: float = 1200.0):
+class RollerMillTorqueCalibrator:
+    """
+    Analyzes torque telemetry and phase quadrature signals to calibrate
+    harmonic amplitude resonance and predict impending roller mill anomalies.
+    """
+    def __init__(self, mill_id: str, baseline_rpm: float = 1450.0):
         self.mill_id = mill_id
-        self.nominal_rpm = nominal_rpm
-        self.calibration_history: List[Dict[str, Any]] = []
+        self.baseline_rpm = baseline_rpm
+        self.telemetry_buffer: List[Dict[str, float]] = []
+        self.max_buffer_size = 500
 
-    def measure_phase_quadrature(self, raw_sine: float, raw_cosine: float) -> float:
-        """Compute instantaneous phase angle via quadrature resolver signals."""
-        try:
-            angle_rad = math.atan2(raw_sine, raw_cosine)
-            return math.degrees(angle_rad) % 360.0
-        except Exception as e:
-            logger.error(f"[{self.mill_id}] Quadrature calculation failed: {e}")
-            return 0.0
-
-    def calibrate_harmonic_amplitude(self, harmonic_spectrum: List[float]) -> Dict[str, Any]:
-        """Analyze torque ripple harmonic amplitudes and generate correction coefficients."""
-        if not harmonic_spectrum:
-            return {"status": "error", "message": "Empty spectrum"}
-        
-        peak_harmonic = max(harmonic_spectrum)
-        rms_harmonic = math.sqrt(sum(h ** 2 for h in harmonic_spectrum) / len(harmonic_spectrum))
-        
-        # Calibration factor calculation
-        correction_gain = 1.0 / (1.0 + rms_harmonic)
-        
-        calibration_result = {
-            "timestamp": time.time(),
-            "mill_id": self.mill_id,
-            "peak_harmonic": peak_harmonic,
-            "rms_harmonic": rms_harmonic,
-            "correction_gain": round(correction_gain, 6),
-            "status": "calibrated"
+    def ingest_telemetry(self, timestamp: float, torque_nm: float, phase_angle_rad: float, vibration_mm_s: float) -> None:
+        """Ingest real-time sensor telemetry from roller mill drive assembly."""
+        record = {
+            "timestamp": timestamp,
+            "torque_nm": torque_nm,
+            "phase_angle_rad": phase_angle_rad,
+            "vibration_mm_s": vibration_mm_s
         }
-        self.calibration_history.append(calibration_result)
-        return calibration_result
+        self.telemetry_buffer.append(record)
+        if len(self.telemetry_buffer) > self.max_buffer_size:
+            self.telemetry_buffer.pop(0)
 
-    def run_diagnostic_suite(self) -> Dict[str, Any]:
-        """Execute full calibration run and return telemetry report."""
-        dummy_spectrum = [0.05, 0.12, 0.03, 0.22, 0.08]
-        result = self.calibrate_harmonic_amplitude(dummy_spectrum)
-        logger.info(f"[{self.mill_id}] Calibration run completed: {result}")
-        return result
+    def compute_quadrature_interference(self) -> Dict[str, Any]:
+        """Calculates phase quadrature interferometer correlation metrics."""
+        if len(self.telemetry_buffer) < 10:
+            return {"status": "insufficient_data", "harmonic_amplitude": 0.0, "phase_quadrature_deviation": 0.0}
+
+        torques = [r["torque_nm"] for r in self.telemetry_buffer]
+        phases = [r["phase_angle_rad"] for r in self.telemetry_buffer]
+        vibrations = [r["vibration_mm_s"] for r in self.telemetry_buffer]
+
+        mean_torque = statistics.mean(torques)
+        torque_ripple = [abs(t - mean_torque) for t in torques]
+        harmonic_amplitude = statistics.mean(torque_ripple)
+        phase_dev = statistics.stdev(phases) if len(phases) > 1 else 0.0
+        vibration_index = statistics.mean(vibrations)
+
+        calibration_offset = harmonic_amplitude * math.sin(phase_dev)
+
+        return {
+            "mill_id": self.mill_id,
+            "status": "calibrated",
+            "sample_count": len(self.telemetry_buffer),
+            "harmonic_amplitude": round(harmonic_amplitude, 4),
+            "phase_quadrature_deviation": round(phase_dev, 4),
+            "vibration_index": round(vibration_index, 4),
+            "recommended_calibration_offset": round(calibration_offset, 6)
+        }
 
 if __name__ == "__main__":
-    calibrator = RollerMillCalibrator("NAI_MILL_ALPHA_01")
-    report = calibrator.run_diagnostic_suite()
-    print("Diagnostic Report:", report)
+    logger.info("Initializing RollerMillTorqueCalibrator test harness...")
+    calibrator = RollerMillTorqueCalibrator(mill_id="NAI_MILL_ALPHA_01")
+    
+    # Feed synthetic telemetry data mimicking harmonic torque ripples
+    import time
+    now = time.time()
+    for i in range(50):
+        torque = 250.0 + 15.0 * math.sin(i * 0.2)
+        phase = (i * 0.1) % (2 * math.pi)
+        vib = 2.1 + 0.3 * math.cos(i * 0.2)
+        calibrator.ingest_telemetry(now + i, torque, phase, vib)
+
+    result = calibrator.compute_quadrature_interference()
+    logger.info(f"Calibration Result: {result}")
+    assert result["status"] == "calibrated"
+    logger.info("RollerMillTorqueCalibrator execution completed successfully.")
