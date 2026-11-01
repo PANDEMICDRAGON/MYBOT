@@ -1,99 +1,83 @@
 """
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude
-Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Harmonizer
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Harmonizer
 
-Designed for high-precision industrial roller mill monitoring in Nairobi, Kenya.
-Provides real-time quadrature resolver interferometry, harmonic phase tracking, and predictive torque compensation.
+Designed for real-time high-precision analysis, phase quadrature decomposition, and harmonic synchronization of roller mill drive shafts in Nairobi commercial grain mills.
 """
 
-import time
 import math
-import random
+import time
 import logging
 from typing import Dict, List, Any
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("RollerMillHarmonicHarmonizer")
 
 class RollerMillHarmonicHarmonizer:
-    """
-    Monitors and synchronizes dynamic torque ripple harmonics using quadrature resolver interferometry.
-    """
-    def __init__(self, mill_id: str, base_rpm: float = 1450.0):
-        self.mill_id = mill_id
-        self.base_rpm = base_rpm
-        self.is_running = False
-        self.harmonic_buffer: List[Dict[str, float]] = []
-        logger.info(f"Initialized RollerMillHarmonicHarmonizer for mill {self.mill_id} at {self.base_rpm} RPM.")
+    def __init__(self, sample_rate_hz: float = 1000.0, nominal_rpm: float = 1500.0):
+        self.sample_rate_hz = sample_rate_hz
+        self.nominal_rpm = nominal_rpm
+        self.base_frequency = nominal_rpm / 60.0
+        self.history: List[Dict[str, float]] = []
 
-    def sample_resolver_interferometer(self) -> Dict[str, float]:
+    def process_telemetry(self, raw_torque_samples: List[float]) -> Dict[str, Any]:
         """
-        Simulates high-frequency phase quadrature resolver interferometry readings.
+        Decomposes torque ripple harmonics using quadrature resolver interferometer math,
+        estimating phase drift and applying real-time predictive synchronization.
         """
-        timestamp = time.time()
-        # Simulate quadrature phases (Sine and Cosine channels)
-        phase_shift = random.uniform(-0.02, 0.02)
-        quad_sin = math.sin(timestamp * 10.0 + phase_shift)
-        quad_cos = math.cos(timestamp * 10.0 + phase_shift)
-        
-        # Torque ripple harmonic amplitude (Nm)
-        torque_ripple_amplitude = 12.5 + 3.2 * math.sin(timestamp * 5.0) + random.gauss(0, 0.4)
-        
-        return {
-            "timestamp": timestamp,
-            "quad_sin": quad_sin,
-            "quad_cos": quad_cos,
-            "torque_ripple_amplitude": torque_ripple_amplitude
-        }
+        if not raw_torque_samples:
+            return {"status": "error", "message": "No telemetry provided"}
 
-    def correlate_and_predict(self, sample: Dict[str, float]) -> Dict[str, Any]:
-        """
-        Correlates harmonic amplitude and phase quadrature to estimate next-cycle torque variance.
-        """
-        sin_val = sample["quad_sin"]
-        cos_val = sample["quad_cos"]
-        instantaneous_phase = math.atan2(sin_val, cos_val)
-        amplitude = sample["torque_ripple_amplitude"]
+        n = len(raw_torque_samples)
+        mean_torque = sum(raw_torque_samples) / n
         
-        # Predictive compensation factor estimation
-        compensation_lag = instantaneous_phase * 0.015
-        predicted_ripple = amplitude * (1.0 + 0.05 * math.cos(instantaneous_phase))
+        # Compute harmonic amplitude via quadrature correlation
+        cos_accum = 0.0
+        sin_accum = 0.0
+        dt = 1.0 / self.sample_rate_hz
         
-        status = "OPTIMAL"
-        if predicted_ripple > 16.0:
-            status = "WARNING_HIGH_HARMONIC_RIPPLE"
+        for i, val in enumerate(raw_torque_samples):
+            t = i * dt
+            omega = 2.0 * math.pi * self.base_frequency
+            cos_accum += (val - mean_torque) * math.cos(omega * t)
+            sin_accum += (val - mean_torque) * math.sin(omega * t)
 
-        analysis = {
-            "mill_id": self.mill_id,
-            "instantaneous_phase_rad": instantaneous_phase,
-            "torque_ripple_amplitude": amplitude,
-            "predicted_next_ripple": predicted_ripple,
-            "compensation_lag_ms": compensation_lag * 1000.0,
-            "status": status
+        amplitude = (2.0 / n) * math.sqrt(cos_accum**2 + sin_accum**2)
+        phase_quadrature = math.atan2(sin_accum, cos_accum)
+        
+        # Interometric correlator estimator
+        harmonic_distortion_index = amplitude / (abs(mean_torque) + 1e-6)
+        synchronization_offset = phase_quadrature / (2.0 * math.pi)
+        
+        result = {
+            "mean_torque_nm": mean_torque,
+            "harmonic_amplitude": amplitude,
+            "phase_quadrature_rad": phase_quadrature,
+            "harmonic_distortion_index": harmonic_distortion_index,
+            "synchronization_offset_cycles": synchronization_offset,
+            "timestamp": time.time()
         }
         
-        self.harmonic_buffer.append(analysis)
-        if len(self.harmonic_buffer) > 100:
-            self.harmonic_buffer.pop(0)
+        self.history.append(result)
+        if len(self.history) > 100:
+            self.history.pop(0)
             
-        return analysis
+        logger.info(f"Processed {n} torque samples. Harmonic Amplitude: {amplitude:.4f} Nm, Distortion: {harmonic_distortion_index:.4%}")
+        return result
 
-    def execute_harmonization_cycle(self, iterations: int = 3) -> List[Dict[str, Any]]:
-        """
-        Executes a continuous diagnostic and synchronization cycle.
-        """
-        results = []
-        logger.info(f"Starting harmonization cycle for {self.mill_id}...")
-        for _ in range(iterations):
-            sample = self.sample_resolver_interferometer()
-            analysis = self.correlate_and_predict(sample)
-            results.append(analysis)
-            logger.info(f"Mill {self.mill_id} | Phase: {analysis['instantaneous_phase_rad']:.3f} rad | "
-                        f"Ripple: {analysis['torque_ripple_amplitude']:.2f} Nm | Status: {analysis['status']}")
-            time.sleep(0.05)
-        return results
+    def get_status(self) -> Dict[str, Any]:
+        return {
+            "module": "RollerMillHarmonicHarmonizer",
+            "status": "active",
+            "total_telemetry_batches": len(self.history),
+            "nominal_rpm": self.nominal_rpm
+        }
 
 if __name__ == "__main__":
-    harmonizer = RollerMillHarmonicHarmonizer(mill_id="NAI-MILL-ALPHA-07")
-    cycle_results = harmonizer.execute_harmonization_cycle(iterations=5)
-    print(f"Harmonization test complete. Processed {len(cycle_results)} telemetry packets successfully.")
+    harmonizer = RollerMillHarmonicHarmonizer(sample_rate_hz=500.0, nominal_rpm=1480.0)
+    # Generate simulated synthetic torque ripple samples with harmonic content
+    simulated_samples = [
+        120.0 + 15.0 * math.sin(2.0 * math.pi * 24.67 * (i / 500.0))
+        for i in range(500)
+    ]
+    metrics = harmonizer.process_telemetry(simulated_samples)
+    print("Harmonizer Test Output:", metrics)
