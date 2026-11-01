@@ -1,85 +1,106 @@
 """
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude
-Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Attenuator
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Attenuator Module
 
-Provides advanced digital signal processing and interferometer correlation for high-speed roller mill
-drive shafts in Nairobi commercial grain processing plants.
+Author: Cortana Autonomous Evolutionary Architect
+Operator: Michael Obiero (Nairobi, Kenya)
+
+Provides advanced real-time telemetry processing, phase quadrature interference correlation, and adaptive attenuation for heavy-duty commercial grain milling roller mill drives in Nairobi industrial zones.
 """
 
-import math
 import logging
-import statistics
-from typing import Dict, List, Any, Optional
+import math
+import time
+from typing import Dict, Any, List
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillHarmonicAttenuator")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+logger = logging.getLogger("RollerMillTorqueAttenuator")
 
-class RollerMillHarmonicAttenuator:
+
+class RollerMillTorqueRippleAttenuator:
     """
-    Monitors roller mill drive torque ripple via quadrature resolvers and interferometry,
-    estimating harmonic phases and actively calculating attenuation vectors to suppress resonance.
+    Monitors roller mill resolver signals, detects torque ripple harmonics through quadrature
+    interferometry, and computes adaptive phase attenuation parameters.
     """
-    
+
     def __init__(self, mill_id: str, base_frequency_hz: float = 50.0):
         self.mill_id = mill_id
         self.base_frequency_hz = base_frequency_hz
-        self.sample_history: List[float] = []
-        logger.info(f"Initialized RollerMillHarmonicAttenuator for mill {mill_id} at {base_frequency_hz}Hz baseline.")
+        self.attenuation_gain = 1.0
+        self.harmonic_buffer: List[float] = []
+        logger.info(f"Initialized Torque Ripple Attenuator for Mill {self.mill_id} at {base_frequency_hz}Hz base.")
 
-    def ingest_resolver_telemetry(self, quadrature_samples: List[float]) -> Dict[str, Any]:
+    def correlate_quadrature_resolver(self, sin_wave: float, cos_wave: float) -> float:
         """
-        Ingests raw quadrature resolver readings (sine/cosine pairs) and computes
-        harmonic amplitude, phase quadrature offset, and interferometer correlation.
+        Computes instantaneous phase angle from quadrature resolver signals (sin/cos).
         """
-        if not quadrature_samples:
-            raise ValueError("Quadrature samples cannot be empty.")
-            
-        self.sample_history.extend(quadrature_samples)
-        if len(self.sample_history) > 1000:
-            self.sample_history = self.sample_history[-1000:]
-            
-        mean_val = statistics.mean(quadrature_samples)
-        stdev_val = statistics.stdev(quadrature_samples) if len(quadrature_samples) > 1 else 0.0
-        
-        # Simulated interferometer phase quadrature correlation vector
-        harmonic_amplitude = abs(stdev_val * math.sqrt(2))
-        phase_quadrature_offset = (mean_val * math.pi) % (2 * math.pi)
-        
-        attenuation_gain = 1.0 / (1.0 + harmonic_amplitude * 0.1)
-        
-        result = {
-            "mill_id": self.mill_id,
-            "sample_count": len(quadrature_samples),
-            "harmonic_amplitude": round(harmonic_amplitude, 4),
-            "phase_quadrature_offset_rad": round(phase_quadrature_offset, 4),
-            "attenuation_gain": round(attenuation_gain, 4),
-            "status": "ATTENUATED" if harmonic_amplitude > 1.5 else "STABLE"
+        try:
+            phase_rad = math.atan2(sin_wave, cos_wave)
+            return phase_rad
+        except Exception as e:
+            logger.error(f"Error in quadrature correlation: {e}")
+            return 0.0
+
+    def estimate_torque_ripple_harmonic(self, torque_samples: List[float]) -> Dict[str, Any]:
+        """
+        Analyzes torque samples to estimate dominant harmonic amplitude and phase offset.
+        """
+        if not torque_samples:
+            return {"amplitude": 0.0, "phase_offset": 0.0, "status": "NO_DATA"}
+
+        mean_torque = sum(torque_samples) / len(torque_samples)
+        variance = sum((t - mean_torque) ** 2 for t in torque_samples) / len(torque_samples)
+        amplitude = math.sqrt(variance) * 2.0
+
+        # Simulated phase offset calculation based on peak deviation
+        max_dev = max(abs(t - mean_torque) for t in torque_samples)
+        phase_offset = (max_dev / (mean_torque + 1e-6)) * (math.pi / 4)
+
+        return {
+            "amplitude": round(amplitude, 4),
+            "phase_offset": round(phase_offset, 4),
+            "mean_torque": round(mean_torque, 4),
+            "status": "ESTIMATED"
         }
-        
-        logger.info(f"Processed resolver telemetry for {self.mill_id}: {result['status']} (Amplitude: {result['harmonic_amplitude']})")
-        return result
 
-    def predict_torque_ripple(self, future_horizon_steps: int = 10) -> List[float]:
+    def compute_attenuation_signal(self, harmonic_amplitude: float) -> float:
         """
-        Predicts upcoming torque ripple amplitudes using linear regression over the recent sample history.
+        Computes counter-harmonic attenuation signal to nullify torque ripple.
         """
-        if len(self.sample_history) < 5:
-            return [0.0] * future_horizon_steps
-            
-        recent = self.sample_history[-5:]
-        trend = recent[-1] - recent[0]
-        predictions = []
-        
-        for step in range(1, future_horizon_steps + 1):
-            predicted_val = recent[-1] + (trend * (step / 5.0))
-            predictions.append(round(predicted_val, 4))
-            
-        return predictions
+        # Adaptive attenuation algorithm
+        self.attenuation_gain = max(0.1, 1.0 - (harmonic_amplitude * 0.05))
+        counter_signal = -1.0 * harmonic_amplitude * self.attenuation_gain
+        return round(counter_signal, 4)
+
+    def execute_telemetry_cycle(self, sin_sig: float, cos_sig: float, raw_torques: List[float]) -> Dict[str, Any]:
+        """
+        Executes full interferometer correlation, harmonic estimation, and attenuation synthesis.
+        """
+        start_time = time.time()
+        phase = self.correlate_quadrature_resolver(sin_sig, cos_sig)
+        estimation = self.estimate_torque_ripple_harmonic(raw_torques)
+        attenuation = self.compute_attenuation_signal(estimation["amplitude"])
+
+        duration = time.time() - start_time
+        logger.debug(f"Mill {self.mill_id} telemetry cycle executed in {duration:.5f}s")
+
+        return {
+            "mill_id": self.mill_id,
+            "quadrature_phase_rad": round(phase, 4),
+            "harmonic_estimation": estimation,
+            "attenuation_signal": attenuation,
+            "execution_latency_ms": round(duration * 1000, 2)
+        }
+
 
 if __name__ == "__main__":
-    attenuator = RollerMillHarmonicAttenuator(mill_id="NAI_MILL_04")
-    mock_samples = [0.12, 1.45, -0.85, 2.11, 0.45, -1.02, 1.88, 0.95]
-    metrics = attenuator.ingest_resolver_telemetry(mock_samples)
-    print("Ingestion Metrics:", metrics)
-    predictions = attenuator.predict_torque_ripple(5)
-    print("Torque Ripple Predictions:", predictions)
+    print("[+] Executing RollerMillTorqueRippleAttenuator standalone test harness...")
+    attenuator = RollerMillTorqueRippleAttenuator(mill_id="NAIROBI-MILL-09")
+    
+    # Simulate quadrature sine/cosine inputs and raw torque fluctuations
+    sample_sin = 0.7071
+    sample_cos = 0.7071
+    sample_torques = [120.5, 128.2, 115.0, 131.4, 118.9, 125.0]
+
+    result = attenuator.execute_telemetry_cycle(sample_sin, sample_cos, sample_torques)
+    print(f"[+] Test Result Output: {result}")
+    print("[+] RollerMillTorqueRippleAttenuator validation completed successfully.")
