@@ -1,7 +1,7 @@
 """
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Attenuator Module
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Attenuator Module.
 
-Provides real-time telemetry processing, harmonic analysis, phase quadrature decomposition, and torque ripple attenuation for industrial milling machinery in Nairobi, Kenya.
+Provides real-time analysis, phase quadrature decomposition, interferometric correlation, and active harmonic attenuation for heavy-duty industrial roller mill drive systems in Nairobi, Kenya.
 """
 
 import math
@@ -10,58 +10,80 @@ import logging
 from typing import Dict, List, Any, Optional
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillTorqueAttenuator")
+logger = logging.getLogger("RollerMillHarmonicAttenuator")
 
-class RollerMillTorqueAttenuator:
+class RollerMillHarmonicAttenuator:
     """
-    Monitors, estimates, and attenuates dynamic torque ripples and harmonic distortions
-    in commercial roller mill drive trains.
+    Computes phase-quadrature components and interferometric correlations of roller mill
+    drive torque ripples, applying targeted attenuation signals to stabilize operations.
     """
-    def __init__(self, mill_id: str, base_frequency_hz: float = 50.0):
-        self.mill_id = mill_id
-        self.base_frequency_hz = base_frequency_hz
-        self.attenuation_active = True
-        logger.info(f"Initialized RollerMillTorqueAttenuator for mill {self.mill_id} at {base_frequency_hz}Hz baseline.")
-
-    def process_telemetry(self, raw_torque_samples: List[float], timestamp: float) -> Dict[str, Any]:
-        """
-        Processes raw torque samples, performs quadrature decomposition, and calculates attenuation parameters.
-        """
-        if not raw_torque_samples:
-            return {"status": "error", "message": "Empty sample set provided."}
-
-        n = len(raw_torque_samples)
-        mean_torque = sum(raw_torque_samples) / n
+    
+    def __init__(self, sample_rate_hz: float = 1000.0, harmonic_order: int = 5):
+        self.sample_rate_hz = sample_rate_hz
+        self.harmonic_order = harmonic_order
+        self.attenuation_gain = 0.85
+        self.state_history: List[Dict[str, float]] = []
+        logger.info("Initialized RollerMillHarmonicAttenuator at %.1f Hz (Order %d)", sample_rate_hz, harmonic_order)
         
-        # Simulate quadrature component extraction (Sine and Cosine projections)
-        in_phase_sum = 0.0
-        quadrature_sum = 0.0
-        for i, sample in enumerate(raw_torque_samples):
-            angle = 2.0 * math.pi * self.base_frequency_hz * (timestamp + i * 0.001)
-            in_phase_sum += (sample - mean_torque) * math.cos(angle)
-            quadrature_sum += (sample - mean_torque) * math.sin(angle)
-
-        amplitude = 2.0 * math.sqrt(in_phase_sum**2 + quadrature_sum**2) / n
-        phase = math.atan2(quadrature_sum, in_phase_sum)
+    def process_telemetry(self, raw_torque_nm: float, current_rpm: float, timestamp: Optional[float] = None) -> Dict[str, Any]:
+        ts = timestamp if timestamp is not None else time.time()
+        omega = (current_rpm * 2.0 * math.pi) / 60.0
         
-        # Attenuation adjustment
-        attenuation_factor = 0.85 if self.attenuation_active else 1.0
-        compensated_amplitude = amplitude * attenuation_factor
+        # Phase quadrature quadrature estimation (simulated resolver output)
+        phase_rad = (omega * ts) % (2.0 * math.pi)
+        quadrature_i = raw_torque_nm * math.cos(phase_rad * self.harmonic_order)
+        quadrature_q = raw_torque_nm * math.sin(phase_rad * self.harmonic_order)
+        
+        amplitude = math.sqrt(quadrature_i**2 + quadrature_q**2)
+        phase_angle = math.atan2(quadrature_q, quadrature_i)
+        
+        # Interferometric correlation index
+        correlation_index = amplitude / (abs(raw_torque_nm) + 1e-6)
+        
+        # Active attenuation compensation
+        attenuation_signal = - (quadrature_i * self.attenuation_gain)
+        compensated_torque = raw_torque_nm + attenuation_signal
+        
+        result = {
+            "timestamp": ts,
+            "raw_torque_nm": raw_torque_nm,
+            "current_rpm": current_rpm,
+            "amplitude": amplitude,
+            "phase_angle": phase_angle,
+            "correlation_index": correlation_index,
+            "attenuation_signal": attenuation_signal,
+            "compensated_torque": compensated_torque
+        }
+        
+        self.state_history.append(result)
+        if len(self.state_history) > 1000:
+            self.state_history.pop(0)
+            
+        return result
 
+    def get_diagnostics(self) -> Dict[str, Any]:
+        if not self.state_history:
+            return {"status": "IDLE", "samples_processed": 0}
+        latest = self.state_history[-1]
         return {
-            "mill_id": self.mill_id,
-            "timestamp": timestamp,
-            "mean_torque_nm": round(mean_torque, 4),
-            "harmonic_amplitude_nm": round(amplitude, 4),
-            "phase_radians": round(phase, 4),
-            "compensated_amplitude_nm": round(compensated_amplitude, 4),
-            "attenuation_status": "ACTIVE" if self.attenuation_active else "BYPASS"
+            "status": "ACTIVE",
+            "samples_processed": len(self.state_history),
+            "latest_amplitude": latest["amplitude"],
+            "latest_compensated_torque": latest["compensated_torque"]
         }
 
 if __name__ == "__main__":
-    attenuator = RollerMillTorqueAttenuator(mill_id="MILL-NRB-01")
-    # Generate mock torque wave with harmonic ripple
-    t_base = time.time()
-    mock_samples = [100.0 + 15.0 * math.sin(2 * math.pi * 50 * (t_base + i*0.001)) for i in range(100)]
-    result = attenuator.process_telemetry(mock_samples, t_base)
-    print("Attenuator Execution Result:", result)
+    print("Executing RollerMillHarmonicAttenuator self-test harness...")
+    attenuator = RollerMillHarmonicAttenuator()
+    # Simulate roller mill telemetry
+    test_telemetry = [(
+        150.0 + 25.0 * math.sin(i * 0.1),
+        1450.0 + 5.0 * math.cos(i * 0.05)
+    ) for i in range(50)]
+    
+    for idx, (torque, rpm) in enumerate(test_telemetry):
+        res = attenuator.process_telemetry(torque, rpm)
+        print(f"Sample {idx}: Raw={res['raw_torque_nm']:.2f}Nm, Amp={res['amplitude']:.2f}, Comp={res['compensated_torque']:.2f}Nm")
+        
+    print("Diagnostics:", attenuator.get_diagnostics())
+    print("RollerMillHarmonicAttenuator module executed successfully.")
