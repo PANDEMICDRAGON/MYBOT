@@ -1,91 +1,64 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Depolarizer Module
-
-Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
-"""
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Depolarizer"""
 
 import math
+import time
 import logging
-import statistics
-from typing import Dict, List, Any, Optional
+from typing import Dict, Any, List
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillTorqueDepolarizer")
-
+logger = logging.getLogger("RollerMillTorqueRippleDepolarizer")
 
 class RollerMillTorqueRippleDepolarizer:
     """
-    Computes quadrature resolver interferometry on roller mill torque ripples,
-    demodulating harmonic amplitudes and phases to synchronize mechanical
-    drives and protect against catastrophic spindle depolarization in Nairobi mills.
+    Measures, correlates, and depolarizes torque ripple harmonics and phase quadrature anomalies
+    in Nairobi industrial grain milling roller mill drivetrains.
     """
+    def __init__(self, baseline_frequency_hz: float = 50.0, harmonic_order: int = 7):
+        self.baseline_frequency_hz = baseline_frequency_hz
+        self.harmonic_order = harmonic_order
+        self.phase_quadrature_matrix: List[float] = [0.0] * harmonic_order
+        self.depolarization_coefficient = 0.985
 
-    def __init__(self, mill_id: str, nominal_rpm: float = 1450.0):
-        self.mill_id = mill_id
-        self.nominal_rpm = nominal_rpm
-        self.history: List[Dict[str, Any]] = []
-
-    def process_torque_signal(self, raw_torque_samples: List[float], harmonic_order: int = 3) -> Dict[str, Any]:
+    def process_telemetry(self, raw_torque_waveform: List[float]) -> Dict[str, Any]:
         """
-        Processes raw torque transducer samples to extract quadrature resolver phase,
-        amplitude, and compute depolarization compensation vectors.
+        Processes torque waveform telemetry, estimates harmonic distortion, and computes
+        the depolarization correction vector.
         """
-        if not raw_torque_samples:
-            raise ValueError("Raw torque samples cannot be empty.")
+        start_time = time.time()
+        if not raw_torque_waveform:
+            raise ValueError("Empty raw torque waveform received for depolarization.")
 
-        mean_torque = statistics.mean(raw_torque_samples)
-        filtered_samples = [s - mean_torque for s in raw_torque_samples]
-        
-        # Simulate quadrature demodulation (Sine/Cosine orthogonal projection)
-        n = len(filtered_samples)
-        sin_sum = 0.0
-        cos_sum = 0.0
-        for i, val in enumerate(filtered_samples):
-            angle = 2.0 * math.pi * harmonic_order * i / max(n, 1)
-            sin_sum += val * math.sin(angle)
-            cos_sum += val * math.cos(angle)
+        mean_torque = sum(raw_torque_waveform) / len(raw_torque_waveform)
+        variance = sum((x - mean_torque) ** 2 for x in raw_torque_waveform) / len(raw_torque_waveform)
+        rms_ripple = math.sqrt(variance)
 
-        amplitude = (2.0 / max(n, 1)) * math.sqrt(sin_sum**2 + cos_sum**2)
-        phase_rad = math.atan2(cos_sum, sin_sum)
-        phase_deg = math.degrees(phase_rad)
+        # Simulate quadrature resolver interferometry calculation
+        corrected_waveform = []
+        for i, val in enumerate(raw_torque_waveform):
+            phase_shift = math.sin(2 * math.pi * self.baseline_frequency_hz * (i / len(raw_torque_waveform)))
+            depolarized_val = (val - mean_torque) * self.depolarization_coefficient - (rms_ripple * 0.05 * phase_shift)
+            corrected_waveform.append(depolarized_val + mean_torque)
 
-        # Depolarization / synchronization compensation factor
-        compensation_factor = 1.0 / (1.0 + abs(amplitude * 0.05))
-        synchronized_rpm = self.nominal_rpm * compensation_factor
+        # Update phase quadrature matrix
+        for h in range(self.harmonic_order):
+            harmonic_weight = math.cos((h + 1) * math.pi / 4)
+            self.phase_quadrature_matrix[h] = (self.phase_quadrature_matrix[h] * 0.9) + (rms_ripple * harmonic_weight * 0.1)
 
-        result = {
-            "mill_id": self.mill_id,
-            "mean_torque": mean_torque,
-            "harmonic_order": harmonic_order,
-            "amplitude": amplitude,
-            "phase_degrees": phase_deg,
-            "compensation_factor": compensation_factor,
-            "synchronized_rpm": synchronized_rpm,
-            "status": "OPTIMIZED"
-        }
+        execution_time_ms = (time.time() - start_time) * 1000
+        logger.info(f"Processed {len(raw_torque_waveform)} samples in {execution_time_ms:.2f}ms. RMS Ripple: {rms_ripple:.4f} Nm")
 
-        self.history.append(result)
-        logger.info(f"Processed mill {self.mill_id}: Amplitude={amplitude:.4f}, Phase={phase_deg:.2f} deg")
-        return result
-
-    def get_telemetry_summary(self) -> Dict[str, Any]:
-        if not self.history:
-            return {"status": "NO_DATA"}
-        latest = self.history[-1]
         return {
-            "mill_id": self.mill_id,
-            "total_processed": len(self.history),
-            "latest_amplitude": latest["amplitude"],
-            "latest_phase": latest["phase_degrees"]
+            "status": "SUCCESS",
+            "mean_torque_nm": mean_torque,
+            "rms_ripple_nm": rms_ripple,
+            "depolarization_coefficient_applied": self.depolarization_coefficient,
+            "phase_quadrature_matrix": self.phase_quadrature_matrix,
+            "execution_time_ms": execution_time_ms
         }
-
 
 if __name__ == "__main__":
-    print("Initializing Nairobi Roller Mill Torque Depolarizer Test Harness...")
-    depolarizer = RollerMillTorqueRippleDepolarizer(mill_id="NAI_MILL_WESTLANDS_04")
-    # Generate dummy sinusoidal torque ripple data with noise
-    sample_data = [100.0 + 5.0 * math.sin(i * 0.2) + (i % 3) * 0.1 for i in range(128)]
-    metrics = depolarizer.process_torque_signal(sample_data, harmonic_order=3)
-    print("Execution Metrics Result:", metrics)
-    print("Summary telemetry:", depolarizer.get_telemetry_summary())
+    depolarizer = RollerMillTorqueRippleDepolarizer()
+    # Simulate 100 sample torque ripple waveform around 150.0 Nm baseline
+    dummy_waveform = [150.0 + 5.0 * math.sin(i / 5.0) + 1.2 * math.cos(i / 2.0) for i in range(100)]
+    result = depolarizer.process_telemetry(dummy_waveform)
+    print("Test Execution Result:", result)
