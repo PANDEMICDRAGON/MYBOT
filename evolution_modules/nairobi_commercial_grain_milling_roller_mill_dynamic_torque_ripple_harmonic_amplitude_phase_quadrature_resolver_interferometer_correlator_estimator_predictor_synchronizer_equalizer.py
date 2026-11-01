@@ -1,90 +1,91 @@
-import ast
-import logging
+"""
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude
+Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Equalizer
+
+Provides real-time high-precision telemetry analysis, harmonic distortion cancellation,
+and phase quadrature equalization for industrial roller mills operating in Nairobi.
+"""
+
 import math
-import random
-import time
-from typing import Dict, List, Tuple, Any
+import statistics
+import logging
+from typing import Dict, List, Any, Optional
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("RollerMillEqualizer")
 
+
 class RollerMillEqualizer:
     """
-    Advanced real-time digital signal processing module for compensating torque ripple harmonics,
-    phase quadrature errors, and rotational interferometer jitter in Nairobi commercial grain mills.
+    Analyzes torque ripple harmonics, phase quadrature, and interferometer feedback
+    from commercial roller mill drive assemblies to apply real-time predictive equalization.
     """
-    def __init__(self, sample_rate_hz: float = 1000.0, harmonic_orders: List[int] = [1, 2, 3, 6, 12]):
-        self.sample_rate_hz = sample_rate_hz
-        self.harmonic_orders = harmonic_orders
-        self.equalization_weights: Dict[int, float] = {h: 1.0 for h in harmonic_orders}
-        self.phase_offsets: Dict[int, float] = {h: 0.0 for h in harmonic_orders}
-        self.telemetry_history: List[Dict[str, Any]] = []
 
-    def process_telemetry(self, raw_torque_nm: float, resolver_angle_deg: float) -> Dict[str, Any]:
+    def __init__(self, mill_id: str, nominal_rpm: float = 1450.0):
+        self.mill_id = mill_id
+        self.nominal_rpm = nominal_rpm
+        self.history: List[Dict[str, float]] = []
+
+    def ingest_telemetry(self, vibration_spectrum: List[float], torque_ripple_amplitude: float, phase_angle: float) -> Dict[str, Any]:
         """
-        Ingests raw torque and resolver angle telemetry, estimates harmonic distortion,
-        and computes real-time phase quadrature compensation.
+        Ingests sensor telemetry, computes harmonic distortion, quadrature phase error,
+        and formulates real-time equalization parameters.
         """
-        start_time = time.perf_counter()
-        rads = math.radians(resolver_angle_deg)
-        
-        # Simulate harmonic extraction & interferometer correction
-        residual_ripple = 0.0
-        corrected_torque = raw_torque_nm
-        
-        for h in self.harmonic_orders:
-            amplitude_component = (0.05 * raw_torque_nm / h) * math.sin(h * rads + self.phase_offsets[h])
-            residual_ripple += amplitude_component
-            # Apply equalization filter weight
-            corrected_torque -= amplitude_component * self.equalization_weights[h]
+        if not vibration_spectrum:
+            raise ValueError("Vibration spectrum telemetry cannot be empty.")
 
-        # Adapt weights via LMS-like error feedback simulation
-        error_signal = residual_ripple * 0.1
-        for h in self.harmonic_orders:
-            self.equalization_weights[h] -= 0.001 * error_signal * math.cos(h * rads)
-            self.equalization_weights[h] = max(0.1, min(2.5, self.equalization_weights[h]))
-
-        processing_latency_ms = (time.perf_counter() - start_time) * 1000.0
+        mean_vib = statistics.mean(vibration_spectrum)
+        peak_vib = max(vibration_spectrum)
+        rms_vib = math.sqrt(sum(v ** 2 for v in vibration_spectrum) / len(vibration_spectrum))
         
-        result = {
-            "timestamp": time.time(),
-            "raw_torque_nm": raw_torque_nm,
-            "resolver_angle_deg": resolver_angle_deg,
-            "corrected_torque_nm": corrected_torque,
-            "residual_ripple_amplitude": abs(residual_ripple),
-            "latency_ms": processing_latency_ms,
-            "status": "EQUALIZED"
+        # Quadrature phase error relative to nominal reference (e.g., 90 degrees)
+        phase_error = abs(90.0 - (phase_angle % 180.0))
+        
+        # Harmonic distortion estimation
+        harmonic_index = peak_vib / (rms_vib if rms_vib > 0 else 1.0)
+        
+        # Equalization compensation factor
+        compensation_gain = 1.0 / (1.0 + (torque_ripple_amplitude * 0.05) + (phase_error * 0.01))
+
+        telemetry_packet = {
+            "mill_id": self.mill_id,
+            "mean_vib": mean_vib,
+            "rms_vib": rms_vib,
+            "torque_ripple_amplitude": torque_ripple_amplitude,
+            "phase_error": phase_error,
+            "harmonic_index": harmonic_index,
+            "compensation_gain": compensation_gain,
         }
         
-        self.telemetry_history.append(result)
-        if len(self.telemetry_history) > 1000:
-            self.telemetry_history.pop(0)
+        self.history.append(telemetry_packet);
+        if len(self.history) > 1000:
+            self.history.pop(0)
             
-        return result
+        logger.info(f"[Equalizer-{self.mill_id}] Processed telemetry. Compensation Gain: {compensation_gain:.4f}")
+        return telemetry_packet
 
-    def get_diagnostics(self) -> Dict[str, Any]:
-        return {
-            "sample_rate_hz": self.sample_rate_hz,
-            "active_harmonics": self.harmonic_orders,
-            "weights": self.equalization_weights,
-            "telemetry_count": len(self.telemetry_history)
-        }
+    def diagnose_health(self) -> str:
+        """
+        Evaluates historical telemetry to report roller mill operational status.
+        """
+        if not self.history:
+            return "NO_DATA"
+        recent = self.history[-5:]
+        avg_gain = statistics.mean([h["compensation_gain"] for h in recent])
+        if avg_gain < 0.70:
+            return "CRITICAL_HARMONIC_INSTABILITY"
+        elif avg_gain < 0.85:
+            return "WARNING_DEGRADED_QUADRATURE"
+        return "OPTIMAL_SYNCHRONIZATION"
+
 
 if __name__ == "__main__":
-    logger.info("Initializing RollerMillEqualizer test harness...")
-    equalizer = RollerMillEqualizer()
-    
-    # Simulate 10 iterations of milling telemetry
-    for i in range(10):
-        mock_torque = 150.0 + random.uniform(-5.0, 5.0)
-        mock_angle = (i * 36.0) % 360.0
-        res = equalizer.process_telemetry(mock_torque, mock_angle)
-        logger.info(f"Step {i}: Raw Torque={res['raw_torque_nm']:.2f}Nm, Corrected={res['corrected_torque_nm']:.2f}Nm, Latency={res['latency_ms']:.4f}ms")
-
-    diag = equalizer.get_diagnostics()
-    logger.info(f"Diagnostics verified: {diag}")
-    
-    # Compile check self-validation
-    source_code = open(__file__, "r").read()
-    ast.parse(source_code)
-    logger.info("AST compilation check passed successfully.")
+    eq = RollerMillEqualizer(mill_id="NAIROBI-MILL-01")
+    sample_spectrum = [0.12, 0.45, 0.89, 0.34, 0.15, 0.08]
+    result = eq.ingest_telemetry(
+        vibration_spectrum=sample_spectrum,
+        torque_ripple_amplitude=3.45,
+        phase_angle=92.5
+    )
+    print("Diagnostic Result:", eq.diagnose_health())
+    print("Telemetry Output:", result)
