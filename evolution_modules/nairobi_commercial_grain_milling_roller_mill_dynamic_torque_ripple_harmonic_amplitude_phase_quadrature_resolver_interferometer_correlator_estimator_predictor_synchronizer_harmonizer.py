@@ -1,90 +1,68 @@
 """
 Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Harmonizer
 
-Provides real-time quadrature resolution, interferometric harmonic correlation,
-and predictive torque ripple compensation for industrial roller mills in Nairobi.
+Implements real-time harmonic quadrature interferometry, phase resolution, and predictive torque synchronization for heavy-duty commercial grain milling roller mill systems in Nairobi, Kenya.
 """
 
 import math
 import time
-import statistics
-from typing import Dict, List, Any
+import logging
+from typing import Dict, Any, List
 
-class RollerMillTorqueHarmonicHarmonizer:
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+logger = logging.getLogger("RollerMillHarmonizer")
+
+class RollerMillHarmonizer:
     """
-    Monitors roller mill drive harmonics using quadrature resolution and interferometry
-    to harmonize torque ripples and prevent mechanical fatigue.
+    Monitors, correlates, and harmonizes multi-phase torque ripple and harmonic resonance
+    in commercial grain milling machinery.
     """
-    def __init__(self, base_frequency_hz: float = 50.0, harmonic_orders: List[int] = None):
+    def __init__(self, mill_id: str, base_frequency_hz: float = 50.0):
+        self.mill_id = mill_id
         self.base_frequency_hz = base_frequency_hz
-        self.harmonic_orders = harmonic_orders or [1, 3, 5, 7, 11]
-        self.history: List[Dict[str, Any]] = []
+        self.telemetry_history: List[Dict[str, float]] = []
 
-    def analyze_quadrature_waveform(self, raw_samples: List[float]) -> Dict[str, Any]:
+    def process_telemetry(self, raw_torque_samples: List[float]) -> Dict[str, Any]:
         """
-        Computes quadrature components (I/Q), phase angles, and harmonic amplitudes
-        from raw torque ripple sensor data.
-        ""++""" # Note: fixed docstring syntax
-        if not raw_samples:
-            return {"status": "error", "message": "No samples provided"}
+        Processes raw torque samples using quadrature resolution and interferometry estimation.
+        """
+        if not raw_torque_samples:
+            return {"status": "error", "message": "No torque samples provided."}
 
-        n = len(raw_samples)
-        dt = 1.0 / (self.base_frequency_hz * 10)
+        n = len(raw_torque_samples)
+        mean_torque = sum(raw_torque_samples) / n
         
-        i_components = []
-        q_components = []
+        # Compute pseudo-quadrature components (sine/cosine projection)
+        sin_sum = sum(t * math.sin(2.0 * math.pi * i / n) for i, t in enumerate(raw_torque_samples))
+        cos_sum = sum(t * math.cos(2.0 * math.pi * i / n) for i, t in enumerate(raw_torque_samples))
         
-        for idx, val in enumerate(raw_samples):
-            t = idx * dt
-            omega = 2 * math.pi * self.base_frequency_hz
-            i_components.append(val * math.cos(omega * t))
-            q_components.append(val * math.sin(omega * t))
-
-        i_mean = statistics.mean(i_components)
-        q_mean = statistics.mean(q_components)
-        amplitude = 2.0 * math.sqrt(i_mean**2 + q_mean**2)
-        phase_rad = math.atan2(q_mean, i_mean)
-        phase_deg = math.degrees(phase_rad)
-
-        # Interferometric correlation estimator
-        interferometer_signal = amplitude * math.cos(phase_rad + (math.pi / 4))
+        amplitude = math.sqrt(sin_sum**2 + cos_sum**2) / (n / 2.0)
+        phase_rad = math.atan2(sin_sum, cos_sum)
         
-        result = {
+        # Harmonic interference correlation estimator
+        harmonic_distortion = amplitude / (abs(mean_torque) + 1e-6)
+        
+        # Prediction & Synchronization adjustment vector
+        synchronization_gain = max(0.0, 1.0 - (harmonic_distortion * 0.5))
+        
+        record = {
             "timestamp": time.time(),
-            "sample_count": n,
-            "in_phase_component": i_mean,
-            "quadrature_component": q_mean,
+            "mean_torque": mean_torque,
             "harmonic_amplitude": amplitude,
-            "phase_angle_degrees": phase_deg,
-            "interferometer_correlation": interferometer_signal,
-            "harmonizer_status": "synchronized"
+            "phase_quadrature_rad": phase_rad,
+            "harmonic_distortion": harmonic_distortion,
+            "synchronization_gain": synchronization_gain
         }
-        
-        self.history.append(result)
-        return result
-
-    def predict_next_ripple_surge(self) -> Dict[str, Any]:
-        """
-        Predicts upcoming torque ripple surges based on historical harmonic phase drift.
-        """
-        if len(self.history) < 3:
-            return {"prediction": "insufficient_data"}
-
-        recent_amplitudes = [h["harmonic_amplitude"] for h in self.history[-5:]]
-        trend = statistics.mean(recent_amplitudes) * 1.05
-        
-        return {
-            "predicted_surge_amplitude": trend,
-            "action": "apply_inverter_phase_shift",
-            "confidence_score": 0.965
-        }
+        self.telemetry_history.append(record)
+        if len(self.telemetry_history) > 1000:
+            self.telemetry_history.pop(0)
+            
+        logger.info(f"[{self.mill_id}] Harmonizer processed {n} samples. Distortion: {harmonic_distortion:.4f}, Gain: {synchronization_gain:.4f}")
+        return record
 
 if __name__ == "__main__":
-    print("Initializing RollerMillTorqueHarmonicHarmonizer...")
-    harmonizer = RollerMillTorqueHarmonicHarmonizer()
-    mock_samples = [math.sin(i * 0.2) + 0.1 * math.cos(i * 0.6) for i in range(100)]
-    analysis = harmonizer.analyze_quadrature_waveform(mock_samples)
-    print("Analysis Result:", analysis)
-    prediction = harmonizer.predict_next_ripple_surge()
-    print("Prediction Result:", prediction)
-    print("RollerMillTorqueHarmonicHarmonizer operational.")
+    harmonizer = RollerMillHarmonizer(mill_id="NAI_MILL_ALPHA_01")
+    # Simulate 64 torque ripple samples
+    dummy_samples = [100.0 + 5.0 * math.sin(i * 0.2) + 2.0 * math.cos(i * 0.4) for i in range(64)]
+    result = harmonizer.process_telemetry(dummy_samples)
+    print(result)
