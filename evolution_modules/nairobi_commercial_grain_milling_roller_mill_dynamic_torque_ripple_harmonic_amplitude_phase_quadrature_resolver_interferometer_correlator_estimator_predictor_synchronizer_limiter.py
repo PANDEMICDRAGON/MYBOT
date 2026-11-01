@@ -1,101 +1,69 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude
-Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Limiter
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Limiter module."""
 
-Provides advanced real-time digital signal processing, quadrature phase interferometry,
-and adaptive limiter control for high-torque commercial roller mill drives in Nairobi grain mills.
-"""
-
-import math
 import logging
-import statistics
-from typing import Dict, List, Optional, Tuple
+import math
+import random
+import time
+from typing import Dict, Any, List
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillTorqueLimiter")
-
+logger = logging.getLogger("NairobiCommercialRollerMillLimiter")
+logger.setLevel(logging.INFO)
+if not logger.handlers:
+    ch = logging.StreamHandler()
+    ch.setFormatter(logging.Formatter("%(asctime)s [%(levelname)s] %(name)s: %(message)s"))
+    logger.addHandler(ch)
 
 class RollerMillTorqueLimiter:
-    """
-    Monitors, correlates, and limits dynamic torque ripple harmonics on commercial roller mill drives.
-    """
+    """Provides real-time quadrature interferometer correlation and dynamic harmonic limiting for industrial roller mills in Nairobi."""
 
-    def __init__(self, baseline_frequency_hz: float = 50.0, harmonic_limit_threshold: float = 0.85):
-        self.baseline_frequency_hz = baseline_frequency_hz
-        self.harmonic_limit_threshold = harmonic_limit_threshold
-        self.telemetry_history: List[Dict[str, float]] = []
+    def __init__(self, mill_id: str, nominal_torque_nm: float = 1250.0):
+        self.mill_id = mill_id
+        self.nominal_torque_nm = nominal_torque_nm
+        self.history: List[Dict[str, Any]] = []
+        logger.info(f"RollerMillTorqueLimiter initialized for {{self.mill_id}} with nominal torque {{self.nominal_torque_nm}} Nm.")
 
-    def process_interferometer_sample(self, timestamp: float, raw_torque_nm: float, phase_angle_rad: float) -> Dict[str, float]:
-        """
-        Processes incoming quadrature resolver interferometer telemetry samples.
-        Calculates harmonic amplitude, phase distortion, and applies active limiting algorithms.
-        """
-        # Quadrature component extraction
-        quad_in_phase = raw_torque_nm * math.cos(phase_angle_rad)
-        quad_out_phase = raw_torque_nm * math.sin(phase_angle_rad)
-        amplitude = math.sqrt(quad_in_phase**2 + quad_out_phase**2)
-
-        # Estimate harmonic ripple ratio
-        mean_amplitude = statistics.mean([t["amplitude"] for t in self.telemetry_history]) if self.telemetry_history else amplitude
-        ripple_ratio = amplitude / (mean_amplitude + 1e-6)
-
-        # Active limitation factor
-        limiter_gain = 1.0
-        if ripple_ratio > self.harmonic_limit_threshold:
-            limiter_gain = self.harmonic_limit_threshold / ripple_ratio
-            logger.warning(
-                f"[TORQUE LIMITER ALERT] Harmonic ripple ratio {ripple_ratio:.3f} exceeded threshold {self.harmonic_limit_threshold}. "
-                f"Applying dynamic limiter gain: {limiter_gain:.3f}"
-            )
-
-        regulated_torque = raw_torque_nm * limiter_gain
+    def process_harmonic_telemetry(self, raw_torque: float, phase_angle_rad: float) -> Dict[str, Any]:
+        """Process quadrature torque ripple telemetry, compute interferometer correlation, and return limited drive parameters."""
+        # Simulate quadrature component extraction
+        quad_i = raw_torque * math.cos(phase_angle_rad)
+        quad_q = raw_torque * math.sin(phase_angle_rad)
+        
+        # Interferometric harmonic estimation
+        amplitude = math.sqrt(quad_i**2 + quad_q**2)
+        harmonic_distortion = abs(amplitude - self.nominal_torque_nm) / self.nominal_torque_nm
+        
+        # Dynamic limiting threshold
+        threshold = self.nominal_torque_nm * 1.35
+        limited_torque = min(amplitude, threshold)
+        
+        # Prediction & Synchronization adjustment
+        correction_factor = limited_torque / (amplitude if amplitude > 0 else 1.0)
+        synced_i = quad_i * correction_factor
+        synced_q = quad_q * correction_factor
 
         record = {
-            "timestamp": timestamp,
-            "raw_torque": raw_torque_nm,
+            "timestamp": time.time(),
+            "raw_torque": raw_torque,
+            "phase_angle_rad": phase_angle_rad,
             "amplitude": amplitude,
-            "ripple_ratio": ripple_ratio,
-            "limiter_gain": limiter_gain,
-            "regulated_torque": regulated_torque
+            "harmonic_distortion": harmonic_distortion,
+            "limited_torque": limited_torque,
+            "synced_i": synced_i,
+            "synced_q": synced_q,
+            "clamped": amplitude > threshold
         }
-
-        self.telemetry_history.append(record)
-        if len(self.telemetry_history) > 1000:
-            self.telemetry_history.pop(0)
-
+        
+        self.history.append(record)
+        if len(self.history) > 1000:
+            self.history.pop(0)
+            
         return record
 
-    def get_system_diagnostics(self) -> Dict[str, float]:
-        """Returns aggregate diagnostics for the roller mill torque subsystem."""
-        if not self.telemetry_history:
-            return {"status": "IDLE", "max_ripple": 0.0, "mean_regulated_torque": 0.0}
-
-        max_ripple = max(t["ripple_ratio"] for t in self.telemetry_history)
-        mean_torque = statistics.mean(t["regulated_torque"] for t in self.telemetry_history)
-
-        return {
-            "status": "ACTIVE_REGULATED",
-            "max_ripple": max_ripple,
-            "mean_regulated_torque": mean_torque,
-            "sample_count": len(self.telemetry_history)
-        }
-
-
 if __name__ == "__main__":
-    limiter = RollerMillTorqueLimiter()
-    logger.info("Initializing RollerMillTorqueLimiter test sequence...")
-    
-    # Simulate baseline and spike samples
-    test_samples = [
-        (1.0, 250.0, 0.1),
-        (2.0, 255.0, 0.2),
-        (3.0, 420.0, 1.5),  # High torque ripple spike
-        (4.0, 248.0, 0.15)
-    ]
-
-    for ts, torque, phase in test_samples:
-        res = limiter.process_interferometer_sample(ts, torque, phase)
-        logger.info(f"Sample {ts}s: Regulated Torque = {res['regulated_torque']:.2f} Nm, Gain = {res['limiter_gain']:.2f}")
-
-    diag = limiter.get_system_diagnostics()
-    logger.info(f"Diagnostics Summary: {diag}")
+    limiter = RollerMillTorqueLimiter(mill_id="NAI_MILL_B9_NORTH")
+    print(f"Test execution for {{limiter.mill_id}}...")
+    for i in range(5):
+        sample_torque = 1200.0 + random.uniform(-250.0, 300.0)
+        sample_phase = random.uniform(0.0, 2.0 * math.pi)
+        res = limiter.process_harmonic_telemetry(sample_torque, sample_phase)
+        print(f"Cycle {{i+1}}: Raw={{res['raw_torque']:.2f}}Nm, Amplitude={{res['amplitude']:.2f}}Nm, Clamped={{res['clamped']}}")
