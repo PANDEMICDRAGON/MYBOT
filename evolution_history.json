@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 125,
-    "vector_id": "EVO_MICROCLIMATE_CORRELATOR_V1_C125",
-    "title": "Nairobi & Nairobi Microclimate Correlation Sentinel",
-    "domain": "SENSORIUM",
-    "rationale": "Correlates temperature, humidity, and weather deltas between Nairobi CBD.",
-    "file_path": "evolution_modules\\microclimate_correlator.py",
-    "code_size": 976,
-    "applied_at": "2026-11-01 15:13:13 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Distributed Multi-Node Swarm Heartbeat Arbiter"
-  },
-  {
     "cycle_num": 126,
     "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_ROLLER_MILL_DYNAMIC_TORQUE_RIPPLE_HARMONIC_AMPLITUDE_PHASE_QUADRATURE_RESOLVER_INTERFEROMETER_CORRELATOR_ESTIMATOR_PREDICTOR_SYNCHRONIZER_CALIBRATOR_V1",
     "title": "Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Calibrator",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-11-01 18:08:36 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Autonomous Cognitive Calibration"
+  },
+  {
+    "cycle_num": 225,
+    "vector_id": "EVO_CIRCUIT_BREAKER_V1_C225",
+    "title": "Autonomous Adaptive Circuit Breaker & API Cascade Isolator",
+    "domain": "RESILIENCE",
+    "rationale": "Prevents upstream external sensorium and API outages from cascading into bot thread lockups.",
+    "file_path": "evolution_modules\\circuit_breaker_isolator.py",
+    "code_size": 2040,
+    "applied_at": "2026-11-01 18:10:51 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Workstation Heuristic Anomaly Detector & Pre-emptive Memory Throttling"
   }
 ]
