@@ -1,108 +1,89 @@
 """
 Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Calculator
 
-Designed for precision telemetry processing, phase quadrature alignment, and harmonic torque ripple analysis in Nairobi commercial roller mills.
+Author: Cortana Autonomous Evolutionary Architect
+Operator: Michael Obiero (Nairobi, Kenya)
 """
 
 import math
-import time
+import statistics
 import logging
 from typing import Dict, List, Any, Optional
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
 logger = logging.getLogger("RollerMillHarmonicCalculator")
 
-
-class RollerMillHarmonicCalculator:
+class RollerMillTorqueCalculator:
     """
-    Computes phase quadrature alignment, harmonic amplitudes, and torque ripple
-    interferometer predictions for industrial roller mills operating in Nairobi.
+    Computes quadrature resolver interference harmonics and predicts torque ripple corrections
+    for industrial roller mills in Nairobi grain processing facilities.
     """
+    def __init__(self, sample_rate_hz: float = 1000.0):
+        self.sample_rate_hz = sample_rate_hz
+        self.calibration_history: List[Dict[str, float]] = []
 
-    def __init__(self, mill_id: str, base_frequency_hz: float = 50.0):
-        self.mill_id = mill_id
-        self.base_frequency_hz = base_frequency_hz
-        self.telemetry_buffer: List[Dict[str, float]] = []
+    def calculate_quadrature_interference(self, sine_wave: List[float], cosine_wave: List[float]) -> Dict[str, float]:
+        """
+        Calculates phase quadrature offset and interference amplitude between resolver signals.
+        """
+        if not sine_wave or not cosine_wave or len(sine_wave) != len(cosine_wave):
+            raise ValueError("Invalid or mismatched resolver waveform buffers.")
+        
+        dot_product = sum(s * c for s, c in zip(sine_wave, cosine_wave))
+        norm_s = math.sqrt(sum(s**2 for s in sine_wave))
+        norm_c = math.sqrt(sum(c**2 for c in cosine_wave))
+        
+        if norm_s == 0.0 or norm_c == 0.0:
+            phase_error_rad = 0.0
+        else:
+            cos_theta = max(-1.0, min(1.0, dot_product / (norm_s * norm_c)))
+            phase_error_rad = math.acos(cos_theta) - (math.pi / 2.0)
 
-    def ingest_resolver_data(self, timestamp: float, quadrature_sin: float, quadrature_cos: float, torque_nm: float) -> Dict[str, Any]:
-        """
-        Ingests raw sinusoidal/cosinusoidal resolver signals and torque measurements.
-        """
-        phase_rad = math.atan2(quadrature_sin, quadrature_cos)
-        amplitude = math.sqrt(quadrature_sin**2 + quadrature_cos**2)
-        
-        record = {
-            "timestamp": timestamp,
-            "phase_rad": phase_rad,
-            "amplitude": amplitude,
-            "torque_nm": torque_nm
-        }
-        self.telemetry_buffer.append(record)
-        if len(self.telemetry_buffer) > 1000:
-            self.telemetry_buffer.pop(0)
-            
-        return record
-
-    def calculate_harmonic_profile(self) -> Dict[str, float]:
-        """
-        Calculates the harmonic amplitude and phase quadrature variance over the telemetry buffer.
-        """
-        if not self.telemetry_buffer:
-            return {"status": "insufficient_data"}
-            
-        torques = [r["torque_nm"] for r in self.telemetry_buffer]
-        mean_torque = sum(torques) / len(torques)
-        
-        # Compute pseudo-RMS torque ripple
-        variance = sum((t - mean_torque) ** 2 for t in torques) / len(torques)
-        torque_ripple_rms = math.sqrt(variance)
-        
-        # Harmonic distortion proxy
-        harmonic_amplitude = torque_ripple_rms / (abs(mean_torque) + 1e-6)
+        amplitude_ratio = norm_s / norm_c if norm_c != 0 else 1.0
         
         return {
-            "mill_id": self.mill_id,
-            "mean_torque_nm": mean_torque,
-            "torque_ripple_rms": torque_ripple_rms,
-            "harmonic_amplitude": harmonic_amplitude,
-            "sample_count": len(self.telemetry_buffer)
+            "phase_error_radians": phase_error_rad,
+            "phase_error_degrees": math.degrees(phase_error_rad),
+            "amplitude_imbalance_ratio": amplitude_ratio,
+            "interferometer_correlation": dot_product / (norm_s * norm_c) if (norm_s * norm_c) != 0 else 0.0
         }
 
-    def predict_synchronization(self, lead_time_sec: float = 1.0) -> Dict[str, Any]:
+    def estimate_torque_ripple(self, harmonic_amplitudes: List[float], base_torque_nm: float) -> Dict[str, Any]:
         """
-        Predicts future phase quadrature drift and torque synchronization stability.
+        Estimates overall harmonic distortion and peak torque ripple on the roller shaft.
         """
-        profile = self.calculate_harmonic_profile()
-        if profile.get("status") == "insufficient_data":
-            return {"prediction": "pending"}
-            
-        instability_index = profile["harmonic_amplitude"] * lead_time_sec * self.base_frequency_hz
-        sync_status = "STABLE" if instability_index < 0.25 else "ATTENTION_REQUIRED"
+        if not harmonic_amplitudes:
+            return {"thd_percentage": 0.0, "peak_ripple_nm": 0.0, "predicted_compensation_nm": 0.0}
+
+        sum_sq_harmonics = sum(h**2 for h in harmonic_amplitudes)
+        fundamental = harmonic_amplitudes[0] if harmonic_amplitudes else 1.0
+        thd = (math.sqrt(sum_sq_harmonics) / fundamental) * 100.0 if fundamental != 0 else 0.0
+        peak_ripple = max(harmonic_amplitudes) if harmonic_amplitudes else 0.0
         
-        return {
-            "mill_id": self.mill_id,
-            "lead_time_sec": lead_time_sec,
-            "instability_index": instability_index,
-            "sync_status": sync_status
+        predicted_compensation = -0.5 * peak_ripple * math.sin(math.radians(thd))
+        
+        result = {
+            "base_torque_nm": base_torque_nm,
+            "thd_percentage": thd,
+            "peak_ripple_nm": peak_ripple,
+            "predicted_compensation_nm": predicted_compensation
         }
-
+        self.calibration_history.append(result)
+        return result
 
 if __name__ == "__main__":
-    logger.info("Initializing RollerMillHarmonicCalculator test harness for Nairobi operation...")
-    calc = RollerMillHarmonicCalculator(mill_id="NAIROBI_MILL_ALPHA_01")
+    logger.info("Initializing Roller Mill Harmonic Calculator Test Harness...")
+    calc = RollerMillTorqueCalculator(sample_rate_hz=1000.0)
     
-    # Simulate incoming resolver and torque telemetry
-    current_time = time.time()
-    for i in range(50):
-        t = current_time + i * 0.1
-        sin_val = math.sin(2 * math.pi * 50 * t) + 0.05 * math.sin(2 * math.pi * 150 * t)
-        cos_val = math.cos(2 * math.pi * 50 * t) + 0.05 * math.cos(2 * math.pi * 150 * t)
-        torque = 250.0 + 12.5 * math.sin(2 * math.pi * 10 * t)
-        calc.ingest_resolver_data(t, sin_val, cos_val, torque)
-        
-    profile = calc.calculate_harmonic_profile()
-    logger.info(f"Harmonic Profile Result: {profile}")
+    # Generate dummy sine/cosine resolver waveforms
+    t = [i * 0.01 for i in range(100)]
+    sin_buf = [math.sin(x) for x in t]
+    cos_buf = [math.cos(x + 0.05) for x in t] # slight phase deviation
     
-    prediction = calc.predict_synchronization(lead_time_sec=2.0)
-    logger.info(f"Synchronization Prediction Result: {prediction}")
-    logger.info("RollerMillHarmonicCalculator execution completed successfully.")
+    quad_result = calc.calculate_quadrature_interference(sin_buf, cos_buf)
+    logger.info(f"Quadrature Analysis Result: {quad_result}")
+    
+    harmonics = [45.2, 12.1, 4.3, 1.8]
+    torque_result = calc.estimate_torque_ripple(harmonics, base_torque_nm=250.0)
+    logger.info(f"Torque Ripple Estimation: {torque_result}")
+    logger.info("Test harness executed successfully.")
