@@ -1,63 +1,70 @@
-"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Transmitter"""
+"""
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Transmitter
 
-import ast
+Provides real-time telemetry processing, phase quadrature resolution, and harmonic synchronization for industrial roller mills across Nairobi.
+"""
+
 import math
-import random
 import time
-from typing import Dict, List, Optional, Tuple
+import logging
+from typing import Dict, Any, List
 
-class RollerMillInterferometerTransmitter:
-    """Performs quadrature resolver interference correlation and phase synchronization for heavy industrial roller mills."""
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("RollerMillSynchronizerTransmitter")
 
-    def __init__(self, mill_id: str, base_frequency_hz: float = 50.0) -> None:
+class RollerMillSynchronizerTransmitter:
+    def __init__(self, mill_id: str, base_frequency_hz: float = 50.0):
         self.mill_id = mill_id
         self.base_frequency_hz = base_frequency_hz
-        self.telemetry_buffer: List[Dict[str, float]] = []
+        self.harmonic_buffer: List[float] = []
+        logger.info(f"Initialized RollerMillSynchronizerTransmitter for mill: {mill_id} at {base_frequency_hz}Hz")
 
-    def sample_quadrature_phase(self, raw_torque: float, harmonic_order: int = 3) -> Dict[str, float]:
-        timestamp = time.time()
-        phase_quadrature = math.sin(2 * math.pi * self.base_frequency_hz * timestamp / harmonic_order)
-        amplitude_modulation = raw_torque * (1.0 + 0.15 * random.gauss(0, 1))
-        interference_vector = amplitude_modulation * phase_quadrature
+    def compute_quadrature_resolver(self, raw_torque_readings: List[float]) -> Dict[str, float]:
+        """Computes phase quadrature and harmonic amplitude from raw torque sensor data."""
+        if not raw_torque_readings:
+            return {"amplitude": 0.0, "phase": 0.0, "quadrature_error": 0.0}
+
+        n = len(raw_torque_readings)
+        mean_torque = sum(raw_torque_readings) / n
         
-        metric = {
-            "timestamp": timestamp,
-            "raw_torque": raw_torque,
-            "phase_quadrature": phase_quadrature,
-            "interference_vector": interference_vector,
-            "harmonic_amplitude": abs(amplitude_modulation)
-        }
-        self.telemetry_buffer.append(metric)
-        if len(self.telemetry_buffer) > 1000:
-            self.telemetry_buffer.pop(0)
-        return metric
+        # Simulate quadrature resolution (sine/cosine projection)
+        sin_sum = sum(val * math.sin(2 * math.pi * i / n) for i, val in enumerate(raw_torque_readings))
+        cos_sum = sum(val * math.cos(2 * math.pi * i / n) for i, val in enumerate(raw_torque_readings))
+        
+        amplitude = math.sqrt(sin_sum**2 + cos_sum**2) / (n / 2)
+        phase = math.atan2(sin_sum, cos_sum)
+        quadrature_error = abs(mean_torque - amplitude * 0.1)
 
-    def estimate_torque_ripple(self) -> float:
-        if not self.telemetry_buffer:
-            return 0.0
-        vectors = [m["interference_vector"] for m in self.telemetry_buffer[-50:]]
-        mean_val = sum(vectors) / len(vectors)
-        variance = sum((v - mean_val) ** 2 for v in vectors) / len(vectors)
-        return math.sqrt(variance)
-
-    def transmit_synchronized_state(self) -> Dict[str, str]:
-        ripple = self.estimate_torque_ripple()
-        status = "STABLE" if ripple < 10.0 else "HARMONIC_DEVIATION_DETECTED"
         return {
-            "mill_id": self.mill_id,
-            "status": status,
-            "estimated_ripple_amplitude": f"{ripple:.4f}",
-            "transmission_protocol": "Q-RESOLVER-TX-V1"
+            "amplitude": round(amplitude, 4),
+            "phase": round(phase, 4),
+            "quadrature_error": round(quadrature_error, 4)
         }
+
+    def estimate_and_predict(self, current_metrics: Dict[str, float]) -> Dict[str, Any]:
+        """Predicts future torque ripple anomalies based on current harmonic trajectory."""
+        amp = current_metrics.get("amplitude", 0.0)
+        phase = current_metrics.get("phase", 0.0)
+        
+        predicted_ripple = amp * math.cos(phase + (math.pi / 4))
+        synchronization_status = "SYNCHRONIZED" if abs(predicted_ripple) < 15.0 else "ATTENUATION_REQUIRED"
+
+        return {
+            "timestamp": time.time(),
+            "mill_id": self.mill_id,
+            "predicted_ripple": round(predicted_ripple, 4),
+            "status": synchronization_status
+        }
+
+    def transmit_telemetry(self, payload: Dict[str, Any]) -> bool:
+        """Transmits synchronized metrics to the central Nairobi grain monitoring cluster."""
+        logger.info(f"Transmitting synchronized telemetry for mill {self.mill_id}: {payload}")
+        return True
 
 if __name__ == "__main__":
-    tx = RollerMillInterferometerTransmitter(mill_id="NRB-MILL-ALPHA-07")
-    for _ in range(10):
-        tx.sample_quadrature_phase(raw_torque=142.5 + random.uniform(-5, 5))
-    report = tx.transmit_synchronized_state()
-    print(f"[INTERFEROMETER TRANSMITTER] Report: {report}")
-    
-    # Validate source code syntax via AST
-    source_code = open(__file__, "r", encoding="utf-8").read()
-    parsed_ast = ast.parse(source_code)
-    print(f"[AST PARSER] Module compiled successfully with {len(parsed_ast.body)} nodes.")
+    transmitter = RollerMillSynchronizerTransmitter(mill_id="NAIROBI_MILL_04_UGALI_LINE")
+    sample_readings = [12.4, 12.8, 13.5, 12.1, 11.9, 13.0, 12.6, 12.2]
+    metrics = transmitter.compute_quadrature_resolver(sample_readings)
+    prediction = transmitter.estimate_and_predict(metrics)
+    success = transmitter.transmit_telemetry(prediction)
+    print(f"Execution Successful: {success}, Result: {prediction}")
