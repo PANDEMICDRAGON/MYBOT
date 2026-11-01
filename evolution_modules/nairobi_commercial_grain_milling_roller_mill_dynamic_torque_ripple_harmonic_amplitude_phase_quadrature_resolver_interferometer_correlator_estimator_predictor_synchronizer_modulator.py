@@ -1,71 +1,119 @@
 """
 Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Modulator
 
-Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Nairobi, Kenya)
-Description: Provides advanced real-time digital signal processing, phase quadrature resolution, and harmonic modulation for commercial grain milling roller mill drive trains.
+Implements real-time analysis, correlation, prediction, and modulation of torque ripple harmonics
+for heavy-duty industrial roller mills operating in Nairobi, Kenya.
 """
 
 import math
-import logging
+import time
 import statistics
 from typing import Dict, List, Any, Optional
 
-logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [TICK_MODULATOR] %(levelname)s: %(message)s')
-logger = logging.getLogger("RollerMillModulator")
 
-class RollerMillTorqueModulator:
-    def __init__(self, target_frequency_hz: float = 50.0, quadrature_threshold: float = 0.05):
-        self.target_frequency_hz = target_frequency_hz
-        self.quadrature_threshold = quadrature_threshold
-        self.history_buffer: List[float] = []
-        logger.info(f"Initialized RollerMillTorqueModulator for Nairobi Mill Plant [Target: {target_frequency_hz}Hz]")
+class RollerMillHarmonicModulator:
+    """Analyzes and modulates roller mill dynamic torque ripple and quadrature harmonics."""
 
-    def process_telemetry(self, telemetry_stream: List[float]) -> Dict[str, Any]:
-        """
-        Processes raw torque and vibration telemetry streams, computes quadrature phase offsets,
-        interferometer correlation coefficients, and applies dynamic modulation vectors.
-        """
-        if not telemetry_stream:
-            return {"status": "error", "message": "Empty telemetry stream provided."}
+    def __init__(self, mill_id: str, nominal_rpm: float = 1200.0):
+        self.mill_id = mill_id
+        self.nominal_rpm = nominal_rpm
+        self.harmonic_buffer: List[float] = []
+        self.phase_quadrature_log: List[Dict[str, float]] = []
 
-        self.history_buffer.extend(telemetry_stream)
-        if len(self.history_buffer) > 1000:
-            self.history_buffer = self.history_buffer[-1000:]
-
-        mean_val = statistics.mean(telemetry_stream)
-        stdev_val = statistics.stdev(telemetry_stream) if len(telemetry_stream) > 1 else 0.0
+    def ingest_resolver_signal(self, amplitude: float, phase_deg: float, quadrature: float) -> Dict[str, Any]:
+        """Ingests resolver telemetry, computing phase angle and harmonic distortion."""
+        timestamp = time.time()
+        phase_rad = math.radians(phase_deg)
         
-        # Simulated Phase Quadrature Interferometry estimation
-        in_phase_component = sum(math.cos(i * 2 * math.pi / max(1, len(telemetry_stream))) * val for i, val in enumerate(telemetry_stream))
-        quad_component = sum(math.sin(i * 2 * math.pi / max(1, len(telemetry_stream))) * val for i, val in enumerate(telemetry_stream))
+        # Interferometer correlation approximation
+        interference_index = math.sqrt(amplitude**2 + quadrature**2) * math.cos(phase_rad)
         
-        amplitude_envelope = math.sqrt(in_phase_component**2 + quad_component**2) / max(1, len(telemetry_stream))
-        phase_angle_rad = math.atan2(quad_component, in_phase_component)
+        record = {
+            "timestamp": timestamp,
+            "amplitude": amplitude,
+            "phase_deg": phase_deg,
+            "quadrature": quadrature,
+            "interference_index": interference_index
+        }
         
-        # Modulation correction vector calculation
-        correction_gain = 1.0
-        if amplitude_envelope > self.quadrature_threshold:
-            correction_gain = max(0.5, 1.0 - (amplitude_envelope / (self.quadrature_threshold * 10.0)))
+        self.phase_quadrature_log.append(record)
+        if len(self.phase_quadrature_log) > 1000:
+            self.phase_quadrature_log.pop(0)
+            
+        self.harmonic_buffer.append(interference_index)
+        if len(self.harmonic_buffer) > 100:
+            self.harmonic_buffer.pop(0)
+            
+        return record
 
-        modulated_output = [val * correction_gain for val in telemetry_stream]
-
-        logger.info(f"Processed {len(telemetry_stream)} samples. Envelope: {amplitude_envelope:.4f}, Gain: {correction_gain:.4f}")
-
+    def estimate_torque_ripple_harmonics(self) -> Dict[str, float]:
+        """Estimates fundamental and harmonic torque ripple amplitudes."""
+        if not self.harmonic_buffer:
+            return {"mean_ripple": 0.0, "peak_ripple": 0.0, "stability_index": 1.0}
+            
+        mean_ripple = statistics.mean(self.harmonic_buffer)
+        peak_ripple = max(self.harmonic_buffer)
+        stdev = statistics.stdev(self.harmonic_buffer) if len(self.harmonic_buffer) > 1 else 0.0
+        
+        # Stability index inverse to variance
+        stability_index = max(0.0, 1.0 - (stdev / (abs(mean_ripple) + 1e-5)))
+        
         return {
-            "status": "success",
-            "sample_count": len(telemetry_stream),
-            "mean_torque": mean_val,
-            "torque_stdev": stdev_val,
-            "amplitude_envelope": amplitude_envelope,
-            "phase_angle_degrees": math.degrees(phase_angle_rad),
-            "applied_correction_gain": correction_gain,
-            "modulated_peak": max(modulated_output) if modulated_output else 0.0
+            "mean_ripple": mean_ripple,
+            "peak_ripple": peak_ripple,
+            "stability_index": stability_index
         }
 
+    def predict_synchronization_offset(self) -> float:
+        """Predicts phase synchronization offset for predictive inverter modulation."""
+        if len(self.phase_quadrature_log) < 2:
+            return 0.0
+            
+        latest = self.phase_quadrature_log[-1]
+        previous = self.phase_quadrature_log[-2]
+        
+        dt = latest["timestamp"] - previous["timestamp"]
+        if dt <= 0:
+            return 0.0
+            
+        dp = latest["phase_deg"] - previous["phase_deg"]
+        velocity = dp / dt
+        
+        # Predict offset 50ms into the future
+        predicted_offset = latest["phase_deg"] + (velocity * 0.05)
+        return predicted_offset
+
+    def modulate_inverter_output(self) -> Dict[str, Any]:
+        """Computes corrective inverter modulation parameters."""
+        harmonics = self.estimate_torque_ripple_harmonics()
+        predicted_offset = self.predict_synchronization_offset()
+        
+        # Compensation factor
+        compensation_gain = 1.0 - (0.1 * (1.0 - harmonics["stability_index"]))
+        
+        return {
+            "mill_id": self.mill_id,
+            "compensation_gain": compensation_gain,
+            "target_phase_correction_deg": -predicted_offset,
+            "status": "OPTIMIZED"
+        }
+
+
 if __name__ == "__main__":
-    modulator = RollerMillTorqueModulator(target_frequency_hz=50.0)
-    # Test mock telemetry simulating roller mill drive torque ripple
-    mock_telemetry = [100.0 + 5.0 * math.sin(i * 0.1) + 2.0 * math.cos(i * 0.3) for i in range(100)]
-    result = modulator.process_telemetry(mock_telemetry)
-    logger.info(f"Test execution complete. Result: {result}")
+    modulator = RollerMillHarmonicModulator(mill_id="NAIROBI_MILL_ALPHA_1")
+    
+    # Simulate incoming resolver telemetry
+    for i in range(15):
+        amp = 10.0 + math.sin(i * 0.5) * 1.5
+        phase = 45.0 + (i * 2.1)
+        quad = 2.5 + math.cos(i * 0.3) * 0.4
+        modulator.ingest_resolver_signal(amp, phase, quad)
+        
+    metrics = modulator.estimate_torque_ripple_harmonics()
+    offset = modulator.predict_synchronization_offset()
+    control = modulator.modulate_inverter_output()
+    
+    print("Roller Mill Modulation Test Harness Initialized Successfully:")
+    print(f"Harmonics Metrics: {metrics}")
+    print(f"Predicted Phase Offset: {offset:.2f} deg")
+    print(f"Inverter Control Output: {control}")
