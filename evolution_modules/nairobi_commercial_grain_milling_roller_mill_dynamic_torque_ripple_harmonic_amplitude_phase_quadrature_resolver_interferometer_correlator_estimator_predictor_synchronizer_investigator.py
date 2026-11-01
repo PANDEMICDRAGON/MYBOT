@@ -1,69 +1,69 @@
 """Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Investigator Module."""
 
 import math
+import statistics
 import time
-import logging
 from typing import Dict, List, Any
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillInterferometerInvestigator")
 
 class RollerMillTorqueInvestigator:
-    """Performs quadrature resolver interferometry on roller mill torque ripple harmonics."""
+    """Investigates harmonic torque ripples and phase quadrature interference in industrial roller mills."""
 
-    def __init__(self, mill_id: str, base_frequency_hz: float = 50.0):
+    def __init__(self, mill_id: str, baseline_frequency_hz: float = 50.0):
         self.mill_id = mill_id
-        self.base_frequency_hz = base_frequency_hz
-        self.history: List[Dict[str, Any]] = []
+        self.baseline_frequency_hz = baseline_frequency_hz
+        self.telemetry_history: List[Dict[str, float]] = []
 
-    def measure_phase_quadrature(self, raw_torque_samples: List[float]) -> Dict[str, float]:
-        """Compute harmonic amplitude and phase quadrature using simulated interferometer correlation."""
-        if not raw_torque_samples:
-            return {"amplitude": 0.0, "phase_quadrature": 0.0, "anomaly_score": 0.0}
-
-        n = len(raw_torque_samples)
-        mean_torque = sum(raw_torque_samples) / n
+    def ingest_resolver_data(self, torque_amplitude: float, phase_angle_deg: float, quadrature_error: float) -> Dict[str, Any]:
+        timestamp = time.time()
+        phase_rad = math.radians(phase_angle_deg)
+        in_phase_component = torque_amplitude * math.cos(phase_rad)
+        quadrature_component = torque_amplitude * math.sin(phase_rad)
         
-        # Compute fundamental harmonic components
-        cos_sum = sum(val * math.cos(2 * math.pi * i / n) for i, val in enumerate(raw_torque_samples))
-        sin_sum = sum(val * math.sin(2 * math.pi * i / n) for i, val in enumerate(raw_torque_samples))
-        
-        amplitude = math.sqrt(cos_sum**2 + sin_sum**2) / (n / 2)
-        phase = math.atan2(sin_sum, cos_sum)
-        
-        # Variance as anomaly score indicator
-        variance = sum((x - mean_torque) ** 2 for x in raw_torque_samples) / n
-        anomaly_score = variance / (mean_torque + 1e-9)
-
-        metrics = {
-            "timestamp": time.time(),
-            "mean_torque": mean_torque,
-            "amplitude": amplitude,
-            "phase_quadrature": phase,
-            "anomaly_score": anomaly_score
+        metric = {
+            "timestamp": timestamp,
+            "torque_amplitude": torque_amplitude,
+            "phase_angle_deg": phase_angle_deg,
+            "quadrature_error": quadrature_error,
+            "in_phase": in_phase_component,
+            "quadrature": quadrature_component
         }
-        self.history.append(metrics)
-        return metrics
+        self.telemetry_history.append(metric)
+        if len(self.telemetry_history) > 1000:
+            self.telemetry_history.pop(0)
+            
+        return metric
 
-    def investigate_and_predict(self, samples: List[float]) -> Dict[str, Any]:
-        metrics = self.measure_phase_quadrature(samples)
-        status = "OPTIMAL"
-        if metrics["anomaly_score"] > 0.75:
-            status = "CRITICAL_HARMONIC_DEVIATION"
-        elif metrics["anomaly_score"] > 0.40:
-            status = "WARNING_ELEVATED_RIPPLE"
-
-        report = {
+    def analyze_harmonic_interference(self) -> Dict[str, Any]:
+        if not self.telemetry_history:
+            return {"status": "insufficient_data"}
+            
+        amplitudes = [m["torque_amplitude"] for m in self.telemetry_history]
+        quad_errors = [m["quadrature_error"] for m in self.telemetry_history]
+        
+        mean_amp = statistics.mean(amplitudes)
+        max_amp = max(amplitudes)
+        mean_quad = statistics.mean(quad_errors)
+        
+        risk_score = (max_amp / (mean_amp + 1e-6)) * abs(mean_quad)
+        anomaly_detected = risk_score > 2.5
+        
+        return {
             "mill_id": self.mill_id,
-            "status": status,
-            "metrics": metrics,
-            "recommendation": "Inspect roller bearing clearance and inverter sync" if status != "OPTIMAL" else "No action required"
+            "samples_analyzed": len(self.telemetry_history),
+            "mean_torque_amplitude": mean_amp,
+            "max_torque_amplitude": max_amp,
+            "mean_quadrature_error": mean_quad,
+            "harmonic_risk_score": risk_score,
+            "anomaly_detected": anomaly_detected,
+            "recommendation": "Inspect drive coupling and alignment" if anomaly_detected else "Nominal operation"
         }
-        logger.info(f"Investigated mill {self.mill_id}: status={status}, anomaly_score={metrics['anomaly_score']:.4f}")
-        return report
+
 
 if __name__ == "__main__":
-    investigator = RollerMillTorqueInvestigator(mill_id="NAIROBI_MILL_04_UGALI")
-    mock_samples = [10.2 + math.sin(i * 0.2) * 1.5 + (0.5 if i % 7 == 0 else 0) for i in range(100)]
-    report = investigator.investigate_and_predict(mock_samples)
-    print("Execution Result:", report)
+    investigator = RollerMillTorqueInvestigator("MILL-NRB-01")
+    investigator.ingest_resolver_data(120.5, 14.2, 0.03)
+    investigator.ingest_resolver_data(125.1, 15.0, 0.05)
+    investigator.ingest_resolver_data(185.8, 45.5, 0.89)
+    report = investigator.analyze_harmonic_interference()
+    print(f"[TEST HARNESS] Roller Mill Investigation Report: {report}")
