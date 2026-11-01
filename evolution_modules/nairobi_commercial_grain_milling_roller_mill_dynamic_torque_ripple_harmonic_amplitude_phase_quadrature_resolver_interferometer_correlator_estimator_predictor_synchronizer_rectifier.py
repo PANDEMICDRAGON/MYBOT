@@ -1,67 +1,71 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Rectifier
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Rectifier Module."""
 
-Autonomous industrial sensor fusion and harmonic phase correction module for roller mill drive shafts.
-Designed for high-precision grain milling operations in Nairobi, Kenya.
-"""
-
+import ast
 import math
-import time
 import logging
-from typing import Dict, List, Any, Optional
+from typing import Dict, Any, List
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillHarmonicRectifier")
+logger = logging.getLogger("RollerMillRectifier")
 
-class RollerMillHarmonicRectifierEngine:
-    """
-    Computes dynamic torque ripple, phase quadrature resolver signals, and interferometer correction
-    vectors to rectify harmonic aberrations in commercial roller mill drive units.
-    """
-    def __init__(self, mill_id: str, base_frequency_hz: float = 50.0):
-        self.mill_id = mill_id
-        self.base_frequency_hz = base_frequency_hz
-        self.phase_offset_rad = 0.0
-        self.harmonic_amplitude_history: List[float] = []
 
-    def process_interferometer_sample(self, raw_phase: float, raw_amplitude: float) -> Dict[str, Any]:
-        """
-        Processes raw phase and amplitude inputs from resolver interferometers,
-        estimates predictive drift, and calculates real-time rectification coefficients.
-        """
-        start_time = time.time()
-        
-        # Compute quadrature components
-        quad_i = raw_amplitude * math.cos(raw_phase)
-        quad_q = raw_amplitude * math.sin(raw_phase)
-        computed_magnitude = math.sqrt(quad_i**2 + quad_q**2)
-        
-        # Dynamic torque ripple harmonic estimation
-        harmonic_distortion = abs(raw_amplitude - computed_magnitude) / (computed_magnitude + 1e-9)
-        self.harmonic_amplitude_history.append(harmonic_distortion)
-        if len(self.harmonic_amplitude_history) > 100:
-            self.harmonic_amplitude_history.pop(0)
-            
-        # Predictor phase correction
-        avg_distortion = sum(self.harmonic_amplitude_history) / len(self.harmonic_amplitude_history)
-        self.phase_offset_rad = raw_phase - (avg_distortion * 0.1)
-        
-        rectified_signal = computed_magnitude * (1.0 - avg_distortion)
-        processing_latency_ms = (time.time() - start_time) * 1000.0
-        
-        return {
-            "mill_id": self.mill_id,
-            "quadrature_i": quad_i,
-            "quadrature_q": quad_q,
-            "computed_magnitude": computed_magnitude,
-            "harmonic_distortion": harmonic_distortion,
-            "phase_offset_rad": self.phase_offset_rad,
-            "rectified_signal": rectified_signal,
-            "latency_ms": processing_latency_ms,
-            "status": "SYNCHRONIZED_AND_RECTIFIED"
+class RollerMillTorqueRectifier:
+    """Analyzes quadrature resolver interferometry data from industrial roller mill drive shafts
+    and applies real-time harmonic torque ripple rectification to protect mechanical gearboxes
+    in Nairobi commercial grain milling plants.
+    """
+
+    def __init__(self, baseline_frequency_hz: float = 50.0):
+        self.baseline_frequency_hz = baseline_frequency_hz
+        self.telemetry_history: List[Dict[str, float]] = []
+
+    def process_interferometer_sample(self, sample: Dict[str, float]) -> Dict[str, Any]:
+        """Process harmonic amplitude, phase quadrature, and torque ripple data."""
+        amplitude = sample.get("harmonic_amplitude", 0.0)
+        phase = sample.get(
+            "phase_quadrature_radians", 0.0
+        )
+        resolver_drift = sample.get("resolver_drift_ppm", 0.0)
+
+        # Compute rectification compensation vector
+        rectification_gain = math.sin(phase) * amplitude * 1.414
+        corrected_torque = sample.get("raw_torque_nm", 1000.0) - (rectification_gain * 15.2)
+
+        result = {
+            "status": "RECTIFIED_STABLE" if abs(resolver_drift) < 250.0 else "RECALIBRATION_REQUIRED",
+            "rectification_gain": round(rectification_gain, 4),
+            "corrected_torque_nm": round(corrected_torque, 2),
+            "harmonic_attenuation_db": round(20 * math.log10(max(abs(amplitude), 0.001)), 2)
         }
 
+        self.telemetry_history.append(result)
+        return result
+
+
+def __main__() -> None:
+    logger.info("Initializing RollerMillTorqueRectifier Test Harness...")
+    rectifier = RollerMillTorqueRectifier(baseline_frequency_hz=50.0)
+
+    sample_data = {
+        "harmonic_amplitude": 0.12,
+        "phase_quadrature_radians": 1.5708,
+        "resolver_drift_ppm": 42.5,
+        "raw_torque_nm": 1250.0
+    }
+
+    outcome = rectifier.process_interferometer_sample(sample_data)
+    logger.info(f"Test Harness Execution Result: {outcome}")
+
+    # Compile-time verification safeguard
+    source_code = inspect_source()
+    parsed_ast = ast.parse(source_code)
+    logger.info(f"AST compilation check passed: {parsed_ast}")
+
+
+def inspect_source() -> str:
+    import inspect
+    return inspect.getsource(RollerMillTorqueRectifier)
+
+
 if __name__ == "__main__":
-    engine = RollerMillHarmonicRectifierEngine(mill_id="NAIROBI_MILL_UNIT_07")
-    sample_result = engine.process_interferometer_sample(raw_phase=1.5708, raw_amplitude=104.2)
-    logger.info(f"Harmonic Rectifier Diagnostic Result: {sample_result}")
+    __main__()
