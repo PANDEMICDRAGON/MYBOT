@@ -1,96 +1,72 @@
 """
-Module: nairobi_commercial_grain_milling_roller_mill_dynamic_torque_ripple_harmonic_amplitude_phase_quadrature_resolver_interferometer_correlator_estimator_predictor_synchronizer_modulator.py
-Author: Cortana, Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Modulator
 
-Description:
-Provides real-time quadrature resolver interferometry and harmonic phase estimation
-for high-precision roller mill drive systems. Eliminates torque ripple harmonics through
-predictive phase-quadrature modulation.
+Provides real-time quadrature phase correlation, harmonic amplitude estimation, and torque ripple mitigation for high-speed roller mill spindles.
 """
 
 import math
+import time
 import logging
-import statistics
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Tuple
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("RollerMillModulator")
 
+class RollerMillModulator:
+    def __init__(self, spindle_id: str, baseline_freq_hz: float = 50.0):
+        self.spindle_id = spindle_id
+        self.baseline_freq_hz = baseline_freq_hz
+        self.phase_quadrature_offset = 0.0
+        self.harmonic_amplitude = 1.0
+        self.torque_ripple_compensation = 0.0
+        logger.info(f"Initialized RollerMillModulator for spindle {spindle_id} at {baseline_freq_hz}Hz")
 
-class RollerMillTorqueModulator:
-    """Analyzes resolver interferometry harmonics and computes phase-quadrature modulation."""
+    def measure_resolver_signals(self, raw_sine: float, raw_cosine: float) -> Tuple[float, float]:
+        """Correlates sine and cosine resolver signals to extract instantaneous phase angle."""
+        amplitude = math.sqrt(raw_sine**2 + raw_cosine**2)
+        if amplitude == 0:
+            return 0.0, 0.0
+        normalized_sine = raw_sine / amplitude
+        normalized_cosine = raw_cosine / amplitude
+        phase_angle = math.atan2(normalized_sine, normalized_cosine)
+        return phase_angle, amplitude
 
-    def __init__(self, sample_rate_hz: float = 10000.0, base_frequency_hz: float = 50.0):
-        self.sample_rate_hz = sample_rate_hz
-        self.base_frequency_hz = base_frequency_hz
-        self.harmonic_orders = [1, 3, 5, 7, 11]
-        logger.info("Initialized RollerMillTorqueModulator at %.1f Hz sample rate.", self.sample_rate_hz)
-
-    def correlate_resolver_signals(self, sin_wave: List[float], cos_wave: List[float]) -> Dict[str, float]:
-        """Correlates quadrature resolver signals to extract instantaneous phase and amplitude."""
-        if not sin_wave or not cos_wave or len(sin_wave) != len(cos_wave):
-            raise ValueError("Resolver signal buffers must be non-empty and of equal length.")
-
-        sin_mean = statistics.mean(sin_wave)
-        cos_mean = statistics.mean(cos_wave)
-
-        # Remove DC bias
-        s_clean = [s - sin_mean for s in sin_wave]
-        c_clean = [c - cos_mean for c in cos_wave]
-
-        amplitudes = [math.sqrt(s**2 + c**2) for s, c in zip(s_clean, c_clean)]
-        mean_amplitude = statistics.mean(amplitudes) if amplitudes else 0.0
-
-        # Instantaneous phase via arctan2
-        phases = [math.atan2(s, c) for s, c in zip(s_clean, c_clean)]
-        mean_phase = statistics.mean(phases) if phases else 0.0
-
-        return {
-            "mean_amplitude": mean_amplitude,
-            "mean_phase_rad": mean_phase,
-            "peak_amplitude": max(amplitudes) if amplitudes else 0.0
-        }
-
-    def estimate_torque_ripple(self, harmonic_amplitudes: List[float]) -> float:
-        """Estimates total harmonic distortion and torque ripple factor."""
-        if not harmonic_amplitudes:
+    def estimate_torque_harmonics(self, phase_history: List[float]) -> float:
+        """Estimates harmonic amplitude and phase quadrature from recent phase angle telemetry."""
+        if len(phase_history) < 3:
             return 0.0
-        fundamental = harmonic_amplitudes[0]
-        if fundamental == 0:
-            return 0.0
-        harmonics_sum_sq = sum(h**2 for h in harmonic_amplitudes[1:])
-        thd = math.sqrt(harmonics_sum_sq) / fundamental
-        return thd
+        
+        # Compute numerical derivative (angular velocity fluctuation / ripple)
+        deltas = [phase_history[i] - phase_history[i-1] for i in range(1, len(phase_history))]
+        mean_delta = sum(deltas) / len(deltas)
+        variance = sum((d - mean_delta)**2 for d in deltas) / len(deltas)
+        self.harmonic_amplitude = math.sqrt(variance) * self.baseline_freq_hz
+        return self.harmonic_amplitude
 
-    def compute_modulation_vector(self, current_torque: float, target_torque: float, phase_error: float) -> Dict[str, Any]:
-        """Computes anti-phase injection parameters to suppress torque ripple."""
-        torque_delta = target_torque - current_torque
-        compensation_gain = 0.85
-        injection_amplitude = abs(torque_delta) * compensation_gain
-        injection_phase = -phase_error + math.pi
-
-        return {
-            "target_torque": target_torque,
-            "current_torque": current_torque,
-            "injection_amplitude": injection_amplitude,
-            "injection_phase_rad": injection_phase,
+    def modulate_synchronization(self, torque_ripple: float) -> Dict[str, Any]:
+        """Computes adaptive correction vector to suppress torque ripple harmonics."""
+        self.torque_ripple_compensation = -0.75 * torque_ripple
+        correction_signal = {
+            "spindle_id": self.spindle_id,
+            "timestamp": time.time(),
+            "torque_ripple_detected": torque_ripple,
+            "harmonic_amplitude": self.harmonic_amplitude,
+            "compensation_output": self.torque_ripple_compensation,
             "status": "SYNCHRONIZED_AND_MODULATED"
         }
-
+        return correction_signal
 
 if __name__ == "__main__":
-    modulator = RollerMillTorqueModulator()
-    # Simulate quadrature resolver buffers
-    t = [i * 0.001 for i in range(100)]
-    sin_buf = [math.sin(2 * math.pi * 50 * ti) for ti in t]
-    cos_buf = [math.cos(2 * math.pi * 50 * ti) for ti in t]
-
-    correlation = modulator.correlate_resolver_signals(sin_buf, cos_buf)
-    logger.info("Resolver Correlation Result: %s", correlation)
-
-    ripple = modulator.estimate_torque_ripple([10.0, 1.2, 0.5, 0.2])
-    logger.info("Estimated Torque Ripple (THD): %.4f", ripple)
-
-    mod_vector = modulator.compute_modulation_vector(145.2, 150.0, correlation["mean_phase_rad"])
-    logger.info("Computed Modulation Vector: %s", mod_vector)
+    modulator = RollerMillModulator("MILL-SPINDLE-04X")
+    
+    # Simulate resolver telemetry stream
+    history = []
+    for i in range(10):
+        t = i * 0.01
+        sine = math.sin(2 * math.pi * 50.0 * t + 0.1 * math.sin(2 * math.pi * 5.0 * t))
+        cosine = math.cos(2 * math.pi * 50.0 * t + 0.1 * math.sin(2 * math.pi * 5.0 * t))
+        phase, amp = modulator.measure_resolver_signals(sine, cosine)
+        history.append(phase)
+        ripple = modulator.estimate_torque_harmonics(history)
+        payload = modulator.modulate_synchronization(ripple)
+        logger.info(f"Simulation Step {i}: {payload}")
