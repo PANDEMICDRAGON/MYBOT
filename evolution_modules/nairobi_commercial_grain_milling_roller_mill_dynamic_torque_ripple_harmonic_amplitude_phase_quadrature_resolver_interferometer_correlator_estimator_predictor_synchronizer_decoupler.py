@@ -1,55 +1,66 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Decoupler Module
-"""
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Decoupler Module."""
 
 import math
 import logging
-from typing import Dict, Any, List
+import statistics
+typedef_dict = dict
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("RollerMillDecoupler")
 
+
 class RollerMillTorqueDecoupler:
-    """Advanced phase-quadrature resolver interferometer for industrial roller mill harmonic suppression."""
+    """Real-time harmonic phase quadrature resolver and torque ripple decoupler for industrial milling rolls."""
 
-    def __init__(self, mill_id: str, baseline_frequency_hz: float = 50.0):
-        self.mill_id = mill_id
-        self.baseline_frequency_hz = baseline_frequency_hz
-        self.harmonic_buffer: List[float] = []
+    def __init__(self, sample_rate_hz: float = 1000.0, harmonic_order: int = 5):
+        self.sample_rate_hz = sample_rate_hz
+        self.harmonic_order = harmonic_order
+        self.torque_buffer: list[float] = []
+        self.phase_quadrature_history: list[float] = []
+        logger.info("Initialized RollerMillTorqueDecoupler with sample rate %.1f Hz", sample_rate_hz)
 
-    def compute_quadrature_interference(self, raw_torque_samples: List[float]) -> Dict[str, Any]:
-        """Compute phase quadrature, harmonic amplitude, and interference correlation."""
-        if not raw_torque_samples:
-            return {"status": "error", "message": "Empty sample buffer"}
+    def ingest_torque_sample(self, torque_nm: float, resolver_angle_rad: float) -> dict[str, float]:
+        """Ingest live torque and resolver angle data, computing harmonic quadrature and decoupling vectors."""
+        self.torque_buffer.append(torque_nm)
+        if len(self.torque_buffer) > 500:
+            self.torque_buffer.pop(0)
 
-        n = len(raw_torque_samples)
-        mean_torque = sum(raw_torque_samples) / n
-        
-        # Simulate quadrature resolver orthogonal projection (I/Q demodulation)
-        i_component = sum(t * math.cos(2.0 * math.pi * i / n) for i, t in enumerate(raw_torque_samples)) / n
-        q_component = sum(t * math.sin(2.0 * math.pi * i / n) for i, t in enumerate(raw_torque_samples)) / n
+        # Compute phase quadrature component
+        quad_value = torque_nm * math.sin(resolver_angle_rad * self.harmonic_order)
+        self.phase_quadrature_history.append(quad_value)
+        if len(self.phase_quadrature_history) > 500:
+            self.phase_quadrature_history.pop(0)
 
-        amplitude = math.sqrt(i_component**2 + q_component**2)
-        phase_rad = math.atan2(q_component, i_component)
-        
-        # Predictor correction factor
-        decoupled_torque = [t - (amplitude * math.cos(phase_rad + (2.0 * math.pi * i / n))) for i, t in enumerate(raw_torque_samples)]
-        residual_ripple = sum(abs(dt) for dt in decoupled_torque) / n
-
-        logger.info(f"[{self.mill_id}] Decoupling complete: Amplitude={amplitude:.4f}, Phase={phase_rad:.4f} rad, Residual={residual_ripple:.4f}")
+        mean_torque = statistics.mean(self.torque_buffer) if self.torque_buffer else 0.0
+        ripple_amplitude = statistics.stdev(self.torque_buffer) if len(self.torque_buffer) > 1 else 0.0
+        decoupled_compensation = -0.5 * quad_value
 
         return {
-            "mill_id": self.mill_id,
-            "mean_torque": mean_torque,
-            "harmonic_amplitude": amplitude,
-            "phase_quadrature_rad": phase_rad,
-            "residual_ripple": residual_ripple,
-            "status": "optimized"
+            "mean_torque_nm": mean_torque,
+            "torque_ripple_amplitude": ripple_amplitude,
+            "quadrature_signal": quad_value,
+            "decoupled_compensation_nm": decoupled_compensation
         }
 
+    def get_system_health(self) -> dict[str, str]:
+        """Evaluate operational status of the roller mill drive train."""
+        if not self.torque_buffer:
+            return {"status": "IDLE", "diagnostics": "No telemetry recorded"}
+        current_ripple = statistics.stdev(self.torque_buffer) if len(self.torque_buffer) > 1 else 0.0
+        status = "OPTIMAL" if current_ripple < 15.0 else "ATTENTION_REQUIRED"
+        return {
+            "status": status,
+            "diagnostics": f"Current ripple stdev: {current_ripple:.2f} Nm"
+        }
+
+
 if __name__ == "__main__":
-    # Test harness execution
-    simulated_samples = [100.0 + 5.0 * math.sin(2.0 * math.pi * i / 20) + 2.0 * math.cos(4.0 * math.pi * i / 20) for i in range(100)]
-    decoupler = RollerMillTorqueDecoupler(mill_id="NAI_MILL_ALPHA_01")
-    result = decoupler.compute_quadrature_interference(simulated_samples)
-    print(result)
+    decoupler = RollerMillTorqueDecoupler()
+    # Simulate ingestion of 10 samples
+    for i in range(10):
+        angle = i * 0.1
+        torque = 120.0 + 10.0 * math.sin(angle * 5)
+        metrics = decoupler.ingest_torque_sample(torque, angle)
+        logger.info("Sample %d metrics: %s", i, metrics)
+    health = decoupler.get_system_health()
+    logger.info("System Health Check: %s", health)
