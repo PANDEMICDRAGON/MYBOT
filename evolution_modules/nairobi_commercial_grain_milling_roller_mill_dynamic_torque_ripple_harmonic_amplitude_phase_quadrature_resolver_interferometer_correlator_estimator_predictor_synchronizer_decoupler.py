@@ -1,98 +1,112 @@
 """
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Decoupler Module
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase
+Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Decoupler Module.
 
-Designed for autonomous industrial milling infrastructure monitoring in Nairobi, Kenya.
-Provides real-time quadrature resolution, torque ripple harmonic cancellation, and phase decoupling.
+Provides advanced real-time DSP decoupling for high-frequency torsional oscillations in commercial
+roller mill drive trains, suppressing harmonic phase anomalies and protecting mechanical assets.
 """
 
 import math
-import logging
 import statistics
-from typing import Dict, List, Optional, Tuple
+import time
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
-logger = logging.getLogger("RollerMillDecoupler")
+
+@dataclass
+class TorqueSample:
+    timestamp: float
+    raw_torque_nm: float
+    harmonic_amplitude: float
+    phase_angle_rad: float
+    quadrature_component: float
 
 
-class RollerMillDecouplerEngine:
+@dataclass
+class DecouplerTelemetry:
+    mean_torque_nm: float
+    decoupled_torque_nm: float
+    harmonic_suppression_db: float
+    phase_quadrature_error: float
+    resonance_status: str
+    timestamp: float = field(default_factory=time.time)
+
+
+class RollerMillTorsionalDecoupler:
     """
-    Core engine for computing phase quadrature and harmonic decoupling in multi-stage
-    roller mill drive assemblies.
+    Processes roller mill torque telemetry streams, isolates harmonic ripple components,
+    and applies counter-phase quadrature decoupling to damp mechanical vibrations.
     """
 
-    def __init__(self, mill_id: str, base_rpm: float = 1450.0):
-        self.mill_id = mill_id
-        self.base_rpm = base_rpm
-        self.history: List[Dict[str, float]] = []
+    def __init__(self, target_frequency_hz: float = 50.0, damping_factor: float = 0.85):
+        self.target_frequency_hz = target_frequency_hz
+        self.damping_factor = damping_factor
+        self.buffer: List[TorqueSample] = []
+        self.max_buffer_size = 256
 
-    def compute_quadrature_vector(self, phase_a: float, phase_b: float) -> Tuple[float, float]:
-        """
-        Computes quadrature (alpha-beta) components from dual-phase sensor inputs.
-        """
-        alpha = phase_a
-        beta = (phase_a + 2.0 * phase_b) / math.sqrt(3.0)
-        return alpha, beta
+    def ingest_sample(self, raw_torque: float, harmonic_amp: float, phase_rad: float, quadrature: float) -> DecouplerTelemetry:
+        sample = TorqueSample(
+            timestamp=time.time(),
+            raw_torque_nm=raw_torque,
+            harmonic_amplitude=harmonic_amp,
+            phase_angle_rad=phase_rad,
+            quadrature_component=quadrature
+        )
+        self.buffer.append(sample)
+        if len(self.buffer) > self.max_buffer_size:
+            self.buffer.pop(0)
 
-    def analyze_torque_ripple(self, torque_samples: List[float]) -> Dict[str, float]:
-        """
-        Analyzes harmonic amplitude and phase dispersion across raw torque samples.
-        """
-        if not torque_samples:
-            return {"mean_torque": 0.0, "ripple_amplitude": 0.0, "phase_offset": 0.0}
+        return self._compute_decoupling(sample)
 
-        mean_val = statistics.mean(torque_samples)
-        peak_val = max(torque_samples)
-        min_val = min(torque_samples)
-        ripple_amplitude = peak_val - min_val
+    def _compute_decoupling(self, current: TorqueSample) -> DecouplerTelemetry:
+        if len(self.buffer) < 5:
+            return DecouplerTelemetry(
+                mean_torque_nm=current.raw_torque_nm,
+                decoupled_torque_nm=current.raw_torque_nm,
+                harmonic_suppression_db=0.0,
+                phase_quadrature_error=0.0,
+                resonance_status="INITIALIZING"
+            )
+
+        torques = [s.raw_torque_nm for s in self.buffer]
+        mean_torque = statistics.mean(torques)
         
-        # Approximate phase offset using variance ratio
-        variance = statistics.variance(torque_samples) if len(torque_samples) > 1 else 0.0
-        phase_offset = math.atan2(math.sqrt(max(0.0, variance)), max(1e-6, mean_val))
+        # Apply quadrature counter-phase correction
+        correction_factor = current.harmonic_amplitude * math.cos(current.phase_angle_rad) * self.damping_factor
+        decoupled_torque = current.raw_torque_nm - correction_factor - (current.quadrature_component * 0.1)
 
-        return {
-            "mean_torque": round(mean_val, 4),
-            "ripple_amplitude": round(ripple_amplitude, 4),
-            "phase_offset": round(phase_offset, 4)
-        }
+        # Estimate harmonic suppression in dB
+        suppression_db = 20.0 * math.log10(max(abs(current.raw_torque_nm / (abs(decoupled_torque) + 1e-6)), 1.0))
+        phase_error = abs(current.phase_angle_rad - (math.pi / 2.0))
 
-    def generate_decoupling_compensation(self, alpha: float, beta: float, ripple_amplitude: float) -> float:
-        """
-        Computes anti-harmonic counter-torque signal to neutralize mechanical resonance.
-        """
-        magnitude = math.sqrt(alpha**2 + beta**2)
-        compensation = -(magnitude * 0.15) - (ripple_amplitude * 0.05)
-        return round(compensation, 4)
+        status = "OPTIMAL"
+        if suppression_db < 3.0 or phase_error > 0.8:
+            status = "RESONANCE_WARNING"
+        elif suppression_db < 1.0:
+            status = "CRITICAL_ATTENUATION_REQUIRED"
 
-    def process_cycle(self, phase_a: float, phase_b: float, torque_samples: List[float]) -> Dict[str, float]:
-        alpha, beta = self.compute_quadrature_vector(phase_a, phase_b)
-        torque_metrics = self.analyze_torque_ripple(torque_samples)
-        compensation = self.generate_decoupling_compensation(alpha, beta, torque_metrics["ripple_amplitude"])
-
-        report = {
-            "alpha": alpha,
-            "beta": beta,
-            "mean_torque": torque_metrics["mean_torque"],
-            "ripple_amplitude": torque_metrics["ripple_amplitude"],
-            "phase_offset": torque_metrics["phase_offset"],
-            "compensation_signal": compensation
-        }
-
-        self.history.append(report)
-        if len(self.history) > 1000:
-            self.history.pop(0)
-
-        return report
+        return DecouplerTelemetry(
+            mean_torque_nm=mean_torque,
+            decoupled_torque_nm=decoupled_torque,
+            harmonic_suppression_db=suppression_db,
+            phase_quadrature_error=phase_error,
+            resonance_status=status
+        )
 
 
 if __name__ == "__main__":
-    logger.info("Initializing Nairobi Roller Mill Torque Ripple Decoupler Test Harness...")
-    engine = RollerMillDecouplerEngine(mill_id="MILL_NAIROBI_INDUSTRIAL_01")
+    decoupler = RollerMillTorsionalDecoupler(target_frequency_hz=60.0)
+    print("Initializing Nairobi Commercial Roller Mill Torsional Decoupler...")
     
-    # Simulate sensor streams
-    mock_phase_a = 1.25
-    mock_phase_b = 1.22
-    mock_torque = [45.2, 48.6, 42.1, 49.0, 44.5]
-
-    result = engine.process_cycle(mock_phase_a, mock_phase_b, mock_torque)
-    logger.info(f"Decoupling Execution Result: {result}")
-    logger.info("Test completed successfully. Module compiled cleanly.")
+    # Simulate incoming roller mill sensor telemetry
+    for i in range(10):
+        raw = 450.0 + (i * 2.5) + (math.sin(i) * 15.0)
+        amp = 12.4 + (i * 0.1)
+        phase = 1.57 + (i * 0.05)
+        quad = 2.1
+        
+        telemetry = decoupler.ingest_sample(raw, amp, phase, quad)
+        print(f"Step {i+1}: Raw Torque={raw:.2f}Nm, Decoupled={telemetry.decoupled_torque_nm:.2f}Nm, "
+              f"Suppression={telemetry.harmonic_suppression_db:.2f}dB, Status={telemetry.resonance_status}")
+    
+    print("Decoupler test execution completed successfully.")
