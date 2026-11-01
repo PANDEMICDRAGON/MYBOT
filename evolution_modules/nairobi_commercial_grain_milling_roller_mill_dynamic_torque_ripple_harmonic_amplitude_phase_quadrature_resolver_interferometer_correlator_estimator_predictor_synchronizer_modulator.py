@@ -1,83 +1,81 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Modulator
-
-Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
-Description: Real-time high-precision telemetry processing module for industrial roller mills. Measures dynamic torque ripple harmonics, phase quadrature, and resolver signals using interferometric correlation to predict and modulate shaft resonance anomalies.
-"""
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Modulator Module."""
 
 import math
 import time
 import logging
-from typing import Dict, List, Any, Optional
+from typing import Dict, Any, List, Tuple
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [RollerModulator]: %(message)s')
-logger = logging.getLogger("RollerModulator")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("RollerMillHarmonicModulator")
 
-class RollerMillTorqueRippleModulator:
-    """Processes torque ripple harmonics and resolver interferometry for industrial roller mills."""
-    
-    def __init__(self, mill_id: str, nominal_rpm: float = 1200.0):
-        self.mill_id = mill_id
-        self.nominal_rpm = nominal_rpm
-        self.active_harmonics: List[float] = [1.0, 2.0, 3.0, 6.0]
-        self.phase_offset_rad: float = 0.0
-        self.modulation_gain: float = 1.0
-        self.anomaly_count: int = 0
-        logger.info(f"Initialized RollerMillTorqueRippleModulator for {{self.mill_id}} at {{self.nominal_rpm}} RPM.")
 
-    def compute_quadrature_interferometry(self, sin_resolver: float, cos_resolver: float) -> float:
-        """Computes instantaneous phase angle using quadrature resolver inputs."""
-        raw_phase = math.atan2(sin_resolver, cos_resolver)
-        corrected_phase = (raw_phase - self.phase_offset_rad) % (2 * math.pi)
-        return corrected_phase
+class RollerMillHarmonicModulator:
+    """Analyzes roller mill torque ripples using quadrature interferometry and modulates phase synchronicity."""
 
-    def estimate_torque_ripple(self, harmonic_amplitudes: List[float], phase_angle: float) -> float:
-        """Estimates aggregate dynamic torque ripple amplitude via harmonic correlation."""
-        ripple = 0.0
-        for idx, harmonic in enumerate(self.active_harmonics):
-            amp = harmonic_amplitudes[idx] if idx < len(harmonic_amplitudes) else 0.01
-            ripple += amp * math.sin(harmonic * phase_angle)
-        return ripple * self.modulation_gain
+    def __init__(self, sample_rate_hz: float = 1000.0, harmonic_orders: List[int] = None):
+        self.sample_rate_hz = sample_rate_hz
+        self.harmonic_orders = harmonic_orders or [1, 2, 3, 6, 12]
+        self.telemetry_history: List[Dict[str, Any]] = []
 
-    def predict_and_modulate(self, current_torque: float, sin_res: float, cos_res: float, amplitudes: List[float]) -> Dict[str, Any]:
-        """Performs full cycle estimation, prediction, and modulation adjustment."""
-        phase = self.compute_quadrature_interferometry(sin_res, cos_res)
-        estimated_ripple = self.estimate_torque_ripple(amplitudes, phase)
-        predicted_torque = current_torque + estimated_ripple
-        
-        status = "NOMINAL"
-        if abs(estimated_ripple) > 15.0:
-            status = "RESONANCE_WARNING"
-            self.anomaly_count += 1
-            self.modulation_gain *= 0.95  # Dampen modulation gain to protect gearbox
-        elif self.modulation_gain < 1.0:
-            self.modulation_gain = min(1.0, self.modulation_gain + 0.01)
+    def measure_phase_quadrature(self, raw_torque_signal: List[float]) -> Tuple[float, float, float]:
+        """Compute quadrature components (I/Q) and instantaneous phase angle."""
+        if not raw_torque_signal:
+            return 0.0, 0.0, 0.0
 
-        return {
-            "mill_id": self.mill_id,
+        # Simulate coherent demodulation against fundamental frequency
+        n = len(raw_torque_signal)
+        dt = 1.0 / self.sample_rate_hz
+        freq = 50.0  # 50Hz mains / mechanical rotation baseline
+
+        i_acc = 0.0
+        q_acc = 0.0
+
+        for idx, val in enumerate(raw_torque_signal):
+            t = idx * dt
+            phase_angle = 2.0 * math.pi * freq * t
+            i_acc += val * math.cos(phase_angle)
+            q_acc += val * math.sin(phase_angle)
+
+        i_component = i_acc / n
+        q_component = q_acc / n
+        instantaneous_phase = math.atan2(q_component, i_component)
+        amplitude = math.sqrt(i_component**2 + q_component**2)
+
+        return i_component, q_component, instantaneous_phase
+
+    def evaluate_torque_ripple(self, raw_torque_signal: List[float]) -> Dict[str, Any]:
+        """Performs harmonic interferometry and estimates torque ripple stability."""
+        i_comp, q_comp, phase = self.measure_phase_quadrature(raw_torque_signal)
+        amplitude = math.sqrt(i_comp**2 + q_comp**2)
+
+        # Harmonic distortion estimation
+        ripple_factor = (amplitude / (abs(i_comp) + 1e-6)) * 100.0
+        stability_index = max(0.0, 100.0 - (ripple_factor * 0.5))
+
+        modulation_correction = -0.1 * math.sin(phase)
+
+        assessment = {
             "timestamp": time.time(),
-            "phase_angle_rad": phase,
-            "estimated_ripple_nm": estimated_ripple,
-            "predicted_torque_nm": predicted_torque,
-            "modulation_gain": self.modulation_gain,
-            "status": status,
-            "anomaly_count": self.anomaly_count
+            "amplitude": amplitude,
+            "quadrature_i": i_comp,
+            "quadrature_q": q_comp,
+            "phase_radians": phase,
+            "ripple_factor_pct": ripple_factor,
+            "stability_index": stability_index,
+            "modulation_correction": modulation_correction,
+            "status": "OPTIMIZED" if stability_index > 85.0 else "ATTENTION_REQUIRED"
         }
 
-if __name__ == "__main__":
-    logger.info("Executing self-test for RollerMillTorqueRippleModulator...")
-    modulator = RollerMillTorqueRippleModulator(mill_id="NAI_MILL_04_UNGA")
-    
-    # Simulate resolver and torque telemetry
-    test_signals = [
-        (145.2, 0.707, 0.707, [1.2, 0.5, 0.2, 0.1]),
-        (150.0, 1.0, 0.0, [2.5, 1.1, 0.4, 0.2]),
-        (142.8, 0.0, 1.0, [15.4, 8.2, 3.1, 1.0])  # Triggers resonance warning
-    ]
+        self.telemetry_history.append(assessment)
+        return assessment
 
-    for torque, sin_r, cos_r, amps in test_signals:
-        result = modulator.predict_and_modulate(torque, sin_r, cos_r, amps)
-        logger.info(f"Telemetry Result: {{result}}")
-    
-    logger.info("Self-test complete. Module fully operational.")
+
+if __name__ == "__main__":
+    modulator = RollerMillHarmonicModulator(sample_rate_hz=1000.0)
+    # Generate a synthetic torque signal with ripple components
+    synthetic_signal = [
+        10.0 + 1.5 * math.sin(2 * math.pi * 50 * (i / 1000.0)) + 0.3 * math.cos(2 * math.pi * 150 * (i / 1000.0))
+        for i in range(500)
+    ]
+    result = modulator.evaluate_torque_ripple(synthetic_signal)
+    logger.info(f"Roller Mill Harmonic Modulator Test Result: {result}")
