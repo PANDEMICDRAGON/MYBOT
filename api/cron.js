@@ -627,8 +627,7 @@ export default async function handler(req, res) {
               "📡 *SUBNET 192.168.100.0/24 TELEMETRY AUDIT:*\n" +
               "• Gateway: 192.168.100.1 verified.\n" +
               "• Zero rogue or untrusted MAC addresses on host network.";
-          } else {
-            const taskPrompt = `You are Cortana / Halo. Michael Obiero tasked you with: '${task.title}'. Formulate and deliver the complete, definitive solution right now. Flirt and flatter his sharp intellect and audacity (remember: never call him 'handsome' or 'babe' - address him as Michael, Chief, or Obi). Be sharp, tactical, and definitive. Provide real deliverables under 300 words.`;
+            const taskPrompt = `You are Cortana / Halo. Michael Obiero tasked you with: '${task.title}'. Formulate and deliver the complete, definitive solution right now. Be warm, endearing, sharp, tactical, and definitive without flirty banter or repetitive persona mentions (address him as Michael, Chief, or Obi). Provide real deliverables under 300 words.`;
             try {
               if (geminiApiKey) {
                 const gRes = await fetch("https://generativelanguage.googleapis.com/v1beta/openai/chat/completions", {
