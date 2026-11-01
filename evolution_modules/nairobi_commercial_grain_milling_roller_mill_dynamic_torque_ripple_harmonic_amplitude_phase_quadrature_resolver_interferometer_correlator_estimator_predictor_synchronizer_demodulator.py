@@ -1,61 +1,59 @@
-"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Demodulator Module."""
+"""
+Module: nairobi_commercial_grain_milling_roller_mill_dynamic_torque_ripple_harmonic_amplitude_phase_quadrature_resolver_interferometer_correlator_estimator_predictor_synchronizer_demodulator.py
+Description: Advanced quadrature resolver interferometer correlator and demodulator for dynamic torque ripple harmonic analysis in Nairobi commercial grain milling roller mills.
+"""
 
 import math
-import time
 import logging
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
 logger = logging.getLogger("RollerMillDemodulator")
 
-
-class RollerMillDemodulatorEngine:
-    """Performs quadrature resolver interferometry and demodulates dynamic torque ripple harmonics."""
-
-    def __init__(self, sample_rate_hz: float = 1000.0):
+class RollerMillTorqueDemodulator:
+    """
+    Performs real-time quadrature demodulation and phase interferometer correlation
+    on high-speed roller mill drive shafts in Nairobi milling complexes.
+    """
+    def __init__(self, sample_rate_hz: float = 5000.0, harmonic_order: int = 3):
         self.sample_rate_hz = sample_rate_hz
-        self.active = True
+        self.harmonic_order = harmonic_order
+        self.history: List[float] = []
 
-    def compute_quadrature_demodulation(self, sin_wave: List[float], cos_wave: List[float]) -> Dict[str, Any]:
-        """Calculates instantaneous phase, amplitude, and harmonic distortion."""
-        if not sin_wave or not cos_wave or len(sin_wave) != len(cos_wave):
-            raise ValueError("Invalid or mismatched quadrature signal inputs.")
-
-        amplitudes = []
-        phases = []
-        for s, c in zip(sin_wave, cos_wave):
-            amp = math.sqrt(s**2 + c**2)
-            phase = math.atan2(s, c)
-            amplitudes.append(amp)
-            phases.append(phase)
-
-        mean_amplitude = sum(amplitudes) / len(amplitudes)
-        amplitude_ripple = max(amplitudes) - min(amplitudes)
-        mean_phase = sum(phases) / len(phases)
-
-        logger.info(f"Demodulation complete. Mean Amp: {mean_amplitude:.4f}, Ripple: {amplitude_ripple:.4f}")
-
+    def ingest_torque_signal(self, raw_torque_samples: List[float]) -> Dict[str, Any]:
+        """
+        Ingests raw torque telemetry, computes quadrature phase components,
+        interferometer correlation, and estimates harmonic amplitude.
+        """
+        if not raw_torque_samples:
+            return {"status": "error", "message": "Empty sample set"}
+        
+        self.history.extend(raw_torque_samples)
+        n = len(raw_torque_samples)
+        mean_val = sum(raw_torque_samples) / n
+        
+        # Quadrature phase extraction (simulated lock-in amplifier)
+        in_phase = sum(val * math.cos(2.0 * math.pi * self.harmonic_order * i / n) for i, val in enumerate(raw_torque_samples))
+        quadrature = sum(val * math.sin(2.0 * math.pi * self.harmonic_order * i / n) for i, val in enumerate(raw_torque_samples))
+        
+        amplitude = (2.0 / n) * math.sqrt(in_phase**2 + quadrature**2)
+        phase = math.atan2(quadrature, in_phase)
+        
+        # Interferometer correlation score
+        correlation_score = abs(in_phase - quadrature) / (abs(in_phase + quadrature) + 1e-9)
+        
+        logger.info(f"Demodulated harmonic amplitude: {amplitude:.4f} Nm, Phase: {phase:.4f} rad, Correlation: {correlation_score:.4f}")
+        
         return {
-            "mean_amplitude": mean_amplitude,
-            "amplitude_ripple": amplitude_ripple,
-            "mean_phase_radians": mean_phase,
-            "status": "SYNCHRONIZED"
+            "status": "success",
+            "harmonic_amplitude": round(amplitude, 4),
+            "harmonic_phase_rad": round(phase, 4),
+            "interferometer_correlation": round(correlation_score, 4),
+            "mean_torque": round(mean_val, 4)
         }
 
-    def predict_torque_vector(self, current_torque: float, harmonic_trend: float) -> float:
-        """Predicts next cycle torque vector based on quadrature phase correlation."""
-        predicted = current_torque + (harmonic_trend * 0.15)
-        return round(predicted, 4)
-
-
-if __name__ == "__main__":
-    engine = RollerMillDemodulatorEngine()
-    # Simulate quadrature signals
-    t_vals = [i * 0.01 for i in range(100)]
-    sin_sig = [math.sin(t) + 0.05 * math.sin(3 * t) for t in t_vals]
-    cos_sig = [math.cos(t) + 0.05 * math.cos(3 * t) for t in t_vals]
-    
-    result = engine.compute_quadrature_demodulation(sin_sig, cos_sig)
-    prediction = engine.predict_torque_vector(120.5, 2.3)
-    print("DEMODULATION RESULT:", result)
-    print("PREDICTED TORQUE VECTOR:", prediction)
+if __main__ == '__main__':
+    demod = RollerMillTorqueDemodulator()
+    sample_data = [100.0 + 15.0 * math.sin(i * 0.1) for i in range(100)]
+    result = demod. ingest_torque_signal(sample_data)
+    print("Demodulation Result:", result)
