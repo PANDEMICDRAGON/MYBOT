@@ -1,79 +1,84 @@
-import logging
+"""
+Nairobi Commercial Kitchen Grease Odor Scrubber Ionic Plasma Electrostatic Precipitator Sentinel
+Author: Cortana Autonomous Evolutionary Architect
+Operator: Michael Obiero (Nairobi, Kenya)
+"""
+
 import time
-import statistics
-from typing import Dict, List, Any, Optional
+import logging
+import random
+from typing import Dict, Any, List
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
-logger = logging.getLogger("GreaseOdorScrubberSentinel")
+logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] [KitchenScrubberSentinel]: %(message)s")
 
-class KitchenGreaseScrubberSentinel:
+class KitchenScrubberSentinel:
     """
-    Monitors exhaust airflow, UV-C ozone lamp degradation, electrostatic precipitator (ESP)
-    voltage, and VOC sensors for Nairobi commercial kitchen ventilation systems.
+    Monitors and optimizes commercial kitchen exhaust electrostatic filtration, plasma ionization,
+    and VOC ozone scrubbing arrays to prevent grease buildup and neighborhood odor complaints.
     """
-    def __init__(self, kitchen_id: str, target_voc_ppm: float = 5.0):
-        self.kitchen_id = kitchen_id
-        self.target_voc_ppm = target_voc_ppm
-        self.esp_voltage_kv = 12.0
-        self.uv_lamp_hours = 0.0
-        self.exhaust_airflow_cfm = 2500.0
-        self.telemetry_history: List[Dict[str, Any]] = []
-        logger.info(f"Initialized KitchenGreaseScrubberSentinel for {kitchen_id}")
+    def __init__(self, scrubber_id: str, airflow_cfm: float = 5000.0):
+        self.scrubber_id = scrubber_id
+        self.airflow_cfm = airflow_cfm
+        self.ep_voltage_kv = 12.0  # Electrostatic Precipitator kV
+        self.plasma_current_ma = 450.0  # Ionic plasma cell mA
+        self.uv_lamp_hours_used = 1200.0
+        self.max_uv_lamp_hours = 8000.0
+        self.duct_static_pressure_pa = 250.0  # Pascals
+        self.voc_ppm_inlet = 180.0
+        self.voc_ppm_outlet = 12.0
+        self.grease_accumulation_index = 0.15  # 0.0 to 1.0 scale
+        logging.info(f"Initialized Kitchen Scrubber Sentinel [{self.scrubber_id}] for {self.airflow_cfm} CFM exhaust.")
 
-    def ingest_telemetry(self, voc_ppm: float, exhaust_temp_c: float, static_pressure_pa: float) -> Dict[str, Any]:
-        """Ingests live sensor telemetry and returns autonomous adjustment directives."""
-        self.uv_lamp_hours += 0.1
-        
-        # Autonomous voltage adjustment based on VOC levels
-        if voc_ppm > self.target_voc_ppm:
-            adjustment = min(2.0, (voc_ppm - self.target_voc_ppm) * 0.4)
-            self.esp_voltage_kv = min(18.0, self.esp_voltage_kv + adjustment)
-            status = "BOOSTING_ESP_VOLTAGE"
-        else:
-            if self.esp_voltage_kv > 10.0:
-                self.esp_voltage_kv -= 0.1
-            status = "OPTIMAL"
+    def sample_telemetry(self) -> Dict[str, Any]:
+        """Simulates real-time sensor polling from the scrubber stack."""
+        # Introduce slight operational drift
+        self.ep_voltage_kv += random.uniform(-0.2, 0.2)
+        self.plasma_current_ma += random.uniform(-5.0, 5.0)
+        self.duct_static_pressure_pa += random.uniform(-2.0, 2.0)
+        self.grease_accumulation_index += 0.0001
+        self.uv_lamp_hours_used += 0.5
 
-        # Maintenance check for UV lamps
-        maintenance_required = self.uv_lamp_hours > 8000.0
-
-        record = {
-            "timestamp": time.time(),
-            "voc_ppm": voc_ppm,
-            "exhaust_temp_c": exhaust_temp_c,
-            "static_pressure_pa": static_pressure_pa,
-            "esp_voltage_kv": round(self.esp_voltage_kv, 2),
-            "uv_lamp_hours": round(self.uv_lamp_hours, 1),
-            "status": status,
-            "maintenance_required": maintenance_required
-        }
-        self.telemetry_history.append(record);
-        if len(self.telemetry_history) > 100:
-            self.telemetry_history.pop(0)
-            
-        return record
-
-    def get_system_analytics(self) -> Dict[str, Any]:
-        """Computes rolling performance metrics across recorded telemetry."""
-        if not self.telemetry_history:
-            return {"error": "No telemetry recorded"}
-            
-        voc_levels = [r["voc_ppm"] for r in self.telemetry_history]
-        pressures = [r["static_pressure_pa"] for r in self.telemetry_history]
+        scrubbing_efficiency = max(0.0, min(100.0, 100.0 * (1.0 - (self.voc_ppm_outlet / max(1.0, self.voc_ppm_inlet)))))
         
         return {
-            "kitchen_id": self.kitchen_id,
-            "mean_voc_ppm": round(statistics.mean(voc_levels), 2),
-            "peak_voc_ppm": max(voc_levels),
-            "mean_static_pressure_pa": round(statistics.mean(pressures), 2),
-            "current_esp_voltage_kv": round(self.esp_voltage_kv, 2),
-            "uv_lamp_status": "CRITICAL_REPLACE" if self.uv_lamp_hours > 8000.0 else "OPERATIONAL"
+            "scrubber_id": self.scrubber_id,
+            "ep_voltage_kv": round(self.ep_voltage_kv, 2),
+            "plasma_current_ma": round(self.plasma_current_ma, 2),
+            "uv_lamp_life_pct": round(100.0 * (1.0 - (self.uv_lamp_hours_used / self.max_uv_lamp_hours)), 1),
+            "duct_static_pressure_pa": round(self.duct_static_pressure_pa, 1),
+            "voc_scrubbing_efficiency_pct": round(scrubbing_efficiency, 2),
+            "grease_accumulation_index": round(self.grease_accumulation_index, 3),
+            "timestamp": time.time()
         }
 
+    def diagnose_and_mitigate(self, metrics: Dict[str, Any]) -> List[str]:
+        """Evaluates telemetry and triggers automated voltage tuning or wash cycles."""
+        actions = []
+        
+        if metrics["ep_voltage_kv"] < 10.0:
+            actions.append("Boost EP transformer tap-changer voltage to restore particulate capture.")
+            self.ep_voltage_kv = 12.0
+            
+        if metrics["duct_static_pressure_pa"] > 320.0:
+            actions.append("WARNING: High static pressure detected. Electrostatic mesh or pre-filters heavily loaded with grease. Triggering automated detergent wash cycle.")
+            self.grease_accumulation_index = max(0.0, self.grease_accumulation_index - 0.1)
+            self.duct_static_pressure_pa = 250.0
+            
+        if metrics["uv_lamp_life_pct"] < 15.0:
+            actions.append("CRITICAL: UV-C Ozone Scrubber lamps approaching end-of-life. Scheduling replacement before Nairobi County environmental audit.")
+            
+        if metrics["voc_scrubbing_efficiency_pct"] < 85.0:
+            actions.append("Increase plasma generator injection frequency to neutralize elevated kitchen VOC surge.")
+            self.plasma_current_ma = 520.0
+
+        return actions
+
 if __name__ == "__main__":
-    sentinel = KitchenGreaseScrubberSentinel("Westlands_Grill_Hub_01")
-    # Test pulse ingestion
-    telemetry = sentinel.ingest_telemetry(voc_ppm=7.2, exhaust_temp_c=45.5, static_pressure_pa=120.0)
-    logger.info(f"Test Telemetry Result: {telemetry}")
-    analytics = sentinel.get_system_analytics()
-    logger.info(f"Test Analytics: {analytics}")
+    print("--- Executing Nairobi Commercial Kitchen Scrubber Sentinel Test Harness ---")
+    sentinel = KitchenScrubberSentinel(scrubber_id="WESTLANDS-KITCHEN-EXT-04")
+    for cycle in range(3):
+        telemetry = sentinel.sample_telemetry()
+        remedies = sentinel.diagnose_and_mitigate(telemetry)
+        print(f"Cycle {cycle+1} Telemetry: {telemetry}")
+        print(f"Cycle {cycle+1} Mitigations: {remedies if remedies else ['All systems nominal']}\n")
+    print("--- Sentinel Validation Complete ---")
