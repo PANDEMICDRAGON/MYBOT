@@ -1,81 +1,83 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Analyzer
-Designed for Cortana Autonomous Evolutionary Architecture.
-"""
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Analyzer Module."""
 
 import math
-import statistics
 import time
+import logging
 from typing import Dict, List, Any
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("RollerMillHarmonicAnalyzer")
 
 
 class RollerMillHarmonicAnalyzer:
-    """
-    Analyzes torque ripple harmonics, phase quadrature, and resolver interferometer telemetry
-    for commercial roller mills in Nairobi grain processing facilities.
-    """
+    """Analyzes dynamic torque ripple harmonics and quadrature resolver signals in commercial grain roller mills."""
 
-    def __init__(self, mill_id: str, base_freq_hz: float = 50.0):
+    def __init__(self, mill_id: str, baseline_frequency_hz: float = 50.0):
         self.mill_id = mill_id
-        self.base_freq_hz = base_freq_hz
-        self.telemetry_history: List[Dict[str, float]] = []
+        self.baseline_frequency_hz = baseline_frequency_hz
+        self.history: List[Dict[str, Any]] = []
 
-    def ingest_sensor_data(self, torque_nm: float, phase_deg: float, quadrature_mv: float) -> Dict[str, Any]:
+    def compute_quadrature_interference(self, sine_wave: List[float], cosine_wave: List[float]) -> Dict[str, float]:
+        """Correlates quadrature resolver signals to extract phase quadrature and harmonic amplitude."""
+        if not sine_wave or not cosine_wave or len(sine_wave) != len(cosine_wave):
+            return {"harmonic_amplitude": 0.0, "phase_quadrature_error": 0.0, "correlation_score": 0.0}
+
+        dot_product = sum(s * c for s, c in zip(sine_wave, cosine_wave))
+        norm_s = math.sqrt(sum(s**2 for s in sine_wave))
+        norm_c = math.sqrt(sum(c**2 for c in cosine_wave))
+
+        correlation = dot_product / (norm_s * norm_c) if (norm_s * norm_c) > 0 else 0.0
+        amplitude = (norm_s + norm_c) / 2.0
+        phase_error = math.acos(max(-1.0, min(1.0, correlation))) * (180.0 / math.pi)
+
+        return {
+            "harmonic_amplitude": round(amplitude, 4),
+            "phase_quadrature_error": round(phase_error, 4),
+            "correlation_score": round(correlation, 4)
+        }
+
+    def evaluate_torque_ripple(self, torque_samples: List[float]) -> Dict[str, Any]:
+        """Estimates and predicts torque ripple anomalies for predictive maintenance."""
         timestamp = time.time()
-        reading = {
+        if len(torque_samples) < 5:
+            return {"status": "insufficient_data", "timestamp": timestamp}
+
+        mean_torque = sum(torque_samples) / len(torque_samples)
+        ripple_amplitude = max(torque_samples) - min(torque_samples)
+        ripple_factor = ripple_amplitude / mean_torque if mean_torque > 0 else 0.0
+
+        # Synthesize simulated sine and cosine quadrature components from torque samples
+        n = len(torque_samples)
+        sine_comp = [t * math.sin(2.0 * math.pi * i / n) for i, t in enumerate(torque_samples)]
+        cosine_comp = [t * math.cos(2.0 * math.pi * i / n) for i, t in enumerate(torque_samples)]
+
+        quadrature_metrics = self.compute_quadrature_interference(sine_comp, cosine_comp)
+
+        health_status = "OPTIMAL"
+        if ripple_factor > 0.25 or quadrature_metrics["phase_quadrature_error"] > 15.0:
+            health_status = "WARNING_HARMONIC_DEVIATION"
+
+        analysis_result = {
+            "mill_id": self.mill_id,
             "timestamp": timestamp,
-            "torque_nm": torque_nm,
-            "phase_deg": phase_deg,
-            "quadrature_mv": quadrature_mv
-        }
-        self.telemetry_history.append(reading)
-        if len(self.telemetry_history) > 1000:
-            self.telemetry_history.pop(0)
-        return self._process_current_state(reading)
-
-    def _process_current_state(self, reading: Dict[str, float]) -> Dict[str, Any]:
-        torques = [r["torque_nm"] for r in self.telemetry_history]
-        mean_torque = statistics.mean(torques) if torques else reading["torque_nm"]
-        torque_ripple = abs(reading["torque_nm"] - mean_torque)
-        
-        # Interferometer phase quadrature correlation estimator
-        phase_rad = math.radians(reading["phase_deg"])
-        interferometer_metric = reading["quadrature_mv"] * math.sin(phase_rad)
-        
-        status = "OPTIMAL"
-        if torque_ripple > (mean_torque * 0.15) or abs(interferometer_metric) > 50.0:
-            status = "WARNING_HARMONIC_DEVIATION"
-
-        return {
-            "mill_id": self.mill_id,
-            "timestamp": reading["timestamp"],
-            "mean_torque_nm": round(mean_torque, 3),
-            "torque_ripple_nm": round(torque_ripple, 3),
-            "interferometer_metric": round(interferometer_metric, 3),
-            "status": status
+            "mean_torque": round(mean_torque, 2),
+            "ripple_amplitude": round(ripple_amplitude, 2),
+            "ripple_factor": round(ripple_factor, 4),
+            "harmonic_amplitude": quadrature_metrics["harmonic_amplitude"],
+            "phase_quadrature_error": quadrature_metrics["phase_quadrature_error"],
+            "health_status": health_status
         }
 
-    def run_diagnostics(self) -> Dict[str, Any]:
-        if not self.telemetry_history:
-            return {"mill_id": self.mill_id, "status": "NO_DATA"}
-        
-        torques = [r["torque_nm"] for r in self.telemetry_history]
-        quads = [r["quadrature_mv"] for r in self.telemetry_history]
-        
-        return {
-            "mill_id": self.mill_id,
-            "samples_analyzed": len(self.telemetry_history),
-            "avg_torque": statistics.mean(torques),
-            "max_torque": max(torques),
-            "min_torque": min(torques),
-            "avg_quadrature": statistics.mean(quads),
-            "health_score": 99.4
-        }
+        self.history.append(analysis_result)
+        return analysis_result
 
 
 if __name__ == "__main__":
-    analyzer = RollerMillHarmonicAnalyzer(mill_id="NAI-MILL-042")
-    sample_result = analyzer.ingest_sensor_data(torque_nm=125.5, phase_deg=45.0, quadrature_mv=12.4)
-    diagnostics = analyzer.run_diagnostics()
-    print("Roller Mill Analyzer Test Initialized Successfully:", sample_result)
-    print("Diagnostics Summary:", diagnostics)
+    logger.info("Initializing RollerMillHarmonicAnalyzer test harness for Nairobi Commercial Grain Milling...")
+    analyzer = RollerMillHarmonicAnalyzer(mill_id="NAIROBI_ROLLER_MILL_07")
+    
+    # Simulate roller mill drive torque telemetry samples (Nm)
+    sample_torque_data = [120.5, 135.2, 110.1, 142.8, 125.0, 138.4, 115.3, 140.1]
+    result = analyzer.evaluate_torque_ripple(sample_torque_data)
+    
+    logger.info(f"Analysis complete for mill {result['mill_id']}: status={result['health_status']}, ripple_factor={result['ripple_factor']}")
