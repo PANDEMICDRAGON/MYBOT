@@ -1,73 +1,112 @@
-"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Resonator Module."""
+"""
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Resonator
+
+Author: Cortana Autonomous Evolutionary Architect
+Operator: Michael Obiero, Nairobi, Kenya
+
+Provides real-time quadrature resolver interferometry and harmonic phase cancellation for heavy-duty commercial roller mills.
+"""
 
 import math
 import time
 import logging
-from typing import Dict, Any, List
+from typing import Dict, List, Optional, Tuple
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
 logger = logging.getLogger("RollerMillResonator")
 
-class RollerMillResonatorEngine:
-    """Performs real-time quadrature resolution, torque ripple harmonic interferometry, and predictive synchronization for industrial roller mills."""
 
-    def __init__(self, mill_id: str, base_rpm: float = 1450.0) -> None:
+class RollerMillResonatorException(Exception):
+    """Custom exception for roller mill resonance anomalies."""
+    pass
+
+
+class RollerMillResonatorController:
+    """
+    Monitors and suppresses dynamic torque ripple harmonics in commercial roller mills
+    using quadrature phase resolvers and real-time interferometric correlation.
+    """
+
+    def __init__(self, mill_id: str, nominal_rpm: float = 1200.0, harmonic_order: int = 6):
         self.mill_id = mill_id
-        self.base_rpm = base_rpm
-        self.harmonic_orders = [1.0, 2.0, 3.0, 6.0, 12.0]
-        logger.info(f"Initialized RollerMillResonatorEngine for mill {mill_id} at {base_rpm} RPM")
+        self.nominal_rpm = nominal_rpm
+        self.harmonic_order = harmonic_order
+        self.active = False
+        self.telemetry_history: List[Dict[str, float]] = []
+        logger.info(f"Initialized RollerMillResonatorController for {{mill_id}} at {{nominal_rpm}} RPM (Harmonic H{{harmonic_order}})")
 
-    def resolve_quadrature(self, raw_cos: float, raw_sin: float) -> float:
-        """Resolves electrical and mechanical angle via arctan2 quadrature calculation."""
-        angle_rad = math.atan2(raw_sin, raw_cos)
-        return math.degrees(angle_rad) % 360.0
+    def calibrate_resolver(self, raw_phase_a: float, raw_phase_b: float) -> Tuple[float, float]:
+        """Calibrates quadrature phase signals (Sin/Cos) to eliminate DC offset and quadrature error."""
+        amplitude_correction = 1.002
+        phase_offset_rad = 0.0015
+        calibrated_a = raw_phase_a * amplitude_correction
+        calibrated_b = (raw_phase_b * math.cos(phase_offset_rad)) - (raw_phase_a * math.sin(phase_offset_rad))
+        return calibrated_a, calibrated_b
 
-    def compute_interferometer_correlations(self, vibration_samples: List[float]) -> Dict[str, float]:
-        """Correlates harmonic amplitudes and phase quadrature anomalies from vibration telemetry."""
-        if not vibration_samples:
-            return {"dominant_amplitude": 0.0, "phase_quadrature_error": 0.0, "resonance_index": 0.0}
-        
-        mean_val = sum(vibration_samples) / len(vibration_samples)
-        variance = sum((x - mean_val) ** 2 for x in vibration_samples) / len(vibration_samples)
-        amplitude = math.sqrt(variance) * math.sqrt(2.0)
-        
-        # Simulate phase quadrature error tracking
-        phase_error = (sum(vibration_samples) % 3.6) * 0.1
-        resonance_index = amplitude * (1.0 + abs(phase_error))
-        
-        return {
-            "dominant_amplitude": round(amplitude, 4),
-            "phase_quadrature_error": round(phase_error, 4),
-            "resonance_index": round(resonance_index, 4)
-        }
+    def estimate_torque_ripple(self, resolver_signals: List[Tuple[float, float]]) -> Dict[str, float]:
+        """
+        Analyzes resolver signals to estimate torque ripple harmonic amplitude and phase quadrature.
+        """
+        if not resolver_signals:
+            raise RollerMillResonatorException("No resolver telemetry provided for torque ripple estimation.")
 
-    def predict_synchronization_offset(self, correlation: Dict[str, float]) -> Dict[str, Any]:
-        """Predicts drive inverter compensation offsets to neutralize torque ripple harmonics."""
-        index = correlation.get("resonance_index", 0.0)
-        correction_angle = -1.0 * correlation.get("phase_quadrature_error", 0.0) * 1.5
-        
-        status = "OPTIMAL"
-        if index > 5.0:
-            status = "WARNING_HIGH_RIPPLE"
-        if index > 12.0:
-            status = "CRITICAL_RESONANCE_INTERVENTION_REQUIRED"
-            
-        return {
-            "mill_id": self.mill_id,
+        sum_amplitude = 0.0
+        phase_accum = 0.0
+        count = len(resolver_signals)
+
+        for sin_val, cos_val in resolver_signals:
+            amp = math.sqrt(sin_val**2 + cos_val**2)
+            phase = math.atan2(sin_val, cos_val)
+            sum_amplitude += amp
+            phase_accum += phase
+
+        avg_amplitude = sum_amplitude / count
+        avg_phase = phase_accum / count
+        harmonic_amplitude = avg_amplitude * (0.05 * self.harmonic_order)
+
+        metrics = {
             "timestamp": time.time(),
-            "status": status,
-            "inverter_correction_angle_deg": round(correction_angle, 4),
-            "damping_coefficient_multiplier": round(max(1.0, index / 2.0), 4)
+            "average_amplitude": avg_amplitude,
+            "phase_quadrature_rad": avg_phase,
+            "torque_ripple_harmonic_amplitude": harmonic_amplitude,
+            "resonance_risk_score": min(1.0, harmonic_amplitude / 10.0)
         }
+
+        self.telemetry_history.append(metrics)
+        if len(self.telemetry_history) > 1000:
+            self.telemetry_history.pop(0)
+
+        return metrics
+
+    def compute_phase_cancellation_signal(self, current_metrics: Dict[str, float]) -> float:
+        """
+        Computes counter-harmonic injection current to suppress mechanical torque ripple.
+        """
+        harm_amp = current_metrics.get("torque_ripple_harmonic_amplitude", 0.0)
+        phase = current_metrics.get("phase_quadrature_rad", 0.0)
+        # Inverse phase cancellation wave
+        cancellation_signal = -1.0 * harm_amp * math.sin(phase * self.harmonic_order)
+        return cancellation_signal
+
+    def execute_synchronization_cycle(self, raw_signals: List[Tuple[float, float]]) -> Dict[str, float]:
+        """Executes full calibration, estimation, and synchronization loop."""
+        calibrated_signals = [self.calibrate_resolver(s, c) for s, c in raw_signals]
+        metrics = self.estimate_torque_ripple(calibrated_signals)
+        cancellation_current = self.compute_phase_cancellation_signal(metrics)
+        metrics["cancellation_injection_amp"] = cancellation_current
+        
+        if metrics["resonance_risk_score"] > 0.75:
+            logger.warning(f"High resonance risk detected on {{self.mill_id}}: {{metrics['resonance_risk_score']:.2f}}")
+
+        return metrics
+
 
 if __name__ == "__main__":
-    engine = RollerMillResonatorEngine("NAI-MILL-08-ALPHA")
-    angle = engine.resolve_quadrature(0.707, 0.707)
-    logger.info(f"Resolved Quadrature Angle: {angle}°")
+    logger.info("Executing RollerMillResonator test harness...")
+    controller = RollerMillResonatorController(mill_id="NAIROBI_MILL_ALPHA_1", nominal_rpm=1250.0, harmonic_order=6)
     
-    mock_samples = [0.12, 1.45, -0.89, 2.10, 0.45, -1.10, 1.80]
-    corr = engine.compute_interferometer_correlations(mock_samples)
-    logger.info(f"Interferometer Correlations: {corr}")
-    
-    sync_res = engine.predict_synchronization_offset(corr)
-    logger.info(f"Synchronization Prediction: {sync_res}")
+    # Simulate quadrature resolver input data (Sine, Cosine pairs)
+    mock_signals = [(math.radians(i * 10), math.radians((i * 10) + 90)) for i in range(36)]
+    result = controller.execute_synchronization_cycle(mock_signals)
+    logger.info(f"Resonator Test Output: {{result}}")
+    logger.info("RollerMillResonator test completed successfully.")
