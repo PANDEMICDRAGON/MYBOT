@@ -1,94 +1,98 @@
 """
 Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Analyst
 
-Provides advanced real-time DSP analysis of roller mill drive torque ripple, quadrature resolver feedback, and harmonic phase alignment to ensure optimal flour milling efficiency in Nairobi grain processing facilities.
+Autonomous Evolution Module #135 for Cortana.
+Designed to monitor, correlate, and predict torque ripple harmonics and resolver interferometer quadrature variations in industrial roller mills across Nairobi, Kenya.
 """
 
+import os
+import sys
 import math
 import time
 import logging
-from typing import Dict, List, Any, Optional
+import json
+from typing import Dict, Any, List, Optional
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillHarmonicAnalyst")
-
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - [CORTANA-ROLLER-MILL-ANALYST] - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 class RollerMillHarmonicAnalyst:
-    """Analyzes roller mill drive torque ripple and phase quadrature harmonics."""
-
-    def __init__(self, mill_id: str, nominal_rpm: float = 1450.0):
+    """
+    Analyzes harmonic amplitude, phase quadrature, and torque ripples from roller mill telemetry.
+    """
+    def __init__(self, mill_id: str, nominal_rpm: float = 1500.0):
         self.mill_id = mill_id
         self.nominal_rpm = nominal_rpm
-        self.sample_buffer: List[Dict[str, float]] = []
+        self.sample_count = 0
+        self.history: List[Dict[str, Any]] = []
 
-    def ingest_telemetry(self, torque_nm: float, phase_deg: float, quadrature_v: float) -> Dict[str, Any]:
-        """Ingests instantaneous torque, phase, and quadrature telemetry."""
+    def ingest_telemetry(self, raw_torque_nm: float, quadrature_angle_deg: float, interferometer_fringe_shift: float) -> Dict[str, Any]:
+        """
+        Injusts raw sensor streams, computes harmonic distortion indicators and phase offsets.
+        """
+        self.sample_count += 1
         timestamp = time.time()
-        sample = {
+        
+        # Mathematical estimation of torque ripple harmonic amplitude
+        torque_ripple_amplitude = abs(raw_torque_nm * math.sin(math.radians(quadrature_angle_deg)))
+        phase_quadrature_error = quadrature_angle_deg - (self.sample_count % 360)
+        interferometer_correction = interferometer_fringe_shift * 1.047198 # fringe scaling factor
+        
+        prediction_score = max(0.0, 100.0 - (torque_ripple_amplitude * 0.5 + abs(phase_quadrature_error) * 0.2))
+        
+        record = {
             "timestamp": timestamp,
-            "torque_nm": torque_nm,
-            "phase_deg": phase_deg,
-            "quadrature_v": quadrature_v
-        }
-        self.sample_buffer.append(sample)
-        if len(self.sample_buffer) > 1000:
-            self.sample_buffer.pop(0)
-        return self._analyze_latest(sample)
-
-    def _analyze_latest(self, sample: Dict[str, float]) -> Dict[str, Any]:
-        torque = sample["torque_nm"]
-        phase = sample["phase_deg"]
-        quad = sample["quadrature_v"]
-
-        # Compute synthetic harmonic amplitude and phase quadrature correlation
-        harmonic_amplitude = abs(torque * math.sin(math.radians(phase))) * (1.0 + abs(quad) * 0.01)
-        quadrature_interference = math.cos(math.radians(phase)) * quad
-
-        status = "OPTIMAL"
-        if harmonic_amplitude > 120.0:
-            status = "WARNING_HIGH_HARMONIC_RIPPLE"
-        if abs(quadrature_interference) > 50.0:
-            status = "CRITICAL_PHASE_MISALIGNMENT"
-
-        analysis = {
             "mill_id": self.mill_id,
-            "timestamp": sample["timestamp"],
-            "harmonic_amplitude": round(harmonic_amplitude, 4),
-            "quadrature_interference": round(quadrature_interference, 4),
-            "status": status
+            "sample_id": self.sample_count,
+            "torque_ripple_amplitude": round(torque_ripple_amplitude, 4),
+            "phase_quadrature_error": round(phase_quadrature_error, 4),
+            "interferometer_correction": round(interferometer_correction, 4),
+            "health_score": round(prediction_score, 2)
         }
-        return analysis
+        
+        self.history.append(record)
+        if len(self.history) > 1000:
+            self.history.pop(0)
+            
+        return record
 
-    def generate_report(self) -> Dict[str, Any]:
-        """Generates a comprehensive diagnostic summary of recent samples."""
-        if not self.sample_buffer:
-            return {"error": "No telemetry recorded."}
+    def generate_synchronization_directive(self) -> Dict[str, Any]:
+        """
+        Generates a closed-loop synchronization directive for inverter frequency tuning.
+        """
+        if not self.history:
+            return {"status": "IDLE", "adjustment_Hz": 0.0}
+            
+        recent = self.history[-1]
+        avg_health = sum(h["health_score"] for h in self.history[-10:]) / min(10, len(self.history))
         
-        avg_torque = sum(s["torque_nm"] for s in self.sample_buffer) / len(self.sample_buffer)
-        latest = self._analyze_latest(self.sample_buffer[-1])
-        
+        adjustment = 0.0
+        if recent["torque_ripple_amplitude"] > 15.0:
+            adjustment = -0.25
+        elif recent["torque_ripple_amplitude"] < 5.0:
+            adjustment = 0.10
+            
         return {
             "mill_id": self.mill_id,
-            "total_samples": len(self.sample_buffer),
-            "average_torque_nm": round(avg_torque, 2),
-            "latest_analysis": latest
+            "status": "SYNCHRONIZED" if avg_health > 85.0 else "OPTIMIZATION_REQUIRED",
+            "average_health_score": round(avg_health, 2),
+            "recommended_inverter_adjustment_hz": adjustment,
+            "timestamp": time.time()
         }
 
-
 if __name__ == "__main__":
-    analyst = RollerMillHarmonicAnalyst(mill_id="NAIROBI_MILL_ALPHA_01")
+    logger.info("Initializing Roller Mill Harmonic Analyst Test Harness...")
+    analyst = RollerMillHarmonicAnalyst(mill_id="NAIROBI_MILL_INDUSTRIAL_07")
     
-    # Simulate some operational telemetry cycles
-    test_data = [
-        (85.5, 12.3, 1.02),
-        (92.1, 45.0, 3.45),
-        (140.2, 89.5, 8.12),
-        (88.0, 14.1, 0.95)
-    ]
-    
-    for t, p, q in test_data:
-        res = analyst.ingest_telemetry(t, p, q)
-        logger.info(f"Telemetry Analysis Result: {res}")
+    # Simulate telemetry ingestion
+    for i in range(10):
+        telemetry = analyst.ingest_telemetry(
+            raw_torque_nm=24.5 + (i * 0.8),
+            quadrature_angle_deg=45.2 + (i * 1.5),
+            interferometer_fringe_shift=0.12
+        )
+        logger.info(f"Ingested Telemetry Point {i+1}: {json.dumps(telemetry)}")
         
-    report = analyst.generate_report()
-    logger.info(f"Final Mill Diagnostic Report: {report}")
+    directive = analyst.generate_synchronization_directive()
+    logger.info(f"Generated Synchronization Directive: {json.dumps(directive, indent=2)}")
+    logger.info("Test Harness Completed Successfully.")
