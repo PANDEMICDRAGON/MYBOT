@@ -1,102 +1,89 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Decoder
-
-Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Nairobi, Kenya)
-
-This module provides real-time digital signal processing, phase quadrature resolution, and harmonic decoding for industrial grain milling roller mill drive systems. It analyzes high-frequency torque ripple telemetry, estimates harmonic distortion profiles, predicts phase drift, and synchronizes corrective torque dampening waveforms.
-"""
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Decoder Module."""
 
 import math
-import time
-import statistics
-from typing import List, Dict, Any, Tuple
+import logging
+from typing import Dict, Any, List
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("RollerMillTorqueDecoder")
 
-class RollerMillTorqueDecoderError(Exception):
-    """Custom exception for torque ripple decoding and synchronization failures."""
-    pass
+class RollerMillTorqueRippleDecoder:
+    """Decodes and correlates torque ripple harmonics using quadrature resolver interferometry."""
 
-
-class RollerMillHarmonicDecoder:
-    """
-    Performs quadrature resolver interferometry, harmonic amplitude estimation,
-    and predictive phase synchronization for commercial grain milling roller mills.
-    """
-
-    def __init__(self, sample_rate_hz: float = 1000.0, nominal_base_freq_hz: float = 50.0) -> None:
+    def __init__(self, sample_rate_hz: float = 1000.0):
         self.sample_rate_hz = sample_rate_hz
-        self.nominal_base_freq_hz = nominal_base_freq_hz
-        self.history: List[float] = []
-        self.sync_locked = False
-        self.last_phase_error = 0.0
+        self.harmonic_orders = [1, 2, 3, 6, 12]
 
-    def ingest_torque_signal(self, torque_samples: List[float]) -> Dict[str, Any]:
-        """
-        Ingests raw torque transducer samples, computes quadrature components,
-        estimates harmonic amplitude and phase, and predicts future ripple trends.
-        """
-        if not torque_samples:
-            raise RollerMillTorqueDecoderError("Empty torque sample stream provided.")
+    def decode_quadrature_signals(self, sin_wave: List[float], cos_wave: List[float]) -> Dict[str, Any]:
+        """Extracts instantaneous phase, amplitude, and quadrature error."""
+        if len(sin_wave) != len(cos_wave) or not sin_wave:
+            raise ValueError("Sin and cos wave inputs must be of equal non-zero length.")
+        
+        amplitudes = []
+        phases = []
+        quadrature_errors = []
 
-        self.history.extend(torque_samples)
-        if len(self.history) > 2000:
-            self.history = self.history[-2000:]
+        for s, c in zip(sin_wave, cos_wave):
+            amp = math.sqrt(s**2 + c**2)
+            phase = math.atan2(s, c)
+            # Ideal orthogonal error is 0 when amp is stable and s^2 + c^2 = 1 (normalized)
+            err = abs(1.0 - amp)
+            amplitudes.append(amp)
+            phases.append(phase)
+            quadrature_errors.append(err)
 
-        mean_torque = statistics.mean(torque_samples)
-        rms_torque = math.sqrt(statistics.mean([t ** 2 for t in torque_samples]))
-        peak_ripple = max(abs(t - mean_torque) for t in torque_samples)
+        mean_amplitude = sum(amplitudes) / len(amplitudes)
+        mean_phase = sum(phases) / len(phases)
+        max_error = max(quadrature_errors)
 
-        # Quadrature Resolver Interferometer Simulation (Sine/Cosine correlation)
-        n = len(torque_samples)
-        dt = 1.0 / self.sample_rate_hz
-        sin_sum = 0.0
-        cos_sum = 0.0
-
-        for i, val in enumerate(torque_samples):
-            t = i * dt
-            angle = 2.0 * math.pi * self.nominal_base_freq_hz * t
-            residual = val - mean_torque
-            sin_sum += residual * math.sin(angle)
-            cos_sum += residual * math.cos(angle)
-
-        quadrature_amplitude = (2.0 / n) * math.sqrt(sin_sum**2 + cos_sum**2)
-        estimated_phase = math.atan2(cos_sum, sin_sum)
-
-        # Phase Predictor & Synchronizer feedback loop
-        phase_error = estimated_phase - self.last_phase_error
-        self.last_phase_error = estimated_phase
-        self.sync_locked = abs(phase_error) < 0.25 and quadrature_amplitude < (mean_torque * 0.15)
-
-        correction_factor = 1.0 - (quadrature_amplitude / (rms_torque + 1e-6)) * 0.1
+        logger.info(f"Decoded quadrature resolver: Mean Amp={mean_amplitude:.4f}, Mean Phase={mean_phase:.4f} rad, Max Err={max_error:.4f}")
 
         return {
-            "timestamp": time.time(),
-            "sample_count": n,
-            "mean_torque_nm": round(mean_torque, 4),
-            "rms_torque_nm": round(rms_torque, 4),
-            "peak_ripple_nm": round(peak_ripple, 4),
-            "quadrature_amplitude_nm": round(quadrature_amplitude, 4),
-            "estimated_phase_rad": round(estimated_phase, 4),
-            "phase_error_rad": round(phase_error, 4),
-            "sync_locked": self.sync_locked,
-            "drive_correction_factor": round(max(0.8, min(1.2, correction_factor)), 4)
+            "mean_amplitude": mean_amplitude,
+            "mean_phase_rad": mean_phase,
+            "max_quadrature_error": max_error,
+            "status": "STABLE" if max_error < 0.15 else "DEGRADED"
         }
 
+    def estimate_torque_harmonics(self, torque_stream: List[float]) -> Dict[str, float]:
+        """Estimates harmonic amplitudes from torque ripple data."""
+        n = len(torque_stream)
+        if n == 0:
+            return {}
+        
+        mean_torque = sum(torque_stream) / n
+        results = {"mean_torque_nm": mean_torque}
+
+        # Simple discrete harmonic energy estimation
+        for order in self.harmonic_orders:
+            harm_sum = sum(
+                t * math.cos(2.0 * math.pi * order * i / n)
+                for i, t in enumerate(torque_stream)
+            )
+            results[f"harmonic_{order}_amplitude"] = abs(harm_sum) / (n / 2.0)
+
+        return results
+
+    def predict_mechanical_failure(self, telemetry: Dict[str, Any]) -> bool:
+        """Predicts imminent mechanical failure based on quadrature and harmonic anomaly."""
+        max_err = telemetry.get("max_quadrature_error", 0.0)
+        h3 = telemetry.get("harmonic_3_amplitude", 0.0)
+        
+        if max_err > 0.2 or h3 > 50.0:
+            logger.warning("CRITICAL: Roller mill mechanical anomaly detected. Preventive maintenance recommended.")
+            return True
+        return False
 
 if __name__ == "__main__":
-    print("[INIT] Initializing Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Decoder...")
-    decoder = RollerMillHarmonicDecoder(sample_rate_hz=1000.0, nominal_base_freq_hz=50.0)
+    decoder = RollerMillTorqueRippleDecoder()
+    # Generate dummy sine/cosine resolver waveforms
+    t_pts = [i * 0.01 for i in range(100)]
+    s_wave = [math.sin(2 * math.pi * 50 * t) for t in t_pts]
+    c_wave = [math.cos(2 * math.pi * 50 * t) for t in t_pts]
+    torque_data = [150.0 + 10.0 * math.sin(2 * math.pi * 50 * t) + 5.0 * math.cos(2 * math.pi * 150 * t) for t in t_pts]
 
-    # Generate synthetic torque signal with 50Hz carrier and harmonic ripple
-    dt = 1.0 / 1000.0
-    simulated_samples = [
-        150.0 + 12.5 * math.sin(2.0 * math.pi * 50.0 * (i * dt)) + 3.0 * math.cos(2.0 * math.pi * 150.0 * (i * dt))
-        for i in range(500)
-    ]
-
-    telemetry = decoder.ingest_torque_signal(simulated_samples)
-    print("[TELEMETRY OUTPUT]:")
-    for k, v in telemetry.items():
-        print(f"  {k}: {v}")
-    print("[SUCCESS] Roller mill torque ripple harmonic decoder operational.")
+    quad_res = decoder.decode_quadrature_signals(s_wave, c_wave)
+    harm_res = decoder.estimate_torque_harmonics(torque_data)
+    combined = {**quad_res, **harm_res}
+    failure_predicted = decoder.predict_mechanical_failure(combined)
+    logger.info(f"Test execution completed successfully. Failure predicted: {failure_predicted}")
