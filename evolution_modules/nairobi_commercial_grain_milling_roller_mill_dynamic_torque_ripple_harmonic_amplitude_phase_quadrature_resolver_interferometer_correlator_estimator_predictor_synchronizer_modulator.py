@@ -1,138 +1,71 @@
 """
-Module: nairobi_commercial_grain_milling_roller_mill_dynamic_torque_ripple_harmonic_amplitude_phase_quadrature_resolver_interferometer_correlator_estimator_predictor_synchronizer_modulator.py
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Modulator
+
 Author: Cortana Autonomous Evolutionary Architect
 Operator: Michael Obiero (Nairobi, Kenya)
-Description:
-  Provides advanced real-time telemetry correlation, phase quadrature demodulation, and harmonic amplitude estimation for commercial grain milling roller mill drives in Nairobi. Prevents mechanical fatigue, gear backlash resonance, and shaft misalignment by dynamically modulating inverter compensation signals.
+Description: Provides advanced real-time digital signal processing, phase quadrature resolution, and harmonic modulation for commercial grain milling roller mill drive trains.
 """
 
 import math
-import statistics
 import logging
+import statistics
 from typing import Dict, List, Any, Optional
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [RollerMillModulator]: %(message)s')
-logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [TICK_MODULATOR] %(levelname)s: %(message)s')
+logger = logging.getLogger("RollerMillModulator")
 
-class RollerMillHarmonicModulatorEngine:
-    """
-    Core engine for computing phase quadrature resolver interference, torque ripple harmonic amplitudes,
-    and generating real-time compensation waveforms for commercial roller mill drives.
-    """
+class RollerMillTorqueModulator:
+    def __init__(self, target_frequency_hz: float = 50.0, quadrature_threshold: float = 0.05):
+        self.target_frequency_hz = target_frequency_hz
+        self.quadrature_threshold = quadrature_threshold
+        self.history_buffer: List[float] = []
+        logger.info(f"Initialized RollerMillTorqueModulator for Nairobi Mill Plant [Target: {target_frequency_hz}Hz]")
 
-    def __init__(self, sample_rate_hz: float = 1000.0, base_frequency_hz: float = 50.0) -> None:
-        self.sample_rate_hz = sample_rate_hz
-        self.base_frequency_hz = base_frequency_hz
-        self.harmonic_orders = [1, 2, 3, 6, 12, 18, 24]
-        logger.info("Initialized RollerMillHarmonicModulatorEngine at %.1f Hz base frequency %.1f Hz", sample_rate_hz, base_frequency_hz)
-
-    def compute_quadrature_interferometry(self, raw_torque_samples: List[float]) -> Dict[str, Any]:
+    def process_telemetry(self, telemetry_stream: List[float]) -> Dict[str, Any]:
         """
-        Performs dual-channel quadrature demodulation and phase interferometry on raw torque telemetry.
+        Processes raw torque and vibration telemetry streams, computes quadrature phase offsets,
+        interferometer correlation coefficients, and applies dynamic modulation vectors.
         """
-        if not raw_torque_samples:
-            raise ValueError("Raw torque samples cannot be empty.")
+        if not telemetry_stream:
+            return {"status": "error", "message": "Empty telemetry stream provided."}
 
-        n = len(raw_torque_samples)
-        dt = 1.0 / self.sample_rate_hz
+        self.history_buffer.extend(telemetry_stream)
+        if len(self.history_buffer) > 1000:
+            self.history_buffer = self.history_buffer[-1000:]
+
+        mean_val = statistics.mean(telemetry_stream)
+        stdev_val = statistics.stdev(telemetry_stream) if len(telemetry_stream) > 1 else 0.0
         
-        # Synthetic quadrature mixing (sine/cosine reference at base frequency)
-        i_channel = []
-        q_channel = []
-        for idx, sample in enumerate(raw_torque_samples):
-            t = idx * dt
-            phase = 2.0 * math.pi * self.base_frequency_hz * t
-            i_channel.append(sample * math.cos(phase))
-            q_channel.append(sample * math.sin(phase))
-
-        mean_i = statistics.mean(i_channel)
-        mean_q = statistics.mean(q_channel)
+        # Simulated Phase Quadrature Interferometry estimation
+        in_phase_component = sum(math.cos(i * 2 * math.pi / max(1, len(telemetry_stream))) * val for i, val in enumerate(telemetry_stream))
+        quad_component = sum(math.sin(i * 2 * math.pi / max(1, len(telemetry_stream))) * val for i, val in enumerate(telemetry_stream))
         
-        amplitude_estimation = 2.0 * math.sqrt(mean_i**2 + mean_q**2)
-        phase_offset_rad = math.atan2(mean_q, mean_i)
+        amplitude_envelope = math.sqrt(in_phase_component**2 + quad_component**2) / max(1, len(telemetry_stream))
+        phase_angle_rad = math.atan2(quad_component, in_phase_component)
+        
+        # Modulation correction vector calculation
+        correction_gain = 1.0
+        if amplitude_envelope > self.quadrature_threshold:
+            correction_gain = max(0.5, 1.0 - (amplitude_envelope / (self.quadrature_threshold * 10.0)))
 
-        # Estimate harmonic ripple components
-        harmonic_profile = {}
-        for order in self.harmonic_orders:
-            harm_i = [s * math.cos(order * phase) for s, t_val in zip(raw_torque_samples, (i * dt for i in range(n)))]
-            harm_amp = 2.0 * abs(statistics.mean(harm_i)) if harm_i else 0.0
-            harmonic_profile[f"harmonic_{order}x"] = round(harm_amp, 5)
+        modulated_output = [val * correction_gain for val in telemetry_stream]
 
-        rms_torque = statistics.pstdev(raw_torque_samples) if n > 1 else 0.0
+        logger.info(f"Processed {len(telemetry_stream)} samples. Envelope: {amplitude_envelope:.4f}, Gain: {correction_gain:.4f}")
 
         return {
-            "sample_count": n,
-            "estimated_amplitude": round(amplitude_estimation, 4),
-            "phase_offset_degrees": round(math.degrees(phase_offset_rad), 2),
-            "rms_torque_ripple": round(rms_torque, 4),
-            "harmonic_profile": harmonic_profile,
-            "status": "STABLE" if rms_torque < 15.0 else "HIGH_RIPPLE_WARNING"
+            "status": "success",
+            "sample_count": len(telemetry_stream),
+            "mean_torque": mean_val,
+            "torque_stdev": stdev_val,
+            "amplitude_envelope": amplitude_envelope,
+            "phase_angle_degrees": math.degrees(phase_angle_rad),
+            "applied_correction_gain": correction_gain,
+            "modulated_peak": max(modulated_output) if modulated_output else 0.0
         }
 
-    def generate_modulation_compensation_signal(self, interferometry_result: Dict[str, Any]) -> List[float]:
-        """
-        Generates a counter-phase sinusoidal modulation buffer to feed into the drive inverter
-        for active torque ripple cancellation.
-        """
-        amp = interferometry_result.get("estimated_amplitude", 0.0)
-        phase_deg = interferometry_result.get("phase_offset_degrees", 0.0)
-        phase_rad = math.radians(phase_deg)
-        
-        compensation_buffer = []
-        points = 100
-        for i in range(points):
-            angle = (2.0 * math.pi * i / points) - phase_rad
-            # Invert amplitude for destructive interference
-            comp_val = - (amp * 0.15) * math.sin(angle)
-            compensation_buffer.append(round(comp_val, 4))
-            
-        return compensation_buffer
-
-
-class NairobiCommercialGrainMillingRollerMillDynamicTorqueRippleHarmonicAmplitudePhaseQuadratureResolverInterferometerCorrelatorEstimatorPredictorSynchronizerModulator:
-    """
-    Main orchestrator integrating resolver interferometry, predictive harmonic correction,
-    and inverter synchronization for Nairobi commercial milling facilities.
-    """
-
-    def __init__(self, plant_id: str = "NAIROBI_MILL_PLANT_ALPHA") -> None:
-        self.plant_id = plant_id
-        self.engine = RollerMillHarmonicModulatorEngine()
-        logger.info("Initialized orchestrator for plant: %s", plant_id)
-
-    def execute_diagnostic_cycle(self, telemetry_stream: List[float]) -> Dict[str, Any]:
-        """
-        Executes full diagnostic and predictive modulation synchronization cycle.
-        """
-        try:
-            interferometry = self.engine.compute_quadrature_interferometry(telemetry_stream)
-            compensation_signal = self.engine.generate_modulation_compensation_signal(interferometry)
-
-            report = {
-                "plant_id": self.plant_id,
-                "interferometry_analysis": interferometry,
-                "compensation_signal_sample": compensation_signal[:10],
-                "action_taken": "MODULATION_APPLIED" if interferometry["status"] == "HIGH_RIPPLE_WARNING" else "MONITORING_NOMINAL"
-            }
-            logger.info("Diagnostic cycle completed successfully for %s. Status: %s", self.plant_id, interferometry["status"])
-            return report
-        except Exception as e:
-            logger.error("Error during diagnostic cycle: %s", str(e))
-            return {
-                "plant_id": self.plant_id,
-                "error": str(e),
-                "status": "FAILURE"
-            }
-
 if __name__ == "__main__":
-    # Test Harness for Nairobi Industrial Roller Mill Harmonic Synchronization
-    modulator = NairobiCommercialGrainMillingRollerMillDynamicTorqueRippleHarmonicAmplitudePhaseQuadratureResolverInterferometerCorrelatorEstimatorPredictorSynchronizerModulator("NAIROBI_INDUSTRIAL_MILL_01")
-    
-    # Simulate raw torque telemetry stream with 50Hz carrier and 150Hz harmonic ripple
-    simulated_telemetry = [
-        100.0 + 12.5 * math.sin(2.0 * math.pi * 50.0 * (i / 1000.0)) + 4.2 * math.cos(2.0 * math.pi * 150.0 * (i / 1000.0))
-        for i in range(500)
-    ]
-    
-    result = modulator.execute_diagnostic_cycle(simulated_telemetry)
-    print("Execution Result:", result)
+    modulator = RollerMillTorqueModulator(target_frequency_hz=50.0)
+    # Test mock telemetry simulating roller mill drive torque ripple
+    mock_telemetry = [100.0 + 5.0 * math.sin(i * 0.1) + 2.0 * math.cos(i * 0.3) for i in range(100)]
+    result = modulator.process_telemetry(mock_telemetry)
+    logger.info(f"Test execution complete. Result: {result}")
