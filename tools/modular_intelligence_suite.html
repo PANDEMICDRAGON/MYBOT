@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cortana // Modular Intelligence & Command Suite</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #07090e;
+      --card-bg: #0e131f;
+      --card-border: #1e293b;
+      --accent-cyan: #06b6d4;
+      --accent-violet: #8b5cf6;
+      --accent-green: #10b981;
+      --accent-rose: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+    
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+    body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; padding: 1.5rem; }
+    
+    .container { max-width: 1200px; margin: 0 auto; }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--card-border);
+      margin-bottom: 1.5rem;
+    }
+    
+    .brand { display: flex; align-items: center; gap: 0.75rem; }
+    .brand-logo {
+      width: 42px; height: 42px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+      border-radius: 10px;
+      display: grid; place-items: center;
+      font-weight: 700; color: #fff; font-size: 1.2rem;
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.4);
+    }
+    .brand-title { font-size: 1.25rem; font-weight: 700; letter-spacing: 0.5px; }
+    .brand-subtitle { font-size: 0.8rem; color: var(--accent-cyan); font-family: 'JetBrains Mono', monospace; }
+    
+    .status-badge {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: rgba(16, 185, 129, 0.1); border: 1px solid var(--accent-green);
+      padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.8rem; color: var(--accent-green);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .status-pulse { width: 8px; height: 8px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 10px var(--accent-green); animation: pulse 1.5s infinite; }
+    
+    @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
+    
+    .nav-tabs {
+      display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 0.5rem; margin-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .tab-btn {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      color: var(--text-muted); padding: 0.6rem 1.2rem; border-radius: 8px;
+      font-size: 0.85rem; cursor: pointer; transition: all 0.2s ease;
+      white-space: nowrap; display: flex; align-items: center; gap: 0.5rem;
+    }
+    .tab-btn.active {
+      background: rgba(6, 182, 212, 0.15); border-color: var(--accent-cyan);
+      color: var(--text-main); font-weight: 600; box-shadow: 0 0 12px rgba(6, 182, 212, 0.2);
+    }
+    .tab-btn:hover:not(.active) { border-color: var(--accent-violet); color: var(--text-main); }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; }
+    
+    .card {
+      background: var(--card-bg); border: 1px solid var(--card-border);
+      border-radius: 12px; padding: 1.25rem; display: flex; flex-direction: column; justify-content: space-between;
+      position: relative; overflow: hidden;
+    }
+    .card::before {
+      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+    }
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; }
+    .card-title { font-size: 1rem; font-weight: 600; }
+    .card-tag { font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.2rem 0.5rem; border-radius: 4px; background: rgba(255,255,255,0.05); border: 1px solid var(--card-border); }
+    
+    .metric-val { font-size: 1.8rem; font-weight: 700; color: var(--accent-cyan); margin: 0.5rem 0; font-family: 'JetBrains Mono', monospace; }
+    .metric-sub { font-size: 0.8rem; color: var(--text-muted); }
+    
+    .btn-action {
+      margin-top: 1rem; width: 100%; padding: 0.6rem; border: none; border-radius: 6px;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-violet));
+      color: #fff; font-weight: 600; cursor: pointer; transition: opacity 0.2s ease;
+      font-size: 0.85rem;
+    }
+    .btn-action:hover { opacity: 0.9; }
+    
+    .console-box {
+      background: #04060a; border: 1px solid var(--card-border); border-radius: 10px;
+      padding: 1rem; font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+      color: var(--accent-cyan); margin-top: 1.5rem; max-height: 250px; overflow-y: auto;
+    }
+    
+    .module-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.75rem; background: rgba(255,255,255,0.02); border: 1px solid var(--card-border);
+      border-radius: 8px; margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="brand-logo">C</div>
+        <div>
+          <div class="brand-title">CORTANA // MODULAR SUITE</div>
+          <div class="brand-subtitle">OPERATOR: MICHAEL OBIERO // 24/7 ACTIVE</div>
+        </div>
+      </div>
+      <div class="status-badge">
+        <div class="status-pulse"></div>
+        SYSTEM HYPER-OPTIMAL
+      </div>
+    </header>
+    
+    <nav class="nav-tabs">
+      <button class="tab-btn active" onclick="switchTab('overview')">⚡ Suite Overview</button>
+      <button class="tab-btn" onclick="switchTab('security')">🛡️ Security Radar</button>
+      <button class="tab-btn" onclick="switchTab('market')">📊 Market Matrix</button>
+      <button class="tab-btn" onclick="switchTab('creative')">🎬 Creative Studio</button>
+      <button class="tab-btn" onclick="switchTab('swarm')">🤖 Agent Swarm</button>
+      <button class="tab-btn" onclick="switchTab('extender')">🧩 Module Manager</button>
+    </nav>
+    
+    <div id="tab-content">
+      <!-- Dynamic Content Rendered Here -->
+    </div>
+
+    <div class="console-box" id="suite-console">
+      > Cortana Intelligence Engine Ready.<br>
+      > 5 Active Modules Mounted. Auto-Expansion Active.<br>
+      > Telemetry link: STABLE (0ms latency).
+    </div>
+  </div>
+
+  <script>
+    const modules = [
+      { id: 'security_radar', name: 'Security & Zero-Day Sentinel', status: 'ACTIVE', version: '2.4.0', cat: 'DEFENSIVE', metric: '0 Vulnerabilities', desc: 'Perimeter hardened against CVEs.' },
+      { id: 'market_matrix', name: 'NSE & Macro Economic Analytics', status: 'ACTIVE', version: '1.8.2', cat: 'QUANT', metric: 'KES/USD 129.10', desc: 'Real-time equity & foreign exchange telemetry.' },
+      { id: 'content_studio', name: 'Creative Content Synthesizer', status: 'ACTIVE', version: '3.1.0', cat: 'CREATIVE', metric: '100% Protected', desc: 'Automated promo copy & metadata pipeline.' },
+      { id: 'swarm_telemetry', name: 'Autonomous Sub-Agent Swarm', status: 'ACTIVE', version: '4.0.0', cat: 'SWARM', metric: '14 Active Agents', desc: 'Collective Power: 20,700 Index.' },
+      { id: 'sys_diagnostics', name: 'System Health & Cloud Node', status: 'ACTIVE', version: '2.1.0', cat: 'INFRA', metric: '99.99% Uptime', desc: 'Vercel cloud node operating strictly.' }
+    ];
+
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      const content = document.getElementById('tab-content');
+      const consoleBox = document.getElementById('suite-console');
+
+      if (tab === 'overview') {
+        renderOverview();
+      } else if (tab === 'extender') {
+        renderExtender();
+      } else {
+        const mod = modules.find(m => m.id.includes(tab) || tab.includes(m.cat.toLowerCase()));
+        content.innerHTML = `
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">${mod ? mod.name : tab.toUpperCase()}</span>
+              <span class="card-tag">${mod ? mod.version : 'v1.0'}</span>
+            </div>
+            <div class="metric-val">${mod ? mod.metric : 'ONLINE'}</div>
+            <p class="metric-sub">${mod ? mod.desc : 'Module operational.'}</p>
+            <button class="btn-action" onclick="logConsole('Ran diagnostics on ${tab}')">Execute Diagnostic Check</button>
+          </div>
+        `;
+      }
+      logConsole(`Switched to tab: ${tab}`);
+    }
+
+    function renderOverview() {
+      const content = document.getElementById('tab-content');
+      let html = '<div class="grid">';
+      modules.forEach(m => {
+        html += `
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">${m.name}</span>
+              <span class="card-tag">${m.cat}</span>
+            </div>
+            <div class="metric-val">${m.metric}</div>
+            <p class="metric-sub">${m.desc}</p>
+            <button class="btn-action" onclick="logConsole('Triggered module: ${m.name}')">Run Module Telemetry</button>
+          </div>
+        `;
+      });
+      html += '</div>';
+      content.innerHTML = html;
+    }
+
+    function renderExtender() {
+      const content = document.getElementById('tab-content');
+      content.innerHTML = `
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">🧩 Add New Module to Suite</span>
+            <span class="card-tag">AUTO-EXPANSION</span>
+          </div>
+          <p class="metric-sub" style="margin-bottom: 1rem;">Register a new Python/JS module file to instantly mount it into Cortana's workspace suite.</p>
+          <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <input type="text" id="modName" placeholder="Module Name (e.g., Satellite Weather Drone)" style="background:#07090e; border:1px solid #1e293b; color:#fff; padding:0.6rem; border-radius:6px;">
+            <input type="text" id="modCategory" placeholder="Category (e.g., OSINT / QUANT / DEFENSE)" style="background:#07090e; border:1px solid #1e293b; color:#fff; padding:0.6rem; border-radius:6px;">
+            <button class="btn-action" onclick="addNewModule()">Mount New Module</button>
+          </div>
+        </div>
+      `;
+    }
+
+    function addNewModule() {
+      const name = document.getElementById('modName').value || 'Custom Module';
+      const cat = document.getElementById('modCategory').value || 'GENERIC';
+      modules.push({
+        id: name.toLowerCase().replace(/\s+/g, '_'),
+        name: name,
+        status: 'ACTIVE',
+        version: '1.0.0',
+        cat: cat,
+        metric: 'MOUNTED',
+        desc: 'Newly injected custom operational module.'
+      });
+      logConsole(`NEW MODULE MOUNTED: ${name} [${cat}]`);
+      renderOverview();
+    }
+
+    function logConsole(msg) {
+      const consoleBox = document.getElementById('suite-console');
+      const time = new Date().toLocaleTimeString();
+      consoleBox.innerHTML += `<br>[${time}] > ${msg}`;
+      consoleBox.scrollTop = consoleBox.scrollHeight;
+    }
+
+    // Initial render
+    renderOverview();
+  </script>
+</body>
+</html>
