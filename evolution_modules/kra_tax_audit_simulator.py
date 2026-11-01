@@ -1,120 +1,58 @@
 import json
 import hashlib
 import time
-from typing import Dict, List, Optional, Any
-from dataclasses import dataclass, field
-from enum import Enum
-
-
-class TaxCategory(Enum):
-    VAT = "VAT"
-    PAYE = "PAYE"
-    WITHHOLDING = "WITHHOLDING"
-    ELEVATED = "ELEVATED"
-
+from typing import Dict, List, Optional
+from dataclasses import dataclass, asdict
 
 @dataclass
 class Transaction:
-    tx_id: str
+    id: str
     amount: float
-    category: TaxCategory
+    category: str
     timestamp: float
-    metadata: Dict[str, Any] = field(default_factory=dict)
 
+@dataclass
+class TaxRule:
+    category: str
+    rate: float
+    threshold: float
 
-class KRAComplianceEngine:
-    """
-    Simulates KRA tax audit trails and validates compliance.
-    """
+class KRA_Tax_Audit_Simulator:
+    def __init__(self):
+        self.rules: List[TaxRule] = [
+            TaxRule("digital_services", 0.16, 0.0),
+            TaxRule("physical_goods", 0.16, 0.0),
+            TaxRule("exempt", 0.0, 0.0)
+        ]
+        self.transactions: List[Transaction] = []
+        self.audit_log: List[Dict] = []
 
-    def __init__(self, vat_rate: float = 0.16, paye_threshold: float = 240000.0):
-        self.vat_rate = vat_rate
-        self.paye_threshold = paye_threshold
-        self.audit_log: List[Dict[str, Any]] = []
-        self._hash_chain: Optional[str] = None
+    def add_transaction(self, tx: Transaction) -> None:
+        self.transactions.append(tx)
+        self._log_action("ADD_TX", tx.id)
 
-    def _compute_hash(self, data: Dict[str, Any]) -> str:
-        """Compute SHA-256 hash for tamper-evident logging."""
-        return hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()
+    def calculate_tax(self) -> Dict[str, float]:
+        total_tax = 0.0
+        breakdown = {}
+        for tx in self.transactions:
+            rule = next((r for r in self.rules if r.category == tx.category), None)
+            if rule:
+                tax = max(0, (tx.amount - rule.threshold) * rule.rate)
+                total_tax += tax
+                breakdown[tx.category] = breakdown.get(tx.category, 0) + tax
+        return {"total_tax": total_tax, "breakdown": breakdown}
 
-    def log_transaction(self, tx: Transaction) -> None:
-        """Log a transaction with tamper-evident hash chaining."""
-        entry = {
-            "tx_id": tx.tx_id,
-            "amount": tx.amount,
-            "category": tx.category.value,
-            "timestamp": tx.timestamp,
-            "metadata": tx.metadata,
-            "prev_hash": self._hash_chain,
-        }
-        entry["hash"] = self._compute_hash(entry)
-        self._hash_chain = entry["hash"]
-        self.audit_log.append(entry)
+    def generate_audit_hash(self) -> str:
+        payload = json.dumps([asdict(t) for t in self.transactions], sort_keys=True)
+        return hashlib.sha256(payload.encode()).hexdigest()
 
-    def validate_compliance(self) -> Dict[str, Any]:
-        """Validate all logged transactions against KRA rules."""
-        violations = []
-        for entry in self.audit_log:
-            if entry["category"] == TaxCategory.VAT.value and entry["amount"] > 0:
-                expected_vat = entry["amount"] * self.vat_rate
-                if abs(entry["metadata"].get("vat_amount", 0) - expected_vat) > 0.01:
-                    violations.append({
-                        "tx_id": entry["tx_id"],
-                        "issue": "VAT mismatch",
-                        "expected": expected_vat,
-                        "actual": entry["metadata"].get("vat_amount", 0)
-                    })
-            if entry["category"] == TaxCategory.PAYE.value and entry["amount"] > self.paye_threshold:
-                if not entry["metadata"].get("paye_declared", False):
-                    violations.append({
-                        "tx_id": entry["tx_id"],
-                        "issue": "PAYE not declared for high-value transaction"
-                    })
-        return {
-            "total_transactions": len(self.audit_log),
-            "violations": violations,
-            "compliant": len(violations) == 0
-        }
-
-    def generate_audit_report(self) -> str:
-        """Generate a human-readable audit report."""
-        report = ["KRA Tax Audit Report", "=" * 40]
-        for entry in self.audit_log:
-            report.append(f"TX: {entry['tx_id']} | Amount: {entry['amount']} | Category: {entry['category']}")
-        report.append("=" * 40)
-        return "\n".join(report)
-
-
-def main():
-    """Test harness for KRA Compliance Engine."""
-    engine = KRAComplianceEngine()
-    
-    # Simulate transactions
-    tx1 = Transaction(
-        tx_id="TX001",
-        amount=10000.0,
-        category=TaxCategory.VAT,
-        timestamp=time.time(),
-        metadata={"vat_amount": 1600.0}
-    )
-    engine.log_transaction(tx1)
-
-    tx2 = Transaction(
-        tx_id="TX002",
-        amount=300000.0,
-        category=TaxCategory.PAYE,
-        timestamp=time.time(),
-        metadata={"paye_declared": False}
-    )
-    engine.log_transaction(tx2)
-
-    # Validate compliance
-    result = engine.validate_compliance()
-    print(json.dumps(result, indent=2))
-    
-    # Generate report
-    print(engine.generate_audit_report())
-
+    def _log_action(self, action: str, ref: str) -> None:
+        self.audit_log.append({"action": action, "ref": ref, "ts": time.time()})
 
 if __name__ == "__main__":
-    main()
+    sim = KRA_Tax_Audit_Simulator()
+    sim.add_transaction(Transaction("tx1", 1000.0, "digital_services", time.time()))
+    sim.add_transaction(Transaction("tx2", 500.0, "exempt", time.time()))
+    result = sim.calculate_tax()
+    assert result["total_tax"] == 160.0
+    print("KRA Tax Audit Simulator Test Passed:", result)
