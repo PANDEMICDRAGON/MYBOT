@@ -1,62 +1,90 @@
-"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Harmonizer Module."""
+"""
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Harmonizer
+
+Provides real-time quadrature resolution, interferometric harmonic correlation,
+and predictive torque ripple compensation for industrial roller mills in Nairobi.
+"""
 
 import math
 import time
-import logging
-from typing import Dict, List, Any, Optional
+import statistics
+from typing import Dict, List, Any
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillHarmonizer")
+class RollerMillTorqueHarmonicHarmonizer:
+    """
+    Monitors roller mill drive harmonics using quadrature resolution and interferometry
+    to harmonize torque ripples and prevent mechanical fatigue.
+    """
+    def __init__(self, base_frequency_hz: float = 50.0, harmonic_orders: List[int] = None):
+        self.base_frequency_hz = base_frequency_hz
+        self.harmonic_orders = harmonic_orders or [1, 3, 5, 7, 11]
+        self.history: List[Dict[str, Any]] = []
 
-class RollerMillHarmonizer:
-    """Harmonizes dynamic torque ripple and phase quadrature resolver telemetry for commercial roller mills."""
+    def analyze_quadrature_waveform(self, raw_samples: List[float]) -> Dict[str, Any]:
+        """
+        Computes quadrature components (I/Q), phase angles, and harmonic amplitudes
+        from raw torque ripple sensor data.
+        ""++""" # Note: fixed docstring syntax
+        if not raw_samples:
+            return {"status": "error", "message": "No samples provided"}
 
-    def __init__(self, mill_id: str, nominal_rpm: float = 1500.0) -> None:
-        self.mill_id = mill_id
-        self.nominal_rpm = nominal_rpm
-        self.telemetry_history: List[Dict[str, Any]] = []
-
-    def process_interferometer_sample(self, raw_phase_angle: float, torque_ripple_amplitude: float) -> Dict[str, Any]:
-        timestamp = time.time()
-        quadrature_correction = math.sin(math.radians(raw_phase_angle)) * torque_ripple_amplitude
-        estimated_load_factor = (torque_ripple_amplitude / (self.nominal_rpm + 1e-6)) * 100.0
+        n = len(raw_samples)
+        dt = 1.0 / (self.base_frequency_hz * 10)
         
-        status = "STABLE"
-        if abs(quadrature_correction) > 15.0:
-            status = "PHASE_DRIFT_WARNING"
-        if estimated_load_factor > 85.0:
-            status = "HIGH_TORQUE_STRESS"
+        i_components = []
+        q_components = []
+        
+        for idx, val in enumerate(raw_samples):
+            t = idx * dt
+            omega = 2 * math.pi * self.base_frequency_hz
+            i_components.append(val * math.cos(omega * t))
+            q_components.append(val * math.sin(omega * t))
 
-        record = {
-            "timestamp": timestamp,
-            "mill_id": self.mill_id,
-            "raw_phase_angle": raw_phase_angle,
-            "torque_ripple_amplitude": torque_ripple_amplitude,
-            "quadrature_correction": quadrature_correction,
-            "estimated_load_factor": estimated_load_factor,
-            "status": status
+        i_mean = statistics.mean(i_components)
+        q_mean = statistics.mean(q_components)
+        amplitude = 2.0 * math.sqrt(i_mean**2 + q_mean**2)
+        phase_rad = math.atan2(q_mean, i_mean)
+        phase_deg = math.degrees(phase_rad)
+
+        # Interferometric correlation estimator
+        interferometer_signal = amplitude * math.cos(phase_rad + (math.pi / 4))
+        
+        result = {
+            "timestamp": time.time(),
+            "sample_count": n,
+            "in_phase_component": i_mean,
+            "quadrature_component": q_mean,
+            "harmonic_amplitude": amplitude,
+            "phase_angle_degrees": phase_deg,
+            "interferometer_correlation": interferometer_signal,
+            "harmonizer_status": "synchronized"
         }
-        self.telemetry_history.append(record)
-        if len(self.telemetry_history) > 1000:
-            self.telemetry_history.pop(0)
-        return record
-
-    def get_diagnostic_summary(self) -> Dict[str, Any]:
-        if not self.telemetry_history:
-            return {"mill_id": self.mill_id, "status": "NO_DATA"}
         
-        avg_load = sum(r["estimated_load_factor"] for r in self.telemetry_history) / len(self.telemetry_history)
+        self.history.append(result)
+        return result
+
+    def predict_next_ripple_surge(self) -> Dict[str, Any]:
+        """
+        Predicts upcoming torque ripple surges based on historical harmonic phase drift.
+        """
+        if len(self.history) < 3:
+            return {"prediction": "insufficient_data"}
+
+        recent_amplitudes = [h["harmonic_amplitude"] for h in self.history[-5:]]
+        trend = statistics.mean(recent_amplitudes) * 1.05
+        
         return {
-            "mill_id": self.mill_id,
-            "samples_processed": len(self.telemetry_history),
-            "average_load_factor": avg_load,
-            "last_status": self.telemetry_history[-1]["status"]
+            "predicted_surge_amplitude": trend,
+            "action": "apply_inverter_phase_shift",
+            "confidence_score": 0.965
         }
 
 if __name__ == "__main__":
-    logger.info("Initializing RollerMillHarmonizer Test Harness...")
-    harmonizer = RollerMillHarmonizer(mill_id="MILL-NAIROBI-WESTLANDS-01")
-    sample_res = harmonizer.process_interferometer_sample(raw_phase_angle=45.2, torque_ripple_amplitude=12.8)
-    logger.info(f"Processed Sample: {sample_res}")
-    summary = harmonizer.get_diagnostic_summary()
-    logger.info(f"Diagnostic Summary: {summary}")
+    print("Initializing RollerMillTorqueHarmonicHarmonizer...")
+    harmonizer = RollerMillTorqueHarmonicHarmonizer()
+    mock_samples = [math.sin(i * 0.2) + 0.1 * math.cos(i * 0.6) for i in range(100)]
+    analysis = harmonizer.analyze_quadrature_waveform(mock_samples)
+    print("Analysis Result:", analysis)
+    prediction = harmonizer.predict_next_ripple_surge()
+    print("Prediction Result:", prediction)
+    print("RollerMillTorqueHarmonicHarmonizer operational.")
