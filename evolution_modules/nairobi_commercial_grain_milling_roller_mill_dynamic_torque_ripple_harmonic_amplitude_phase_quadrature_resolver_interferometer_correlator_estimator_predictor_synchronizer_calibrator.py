@@ -1,91 +1,74 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Calibrator
-
-Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Nairobi, Kenya)
-Description: Provides real-time calibration and closed-loop phase-quadrature synchronization for roller mill resolver interferometers, mitigating harmonic torque ripples in industrial milling machinery.
-"""
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Calibrator Module."""
 
 import math
-import statistics
-import time
-from typing import Dict, List, Optional, Tuple
+import logging
+from typing import Dict, Any, List
 
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("RollerMillCalibrator")
 
-class RollerMillResolverInterferometerCalibrator:
-    """
-    Monitors and calibrates quadrature resolver interferometer phase and harmonic amplitude
-    in commercial grain milling roller mill spindles.
-    """
+class RollerMillDynamicCalibrator:
+    """Performs real-time quadrature resolver phase calibration and harmonic torque ripple compensation for roller mills."""
+    
+    def __init__(self, mill_id: str, nominal_rpm: float = 1500.0):
+        self.mill_id = mill_id
+        self.nominal_rpm = nominal_rpm
+        self.phase_offset_rad = 0.0
+        self.harmonic_amplitude = 0.0
+        logger.info(f"Initialized RollerMillDynamicCalibrator for mill {mill_id} at {nominal_rpm} RPM.")
 
-    def __init__(self, target_frequency_hz: float = 50.0, tolerance_margin: float = 0.02):
-        self.target_frequency_hz = target_frequency_hz
-        self.tolerance_margin = tolerance_margin
-        self.calibration_history: List[Dict[str, float]] = []
-        self.is_calibrated = False
-
-    def measure_phase_quadrature(self, raw_sin_signal: List[float], raw_cos_signal: List[float]) -> Tuple[float, float, float]:
-        """
-        Calculates phase error, quadrature amplitude imbalance, and estimated harmonic ripple.
-        """ 
-        if not raw_sin_signal or not raw_cos_signal or len(raw_sin_signal) != len(raw_cos_signal):
-            raise ValueError("Invalid or mismatched signal sample arrays provided.")
-
-        sin_rms = math.sqrt(sum(s ** 2 for s in raw_sin_signal) / len(raw_sin_signal))
-        cos_rms = math.sqrt(sum(c ** 2 for c in raw_cos_signal) / len(raw_cos_signal))
-
-        # Amplitude imbalance ratio
-        amplitude_imbalance = abs(sin_rms - cos_rms) / (max(sin_rms, cos_rms) + 1e-9)
-
-        # Estimate orthogonal phase deviation
-        dot_product = sum(s * c for s, c in zip(raw_sin_signal, raw_cos_signal))
-        normalization = (sin_rms * cos_rms * len(raw_sin_signal)) + 1e-9
-        phase_error_rad = math.asin(max(-1.0, min(1.0, dot_product / normalization)))
-
-        # Harmonic ripple estimation
-        ripple_estimate = statistics.stdev(raw_sin_signal) if len(raw_sin_signal) > 1 else 0.0
-
-        return phase_error_rad, amplitude_imbalance, ripple_estimate
-
-    def calibrate_synchronizer(self, raw_sin: List[float], raw_cos: List[float]) -> Dict[str, any]:
-        """
-        Executes full calibration pass and updates operational synchronization parameters.
-        """
-        start_time = time.time()
-        phase_error, amp_imbalance, ripple = self.measure_phase_quadrature(raw_sin, raw_cos)
-
-        correction_gain_sin = 1.0 / (1.0 + amp_imbalance)
-        correction_gain_cos = 1.0 / (1.0 - amp_imbalance) if amp_imbalance < 1.0 else 1.0
-        phase_offset_correction = -phase_error
-
-        self.is_calibrated = abs(phase_error) <= self.tolerance_margin and amp_imbalance <= self.tolerance_margin
-
-        result = {
-            "timestamp": time.time(),
-            "execution_time_ms": (time.time() - start_time) * 1000.0,
-            "phase_error_radians": phase_error,
-            "amplitude_imbalance": amp_imbalance,
-            "harmonic_ripple_estimate": ripple,
-            "correction_gain_sin": correction_gain_sin,
-            "correction_gain_cos": correction_gain_cos,
-            "phase_offset_correction": phase_offset_correction,
-            "is_calibrated": self.is_calibrated
+    def analyze_quadrature_signals(self, sine_wave: List[float], cosine_wave: List[float]) -> Dict[str, float]:
+        """Calculates instantaneous phase angle and harmonic amplitude using interferometer-style quadrature correlation."""
+        if len(sine_wave) != len(cosine_wave) or not sine_wave:
+            raise ValueError("Quadrature signal buffers must be non-empty and of equal length.")
+        
+        accumulated_phase = 0.0
+        accumulated_amplitude = 0.0
+        count = len(sine_wave)
+        
+        for s, c in zip(sine_wave, cosine_wave):
+            angle = math.atan2(s, c)
+            amplitude = math.hypot(s, c)
+            accumulated_phase += angle
+            accumulated_amplitude += amplitude
+            
+        avg_phase = accumulated_phase / count
+        avg_amplitude = accumulated_amplitude / count
+        
+        self.phase_offset_rad = avg_phase
+        self.harmonic_amplitude = avg_amplitude
+        
+        return {
+            "estimated_phase_rad": avg_phase,
+            "harmonic_amplitude": avg_amplitude,
+            "sync_health_score": max(0.0, 1.0 - abs(avg_phase / math.pi))
         }
 
-        self.calibration_history.append(result)
-        return result
-
+    def calibrate_and_predict(self, current_torque_ripple: float) -> Dict[str, Any]:
+        """Predicts and compensates for torque ripple anomalies based on harmonic phase correction."""
+        compensation_factor = math.sin(self.phase_offset_rad) * self.harmonic_amplitude
+        adjusted_torque = current_torque_ripple - (compensation_factor * 0.05)
+        
+        status = "OPTIMAL"
+        if abs(adjusted_torque) > 12.5:
+            status = "WARNING_HIGH_RIPPLE"
+        elif abs(adjusted_torque) < 1.0:
+            status = "LOCKED_SYNCHRONIZED"
+            
+        return {
+            "mill_id": self.mill_id,
+            "raw_torque_ripple": current_torque_ripple,
+            "compensated_torque": adjusted_torque,
+            "status": status
+        }
 
 if __name__ == "__main__":
-    print("[+] Initializing Nairobi Roller Mill Resolver Interferometer Calibrator Test Harness...")
-    calibrator = RollerMillResolverInterferometerCalibrator()
-
-    # Generate synthetic quadrature signals with minor phase skew and harmonic ripple
-    samples = 1000
-    t_vals = [i * (2 * math.pi / 100) for i in range(samples)]
-    sin_sig = [math.sin(t) + 0.01 * math.sin(3 * t) for t in t_vals]
-    cos_sig = [math.cos(t + 0.015) - 0.01 * math.cos(3 * t) for t in t_vals]
-
-    calibration_report = calibrator.calibrate_synchronizer(sin_sig, cos_sig)
-    print(f"[+] Calibration Report: {calibration_report}")
-    print("[+] Roller Mill Synchronizer Calibrator module operational and verified.")
+    calibrator = RollerMillDynamicCalibrator(mill_id="NAIROBI_MILL_04", nominal_rpm=1485.0)
+    sample_sine = [math.sin(i * 0.1) for i in range(50)]
+    sample_cosine = [math.cos(i * 0.1) for i in range(50)]
+    
+    analysis = calibrator.analyze_quadrature_signals(sample_sine, sample_cosine)
+    print("Analysis Result:", analysis)
+    
+    prediction = calibrator.calibrate_and_predict(current_torque_ripple=8.4)
+    print("Calibration & Prediction Result:", prediction)
