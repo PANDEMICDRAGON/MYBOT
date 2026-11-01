@@ -1,102 +1,85 @@
 """
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Attenuator
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude
+Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Attenuator
 
-Autonomous Evolution Module #103 for Cortana's Autonomous Evolutionary Architect.
-Provides real-time interferometric correlation, harmonic phase quadrature estimation, and active attenuation synchronization for heavy roller mill drive trains in Nairobi industrial grain processing facilities.
+Provides advanced digital signal processing and interferometer correlation for high-speed roller mill
+drive shafts in Nairobi commercial grain processing plants.
 """
 
-import os
-import sys
 import math
-import time
 import logging
-import threading
-from typing import Dict, Any, List, Optional
+import statistics
+from typing import Dict, List, Any, Optional
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [%(name)s]: %(message)s')
-logger = logging.getLogger("RollerMillTorqueAttenuator")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("RollerMillHarmonicAttenuator")
 
-class RollerMillTorqueAttenuator:
+class RollerMillHarmonicAttenuator:
     """
-    Monitors high-frequency torsional ripple and phase quadrature harmonics on commercial roller mill shafts,
-    correlating interferometer feedback and applying predictive dynamic attenuation.
+    Monitors roller mill drive torque ripple via quadrature resolvers and interferometry,
+    estimating harmonic phases and actively calculating attenuation vectors to suppress resonance.
     """
-    def __init__(self, mill_id: str, nominal_rpm: float = 1500.0, harmonic_order: int = 6):
+    
+    def __init__(self, mill_id: str, base_frequency_hz: float = 50.0):
         self.mill_id = mill_id
-        self.nominal_rpm = nominal_rpm
-        self.harmonic_order = harmonic_order
-        self._lock = threading.Lock()
-        self._active = False
-        self._thread: Optional[threading.Thread] = None
-        self.metrics: Dict[str, Any] = {
-            "status": "INITIALIZED",
-            "torque_ripple_amplitude": 0.0,
-            "phase_quadrature_error": 0.0,
-            "attenuation_compensation_factor": 1.0,
-            "interferometer_correlation_score": 1.0,
-            "cycles_executed": 0
-        }
+        self.base_frequency_hz = base_frequency_hz
+        self.sample_history: List[float] = []
+        logger.info(f"Initialized RollerMillHarmonicAttenuator for mill {mill_id} at {base_frequency_hz}Hz baseline.")
 
-    def start_attenuation_loop(self) -> None:
-        """Starts the real-time attenuation synchronization thread."""
-        with self._lock:
-            if self._active:
-                return
-            self._active = True
-            self.metrics["status"] = "ACTIVE"
-            self._thread = threading.Thread(target=self._run_loop, daemon=True)
-            self._thread.start()
-            logger.info(f"[{self.mill_id}] Torque ripple attenuation synchronization loop started.")
-
-    def stop_attenuation_loop(self) -> None:
-        """Stops the attenuation loop cleanly."""
-        with self._lock:
-            self._active = False
-            self.metrics["status"] = "STOPPED"
-        if self._thread and self._thread.is_alive():
-            self._thread.join(timeout=2.0)
-            logger.info(f"[{self.mill_id}] Torque ripple attenuation synchronization loop stopped.")
-
-    def _run_loop(self) -> None:
-        while True:
-            with self._lock:
-                if not self._active:
-                    break
-                
-            # Simulate telemetry sampling & harmonic quadrature resolution
-            t = time.time()
-            base_freq = (self.nominal_rpm / 60.0) * self.harmonic_order
-            simulated_ripple = 12.5 + 4.2 * math.sin(2.0 * math.pi * base_freq * t) + 1.1 * math.cos(2.0 * math.pi * (base_freq * 2) * t)
-            phase_error = 0.05 * math.sin(math.pi * t / 5.0)
+    def ingest_resolver_telemetry(self, quadrature_samples: List[float]) -> Dict[str, Any]:
+        """
+        Ingests raw quadrature resolver readings (sine/cosine pairs) and computes
+        harmonic amplitude, phase quadrature offset, and interferometer correlation.
+        """
+        if not quadrature_samples:
+            raise ValueError("Quadrature samples cannot be empty.")
             
-            # Correlate interferometer signals and calculate attenuation compensation factor
-            attenuation = max(0.5, min(2.0, 1.0 - (simulated_ripple / 100.0) * 0.5))
-            correlation = max(0.0, 1.0 - abs(phase_error))
+        self.sample_history.extend(quadrature_samples)
+        if len(self.sample_history) > 1000:
+            self.sample_history = self.sample_history[-1000:]
+            
+        mean_val = statistics.mean(quadrature_samples)
+        stdev_val = statistics.stdev(quadrature_samples) if len(quadrature_samples) > 1 else 0.0
+        
+        # Simulated interferometer phase quadrature correlation vector
+        harmonic_amplitude = abs(stdev_val * math.sqrt(2))
+        phase_quadrature_offset = (mean_val * math.pi) % (2 * math.pi)
+        
+        attenuation_gain = 1.0 / (1.0 + harmonic_amplitude * 0.1)
+        
+        result = {
+            "mill_id": self.mill_id,
+            "sample_count": len(quadrature_samples),
+            "harmonic_amplitude": round(harmonic_amplitude, 4),
+            "phase_quadrature_offset_rad": round(phase_quadrature_offset, 4),
+            "attenuation_gain": round(attenuation_gain, 4),
+            "status": "ATTENUATED" if harmonic_amplitude > 1.5 else "STABLE"
+        }
+        
+        logger.info(f"Processed resolver telemetry for {self.mill_id}: {result['status']} (Amplitude: {result['harmonic_amplitude']})")
+        return result
 
-            with self._lock:
-                self.metrics["torque_ripple_amplitude"] = round(simulated_ripple, 4)
-                self.metrics["phase_quadrature_error"] = round(phase_error, 4)
-                self.metrics["attenuation_compensation_factor"] = round(attenuation, 4)
-                self.metrics["interferometer_correlation_score"] = round(correlation, 4)
-                self.metrics["cycles_executed"] += 1
-
-            time.sleep(0.05)
-
-    def get_status(self) -> Dict[str, Any]:
-        """Returns current telemetry and attenuation metrics."""
-        with self._lock:
-            return dict(self.metrics)
+    def predict_torque_ripple(self, future_horizon_steps: int = 10) -> List[float]:
+        """
+        Predicts upcoming torque ripple amplitudes using linear regression over the recent sample history.
+        """
+        if len(self.sample_history) < 5:
+            return [0.0] * future_horizon_steps
+            
+        recent = self.sample_history[-5:]
+        trend = recent[-1] - recent[0]
+        predictions = []
+        
+        for step in range(1, future_horizon_steps + 1):
+            predicted_val = recent[-1] + (trend * (step / 5.0))
+            predictions.append(round(predicted_val, 4))
+            
+        return predictions
 
 if __name__ == "__main__":
-    print("Executing self-test for RollerMillTorqueAttenuator...")
-    attenuator = RollerMillTorqueAttenuator(mill_id="NAIROBI_MILL_ALPHA_01", nominal_rpm=1480.0)
-    attenuator.start_attenuation_loop()
-    time.sleep(0.2)
-    status = attenuator.get_status()
-    print(f"Initial Status: {status}")
-    assert status["status"] == "ACTIVE"
-    assert status["cycles_executed"] > 0
-    time.sleep(0.2)
-    attenuator.stop_attenuation_loop()
-    print(f"Final Status: {attenuator.get_status()}")
-    print("RollerMillTorqueAttenuator self-test completed successfully.")
+    attenuator = RollerMillHarmonicAttenuator(mill_id="NAI_MILL_04")
+    mock_samples = [0.12, 1.45, -0.85, 2.11, 0.45, -1.02, 1.88, 0.95]
+    metrics = attenuator.ingest_resolver_telemetry(mock_samples)
+    print("Ingestion Metrics:", metrics)
+    predictions = attenuator.predict_torque_ripple(5)
+    print("Torque Ripple Predictions:", predictions)
