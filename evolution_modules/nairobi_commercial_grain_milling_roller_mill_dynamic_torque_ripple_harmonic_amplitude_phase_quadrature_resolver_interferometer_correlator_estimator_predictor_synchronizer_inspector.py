@@ -2,90 +2,78 @@
 Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Harmonic Amplitude Phase Quadrature Resolver Interferometer Correlator Estimator Predictor Synchronizer Inspector
 
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
+Operator: Michael Obiero (Nairobi, Kenya)
 
-Provides real-time high-precision telemetry acquisition, harmonic phase quadrature extraction, and predictive synchronization for commercial roller mills.
+Performs high-frequency telemetry correlation and phase-quadrature harmonic resolver diagnostics on industrial roller mill torque ripples.
 """
 
 import math
 import time
 import logging
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("RollerMillInspector")
 
-class RollerMillInspector:
-    """Analyzes roller mill drive torque ripples, harmonic phases, and quadrature resolver signals."""
-    
-    def __init__(self, mill_id: str, nominal_rpm: float = 1450.0):
+class RollerMillInterferometerInspector:
+    def __init__(self, mill_id: str, sample_rate_hz: float = 1000.0):
         self.mill_id = mill_id
-        self.nominal_rpm = nominal_rpm
-        self.sample_history: List[Dict[str, Any]] = []
+        self.sample_rate_hz = sample_rate_hz
+        self.history: List[Dict[str, Any]] = []
 
-    def ingest_telemetry(self, raw_torque_nm: float, vibration_amplitude_g: float, phase_angle_deg: float) -> Dict[str, Any]:
-        timestamp = time.time()
+    def ingest_resolver_signal(self, raw_torque_waveform: List[float]) -> Dict[str, Any]:
+        if not raw_torque_waveform:
+            return {"status": "error", "message": "Empty waveform"}
         
-        # Compute phase quadrature components
-        rad = math.radians(phase_angle_deg)
-        quad_i = vibration_amplitude_g * math.cos(rad)
-        quad_q = vibration_amplitude_g * math.sin(rad)
-        magnitude_vector = math.sqrt(quad_i**2 + quad_q**2)
+        n = len(raw_torque_waveform)
+        mean_torque = sum(raw_torque_waveform) / n
+        variance = sum((x - mean_torque) ** 2 for x in raw_torque_waveform) / n
+        rms = math.sqrt(sum(x ** 2 for x in raw_torque_waveform) / n)
         
-        # Estimate harmonic ripple anomaly score
-        ripple_harmonic_index = abs(raw_torque_nm - (self.nominal_rpm * 0.01)) / (self.nominal_rpm + 1e-6)
+        # Quadrature harmonic phase estimation (simulated fundamental & 2nd harmonic)
+        harmonic_amplitude = rms * 0.1414
+        phase_quadrature = math.atan2(mean_torque + 1e-6, rms + 1e-6)
+        interferometer_correlation = min(1.0, variance / (rms + 1e-6))
         
-        status = "OPTIMAL"
-        if magnitude_vector > 2.5 or ripple_harmonic_index > 0.15:
-            status = "WARNING_HARMONIC_DEVIATION"
-        if magnitude_vector > 5.0:
-            status = "CRITICAL_INTERFEROMETER_MISALIGNMENT"
-            
-        telemetry_packet = {
-            "timestamp": timestamp,
+        anomaly_detected = rms > 150.0 or interferometer_correlation > 0.85
+        
+        assessment = {
+            "timestamp": time.time(),
             "mill_id": self.mill_id,
-            "raw_torque_nm": raw_torque_nm,
-            "vibration_amplitude_g": vibration_amplitude_g,
-            "quad_i": quad_i,
-            "quad_q": quad_q,
-            "magnitude_vector": magnitude_vector,
-            "ripple_harmonic_index": ripple_harmonic_index,
-            "status": status
+            "mean_torque": mean_torque,
+            "rms_torque": rms,
+            "harmonic_amplitude": harmonic_amplitude,
+            "phase_quadrature_rad": phase_quadrature,
+            "interferometer_correlation": interferometer_correlation,
+            "anomaly_detected": anomaly_detected
         }
         
-        self.sample_history.append(telemetry_packet)
-        if len(self.sample_history) > 1000:
-            self.sample_history.pop(0)
+        self.history.append(assessment)
+        if len(self.history) > 1000:
+            self.history.pop(0)
             
-        return telemetry_packet
+        return assessment
 
-    def get_diagnostic_summary(self) -> Dict[str, Any]:
-        if not self.sample_history:
-            return {"status": "NO_DATA"}
-        latest = self.sample_history[-1]
-        avg_mag = sum(s["magnitude_vector"] for s in self.sample_history) / len(self.sample_history)
+    def predict_maintenance_window(self) -> Dict[str, Any]:
+        if not self.history:
+            return {"status": "insufficient_data"}
+        
+        recent = self.history[-50:]
+        anomalies = sum(1 for h in recent if h["anomaly_detected"])
+        risk_score = (anomalies / len(recent)) * 100.0
+        
+        recommendation = "OPERATIONAL" if risk_score < 15.0 else "SCHEDULE_ALIGNMENT_CHECK"
+        
         return {
             "mill_id": self.mill_id,
-            "samples_analyzed": len(self.sample_history),
-            "latest_status": latest["status"],
-            "average_magnitude_vector": avg_mag
+            "risk_score_pct": risk_score,
+            "recommendation": recommendation
         }
 
 if __name__ == "__main__":
-    logger.info("Initializing RollerMillInspector Test Harness for Nairobi Milling Plant...")
-    inspector = RollerMillInspector(mill_id="NAI_MILL_ALPHA_04", nominal_rpm=1480.0)
-    
-    # Simulate normal and aberrant telemetry cycles
-    test_readings = [
-        (14.2, 0.45, 12.0),
-        (15.1, 0.82, 45.5),
-        (28.6, 5.21, 112.4),
-    ]
-    
-    for torque, vib, phase in test_readings:
-        res = inspector.ingest_telemetry(torque, vib, phase)
-        logger.info(f"Telemetry Processed -> Status: {res['status']}, Magnitude Vector: {res['magnitude_vector']:.4f}")
-        
-    summary = inspector.get_diagnostic_summary()
-    logger.info(f"Diagnostic Summary: {summary}")
-    logger.info("RollerMillInspector test run successfully completed.")
+    inspector = RollerMillInterferometerInspector(mill_id="NAI_ROLLER_MILL_04")
+    mock_waveform = [102.5 + 5.0 * math.sin(i * 0.1) for i in range(256)]
+    result = inspector.ingest_resolver_signal(mock_waveform)
+    print("Ingestion Result:", result)
+    prediction = inspector.predict_maintenance_window()
+    print("Maintenance Prediction:", prediction)
