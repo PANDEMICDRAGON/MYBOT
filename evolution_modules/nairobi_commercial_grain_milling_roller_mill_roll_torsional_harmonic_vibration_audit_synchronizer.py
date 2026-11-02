@@ -1,88 +1,104 @@
-"""Nairobi Commercial Grain Milling Roller Mill Roll Torsional Harmonic Vibration Audit Synchronizer."""
+"""
+Nairobi Commercial Grain Milling Roller Mill Roll Torsional Harmonic Vibration Audit Synchronizer
+Created for Michael Obiero in Nairobi, Kenya.
+
+Monitors torsional harmonic vibrations on commercial grain milling roller mill rolls to detect
+micro-fractures, shaft misalignment, and bearing wear before catastrophic failure occurs.
+"""
 
 import ast
-import json
 import logging
 import math
-import random
+import statistics
 import time
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Optional, Any
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
-logger = logging.getLogger("TorsionalVibrationSynchronizer")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("RollerMillTorsionalSynchronizer")
 
-class TorsionalHarmonicAuditSynchronizer:
-    """Audits and synchronizes torsional harmonic vibrations on commercial grain mill roller shafts."""
 
-    def __init__(self, mill_id: str, roll_diameter_mm: float = 250.0, target_rpm: float = 550.0):
+class RollerMillTorsionalAuditor:
+    """Audits torsional harmonic vibration signatures of commercial roller mills."""
+
+    def __init__(self, mill_id: str, baseline_rpm: float = 500.0, harmonic_threshold: float = 3.5):
         self.mill_id = mill_id
-        self.roll_diameter_mm = roll_diameter_mm
-        self.target_rpm = target_rpm
+        self.baseline_rpm = baseline_rpm
+        self.harmonic_threshold = harmonic_threshold
+        self.vibration_buffer: List[float] = []
         self.audit_log: List[Dict[str, Any]] = []
 
-    def measure_torsional_resonance(self, raw_vibration_hz: List[float]) -> Dict[str, Any]:
-        """Calculates torsional harmonic distortion and stress anomalies from raw sensor spectra."""
-        if not raw_vibration_hz:
-            return {"status": "error", "message": "No sensor telemetry provided."}
+    def ingest_vibration_signal(self, g_force_readings: List[float]) -> Dict[str, Any]:
+        """Ingests raw accelerometer G-force readings and calculates torsional harmonic anomaly metrics."""
+        if not g_force_readings:
+            return {"status": "error", "message": "Empty vibration readings ingested."}
 
-        mean_freq = sum(raw_vibration_hz) / len(raw_vibration_hz)
-        variance = sum((f - mean_freq) ** 2 for f in raw_vibration_hz) / len(raw_vibration_hz)
-        std_dev = math.sqrt(variance)
-        
-        # Harmonic index calculation relative to base rotational frequency (RPM / 60)
-        base_rot_freq = self.target_rpm / 60.0
-        harmonic_distortion_index = std_dev / (base_rot_freq + 1e-6)
+        mean_g = statistics.mean(g_force_readings)
+        stdev_g = statistics.pstdev(g_force_readings) if len(g_force_readings) > 1 else 0.0
+        peak_g = max(g_force_readings)
+        crest_factor = (peak_g / mean_g) if mean_g > 0 else 0.0
 
-        status = "OPTIMAL"
-        if harmonic_distortion_index > 0.45:
-            status = "CRITICAL_TORSIONAL_STRESS"
-        elif harmonic_distortion_index > 0.25:
-            status = "ELEVATED_HARMONIC_DRIFT"
+        # Compute harmonic distortion index based on variance and peak magnitude
+        harmonic_index = (stdev_g * crest_factor) / (self.baseline_rpm / 100.0)
+        is_anomaly = harmonic_index > self.harmonic_threshold
 
         audit_entry = {
             "timestamp": time.time(),
             "mill_id": self.mill_id,
-            "mean_frequency_hz": mean_freq,
-            "torsional_std_dev": std_dev,
-            "harmonic_distortion_index": harmonic_distortion_index,
-            "status": status
+            "mean_g": mean_g,
+            "stdev_g": stdev_g,
+            "crest_factor": crest_factor,
+            "harmonic_index": harmonic_index,
+            "is_anomaly": is_anomaly
         }
+
         self.audit_log.append(audit_entry)
+        if len(self.audit_log) > 1000:
+            self.audit_log.pop(0)
+
+        if is_anomaly:
+            logger.warning(
+                f"[ALERT] Torsional harmonic anomaly detected on mill {self.mill_id}! "
+                f"Harmonic Index: {harmonic_index:.2f} exceeds threshold {self.harmonic_threshold}"
+            )
+
         return audit_entry
 
-    def calibrate_roll_synchronization(self, distortion_index: float) -> Dict[str, Any]:
-        """Computes phase correction offset to mitigate torsional resonance."""
-        correction_phase_degrees = 0.0
-        if distortion_index > 0.25:
-            # Dynamic phase shift compensation vector
-            correction_phase_degrees = (distortion_index * 45.0) % 360.0
-        
+    def get_audit_summary(self) -> Dict[str, Any]:
+        """Returns summary statistics of the audit log."""
+        if not self.audit_log:
+            return {"total_audits": 0}
+
+        anomaly_count = sum(1 for entry in self.audit_log if entry["is_anomaly"])
+        avg_harmonic = statistics.mean(entry["harmonic_index"] for entry in self.audit_log)
+
         return {
             "mill_id": self.mill_id,
-            "correction_applied": correction_phase_degrees > 0.0,
-            "phase_offset_degrees": round(correction_phase_degrees, 3),
-            "message": f"Applied torsional synchronization offset of {correction_phase_degrees:.2f} degrees." if correction_phase_degrees > 0.0 else "Rollers in harmonic equilibrium."
+            "total_audits": len(self.audit_log),
+            "anomaly_count": anomaly_count,
+            "average_harmonic_index": avg_harmonic,
+            "system_health": "DEGRADED" if anomaly_count > 0 else "OPTIMAL"
         }
 
-    def export_audit_report(self) -> str:
-        """Serializes audit records to JSON."""
-        return json.dumps(self.audit_log, indent=2)
 
 if __name__ == "__main__":
-    logger.info("Initializing Nairobi Commercial Grain Milling Roller Mill Roll Torsional Harmonic Vibration Audit Synchronizer Test Harness...")
+    print("Initializing Nairobi Commercial Grain Milling Roller Mill Roll Torsional Harmonic Vibration Audit Synchronizer...")
+    auditor = RollerMillTorsionalAuditor(mill_id="NAI-MILL-04")
     
-    synchronizer = TorsionalHarmonicAuditSynchronizer(mill_id="NAI_MILL_BLOCK_4_ROLL_A")
+    # Simulate normal operation readings
+    normal_readings = [0.12, 0.14, 0.13, 0.12, 0.15]
+    res1 = auditor.ingest_vibration_signal(normal_readings)
+    print("Normal Audit Result:", res1)
+
+    # Simulate anomalous torsional vibration (e.g., roller bearing pitting or misaligned shaft)
+    anomalous_readings = [0.85, 1.45, 0.22, 1.95, 0.40]
+    res2 = auditor.ingest_vibration_signal(anomalous_readings)
+    print("Anomalous Audit Result:", res2)
+
+    summary = auditor.get_audit_summary()
+    print("Audit Summary:", summary)
     
-    # Simulate vibrating frequency readings from accelerometers mounted on roll bearing housings
-    simulated_readings = [9.16, 9.22, 14.50, 9.18, 18.75, 9.15]
-    
-    audit_result = synchronizer.measure_torsional_resonance(simulated_readings)
-    logger.info(f"Audit Result: {audit_result}")
-    
-    sync_result = synchronizer.calibrate_roll_synchronization(audit_result["harmonic_distortion_index"])
-    logger.info(f"Synchronization Result: {sync_result}")
-    
-    # Validate code cleanliness under ast.parse
-    code_string = open(__file__, "r", encoding="utf-8").read()
-    parsed_ast = ast.parse(code_string)
-    logger.info(f"AST compilation check passed successfully: {len(parsed_ast.body)} top-level nodes verified.")
+    # Validate source code compiles successfully under ast
+    with open(__file__, "r", encoding="utf-8") as f:
+        source_code = f.read()
+    parsed_ast = ast.parse(source_code)
+    print(f"AST compilation check passed: {isinstance(parsed_ast, ast.Module)}")
