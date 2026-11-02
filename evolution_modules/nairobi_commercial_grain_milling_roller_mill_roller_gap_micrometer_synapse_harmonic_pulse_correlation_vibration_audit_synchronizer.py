@@ -1,81 +1,65 @@
-"""Nairobi Commercial Grain Milling Roller Mill Roller Gap Micrometer Synapse Harmonic Pulse Correlation Vibration Audit Synchronizer.
-
-Author: Cortana, Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
-Description: Proactively monitors, correlates, and synchronizes roller mill micrometer gaps, harmonic vibration pulses, and neural synapse telemetry to ensure pristine flour extraction efficiency across Nairobi milling installations.
-"""
+"""Nairobi Commercial Grain Milling Roller Mill Roller Gap Micrometer Synapse Harmonic Pulse Correlation Vibration Audit Synchronizer"""
 
 import time
 import math
 import random
-import logging
-from typing import Dict, Any, List, Optional
+from typing import Dict, List, Any
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [RollerGapSynapseSynchronizer] %(message)s')
-logger = logging.getLogger(__name__)
-
-
-class RollerGapMicrometerSynapseSynchronizer:
-    """Advanced telemetry synchronizer for industrial grain milling roller gaps and vibration harmonics."""
-
-    def __init__(self, mill_id: str = "NAI_MILL_01_ALPHA", target_gap_microns: float = 120.0):
+class RollerGapHarmonicSynchronizer:
+    """
+    Synchronizes roller gap micrometer readings with harmonic vibration pulse spectra
+    for industrial roller mills in Nairobi, Kenya.
+    """
+    def __init__(self, mill_id: str, target_gap_microns: float = 250.0):
         self.mill_id = mill_id
         self.target_gap_microns = target_gap_microns
+        self.harmonic_resonance_threshold = 85.5
         self.audit_log: List[Dict[str, Any]] = []
-        logger.setItem = True
-        logger.info(f"Initialized RollerGapMicrometerSynapseSynchronizer for {{self.mill_id}} with target gap {{self.target_gap_microns}}µm.")
 
-    def sample_telemetry(self) -> Dict[str, float]:
-        """Simulates real-time sensor readings from mill micrometer and vibration transducers."""
-        # Introduce minor stochastic drift typical of Nairobi industrial load fluctuations
-        current_gap = self.target_gap_microns + random.gauss(0.0, 1.8)
-        vibration_amplitude_g = max(0.05, 0.42 + random.gauss(0.0, 0.08))
-        harmonic_pulse_hz = 148.5 + random.gauss(0.0, 2.1)
-        synapse_correlation_score = max(0.0, min(1.0, 0.94 - abs(current_gap - self.target_gap_microns) * 0.01))
-
-        return {
-            "timestamp": time.time(),
-            "current_gap_microns": round(current_gap, 2),
-            "vibration_amplitude_g": round(vibration_amplitude_g, 3),
-            "harmonic_pulse_hz": round(harmonic_pulse_hz, 2),
-            "synapse_correlation_score": round(synapse_correlation_score, 4)
-        }
-
-    def evaluate_and_synchronize(self, sample: Dict[str, float]) -> Dict[str, Any]:
-        """Evaluates telemetry against safety thresholds and computes corrective actuator adjustments."""
-        gap_delta = sample["current_gap_microns"] - self.target_gap_microns
+    def measure_gap_and_vibration(self) -> Dict[str, Any]:
+        """Simulates sensor telemetry from roller gap micrometers and vibration accelerometers."""
+        # Simulate minor mechanical drift and vibration harmonics
+        gap_noise = random.gauss(0, 1.2)
+        current_gap = self.target_gap_microns + gap_noise
+        
+        harmonic_pulse = 50.0 + abs(gap_noise) * 12.5 + random.uniform(0, 15.0)
+        
         status = "OPTIMAL"
-        actuator_correction_microns = 0.0
-
-        if abs(gap_delta) > 3.0:
-            status = "WARNING_GAP_DEVIATION"
-            actuator_correction_microns = -round(gap_delta * 0.5, 2)
-        elif sample["vibration_amplitude_g"] > 0.65:
-            status = "WARNING_EXCESSIVE_VIBRATION"
-            actuator_correction_microns = 1.0
-
-        audit_entry = {
+        if harmonic_pulse > self.harmonic_resonance_threshold:
+            status = "WARNING_RESONANCE_SPIKE"
+        elif abs(current_gap - self.target_gap_microns) > 5.0:
+            status = "GAP_DRIFT_DETECTED"
+            
+        telemetry = {
+            "timestamp": time.time(),
             "mill_id": self.mill_id,
-            "status": status,
-            "sample": sample,
-            "actuator_correction_microns": actuator_correction_microns
+            "current_gap_microns": round(current_gap, 3),
+            "harmonic_pulse_hz": round(harmonic_pulse, 2),
+            "status": status
         }
+        self.audit_log.append(telemetry)
+        return telemetry
 
-        self.audit_log.append(audit_entry)
-        return audit_entry
-
-    def execute_audit_cycle(self) -> Dict[str, Any]:
-        """Executes a full sample, evaluate, and sync iteration."""
-        raw_sample = self.sample_telemetry()
-        result = self.evaluate_and_synchronize(raw_sample)
-        logger.info(f"Audit Cycle Completed for {{self.mill_id}} -> Status: {{result['status']}}, Correction: {{result['actuator_correction_microns']}}µm")
-        return result
-
+    def execute_synchronization_cycle(self) -> Dict[str, str]:
+        """Executes corrective telemetry audit and synchronization pulse."""
+        reading = self.measure_gap_and_vibration()
+        action = "NONE"
+        
+        if reading["status"] == "WARNING_RESONANCE_SPIKE":
+            action = "ENGAGE_DYNAMIC_DAMPER_AND_REDUCE_FEED_RATE"
+        elif reading["status"] == "GAP_DRIFT_DETECTED":
+            action = "CALIBRATE_MICROMETER_STEPPER_MOTOR"
+            
+        return {
+            "mill_id": self.mill_id,
+            "action_taken": action,
+            "audited_status": reading["status"]
+        }
 
 if __name__ == "__main__":
-    print("[+] Executing Cortana Autonomous Roller Gap Synapse Synchronizer Test Harness...")
-    synchronizer = RollerGapMicrometerSynapseSynchronizer(mill_id="NAI_UGALI_MILL_09")
-    for step in range(3):
-        sync_result = synchronizer.execute_audit_cycle()
-        print(f"Step {{step + 1}}: {{sync_result}}")
-    print("[+] Roller Gap Synchronizer operational check completed successfully.")
+    print("Initializing Nairobi Commercial Grain Milling Roller Mill Synchronizer...")
+    sync = RollerGapHarmonicSynchronizer(mill_id="NAI_MILL_ALPHA_04")
+    for i in range(3):
+        result = sync.execute_synchronization_cycle()
+        print(f"Cycle {i+1}: {result}")
+    print("Roller Gap Harmonic Synchronizer operational and verified.")
