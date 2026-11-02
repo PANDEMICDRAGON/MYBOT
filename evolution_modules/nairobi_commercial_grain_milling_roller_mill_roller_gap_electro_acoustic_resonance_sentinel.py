@@ -1,88 +1,88 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Roller Gap Electro Acoustic Resonance Sentinel
+"""Nairobi Commercial Grain Milling Roller Mill Roller Gap Electro Acoustic Resonance Sentinel"""
 
-Monitors real-time acoustic emission signatures and electromagnetic actuator feedback across
-roller mill nip gaps in Nairobi grain processing plants, preventing uneven grinding, roller wear, and thermal degradation.
-"""
-
-import os
 import time
 import math
+import random
 import logging
-import statistics
-from typing import Dict, List, Any, Optional
+from typing import Dict, Any, List, Optional
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerGapElectroAcousticSentinel")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger("RollerGapElectroAcousticResonanceSentinel")
 
-class RollerGapElectroAcousticSentinel:
-    def __init__(self, mill_id: str, target_gap_microns: float = 150.0, tolerance_microns: float = 2.5):
+class RollerGapElectroAcousticResonanceSentinel:
+    """
+    Monitors high-frequency electro-acoustic resonance across roller mill gaps in commercial
+    grain milling facilities in Nairobi. Detects micro-variations in particle shear, roll gap
+    drift, and harmonic distortion to optimize flour yield and prevent mechanical failure.
+    """
+    
+    def __init__(self, mill_id: str = "NRB-MILL-01", target_frequency_hz: float = 12500.0):
         self.mill_id = mill_id
-        self.target_gap_microns = target_gap_microns
-        self.tolerance_microns = tolerance_microns
-        self.acoustic_history: List[float] = []
-        self.gap_history: List[float] = []
+        self.target_frequency_hz = target_frequency_hz
+        self.resonance_history: List[float] = []
         self.anomaly_count = 0
-        logger.info(f"Initialized Electro-Acoustic Resonance Sentinel for mill [{self.mill_id}]")
+        logger.info(f"Initialized {self.__class__.__name__} for mill [{self.mill_id}] @ {self.target_frequency_hz}Hz")
 
-    def analyze_nip_sample(self, acoustic_db: float, measured_gap_microns: float, servo_current_ma: float) -> Dict[str, Any]:
-        """
-        Analyzes live acoustic emission (dB), measured nip gap, and servo actuator current.
-        Detects micro-deviations, chokes, or bearing resonance.
-        """
-        self.acoustic_history.append(acoustic_db)
-        self.gap_history.append(measured_gap_microns);
+    def sample_resonance_spectra(self) -> Dict[str, Any]:
+        """Simulates real-time electro-acoustic telemetry sampling across the roller gap."""
+        noise = random.gauss(0.0, 15.2)
+        drift = math.sin(time.time() * 0.1) * 25.0
+        current_freq = self.target_frequency_hz + noise + drift
+        amplitude_db = 72.5 + (random.random() * 8.0) - (abs(noise) * 0.1)
         
-        if len(self.acoustic_history) > 100:
-            self.acoustic_history.pop(0);
-        if len(self.gap_history) > 100:
-            self.gap_history.pop(0);
-
-        gap_deviation = measured_gap_microns - self.target_gap_microns
-        is_gap_out_of_bounds = abs(gap_deviation) > self.tolerance_microns
+        # Acoustic emission energy index
+        energy_index = max(0.0, min(100.0, 50.0 + (current_freq - self.target_frequency_hz) * 0.2 + (amplitude_db - 70.0) * 0.5))
         
-        mean_acoustic = statistics.mean(self.acoustic_history)
-        acoustic_spike = acoustic_db > (mean_acoustic + 6.0)
-        
-        status = "OPTIMAL"
-        corrective_action = "NONE"
-        
-        if is_gap_out_of_bounds and acoustic_spike:
-            status = "CRITICAL_NIP_RESONANCE"
-            corrective_action = "EMERGENCY_SERVO_RETRACT_AND_FEED_SLOWDOWN"
-            self.anomaly_count += 1
-        elif is_gap_out_of_bounds:
-            status = "GAP_DRIFT_WARNING"
-            corrective_action = "ADJUST_ELECTRO_HYDRAULIC_STEPPER"
-        elif acoustic_spike:
-            status = "UNRECOGNIZED_HARD_OBJECT_DETECTED"
-            corrective_action = "TRIGGER_MAGNETIC_TRAP_FLUSH"
-
         telemetry = {
-            "mill_id": self.mill_id,
             "timestamp": time.time(),
-            "acoustic_db": acoustic_db,
-            "measured_gap_microns": measured_gap_microns,
-            "gap_deviation_microns": round(gap_deviation, 2),
-            "servo_current_ma": servo_current_ma,
-            "status": status,
-            "corrective_action": corrective_action,
-            "anomaly_count": self.anomaly_count
+            "mill_id": self.mill_id,
+            "measured_frequency_hz": round(current_freq, 2),
+            "amplitude_db": round(amplitude_db, 2),
+            "energy_index": round(energy_index, 2)
         }
         
-        if status != "OPTIMAL":
-            logger.warning(f"[{self.mill_id}] Sentinel Alert: {status} | Action: {corrective_action} | Deviation: {round(gap_deviation, 2)}um")
+        self.resonance_history.append(energy_index)
+        if len(self.resonance_history) > 100:
+            self.resonance_history.pop(0)
             
         return telemetry
 
+    def evaluate_gap_integrity(self, telemetry: Dict[str, Any]) -> Dict[str, Any]:
+        """Evaluates acoustic signature against optimal milling parameters."""
+        energy = telemetry["energy_index"]
+        status = "OPTIMAL"
+        corrective_action = "NONE"
+        
+        if energy > 85.0:
+            status = "CRITICAL_HIGH_SHEAR"
+            corrective_action = "AUTOMATED_MICRO_RETRACT_ROLLERS"
+            self.anomaly_count += 1
+        elif energy < 20.0:
+            status = "WARNING_CHOKE_OR_GAP_WIDENING"
+            corrective_action = "INSPECT_FEED_GATE_AND_TIGHTEN_GAP"
+            self.anomaly_count += 1
+            
+        return {
+            "status": status,
+            "energy_index": energy,
+            "anomaly_count": self.anomaly_count,
+            "corrective_action": corrective_action
+        }
+
+    def run_diagnostic_cycle(self) -> Dict[str, Any]:
+        """Executes a full sample and evaluation cycle."""
+        telemetry = self.sample_resonance_spectra()
+        evaluation = self.evaluate_gap_integrity(telemetry)
+        return {
+            "telemetry": telemetry,
+            "evaluation": evaluation
+        }
+
 if __name__ == "__main__":
-    sentinel = RollerGapElectroAcousticSentinel(mill_id="NAI_UNGA_MILL_04")
-    sample_data = [
-        (72.5, 150.2, 410.0),
-        (73.1, 150.1, 412.0),
-        (85.4, 154.8, 480.5), # Spike / Drift
-        (72.8, 150.0, 411.2)
-    ]
-    for ac, mg, sc in sample_data:
-        res = sentinel.analyze_nip_sample(ac, mg, sc)
-        print(res)
+    sentinel = RollerGapElectroAcousticResonanceSentinel(mill_id="NRB-UGALI-MILL-09")
+    logger.info("Starting Roller Gap Electro Acoustic Resonance Sentinel Diagnostic Loop...")
+    for i in range(3):
+        result = sentinel.run_diagnostic_cycle()
+        logger.info(f"Cycle {i+1} Result: {result}")
+        time.sleep(0.5)
+    logger.info("Sentinel diagnostic loop completed successfully.")
