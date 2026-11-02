@@ -1,78 +1,89 @@
-"""
-Module: nairobi_commercial_grain_milling_roller_mill_dynamic_torque_deflection_coefficient_sentinel.py
-Description: Autonomous sentinel for monitoring dynamic torque deflection coefficients in commercial roller mills.
-Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Nairobi, Kenya)
-"""
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Deflection Coefficient Sentinel."""
 
 import time
 import math
 import random
 import logging
-from typing import Dict, Any, List
+from typing import Dict, List, Any, Optional
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
-logger = logging.getLogger("RollerMillDeflectionSentinel")
+logger = logging.getLogger("RollerMillTorqueDeflectionSentinel")
 
-class RollerMillDeflectionSentinel:
-    """
-    Monitors roller mill drive shaft torque telemetry, calculates real-time deflection coefficients,
-    and triggers preventive tensioning or load shedding alerts to protect milling machinery.
-    """
-    def __init__(self, mill_id: str, rated_torque_nm: float = 1200.0):
+class RollerMillTorqueDeflectionSentinel:
+    """Monitors, analyzes, and mitigates torsional deflection anomalies in commercial roller mill shafts."""
+
+    def __init__(self, mill_id: str, nominal_torque_nm: float = 1250.0, max_deflection_deg: float = 1.45):
         self.mill_id = mill_id
-        self.rated_torque_nm = rated_torque_nm
+        self.nominal_torque_nm = nominal_torque_nm
+        self.max_deflection_deg = max_deflection_deg
         self.deflection_history: List[float] = []
         self.anomaly_count = 0
+        self.actuator_feed_gate_position = 100.0  # percentage
+        logger.info(f"Initialized RollerMillTorqueDeflectionSentinel for {{self.mill_id}}")
 
-    def evaluate_telemetry(self, current_torque: float, rotational_speed_rpm: float, bearing_temp_c: float) -> Dict[str, Any]:
-        """
-        Evaluates operational telemetry to compute the dynamic torque deflection coefficient.
-        """
-        # Compute twist/deflection coefficient model
-        shear_modulus = 79300.0  # MPa for alloy steel drive shafts
-        polar_moment = 1.25e-6   # m^4 approx for standard 80mm diameter shaft
-        effective_length = 1.5   # meters
-        
-        # Deflection angle (radians) = (Torque * L) / (G * J)
-        deflection_rad = (current_torque * effective_length) / (shear_modulus * 1e6 * polar_moment)
-        deflection_coefficient = deflection_rad * (rotational_speed_rpm / 100.0)
-        
-        self.deflection_history.append(deflection_coefficient)
+    def sample_telemetry(self, current_torque_nm: float, shaft_speed_rpm: float, bearing_vibration_mm_s: float) -> Dict[str, Any]:
+        """Ingests live sensor data, calculates dynamic deflection coefficient, and determines health status."""
+        torque_delta = abs(current_torque_nm - self.nominal_torque_nm)
+        # Empirical torsional deflection formula: theta = (T * L) / (G * J)
+        # Simplified dynamic coefficient calculation relative to nominal baseline
+        deflection_coefficient = (torque_delta / self.nominal_torque_nm) * (shaft_speed_rpm / 1000.0)
+        estimated_deflection_deg = deflection_coefficient * 1.25 + (bearing_vibration_mm_s * 0.1)
+
+        self.deflection_history.append(estimated_deflection_deg)
         if len(self.deflection_history) > 100:
             self.deflection_history.pop(0)
-            
-        status = "OPTIMAL"
-        action_required = False
-        
-        if deflection_coefficient > 0.08 or bearing_temp_c > 75.0:
-            status = "WARNING: HIGH_TORSIONAL_DEFLECTION"
-            self.anomaly_count += 1
-            action_required = True
-        if deflection_coefficient > 0.12 or bearing_temp_c > 85.0:
-            status = "CRITICAL: POTENTIAL_SHAFT_FRACTURE_RISK"
-            action_required = True
 
-        telemetry_report = {
+        status = "OPTIMAL"
+        corrective_action = "NONE"
+
+        if estimated_deflection_deg > self.max_deflection_deg:
+            status = "CRITICAL_DEFLECTION"
+            self.anomaly_count += 1
+            # Execute adaptive load shedding via feed gate retraction
+            self.actuator_feed_gate_position = max(20.0, self.actuator_feed_gate_position - 15.0)
+            corrective_action = f"RETRACT_FEED_GATE_TO_{self.actuator_feed_gate_position:.1f}%"
+        elif estimated_deflection_deg > (self.max_deflection_deg * 0.8):
+            status = "WARNING"
+            self.actuator_feed_gate_position = max(50.0, self.actuator_feed_gate_position - 5.0)
+            corrective_action = f"ADJUST_FEED_GATE_TO_{self.actuator_feed_gate_position:.1f}%"
+        else:
+            if self.actuator_feed_gate_position < 100.0:
+                self.actuator_feed_gate_position = min(100.0, self.actuator_feed_gate_position + 2.0)
+                corrective_action = f"RESTORE_FEED_GATE_TO_{self.actuator_feed_gate_position:.1f}%"
+
+        telemetry_packet = {
             "mill_id": self.mill_id,
             "timestamp": time.time(),
-            "current_torque_nm": current_torque,
-            "deflection_coefficient": round(deflection_coefficient, 6),
-            "bearing_temp_c": bearing_temp_c,
+            "current_torque_nm": current_torque_nm,
+            "shaft_speed_rpm": shaft_speed_rpm,
+            "bearing_vibration_mm_s": bearing_vibration_mm_s,
+            "estimated_deflection_deg": round(estimated_deflection_deg, 4),
             "status": status,
-            "action_required": action_required,
-            "anomaly_count": self.anomaly_count
+            "actuator_feed_gate_position": round(self.actuator_feed_gate_position, 2),
+            "corrective_action": corrective_action,
+            "total_anomalies": self.anomaly_count
         }
-        
-        logger.info(f"[Mill {self.mill_id}] Status: {status} | Deflection Coeff: {telemetry_report['deflection_coefficient']}")
-        return telemetry_report
+        return telemetry_packet
+
+    def get_diagnostics(self) -> Dict[str, Any]:
+        """Returns aggregate performance and safety diagnostics."""
+        avg_deflection = sum(self.deflection_history) / len(self.deflection_history) if self.deflection_history else 0.0
+        return {
+            "mill_id": self.mill_id,
+            "average_deflection_deg": round(avg_deflection, 4),
+            "anomaly_count": self.anomaly_count,
+            "current_gate_position": self.actuator_feed_gate_position
+        }
 
 if __name__ == "__main__":
-    sentinel = RollerMillDeflectionSentinel(mill_id="NAI-IND-AREA-RM-04")
-    # Simulate runtime telemetry cycles
-    for _ in range(3):
-        torque = random.uniform(900.0, 1350.0)
-        rpm = random.uniform(450.0, 520.0)
-        temp = random.uniform(60.0, 88.0)
-        sentinel.evaluate_telemetry(torque, rpm, temp)
+    sentinel = RollerMillTorqueDeflectionSentinel(mill_id="NAIROBI_MILL_INDUSTRIAL_AREA_04")
+    logger.info("Starting Roller Mill Torque Deflection Simulation test run...")
+    for step in range(5):
+        # Simulate realistic milling load fluctuations
+        sim_torque = random.uniform(1100.0, 1450.0)
+        sim_speed = random.uniform(980.0, 1020.0)
+        sim_vib = random.uniform(0.5, 2.2)
+        packet = sentinel.sample_telemetry(sim_torque, sim_speed, sim_vib)
+        logger.info(f"Simulation Step {{step+1}}: {{packet}}")
         time.sleep(0.1)
+    logger.info(f"Final Diagnostics: {{sentinel.get_diagnostics()}}")
