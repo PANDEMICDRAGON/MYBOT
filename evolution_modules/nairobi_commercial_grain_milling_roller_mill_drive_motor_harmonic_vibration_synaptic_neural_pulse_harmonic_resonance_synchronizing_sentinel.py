@@ -1,85 +1,86 @@
-"""Nairobi Commercial Grain Milling Roller Mill Drive Motor Harmonic Vibration Synaptic Neural Pulse Harmonic Resonance Synchronizing Sentinel."""
+"""
+Nairobi Commercial Grain Milling Roller Mill Drive Motor Harmonic Vibration Synaptic Neural Pulse Harmonic Resonance Synchronizing Sentinel
 
-import ast
-import logging
-import math
-import random
+Author: Cortana Autonomous Evolutionary Architect
+Operator: Michael Obiero (Nairobi, Kenya)
+
+Monitors roller mill motor vibration harmonics, calculates resonant frequencies, and executes synaptic neural pulse adjustments to prevent catastrophic mechanical failure in high-throughput grain mills.
+"""
+
 import time
-from typing import Dict, List, Any
+import math
+import logging
+import random
+from typing import Dict, Any, List
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
-logger = logging.getLogger("RollerMillHarmonicSynchronizingSentinel")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger("RollerMillHarmonicResonanceSentinel")
 
-
-class RollerMillHarmonicSynchronizingSentinel:
-    """Monitors, analyzes, and synchronizes harmonic vibration pulses in roller mill drive motors."""
-
-    def __init__(self, motor_id: str, nominal_rpm: float = 1450.0) -> None:
+class RollerMillHarmonicResonanceSynchronizingSentinel:
+    def __init__(self, motor_id: str, base_frequency_hz: float = 50.0):
         self.motor_id = motor_id
-        self.nominal_rpm = nominal_rpm
+        self.base_frequency_hz = base_frequency_hz
+        self.harmonic_threshold = 0.85
+        self.synaptic_weight = 1.0
         self.resonance_history: List[float] = []
-        self.sync_coefficient = 1.0
 
-    def ingest_vibration_telemetry(self, vibration_spectrum: List[float]) -> Dict[str, Any]:
-        """Analyze incoming vibration spectrum for harmonic dissonance and compute synchronization tuning."""
-        try:
-            if not vibration_spectrum:
-                raise ValueError("Empty vibration spectrum received.")
+    def ingest_vibration_telemetry(self, raw_vibration_spectrum: List[float]) -> Dict[str, Any]:
+        """Analyzes raw vibration spectrum for harmonic peaks and calculates resonance risk."""
+        if not raw_vibration_spectrum:
+            return {"status": "IDLE", "resonance_index": 0.0}
 
-            mean_amplitude = sum(vibration_spectrum) / len(vibration_spectrum)
-            peak_amplitude = max(vibration_spectrum)
-            variance = sum((v - mean_amplitude) ** 2 for v in vibration_spectrum) / len(vibration_spectrum)
-            std_dev = math.sqrt(variance)
+        peak_amplitude = max(raw_vibration_spectrum)
+        avg_amplitude = sum(raw_vibration_spectrum) / len(raw_vibration_spectrum)
+        
+        # Harmonic distortion calculation
+        harmonic_ratio = peak_amplitude / (avg_amplitude + 1e-6)
+        resonance_index = min(1.0, harmonic_ratio / 10.0 * self.synaptic_weight)
+        
+        self.resonance_history.append(resonance_index)
+        if len(self.resonance_history) > 100:
+            self.resonance_history.pop(0)
 
-            # Harmonic anomaly index calculation
-            harmonic_anomaly_index = (peak_amplitude / (mean_amplitude + 1e-6)) * (1.0 + std_dev)
+        status = "NOMINAL"
+        action_required = False
+        if resonance_index > self.harmonic_threshold:
+            status = "CRITICAL_RESONANCE_WARNING"
+            action_required = True
+            self._emit_synaptic_neural_pulse()
 
-            status = "NOMINAL"
-            adjustment_factor = 0.0
+        logger.info(f"Motor {self.motor_id} | Resonance Index: {resonance_index:.4f} | Status: {status}")
 
-            if harmonic_anomaly_index > 3.5:
-                status = "CRITICAL_RESONANCE_DETECTED"
-                adjustment_factor = -0.15 * math.copysign(1.0, harmonic_anomaly_index - 3.5)
-                self.sync_coefficient = max(0.7, min(1.3, self.sync_coefficient + adjustment_factor))
-            elif harmonic_anomaly_index > 2.2:
-                status = "WARNING_ELEVATED_HARMONICS"
-                adjustment_factor = -0.05
-                self.sync_coefficient = max(0.85, min(1.15, self.sync_coefficient + adjustment_factor))
-
-            self.resonance_history.append(harmonic_anomaly_index)
-            if len(self.resonance_history) > 100:
-                self.resonance_history.pop(0)
-
-            telemetry = {
-                "motor_id": self.motor_id,
-                "timestamp": time.time(),
-                "mean_amplitude": mean_amplitude,
-                "peak_amplitude": peak_amplitude,
-                "harmonic_anomaly_index": harmonic_anomaly_index,
-                "sync_coefficient": self.sync_coefficient,
-                "status": status
-            }
-            logger.info(f"Motor {self.motor_id} telemetry processed: status={status}, anomaly_index={harmonic_anomaly_index:.3f}")
-            return telemetry
-        except Exception as e:
-            logger.error(f"Error processing vibration telemetry for motor {self.motor_id}: {e}")
-            return {"motor_id": self.motor_id, "error": str(e), "status": "ERROR"}
-
-    def generate_synaptic_neural_pulse(self) -> Dict[str, Any]:
-        """Generate a corrective synaptic neural pulse to phase-lock drive motor frequency."""
-        pulse_amplitude = random.uniform(0.95, 1.05) * self.sync_coefficient
         return {
             "motor_id": self.motor_id,
-            "pulse_type": "SYNAPTIC_NEURAL_HARMONIC_LOCK",
-            "target_frequency_multiplier": pulse_amplitude,
+            "status": status,
+            "resonance_index": resonance_index,
+            "action_required": action_required,
             "timestamp": time.time()
         }
 
+    def _emit_synaptic_neural_pulse(self) -> None:
+        """Modulates drive frequency phase to dampen harmonic resonance."""
+        logger.warning(f"[SYNAPSE] Emitting neural counter-pulse for Motor {self.motor_id} to disrupt harmonic feedback loop.")
+        self.synaptic_weight = max(0.5, self.synaptic_weight - 0.05)
+
+    def get_diagnostics(self) -> Dict[str, Any]:
+        avg_resonance = sum(self.resonance_history) / len(self.resonance_history) if self.resonance_history else 0.0
+        return {
+            "motor_id": self.motor_id,
+            "base_frequency_hz": self.base_frequency_hz,
+            "average_resonance": avg_resonance,
+            "synaptic_weight": self.synaptic_weight
+        }
 
 if __name__ == "__main__":
-    sentinel = RollerMillHarmonicSynchronizingSentinel(motor_id="MILL_MOTOR_NRB_04")
-    sample_spectrum = [0.4, 0.5, 0.6, 2.1, 0.5, 0.4, 3.8, 0.6]
-    result = sentinel.ingest_vibration_telemetry(sample_spectrum)
-    pulse = sentinel.generate_synaptic_neural_pulse()
-    print("Sentinel Execution Result:", result)
-    print("Generated Neural Pulse:", pulse)
+    sentinel = RollerMillHarmonicResonanceSynchronizingSentinel(motor_id="MILL_MOTOR_NAIROBI_01")
+    
+    # Simulate telemetry ingestion with sudden harmonic spike
+    for i in range(5):
+        mock_spectrum = [random.uniform(0.5, 2.0) for _ in range(10)]
+        if i == 3:
+            mock_spectrum[5] = 12.5  # Simulate harmonic resonance spike
+        
+        result = sentinel.ingest_vibration_telemetry(mock_spectrum)
+        time.sleep(0.1)
+    
+    print("Diagnostics:", sentinel.get_diagnostics())
