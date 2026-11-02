@@ -1,109 +1,71 @@
 """
 Nairobi Commercial Grain Milling Roller Mill Roller Gap Micrometer Correlation Synchronizer
 
-Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
-
-Provides real-time micrometer correlation, gap variance analysis, and synchronous
-feedback correction for multi-stand roller mills in Nairobi commercial grain milling.
+Provides real-time analytics, drift compensation, and synchronization for roller mill gaps
+using micrometer feedback loops and motor load correlation in industrial milling plants.
 """
 
-import logging
 import time
-import statistics
+import math
+import logging
 from typing import Dict, List, Optional, Any
 
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerGapSynchronizer")
+logger = logging.getLogger("RollerGapCorrelationSynchronizer")
 
+class RollerGapSynchronizer:
+    """Synchronizes and calibrates roller mill gaps via micrometer feedback and load correlation."""
 
-class RollerGapMicrometerCorrelationSynchronizer:
-    """
-    Synchronizes roller gap adjustments across multi-stand milling trains using
-    micrometer telemetry correlation and closed-loop compensation.
-    """
+    def __init__(self, mill_id: str, nominal_gap_mm: float = 0.15):
+        self.mill_id = mill_id
+        self.nominal_gap_mm = nominal_gap_mm
+        self.current_gap_mm = nominal_gap_mm
+        self.calibration_offset = 0.0
+        self.history: List[Dict[str, Any]] = []
 
-    def __init__(self, stand_id: str, target_gap_microns: float, tolerance_microns: float = 5.0):
-        self.stand_id = stand_id
-        self.target_gap_microns = target_gap_microns
-        self.tolerance_microns = tolerance_microns
-        self.history: List[Dict[str, float]] = []
-        self.correction_factor = 1.0
+    def measure_gap(self, raw_micrometer_reading: float, motor_load_amps: float, temperature_c: float) -> Dict[str, Any]:
+        """Correlates raw micrometer readings with thermal expansion and motor load."""
+        # Thermal expansion coefficient compensation (e.g., steel roll expansion)
+        thermal_expansion_delta = (temperature_c - 25.0) * 0.0012
+        adjusted_gap = raw_micrometer_reading + self.calibration_offset - thermal_expansion_delta
+        
+        # Load correction factor (higher load tightens effective gap slightly due to roll deflection)
+        load_deflection_delta = (motor_load_amps - 45.0) * 0.0001 if motor_load_amps > 45.0 else 0.0
+        final_effective_gap = adjusted_gap - load_deflection_delta
 
-    def ingest_micrometer_readings(self, drive_side_um: float, operator_side_um: float) -> Dict[str, Any]:
-        """
-        Ingests current gap measurements from drive and operator sides,
-        computes correlation, skew, and determines required synchronization adjustments.
-        """
-        current_time = time.time()
-        mean_gap = (drive_side_um + operator_side_um) / 2.0
-        skew = abs(drive_side_um - operator_side_um)
-        error = mean_gap - self.target_gap_microns
-
-        reading = {
-            "timestamp": current_time,
-            "drive_side_um": drive_side_um,
-            "operator_side_um": operator_side_um,
-            "mean_gap": mean_gap,
-            "skew": skew,
-            "error": error
+        deviation = final_effective_gap - self.nominal_gap_mm
+        
+        record = {
+            "timestamp": time.time(),
+            "mill_id": self.mill_id,
+            "raw_micrometer": raw_micrometer_reading,
+            "temperature_c": temperature_c,
+            "motor_load_amps": motor_load_amps,
+            "effective_gap_mm": round(final_effective_gap, 4),
+            "deviation_mm": round(deviation, 4),
+            "status": "OPTIMAL" if abs(deviation) < 0.02 else "DRIFT_DETECTED"
         }
-        self.history.append(reading)
+        
+        self.history.append(record)
         if len(self.history) > 1000:
             self.history.pop(0)
+            
+        return record
 
-        status = "SYNCHRONIZED"
-        adjustment_required = 0.0
-
-        if skew > self.tolerance_microns:
-            status = "SKEW_WARNING"
-            adjustment_required = (operator_side_um - drive_side_um) / 2.0
-        elif abs(error) > self.tolerance_microns:
-            status = "GAP_DRIFT"
-            adjustment_required = -error * 0.5  # Proportional damping
-
-        return {
-            "stand_id": self.stand_id,
-            "status": status,
-            "mean_gap_um": mean_gap,
-            "skew_um": skew,
-            "adjustment_um": adjustment_required,
-            "timestamp": current_time
-        }
-
-    def get_diagnostic_metrics(self) -> Dict[str, Any]:
+    def auto_calibrate(self, target_gap: float) -> float:
+        """Calculates and applies automated calibration offset."""
         if not self.history:
-            return {"status": "NO_DATA"}
-        means = [r["mean_gap"] for r in self.history]
-        skews = [r["skew"] for r in self.history]
-        return {
-            "stand_id": self.stand_id,
-            "total_samples": len(self.history),
-            "avg_gap_um": statistics.mean(means),
-            "max_skew_um": max(skews),
-            "stdev_gap_um": statistics.stdev(means) if len(means) > 1 else 0.0
-        }
-
+            return self.calibration_offset
+            
+        latest = self.history[-1]
+        error = target_gap - latest["effective_gap_mm"]
+        self.calibration_offset += error * 0.5
+        logger.info(f"Mill {self.mill_id} auto-calibrated. New offset: {self.calibration_offset:.4f}mm")
+        return self.calibration_offset
 
 if __name__ == "__main__":
-    logger.info("Initializing Nairobi Commercial Grain Milling Roller Gap Synchronizer Test Harness...")
-    sync = RollerGapSynchronizer = RollerGapMicrometerCorrelationSynchronizer(
-        stand_id="STAND_B2_BREAK_ROLL",
-        target_gap_microns=250.0,
-        tolerance_microns=3.0
-    )
-
-    test_readings = [
-        (251.2, 250.8),
-        (255.0, 248.0),
-        (252.0, 252.5),
-        (249.0, 249.2)
-    ]
-
-    for d_side, o_side in test_readings:
-        res = sync.ingest_micrometer_readings(d_side, o_side)
-        logger.info(f"Telemetry Result: {res}")
-
-    metrics = sync.get_diagnostic_metrics()
-    logger.info(f"Diagnostics Summary: {metrics}")
-    logger.info("Roller Gap Synchronizer test completed successfully.")
+    sync = RollerGapSynchronizer(mill_id="NAI_MILL_04", nominal_gap_mm=0.12)
+    metrics = sync.measure_gap(raw_micrometer_reading=0.125, motor_load_amps=48.5, temperature_c=32.0)
+    print(f"Initial Sync Result: {metrics}")
+    offset = sync.auto_calibrate(target_gap=0.12)
+    print(f"Calibration Offset Applied: {offset}")
