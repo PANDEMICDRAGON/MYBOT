@@ -1,97 +1,75 @@
-"""Nairobi Commercial Kitchen Grease Trap IoT Telemetry & Fatberg Prevention Sentinel.
-
-Provides real-time IoT monitoring, temperature stratification analysis, oil-layer depth
-estimation, and automated compliance logging for commercial kitchens in Nairobi, Kenya.
+"""
+Nairobi Commercial Kitchen Grease Trap IoT Sentinel
+Monitors grease separator levels, water temperature, and fat layer accumulation
+for commercial kitchens in Nairobi, ensuring compliance with county health bylaws
+and preventing drain clogs.
 """
 
 import time
 import math
-import random
 import logging
 from typing import Dict, Any, List, Optional
-from dataclasses import dataclass, field
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - [%(name)s] %(message)s')
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("GreaseTrapSentinel")
 
-@dataclass
-class TrapMetrics:
-    trap_id: str
-    water_temp_c: float
-    ambient_temp_c: float
-    oil_layer_depth_mm: float
-    sludge_depth_mm: float
-    flow_rate_lpm: float
-    ph_level: float
-    timestamp: float = field(default_factory=time.time)
-
 class GreaseTrapSentinel:
-    """Monitors commercial kitchen grease traps to prevent fatbergs and ensure Nairobi County bylaws compliance."""
-    
-    MAX_OIL_DEPTH_MM = 50.0
-    MAX_SLUDGE_DEPTH_MM = 75.0
-    MIN_PH = 6.0
-    MAX_PH = 9.0
-    OPTIMAL_WATER_TEMP_C = 45.0
+    """Advanced IoT sentinel for commercial grease traps."""
 
-    def __init__(self, trap_id: str):
+    def __init__(self, trap_id: str, max_capacity_liters: float = 200.0):
         self.trap_id = trap_id
-        self.alert_history: List[str] = []
+        self.max_capacity_liters = max_capacity_liters
+        self.current_fat_level_cm = 0.0
+        self.water_temperature_c = 25.0
+        self.pH_level = 7.0
+        self.flow_rate_lpm = 0.0
+        self.last_service_timestamp = time.time()
 
-    def evaluate_telemetry(self, metrics: TrapMetrics) -> Dict[str, Any]:
-        """Analyzes trap metrics against threshold parameters and outputs status and remediation."""
+    def ingest_telemetry(self, fat_cm: float, temp_c: float, ph: float, flow_lpm: float) -> Dict[str, Any]:
+        """Ingest real-time IoT telemetry from grease trap sensors."""
+        self.current_fat_level_cm = max(0.0, fat_cm)
+        self.water_temperature_c = temp_c
+        self.pH_level = max(0.0, min(14.0, ph))
+        self.flow_rate_lpm = max(0.0, flow_lpm)
+        
+        logger.info(f"[{self.trap_id}] Telemetry updated: Fat={fat_cm}cm, Temp={temp_c}C, pH={ph}, Flow={flow_lpm}LPM")
+        return self.evaluate_health()
+
+    def evaluate_health(self) -> Dict[str, Any]:
+        """Evaluate grease trap health and generate maintenance alerts."""
+        # Assume standard trap depth is 50 cm
+        max_depth_cm = 50.0
+        fat_ratio = self.current_fat_level_cm / max_depth_cm
+        
         status = "OPTIMAL"
-        actions = []
-
-        if metrics.oil_layer_depth_mm > self.MAX_OIL_DEPTH_MM:
+        alerts = []
+        
+        if fat_ratio >= 0.8:
+            status = "CRITICAL_CLEANOUT_REQUIRED"
+            alerts.append("Fat layer exceeds 80% capacity! Risk of sewer line blockage.")
+        elif fat_ratio >= 0.6:
             status = "WARNING"
-            actions.append("Schedule immediate FOG vacuum truck extraction; oil layer exceeds tolerance.")
+            alerts.append("Fat layer approaches threshold. Schedule maintenance soon.")
+            
+        if self.water_temperature_c > 55.0:
+            status = "WARNING"
+            alerts.append("High water temperature detected; risk of emulsifying trapped fats into outflow.")
+            
+        if self.pH_level < 5.0 or self.pH_level > 10.0:
+            status = "WARNING"
+            alerts.append(f"Abnormal pH level ({self.pH_level}) detected; potential chemical corrosion risk.")
 
-        if metrics.sludge_depth_mm > self.MAX_SLUDGE_DEPTH_MM:
-            status = "CRITICAL"
-            actions.append("Solid food sediment layer critically high; manual bailing and basket flush required.")
-
-        if not (self.MIN_PH <= metrics.ph_level <= self.MAX_PH):
-            status = "CRITICAL"
-            actions.append(f"pH level {metrics.ph_level} out of compliance [6.0-9.0]. Check enzymatic dosing unit.")
-
-        if metrics.water_temp_c > 65.0:
-            actions.append("Inflow water temperature excessive; risks emulsifying grease past baffle walls.")
-
-        risk_score = min(100.0, (
-            (metrics.oil_layer_depth_mm / self.MAX_OIL_DEPTH_MM) * 40.0 +
-            (metrics.sludge_depth_mm / self.MAX_SLUDGE_DEPTH_MM) * 40.0 +
-            (0.0 if self.MIN_PH <= metrics.ph_level <= self.MAX_PH else 20.0)
-        ))
-
-        evaluation = {
+        return {
             "trap_id": self.trap_id,
             "status": status,
-            "risk_score": round(risk_score, 2),
-            "actions_required": actions,
-            "timestamp": metrics.timestamp
+            "fat_layer_percentage": round(fat_ratio * 100, 2),
+            "water_temperature_c": self.water_temperature_c,
+            "pH_level": self.pH_level,
+            "alerts": alerts,
+            "timestamp": time.time()
         }
 
-        if status != "OPTIMAL":
-            self.alert_history.append(str(evaluation))
-            logger.warning(f"Grease Trap Alert [{self.trap_id}]: {status} - Risk: {risk_score}%")
-
-        return evaluation
-
 if __name__ == "__main__":
-    print("Initializing Nairobi Commercial Kitchen Grease Trap IoT Sentinel...")
-    sentinel = GreaseTrapSentinel(trap_id="TRAP-NRB-WESTLANDS-04")
-    
-    sample_data = TrapMetrics(
-        trap_id="TRAP-NRB-WESTLANDS-04",
-        water_temp_c=48.2,
-        ambient_temp_c=24.5,
-        oil_layer_depth_mm=42.0,
-        sludge_depth_mm=30.0,
-        flow_rate_lpm=18.5,
-        ph_level=7.2
-    )
-    
-    result = sentinel.evaluate_telemetry(sample_data)
-    print("Evaluation Result:", result)
-    print("Grease Trap Sentinel Operational Successfully.")
+    sentinel = GreaseTrapSentinel(trap_id="TRAP_WESTLANDS_04")
+    report = sentinel.ingest_telemetry(fat_cm=35.0, temp_c=42.5, ph=6.8, flow_lpm=15.2)
+    print("Grease Trap Sentinel Report:", report)
