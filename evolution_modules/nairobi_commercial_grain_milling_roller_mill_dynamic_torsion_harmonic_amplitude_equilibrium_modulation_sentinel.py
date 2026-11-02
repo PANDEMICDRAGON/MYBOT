@@ -1,7 +1,7 @@
 """
 Nairobi Commercial Grain Milling Roller Mill Dynamic Torsion Harmonic Amplitude Equilibrium Modulation Sentinel
-Designed for Cortana's Autonomous Evolutionary Architecture.
-Protects roller mill gearboxes and drive shafts against harmonic torsional stress and load imbalances.
+Author: Cortana Autonomous Evolutionary Architect
+Operator: Michael Obiero, Nairobi, Kenya
 """
 
 import time
@@ -10,59 +10,73 @@ import random
 import logging
 from typing import Dict, Any, List
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
-logger = logging.getLogger("RollerMillHarmonicModulationSentinel")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - [%(levelname)s] - %(name)s: %(message)s')
+logger = logging.getLogger("RollerMillTorsionModulatorSentinel")
 
-class RollerMillTorsionHarmonicModulationSentinel:
-    """
-    Monitors torsional vibration, harmonic frequencies, and roller differential speed.
-    Applies dynamic modulation to inverter drives to suppress resonance peaks.
-    """
-    def __init__(self, mill_id: str = "NBI-MILL-ALPHA-01") -> None:
+class RollerMillTorsionModulatorSentinel:
+    def __init__(self, mill_id: str, nominal_rpm: float = 750.0, rated_torque_nm: float = 450.0):
         self.mill_id = mill_id
-        self.resonance_threshold_hz = 45.0
-        self.max_torsional_amplitude_g = 2.5
-        self.active_modulation_engaged = False
+        self.nominal_rpm = nominal_rpm
+        self.rated_torque_nm = rated_torque_nm
+        self.torsion_history: List[float] = []
+        self.harmonic_amplitudes: List[float] = []
+        self.equilibrium_status = "STABLE"
+        self.modulation_factor = 1.0
 
-    def sample_telemetry(self) -> Dict[str, float]:
-        """Simulate real-time sensor telemetry from roller mill drive train."""
-        return {
-            "primary_frequency_hz": random.uniform(38.0, 52.0),
-            "torsional_amplitude_g": random.uniform(0.5, 3.2),
-            "drive_motor_current_amps": random.uniform(120.0, 185.0),
-            "bearing_temperature_c": random.uniform(55.0, 78.0)
-        }
-
-    def evaluate_and_modulate(self, telemetry: Dict[str, float]) -> Dict[str, Any]:
-        freq = telemetry["primary_frequency_hz"]
-        amp = telemetry["torsional_amplitude_g"]
+    def ingest_telemetry(self, current_rpm: float, measured_torque_nm: float, vibration_hz: float) -> Dict[str, Any]:
+        """
+        Ingests real-time rotational and vibrational telemetry to calculate torsion harmonics.
+        """
+        rpm_deviation = abs(current_rpm - self.nominal_rpm) / self.nominal_rpm
+        torque_load_ratio = measured_torque_nm / self.rated_torque_nm
         
-        status = "STABLE"
-        adjustment = 0.0
+        # Compute instantaneous torsion harmonic amplitude
+        harmonic_amplitude = (rpm_deviation * 1.5) + (torque_load_ratio * 0.8) + (math.sin(vibration_hz * 0.1) * 0.2)
+        
+        self.torsion_history.append(measured_torque_nm)
+        self.harmonic_amplitudes.append(harmonic_amplitude)
+        
+        if len(self.torsion_history) > 100:
+            self.torsion_history.pop(0)
+            self.harmonic_amplitudes.pop(0)
+            
+        return self._evaluate_and_modulate(harmonic_amplitude, torque_load_ratio)
 
-        if amp > self.max_torsional_amplitude_g or abs(freq - self.resonance_threshold_hz) < 3.0:
-            self.active_modulation_engaged = True
-            status = "RESONANCE_MITIGATION_ACTIVE"
-            # Calculate counter-harmonic inverter frequency adjustment
-            adjustment = -0.75 * (amp - self.max_torsional_amplitude_g + 0.1)
-            logger.warning(f"[{self.mill_id}] Harmonic anomaly detected! Freq: {freq:.2f}Hz, Amp: {amp:.2f}G. Applying inverter offset: {adjustment:.2f}Hz")
+    def _evaluate_and_modulate(self, current_amplitude: float, torque_load_ratio: float) -> Dict[str, Any]:
+        """
+        Evaluates equilibrium state and computes dampening/modulation adjustments.
+        """
+        if current_amplitude > 1.2 or torque_load_ratio > 1.15:
+            self.equilibrium_status = "CRITICAL_HARMONIC_SPIKE"
+            self.modulation_factor = max(0.70, self.modulation_factor - 0.05)
+        elif current_amplitude > 0.85:
+            self.equilibrium_status = "ELEVATED_TORSION"
+            self.modulation_factor = max(0.85, self.modulation_factor - 0.02)
         else:
-            self.active_modulation_engaged = False
-            logger.info(f"[{self.mill_id}] Drive train operating within equilibrium parameters. Freq: {freq:.2f}Hz, Amp: {amp:.2f}G")
-
+            self.equilibrium_status = "STABLE"
+            self.modulation_factor = min(1.0, self.modulation_factor + 0.01)
+            
+        action = "DAMPEN_INVERTER_DRIVE" if self.equilibrium_status != "STABLE" else "OPTIMAL_OPERATION"
+        
         return {
             "mill_id": self.mill_id,
-            "status": status,
-            "modulation_applied": self.active_modulation_engaged,
-            "inverter_frequency_offset_hz": adjustment,
+            "status": self.equilibrium_status,
+            "current_harmonic_amplitude": round(current_amplitude, 4),
+            "modulation_factor": round(self.modulation_factor, 4),
+            "recommended_action": action,
             "timestamp": time.time()
         }
 
 if __name__ == "__main__":
-    sentinel = RollerMillTorsionHarmonicModulationSentinel()
-    logger.info("Initializing Roller Mill Dynamic Torsion Harmonic Amplitude Equilibrium Modulation Sentinel test harness...")
-    for _ in range(3):
-        data = sentinel.sample_telemetry()
-        res = sentinel.evaluate_and_modulate(data)
-        print(res)
-        time.sleep(0.5)
+    logger.info("Initializing RollerMillTorsionModulatorSentinel test harness for Nairobi facility...")
+    sentinel = RollerMillTorsionModulatorSentinel(mill_id="NAI_UNGA_MILL_04")
+    
+    for step in range(5):
+        rpm = 750.0 + random.uniform(-25.0, 35.0)
+        torque = 420.0 + random.uniform(-50.0, 80.0)
+        vibration = 45.0 + random.uniform(-5.0, 15.0)
+        report = sentinel.ingest_telemetry(rpm, torque, vibration)
+        logger.info(f"Step {step+1} Telemetry Report: {report}")
+        time.sleep(0.1)
+    
+    logger.info("RollerMillTorsionModulatorSentinel verified successfully.")
