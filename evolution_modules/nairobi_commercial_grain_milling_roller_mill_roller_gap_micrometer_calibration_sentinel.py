@@ -2,97 +2,104 @@
 Nairobi Commercial Grain Milling Roller Mill Roller Gap Micrometer Calibration Sentinel
 
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero (Nairobi, Kenya)
+Operator: Michael Obiero, Nairobi, Kenya
 
-This module provides real-time monitoring, drift compensation, thermal expansion correction,
-and automated calibration protocols for roller mill gap micrometers in commercial grain mills.
-It ensures consistent particle size distribution, prevents roll-to-roll contact, and optimizes
-specific energy consumption.
+Provides automated real-time monitoring, thermal compensation, and micrometer gap calibration
+for commercial grain roller mills operating in Nairobi industrial zones.
 """
 
-import time
-import math
 import logging
-from typing import Dict, List, Optional, Tuple
+import time
+import json
+from typing import Dict, Any, List
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerGapCalibrationSentinel")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - [%(levelname)s] - %(name)s: %(message)s')
+logger = logging.getLogger("RollerGapMicrometerCalibrationSentinel")
 
-class RollerGapCalibrationSentinel:
+class RollerGapMicrometerCalibrationSentinel:
     """
-    Monitors and calibrates roller gap micrometers on commercial grain milling roller stands.
+    Monitors and calibrates roller mill gap widths via high-precision micrometer telemetry,
+    compensating for thermal expansion and mechanical drift during continuous milling operations.
     """
-    def __init__(self, mill_id: str, nominal_gap_microns: float = 250.0, tolerance_microns: float = 5.0):
+    def __init__(self, mill_id: str, nominal_gap_mm: float = 0.50, tolerance_mm: float = 0.02):
         self.mill_id = mill_id
-        self.nominal_gap_microns = nominal_gap_microns
-        self.tolerance_microns = tolerance_microns
-        self.history: List[Dict[str, float]] = []
-        self.current_calibration_offset = 0.0
-        self.thermal_coefficient_um_per_deg_c = 1.2  # Typical steel thermal expansion factor
+        self.nominal_gap_mm = nominal_gap_mm
+        self.tolerance_mm = tolerance_mm
+        self.current_gap_mm = nominal_gap_mm
+        self.roller_temp_c = 25.0
+        self.calibration_offset_mm = 0.0
+        self.calibration_history: List[Dict[str, Any]] = []
+        logger.info(f"Initialized RollerGapMicrometerCalibrationSentinel for Mill: {self.mill_id} | Nominal Gap: {nominal_gap_mm}mm")
+
+    def update_telemetry(self, measured_gap_mm: float, roller_temp_c: float) -> Dict[str, Any]:
+        """Ingests live gap measurement and roller temperature, returning calibration status."""
+        self.roller_temp_c = roller_temp_c
         
-    def measure_gap(self, raw_sensor_reading: float, roll_temperature_c: float, ambient_humidity: float) -> Dict[str, float]:
-        """
-        Computes true gap by adjusting raw sensor readings for thermal expansion and humidity swell.
-        """
-        # Thermal compensation relative to 20.0 C baseline
-        temp_delta = roll_temperature_c - 20.0
-        thermal_correction = temp_delta * self.thermal_coefficient_um_per_deg_c
+        # Apply thermal expansion compensation (coefficient for hardened steel ~ 11e-6 / °C)
+        temp_delta = self.roller_temp_c - 25.0
+        thermal_expansion_delta = self.nominal_gap_mm * 11e-6 * temp_delta
         
-        # Humidity correction factor
-        humidity_correction = (ambient_humidity - 50.0) * 0.02
+        adjusted_measured_gap = measured_gap_mm - thermal_expansion_delta
+        self.current_gap_mm = adjusted_measured_gap
         
-        true_gap = raw_sensor_reading + self.current_calibration_offset - thermal_correction - humidity_correction
-        error = true_gap - self.nominal_gap_microns
+        error = self.current_gap_mm - self.nominal_gap_mm
+        requires_adjustment = abs(error) > self.tolerance_mm
         
-        status = "OPTIMAL"
-        if abs(error) > self.tolerance_microns:
-            status = "OUT_OF_SPEC"
-            if true_gap < 50.0:
-                status = "CRITICAL_DANGER_ROLL_CONTACT"
-                
-        telemetry = {
+        status = {
+            "mill_id": self.mill_id,
             "timestamp": time.time(),
-            "raw_reading": raw_sensor_reading,
-            "true_gap": true_gap,
-            "error": error,
-            "thermal_correction": thermal_correction,
-            "status": status
+            "nominal_gap_mm": self.nominal_gap_mm,
+            "measured_gap_mm": measured_gap_mm,
+            "adjusted_gap_mm": self.current_gap_mm,
+            "roller_temp_c": self.roller_temp_c,
+            "thermal_expansion_delta_mm": thermal_expansion_delta,
+            "error_mm": error,
+            "requires_adjustment": requires_adjustment,
+            "calibration_offset_mm": self.calibration_offset_mm
         }
-        self.history.append(telemetry)
-        return telemetry
+        
+        if requires_adjustment:
+            logger.warning(f"[{self.mill_id}] Gap deviation detected! Error: {error:.4f}mm. Initiating micrometer recalibration.")
+            self._recalibrated_offset(error)
+            status["calibration_offset_mm"] = self.calibration_offset_mm
+            status["status"] = "RECALIBRATED"
+        else:
+            status["status"] = "OPTIMAL"
+            
+        self.calibration_history.append(status)
+        return status
 
-    def recalibrate(self, measured_feeler_gauge_value: float, reported_sensor_value: float) -> float:
-        """
-        Updates the calibration offset based on physical feeler gauge verification.
-        """
-        discrepancy = measured_feeler_gauge_value - reported_sensor_value
-        self.current_calibration_offset += discrepancy
-        logger.info(f"Mill {self.mill_id}: Recalibrated offset updated by {discrepancy:.2f}um to {self.current_calibration_offset:.2f}um")
-        return self.current_calibration_offset
+    def _recalibrated_offset(self, error: float) -> None:
+        """Adjusts the calibration offset to counteract mechanical drift."""
+        correction = -error * 0.8  # damping factor
+        self.calibration_offset_mm += correction
+        logger.info(f"[{self.mill_id}] Applied correction: {correction:.4f}mm. New Offset: {self.calibration_offset_mm:.4f}mm")
 
-    def get_health_report(self) -> Dict[str, any]:
-        if not self.history:
-            return {"status": "NO_DATA"}
-        recent = self.history[-1]
+    def get_diagnostics(self) -> Dict[str, Any]:
         return {
             "mill_id": self.mill_id,
-            "last_true_gap": recent["true_gap"],
-            "last_status": recent["status"],
-            "cumulative_readings": len(self.history),
-            "current_offset": self.current_calibration_offset
+            "nominal_gap_mm": self.nominal_gap_mm,
+            "current_gap_mm": self.current_gap_mm,
+            "roller_temp_c": self.roller_temp_c,
+            "calibration_offset_mm": self.calibration_offset_mm,
+            "total_calibrations_logged": len(self.calibration_history)
         }
 
 if __name__ == "__main__":
-    sentinel = RollerGapCalibrationSentinel(mill_id="NAI_MILL_04", nominal_gap_microns=200.0, tolerance_microns=4.0)
+    print("=== Executing Roller Gap Micrometer Calibration Sentinel Test Harness ===")
+    sentinel = RollerGapMicrometerCalibrationSentinel(mill_id="NAIROBI_MILL_ALPHA_1", nominal_gap_mm=0.45, tolerance_mm=0.015)
     
-    # Simulate runtime telemetry
-    reading = sentinel.measure_gap(raw_sensor_reading=198.5, roll_temperature_c=35.0, ambient_humidity=65.0)
-    print("Initial Measurement:", reading)
+    # Simulate normal operation with thermal buildup
+    test_readings = [
+        (0.452, 26.0),
+        (0.468, 42.0),  # Higher temp + gap expansion
+        (0.485, 65.0)   # Significant drift
+    ];
     
-    # Recalibrate after manual feeler check
-    sentinel.recalibrate(measured_feeler_gauge_value=201.0, reported_sensor_value=198.5)
-    
-    # Re-measure
-    reading_after = sentinel.measure_gap(raw_sensor_reading=200.2, roll_temperature_c=35.2, ambient_humidity=64.0)
-    print("Post-Calibration Measurement:", reading_after)
-    print("Health Report:", sentinel.get_health_report())
+    for gap, temp in test_readings:
+        result = sentinel.update_telemetry(gap, temp)
+        print(json.dumps(result, indent=2))
+        time.sleep(0.1)
+        
+    print("=== Sentinel Diagnostics ===")
+    print(json.dumps(sentinel.get_diagnostics(), indent=2))
