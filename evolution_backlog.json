@@ -1,7 +1,15 @@
 {
-  "last_updated": "2026-11-02T10:58:18.662058+00:00",
+  "last_updated": "2026-11-02T11:00:16.181815+00:00",
   "active_hypothesis": "Workstation Heuristic Anomaly Detector & Pre-emptive Memory Throttling",
   "discovered_vectors": [
+    {
+      "cycle_num": 1,
+      "vector_id": "EVO_CIRCUIT_BREAKER_V1_C1",
+      "title": "Autonomous Adaptive Circuit Breaker & API Cascade Isolator",
+      "domain": "RESILIENCE",
+      "file": "evolution_modules\\circuit_breaker_isolator.py",
+      "status": "IMPLEMENTED"
+    },
     {
       "cycle_num": 1,
       "vector_id": "EVO_CIRCUIT_BREAKER_V1_C1",
@@ -389,14 +397,6 @@
     {
       "cycle_num": 727,
       "vector_id": "EVO_NBI_GRAIN_MILLING_ROLLER_MILL_DYNAMIC_TORSION_HARMONIC_AMPLITUDE_EQUILIBRIUM_MODULATION_SENTINEL_V1",
-      "title": "Nairobi Commercial Grain Milling Roller Mill Dynamic Torsion Harmonic Amplitude Equilibrium Modulation Sentinel",
-      "domain": "RESILIENCE",
-      "file": "evolution_modules\\nairobi_commercial_grain_milling_roller_mill_dynamic_torsion_harmonic_amplitude_equilibrium_modulation_sentinel.py",
-      "status": "IMPLEMENTED"
-    },
-    {
-      "cycle_num": 726,
-      "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_ROLLER_MILL_DYNAMIC_TORSION_HARMONIC_AMPLITUDE_EQUILIBRIUM_MODULATION_SENTINEL_V1",
       "title": "Nairobi Commercial Grain Milling Roller Mill Dynamic Torsion Harmonic Amplitude Equilibrium Modulation Sentinel",
       "domain": "RESILIENCE",
       "file": "evolution_modules\\nairobi_commercial_grain_milling_roller_mill_dynamic_torsion_harmonic_amplitude_equilibrium_modulation_sentinel.py",
