@@ -1,91 +1,95 @@
 """
 Nairobi Commercial Grain Milling Roller Mill Roll Torque Harmonic Vibration Audit Synchronizer
-
-Provides real-time telemetry correlation, harmonic frequency decomposition, torque anomaly detection,
-and cryptographic audit trailing for commercial grain milling roller mills in industrial installations across Nairobi.
+Created for Michael Obiero | Autonomous Evolutionary Architect Cortana
 """
 
-import time
-import math
-import json
+import ast
 import logging
-import hashlib
-from typing import Dict, Any, List, Optional
+import math
+import random
+import time
+from typing import Dict, List, Optional, Any
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("RollerMillHarmonicSynchronizer")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger("RollerMillTorqueVibrationSynchronizer")
 
-
-class RollerMillAuditSynchronizer:
-    """Audits and synchronizes roller mill torque harmonics and vibration signatures."""
-
-    def __init__(self, mill_id: str, nominal_rpm: float = 1000.0):
+class RollTorqueVibrationSynchronizer:
+    """
+    Monitors roller mill drive torque and harmonic vibration signatures in real-time,
+    correlating anomalies to predict bearing wear, belt slip, or feeding choke in Nairobi milling plants.
+    """
+    def __init__(self, mill_id: str, nominal_torque_nm: float = 250.0, vibration_baseline_g: float = 0.5):
         self.mill_id = mill_id
-        self.nominal_rpm = nominal_rpm
+        self.nominal_torque_nm = nominal_torque_nm
+        self.vibration_baseline_g = vibration_baseline_g
         self.audit_log: List[Dict[str, Any]] = []
-        self._state_hash = hashlib.sha256(mill_id.encode()).hexdigest()
 
-    def ingest_telemetry(self, torque_nm: float, vibration_mm_s: float, temperature_c: float) -> Dict[str, Any]:
-        timestamp = time.time()
-        rpm_deviation = abs(self.nominal_rpm - 1000.0)
-        harmonic_index = (torque_nm * 0.05) + (vibration_mm_s * 1.5) + (rpm_deviation * 0.01)
+    def sample_telemetry(self, current_torque: float, harmonic_vibration: float) -> Dict[str, Any]:
+        """
+        Samples current motor torque and high-frequency harmonic vibration, computing deviation index.
+        """
+        try:
+            torque_deviation = abs(current_torque - self.nominal_torque_nm) / self.nominal_torque_nm
+            vibration_ratio = harmonic_vibration / max(self.vibration_baseline_g, 1e-4)
+            
+            # Composite stress score
+            stress_index = (torque_deviation * 0.6) + ((vibration_ratio - 1.0) * 0.4 if vibration_ratio > 1.0 else 0.0)
+            
+            status = "OPTIMAL"
+            if stress_index > 0.35:
+                status = "WARNING: ELEVATED STRESS"
+            if stress_index > 0.70:
+                status = "CRITICAL: POTENTIAL BEARING/CHOKE FAILURE"
+
+            record = {
+                "timestamp": time.time(),
+                "mill_id": self.mill_id,
+                "torque_nm": current_torque,
+                "harmonic_vibration_g": harmonic_vibration,
+                "stress_index": round(stress_index, 4),
+                "status": status
+            }
+            self.audit_log.append(record)
+            return record
+        except Exception as e:
+            logger.error(f"Error processing telemetry for mill {self.mill_id}: {e}")
+            return {"error": str(e), "timestamp": time.time()}
+
+    def generate_audit_summary(self) -> Dict[str, Any]:
+        """
+        Summarizes historical telemetry for audit compliance and maintenance dispatch.
+        """
+        if not self.audit_log:
+            return {"mill_id": self.mill_id, "total_samples": 0, "health_status": "NO_DATA"}
         
-        status = "NOMINAL"
-        if harmonic_index > 15.0 or temperature_c > 75.0:
-            status = "CRITICAL_HARMONIC_ANOMALY"
-        elif harmonic_index > 10.0 or temperature_c > 65.0:
-            status = "WARNING_ELEVATED_STRESS"
-
-        record = {
-            "mill_id": self.mill_id,
-            "timestamp": timestamp,
-            "torque_nm": torque_nm,
-            "vibration_mm_s": vibration_mm_s,
-            "temperature_c": temperature_c,
-            "harmonic_index": round(harmonic_index, 4),
-            "status": status,
-            "previous_state_hash": self._state_hash
-        }
-
-        raw_str = json.dumps(record, sort_keys=True)
-        self._state_hash = hashlib.sha256(raw_str.encode()).hexdigest()
-        record["current_state_hash"] = self._state_hash
-
-        self.audit_log.append(record)
-        return record
-
-    def get_audit_summary(self) -> Dict[str, Any]:
-        total_records = len(self.audit_log)
-        if total_records == 0:
-            return {"mill_id": self.mill_id, "total_records": 0, "system_health": "IDLE"}
-        
-        critical_count = sum(1 for r in self.audit_log if r["status"] == "CRITICAL_HARMONIC_ANOMALY")
-        warning_count = sum(1 for r in self.audit_log if r["status"] == "WARNING_ELEVATED_STRESS")
-        
-        health = "HEALTHY"
-        if critical_count > 0:
-            health = "DEGRADED_CRITICAL"
-        elif warning_count > 2:
-            health = "DEGRADED_WARNING"
+        critical_count = sum(1 for r in self.audit_log if "CRITICAL" in r.get("status", ""))
+        warning_count = sum(1 for r in self.audit_log if "WARNING" in r.get("status", ""))
+        avg_stress = sum(r.get("stress_index", 0) for r in self.audit_log) / len(self.audit_log)
 
         return {
             "mill_id": self.mill_id,
-            "total_records": total_records,
-            "critical_anomalies": critical_count,
+            "total_samples": len(self.audit_log),
+            "critical_events": critical_count,
             "warning_events": warning_count,
-            "system_health": health,
-            "latest_state_hash": self._state_hash
+            "average_stress_index": round(avg_stress, 4),
+            "operational_recommendation": "IMMEDIATE_SHUTDOWN_INSPECTION" if critical_count > 0 else "CONTINUE_OPERATION"
         }
 
-
 if __name__ == "__main__":
-    print("Initializing Nairobi Roller Mill Harmonic Audit Synchronizer...")
-    sync = RollerMillAuditSynchronizer(mill_id="NAIROBI_MILL_EASTLANDS_04")
+    print("Initializing Nairobi Commercial Grain Milling Roller Mill Roll Torque Harmonic Vibration Audit Synchronizer...")
+    synchronizer = RollTorqueVibrationSynchronizer(mill_id="NAIROBI_MILL_LINE_04")
     
-    # Simulate telemetries
-    res1 = sync.ingest_telemetry(torque_nm=145.2, vibration_mm_s=2.1, temperature_c=58.5)
-    res2 = sync.ingest_telemetry(torque_nm=210.8, vibration_mm_s=6.8, temperature_c=78.2)
+    # Simulate runtime telemetry
+    for i in range(5):
+        sim_torque = 250.0 + random.uniform(-20.0, 80.0)
+        sim_vibe = 0.5 + random.uniform(0.0, 0.8)
+        result = synchronizer.sample_telemetry(sim_torque, sim_vibe)
+        print(f"Sample {i+1}: {result}")
+        
+    summary = synchronizer.generate_audit_summary()
+    print(f"Audit Summary: {summary}")
     
-    print("Telemetry 1 Status:", res1["status"])
-    print("Telemetry 2 Status:", res2["status"])
-    print("Audit Summary:", json.dumps(sync.get_audit_summary(), indent=2))
+    # AST Self-Compilation Verification
+    source_code = open(__file__, "r", encoding="utf-8").read()
+    parsed_ast = ast.parse(source_code)
+    print(f"AST Self-Verification: Successfully compiled {len(parsed_ast.body)} nodes.")
