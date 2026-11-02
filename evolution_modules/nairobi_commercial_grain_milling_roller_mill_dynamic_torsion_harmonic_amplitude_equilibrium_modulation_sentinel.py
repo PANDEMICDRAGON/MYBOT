@@ -1,82 +1,95 @@
-"""
-Nairobi Commercial Grain Milling Roller Mill Dynamic Torsion Harmonic Amplitude Equilibrium Modulation Sentinel
-Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
+"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torsion Harmonic Amplitude Equilibrium Modulation Sentinel
+
+Architected to monitor, analyze, and modulate high-frequency torsional oscillations, harmonic amplitudes,
+and drive-shaft torque equilibria in industrial roller mills operating across Nairobi milling facilities.
 """
 
-import time
+import ast
+import logging
 import math
 import random
-import logging
-from typing import Dict, Any, List
+import time
+from typing import Dict, List, Optional, Tuple
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - [%(levelname)s] - %(name)s: %(message)s')
-logger = logging.getLogger("RollerMillTorsionModulatorSentinel")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(name)s: %(message)s')
+logger = logging.getLogger("RollerMillHarmonicSentinel")
 
-class RollerMillTorsionModulatorSentinel:
-    def __init__(self, mill_id: str, nominal_rpm: float = 750.0, rated_torque_nm: float = 450.0):
+
+class RollerMillTorsionModulator:
+    """Monitors harmonic amplitude and applies equilibrium modulation to roller mill drive shafts."""
+
+    def __init__(self, mill_id: str, nominal_rpm: float = 1200.0, harmonic_threshold: float = 4.5):
         self.mill_id = mill_id
         self.nominal_rpm = nominal_rpm
-        self.rated_torque_nm = rated_torque_nm
+        self.harmonic_threshold = harmonic_threshold
+        self.active_modulation_state = False
         self.torsion_history: List[float] = []
-        self.harmonic_amplitudes: List[float] = []
-        self.equilibrium_status = "STABLE"
-        self.modulation_factor = 1.0
 
-    def ingest_telemetry(self, current_rpm: float, measured_torque_nm: float, vibration_hz: float) -> Dict[str, Any]:
-        """
-        Ingests real-time rotational and vibrational telemetry to calculate torsion harmonics.
-        """
-        rpm_deviation = abs(current_rpm - self.nominal_rpm) / self.nominal_rpm
-        torque_load_ratio = measured_torque_nm / self.rated_torque_nm
+    def ingest_telemetry(self, current_rpm: float, torque_nm: float, vibration_mm_s: float) -> Dict[str, any]:
+        """Ingests telemetry data and calculates harmonic deviation and torsional stress."""
+        rpm_deviation = abs(current_rpm - self.nominal_rpm)
+        # Calculate synthetic harmonic amplitude index based on vibration and torque ripple
+        harmonic_index = (vibration_mm_s * 1.5) + (torque_nm * 0.02) + (rpm_deviation * 0.05)
         
-        # Compute instantaneous torsion harmonic amplitude
-        harmonic_amplitude = (rpm_deviation * 1.5) + (torque_load_ratio * 0.8) + (math.sin(vibration_hz * 0.1) * 0.2)
-        
-        self.torsion_history.append(measured_torque_nm)
-        self.harmonic_amplitudes.append(harmonic_amplitude)
-        
-        if len(self.torsion_history) > 100:
+        self.torsion_history.append(harmonic_index)
+        if len(self.torsion_history) > 50:
             self.torsion_history.pop(0)
-            self.harmonic_amplitudes.pop(0)
             
-        return self._evaluate_and_modulate(harmonic_amplitude, torque_load_ratio)
-
-    def _evaluate_and_modulate(self, current_amplitude: float, torque_load_ratio: float) -> Dict[str, Any]:
-        """
-        Evaluates equilibrium state and computes dampening/modulation adjustments.
-        """
-        if current_amplitude > 1.2 or torque_load_ratio > 1.15:
-            self.equilibrium_status = "CRITICAL_HARMONIC_SPIKE"
-            self.modulation_factor = max(0.70, self.modulation_factor - 0.05)
-        elif current_amplitude > 0.85:
-            self.equilibrium_status = "ELEVATED_TORSION"
-            self.modulation_factor = max(0.85, self.modulation_factor - 0.02)
-        else:
-            self.equilibrium_status = "STABLE"
-            self.modulation_factor = min(1.0, self.modulation_factor + 0.01)
-            
-        action = "DAMPEN_INVERTER_DRIVE" if self.equilibrium_status != "STABLE" else "OPTIMAL_OPERATION"
+        status = "STABLE"
+        modulation_applied = 0.0
         
+        if harmonic_index > self.harmonic_threshold:
+            self.active_modulation_state = True
+            status = "RESONANCE_WARNING"
+            modulation_applied = self._calculate_counter_torsion_pulse(harmonic_index)
+        else:
+            self.active_modulation_state = False
+            
         return {
             "mill_id": self.mill_id,
-            "status": self.equilibrium_status,
-            "current_harmonic_amplitude": round(current_amplitude, 4),
-            "modulation_factor": round(self.modulation_factor, 4),
-            "recommended_action": action,
-            "timestamp": time.time()
+            "timestamp": time.time(),
+            "harmonic_index": round(harmonic_index, 4),
+            "status": status,
+            "active_modulation": self.active_modulation_state,
+            "counter_torsion_pulse_nm": round(modulation_applied, 4)
         }
 
+    def _calculate_counter_torsion_pulse(self, harmonic_index: float) -> float:
+        """Calculates inverse phase torque pulse to dampen harmonic amplitude."""
+        excess = harmonic_index - self.harmonic_threshold
+        return -(excess * 12.8)
+
+
+class NairobiRollerMillFleetManager:
+    """Manages a fleet of commercial roller mills across Nairobi industrial zones."""
+
+    def __init__(self):
+        self.mills: Dict[str, RollerMillTorsionModulator] = {
+            "NRB-MILL-01": RollerMillTorsionModulator("NRB-MILL-01", 1200.0, 4.0),
+            "NRB-MILL-02": RollerMillTorsionModulator("NRB-MILL-02", 1250.0, 4.2),
+            "NRB-MILL-03": RollerMillTorsionModulator("NRB-MILL-03", 1180.0, 3.8),
+        }
+
+    def execute_fleet_sweep(self) -> List[Dict[str, any]]:
+        """Performs a diagnostic sweep across all registered mills."""
+        results = []
+        for mill_id, modulator in self.mills.items():
+            sim_rpm = modulator.nominal_rpm + random.uniform(-15.0, 15.0)
+            sim_torque = random.uniform(180.0, 240.0)
+            sim_vibr = random.uniform(1.0, 5.5)
+            
+            # Introduce artificial anomaly for testing resilience
+            if mill_id == "NRB-MILL-02" and random.random() < 0.3:
+                sim_vibr = 6.8
+                
+            telemetry = modulator.ingest_telemetry(sim_rpm, sim_torque, sim_vibr)
+            results.append(telemetry)
+            logger.info(f"Fleet Diagnostics -> Mill: {mill_id} | Index: {telemetry['harmonic_index']} | Status: {telemetry['status']}")
+        return results
+
+
 if __name__ == "__main__":
-    logger.info("Initializing RollerMillTorsionModulatorSentinel test harness for Nairobi facility...")
-    sentinel = RollerMillTorsionModulatorSentinel(mill_id="NAI_UNGA_MILL_04")
-    
-    for step in range(5):
-        rpm = 750.0 + random.uniform(-25.0, 35.0)
-        torque = 420.0 + random.uniform(-50.0, 80.0)
-        vibration = 45.0 + random.uniform(-5.0, 15.0)
-        report = sentinel.ingest_telemetry(rpm, torque, vibration)
-        logger.info(f"Step {step+1} Telemetry Report: {report}")
-        time.sleep(0.1)
-    
-    logger.info("RollerMillTorsionModulatorSentinel verified successfully.")
+    logger.info("Initializing Nairobi Commercial Grain Milling Roller Mill Dynamic Torsion Harmonic Amplitude Equilibrium Modulation Sentinel...")
+    manager = NairobiRollerMillFleetManager()
+    sweep_results = manager.execute_fleet_sweep()
+    logger.info(f"Completed sweep of {len(sweep_results)} industrial roller mills in Nairobi.")
