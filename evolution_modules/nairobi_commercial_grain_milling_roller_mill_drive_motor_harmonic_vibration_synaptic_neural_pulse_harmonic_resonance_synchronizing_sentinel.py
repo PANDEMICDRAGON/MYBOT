@@ -1,98 +1,85 @@
-"""Nairobi Commercial Grain Milling Roller Mill Drive Motor Harmonic Vibration Synaptic Neural Pulse Harmonic Resonance Synchronizing Sentinel Module."""
+"""Nairobi Commercial Grain Milling Roller Mill Drive Motor Harmonic Vibration Synaptic Neural Pulse Harmonic Resonance Synchronizing Sentinel."""
 
-import time
+import ast
+import logging
 import math
 import random
-import logging
-from typing import Dict, List, Any, Optional
+import time
+from typing import Dict, List, Any
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
-logger = logging.getLogger("RollerMillHarmonicResonanceSentinel")
+logger = logging.getLogger("RollerMillHarmonicSynchronizingSentinel")
 
 
-class RollerMillHarmonicResonanceSentinel:
-    """Monitors, analyzes, and synchronizes drive motor harmonic vibrations in commercial roller mills."""
+class RollerMillHarmonicSynchronizingSentinel:
+    """Monitors, analyzes, and synchronizes harmonic vibration pulses in roller mill drive motors."""
 
-    def __init__(self, mill_id: str, rated_rpm: float = 1450.0):
-        self.mill_id = mill_id
-        self.rated_rpm = rated_rpm
-        self.synaptic_weights: List[float] = [random.uniform(0.5, 1.5) for _ in range(5)]
+    def __init__(self, motor_id: str, nominal_rpm: float = 1450.0) -> None:
+        self.motor_id = motor_id
+        self.nominal_rpm = nominal_rpm
         self.resonance_history: List[float] = []
-        logger.info(f"Initialized RollerMillHarmonicResonanceSentinel for mill {self.mill_id} at {rated_rpm} RPM.")
+        self.sync_coefficient = 1.0
 
-    def capture_vibration_spectrum(self) -> Dict[str, Any]:
-        """Simulates telemetry extraction from roller mill motor accelerometer sensors."""
-        base_frequency = self.rated_rpm / 60.0
-        # Inject simulated harmonic anomalies and noise
-        harmonic_multiplier = random.choice([1.0, 2.0, 3.0, 5.0, 7.1])
-        jitter = random.gauss(0, 0.2)
-        frequency = (base_frequency * harmonic_multiplier) + jitter
-        amplitude_g = abs(random.gauss(0.15, 0.05) * harmonic_multiplier)
-        
-        spectrum_data = {
-            "timestamp": time.time(),
-            "frequency_hz": round(frequency, 3),
-            "amplitude_g": round(amplitude_g, 4),
-            "bearing_temp_c": round(62.5 + random.gauss(0, 2.1), 2)
-        }
-        return spectrum_data
+    def ingest_vibration_telemetry(self, vibration_spectrum: List[float]) -> Dict[str, Any]:
+        """Analyze incoming vibration spectrum for harmonic dissonance and compute synchronization tuning."""
+        try:
+            if not vibration_spectrum:
+                raise ValueError("Empty vibration spectrum received.")
 
-    def compute_synaptic_neural_resonance_score(self, spectrum: Dict[str, Any]) -> float:
-        """Applies synaptic neural weights to vibration telemetry to quantify resonance risk."""
-        freq = spectrum["frequency_hz"]
-        amp = spectrum["amplitude_g"]
-        temp = spectrum["bearing_temp_c"]
+            mean_amplitude = sum(vibration_spectrum) / len(vibration_spectrum)
+            peak_amplitude = max(vibration_spectrum)
+            variance = sum((v - mean_amplitude) ** 2 for v in vibration_spectrum) / len(vibration_spectrum)
+            std_dev = math.sqrt(variance)
 
-        # Neural activation computation
-        signal_vector = [freq / 100.0, amp * 10.0, temp / 100.0, (freq * amp), math.sin(freq)]
-        activation = sum(w * s for w, s in zip(self.synaptic_weights, signal_vector))
-        resonance_score = 1.0 / (1.0 + math.exp(-activation)) # Sigmoid squashing
-        
-        self.resonance_history.append(resonance_score)
-        if len(self.resonance_history) > 100:
-            self.resonance_history.pop(0)
-            
-        return round(resonance_score, 4)
+            # Harmonic anomaly index calculation
+            harmonic_anomaly_index = (peak_amplitude / (mean_amplitude + 1e-6)) * (1.0 + std_dev)
 
-    def execute_phase_synchronization_correction(self, score: float) -> Dict[str, Any]:
-        """Deploys counter-harmonic pulse adjustments if resonance score breaches threshold."""
-        action = "STABLE"
-        adjustment_hz = 0.0
-        if score > 0.75:
-            action = "EMERGENCY_HARMONIC_DAMPENING"
-            adjustment_hz = -1.25
-            logger.warning(f"[{self.mill_id}] High harmonic resonance detected (Score: {score}). Applying damping offset.")
-        elif score > 0.60:
-            action = "ADAPTIVE_PHASE_SHIFT"
-            adjustment_hz = -0.45
-            logger.info(f"[{self.mill_id}] Moderate resonance. Shifting drive motor phase.")
-        else:
-            logger.debug(f"[{self.mill_id}] Motor operation optimal. Resonance score: {score}")
+            status = "NOMINAL"
+            adjustment_factor = 0.0
 
+            if harmonic_anomaly_index > 3.5:
+                status = "CRITICAL_RESONANCE_DETECTED"
+                adjustment_factor = -0.15 * math.copysign(1.0, harmonic_anomaly_index - 3.5)
+                self.sync_coefficient = max(0.7, min(1.3, self.sync_coefficient + adjustment_factor))
+            elif harmonic_anomaly_index > 2.2:
+                status = "WARNING_ELEVATED_HARMONICS"
+                adjustment_factor = -0.05
+                self.sync_coefficient = max(0.85, min(1.15, self.sync_coefficient + adjustment_factor))
+
+            self.resonance_history.append(harmonic_anomaly_index)
+            if len(self.resonance_history) > 100:
+                self.resonance_history.pop(0)
+
+            telemetry = {
+                "motor_id": self.motor_id,
+                "timestamp": time.time(),
+                "mean_amplitude": mean_amplitude,
+                "peak_amplitude": peak_amplitude,
+                "harmonic_anomaly_index": harmonic_anomaly_index,
+                "sync_coefficient": self.sync_coefficient,
+                "status": status
+            }
+            logger.info(f"Motor {self.motor_id} telemetry processed: status={status}, anomaly_index={harmonic_anomaly_index:.3f}")
+            return telemetry
+        except Exception as e:
+            logger.error(f"Error processing vibration telemetry for motor {self.motor_id}: {e}")
+            return {"motor_id": self.motor_id, "error": str(e), "status": "ERROR"}
+
+    def generate_synaptic_neural_pulse(self) -> Dict[str, Any]:
+        """Generate a corrective synaptic neural pulse to phase-lock drive motor frequency."""
+        pulse_amplitude = random.uniform(0.95, 1.05) * self.sync_coefficient
         return {
-            "mill_id": self.mill_id,
-            "action_taken": action,
-            "frequency_adjustment_hz": adjustment_hz,
+            "motor_id": self.motor_id,
+            "pulse_type": "SYNAPTIC_NEURAL_HARMONIC_LOCK",
+            "target_frequency_multiplier": pulse_amplitude,
             "timestamp": time.time()
-        }
-
-    def run_diagnostic_cycle(self) -> Dict[str, Any]:
-        """Executes a full sensing, scoring, and synchronizing loop."""
-        spectrum = self.capture_vibration_spectrum()
-        score = self.compute_synaptic_neural_resonance_score(spectrum)
-        correction = self.execute_phase_synchronization_correction(score)
-        return {
-            "spectrum": spectrum,
-            "resonance_score": score,
-            "correction": correction
         }
 
 
 if __name__ == "__main__":
-    logger.info("Executing standalone diagnostic test for RollerMillHarmonicResonanceSentinel...")
-    sentinel = RollerMillHarmonicResonanceSentinel(mill_id="NAI-MILL-IND-04")
-    for i in range(3):
-        result = sentinel.run_diagnostic_cycle()
-        logger.info(f"Cycle {i+1} Result: {result}")
-        time.sleep(0.1)
-    logger.info("RollerMillHarmonicResonanceSentinel test completed successfully.")
+    sentinel = RollerMillHarmonicSynchronizingSentinel(motor_id="MILL_MOTOR_NRB_04")
+    sample_spectrum = [0.4, 0.5, 0.6, 2.1, 0.5, 0.4, 3.8, 0.6]
+    result = sentinel.ingest_vibration_telemetry(sample_spectrum)
+    pulse = sentinel.generate_synaptic_neural_pulse()
+    print("Sentinel Execution Result:", result)
+    print("Generated Neural Pulse:", pulse)
