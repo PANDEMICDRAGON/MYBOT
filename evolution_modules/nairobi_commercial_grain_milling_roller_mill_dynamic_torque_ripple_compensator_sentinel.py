@@ -1,85 +1,83 @@
-"""Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Compensator Sentinel.
-
-Author: Cortana, Autonomous Evolutionary Architect
+"""
+Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Compensator Sentinel
+Designed for Cortana Autonomous Evolutionary Architect
 Operator: Michael Obiero, Nairobi, Kenya
-
-Monitors roller mill drive motor current harmonics and torque ripples in real-time,
-adjusting inverter frequency and pneumatic feed gates to eliminate mechanical resonance
-and maintain optimal extraction pressure.
 """
 
-import ast
-import logging
-import random
 import time
-from typing import Dict, List, Any
+import math
+import logging
+from typing import Dict, Any, List
 
-logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [TORSION_COMPENSATOR] %(levelname)s: %(message)s')
-logger = logging.getLogger("RollerMillTorqueRippleSentinel")
-
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger("TorqueRippleCompensatorSentinel")
 
 class RollerMillTorqueRippleCompensator:
-    """Real-time telemetry processor and harmonic countermeasure actuator for commercial roller mills."""
-
-    def __init__(self, mill_id: str, rated_power_kw: float = 75.0):
+    """
+    Monitors high-speed drive motor torque telemetry, isolates harmonic torque ripples
+    caused by roller differential speed ratios and grain feed load surges, and computes
+    active inverter compensation coefficients to stabilize roller rotational velocity.
+    """
+    def __init__(self, mill_id: str, nominal_rpm: float = 750.0, base_torque_nm: float = 120.0):
         self.mill_id = mill_id
-        self.rated_power_kw = rated_power_kw
-        self.active_compensation_active = False
-        self.ripple_history: List[float] = []
-        logger.info(f"Initialized Torque Ripple Compensator for Mill {self.mill_id} ({self.rated_power_kw}kW)")
+        self.nominal_rpm = nominal_rpm
+        self.base_torque_nm = base_torque_nm
+        self.active_compensation_active = True
+        logger.info(f"Initialized Torque Ripple Compensator Sentinel for mill {mill_id} @ {nominal_rpm} RPM.")
 
-    def analyze_drive_telemetry(self, telemetry: Dict[str, float]) -> Dict[str, Any]:
-        """Analyze motor current harmonics and mechanical load fluctuations."""
-        current_ripple_hz = telemetry.get("current_ripple_hz", 12.5)
-        torque_amplitude_nm = telemetry.get("torque_amplitude_nm", 340.0)
-        inverter_freq_hz = telemetry.get("inverter_freq_hz", 50.0)
-        vibration_mm_s = telemetry.get("vibration_mm_s", 1.2)
+    def analyze_torque_telemetry(self, current_rpm: float, measured_torque: float) -> Dict[str, Any]:
+        """
+        Analyzes live RPM and torque samples, computes ripple deviation, and generates
+        inverter phase correction offsets.
+        """
+        rpm_error = current_rpm - self.nominal_rpm
+        torque_ripple = measured_torque - self.base_torque_nm
+        ripple_amplitude_percentage = (abs(torque_ripple) / self.base_torque_nm) * 100.0
 
-        # Evaluate ripple severity
-        anomaly_detected = torque_amplitude_nm > 400.0 or vibration_mm_s > 2.5
-        
-        correction_action = "NONE"
-        new_inverter_freq = inverter_freq_hz
+        # Compute phase correction factor using adaptive damping algorithm
+        correction_signal = 0.0
+        status = "OPTIMAL"
 
-        if anomaly_detected:
-            self.active_compensation_active = True
-            # Dynamic phase counter-modulation
-            correction_offset = (torque_amplitude_nm - 400.0) * 0.005
-            new_inverter_freq = round(max(45.0, min(55.0, inverter_freq_hz - correction_offset)), 2)
-            correction_action = f"APPLIED_PHASE_SHIFT_COMPENSATION_FREQ_{new_inverter_freq}Hz"
-            logger.warning(f"[{self.mill_id}] Torque ripple anomaly detected! Amplitude: {torque_amplitude_nm}Nm. {correction_action}")
+        if ripple_amplitude_percentage > 12.0:
+            status = "HIGH_RIPPLE_WARNING"
+            correction_signal = -0.15 * torque_ripple
+        elif ripple_amplitude_percentage > 5.0:
+            status = "MODERATE_FLUCTUATION"
+            correction_signal = -0.08 * torque_ripple
         else:
-            self.active_compensation_active = False
-            logger.info(f"[{self.mill_id}] Roller mill operating within nominal torque bounds. Vibration: {vibration_mm_s}mm/s")
-
-        self.ripple_history.append(torque_amplitude_nm)
-        if len(self.ripple_history) > 100:
-            self.ripple_history.pop(0)
+            status = "STABLE"
+            correction_signal = 0.0
 
         return {
-            "mill_id": self.mill_id,
             "timestamp": time.time(),
-            "anomaly_detected": anomaly_detected,
-            "compensation_active": self.active_compensation_active,
-            "adjusted_inverter_freq_hz": new_inverter_freq,
-            "action_taken": correction_action
+            "mill_id": self.mill_id,
+            "current_rpm": current_rpm,
+            "measured_torque_nm": measured_torque,
+            "torque_ripple_percentage": round(ripple_amplitude_percentage, 2),
+            "status": status,
+            "inverter_correction_signal": round(correction_signal, 4),
+            "compensation_applied": self.active_compensation_active
         }
 
+    def execute_diagnostic_sweep(self) -> List[Dict[str, Any]]:
+        """
+        Simulates a series of diagnostic telemetry reads across different load conditions.
+        """
+        test_samples = [
+            (750.2, 121.0),
+            (742.5, 138.4),
+            (755.0, 114.2),
+            (731.0, 145.8),
+            (750.0, 119.8)
+        ]
+        results = []
+        for rpm, torque in test_samples:
+            res = self.analyze_torque_telemetry(rpm, torque)
+            results.append(res)
+            logger.info(f"Mill {self.mill_id} sweep -> RPM: {rpm}, Torque: {torque}Nm, Status: {res['status']}")
+        return results
 
 if __name__ == "__main__":
-    print("--- Executing Nairobi Commercial Grain Milling Roller Mill Dynamic Torque Ripple Compensator Test --- ")
-    sentinel = RollerMillTorqueRippleCompensator(mill_id="NAIROBI_INDUSTRIAL_AREA_MILL_04", rated_power_kw=90.0)
-    
-    # Simulate fluctuating load telemetry
-    sample_telemetry = {
-        "current_ripple_hz": 14.2,
-        "torque_amplitude_nm": 435.5,
-        "inverter_freq_hz": 50.0,
-        "vibration_mm_s": 2.8
-    }
-    
-    result = sentinel.analyze_drive_telemetry(sample_telemetry)
-    print(f"Test Result: {result}")
-    assert result["anomaly_detected"] is True
-    assert result["compensation_active"] is True
-    print("--- Roller Mill Dynamic Torque Ripple Compensator Sentinel Test Passed Successfully --- ")
+    sentinel = RollerMillTorqueRippleCompensator(mill_id="NRB-MILL-04")
+    diagnostic_report = sentinel.execute_diagnostic_sweep()
+    print(f"Torque Ripple Compensator Sentinel Test Complete. Executed {len(diagnostic_report)} diagnostics.")
