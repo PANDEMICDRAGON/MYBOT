@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 715,
-    "vector_id": "EVO_CIRCUIT_BREAKER_V1_C715",
-    "title": "Autonomous Adaptive Circuit Breaker & API Cascade Isolator",
-    "domain": "RESILIENCE",
-    "rationale": "Prevents upstream external sensorium and API outages from cascading into bot thread lockups.",
-    "file_path": "evolution_modules\\circuit_breaker_isolator.py",
-    "code_size": 2040,
-    "applied_at": "2026-11-02 11:57:19 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Workstation Heuristic Anomaly Detector & Pre-emptive Memory Throttling"
-  },
-  {
     "cycle_num": 716,
     "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_ROLLER_MILL_DYNAMIC_TORSION_HARMONIC_ABSORBING_DISPERSION_SENTINEL_V1",
     "title": "Nairobi Commercial Grain Milling Roller Mill Dynamic Torsion Harmonic Absorbing Dispersion Sentinel",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-11-02 15:31:30 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Workstation Heuristic Anomaly Detector & Pre-emptive Memory Throttling"
+  },
+  {
+    "cycle_num": 36,
+    "vector_id": "EVO_KENYA_LATENCY_HEATMAP_V1_C36",
+    "title": "Kenyan Regional Multi-Node Latency & DNS Heatmap Prober",
+    "domain": "SENSORIUM",
+    "rationale": "Measures DNS and HTTP resolution times across East African telecom backbones.",
+    "file_path": "evolution_modules\\kenya_network_prober.py",
+    "code_size": 1107,
+    "applied_at": "2026-11-02 15:36:21 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Thread-Safe LRU Cache with Adaptive TTL Eviction"
   }
 ]
