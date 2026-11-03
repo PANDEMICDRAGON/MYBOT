@@ -1,81 +1,65 @@
-"""Nairobi Commercial Grain Milling Roller Gap Micrometer Synapse Harmonic Pulse Correlation Vibration Audit Synchronizer V16."""
+"""
+Nairobi Commercial Grain Milling Roller Gap Micrometer Synapse Harmonic Pulse Correlation Vibration Audit Synchronizer V16
 
-import ast
-import logging
-import random
+Proactively correlates roller gap micrometer telemetry with tri-axial vibration spectrograms
+to detect micro-misalignments and bearing fatigue anomalies in Nairobi grain mills.
+"""
+
 import time
-from typing import Dict, List, Optional, Tuple
+import math
+import random
+import logging
+from typing import Dict, List, Any
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(name)s: %(message)s")
-logger = logging.getLogger("RollerGapSynapseV16")
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("GrainMillAuditorV16")
 
-
-class RollerGapSynapseSynchronizer:
-    """Performs real-time harmonic correlation between roller gap micrometers and vibration sensors
-    in Nairobi commercial grain milling plants.
-    """
-
-    def __init__(self, mill_id: str, nominal_gap_microns: float = 250.0):
+class RollerGapVibrationSynchronizer:
+    def __init__(self, mill_id: str = "NAIROBI_MILL_016"):
         self.mill_id = mill_id
-        self.nominal_gap_microns = nominal_gap_microns
-        self.current_gap = nominal_gap_microns
-        self.vibration_history: List[float] = []
-        self.audit_log: List[Dict[str, float]] = []
-        logger.info(f"Initialized RollerGapSynapseSynchronizer for mill {mill_id} at nominal gap {nominal_gap_microns}um.")
+        self.baseline_gap_microns = 250.0
+        self.tolerance_microns = 5.0
+        self.audit_history: List[Dict[str, Any]] = []
 
-    def read_micrometer(self) -> float:
-        """Simulates high-precision micrometer sensor reading with micro-drift."""
-        drift = random.gauss(0.0, 0.5)
-        self.current_gap = round(self.current_gap + drift, 2)
-        return self.current_gap
+    def sample_telemetry(self) -> Dict[str, float]:
+        """Simulate real-time sensor telemetry for gap and vibration."""
+        gap_jitter = random.gauss(0, 1.2)
+        vibration_hz = random.gauss(120.0, 3.5)
+        harmonic_amplitude = random.gauss(0.85, 0.08)
+        return {
+            "gap_microns": self.baseline_gap_microns + gap_jitter,
+            "vibration_freq_hz": vibration_hz,
+            "harmonic_amplitude": harmonic_amplitude,
+            "timestamp": time.time()
+        }
 
-    def sample_vibration_harmonic(self) -> float:
-        """Samples vibration acceleration (m/s^2) across critical frequency spectrum."""
-        base_vibration = 1.2 + (abs(self.current_gap - self.nominal_gap_microns) * 0.05)
-        harmonic_noise = random.uniform(-0.15, 0.15)
-        vibration = round(base_vibration + harmonic_noise, 4)
-        self.vibration_history.append(vibration)
-        if len(self.vibration_history) > 100:
-            self.vibration_history.pop(0)
-        return vibration
-
-    def evaluate_synapse_correlation(self) -> Tuple[float, str]:
-        """Correlates gap variance with vibration anomalies using harmonic weighting."""
-        gap = self.read_micrometer()
-        vib = self.sample_vibration_harmonic()
+    def audit_cycle(self) -> Dict[str, Any]:
+        """Perform a synchronization audit between gap precision and vibration harmonics."""
+        telemetry = self.sample_telemetry()
+        gap_delta = abs(telemetry["gap_microns"] - self.baseline_gap_microns)
         
-        gap_delta = abs(gap - self.nominal_gap_microns)
-        correlation_score = max(0.0, 1.0 - (gap_delta / 50.0) - (vib / 10.0))
+        # Synapse harmonic correlation score
+        correlation_score = max(0.0, 1.0 - (gap_delta / (self.tolerance_microns * 2)))
         
         status = "OPTIMAL"
-        if gap_delta > 15.0 or vib > 2.5:
-            status = "CRITICAL_ALIGNMENT_REQUIRED"
-        elif gap_delta > 5.0 or vib > 1.8:
-            status = "WARNING_DRIFT_DETECTED"
+        if gap_delta > self.tolerance_microns:
+            status = "WARNING_GAP_DRIFT"
+        if telemetry["harmonic_amplitude"] > 1.1:
+            status = "CRITICAL_HARMONIC_SPIKE"
 
-        record = {"timestamp": time.time(), "gap": gap, "vibration": vib, "score": correlation_score}
-        self.audit_log.append(record)
-
-        logger.debug(f"Mill {self.mill_id} | Gap: {gap}um | Vib: {vib}m/s^2 | Score: {correlation_score:.3f} | Status: {status}")
-        return correlation_score, status
-
-    def auto_calibrate_gap(self) -> float:
-        """Executes automated stepper compensation to return roller gap to nominal target."""
-        error = self.current_gap - self.nominal_gap_microns
-        correction = -0.5 * error
-        self.current_gap = round(self.current_gap + correction, 2)
-        logger.info(f"Mill {self.mill_id} auto-calibrated gap by {correction:+.2f}um to new gap: {self.current_gap}um.")
-        return self.current_gap
-
+        audit_result = {
+            "mill_id": self.mill_id,
+            "status": status,
+            "gap_delta_microns": round(gap_delta, 3),
+            "correlation_score": round(correlation_score, 4),
+            "telemetry": telemetry
+        }
+        self.audit_history.append(audit_result)
+        logger.info(f"[Audit V16] Mill {self.mill_id} Status: {status} | Delta: {gap_delta:.2f}um")
+        return audit_result
 
 if __name__ == "__main__":
-    logger.info("Executing self-test for RollerGapSynapseSynchronizer V16...")
-    synchronizer = RollerGapSynapseSynchronizer("NAIROBI_MILL_ALPHA_01", nominal_gap_microns=200.0)
-    
-    for step in range(5):
-        score, status = synchronizer.evaluate_synapse_correlation()
-        if status != "OPTIMAL":
-            synchronizer.auto_calibrate_gap()
-        time.sleep(0.05)
-    
-    logger.info("RollerGapSynapseSynchronizer V16 self-test completed successfully.")
+    synchronizer = RollerGapVibrationSynchronizer()
+    for _ in range(3):
+        synchronizer.audit_cycle()
+        time.sleep(0.1)
