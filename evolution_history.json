@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 2,
-    "vector_id": "EVO_NAIROBI_COMMERCIAL_AVOCADO_OIL_CENTRIFUGE_HARMONIC_PULSE_SENTINEL_V1",
-    "title": "Nairobi Commercial Avocado Oil Centrifuge Harmonic Pulse & Viscosity Correlation Sentinel V1",
-    "domain": "RESILIENCE",
-    "rationale": "Kenya is one of the world's leading exporters of fresh avocados and refined avocado oil, with major processing plants operating around Nairobi and central agricultural zones. Industrial three-phase decanter centrifuges and disc-stack separators are critical for breaking oil-water emulsions and extracting high-grade cold-pressed extra virgin avocado oil. High vibrational harmonics, bearing wear, or thermal imbalances in these high-speed centrifuges lead to catastrophic seal failures, contaminated batches, and severe financial losses. This sentinel implements real-time harmonic pulse correlation and viscosity tracking to safeguard continuous centrifuge operations for local agro-industrial producers.",
-    "file_path": "evolution_modules\\nairobi_commercial_avocado_oil_centrifuge_harmonic_pulse_sentinel.py",
-    "code_size": 4848,
-    "applied_at": "2026-11-03 12:43:40 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Next, Cortana will engineer an autonomous macadamia nut kernel sorting and moisture infrared spectroscopy sentinel to optimize export-grade nut grading for Nairobi agricultural exporters."
-  },
-  {
     "cycle_num": 3,
     "vector_id": "EVO_NAIROBI_COMMERCIAL_MACADAMIA_NUT_CRACKER_ACOUSTIC_SYNAPSE_V1",
     "title": "Nairobi Commercial Macadamia Nut Cracker Acoustic Synapse & Kernel Integrity Sentinel V1",
@@ -1196,6 +1184,18 @@
     "file_path": "evolution_modules\\circuit_breaker_isolator.py",
     "code_size": 2040,
     "applied_at": "2026-11-03 16:04:50 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Workstation Heuristic Anomaly Detector & Pre-emptive Memory Throttling"
+  },
+  {
+    "cycle_num": 1,
+    "vector_id": "EVO_CIRCUIT_BREAKER_V1_C1",
+    "title": "Autonomous Adaptive Circuit Breaker & API Cascade Isolator",
+    "domain": "RESILIENCE",
+    "rationale": "Prevents upstream external sensorium and API outages from cascading into bot thread lockups.",
+    "file_path": "evolution_modules\\circuit_breaker_isolator.py",
+    "code_size": 2040,
+    "applied_at": "2026-11-03 16:06:00 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Workstation Heuristic Anomaly Detector & Pre-emptive Memory Throttling"
   }
