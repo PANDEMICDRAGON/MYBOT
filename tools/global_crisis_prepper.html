@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Crisis & Fallout Command Center // CORTANA</title>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"></script>
+    <style>
+        body { background-color: #0b0f19; color: #e2e8f0; font-family: ui-monospace, monospace; }
+        .glow { text-shadow: 0 0 10px rgba(239, 68, 68, 0.5); }
+        .card-bg { background-color: #111827; border: 1px solid #1f2937; }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="flex justify-between items-center mb-8 pb-4 border-b border-red-900">
+            <div>
+                <span class="text-xs uppercase tracking-widest text-red-500 font-bold">[CORTANA // STRATEGIC FALLOUT PROTOCOL]</span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-white glow">GLOBAL CRISIS COMMAND CENTER</h1>
+            </div>
+            <div class="text-right">
+                <span id="defcon-badge" class="px-3 py-1 rounded bg-red-600 text-white font-bold text-sm">DEFCON 2</span>
+                <p class="text-xs text-gray-400 mt-1">Target Date: 2026-11-03</p>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="card-bg p-6 rounded-lg">
+                <p class="text-xs text-gray-400 uppercase">Readiness Index</p>
+                <p id="readiness-display" class="text-4xl font-black text-green-400 mt-2">88%</p>
+                <p class="text-xs text-gray-500 mt-1">Optimal Tier Verified</p>
+            </div>
+            <div class="card-bg p-6 rounded-lg md:col-span-2">
+                <p class="text-xs text-gray-400 uppercase">Immediate Directive</p>
+                <p class="text-sm text-gray-200 mt-2 leading-relaxed">
+                    All subsystems locked for Nov 3rd escalation threshold. Verify offline LLM weights, check secondary power generators, and secure all water filtration caches.
+                </p>
+            </div>
+        </div>
+
+        <div class="mb-6 flex justify-between items-center">
+            <h2 class="text-lg font-bold text-white uppercase tracking-wider">Survival Inventory & Subsystems</h2>
+            <button onclick="saveChanges()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-bold text-xs uppercase rounded transition">Sync Telemetry</button>
+        </div>
+
+        <div id="categories-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Dynamic Categories injected here -->
+        </div>
+    </div>
+
+    <script>
+        let appData = {};
+
+        async function fetchData() {
+            try {
+                const res = await fetch('/api/status');
+                appData = await res.json();
+                render();
+            } catch (e) {
+                console.error("Failed to load telemetry", e);
+            }
+        }
+
+        function render() {
+            document.getElementById('defcon-badge').innerText = appData.defcon_level;
+            document.getElementById('readiness-display').innerText = appData.readiness_score + '%';
+            
+            const container = document.getElementById('categories-container');
+            container.innerHTML = '';
+
+            appData.categories.forEach((cat, idx) => {
+                const card = document.createElement('div');
+                card.className = 'card-bg p-6 rounded-lg';
+                card.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="font-bold text-white">${cat.name}</h3>
+                        <span class="text-xs px-2 py-0.5 rounded bg-gray-800 text-green-400 border border-gray-700">${cat.status}</span>
+                    </div>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        ${cat.items.map((item, itemIdx) => `
+                            <li class="flex items-center justify-between bg-gray-900 p-2 rounded">
+                                <span>${item}</span>
+                                <input type="checkbox" checked class="accent-red-600" onchange="toggleItem(${idx}, ${itemIdx})">
+                            </li>
+                        `).join('')}
+                    </ul>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleItem(catIdx, itemIdx) {
+            // Placeholder interaction
+        }
+
+        async function saveChanges() {
+            const res = await fetch('/api/update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(appData)
+            });
+            if (res.ok) {
+                alert('Telemetry successfully synchronized across swarm nodes.');
+            }
+        }
+
+        fetchData();
+    </script>
+</body>
+</html>
