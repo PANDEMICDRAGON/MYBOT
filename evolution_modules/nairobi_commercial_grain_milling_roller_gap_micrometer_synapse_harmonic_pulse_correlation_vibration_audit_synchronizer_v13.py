@@ -1,95 +1,64 @@
 """
-Nairobi Commercial Grain Milling Roller Mill Roll Torsional Harmonic Vibration Audit Synchronizer v13
+Nairobi Commercial Grain Milling Roller Gap Micrometer Synapse Harmonic Pulse Correlation Vibration Audit Synchronizer V13
 Author: Cortana Autonomous Evolutionary Architect
-Operator: Michael Obiero, Nairobi, Kenya
-
-Provides real-time telemetry correlation between high-precision micrometer roller gap sensors
-and torsional harmonic vibration signatures in commercial flour mills across Nairobi's Industrial Area.
+Operator: Michael Obiero (Nairobi, Kenya)
 """
 
 import time
 import math
 import logging
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - [CORTANA-MILL-SYNC-V13] - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("RollerGapVibrationSynchronizerV13")
 
-
-class MillRollerHarmonicAuditor:
+class RollerGapVibrationSynchronizerV13:
     """
-    Monitors roller mill gaps and harmonic vibration pulses to detect mechanical misalignment,
-    bearing degradation, or grain feed anomalies.
+    Monitors roller gap micrometer metrics and acoustic harmonic vibration pulses
+    in commercial grain milling machinery in Nairobi industrial areas.
     """
-
-    def __init__(self, mill_id: str, baseline_gap_mm: float = 0.45):
+    def __init__(self, mill_id: str, nominal_gap_microns: float = 120.0):
         self.mill_id = mill_id
-        self.baseline_gap_mm = baseline_gap_mm
-        self.audit_history: List[Dict[str, Any]] = []
-        logger.info(f"Initialized MillRollerHarmonicAuditor for {{self.mill_id}} at baseline gap {{baseline_gap_mm}}mm.")
+        self.nominal_gap_microns = nominal_gap_microns
+        self.audit_log: List[Dict[str, Any]] = []
 
-    def audit_cycle(self, current_gap_mm: float, vibration_hz_spectrum: List[float]) -> Dict[str, Any]:
+    def measure_gap_and_vibration(self, raw_vibration_hz: float, measured_gap_microns: float) -> Dict[str, Any]:
         """
-        Executes a synchronization audit between current micrometer gap and vibration spectrum.
+        Correlates vibration frequency harmonics with roller gap deviations.
         """
-        gap_deviation = abs(current_gap_mm - self.baseline_gap_mm)
-        
-        # Calculate root-mean-square (RMS) energy of the vibration spectrum
-        if vibration_hz_spectrum:
-            rms_vibration = math.sqrt(sum(v ** 2 for v in vibration_hz_spectrum) / len(vibration_hz_spectrum))
-        else:
-            rms_vibration = 0.0
-
-        # Harmonic anomaly detection heuristic
-        harmonic_stress_index = rms_vibration * (1.0 + (gap_deviation * 10.0))
+        gap_delta = measured_gap_microns - self.nominal_gap_microns
+        harmonic_anomaly = abs(raw_vibration_hz - (self.nominal_gap_microns * 1.5))
         
         status = "OPTIMAL"
-        action_required = "NONE"
-        
-        if harmonic_stress_index > 2.5:
-            status = "CRITICAL_HARMONIC_ANOMALY"
-            action_required = "IMMEDIATE_ROLLER_RETENSION_AND_GAP_CALIBRATION"
-            logger.warning(f"[{self.mill_id}] CRITICAL STRESS: Index={{harmonic_stress_index:.3f}}. Action: {{action_required}}")
-        elif harmonic_stress_index > 1.5:
-            status = "WARNING_ELEVATED_VIBRATION"
-            action_required = "SCHEDULE_PREVENTATIVE_MAINTENANCE"
-            logger.info(f"[{self.mill_id}] Warning state: Index={{harmonic_stress_index:.3f}}.")
-        else:
-            logger.info(f"[{self.mill_id}] Audit nominal: Index={{harmonic_stress_index:.3f}}.")
+        correction_factor = 1.0
+        if abs(gap_delta) > 5.0 or harmonic_anomaly > 25.0:
+            status = "ALIGNMENT_WARNING"
+            correction_factor = 0.98 if gap_delta > 0 else 1.02
 
-        audit_record = {
+        telemetry = {
             "timestamp": time.time(),
             "mill_id": self.mill_id,
-            "current_gap_mm": current_gap_mm,
-            "gap_deviation": gap_deviation,
-            "rms_vibration": rms_vibration,
-            "harmonic_stress_index": harmonic_stress_index,
+            "measured_gap_microns": measured_gap_microns,
+            "gap_delta": gap_delta,
+            "raw_vibration_hz": raw_vibration_hz,
+            "harmonic_anomaly": harmonic_anomaly,
             "status": status,
-            "action_required": action_required
+            "correction_factor": correction_factor
         }
-
-        self.audit_history.append(audit_record)
-        return audit_record
+        self.audit_log.append(telemetry)
+        return telemetry
 
     def get_summary(self) -> Dict[str, Any]:
         return {
             "mill_id": self.mill_id,
-            "total_audits": len(self.audit_history),
-            "last_status": self.audit_history[-1][
-                "status"] if self.audit_history else "PENDING"
+            "total_audits": len(self.audit_log),
+            "last_status": self.audit_log[-1]["status"] if self.audit_log else "PENDING"
         }
 
-
 if __name__ == "__main__":
-    print("=== Executing MillRollerHarmonicAuditor Self-Test ===")
-    auditor = MillRollerHarmonicAuditor(mill_id="NAIROBI_INDUSTRIAL_MILL_04")
-    
-    # Simulate nominal run
-    res1 = auditor.audit_cycle(current_gap_mm=0.45, vibration_hz_spectrum=[0.1, 0.2, 0.15])
-    print(f"Test 1 Result: {{res1['status']}}")
-    
-    # Simulate anomalous high-stress run
-    res2 = auditor.audit_cycle(current_gap_mm=0.52, vibration_hz_spectrum=[1.2, 1.8, 2.1, 1.9])
-    print(f"Test 2 Result: {{res2['status']}} | Action: {{res2['action_required']}}")
-    
-    print("=== Self-Test Completed Successfully ===")
+    logger.info("Initializing RollerGapVibrationSynchronizerV13 Test Harness...")
+    synchronizer = RollerGapVibrationSynchronizerV13(mill_id="NAI-MILL-013", nominal_gap_microns=125.0)
+    result = synchronizer.measure_gap_and_vibration(raw_vibration_hz=188.5, measured_gap_microns=127.2)
+    logger.info(f"Audit Result: {result}")
+    summary = synchronizer.get_summary()
+    logger.info(f"Synchronizer Summary: {summary}")
