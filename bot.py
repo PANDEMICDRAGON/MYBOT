@@ -351,11 +351,97 @@ GLOBAL_NEWS_FEEDS = CONTINENTAL_NEWS_FEEDS + [
     {"source": "The Hacker News", "scope": "GLOBAL", "theater": "CYBER-INTEL", "url": "https://feeds.feedburner.com/TheHackersNews"}
 ]
 
-BASE_NEWS_FEEDS = CONTINENTAL_NEWS_FEEDS + LOCAL_KENYA_NEWS_FEEDS + SPORTS_INTELLIGENCE_FEEDS
+# ==============================================================================
+# US MILITARY, PENTAGON, WARS & GLOBAL GEOPOLITICAL ACTIVITY SENSORS
+# ==============================================================================
+US_WAR_AND_ACTIVITY_FEEDS = [
+    {
+        "source": "US DOD & Pentagon Wire",
+        "scope": "US_ACTIVITY",
+        "theater": "US-PENTAGON",
+        "url": "https://news.google.com/rss/search?q=(%22Department+of+Defense%22+OR+Pentagon+OR+%22Joint+Chiefs%22)+AND+(strike+OR+weapons+OR+deployment+OR+military+OR+airstrike)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "source": "US CENTCOM & Red Sea Strikes",
+        "scope": "US_ACTIVITY",
+        "theater": "US-CENTCOM",
+        "url": "https://news.google.com/rss/search?q=(%22CENTCOM%22+OR+%22carrier+strike+group%22+OR+%22Red+Sea+strikes%22+OR+%22Yemen+strikes%22+OR+%22Syria+base%22)+AND+(US+OR+American)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "source": "US Indo-Pacific & Taiwan Deterrence",
+        "scope": "US_ACTIVITY",
+        "theater": "US-INDOPACOM",
+        "url": "https://news.google.com/rss/search?q=(%22INDOPACOM%22+OR+%22Taiwan+Strait%22+OR+%22South+China+Sea%22)+AND+(%22US+Navy%22+OR+%22freedom+of+navigation%22+OR+bombers)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "source": "US Military Aid & Arms Packages",
+        "scope": "US_ACTIVITY",
+        "theater": "US-ARMS",
+        "url": "https://news.google.com/rss/search?q=(%22military+aid%22+OR+%22security+assistance%22+OR+ATACMS+OR+Patriot+OR+F-16)+AND+(US+OR+Pentagon+OR+Biden+OR+Trump)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "source": "US Sanctions & Economic Warfare",
+        "scope": "US_ACTIVITY",
+        "theater": "US-SANCTIONS",
+        "url": "https://news.google.com/rss/search?q=(%22Treasury+Department%22+OR+OFAC+OR+%22US+sanctions%22)+AND+(Iran+OR+Russia+OR+China+OR+tariffs+OR+embargo)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "source": "Defense One Tactical US Wars",
+        "scope": "US_ACTIVITY",
+        "theater": "US-WARFARE",
+        "url": "https://www.defenseone.com/rss/all/"
+    }
+]
+
+# ==============================================================================
+# TWITTER / X & BREAKING SOCIAL MEDIA OSINT FEEDS
+# ==============================================================================
+SOCIAL_MEDIA_OSINT_FEEDS = [
+    {
+        "source": "Twitter/X OSINT War Radar",
+        "scope": "SOCIAL_OSINT",
+        "theater": "SOCIAL-X-OSINT",
+        "url": "https://news.google.com/rss/search?q=(site:x.com+OR+site:twitter.com+OR+%22on+X%22+OR+%22on+Twitter%22+OR+%22OSINTtechnical%22+OR+%22WarMonitors%22)+AND+(military+OR+airstrike+OR+missiles+OR+war+OR+combat)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "source": "Twitter/X Breaking Defense Wire",
+        "scope": "SOCIAL_OSINT",
+        "theater": "SOCIAL-X-DEFENSE",
+        "url": "https://news.google.com/rss/search?q=(%22trending+on+X%22+OR+%22via+Twitter%22+OR+%22breaking+on+X%22)+AND+(Pentagon+OR+strike+OR+explosion+OR+CENTCOM+OR+drone+OR+casualty)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "source": "Reddit Geopolitics & Tactical OSINT",
+        "scope": "SOCIAL_OSINT",
+        "theater": "SOCIAL-REDDIT-OSINT",
+        "url": "https://www.reddit.com/r/OSINT+geopolitics+worldnews/hot/.rss?limit=15"
+    },
+    {
+        "source": "Telegram Tactical OSINT Transcripts",
+        "scope": "SOCIAL_OSINT",
+        "theater": "SOCIAL-TELEGRAM-OSINT",
+        "url": "https://news.google.com/rss/search?q=(%22Telegram+channel%22+OR+%22pro-military+Telegram%22+OR+%22war+correspondent%22)+AND+(frontline+OR+strike+OR+combat+OR+missile+OR+drone)&hl=en-US&gl=US&ceid=US:en"
+    }
+]
+
+BASE_NEWS_FEEDS = CONTINENTAL_NEWS_FEEDS + LOCAL_KENYA_NEWS_FEEDS + SPORTS_INTELLIGENCE_FEEDS + US_WAR_AND_ACTIVITY_FEEDS + SOCIAL_MEDIA_OSINT_FEEDS
 NEWS_FEEDS = BASE_NEWS_FEEDS
 
 # Dynamic Rotating Topic Search Feeds (Queries on & around active subjects to prevent repetition)
 ROTATING_TOPIC_FEEDS = [
+    {
+        "subject": "US Pentagon Wars & Global Strike Posture",
+        "scope": "US_ACTIVITY",
+        "source": "US DOD & Global Strike Radar",
+        "theater": "US-WARFARE",
+        "url": "https://news.google.com/rss/search?q=(%22US+military%22+OR+Pentagon+OR+CENTCOM)+AND+(strike+OR+war+OR+carrier+OR+bombers+OR+deployment)&hl=en-US&gl=US&ceid=US:en"
+    },
+    {
+        "subject": "Twitter/X Realtime War Rumors & Ground Truth",
+        "scope": "SOCIAL_OSINT",
+        "source": "Twitter/X OSINT Radar",
+        "theater": "SOCIAL-X-OSINT",
+        "url": "https://news.google.com/rss/search?q=(%22on+X%22+OR+%22via+X%22+OR+%22on+Twitter%22)+AND+(frontline+OR+explosion+OR+missile+OR+drone+OR+casualty+OR+airstrike)&hl=en-US&gl=US&ceid=US:en"
+    },
     {
         "subject": "Red Sea Shipping & Bab-el-Mandeb",
         "scope": "GLOBAL",
@@ -6442,7 +6528,7 @@ Synthesize HIGH-IMPACT, RIGOROUS, AND DEEPLY DETAILED OPERATIONAL INTELLIGENCE. 
 - in_depth_context: Deep systemic analysis: underlying mechanics, supply chain bottlenecks, monetary pass-through, geopolitical leverage, or technical mechanics
 - why_it_matters: Specific tactical consequence for our operator (Michael Obiero, based in Nairobi, Kenya, managing technology infrastructure, cloud systems, and capital assets)
 - actionable_intel: Concrete operational recommendation (e.g. currency hedging monitor, latency failover, firewall hardening, transit schedule buffer)
-- theater: 'EAST-AFRICA' | 'KENYA-LOCAL' | 'RED-SEA-MIDEAST' | 'CYBER' | 'GLOBAL-MACRO' | 'GLOBAL-TECH' | 'SPORTS-INTEL'
+- theater: 'EAST-AFRICA' | 'KENYA-LOCAL' | 'RED-SEA-MIDEAST' | 'US-PENTAGON-WARS' | 'SOCIAL-MEDIA-OSINT' | 'CYBER' | 'GLOBAL-MACRO' | 'GLOBAL-TECH' | 'SPORTS-INTEL'
 
 Output valid JSON strictly as an array of objects:
 [
@@ -6567,7 +6653,7 @@ async def sync_news(client: httpx.AsyncClient) -> tuple[list[dict], list[dict]]:
     global SWEEP_CYCLE_INDEX, SEEN_ARTICLE_HASHES
     SWEEP_CYCLE_INDEX += 1
 
-    # Select 2 base feeds + 2 rotating thematic feeds + 2 rotating sports feeds
+    # Select 2 base feeds + 2 rotating thematic feeds + 2 rotating sports feeds + 2 US war feeds + 2 social OSINT feeds
     active_feeds = list(BASE_NEWS_FEEDS[:2])
     num_rotating = len(ROTATING_TOPIC_FEEDS)
     if num_rotating > 0:
@@ -6580,6 +6666,18 @@ async def sync_news(client: httpx.AsyncClient) -> tuple[list[dict], list[dict]]:
         for offset in range(2):
             s_idx = (SWEEP_CYCLE_INDEX * 2 + offset) % num_sports
             active_feeds.append(SPORTS_NEWS_FEEDS[s_idx])
+
+    num_us = len(US_WAR_AND_ACTIVITY_FEEDS)
+    if num_us > 0:
+        for offset in range(2):
+            u_idx = (SWEEP_CYCLE_INDEX * 2 + offset) % num_us
+            active_feeds.append(US_WAR_AND_ACTIVITY_FEEDS[u_idx])
+
+    num_social = len(SOCIAL_MEDIA_OSINT_FEEDS)
+    if num_social > 0:
+        for offset in range(2):
+            sm_idx = (SWEEP_CYCLE_INDEX * 2 + offset) % num_social
+            active_feeds.append(SOCIAL_MEDIA_OSINT_FEEDS[sm_idx])
 
     candidate_articles = []
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; TacticalIntel/4.0)"}
