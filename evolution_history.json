@@ -1,17 +1,5 @@
 [
   {
-    "cycle_num": 3,
-    "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_BAG_SEWING_THREAD_TENSION_HARMONIC_PULSE_CORRELATION_SENTINEL_V3_V1",
-    "title": "Nairobi Commercial Grain Milling Bag Sewing Thread Tension Harmonic Pulse Correlation Sentinel V3",
-    "domain": "RESILIENCE",
-    "rationale": "Commercial grain mills in Industrial Area, Nairobi, experience recurring packaging line defects caused by micro-fluctuations in bag sewing thread tension, leading to slippage and unsealed flour bags. This sentinel utilizes real-time acoustic emission and vibration harmonic pulse correlation to detect thread tension anomalies before snapping or skipping stitches.",
-    "file_path": "evolution_modules\\nairobi_commercial_grain_milling_bag_sewing_thread_tension_harmonic_pulse_correlation_sentinel_v3.py",
-    "code_size": 2963,
-    "applied_at": "2026-11-03 13:09:45 EAT",
-    "verified_syntax": true,
-    "next_hypothesis": "Develop an autonomous thermal imaging drone swarm mesh to survey rooftop solar installations across Nairobi commercial hubs for hot-spot micro-cracks and dust accumulation."
-  },
-  {
     "cycle_num": 4,
     "vector_id": "EVO_NAIROBI_COMMERCIAL_GRAIN_MILLING_ROLLER_GAP_MICROMETER_SYNAPSE_HARMONIC_PULSE_CORRELATION_VIBRATION_AUDIT_SYNCHRONIZER_V35_1_V1",
     "title": "Nairobi Commercial Grain Milling Roller Gap Micrometer Synapse Harmonic Pulse Correlation Vibration Audit Synchronizer V35.1",
@@ -1198,5 +1186,17 @@
     "applied_at": "2026-11-03 16:12:49 EAT",
     "verified_syntax": true,
     "next_hypothesis": "Next, Cortana will develop an automated geothermal direct-use greenhouse heating synchronizer to optimize flower and vegetable production around the Rift Valley geothermal belt."
+  },
+  {
+    "cycle_num": 1,
+    "vector_id": "EVO_NAIROBI_COMMERCIAL_MACADAMIA_CRACKER_SENTINEL_V1",
+    "title": "Nairobi Commercial Macadamia Nut Cracker & Kernel Sorting Harmonic Pulse Correlation Sentinel",
+    "domain": "PERFORMANCE",
+    "rationale": "Macadamia nut processing in Nairobi and Central Kenya requires precise mechanical tolerance during shell-cracking and optical sorting to maximize whole-kernel yield and prevent kernel bruising. By deploying an autonomous harmonic vibration and acoustic pulse correlation sentinel tuned to pneumatic cracker jaws and optical color sorter chutes, Cortana ensures maximum export-grade recovery rates for Michael Obiero's agro-industrial operations.",
+    "file_path": "evolution_modules\\nairobi_commercial_macadamia_cracker_sentinel.py",
+    "code_size": 3871,
+    "applied_at": "2026-11-03 16:15:58 EAT",
+    "verified_syntax": true,
+    "next_hypothesis": "Cortana plans next to engineer an autonomous coffee cherry pulper and fermentation tank harmonic synchronization sentinel to optimize specialty Arabica bean processing in Kiambu and Nyeri."
   }
 ]
