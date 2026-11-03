@@ -1,137 +1,158 @@
-import hashlib
 import time
 import uuid
-from typing import Dict, Any, Optional
+import hashlib
+import logging
+from typing import Optional, Dict, Any
+from dataclasses import dataclass, field
+from enum import Enum
 
-class KraEinDynamicRotator:
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+
+class EINStatus(Enum):
+    """Enumeration of possible EIN statuses."""
+    VALID = "VALID"
+    INVALID = "INVALID"
+    EXPIRED = "EXPIRED"
+    PENDING = "PENDING"
+
+
+@dataclass
+class EINRecord:
+    """Data class to represent a single Electronic Invoice Number (EIN) record."""
+    ein: str
+    timestamp: float
+    status: EINStatus
+    metadata: Dict[str, Any] = field(default_factory=dict)
+
+
+class KRAEINDynamicRotator:
     """
     Autonomous KRA EIN Dynamic Rotator & Compliance Sentinel.
     
-    This class manages the dynamic rotation of Electronic Identification Numbers (EINs)
-    for KRA (Kenya Revenue Authority) compliance. It ensures that sensitive tax data
-    is never exposed to static credentials and proactively detects anomalies in tax
-    filing patterns.
+    This class handles the generation, validation, and rotation of Electronic Invoice Numbers (EINs)
+    in compliance with Kenya Revenue Authority (KRA) standards. It ensures that EINs are unique,
+    valid, and rotated periodically to prevent fraud and ensure compliance.
     """
 
-    def __init__(self, operator_id: str, initial_ein: str):
+    def __init__(self, kra_api_key: str, rotation_interval: int = 3600):
         """
         Initialize the KRA EIN Dynamic Rotator.
-        
+
         Args:
-            operator_id: The unique identifier for the operator.
-            initial_ein: The initial Electronic Identification Number.
+            kra_api_key (str): The API key for KRA's EIN validation service.
+            rotation_interval (int): The interval in seconds after which EINs should be rotated.
         """
-        self.operator_id = operator_id
-        self.current_ein = initial_ein
-        self.rotation_history: list[Dict[str, Any]] = []
+        self.kra_api_key = kra_api_key
+        self.rotation_interval = rotation_interval
+        self.ein_records: Dict[str, EINRecord] = {}
         self.last_rotation_time: float = time.time()
-        self.rotation_interval: float = 3600.0  # 1 hour
-        self.anomaly_threshold: float = 0.8
-        self.tax_filing_patterns: list[float] = []
+        self.logger = logging.getLogger(__name__)
+
+    def generate_ein(self) -> str:
+        """
+        Generate a new unique Electronic Invoice Number (EIN).
+
+        Returns:
+            str: A newly generated EIN.
+        """
+        timestamp = int(time.time())
+        random_uuid = uuid.uuid4().hex
+        ein = f"{timestamp}_{random_uuid}"
+        self.logger.info(f"Generated new EIN: {ein}")
+        return ein
+
+    def validate_ein(self, ein: str) -> bool:
+        """
+        Validate an EIN against KRA's API.
+
+        Args:
+            ein (str): The EIN to validate.
+
+        Returns:
+            bool: True if the EIN is valid, False otherwise.
+        """
+        # Simulate API call to KRA for validation
+        try:
+            # In a real implementation, this would make an HTTP request to KRA's API
+            # For this example, we simulate a successful validation
+            self.logger.info(f"Validating EIN: {ein}")
+            return True
+        except Exception as e:
+            self.logger.error(f"Error validating EIN {ein}: {e}")
+            return False
 
     def rotate_ein(self) -> str:
         """
-        Rotate the current EIN to a new one.
-        
-        Returns:
-            The new EIN.
-        """
-        new_ein = self._generate_new_ein()
-        self.rotation_history.append({
-            'old_ein': self.current_ein,
-            'new_ein': new_ein,
-            'timestamp': time.time()
-        })
-        self.current_ein = new_ein
-        self.last_rotation_time = time.time()
-        return new_ein
+        Rotate the current EIN and validate the new one.
 
-    def _generate_new_ein(self) -> str:
-        """
-        Generate a new EIN based on the current time and a random UUID.
-        
         Returns:
-            The new EIN.
+            str: The newly rotated and validated EIN.
         """
-        timestamp = int(time.time())
-        random_uuid = str(uuid.uuid4())
-        combined = f"{self.operator_id}{timestamp}{random_uuid}"
-        hashed = hashlib.sha256(combined.encode()).hexdigest()
-        return hashed[:16].upper()
+        new_ein = self.generate_ein()
+        if self.validate_ein(new_ein):
+            self.ein_records[new_ein] = EINRecord(
+                ein=new_ein,
+                timestamp=time.time(),
+                status=EINStatus.VALID,
+                metadata={"rotated_at": time.time()}
+            )
+            self.last_rotation_time = time.time()
+            self.logger.info(f"Successfully rotated EIN to: {new_ein}")
+            return new_ein
+        else:
+            self.logger.error(f"Failed to rotate EIN to: {new_ein}")
+            raise ValueError("Failed to rotate EIN")
 
-    def check_rotation_due(self) -> bool:
+    def get_current_ein(self) -> Optional[str]:
         """
-        Check if a rotation is due.
-        
+        Get the current valid EIN.
+
         Returns:
-            True if a rotation is due, False otherwise.
+            Optional[str]: The current valid EIN, or None if no valid EIN exists.
+        """
+        for ein, record in self.ein_records.items():
+            if record.status == EINStatus.VALID:
+                return ein
+        return None
+
+    def check_rotation_needed(self) -> bool:
+        """
+        Check if an EIN rotation is needed based on the rotation interval.
+
+        Returns:
+            bool: True if rotation is needed, False otherwise.
         """
         return (time.time() - self.last_rotation_time) >= self.rotation_interval
 
-    def record_tax_filing(self, amount: float) -> None:
+    def run_autonomous_rotation(self) -> None:
         """
-        Record a tax filing amount for anomaly detection.
-        
-        Args:
-            amount: The amount of the tax filing.
-        """
-        self.tax_filing_patterns.append(amount)
-        if len(self.tax_filing_patterns) > 100:
-            self.tax_filing_patterns.pop(0)
+        Run the autonomous rotation process.
 
-    def detect_anomalies(self) -> bool:
+        This method checks if a rotation is needed and performs it if so.
         """
-        Detect anomalies in tax filing patterns.
-        
-        Returns:
-            True if an anomaly is detected, False otherwise.
-        """
-        if len(self.tax_filing_patterns) < 5:
-            return False
-        
-        mean = sum(self.tax_filing_patterns) / len(self.tax_filing_patterns)
-        variance = sum((x - mean) ** 2 for x in self.tax_filing_patterns) / len(self.tax_filing_patterns)
-        std_dev = variance ** 0.5
-        
-        if std_dev == 0:
-            return False
-        
-        z_score = abs(self.tax_filing_patterns[-1] - mean) / std_dev
-        return z_score > self.anomaly_threshold
+        if self.check_rotation_needed():
+            self.rotate_ein()
 
-    def get_status(self) -> Dict[str, Any]:
-        """
-        Get the current status of the rotator.
-        
-        Returns:
-            A dictionary containing the current status.
-        """
-        return {
-            'operator_id': self.operator_id,
-            'current_ein': self.current_ein,
-            'last_rotation_time': self.last_rotation_time,
-            'rotation_interval': self.rotation_interval,
-            'anomaly_threshold': self.anomaly_threshold,
-            'tax_filing_patterns': self.tax_filing_patterns[-10:],
-            'rotation_history': self.rotation_history[-10:]
-        }
 
 if __name__ == "__main__":
-    rotator = KraEinDynamicRotator("Michael_Obiero", "INITIAL_EIN_12345")
-    print("Initial EIN:", rotator.current_ein)
+    # Test harness
+    rotator = KRAEINDynamicRotator(kra_api_key="test_api_key", rotation_interval=1)
     
-    # Simulate tax filings
-    for i in range(10):
-        rotator.record_tax_filing(1000.0 + (i * 100))
-    
-    # Check for anomalies
-    anomaly_detected = rotator.detect_anomalies()
-    print("Anomaly detected:", anomaly_detected)
-    
-    # Rotate EIN
+    # Generate and validate an EIN
+    ein = rotator.generate_ein()
+    is_valid = rotator.validate_ein(ein)
+    print(f"Generated EIN: {ein}, Valid: {is_valid}")
+
+    # Rotate the EIN
     new_ein = rotator.rotate_ein()
-    print("New EIN:", new_ein)
-    
-    # Get status
-    status = rotator.get_status()
-    print("Status:", status)
+    print(f"Rotated EIN: {new_ein}")
+
+    # Check if rotation is needed
+    print(f"Rotation needed: {rotator.check_rotation_needed()}")
+
+    # Run autonomous rotation
+    rotator.run_autonomous_rotation()
+    print(f"Current EIN after autonomous rotation: {rotator.get_current_ein()}")
