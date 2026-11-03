@@ -2673,3 +2673,321 @@ body.mode-all #main-hud-grid > section {
   border-color: rgba(244, 63, 94, 0.6);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), 0 0 18px rgba(244, 63, 94, 0.25);
 }
+
+/* ==========================================================================
+   MOBILE-FIRST TACTICAL HUD ARCHITECTURE (BOTTOM DOCK, DRAWER & TOUCH STYLES)
+   ========================================================================== */
+
+/* Touch Callout & Tap Targets */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile Header Action Buttons */
+.hud-mobile-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  color: #ffffff;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.hud-mobile-icon-btn:active {
+  transform: scale(0.92);
+  background: rgba(0, 240, 255, 0.2);
+  border-color: var(--hud-cyan);
+}
+
+.hud-mobile-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.16) 0%, rgba(168, 85, 247, 0.18) 100%);
+  border: 1px solid rgba(0, 240, 255, 0.45);
+  color: #ffffff;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.hud-mobile-menu-btn:active {
+  transform: scale(0.92);
+  box-shadow: 0 0 12px var(--hud-cyan-glow);
+}
+
+/* Mobile Quick Control Center Drawer */
+.mobile-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  z-index: 10000;
+  display: flex;
+  justify-content: flex-end;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-drawer-content {
+  width: 90vw;
+  max-width: 390px;
+  height: 100%;
+  background: rgba(7, 14, 28, 0.98);
+  border-left: 1px solid rgba(0, 240, 255, 0.35);
+  box-shadow: -15px 0 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 240, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+}
+
+.mobile-drawer-backdrop.open .mobile-drawer-content {
+  transform: translateX(0);
+}
+
+.mobile-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 1.25rem;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+  background: rgba(3, 7, 18, 0.7);
+}
+
+.mobile-drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1.25rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+.mobile-drawer-tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 12px;
+  border-radius: 7px;
+  font-family: var(--font-hud);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.16s ease;
+  user-select: none;
+}
+
+.mobile-drawer-tab-btn:hover {
+  color: #ffffff;
+  background: rgba(0, 240, 255, 0.1);
+  border-color: rgba(0, 240, 255, 0.35);
+}
+
+.mobile-drawer-tab-btn.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.22) 0%, rgba(168, 85, 247, 0.2) 100%);
+  border-color: var(--hud-cyan);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+}
+
+/* Mobile Bottom Navigation Dock (MK-VII Tactical Bar) */
+.hud-mobile-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 45;
+  background: rgba(4, 9, 20, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(0, 240, 255, 0.25);
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(0, 240, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 5px 6px;
+  padding-bottom: max(6px, env(safe-area-inset-bottom));
+}
+
+.hud-mobile-dock-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 1;
+  min-height: 48px;
+  padding: 3px 2px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hud-mobile-dock-btn:active {
+  transform: scale(0.92);
+}
+
+.hud-mobile-dock-btn .dock-icon {
+  font-size: 17px;
+  line-height: 1.2;
+  transition: transform 0.18s ease;
+}
+
+.hud-mobile-dock-btn .dock-label {
+  font-family: var(--font-hud);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-top: 2px;
+  transition: color 0.18s ease;
+}
+
+.hud-mobile-dock-btn .dock-indicator {
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 22px;
+  height: 2px;
+  background: var(--hud-cyan);
+  box-shadow: 0 0 8px var(--hud-cyan);
+  border-radius: 2px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hud-mobile-dock-btn.active {
+  color: #ffffff;
+}
+
+.hud-mobile-dock-btn.active .dock-icon {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.7));
+}
+
+.hud-mobile-dock-btn.active .dock-label {
+  color: var(--hud-cyan);
+  text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+}
+
+.hud-mobile-dock-btn.active .dock-indicator {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.hud-mobile-dock-btn .dock-badge {
+  position: absolute;
+  top: 1px;
+  right: calc(50% - 17px);
+  font-family: var(--font-mono);
+  font-size: 7.5px;
+  padding: 1px 4px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  color: #ffffff;
+  box-shadow: 0 0 6px rgba(168, 85, 247, 0.6);
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   COMPREHENSIVE RESPONSIVE BREAKPOINTS (MOBILE & TABLET ADAPTATION)
+   ========================================================================== */
+
+@media (max-width: 1023px) {
+  /* Ensure main content is never obscured by mobile bottom dock */
+  #main-hud-grid {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom)) !important;
+    padding-left: 0.85rem !important;
+    padding-right: 0.85rem !important;
+  }
+
+  /* Compact HUD panels */
+  .hud-panel {
+    padding: 1.15rem !important;
+    border-radius: 12px !important;
+  }
+
+  /* Command Palette on tablets & mobile */
+  .cmd-palette-backdrop {
+    padding-top: 6vh !important;
+  }
+  .cmd-palette-dialog {
+    max-width: 92vw !important;
+  }
+}
+
+@media (max-width: 640px) {
+  html, body {
+    overflow-x: hidden !important;
+    max-width: 100vw !important;
+  }
+
+  /* Tighter panel padding for maximum information canvas */
+  .hud-panel {
+    padding: 0.95rem !important;
+    border-radius: 10px !important;
+  }
+
+  /* Avoid tiny illegible text or horizontal collisions */
+  #hud-clock {
+    font-size: 9px !important;
+  }
+
+  /* Horizontally scrollable chip filter trays */
+  .news-filters-tray,
+  .evo-filters-tray,
+  .topics-scroll-tray {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 3px;
+  }
+  .news-filters-tray::-webkit-scrollbar,
+  .evo-filters-tray::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Touch-friendly input sizing (prevents iOS unwanted auto-zoom) */
+  input[type="text"],
+  input[type="password"],
+  textarea,
+  select {
+    font-size: 15px !important;
+  }
+
+  /* Modals fit small screens gracefully */
+  .cmd-palette-dialog {
+    max-width: 96vw !important;
+    border-radius: 12px !important;
+  }
+  .cmd-palette-list {
+    max-height: 52vh !important;
+  }
+
+  /* Action buttons full-width touch optimization */
+  .mobile-full-width-btn {
+    width: 100% !important;
+    justify-content: center !important;
+  }
+}

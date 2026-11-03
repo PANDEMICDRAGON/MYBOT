@@ -3693,6 +3693,10 @@ function applyTheme(themeName) {
   if (themeSelect && themeSelect.value !== themeName) {
     themeSelect.value = themeName;
   }
+  const mobileThemeSelect = document.getElementById("mobile-universe-theme-select");
+  if (mobileThemeSelect && mobileThemeSelect.value !== themeName) {
+    mobileThemeSelect.value = themeName;
+  }
 
   // Sync Holodeck simulator tab if it exists
   if (typeof switchHolodeckSimulation === "function" && themeName !== "omni" && themeName !== "hybrid") {
@@ -3743,6 +3747,10 @@ function applyFontPreset(presetKey, shouldPersist = true) {
   const fontSelect = document.getElementById("font-preset-select");
   if (fontSelect && fontSelect.value !== presetKey) {
     fontSelect.value = presetKey;
+  }
+  const mobileFontSelect = document.getElementById("mobile-font-preset-select");
+  if (mobileFontSelect && mobileFontSelect.value !== presetKey) {
+    mobileFontSelect.value = presetKey;
   }
 
   // Audio feedback & terminal logging
@@ -4964,6 +4972,156 @@ function initWorkspaceTabs() {
   switchWorkspaceTab(savedTab, false);
 }
 
+function initMobileHUDController() {
+  const drawer = document.getElementById("mobile-quick-drawer");
+  const menuToggle = document.getElementById("btn-mobile-menu-toggle");
+  const dockMenuBtn = document.getElementById("btn-bottom-dock-menu");
+  const closeBtn = document.getElementById("btn-close-mobile-drawer");
+  const mobileSearchBtn = document.getElementById("btn-mobile-search");
+  const mobileRefreshBtn = document.getElementById("btn-mobile-refresh");
+
+  function openMobileDrawer() {
+    if (!drawer) return;
+    drawer.classList.add("open");
+    drawer.setAttribute("aria-hidden", "false");
+    if (typeof playSciFiChirp === "function") playSciFiChirp("blip");
+  }
+
+  function closeMobileDrawer() {
+    if (!drawer) return;
+    drawer.classList.remove("open");
+    drawer.setAttribute("aria-hidden", "true");
+  }
+
+  if (menuToggle) menuToggle.addEventListener("click", openMobileDrawer);
+  if (dockMenuBtn) dockMenuBtn.addEventListener("click", openMobileDrawer);
+  if (closeBtn) closeBtn.addEventListener("click", closeMobileDrawer);
+
+  if (drawer) {
+    drawer.addEventListener("click", (e) => {
+      if (e.target === drawer) closeMobileDrawer();
+    });
+  }
+
+  // Mobile search trigger -> open global Command Palette
+  if (mobileSearchBtn) {
+    mobileSearchBtn.addEventListener("click", () => {
+      if (typeof openCommandPalette === "function") openCommandPalette();
+    });
+  }
+
+  // Mobile refresh sweep trigger
+  if (mobileRefreshBtn) {
+    mobileRefreshBtn.addEventListener("click", () => {
+      const icon = document.getElementById("mobile-refresh-icon");
+      if (icon) icon.classList.add("animate-spin");
+      if (typeof playSciFiChirp === "function") playSciFiChirp("blip");
+      if (typeof syncTelemetry === "function") {
+        syncTelemetry(true).finally(() => {
+          if (icon) setTimeout(() => icon.classList.remove("animate-spin"), 800);
+        });
+      }
+    });
+  }
+
+  // Mobile theme selector synchronization
+  const mobileThemeSelect = document.getElementById("mobile-universe-theme-select");
+  if (mobileThemeSelect) {
+    mobileThemeSelect.value = appState.currentUniverseTheme || "omni";
+    mobileThemeSelect.addEventListener("change", (e) => {
+      if (typeof applyUniverseTheme === "function") {
+        applyUniverseTheme(e.target.value);
+      }
+    });
+  }
+
+  // Mobile typography font preset synchronization
+  const mobileFontSelect = document.getElementById("mobile-font-preset-select");
+  if (mobileFontSelect) {
+    mobileFontSelect.value = appState.currentFontPreset || "quantum";
+    mobileFontSelect.addEventListener("change", (e) => {
+      if (typeof applyFontPreset === "function") {
+        applyFontPreset(e.target.value, true);
+      }
+    });
+  }
+
+  // Mobile SFX toggle synchronization
+  const mobileSfxBtn = document.getElementById("btn-mobile-toggle-sfx");
+  const mobileSfxIndicator = document.getElementById("mobile-sfx-indicator");
+  const mobileSfxText = document.getElementById("mobile-sfx-text");
+
+  function updateMobileSfxUI() {
+    if (mobileSfxText) mobileSfxText.textContent = appState.sfxEnabled ? "SFX: ON" : "SFX: OFF";
+    if (mobileSfxIndicator) {
+      mobileSfxIndicator.className = appState.sfxEnabled 
+        ? "w-2 h-2 rounded-full bg-emerald-400 inline-block shadow-[0_0_8px_#34d399]" 
+        : "w-2 h-2 rounded-full bg-slate-500 inline-block";
+    }
+  }
+  updateMobileSfxUI();
+
+  if (mobileSfxBtn) {
+    mobileSfxBtn.addEventListener("click", () => {
+      appState.sfxEnabled = !appState.sfxEnabled;
+      localStorage.setItem("ai_hud_sfx", appState.sfxEnabled);
+      updateMobileSfxUI();
+      const desktopSfxBtn = document.getElementById("btn-toggle-sfx");
+      if (desktopSfxBtn && typeof updateSfxButton === "function") updateSfxButton();
+      if (appState.sfxEnabled && typeof playSciFiChirp === "function") playSciFiChirp("confirm");
+    });
+  }
+
+  // Mobile config trigger -> opens Supabase / Construct settings modal
+  const mobileConfigBtn = document.getElementById("btn-mobile-open-config");
+  if (mobileConfigBtn) {
+    mobileConfigBtn.addEventListener("click", () => {
+      closeMobileDrawer();
+      const settingsModal = document.getElementById("settings-modal");
+      if (settingsModal) settingsModal.classList.remove("hidden");
+    });
+  }
+
+  // Mobile HUD layout controls (Dock, Desk, Reset)
+  const mobileBtnDock = document.getElementById("btn-mobile-layout-dock");
+  const mobileBtnDesk = document.getElementById("btn-mobile-layout-desktop");
+  const mobileBtnReset = document.getElementById("btn-mobile-layout-reset");
+
+  if (mobileBtnDock) {
+    mobileBtnDock.addEventListener("click", () => {
+      const desktopDock = document.getElementById("btn-layout-dock");
+      if (desktopDock) desktopDock.click();
+      mobileBtnDock.classList.add("active");
+      if (mobileBtnDesk) mobileBtnDesk.classList.remove("active");
+    });
+  }
+  if (mobileBtnDesk) {
+    mobileBtnDesk.addEventListener("click", () => {
+      const desktopDesk = document.getElementById("btn-layout-desktop");
+      if (desktopDesk) desktopDesk.click();
+      mobileBtnDesk.classList.add("active");
+      if (mobileBtnDock) mobileBtnDock.classList.remove("active");
+    });
+  }
+  if (mobileBtnReset) {
+    mobileBtnReset.addEventListener("click", () => {
+      const desktopReset = document.getElementById("btn-layout-reset");
+      if (desktopReset) desktopReset.click();
+    });
+  }
+
+  // Drawer tab buttons click handler -> switch tab and close drawer
+  document.querySelectorAll(".mobile-drawer-tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tabId = btn.getAttribute("data-tab");
+      if (typeof switchWorkspaceTab === "function") {
+        switchWorkspaceTab(tabId, true);
+      }
+      closeMobileDrawer();
+    });
+  });
+}
+
 /* ==========================================================================
    GLOBAL COMMAND PALETTE CONTROLLER (CTRL + K)
    ========================================================================== */
@@ -5147,6 +5305,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize Workspace Navigation Tabs & Global Command Palette
   initWorkspaceTabs();
   initCommandPalette();
+  initMobileHUDController();
 
   // Initialize Two-Way Cortana Comms Terminal
   initTerminalController();
