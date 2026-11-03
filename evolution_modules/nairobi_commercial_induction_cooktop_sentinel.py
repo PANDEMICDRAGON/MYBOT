@@ -1,93 +1,105 @@
-import time
+import logging
 import math
 import random
-import logging
-from typing import Dict, List, Any, Optional
+import time
+from typing import Dict, Any, List, Optional
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("InductionCooktopSentinel")
+logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] [InductionSentinel]: %(message)s')
 
-class InductionCooktopSentinel:
+class CommercialInductionSentinel:
     """
-    Monitors industrial induction cooktop current draws, voltage phases, high-frequency
-    inverter switching ripples, and thermal telemetry. Correlates harmonic anomalies
-    to prevent IGBT bridge failure and optimize power factor under fluctuating Nairobi grid conditions.
+    Monitors commercial induction cooktop power quality, harmonic distortion (THD),
+    IGBT thermal drift, and magnetic cookware coupling efficiency for Nairobi kitchens.
     """
     def __init__(self, unit_id: str, rated_power_kw: float = 15.0):
         self.unit_id = unit_id
         self.rated_power_kw = rated_power_kw
-        self.telemetry_history: List[Dict[str, Any]] = []
-        self.active_protection_tripped = False
+        self.igbt_temp_c: float = 45.0
+        self.thd_percent: float = 2.5
+        self.pan_coupling_efficiency: float = 0.95
+        self.supply_voltage: float = 415.0  # 3-phase standard in Kenya
+        self.status = "STANDBY"
+        logging.info(f"Initialized Induction Sentinel for unit {self.unit_id} ({self.rated_power_kw}kW)")
 
-    def ingest_telemetry(self, voltage: float, current: float, frequency_hz: float,
-                         igbt_temp_c: float, thd_percent: float) -> Dict[str, Any]:
-        """
-        Ingests real-time power telemetry and computes harmonic health and thermal risk.
-        """
-        timestamp = time.time()
-        apparent_power = (voltage * current) / 1000.0 # kVA
+    def sample_telemetry(self, raw_telemetry: Dict[str, Any]) -> Dict[str, Any]:
+        """Ingests raw sensor readings and updates internal metrics."""
+        self.igbt_temp_c = raw_telemetry.get("igbt_temp_c", self.igbt_temp_c)
+        self.thd_percent = raw_telemetry.get("thd_percent", self.thd_percent)
+        self.pan_coupling_efficiency = raw_telemetry.get("pan_coupling_efficiency", self.pan_coupling_efficiency)
+        self.supply_voltage = raw_telemetry.get("supply_voltage", self.supply_voltage)
         
-        # Harmonic anomaly factor based on Total Harmonic Distortion (THD) & temperature
-        thermal_stress = max(0.0, (igbt_temp_c - 65.0) / 35.0)
-        harmonic_risk = thd_percent / 15.0
-        composite_risk_score = min(1.0, (thermal_stress * 0.6) + (harmonic_risk * 0.4))
-
-        status = "NOMINAL"
-        if composite_risk_score > 0.85 or igbt_temp_c > 92.0:
-            status = "CRITICAL_THERMAL_OVERLOAD"
-            self.active_protection_tripped = True
-        elif composite_risk_score > 0.6 or thd_percent > 12.0:
-            status = "WARNING_HARMONIC_DEGRADATION"
-
-        record = {
-            "timestamp": timestamp,
+        return {
             "unit_id": self.unit_id,
-            "voltage": voltage,
-            "current": current,
-            "apparent_power_kva": apparent_power,
-            "igbt_temp_c": igbt_temp_c,
-            "thd_percent": thd_percent,
-            "composite_risk_score": composite_risk_score,
-            "status": status
+            "igbt_temp_c": self.igbt_temp_c,
+            "thd_percent": self.thd_percent,
+            "pan_coupling_efficiency": self.pan_coupling_efficiency,
+            "supply_voltage": self.supply_voltage
         }
 
-        self.telemetry_history.append(record)
-        if len(self.telemetry_history) > 1000:
-            self.telemetry_history.pop(0)
-
-        return record
-
-    def calculate_phase_balance_index(self, phase_currents: List[float]) -> float:
+    def evaluate_safety_and_efficiency(self) -> Dict[str, Any]:
         """
-        Evaluates 3-phase current imbalance common in commercial kitchen arrays.
+        Analyzes operational parameters against safety thresholds and harmonics limits.
+        Returns mitigation directives if anomalies are detected.
         """
-        if not phase_currents or len(phase_currents) != 3:
-            return 0.0
-        mean_current = sum(phase_currents) / 3.0
-        if mean_current == 0.0:
-            return 0.0
-        max_deviation = max(abs(c - mean_current) for c in phase_currents)
-        return float(max_deviation / mean_current)
+        alerts = []
+        actions = []
 
-    def generate_mitigation_directive(self) -> str:
-        if self.active_protection_tripped:
-            return "EMERGENCY_THROTTLE: Reduce induction inverter PWM duty cycle by 50% and engage auxiliary cooling fans."
-        return "SYSTEM_STABLE: Power phase harmonics within acceptable Nairobi grid operational bounds."
+        # Thermal Check on IGBT Inverters
+        if self.igbt_temp_c > 85.0:
+            alerts.append("CRITICAL_IGBT_OVERHEAT")
+            actions.append("REDUCE_POWER_TO_50_PERCENT")
+            self.status = "THERMAL_THROTTLED"
+        elif self.igbt_temp_c > 75.0:
+            alerts.append("WARNING_IGBT_ELEVATED_TEMP")
+            actions.append("INCREASE_COOLING_FAN_SPEED")
+            self.status = "ELEVATED"
+        else:
+            self.status = "OPTIMAL"
+
+        # Total Harmonic Distortion (THD) Check (IEEE 519 Standard < 5% preferred)
+        if self.thd_percent > 8.0:
+            alerts.append(
+                f"EXCESSIVE_GRID_THD: {self.thd_percent}%")
+            actions.append("ENGAGE_ACTIVE_HARMONIC_FILTER")
+
+        # Pan Coupling Efficiency Check
+        if self.pan_coupling_efficiency < 0.75:
+            alerts.append("POOR_COOKWARE_COUPLING")
+            actions.append("NOTIFY_CHEF_CHECK_PAN_FLATNESS")
+
+        # Supply Voltage Fluctuation (Nairobi Grid Dips)
+        if self.supply_voltage < 360.0 or self.supply_voltage > 456.0:
+            alerts.append(f"GRID_VOLTAGE_OUT_OF_BOUNDS: {self.supply_voltage}V")
+            actions.append("TRIGGER_BROWNOUT_PROTECTION_RELAY")
+
+        return {
+            "unit_id": self.unit_id,
+            "status": self.status,
+            "alerts": alerts,
+            "actions_recommended": actions,
+            "timestamp": time.time()
+        }
+
+    def run_harmonic_simulation_cycle(self, iterations: int = 3) -> List[Dict[str, Any]]:
+        """Runs a simulation loop to test sentinel reactions under fluctuating grid conditions."""
+        results = []
+        for i in range(iterations):
+            simulated_temp = 50.0 + (i * 14.0) + random.uniform(-2.0, 2.0)
+            simulated_thd = 3.0 + (i * 2.1) + random.uniform(-0.5, 0.5)
+            simulated_voltage = 415.0 - (i * 20.0)
+            sim_data = {
+                "igbt_temp_c": simulated_temp,
+                "thd_percent": simulated_thd,
+                "pan_coupling_efficiency": 0.90 - (i * 0.05),
+                "supply_voltage": simulated_voltage
+            }
+            self.sample_telemetry(sim_data)
+            eval_res = self.evaluate_safety_and_efficiency()
+            results.append(eval_res)
+        return results
 
 if __name__ == "__main__":
-    sentinel = InductionCooktopSentinel(unit_id="NAI_KITCHEN_IND_01", rated_power_kw=20.0)
-    
-    # Simulate normal and stress telemetry ingestion
-    test_readings = [
-        (240.0, 45.2, 50.0, 58.5, 3.2),
-        (238.5, 52.1, 50.1, 72.0, 7.8),
-        (230.0, 78.4, 49.8, 94.2, 14.5)
-    ]
-    
-    for v, c, f, temp, thd in test_readings:
-        res = sentinel.ingest_telemetry(v, c, f, temp, thd)
-        logger.info(f"Telemetry Evaluated: {res['status']} | Risk: {res['composite_risk_score']:.2f}")
-    
-    imbalance = sentinel.calculate_phase_balance_index([45.2, 48.0, 42.1])
-    logger.info(f"Phase Imbalance Index: {imbalance:.4f}")
-    logger.info(sentinel.generate_mitigation_directive())
+    sentinel = CommercialInductionSentinel(unit_id="NBI-KITCHEN-INDUCTION-04", rated_power_kw=20.0)
+    simulation_output = sentinel.run_harmonic_simulation_cycle(iterations=3)
+    for step, res in enumerate(simulation_output):
+        logging.info(f"Simulation Step {step+1}: {res}")
