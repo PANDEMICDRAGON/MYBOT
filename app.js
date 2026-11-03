@@ -3221,18 +3221,58 @@ function renderTopicDeepDives() {
   const container = document.getElementById("topic-deep-dives-container");
   if (!container) return;
 
-  const dives = appState.topicDeepDives || [];
+  let rawDives = appState.topicDeepDives || [];
+  let dives = [];
+
+  // Robust unwrapping of nested payloads or array structures
+  if (Array.isArray(rawDives)) {
+    for (const item of rawDives) {
+      if (item && Array.isArray(item.payload)) {
+        dives.push(...item.payload);
+      } else if (item && Array.isArray(item.items)) {
+        dives.push(...item.items);
+      } else if (item && typeof item === "object" && (item.subject || item.title)) {
+        dives.push(item);
+      }
+    }
+  } else if (rawDives && typeof rawDives === "object") {
+    if (Array.isArray(rawDives.payload)) dives = rawDives.payload;
+    else if (Array.isArray(rawDives.items)) dives = rawDives.items;
+  }
+
   if (!dives || dives.length === 0) {
     container.innerHTML = "";
     return;
   }
 
   const query = (appState.searchQuery || "").toLowerCase();
+  const filter = appState.activeNewsFilter || "ALL";
+
   const filtered = dives.filter(d => {
+    // Theater / Scope filtering
+    if (filter === "CRITICAL") {
+      const imp = (d.impact_level || "").toUpperCase();
+      if (imp !== "CRITICAL" && imp !== "HIGH") return false;
+    } else if (filter === "LOCAL") {
+      const th = (d.theater || "").toUpperCase();
+      if (!th.includes("EAST-AFRICA") && !th.includes("KENYA")) return false;
+    } else if (filter === "GLOBAL") {
+      const th = (d.theater || "").toUpperCase();
+      if (th.includes("KENYA") || th.includes("SPORT")) return false;
+    } else if (filter === "CYBER") {
+      const th = (d.theater || "").toUpperCase();
+      if (!th.includes("CYBER") && !th.includes("TECH")) return false;
+    } else if (filter === "SPORTS") {
+      const th = (d.theater || "").toUpperCase();
+      if (!th.includes("SPORT") && !th.includes("FOOTBALL") && !th.includes("F1")) return false;
+    }
+
     if (!query) return true;
     return (d.subject || "").toLowerCase().includes(query) ||
            (d.in_depth_context || "").toLowerCase().includes(query) ||
-           (d.latest_developments || "").toLowerCase().includes(query);
+           (d.latest_developments || "").toLowerCase().includes(query) ||
+           (d.key_takeaway || "").toLowerCase().includes(query) ||
+           (d.why_it_matters || "").toLowerCase().includes(query);
   });
 
   if (filtered.length === 0) {
@@ -3241,72 +3281,113 @@ function renderTopicDeepDives() {
   }
 
   container.innerHTML = `
-    <div class="p-4 rounded-lg bg-slate-950/80 border border-cyan-500/40 shadow-xl mb-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-cyan-500/20 mb-3 gap-2">
-        <div class="flex items-center gap-2">
-          <span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+    <div class="p-4 sm:p-5 rounded-xl bg-slate-950/90 border border-cyan-500/40 shadow-2xl mb-6 relative overflow-hidden">
+      <!-- Glow ambient flare -->
+      <div class="absolute -top-12 -right-12 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3.5 border-b border-cyan-500/20 mb-4 gap-2">
+        <div class="flex items-center gap-2.5">
+          <span class="inline-block w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_rgba(0,240,255,0.8)]"></span>
           <h3 class="text-xs font-mono font-bold tracking-widest text-cyan-300 uppercase">
-            ACTIVE THEATER TOPIC DEEP-DIVES // POST-SWEEP COGNITIVE INTELLIGENCE
+            ACTIVE THEATER INTELLIGENCE // DEEP OPERATIONAL DOSSIERS
           </h3>
         </div>
-        <div class="flex items-center gap-2">
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-500/30">
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-500/40 font-bold">
             ${filtered.length} ACTIVE SUBJECTS
           </span>
-          <span class="text-[10px] font-mono text-slate-400">NON-REPETITIVE ADAPTIVE SWEEPS</span>
+          <span class="text-[10px] font-mono text-slate-400 hidden md:inline">REAL-TIME SECOND-ORDER IMPACT MODELING</span>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         ${filtered.map(d => {
-          const theater = d.theater || "GLOBAL";
-          let theaterBadge = "border-cyan-500/30 text-cyan-300 bg-cyan-950/50";
-          if (theater === "CYBER") theaterBadge = "border-violet-500/30 text-violet-300 bg-violet-950/50";
-          if (theater === "RED-SEA-MIDEAST") theaterBadge = "border-amber-500/30 text-amber-300 bg-amber-950/50";
-          if (theater === "EAST-AFRICA") theaterBadge = "border-emerald-500/30 text-emerald-300 bg-emerald-950/50";
-          if (theater.includes("SPORT") || theater === "FOOTBALL" || theater === "F1-MOTORSPORT") theaterBadge = "border-amber-500/40 text-amber-300 bg-amber-950/50";
+          const theater = (d.theater || "GLOBAL").toUpperCase();
+          let theaterBadge = "border-cyan-500/40 text-cyan-300 bg-cyan-950/60";
+          if (theater.includes("CYBER")) theaterBadge = "border-violet-500/40 text-violet-300 bg-violet-950/60";
+          else if (theater.includes("RED-SEA")) theaterBadge = "border-amber-500/40 text-amber-300 bg-amber-950/60";
+          else if (theater.includes("EAST-AFRICA") || theater.includes("KENYA")) theaterBadge = "border-emerald-500/40 text-emerald-300 bg-emerald-950/60";
+          else if (theater.includes("SPORT")) theaterBadge = "border-amber-500/40 text-amber-300 bg-amber-950/60";
+
+          const impact = (d.impact_level || "HIGH").toUpperCase();
+          let impactBadge = "badge-impact-high";
+          let impactDot = "bg-amber-400";
+          if (impact === "CRITICAL") {
+            impactBadge = "badge-impact-critical";
+            impactDot = "bg-rose-400 animate-ping";
+          } else if (impact === "ELEVATED") {
+            impactBadge = "badge-impact-elevated";
+            impactDot = "bg-cyan-400";
+          } else if (impact === "MONITORING") {
+            impactBadge = "badge-impact-monitoring";
+            impactDot = "bg-slate-400";
+          }
 
           const subjectEsc = escapeHtml(d.subject || "Tactical Subject");
           const subjectAttr = (d.subject || "").replace(/"/g, '&quot;').replace(/'/g, "\\'");
 
           return `
-            <div class="rounded-md border border-slate-800 bg-slate-900/60 p-3.5 hover:border-cyan-500/40 transition-all flex flex-col justify-between">
+            <div class="rounded-lg border border-slate-800 bg-slate-900/70 p-4 hover:border-cyan-500/50 transition-all flex flex-col justify-between space-y-3 shadow-lg">
               <div>
-                <div class="flex items-center justify-between gap-2 mb-2">
-                  <div class="flex items-center gap-2">
-                    <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded border ${theaterBadge}">
+                <div class="flex items-start justify-between gap-2 mb-2.5">
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="text-[9px] font-mono font-bold px-2 py-0.5 rounded border ${impactBadge} flex items-center gap-1">
+                      <span class="w-1.5 h-1.5 rounded-full ${impactDot}"></span>
+                      ${impact}
+                    </span>
+                    <span class="text-[9px] font-mono font-bold px-2 py-0.5 rounded border ${theaterBadge}">
                       ${theater}
                     </span>
-                    <h4 class="text-xs font-bold text-white font-display">${subjectEsc}</h4>
                   </div>
                   <button onclick="window.triggerSubjectDeepDive('${subjectAttr}', '${theater}')"
                           title="Transmit instant research directive to neural construct"
-                          class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/40 transition-colors flex items-center gap-1 shrink-0">
+                          class="text-[10px] font-mono px-2.5 py-1 rounded bg-cyan-950 hover:bg-cyan-900 text-cyan-300 border border-cyan-500/40 transition-colors flex items-center gap-1 shrink-0 font-bold shadow-sm">
                     ⚡ DEEP DIVE
                   </button>
                 </div>
 
+                <h4 class="text-sm font-bold text-white font-display tracking-wide mb-2">${subjectEsc}</h4>
+
+                ${d.key_takeaway ? `
+                  <div class="mb-2.5 p-2 rounded bg-slate-950/50 border border-slate-800/80">
+                    <span class="text-[9px] font-mono text-cyan-400 font-bold uppercase tracking-wider block mb-0.5">EXECUTIVE BRIEFING:</span>
+                    <p class="text-xs text-slate-200 leading-relaxed font-sans">${escapeHtml(d.key_takeaway)}</p>
+                  </div>
+                ` : ""}
+
                 ${d.latest_developments ? `
-                  <div class="mb-2">
-                    <span class="text-[9px] font-mono text-cyan-400 font-bold uppercase tracking-wider block mb-0.5">LATEST DEVELOPMENTS:</span>
-                    <p class="text-[11px] text-slate-300 leading-snug font-sans">${escapeHtml(d.latest_developments)}</p>
+                  <div class="mb-2.5">
+                    <span class="text-[9px] font-mono text-slate-400 font-bold uppercase tracking-wider block mb-0.5">LATEST TACTICAL DEVELOPMENTS:</span>
+                    <p class="text-xs text-slate-300 leading-relaxed font-sans">${escapeHtml(d.latest_developments)}</p>
                   </div>
                 ` : ""}
 
                 ${d.in_depth_context ? `
-                  <div class="mb-2">
-                    <span class="text-[9px] font-mono text-purple-400 font-bold uppercase tracking-wider block mb-0.5">IN-DEPTH CONTEXT & SECOND-ORDER RIPPLES:</span>
-                    <p class="text-[11px] text-slate-400 leading-snug font-sans">${escapeHtml(d.in_depth_context)}</p>
+                  <div class="mb-2.5">
+                    <span class="text-[9px] font-mono text-purple-400 font-bold uppercase tracking-wider block mb-0.5">SECOND-ORDER MACRO RIPPLES & MECHANICS:</span>
+                    <p class="text-xs text-slate-400 leading-relaxed font-sans">${escapeHtml(d.in_depth_context)}</p>
                   </div>
                 ` : ""}
               </div>
 
-              ${d.why_it_matters ? `
-                <div class="mt-2 pt-2 border-t border-cyan-500/20 bg-cyan-950/30 rounded p-2 text-[10px] font-mono text-cyan-200">
-                  <span class="font-bold text-cyan-400">OPERATOR RELEVANCE (KENYA/NAIROBI):</span>
-                  <p class="text-slate-300 mt-0.5 font-sans leading-tight">${escapeHtml(d.why_it_matters)}</p>
-                </div>
-              ` : ""}
+              <div class="space-y-2 pt-2 border-t border-slate-800/60">
+                ${d.why_it_matters ? `
+                  <div class="bg-cyan-950/30 border border-cyan-500/20 rounded p-2.5 text-[11px] font-mono text-cyan-200">
+                    <span class="font-bold text-cyan-400">OPERATOR RELEVANCE (KENYA / NAIROBI):</span>
+                    <p class="text-slate-300 mt-0.5 font-sans leading-relaxed">${escapeHtml(d.why_it_matters)}</p>
+                  </div>
+                ` : ""}
+
+                ${d.actionable_intel ? `
+                  <div class="bg-amber-950/20 border border-amber-500/20 rounded p-2 text-[10px] font-mono text-amber-200 flex items-start gap-1.5">
+                    <span class="text-amber-400">⚡</span>
+                    <div>
+                      <span class="font-bold text-amber-400">ACTIONABLE DIRECTIVE:</span>
+                      <span class="text-slate-300 ml-1 font-sans">${escapeHtml(d.actionable_intel)}</span>
+                    </div>
+                  </div>
+                ` : ""}
+              </div>
             </div>
           `;
         }).join("")}
@@ -3321,13 +3402,37 @@ function renderNews() {
   const countBadge = document.getElementById("news-count-badge");
   if (!container) return;
 
-  const query = appState.searchQuery.toLowerCase();
+  const query = (appState.searchQuery || "").toLowerCase();
+  const filter = appState.activeNewsFilter || "ALL";
+
   const filtered = appState.newsData.filter(item => {
-    const matchesScope = appState.activeNewsFilter === "ALL" || item.scope === appState.activeNewsFilter;
-    const matchesSearch = !query || 
-      item.title.toLowerCase().includes(query) || 
-      item.source.toLowerCase().includes(query);
-    return matchesScope && matchesSearch;
+    // 1. Filter match
+    let matchesFilter = true;
+    const itemScope = (item.scope || "").toUpperCase();
+    const itemTheater = (item.theater || "").toUpperCase();
+    const itemImpact = (item.impact_level || "").toUpperCase();
+
+    if (filter === "CRITICAL") {
+      matchesFilter = itemImpact === "CRITICAL" || itemImpact === "HIGH";
+    } else if (filter === "LOCAL") {
+      matchesFilter = itemScope === "LOCAL" || itemTheater.includes("EAST-AFRICA") || itemTheater.includes("KENYA");
+    } else if (filter === "GLOBAL") {
+      matchesFilter = itemScope === "GLOBAL" || itemTheater.includes("GLOBAL") || itemTheater.includes("RED-SEA");
+    } else if (filter === "CYBER") {
+      matchesFilter = itemScope === "CYBER" || itemTheater.includes("CYBER") || itemTheater.includes("TECH");
+    } else if (filter === "SPORTS") {
+      matchesFilter = itemScope === "SPORTS" || itemTheater.includes("SPORT");
+    }
+
+    if (!matchesFilter) return false;
+
+    // 2. Query search
+    if (!query) return true;
+    return (item.title || "").toLowerCase().includes(query) ||
+           (item.source || "").toLowerCase().includes(query) ||
+           (item.key_takeaway || "").toLowerCase().includes(query) ||
+           (item.in_depth_context || "").toLowerCase().includes(query) ||
+           (item.description || "").toLowerCase().includes(query);
   });
 
   if (countBadge) {
@@ -3337,74 +3442,120 @@ function renderNews() {
   if (filtered.length === 0) {
     container.innerHTML = `
       <div class="col-span-full p-12 text-center glass-panel">
-        <p class="text-sm text-slate-300 font-medium">No dispatches match the active query or filter.</p>
+        <p class="text-sm text-slate-300 font-medium">No intelligence dispatches match the active query or filter.</p>
       </div>
     `;
     return;
   }
 
   container.innerHTML = filtered.map(item => {
-    const isLocal = item.scope === "LOCAL";
-    const isSports = item.scope === "SPORTS";
+    const isLocal = item.scope === "LOCAL" || (item.theater && (item.theater.includes("KENYA") || item.theater.includes("EAST-AFRICA")));
+    const isSports = item.scope === "SPORTS" || (item.theater && item.theater.includes("SPORT"));
     const badgeClass = isLocal ? "badge-local" : isSports ? "badge-sports" : "badge-global";
     const timeAgo = formatTimeAgo(item.created_at || item.published_at);
 
-    // Extract tactical intel if present in title
-    let mainTitle = item.title || "";
-    let tacticalIntel = "";
-    if (mainTitle.includes(" // [TACTICAL INTEL]: ")) {
-      const parts = mainTitle.split(" // [TACTICAL INTEL]: ");
-      mainTitle = parts[0];
-      tacticalIntel = parts.slice(1).join(" // [TACTICAL INTEL]: ").trim();
-    } else if (mainTitle.includes("\n\n[IN-DEPTH ANALYSIS]:")) {
-      const parts = mainTitle.split("\n\n[IN-DEPTH ANALYSIS]:");
-      mainTitle = parts[0];
-      tacticalIntel = parts.slice(1).join("\n\n[IN-DEPTH ANALYSIS]:").trim();
+    // Clean title from any previous concatenations
+    let mainTitle = item.clean_title || item.title || "";
+    mainTitle = mainTitle.replace(/\s*\/\/\s*\[TACTICAL INTEL\].*$/, "").trim();
+    mainTitle = mainTitle.replace(/\s*\/\/\s*\[IN-DEPTH ANALYSIS\].*$/, "").trim();
+
+    // Impact level
+    const impact = (item.impact_level || "HIGH").toUpperCase();
+    let impactBadge = "badge-impact-high";
+    let impactDot = "bg-amber-400";
+    if (impact === "CRITICAL") {
+      impactBadge = "badge-impact-critical";
+      impactDot = "bg-rose-400 animate-ping";
+    } else if (impact === "ELEVATED") {
+      impactBadge = "badge-impact-elevated";
+      impactDot = "bg-cyan-400";
+    } else if (impact === "MONITORING") {
+      impactBadge = "badge-impact-monitoring";
+      impactDot = "bg-slate-400";
     }
 
     const titleAttr = mainTitle.replace(/"/g, '&quot;').replace(/'/g, "\\'");
     const sourceAttr = (item.source || "").replace(/"/g, '&quot;').replace(/'/g, "\\'");
 
+    // Extract summary
+    const summary = item.key_takeaway || item.description || "";
+    const depth = item.in_depth_context || "";
+    const operatorImpact = item.why_it_matters || "";
+    const actionable = item.actionable_intel || "";
+
     return `
-      <article class="news-item flex flex-col justify-between">
+      <article class="news-item news-intel-card ${impact === 'CRITICAL' ? 'news-intel-critical border-rose-500/30' : ''} flex flex-col justify-between">
         <div>
-          <div class="flex items-center justify-between gap-2 mb-2 text-xs">
-            <div class="flex items-center gap-2">
+          <!-- Header: Badges & Source -->
+          <div class="flex items-center justify-between gap-2 mb-2.5 text-xs flex-wrap">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="text-[9px] font-mono font-bold px-2 py-0.5 rounded border ${impactBadge} flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full ${impactDot}"></span>
+                ${impact}
+              </span>
               <span class="text-[10px] font-mono font-bold px-2 py-0.5 rounded ${badgeClass}">
-                ${item.scope}
+                ${item.scope || 'GLOBAL'}
               </span>
               <span class="text-[11px] font-mono text-slate-400 font-medium">${escapeHtml(item.source)}</span>
             </div>
             <span class="text-[11px] font-mono text-slate-500">${timeAgo}</span>
           </div>
 
-          <h4 class="text-sm font-semibold text-slate-100 hover:text-cyan-300 transition-colors leading-snug">
+          <!-- Headline -->
+          <h4 class="text-sm font-bold text-slate-100 hover:text-cyan-300 transition-colors leading-snug mb-2 font-display">
             <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="block">
               ${escapeHtml(mainTitle)}
             </a>
           </h4>
 
-          ${tacticalIntel ? `
-            <div class="mt-2.5 p-2.5 rounded bg-cyan-950/40 border border-cyan-500/30 text-xs">
-              <div class="flex items-center justify-between gap-1 mb-1">
+          <!-- Executive Summary -->
+          ${summary ? `
+            <p class="text-xs text-slate-300 leading-relaxed font-sans mb-3">${escapeHtml(summary)}</p>
+          ` : ""}
+
+          <!-- Deep Tactical Box -->
+          ${(depth || operatorImpact || actionable) ? `
+            <div class="mt-2.5 p-3 rounded-lg bg-slate-950/80 border border-cyan-500/30 text-xs space-y-2">
+              <div class="flex items-center justify-between border-b border-cyan-500/20 pb-1 mb-1.5">
                 <span class="text-[10px] font-mono font-bold text-cyan-400 flex items-center gap-1">
                   <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                  TACTICAL DEPTH & IMPLICATIONS
+                  TACTICAL DEPTH & SYSTEMIC RIPPLES
                 </span>
-                <span class="text-[9px] font-mono text-slate-400">COGNITIVE SIFT</span>
+                <span class="text-[9px] font-mono text-slate-400">${escapeHtml(item.subject || 'ACTIVE DOSSIER')}</span>
               </div>
-              <p class="text-[11px] text-slate-300 font-sans leading-relaxed">${escapeHtml(tacticalIntel)}</p>
+
+              ${depth ? `
+                <div>
+                  <span class="text-[9px] font-mono text-purple-400 font-bold uppercase block">STRATEGIC MECHANICS:</span>
+                  <p class="text-[11px] text-slate-300 leading-relaxed font-sans mt-0.5">${escapeHtml(depth)}</p>
+                </div>
+              ` : ""}
+
+              ${operatorImpact ? `
+                <div class="pt-1.5 border-t border-slate-800/80">
+                  <span class="text-[9px] font-mono text-emerald-400 font-bold uppercase block">OPERATOR IMPACT (NAIROBI / KENYA):</span>
+                  <p class="text-[11px] text-slate-300 leading-relaxed font-sans mt-0.5">${escapeHtml(operatorImpact)}</p>
+                </div>
+              ` : ""}
+
+              ${actionable ? `
+                <div class="pt-1 border-t border-slate-800/80 text-[10px] font-mono text-amber-300 flex items-center gap-1">
+                  <span>⚡ ADVISORY:</span>
+                  <span class="text-slate-300 font-sans">${escapeHtml(actionable)}</span>
+                </div>
+              ` : ""}
             </div>
           ` : ""}
         </div>
 
-        <div class="mt-3 pt-2 border-t border-slate-800/40 flex items-center justify-between text-xs text-slate-500">
+        <!-- Footer Actions -->
+        <div class="mt-3 pt-2.5 border-t border-slate-800/60 flex items-center justify-between text-xs text-slate-500">
           <button onclick="window.triggerSubjectDeepDive('${titleAttr}', '${sourceAttr}')"
-                  class="inline-flex items-center gap-1 text-[10px] text-cyan-400 hover:text-cyan-300 font-mono px-2 py-0.5 rounded bg-cyan-950/60 border border-cyan-500/20 hover:border-cyan-500/50 transition-colors">
-            ⚡ DEEP DIVE SUBJECT
+                  class="inline-flex items-center gap-1.5 text-[10px] text-cyan-400 hover:text-cyan-300 font-mono px-2.5 py-1 rounded bg-cyan-950/70 border border-cyan-500/30 hover:border-cyan-500/60 transition-colors font-bold shadow-sm">
+            ⚡ DEEP DIVE THIS TOPIC
           </button>
           <a href="${item.link}" target="_blank" rel="noopener noreferrer" 
-             class="inline-flex items-center gap-1 text-[11px] text-cyan-400 hover:text-cyan-300 font-mono transition-colors">
+             class="inline-flex items-center gap-1 text-[11px] text-cyan-400 hover:text-cyan-300 font-mono transition-colors font-medium">
             Read Source 
             <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
           </a>

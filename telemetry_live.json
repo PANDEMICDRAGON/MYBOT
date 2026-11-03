@@ -1,58 +1,58 @@
 {
   "sitrep": {
     "threat_level": "ELEVATED",
-    "sitrep": "Nairobi remains stable at 22.6°C under clear skies while regional security tightens across the Horn of Africa following Sudanese interception of an incoming cross-border drone. Globally, critical CVE disclosures in enterprise infrastructure and widening cyber threat-sharing legislation underscore the need for reinforced zero-trust perimeters.",
-    "conflict_summary": "In the Horn of Africa, the Sudanese Armed Forces' interception of a drone originating from Ethiopia highlights escalating aerial friction along contested corridors. Simultaneously, the Pentagon's Pacific IT bridging initiatives and increased threat-sharing push in defense authorization bills reflect global preparations for distributed, multi-vector electronic and kinetic engagements.",
-    "future_risk_forecast": "Localized cybersecurity threats driven by supply chain vulnerabilities (such as recent Zoho and Zyxel CVEs) risk spilling into regional cloud dependencies. Continued energy and import tariff pressures may introduce latent inflationary ticks into the Kenyan Shilling (KES) ecosystem over the next 14 to 30 days.",
-    "defensive_protocol": "• Execute automated patch audits across all local and cloud-hosted Linux/PostgreSQL instances to neutralize exposure to recently flagged high-severity CVEs.\n• Verify integrity checks and strict rate-limiting on all active API endpoints and remote management interfaces.\n• Maintain strict redundancy in local power and internet fallback systems across Nairobi operations to insulate against regional grid fluctuations.",
-    "asymmetric_upside": "• Evaluate defensive enterprise software plays and cybersecurity tooling demand catalyzed by rising global ransomware breaches.\n• Monitor Safaricom (SCOM) liquidity shifts on the NSE following societal value creation reports for tactical entry windows.\n• Deploy automated differential state compression routines to minimize cloud compute overhead and optimize operational margins.",
-    "created_at": "2026-11-03T09:25:40.421299+00:00"
+    "sitrep": "Sensors active across kinetic and economic theaters. Synthesis operational fault encountered.",
+    "conflict_summary": "Telemetry channels streaming.",
+    "future_risk_forecast": "Monitor maritime chokepoints and currency liquidity.",
+    "defensive_protocol": "• Verify critical backup power\n• Retain offline repository snapshots\n• Maintain USD cash buffers",
+    "asymmetric_upside": "• Track high-yield domestic liquidity yields",
+    "created_at": "2026-11-03T09:47:43.191521+00:00"
   },
   "weather": [
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 22.6,
-      "humidity": 60,
-      "wind_kmh": 8.5,
+      "temp_c": 23.6,
+      "humidity": 57,
+      "wind_kmh": 7.8,
       "condition": "Mainly Clear",
-      "updated_at": "2026-11-03T09:23:13.554594+00:00"
+      "updated_at": "2026-11-03T09:45:49.276578+00:00"
     },
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 22.6,
-      "humidity": 60,
-      "wind_kmh": 8.5,
+      "temp_c": 23.6,
+      "humidity": 57,
+      "wind_kmh": 7.8,
       "condition": "Mainly Clear",
-      "updated_at": "2026-11-03T09:23:14.514470+00:00"
+      "updated_at": "2026-11-03T09:45:49.667187+00:00"
     },
     {
       "city": "London",
       "scope": "GLOBAL",
-      "temp_c": 9.6,
-      "humidity": 76,
-      "wind_kmh": 14.0,
-      "condition": "Clear",
-      "updated_at": "2026-11-03T09:23:14.954288+00:00"
+      "temp_c": 10.1,
+      "humidity": 75,
+      "wind_kmh": 15.5,
+      "condition": "Overcast",
+      "updated_at": "2026-11-03T09:45:50.071961+00:00"
     },
     {
       "city": "New York",
       "scope": "GLOBAL",
-      "temp_c": 9.6,
-      "humidity": 86,
-      "wind_kmh": 6.8,
+      "temp_c": 9.4,
+      "humidity": 83,
+      "wind_kmh": 7.0,
       "condition": "Clear",
-      "updated_at": "2026-11-03T09:23:18.019366+00:00"
+      "updated_at": "2026-11-03T09:45:50.467416+00:00"
     },
     {
       "city": "Tokyo",
       "scope": "GLOBAL",
-      "temp_c": 16.7,
-      "humidity": 58,
-      "wind_kmh": 2.6,
+      "temp_c": 16.5,
+      "humidity": 57,
+      "wind_kmh": 2.9,
       "condition": "Partly Cloudy",
-      "updated_at": "2026-11-03T09:23:20.805813+00:00"
+      "updated_at": "2026-11-03T09:45:50.868605+00:00"
     }
   ],
   "cyber": [
@@ -66,7 +66,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-29583",
       "content_hash": "9f081a6e1d190b3adb67bea03885f7d65d18b78730b9c2c87cf597ad796249dc",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.636981+00:00"
+      "created_at": "2026-11-03T09:46:16.974070+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -78,7 +78,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-8394",
       "content_hash": "dcf56971dec638c1e32bbc4863650ecccaa3af1c85cf2da3c1c671840c6eaeba",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637004+00:00"
+      "created_at": "2026-11-03T09:46:16.974093+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -90,7 +90,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-10189",
       "content_hash": "617c981616242dca0a79d74e690e201fa8363243f0fca31311c73e72299ea8a9",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637011+00:00"
+      "created_at": "2026-11-03T09:46:16.974101+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -102,7 +102,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-40539",
       "content_hash": "a0a7f6dce826b88ebb232c56805a6e18d05107d19068a3fb93dd0b621606f8f4",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637017+00:00"
+      "created_at": "2026-11-03T09:46:16.974109+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -114,7 +114,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-27561",
       "content_hash": "f2e8bbcb50ba59a8e1ff4f38363f496625804d18d53be7d4a45da85e33ab94f1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637023+00:00"
+      "created_at": "2026-11-03T09:46:16.974117+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -126,7 +126,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-9978",
       "content_hash": "0172212bf226992607a8a51bb7ec0b2612440984f13a9e3e8b0418fad56173a1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637029+00:00"
+      "created_at": "2026-11-03T09:46:16.974123+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -138,7 +138,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-11738",
       "content_hash": "895a24212bff3837e00307321f30d072fabdd1b8ffb152b643d8b9503297748c",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637034+00:00"
+      "created_at": "2026-11-03T09:46:16.974130+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -150,7 +150,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25213",
       "content_hash": "25047194a1fb08666eece4829b771542f068bad1a307586569ca0631c5c446d7",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637040+00:00"
+      "created_at": "2026-11-03T09:46:16.974137+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -162,7 +162,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-4006",
       "content_hash": "d96607a458fb92b0ad954e7ec202dd8e5339c638e4f43d7b7d373a473c45462a",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637046+00:00"
+      "created_at": "2026-11-03T09:46:16.974143+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -174,7 +174,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21985",
       "content_hash": "0519b9eb873c86afe0f3b3964b796bf66ff912cfa74eff08bddee80945e4bcc3",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637051+00:00"
+      "created_at": "2026-11-03T09:46:16.974150+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -186,7 +186,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21972",
       "content_hash": "6a15875afd5b6a0fc8b5116f6ded20c3b55fe218ed24823a9c41c945d0488645",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637057+00:00"
+      "created_at": "2026-11-03T09:46:16.974157+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -198,7 +198,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3952",
       "content_hash": "16fbba0f67a35e0d9abb77c5a704a8ec673bc65bef31c73e0e2b582dceefd527",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637062+00:00"
+      "created_at": "2026-11-03T09:46:16.974163+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -210,7 +210,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-22005",
       "content_hash": "8a7fe7a2172f4b0c3668a5827802771468f76277393fa4431ad437befb08ba97",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637068+00:00"
+      "created_at": "2026-11-03T09:46:16.974170+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -222,7 +222,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3950",
       "content_hash": "e4f53315ecff6219811605bb364839d390f5de7c151d53ef8fe2d3f802ad0946",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637073+00:00"
+      "created_at": "2026-11-03T09:46:16.974176+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -234,7 +234,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3992",
       "content_hash": "f4becfb39bd99c21aa036bc17049549112dde23f9fe030037cb5628a0a3650ee",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-03T09:24:25.637079+00:00"
+      "created_at": "2026-11-03T09:46:16.974183+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -246,7 +246,7 @@
       "link": "https://thehackernews.com/2026/11/hackers-exploit-btcpay-server-flaw-to.html",
       "content_hash": "21ed47f47291caed2afb668edc4396e92e975cc3c78c278b1cdcd80bf7812008",
       "published_at": "Tue, 03 Nov 2026 14:01:48 +053",
-      "created_at": "2026-11-03T09:24:26.849492+00:00"
+      "created_at": "2026-11-03T09:46:18.029210+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -258,7 +258,7 @@
       "link": "https://thehackernews.com/2026/11/synology-nas-devices-targeted-in.html",
       "content_hash": "ec5e12db8375387ff6a22fe3b9dc2cc26a80644109926b61e71bee2ce88a9c9b",
       "published_at": "Tue, 03 Nov 2026 13:13:07 +053",
-      "created_at": "2026-11-03T09:24:26.849511+00:00"
+      "created_at": "2026-11-03T09:46:18.029228+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -270,7 +270,7 @@
       "link": "https://thehackernews.com/2026/11/second-wave-of-cyberattacks-hits.html",
       "content_hash": "296477f34d270868b760e0137af94cf63ddfebb907ec2c74e167e1360c6162f5",
       "published_at": "Tue, 03 Nov 2026 12:57:07 +053",
-      "created_at": "2026-11-03T09:24:26.849521+00:00"
+      "created_at": "2026-11-03T09:46:18.029238+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -282,7 +282,7 @@
       "link": "https://thehackernews.com/2026/11/attackers-exploit-critical-siemens.html",
       "content_hash": "ee94dc183de375d17b46bbe99b0b484b12bd8f7cd58f0f1ff146f4d86f3e1ae8",
       "published_at": "Tue, 03 Nov 2026 11:04:41 +053",
-      "created_at": "2026-11-03T09:24:26.849530+00:00"
+      "created_at": "2026-11-03T09:46:18.029247+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -294,7 +294,7 @@
       "link": "https://thehackernews.com/2026/11/attackers-target-unpatched.html",
       "content_hash": "77eb7e8d4f1d44a5aa9431e234043ac1a8f173f7e271ae2ff7a7172fc1abe3f9",
       "published_at": "Tue, 03 Nov 2026 11:04:37 +053",
-      "created_at": "2026-11-03T09:24:26.849538+00:00"
+      "created_at": "2026-11-03T09:46:18.029256+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -306,7 +306,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/chinese-hackers-use-artex-ai-in-automated-attacks-against-200-orgs/",
       "content_hash": "8578c2e41ceec84fea444aea1eda0dde2393d45ab9f9a9d639742de5b3bd5ad3",
       "published_at": "Mon, 02 Nov 2026 16:40:14 -050",
-      "created_at": "2026-11-03T09:24:27.507277+00:00"
+      "created_at": "2026-11-03T09:46:18.567427+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -318,7 +318,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/fintech-platform-sageworks-taken-offline-after-suspected-cyberattack/",
       "content_hash": "5d66e7307ab8d4ff4740ec2dfe0d291a1d059af6ffe4491b68b433ef0d891fc4",
       "published_at": "Mon, 02 Nov 2026 14:00:45 -050",
-      "created_at": "2026-11-03T09:24:27.507298+00:00"
+      "created_at": "2026-11-03T09:46:18.567479+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -330,7 +330,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/google-disrupts-million-device-xcpe-android-malware-botnet-bans-tv-box-maker/",
       "content_hash": "f4f37edbdbbd58dbe0de38c99e5d96f6efb92499ebb1e545ffbd115bbf5f0f06",
       "published_at": "Mon, 02 Nov 2026 13:16:34 -050",
-      "created_at": "2026-11-03T09:24:27.507310+00:00"
+      "created_at": "2026-11-03T09:46:18.567507+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -342,7 +342,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/btcpay-server-warns-of-hot-wallet-thefts-targeting-outdated-instances/",
       "content_hash": "6cb10cf414cbac58ef3369432b7578c84e394317a16fcf3cef2649acfe315643",
       "published_at": "Mon, 02 Nov 2026 10:03:07 -050",
-      "created_at": "2026-11-03T09:24:27.507320+00:00"
+      "created_at": "2026-11-03T09:46:18.567532+00:00"
     },
     {
       "category": "THREAT-INTEL",
@@ -354,7 +354,7 @@
       "link": "https://www.bleepingcomputer.com/news/security/your-mobile-carrier-stores-your-call-logs-for-years/",
       "content_hash": "f07f1de2adf398da26d7e9fe38e2bd8a798e485435e3632ddd049f92b8aaa955",
       "published_at": "Mon, 02 Nov 2026 10:01:11 -050",
-      "created_at": "2026-11-03T09:24:27.507330+00:00"
+      "created_at": "2026-11-03T09:46:18.567565+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -366,7 +366,7 @@
       "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNRG5hQUpRSmpNNzMwQkRWYllFckFNMjJEU1ZTUHZLOUtmV18tYzNiQ0VkT25vczlCOFpEQWhEQThoTzVDcXhvUVVRUHJNRWhweWp3SFJ6QjJTRG1jRUlfY01fX3JGU1RrcE9PSTd4WG96RWF3QWo5Qlp4QmdwX0hKR0phakxZeGUwbGZZQ25XMlFoT0I1?oc=5",
       "content_hash": "ce35feae071fef3fb507d2beba2bafc903c1bee030c3baa6be882620ab47bde4",
       "published_at": "Tue, 03 Nov 2026 09:12:47 GMT",
-      "created_at": "2026-11-03T09:24:29.338831+00:00"
+      "created_at": "2026-11-03T09:46:19.388627+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -378,7 +378,7 @@
       "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUk5SeGxyLVVYanJ1Mmc5Z1lJUGd0YmdrZDNGSHkwSVZ4d0cyeXdNM0QweEUyTlNiRmpXdnhrbUlXSGI5bmpzY1NOVnJpVVdGUlloc1A4RGY0d2J1am5RU0pHa25XTlpsb2QtLWpCMjRVbW11Z0dESzZ3cW40LVpCYlh3Ukw?oc=5",
       "content_hash": "9b0a74a234c31878c7cb9f80837638ea776fc0d87cdd2c9bdb2d048e64ebf1ac",
       "published_at": "Mon, 02 Nov 2026 10:12:16 GMT",
-      "created_at": "2026-11-03T09:24:29.338855+00:00"
+      "created_at": "2026-11-03T09:46:19.388654+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -390,7 +390,7 @@
       "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPZ28wTVQ1eDE1Yzh6dndVdm5wQW94TldvM3ZyZ1BkTElFY0RNSEVRWGNkeW8tTzlhYkpoMElmREFaQ19kdjFlVmRmdzBnb0owUlFZU09UTFBiWlFwb3daR2FNeGhoa3BfbFlnVUp6ZXJjcFJoYUQ5aXJwaEhzNkhuQ3dybVpCOFgyamxCbjRZLUd1ZTN6bFN3ZEFJUkdTT3d6TmwxN3FRZ25EOUJvdjNmbFRUN3RfUjVCUkd4ZDVR?oc=5",
       "content_hash": "42552c415eaaa06b98128dae97b07d5d99c27038ed6fc65387714cd7ce4c191c",
       "published_at": "Mon, 02 Nov 2026 17:11:44 GMT",
-      "created_at": "2026-11-03T09:24:29.338867+00:00"
+      "created_at": "2026-11-03T09:46:19.388665+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -402,7 +402,7 @@
       "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQd255MWpodW01Rk1lWFJlRWdYMDZ3SDRJUVk5dWptV2RTbVUxWVdFaWkxa2ZaalRKRlc3M0dPN2VrZE5ZUDBXdDZmSXFzWGlEMjFsVDVLSzAtT0txQ2JMem5rdkpzRkRxTTlLWmZEMmdkOFVBcmtxV3N3SnQ2WXh1SlUzcUdhTV9xNV9ZZUhaazlUR0djSHZzREdKZ1JyeDFHX0E0?oc=5",
       "content_hash": "d005f168a788725b4441d3eb0ae9c91583641a331160dc4570935d701cde3a0a",
       "published_at": "Mon, 02 Nov 2026 09:33:00 GMT",
-      "created_at": "2026-11-03T09:24:29.338876+00:00"
+      "created_at": "2026-11-03T09:46:19.388674+00:00"
     },
     {
       "category": "LOCAL-CYBER",
@@ -414,113 +414,693 @@
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNMDdHSlNxLXlSbDJKZ1AwWVk0Rnk0YTQwV0dEQ2ljUFp2SXcyOUhmM0x0QVJ1U18xOFVqQWVNOTRZZHFpOGRvdVJZZGtkY3pWTFdLOXNqYlVtcmFyaVIyQVF1QTZNVjBnNVZFTVhyU0dBQmoyb3BMWWNycE4yVnVHcEtGRFlEUU1rTkpWMUxzaG9BejZqZEVQcW5lbk5DYUxBQnAzSW90MnRBLU1wemFCT2RyZkJ5UEo0?oc=5",
       "content_hash": "f9aa3026e568aa292865747b0d60130313c38985da49f2b3b8ba610033b9cb58",
       "published_at": "Mon, 02 Nov 2026 16:18:14 GMT",
-      "created_at": "2026-11-03T09:24:29.338885+00:00"
+      "created_at": "2026-11-03T09:46:19.388684+00:00"
     }
   ],
   "news": [
     {
-      "scope": "LOCAL",
-      "source": "Silicon Savannah Tech Wire",
-      "title": "Safaricom creates Sh1.25 trillion in value for Kenyan society - Kenya News Agency // [TACTICAL INTEL]: For Michael, this confirms the stability and growth trajectory of the primary digital infrastructure he likely relies on or competes with. It validates the Kenyan market's digital ",
-      "description": "Safaricom creates Sh1.25 trillion in value for Kenyan society&nbsp;&nbsp;Kenya News Agency",
-      "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPc0RBRUtvcnZ5Y3k0c1EzdzdCcV9SV3docEtkaTVJS2N1QzJTU3lpSnpzSGRmYlNvWTA5RmdFcWdnTC0wbExZNGxjTUVsWmRiZ3h1cUd2N1FldGNlRzVhSHFodXRZcUkzZFhhV0VyTVliOEVnUnl2Tk8tc2VqX0lKYlJvVTlfWFFic3YtWVc4UG5aMXdI?oc=5",
-      "content_hash": "a3f4daa255ffc6d5ec1e60fa398cfca1cd246c55a9a5998b4b3d3d4f6f3d6781",
-      "published_at": "Thu, 29 Oct 2026 16:12:09 GMT",
-      "created_at": "2026-11-03T09:24:16.347842+00:00",
-      "in_depth_context": "This figure likely encompasses direct revenue, tax contributions, and broader economic multipliers from mobile money and digital services. It reinforces Safaricom's position as a quasi-infrastructure utility rather than just a telco. This dominance creates a 'winner-takes-most' dynamic in the Kenyan digital space, influencing API costs, data pricing, and the viability of competing fintech or cloud providers.",
-      "why_it_matters": "For Michael, this confirms the stability and growth trajectory of the primary digital infrastructure he likely relies on or competes with. It validates the Kenyan market's digital maturity but also highlights the high barrier to entry for new tech ventures due to Safaricom's entrenched ecosystem. It's a signal to optimize integration with M-Pesa APIs and leverage their cloud offerings for cost efficiency.",
-      "subject": "Kenyan Telecoms & Digital Economy Value Chain"
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "Road to Schuman Nairobi: building security with partners in East Africa and the Western Indian Ocean - European External Action Service (EEAS)",
+      "description": "Road to Schuman Nairobi: building security with partners in East Africa and the Western Indian Ocean&nbsp;&nbsp;European External Action Service (EEAS)",
+      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxOYXE2STRGVnpmSl9KcG83ckVRd3JIUmFjM1YyNkhGaElDaVAyN1R2akNrRUgwU3FpX2hzVE5CcHZFVXIyY1VKZlUwQ2pXNjFpeWlGZW11MmViYnh3ZFcwVlpsSnJVOTdLcEFudlBLNUZuMzRQV1FRVEV1ZTFzdVNEZ0Q1V1JueG1fck1lcFJ2cUxXMGFreWNXa3hWblNhaXhZMDNBQTdWVnVadndLbmM1ZHpaejktQnNtdW5uQnFFN0VDVHB1YUJYUUhPSFU?oc=5",
+      "content_hash": "f6b4632b2ec1de7022cbf84af244d0c7acbc2ef85c05648a196a8bf209a8692b",
+      "published_at": "Fri, 30 Oct 2026 12:35:46 GMT",
+      "created_at": "2026-11-03T10:01:15.039537+00:00",
+      "clean_title": "Road to Schuman Nairobi: building security with partners in East Africa and the Western Indian Ocean - European External Action Service (EEAS)",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
     },
     {
-      "scope": "GLOBAL",
-      "source": "Zero-Day Vulnerability Feed",
-      "title": "Sandhills Medical Says Ransomware Breach Affects 170,000 - SecurityWeek // [TACTICAL INTEL]: This is a direct warning for Michael's tech infrastructure. If he manages any health-tech, fintech, or data-heavy systems, the attack surface is under intense global scrutiny. It u",
-      "description": "Sandhills Medical Says Ransomware Breach Affects 170,000&nbsp;&nbsp;SecurityWeek",
-      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPbjNOcDBXMDdJc3MzY3pjMDR1bkt2ZENxTmxwN1c0YWRaX0N1Rkl0NERpUFJPX29TWUpCZ1FSeHBVa2phMzVCSVpVY2RCMFl6NER0eS1maHlIbmkxclE0cTQySFJacFh4cHREai1SU2trUUVJOFc4VTJwMWM2d05IU1hJQVhFSHByNEdmZ3V30gGTAUFVX3lxTE1qQWJlRmtJV0h0a3E1bnR3eXVBY2FwdWh3cHVsNWdQX0QtWVV3OHNWQmQwQm1qT245Y3NFMWdnNzdwVXdtRDBWaWtqeEZiOG9MaGMwUksxaGZkR1EtTlJVdmdyZE1WN01SN1dpamZZX29hUFdYdkQtRndkaHZudTJHMEF0MWFXazBCZUhPZ2RxQWZDZw?oc=5",
-      "content_hash": "d6d50802b706a84b1994ed9e19725e607a96b61493861e9a16a3e9aca8661a85",
-      "published_at": "Thu, 30 Apr 2026 07:00:00 GMT",
-      "created_at": "2026-11-03T09:24:17.015344+00:00",
-      "in_depth_context": "Healthcare remains a top target for ransomware due to the criticality of data and the sector's historically slower adoption of zero-trust architectures. A breach of this magnitude indicates sophisticated threat actors capable of penetrating large, complex networks. The ripple effect includes increased regulatory scrutiny (HIPAA), potential class-action lawsuits, and a chilling effect on digital health initiatives globally.",
-      "why_it_matters": "This is a direct warning for Michael's tech infrastructure. If he manages any health-tech, fintech, or data-heavy systems, the attack surface is under intense global scrutiny. It underscores the urgent need for robust endpoint detection and response (EDR), network segmentation, and immutable backups. The 'patch urgency' is high; any known vulnerabilities in his stack must be patched immediately to avoid becoming the next headline.",
-      "subject": "Critical Infrastructure Cyber Threats & Ransomware Escalation"
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "US to suspend South Africa and Rwanda from duty-free trade access - Al Jazeera",
+      "description": "US to suspend South Africa and Rwanda from duty-free trade access&nbsp;&nbsp;Al Jazeera",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOamp2d1JscDVROV9wNGhRVW9NX1NVbjNkb0I1Q01XaFdGb2g1TlRuR19QQlkxTnJka3pCRGNxSUJYdjNjdDdCTzBGdjBieDFpV2tUT3BNTDFuODItWjlQN1YxbW81Wk5Sdl9CMVRSWlVsRHp6NlFCNEtsa0RqQV9uTmJrZEQ4dVhKejZuWVlaSGZxY094MVNOT0JFd3lHR0ZtazFwMWtrZHZhZURKZ2fSAbMBQVVfeXFMTm5oUURHSjhWZUpfa1paQVRmWTJCQ08ydElacm5XV2Z6akFLRHgyU1hyTV8wMk9ETklRWjlaMkhCMWdzZjJjU3dYTEUtQ2xLVURoNGlRbVZvWVlucVB6MjltS1B6ZGhJSUZwYXhuM25lOXJoX1RUMkZsaEFoZzc0aUZ0SDlSWDVhN1BmeVZTTXZZdFl6Z3ByMHhXWVliZHZhelB2MTIxQWNYZTlaZU9OOTNDQWM?oc=5",
+      "content_hash": "82f8e2a17ea7a08b76a5752b5a0ad5a73141778b25f3a17262239414d7ae9758",
+      "published_at": "Mon, 02 Nov 2026 21:25:58 GMT",
+      "created_at": "2026-11-03T10:01:15.039571+00:00",
+      "clean_title": "US to suspend South Africa and Rwanda from duty-free trade access - Al Jazeera",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
     },
     {
-      "id": 13344,
-      "scope": "SPORTS",
-      "source": "BBC Sport",
-      "title": "West Ham sack head coach Nuno after 14 months // [TACTICAL INTEL]: While geographically distant, this reflects a broader trend in Africa towards centralized security and intelligence fusion. Michael should be aware that digital infrastructure in t",
-      "link": "https://www.bbc.co.uk/sport/football/articles/c63dj3zpl85go?at_medium=RSS&at_campaign=rss",
-      "content_hash": "da5fe1a5332f982523fb7dd4526da40de3c25f0d1872ec241019c3911177f78c",
-      "published_at": "Tue, 03 Nov 2026 08:55:55 GMT",
-      "created_at": "2026-11-03T09:16:59.374791+00:00",
-      "in_depth_context": "Nigeria faces significant security challenges from Boko Haram, banditry, and separatist movements. Improved intelligence sharing is a critical step towards a unified security posture. This could lead to more effective operations but also raises questions about data privacy and the scope of surveillance. It may also signal a more stable environment for business operations in the long term, though short-term crackdowns can be disruptive.",
-      "why_it_matters": "While geographically distant, this reflects a broader trend in Africa towards centralized security and intelligence fusion. Michael should be aware that digital infrastructure in the region may face increased scrutiny or be leveraged for state security purposes. It's a reminder that 'security' in the African context is not just cyber, but also physical and geopolitical, and that data governance is becoming a more complex issue.",
-      "subject": "West African Security Architecture & Intelligence Fusion"
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "Trump Moves to Kick South Africa and Rwanda Out of US Trade Deal, What It Means - Business Today Kenya",
+      "description": "Trump Moves to Kick South Africa and Rwanda Out of US Trade Deal, What It Means&nbsp;&nbsp;Business Today Kenya",
+      "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE01bDNySEI0enFSSGNKTkp5eGw3Mi1mcTBHSGdpNFdoUS1RWTBjZzdmQU9LYzA0YUYtVUFqbTBobVJYc2Nrd0phaVNRVVR3VVE0RlRQamgxZ2N6ODdVWTZ3MXNwZ2JnZ0d0Wll6R1ZSaFBiOTFmOC1ycA?oc=5",
+      "content_hash": "fc3e9ab1653b894c3a086805ab973d1771d2956c3a068dfd8bacc4b276696901",
+      "published_at": "Tue, 03 Nov 2026 06:59:51 GMT",
+      "created_at": "2026-11-03T10:01:15.039666+00:00",
+      "clean_title": "Trump Moves to Kick South Africa and Rwanda Out of US Trade Deal, What It Means - Business Today Kenya",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
     },
     {
-      "id": 13343,
-      "scope": "SPORTS",
-      "source": "BBC Sport",
-      "title": "Tenerife striker De Miguel dies after on-field collision // [TACTICAL INTEL]: For Michael, this confirms the stability and growth trajectory of the primary digital infrastructure he likely relies on or competes with. It validates the Kenyan market's digital ",
-      "link": "https://www.bbc.co.uk/sport/football/articles/ck62yvz046pjo?at_medium=RSS&at_campaign=rss",
-      "content_hash": "99ad7799bd2e09d29ceeb8037313d0e6d176c09b8b4701cddad3876541dd799a",
-      "published_at": "Tue, 03 Nov 2026 09:09:18 GMT",
-      "created_at": "2026-11-03T09:16:59.37476+00:00",
-      "in_depth_context": "This figure likely encompasses direct revenue, tax contributions, and broader economic multipliers from mobile money and digital services. It reinforces Safaricom's position as a quasi-infrastructure utility rather than just a telco. This dominance creates a 'winner-takes-most' dynamic in the Kenyan digital space, influencing API costs, data pricing, and the viability of competing fintech or cloud providers.",
-      "why_it_matters": "For Michael, this confirms the stability and growth trajectory of the primary digital infrastructure he likely relies on or competes with. It validates the Kenyan market's digital maturity but also highlights the high barrier to entry for new tech ventures due to Safaricom's entrenched ecosystem. It's a signal to optimize integration with M-Pesa APIs and leverage their cloud offerings for cost efficiency.",
-      "subject": "Kenyan Telecoms & Digital Economy Value Chain"
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "After months of speculation, US finally shuts out South Africa, Rwanda from trade benefits across its $33 trillion market as Trump finalises AGOA decision - Business Insider Africa",
+      "description": "After months of speculation, US finally shuts out South Africa, Rwanda from trade benefits across its $33 trillion market as Trump finalises AGOA decision&nbsp;&nbsp;Business Insider Africa",
+      "link": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxOYTZZRE9Ib041ZE1ZRUJQSWZSUW5xQjJCZ0ptVmdWR2FjbGRCWUVZSE5jQ1llcXNxdEtJME1YdktDNW9lVnNfSXFYWDM4ZHotcW02OUZmMExzWW5fMXZ1aVAxWHZTRVluM19Ha0tEMGg5c0NmM3JuN2JYZF9VN3NUQnRTM2JJTEN5Y1BWZy1lTUJtdmZRd1ZXOWtQNFRGWjVBLXhTTHYydy1sMWpCM1M5UnBRVTZidnpReG03QXBZem9wNzdJdENZUXE2Zi15akY4eWc?oc=5",
+      "content_hash": "ed3859c4ef7a1fc6cdf148feed59f651d67ce9584ec1bb1dfcf420a74e829c8e",
+      "published_at": "Mon, 02 Nov 2026 18:51:13 GMT",
+      "created_at": "2026-11-03T10:01:15.039709+00:00",
+      "clean_title": "After months of speculation, US finally shuts out South Africa, Rwanda from trade benefits across its $33 trillion market as Trump finalises AGOA decision - Business Insider Africa",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
     },
     {
-      "id": 13342,
-      "scope": "GLOBAL",
-      "source": "Horn of Africa Security Wire",
-      "title": "Sudanese army says it shot down drone coming from Ethiopia - A News // [TACTICAL INTEL]: For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply",
-      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOTUNwc1FxUE9QRWdNTl9CTzh1WFRIaGFlOThyZVJtS0VPN21PUmE3WTY0UDNBaF8wUHVibU9IUlUyUDhwSEFidFFya0tWYlNOVXRVVWZLUlk1MmhuNl82Tklmd1hSbkVaODBlYUVrT0tMRWhvSUlOODRRQldlUzBEYUVNQVowVHVWX2Q5WkdEZXBERWpUN3pWU1FEaTlKNnJTc1HSAacBQVVfeXFMUDEtUkpkVXQ3Z0ZPVW53VlV2WUVQLWIzNW9pQjF3eGZPcVp3d0tSRFp6Zk1uTkpMaE1fdjJrdHFOTWpSY0t6RnBoSXVzRWVna2hCZnQ0XzcxNmwtY1F2SXd4cFlOeUxzQ19oWmxJbnhNeGFZMUtUSU5oTENUYjVUeU9rVUtPUUV3a2E5MGhmOHB4TlZ1UzNZZlJmcWt6b3hIV0RPcGoyRFE?oc=5",
-      "content_hash": "92be574e2e99eadcfd8d6cdc98f049568102c5d3db0f339415157ac01ede1d58",
-      "published_at": "Tue, 03 Nov 2026 08:29:46 GMT",
-      "created_at": "2026-11-03T09:16:58.437672+00:00",
-      "in_depth_context": "The Sudan-Ethiopia border is a flashpoint with historical grievances and competing regional ambitions. Drone strikes or shootdowns increase the risk of accidental escalation, potentially drawing in other regional actors (Eritrea, Djibouti). This instability can disrupt air corridors, affect ground logistics across the border, and increase insurance premiums for regional trade.",
-      "why_it_matters": "For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply chains, cross-border data flows, and investor sentiment. Michael should monitor for any spillover effects on regional air travel or ground transport routes that might impact his logistics or travel plans.",
-      "subject": "East African Geopolitical Tensions & Airspace Security"
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "US moves to kick Rwanda and South Africa out of AGOA trade deal - Radiokaya",
+      "description": "US moves to kick Rwanda and South Africa out of AGOA trade deal&nbsp;&nbsp;Radiokaya",
+      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQSFpOeVJJVnJxSVBkR2RQcl9faUFHdkFuVkZmMXZ2d2lVX1FWcFpUMWJHQkVHYzFJN0RVM1Y0d1dhZTlRUlRwek45bGFnTy1MbXZZMVZKNnFTZGFLQmNkMlhpekdkT3RrcHlSbGw0VjFrWFBVT3l5Y0JCbWV2MWtiMGxDblhTMlNRSTFMY2N3aC1rZw?oc=5",
+      "content_hash": "17096c9a3a675c03077bcd0b532722dbc6fcb0e088bb7128bb67e420bc0d4d71",
+      "published_at": "Tue, 03 Nov 2026 06:40:09 GMT",
+      "created_at": "2026-11-03T10:01:15.039940+00:00",
+      "clean_title": "US moves to kick Rwanda and South Africa out of AGOA trade deal - Radiokaya",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
     },
     {
-      "id": 13340,
+      "scope": "CONTINENT_AFRICA",
+      "source": "East Africa & Horn Wire",
+      "title": "Government assures security, integrity of national examination materials - Kenya News Agency",
+      "description": "Government assures security, integrity of national examination materials&nbsp;&nbsp;Kenya News Agency",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPVTZpRUI2Zks4dXdWRngwS1BTS1BpMTNhYnZJUVRONVAxQ0VneTlWc3BZWERHOVB4RXJ0UUVKS0RGeTlUYkdabGNKQmVJelNBT0poZjVtaVI3N3d1Smg5RkVLZl9FNHA1Tm5xeVQ5WDVGd0ViaHlScDVMMTRLVFdlUHl1c0RPQS01eldFc001bUVfNWZCTGt5dzlmSkM4Z25OS2c?oc=5",
+      "content_hash": "0b4af7586926d2bc8c6873496d6a7fab77ed81d63f348245144bf811effeb772",
+      "published_at": "Tue, 03 Nov 2026 06:30:04 GMT",
+      "created_at": "2026-11-03T10:01:15.039989+00:00",
+      "clean_title": "Government assures security, integrity of national examination materials - Kenya News Agency",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
       "scope": "CONTINENT_AFRICA",
       "source": "West Africa & Sahel Wire",
-      "title": "Nigeria’s Security Agencies Making Progress in Intelligence Sharing — Gidado - Real Broadcasting Network // [TACTICAL INTEL]: For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply",
+      "title": "The lithium rush: Nigeria’s bid to avoid the resource curse - The New Humanitarian",
+      "description": "The lithium rush: Nigeria’s bid to avoid the resource curse&nbsp;&nbsp;The New Humanitarian",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNVWhGLURocG1GOVhUeHFxQ0p3TWN2ZmlaME9ZbkZGTC1qSXR4VmRfTmxtVURPUk5BVWMwRkt6WFdoTm5aeHVtR3lUdnhucjF4NmRFNlRsdkE2ZUZwLU45cFpVbnM1YTJGLTdfWkRxdlVkQm9QQlRtcEszd3B4OHJ3SVFyQkt4Q1Jxb1JLNFZ6bXFKUW9wX01DOTRaWEpObF9vV1E?oc=5",
+      "content_hash": "ee1b4d08f479406e68bdd1968d91cac51855f20073b29700678b73747c061475",
+      "published_at": "Mon, 02 Nov 2026 14:00:51 GMT",
+      "created_at": "2026-11-03T10:01:15.662283+00:00",
+      "clean_title": "The lithium rush: Nigeria’s bid to avoid the resource curse - The New Humanitarian",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "TotalEnergies farms out partial interest in block offshore Nigeria ahead of appraisal - Oil & Gas Journal",
+      "description": "TotalEnergies farms out partial interest in block offshore Nigeria ahead of appraisal&nbsp;&nbsp;Oil & Gas Journal",
+      "link": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxPUENOaUZaaUpZc19aLURrRG5TOEFfanVfT3BKQzh5MkxuOS0tZ1M0UGlHeUhkczUzOGpOYS1USjhPaG1sbG9meWxIQ0FkMERxdmlpZUZQN2RUVUJLY09TNURHcVlTRVJ6dnpvTU5WWk84dDQzMl9UcDQyWkZDeEkyZW90Y21XU05kbGVyRWZxTnR2S2VoVElycTZCR18zSjJUa0JLVHlvMzdwUC1KN0JLTHh4dVAxZ3lCZXVFWFR2aWIzeUNnOGZLLV9nOHZxdHB5czI2RmhTVmJxNE5RLVRoRFJmUUFhY01hZndV?oc=5",
+      "content_hash": "b975c4cba23ba3a2d6601797ed548d03715b7ea90eab28529da456ed45b7722d",
+      "published_at": "Fri, 30 Oct 2026 19:49:57 GMT",
+      "created_at": "2026-11-03T10:01:15.662316+00:00",
+      "clean_title": "TotalEnergies farms out partial interest in block offshore Nigeria ahead of appraisal - Oil & Gas Journal",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "Junta-led Niger receives first fuel shipment from Algeria as 53-truck convoy arrives Agadez under military escort - Business Insider Africa",
+      "description": "Junta-led Niger receives first fuel shipment from Algeria as 53-truck convoy arrives Agadez under military escort&nbsp;&nbsp;Business Insider Africa",
+      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNOTR3NHBFYWJ1c1puaW1mZ0VEeXpXNnFkRkl0ZUlZRFhDYmtWWU1jQ0xNWXNLMk5UTmVpdlJPT1RBNkNqOWEtUnY0cmlsaGQtUzhWY285RXZ0YUtzUkhCSkdybjc2TkdEMDNZU2tRc1B5cUVyOWdQVFBVc2xQcEFCNU9naTJhY0tBMXoxUmhodTNXNXlpT3I2UUozenZvUXlncUFoLTIwMy1iOXpXcUtrbjdQUnl6NlNRdGhLbl81NGM3ZWt5TjA1eDJCT3cxX3IzcnkxZ2tvRno?oc=5",
+      "content_hash": "7f88213f1030c371ec746d81c126a4a056dd57ab86cc4f9416d256dfd40d535b",
+      "published_at": "Mon, 02 Nov 2026 15:47:22 GMT",
+      "created_at": "2026-11-03T10:01:15.662332+00:00",
+      "clean_title": "Junta-led Niger receives first fuel shipment from Algeria as 53-truck convoy arrives Agadez under military escort - Business Insider Africa",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "Senegal's Ambitious Plan to Slash Electricity Costs and Boost Energy Security - Crude Oil Prices Today | OilPrice.com",
+      "description": "Senegal's Ambitious Plan to Slash Electricity Costs and Boost Energy Security&nbsp;&nbsp;Crude Oil Prices Today | OilPrice.com",
+      "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxOY0VBc0E5aUlwa2RMaG9HMlNsV3hIZ3RVXzB6Y2hOeHNNT29oc25Bcms4Y3VwcWFRcXdhZ2hKX2FSLTRwdHk1QkEzQmhvOEJUSEhBVjVtemxudXkxQXcycHE1V3NiZzN4cnlpeDJ2RV9IVDRJc05Sb2pNWTlvaklfSHJyamQtdkN0T1JZTUJYMkZrUlBBMXhqT1lSX3U2a0lXdGJxeElteDV0RGNmMGIzRmU2aGxYS1VuTTNRYkRpcXdtUdIBxwFBVV95cUxQUl8yMGhMcnczRHNTR0FjNmZ2bG8zdVhNR3ZSVHJfajhrb3VfT3lWc0loNHY5eVBUUHYxVHhZQmx5TzFZM0xGS1JJSmdBSWM1bVkzVjdlazk2ekJaZ01wdXhFcEVRdUtZRERDMkpVWHdUVjByQ2EwQWNDZk1TR25zeWtVZEZIOUdCZ2h1ZW1zNHRmQ0RQOXNHbUxBaDRqdFNlTnhlOGFPU29DMmduTFN3OUlsSXQ3MkJIZEVZSXdLX0g5cEl1VXB3?oc=5",
+      "content_hash": "19a2f2189283f4270208c830bc4ce16749ebcd5dcc57b957cba36aab607614e9",
+      "published_at": "Sat, 31 Oct 2026 15:00:00 GMT",
+      "created_at": "2026-11-03T10:01:15.662348+00:00",
+      "clean_title": "Senegal's Ambitious Plan to Slash Electricity Costs and Boost Energy Security - Crude Oil Prices Today | OilPrice.com",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "Beirut Cocaine Bust: Conflicting Accounts Put Ghana's Airport Security Under Scrutiny| The Pulse - Modern Ghana",
+      "description": "Beirut Cocaine Bust: Conflicting Accounts Put Ghana's Airport Security Under Scrutiny| The Pulse&nbsp;&nbsp;Modern Ghana",
+      "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5oSTNMSkZScjc3THRWZFM5MnJmODlBSWJaMmJ6VVhyZUFCa2t3dUlTa1JKcEZaLUoyZWtxc1JhUTdwNGVScVZsbEluUFVtcGRDb2VLUy1Oa21RM1FSVFZoOVU1MGzSAVxBVV95cUxQOWpyQWpwWXAtX193bUpMalM2WmxxZElBd3FXX1hoanhaUFFIR1V1aC1KTkdDOXpBY1ZqaXN5U2Uwakx4cXJlYmdaR2pqVE5hVllGc1NHRURtT2l3WA?oc=5",
+      "content_hash": "7ca7e9287e389f9adcbb56e6be86c175a6ebbcbd9bcf2cbf18e772942f9338ed",
+      "published_at": "Mon, 02 Nov 2026 21:40:00 GMT",
+      "created_at": "2026-11-03T10:01:15.662361+00:00",
+      "clean_title": "Beirut Cocaine Bust: Conflicting Accounts Put Ghana's Airport Security Under Scrutiny| The Pulse - Modern Ghana",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "Nigeria’s Security Agencies Making Progress in Intelligence Sharing — Gidado - Real Broadcasting Network",
+      "description": "Nigeria’s Security Agencies Making Progress in Intelligence Sharing — Gidado&nbsp;&nbsp;Real Broadcasting Network",
       "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPWTMxLTN4U1dudFp4N2xtQU5sTzFlTVh4VnVJeHpiMXhaUktuNjZ3ZnYya3ZyQmxTcGo1M19LMXFMMU9Tb011VDZYTE9HODlOLWdpU05WbDdUbVBkQ3NKVi1fdTFoQTJyUVIyUmRJNDFSSHZLcnVZbWtkanMtb3NGVHV6LXVYVlB4OWt3X3cwOXFZSFBLMmhnTXhGeUtnR0FwWTJEaUlmSUU?oc=5",
       "content_hash": "a1c3ac4930054c5a7349eb3631e60c71a6b88a7a9963639d2fb725879082fd40",
       "published_at": "Tue, 03 Nov 2026 09:09:57 GMT",
-      "created_at": "2026-11-03T09:16:55.803163+00:00",
-      "in_depth_context": "The Sudan-Ethiopia border is a flashpoint with historical grievances and competing regional ambitions. Drone strikes or shootdowns increase the risk of accidental escalation, potentially drawing in other regional actors (Eritrea, Djibouti). This instability can disrupt air corridors, affect ground logistics across the border, and increase insurance premiums for regional trade.",
-      "why_it_matters": "For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply chains, cross-border data flows, and investor sentiment. Michael should monitor for any spillover effects on regional air travel or ground transport routes that might impact his logistics or travel plans.",
-      "subject": "East African Geopolitical Tensions & Airspace Security"
+      "created_at": "2026-11-03T10:01:15.662379+00:00",
+      "clean_title": "Nigeria’s Security Agencies Making Progress in Intelligence Sharing — Gidado - Real Broadcasting Network",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
     },
     {
-      "id": 13199,
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "New proposed rules: EPRA seeks to change how fuel and LPG enter Kenya - People Daily",
+      "description": "New proposed rules: EPRA seeks to change how fuel and LPG enter Kenya&nbsp;&nbsp;People Daily",
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPdWpYZkE3U2htci1WNDNxYldIQWF6WDRtVFgtR2MtbmMzaG8tcWRYZFVnNkhSN252cXAwdGItNUVBZkxiX0tvQVNIUEdpVWNTRjNaYnp5SHd0M3FtNkxLdUtNb2FmYklzbElYN0pzd25hM2FXdWZLb2NDbllVam1SRFpRWFJpYjhkdTUwOFVyQl9GY2EwSzMxUlFDMTVfZjU5ampB?oc=5",
+      "content_hash": "9b185b57c95671fd924fd1246d528cfb9e02905f072c298c13665fc69916dfd6",
+      "published_at": "Mon, 02 Nov 2026 16:37:47 GMT",
+      "created_at": "2026-11-03T10:01:16.294527+00:00",
+      "clean_title": "New proposed rules: EPRA seeks to change how fuel and LPG enter Kenya - People Daily",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Kenya Railways reports progress on Naivasha-Kisumu SGR Phase 2B - Mjengo Hub",
+      "description": "Kenya Railways reports progress on Naivasha-Kisumu SGR Phase 2B&nbsp;&nbsp;Mjengo Hub",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxPWWl6djV5ekRHV0xSZUhMNDhDcEdmdWdNUGpnYXFZRzExc0JhZVVQZXNpd0N2eXp3dEROVUZQaVZrSkNDdDdtMDRDZ0R1VlJiTEw0V0dFRC1seDdYNC0zNTJiZ3lFVVlycW5DVkZILWhhZGNWRTI0aTRLRXMwaGZpNnlOd09RS3hNYlBUNEVLdThKOXk1TWlfdEtsUjFoMGhvS2VySmZhUDE5ZjVTSkxSM0NyOA?oc=5",
+      "content_hash": "7f5526555d070256a41d9f542054003915da0cf1c44ea619719e3970c4026734",
+      "published_at": "Tue, 03 Nov 2026 09:03:10 GMT",
+      "created_at": "2026-11-03T10:01:16.294564+00:00",
+      "clean_title": "Kenya Railways reports progress on Naivasha-Kisumu SGR Phase 2B - Mjengo Hub",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Kenya Railways launches SGR car transport service between Mombasa, Nairobi - The Star, Kenya",
+      "description": "Kenya Railways launches SGR car transport service between Mombasa, Nairobi&nbsp;&nbsp;The Star, Kenya",
+      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPaXBfV0JYcmt6b3d4MGRabWh6Uy12QnBQUThYVi1WWjZaQzBMdXhldWF4UTRLaTNiX1lxSWtDTEJhUlVadzJrMi1jdU5OQ3dwNEFMdEVLZ0NKRXdxRC1Hd3JMQ3RFQ01Nd2tZSE1iRjk2MmlndmhhZFZLX1ozWHh3STdJOVNhcUgwNTduNkxMVV9zbXFubnhJRw?oc=5",
+      "content_hash": "4955f33f410c2754ad206e534541ee2970955d203b471f27af595415648418f1",
+      "published_at": "Fri, 30 Oct 2026 12:58:00 GMT",
+      "created_at": "2026-11-03T10:01:16.294588+00:00",
+      "clean_title": "Kenya Railways launches SGR car transport service between Mombasa, Nairobi - The Star, Kenya",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Kenya Railways launches SGR vehicle freight service - KBC Digital",
+      "description": "Kenya Railways launches SGR vehicle freight service&nbsp;&nbsp;KBC Digital",
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1mbWN0MVpOSmk4VUQzWXlLWktYMHRIS1h6cU1DNHV6N3QwLWNUaFQyTXJVSG1IdHJGYXllMjBqdnhmWDlHTGM3MXBzcTRkR0R3b2tSVlctT1A5cHJBYkNOcW5hb1IxOGVvRkFzTm9kZXVQMGxwZE9mbFFhQU92MUE?oc=5",
+      "content_hash": "02bda963a6de4b085cd2fad34857961e9b4112cac3de6f55a92eb91e1e0b8ac7",
+      "published_at": "Sat, 31 Oct 2026 10:05:22 GMT",
+      "created_at": "2026-11-03T10:01:16.294610+00:00",
+      "clean_title": "Kenya Railways launches SGR vehicle freight service - KBC Digital",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "Kenya's inflation rises to 7.3% in October as food and fuel prices surge - Citizen Digital",
+      "description": "Kenya's inflation rises to 7.3% in October as food and fuel prices surge&nbsp;&nbsp;Citizen Digital",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOdExfSzROYkhvcjRGZXQ1X1Bkc3NBUzBfeEpENDc4Ry0zS2h3b09OdDFBbGYxeUJ3Z0NHZHEyeFBwQjRMTDZBZnphaEJyUXZuZ0xvblhsLU1ZRDhFT1BQenFMUnotNDhuc0YwTkFjYTF0TXQ5SUhILWpiVUlpSC1WS0syTGV5aFZSajVLOW9LVTVCTDVnQk1xUVdybVNPNnc4YnhySHZlY1lMZi1nR0E?oc=5",
+      "content_hash": "c0d7970ceff4b86da76c86928414e5a007e26b190c9fe5688ef80b37e0f87f68",
+      "published_at": "Sat, 31 Oct 2026 09:01:00 GMT",
+      "created_at": "2026-11-03T10:01:16.294631+00:00",
+      "clean_title": "Kenya's inflation rises to 7.3% in October as food and fuel prices surge - Citizen Digital",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "LOCAL",
+      "source": "East Africa Energy Monitor",
+      "title": "KenGen completes ksh15.6 billion Olkaria I rehabilitation, adding 15.5mw to Kenya’s geothermal capacity - Africa Sustainability Matters",
+      "description": "KenGen completes ksh15.6 billion Olkaria I rehabilitation, adding 15.5mw to Kenya’s geothermal capacity&nbsp;&nbsp;Africa Sustainability Matters",
+      "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxNVmNDVEN6TFBBTUpud1RTeGxKTjZKX2lfUDNlamdtWnBKZ25JSlV1S2tZLUtPbkd5cVJydjJxNDNFQnMwOTlkYzYtTjdFSEdKaDk3cHo4bUs5NTdNZGpjaW95Zl9Uc2dHMnBsU3gxTEdUZXBCcGltZkVBUi1JT2hoSzFWYWJPMldnOGxYNW1oVHdVQXBHRFZpSmhzeDkyV09oVjZ4MjJDdDRrcjFSZU45Mk9jOFBnQ3p5eDJpeHFTS1lRVFd5a09rUzExUlpYZjJwaDlmWllmNlNTQQ?oc=5",
+      "content_hash": "bfb947cab5c08c2695c4533a50f4670324c71f659818609aae4ffe578533926b",
+      "published_at": "Mon, 02 Nov 2026 13:49:29 GMT",
+      "created_at": "2026-11-03T10:01:16.294663+00:00",
+      "clean_title": "KenGen completes ksh15.6 billion Olkaria I rehabilitation, adding 15.5mw to Kenya’s geothermal capacity - Africa Sustainability Matters",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Ethiopia-Eritrea Conflict Could Open a Second Red Sea Front - Small Wars Journal",
+      "description": "Ethiopia-Eritrea Conflict Could Open a Second Red Sea Front&nbsp;&nbsp;Small Wars Journal",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxPLVJ4TW1nSXM5bVkxenhfZGh2QmZUZkl2UDJtQUtZTnU1T3RkS21tY0lCelIxa1lTYTZEYmJVQld3dmpJaDlMU3B4aHpoZERqSjNob3g3ZnJ1Z1NOZVk2OTI0WWV1SFBta2x1YkdDazFjWnBBYjJQYUlUcXRvMDJmaUkwNk9sSmZNOVRla1FkSWZuNklWWTY1NHJvSS1yOWhFeWc?oc=5",
+      "content_hash": "c639af295485e36d3c29055ecde49e52ab069d2d07ec193edff7850296cdec01",
+      "published_at": "Tue, 03 Nov 2026 06:05:26 GMT",
+      "created_at": "2026-11-03T10:01:17.040735+00:00",
+      "clean_title": "Ethiopia-Eritrea Conflict Could Open a Second Red Sea Front - Small Wars Journal",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Violence in northern Ethiopia pushing health system towards collapse: WHO - Al Jazeera",
+      "description": "Violence in northern Ethiopia pushing health system towards collapse: WHO&nbsp;&nbsp;Al Jazeera",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQbFdmTkF6SnZJNDFDc1otSkZyUmVfd21rQjMtSmZObko1TExWZ0ozX2hkUG5LbnV4YS1uTE1zVDdPdFFOdUpNMWtvVlRSbzItSHRNb2VQZVFyenBEbHhPeXhZSTBlWFhHOG1TQTRsYzExRkxlZU1lUjNyMk05UDZVdUhZZ05qaVZuaFl4eUV0QkJmNmdzVWdudUNQRG81ekFxVVJ5b25xNjV5M3VVdkZYdTlhSdIBuAFBVV95cUxNdlNpRHUtcUtrSHNpZXJFMHlPU0xMVjZhQWF2WTlzY3UxSVVwX1pEMm1ZRGpFNUhndHpqM3BQUVZYbDFzOFpTOUtGcEk3bi1PeWxST1R2UFYtVGhrX2s0bGEzWjJtYWxpdlRYTlU2Rm9wX1J5MmxZTnNNOTR3aHA1eXFJd1dmUFJfeHF3S29RRFZYVWVHdWY5emFzNktTVnktUXNJY2ZWc2JGQndUOEpuRG1TSkFScUUz?oc=5",
+      "content_hash": "97261c020f06eab65b51d7e439f027a10d7c381980cde9911398cda8180367d4",
+      "published_at": "Mon, 02 Nov 2026 16:08:04 GMT",
+      "created_at": "2026-11-03T10:01:17.040780+00:00",
+      "clean_title": "Violence in northern Ethiopia pushing health system towards collapse: WHO - Al Jazeera",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Ethiopia’s Ongoing Conflict Leaves Christian Communities Living in Fear - International Christian Concern - International Christian Concern",
+      "description": "Ethiopia’s Ongoing Conflict Leaves Christian Communities Living in Fear - International Christian Concern&nbsp;&nbsp;International Christian Concern",
+      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxPc09MamhGU2gwSkNheHVDaHUtNGNUOUw3QXVWQmdJdFBJbzRKT1k0VjlaeDhSeUZyUGZIMGZ4VHJOcGY1NFFaTjItdFkxYmhzM1ZUZGFNWTE3VDVZNVdEdllnam1BS0RJVElJNWdkZUgzWFJLOFVudXpzLVhQdGVxRVhlcnZDVlZNSFVCcXJqVGFzc3ByNUttbU1NSnNFS0JqSElfRmpORV9KQQ?oc=5",
+      "content_hash": "44f1c961edca5b2d438425e95f13e8ed72e72690491109c027d8b71be42ef6e1",
+      "published_at": "Mon, 02 Nov 2026 21:49:42 GMT",
+      "created_at": "2026-11-03T10:01:17.040811+00:00",
+      "clean_title": "Ethiopia’s Ongoing Conflict Leaves Christian Communities Living in Fear - International Christian Concern - International Christian Concern",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Sudanese army says it shot down drone coming from Ethiopia - A News",
+      "description": "Sudanese army says it shot down drone coming from Ethiopia&nbsp;&nbsp;A News",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOTUNwc1FxUE9QRWdNTl9CTzh1WFRIaGFlOThyZVJtS0VPN21PUmE3WTY0UDNBaF8wUHVibU9IUlUyUDhwSEFidFFya0tWYlNOVXRVVWZLUlk1MmhuNl82Tklmd1hSbkVaODBlYUVrT0tMRWhvSUlOODRRQldlUzBEYUVNQVowVHVWX2Q5WkdEZXBERWpUN3pWU1FEaTlKNnJTc1HSAacBQVVfeXFMUDEtUkpkVXQ3Z0ZPVW53VlV2WUVQLWIzNW9pQjF3eGZPcVp3d0tSRFp6Zk1uTkpMaE1fdjJrdHFOTWpSY0t6RnBoSXVzRWVna2hCZnQ0XzcxNmwtY1F2SXd4cFlOeUxzQ19oWmxJbnhNeGFZMUtUSU5oTENUYjVUeU9rVUtPUUV3a2E5MGhmOHB4TlZ1UzNZZlJmcWt6b3hIV0RPcGoyRFE?oc=5",
+      "content_hash": "92be574e2e99eadcfd8d6cdc98f049568102c5d3db0f339415157ac01ede1d58",
+      "published_at": "Tue, 03 Nov 2026 08:29:46 GMT",
+      "created_at": "2026-11-03T10:01:17.040835+00:00",
+      "clean_title": "Sudanese army says it shot down drone coming from Ethiopia - A News",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Ethiopia's economic boom: Will renewed conflict in Tigray derail growth? - DW.com",
+      "description": "Ethiopia's economic boom: Will renewed conflict in Tigray derail growth?&nbsp;&nbsp;DW.com",
+      "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNZFZZYzhVU0dXdmpiQUxCajdIWHp4OTZwMGxIMnJxUDYzNmJzWmwxMWJHcHlZZ2hMVkdiTGtuMjVJLVJRNEhzOFJHdU9IS0c4RlFpUVZPX3g3a3ptQ2RMLWh4MHgzcEhsMjE3bnRVbi1VQXhrR0Q4UUhVY001SFZnWTdPb3ptMlBzSzh2QnBubnDSAZABQVVfeXFMUDlNVmhFZkNORXVPZnpVcUZMWHBzTjVzZmtibHVtcW5oSjdYMEJPZ0tHLTR1ZUZOYTlBSVNOQl96bW83T3Q3dTBTLWMybzJwSDA2aF9LdFpNWklnci1ncm5iWVFqQ3FEWG56NVh3TENqR0FMMzVYT2Q0aEdzNktzZW9WR1dvTjhidEhxN1A0Q2xt?oc=5",
+      "content_hash": "925eb6efda979a1e57447d1cdc828d3214e27ba11bbd2f8473ee8a7c7c89cff9",
+      "published_at": "Mon, 02 Nov 2026 18:24:43 GMT",
+      "created_at": "2026-11-03T10:01:17.040858+00:00",
+      "clean_title": "Ethiopia's economic boom: Will renewed conflict in Tigray derail growth? - DW.com",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "UNICEF representative talks conflict in Sudan during Buffett Institute lecture - The Daily Northwestern",
+      "description": "UNICEF representative talks conflict in Sudan during Buffett Institute lecture&nbsp;&nbsp;The Daily Northwestern",
+      "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxNM05wd1F6NEZseDdyV0hCYlFXUXdwaWVsdnZXS0F4QVhURGlVeG1YZUNtc3JtODFHb28tZVhkZG43X0NiWWtVeVA4cVRzR0JsSHAybnViVE95RHRwU1FwNlZjS1JDX0JDbEdISjNQT3laaFRnWHF3eXRMMENlQlk5YnBVejNXczUwelotcjJGcnpRcVFCN1FDQktMOXdQQi1Xb0x6ekI3bDAycWpuVVRRR0RFb0NzSGhHMGFiN3Nzb3RWbFoyZ0tmck5IU3E2TGM?oc=5",
+      "content_hash": "78fe078b9dba0cf4d92940879f0599949e6fcffe2fc1bb73e031c79d6593ee4d",
+      "published_at": "Mon, 02 Nov 2026 09:07:03 GMT",
+      "created_at": "2026-11-03T10:01:17.040880+00:00",
+      "clean_title": "UNICEF representative talks conflict in Sudan during Buffett Institute lecture - The Daily Northwestern",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
       "scope": "SPORTS",
-      "source": "Global Football & UCL",
-      "title": "China state broadcaster pulls La Liga matches following Mbappé joke - BBC // [TACTICAL INTEL]: For Michael, this is a low-priority item unless he has a personal interest in football or is involved in sports betting/tech. However, it serves as a reminder of the volatility in ",
-      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1xaU5NZ0ppVHR0b1lOYmFmX2VxWDBZV1UyN0Q3MkVIV29aQnk2Q3haVjhxTUM3eUQ2bmZCR0I3OEl5N1RORDBLZTRyb1d6RDBDRTRyNmdJQTNYZkU?oc=5",
-      "content_hash": "4a3a17038fb9633189e45deb20d6a70129b8d576c2164828966db6fd8d531edb",
-      "published_at": "Mon, 02 Nov 2026 03:58:38 GMT",
-      "created_at": "2026-11-03T09:13:34.959+00:00",
-      "in_depth_context": "The sacking of Nuno reflects the intense scrutiny and short-termism in modern football. Clubs are increasingly willing to make drastic changes in response to poor results, leading to instability in team performance and fan sentiment. This trend is part of a broader commercialization of sports, where financial performance and brand value are paramount.",
-      "why_it_matters": "For Michael, this is a low-priority item unless he has a personal interest in football or is involved in sports betting/tech. However, it serves as a reminder of the volatility in leadership and decision-making in high-pressure environments. It's a cultural touchpoint that can be used for light conversation or to gauge the mood of the global sports community.",
-      "subject": "Global Sports Industry Leadership Volatility"
+      "source": "Sky Sports News",
+      "title": "England Wheelchair score 23 tries in dominant win over USA",
+      "description": "",
+      "link": "https://www.skysports.com/rugby-league/live-blog/12040/13599564/rugby-league-world-cup-2026-reports-news-scores-fixtures-from-across-the-mens-womens-and-wheelchair-tournaments",
+      "content_hash": "382540106c2fb9791ce0c8a9d6fd0521636b2e94448f50e67dfa772cc746f4e4",
+      "published_at": "Sun, 01 Nov 2026 11:25:00 GMT",
+      "created_at": "2026-11-03T10:01:17.625766+00:00",
+      "clean_title": "England Wheelchair score 23 tries in dominant win over USA",
+      "impact_level": "ELEVATED",
+      "key_takeaway": "",
+      "latest_developments": "",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "actionable_intel": "",
+      "theater": "SPORTS",
+      "subject": "Sky Sports News"
     },
     {
-      "id": 13184,
-      "scope": "CONTINENT_ASIA",
-      "source": "East Asia Wire",
-      "title": "The emerging shape of China’s military reach in SE Asia - Asia Times // [TACTICAL INTEL]: For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply",
-      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQMnJ0cTJ4czVkOEkwQmM4R29icXkzNjV6NXhTanA1ZVpQVVRKTjhsTFVMdU1BQ3ZJRjhrdW1wb093QzBhRHFoR1ozU0tqSlpEdlBNUXAtd1FOdFM2MDZNWWFTekJUVmd5cHFtQ3VoaFM0TnF3OHZ6LXNWemFMRlo2bHNuZFdDdjhQZENWeG9B?oc=5",
-      "content_hash": "1e66c4d77c2669c0fcbe77d4d44f90c90766f57dde429bfbbf24e9fb7c1d00b2",
-      "published_at": "Tue, 03 Nov 2026 06:30:31 GMT",
-      "created_at": "2026-11-03T09:13:34.686+00:00",
-      "in_depth_context": "The Sudan-Ethiopia border is a flashpoint with historical grievances and competing regional ambitions. Drone strikes or shootdowns increase the risk of accidental escalation, potentially drawing in other regional actors (Eritrea, Djibouti). This instability can disrupt air corridors, affect ground logistics across the border, and increase insurance premiums for regional trade.",
-      "why_it_matters": "For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply chains, cross-border data flows, and investor sentiment. Michael should monitor for any spillover effects on regional air travel or ground transport routes that might impact his logistics or travel plans.",
-      "subject": "East African Geopolitical Tensions & Airspace Security"
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Rahm admits he'd 'most likely' take Koepka deal to re-join PGA Tour following LIV exit",
+      "description": "Jon Rahm reveals the changes to LIV 2.0 that made him quit the tour, whilst also admitting that he'd take the same deal as Brooks Koepka to re-join the PGA Tour if the offer was still on the table.",
+      "link": "https://www.skysports.com/watch/video/13607400/jon-rahm-expresses-hopes-of-re-joining-pga-tour-following-liv-golf-exit",
+      "content_hash": "67721b5b492d08d49665e5ee4ce488d2b8a990d4ffc74ff375f23cf048c5269a",
+      "published_at": "Tue, 03 Nov 2026 09:10:00 GMT",
+      "created_at": "2026-11-03T10:01:17.625791+00:00",
+      "clean_title": "Rahm admits he'd 'most likely' take Koepka deal to re-join PGA Tour following LIV exit",
+      "impact_level": "ELEVATED",
+      "key_takeaway": "Jon Rahm reveals the changes to LIV 2.0 that made him quit the tour, whilst also admitting that he'd take the same deal as Brooks Koepka to re-join the PGA Tour if the offer was still on the table.",
+      "latest_developments": "",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "actionable_intel": "",
+      "theater": "SPORTS",
+      "subject": "Sky Sports News"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "England told to 'keep pressure on' with Australia at risk of 'imploding'",
+      "description": "Australia have got problems.",
+      "link": "https://www.skysports.com/cricket/news/12040/13607326/michael-atherton-says-australia-could-implode-before-ashes-and-urges-england-to-keep-pressure-on-in-white-ball-series",
+      "content_hash": "1790d1acd7da1c46ff0cd0a5e4853fe6e9659e46b9954c93dec8baac9ae31514",
+      "published_at": "Tue, 03 Nov 2026 08:00:00 GMT",
+      "created_at": "2026-11-03T10:01:17.625803+00:00",
+      "clean_title": "England told to 'keep pressure on' with Australia at risk of 'imploding'",
+      "impact_level": "ELEVATED",
+      "key_takeaway": "Australia have got problems.",
+      "latest_developments": "",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "actionable_intel": "",
+      "theater": "SPORTS",
+      "subject": "Sky Sports News"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Brundle: Russell must find 'overdrive' in 2027 or it's 'game over'",
+      "description": "Sky Sports F1's Martin Brundle believes George Russell must find an \"overdrive\" to hit back at losing this year's Formula 1 Drivers' Championship to Kimi Antonelli.",
+      "link": "https://www.skysports.com/f1/news/12040/13607194/george-russell-must-find-overdrive-in-2027-or-its-game-over-after-seeing-kimi-antonelli-become-f1-world-champion-says-martin-brundle",
+      "content_hash": "64c12b50937d9c31d5288425bac2471acdac4422c7cea2bfc442c40ec9990d19",
+      "published_at": "Tue, 03 Nov 2026 07:00:00 GMT",
+      "created_at": "2026-11-03T10:01:17.625812+00:00",
+      "clean_title": "Brundle: Russell must find 'overdrive' in 2027 or it's 'game over'",
+      "impact_level": "ELEVATED",
+      "key_takeaway": "Sky Sports F1's Martin Brundle believes George Russell must find an \"overdrive\" to hit back at losing this year's Formula 1 Drivers' Championship to Kimi Antonelli.",
+      "latest_developments": "",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "actionable_intel": "",
+      "theater": "SPORTS",
+      "subject": "Sky Sports News"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Hamilton calls for 'serious talks' at Ferrari after Leclerc incident",
+      "description": "Lewis Hamilton has called for \"serious talks\" at Ferrari after his opening lap incident with Charles Leclerc at the Mexico City Grand Prix, while team principal Frederic Vasseur suggested there was not enough \"respect\" given.",
+      "link": "https://www.skysports.com/f1/news/12040/13607145/lewis-hamilton-demands-serious-talks-at-ferrari-after-charles-leclerc-incident-at-mexico-city-grand-prix",
+      "content_hash": "6b9f12bfc3e2507927cbb29c42a3ab3ec5d7f0cc31618169f57308e388596675",
+      "published_at": "Tue, 03 Nov 2026 06:00:00 GMT",
+      "created_at": "2026-11-03T10:01:17.625820+00:00",
+      "clean_title": "Hamilton calls for 'serious talks' at Ferrari after Leclerc incident",
+      "impact_level": "ELEVATED",
+      "key_takeaway": "Lewis Hamilton has called for \"serious talks\" at Ferrari after his opening lap incident with Charles Leclerc at the Mexico City Grand Prix, while team principal Frederic Vasseur suggested there was not enough \"respect\" given.",
+      "latest_developments": "",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "actionable_intel": "",
+      "theater": "SPORTS",
+      "subject": "Sky Sports News"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Sky Sports News",
+      "title": "Carragher: Boring Newcastle face a tough season ahead",
+      "description": "Jamie Carragher described Newcastle as 'flat and boring' following their defeat to Everton on Monday Night Football and reckons Matthias Jaissle's side face a difficult season.",
+      "link": "https://www.skysports.com/football/news/12040/13607320/newcastle-are-flat-and-boring-8211-jamie-carragher-warns-magpies-face-tough-premier-league-season-after-everton-defeat",
+      "content_hash": "e4ed148d93f0796aa142d11370603f1199471ad734b02f803ec6beaf77582701",
+      "published_at": "Mon, 02 Nov 2026 22:35:00 GMT",
+      "created_at": "2026-11-03T10:01:17.625830+00:00",
+      "clean_title": "Carragher: Boring Newcastle face a tough season ahead",
+      "impact_level": "ELEVATED",
+      "key_takeaway": "Jamie Carragher described Newcastle as 'flat and boring' following their defeat to Everton on Monday Night Football and reckons Matthias Jaissle's side face a difficult season.",
+      "latest_developments": "",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "actionable_intel": "",
+      "theater": "SPORTS",
+      "subject": "Sky Sports News"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "McCarthy Names Provisional Squad for AFCON 2027 Qualifiers Against South Africa - Football Kenya Federation",
+      "description": "McCarthy Names Provisional Squad for AFCON 2027 Qualifiers Against South Africa&nbsp;&nbsp;Football Kenya Federation",
+      "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNZTQwT3RZenlmdlRFZ3VTV2Y4akc1dUhzUkdpcEc4Yk1BLW5wX3R1elNOcTVIeWRpR0pyVjVCZVpPLU12REF6SmhuUUFLcHFpTEoyZVRMZm9HejBTSml4djVkQmhLLWpoTzRTdGlBQklNSkFHZ0drbUNHSjNYVHFfTXV2ZThMbUZSYlFiaS1CaGlrbXM4cnFv?oc=5",
+      "content_hash": "04db5a5c77c3f59c9774f1f689deb6da6e79c47b1a0390b9b618ad3b91f5693a",
+      "published_at": "Thu, 29 Oct 2026 22:33:38 GMT",
+      "created_at": "2026-11-03T10:01:18.478199+00:00",
+      "clean_title": "McCarthy Names Provisional Squad for AFCON 2027 Qualifiers Against South Africa - Football Kenya Federation",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Why South Africa-based Kenyan striker is backing Harambee Stars to shock Bafana Bafana - Mozzart Sport Kenya",
+      "description": "Why South Africa-based Kenyan striker is backing Harambee Stars to shock Bafana Bafana&nbsp;&nbsp;Mozzart Sport Kenya",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxOR2pLRGloZ3MxNjh5cTFTSFNoV1BmVjZoNFBJMzAzblVrT0lkN3FqT0Vxa01PV196YzRPQXY2bEZOUENUM2xaejRXSXZyYnY3N1RKbHE4Q2FmVldoQWdXX3RDaFREQTA0VXJkSkFEcXpSRE9meU5raDNFWVRPdzI4V1ZORVJGYXFiOVUtc2FlbzJobi1YQkJUREdBTlBLdWVDalh4YjZCXzJxOTFoYnU5VEQ5VXgyQUJ3MDRuNUlSRk9KMnVlUHhlXzhHYlJidm9iamRv?oc=5",
+      "content_hash": "a639295c8d2d16e8b610296db773cf0a26c893cb51990fe133c83d66fd8ab157",
+      "published_at": "Tue, 03 Nov 2026 04:02:15 GMT",
+      "created_at": "2026-11-03T10:01:18.478223+00:00",
+      "clean_title": "Why South Africa-based Kenyan striker is backing Harambee Stars to shock Bafana Bafana - Mozzart Sport Kenya",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Patrick Matasi Targets Return in Harambee Stars Legends vs Arsenal Legends Clash - Business Today Kenya",
+      "description": "Patrick Matasi Targets Return in Harambee Stars Legends vs Arsenal Legends Clash&nbsp;&nbsp;Business Today Kenya",
+      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNeHFtSklXZkhySDZOMDJiZ0Qyby0yZHgtS3NZa1VjVUxlN2xEdFZheGNTd2ZLSDY4Rl9PeE5LYlBjT3Y1ai1OS2NVQ1ZTNlhPUTRKOGQwQkg2WkFfLU9ZODExY1VmcV9vQkZBdVlBdUw0R2k5RHB1eVR3ZWkycDJnQkRlZXZteFR5TWFFX3NCUVZmOHpVdF9aMmlERmtrYThxeUcxeV9ERjBZRm9TSkE?oc=5",
+      "content_hash": "4b598fdf3e3af88cf6f25c1ceb3fc30e0bde158edf2ce2460835f98a5a2c810d",
+      "published_at": "Tue, 03 Nov 2026 00:25:37 GMT",
+      "created_at": "2026-11-03T10:01:18.478235+00:00",
+      "clean_title": "Patrick Matasi Targets Return in Harambee Stars Legends vs Arsenal Legends Clash - Business Today Kenya",
+      "impact_level": "ELEVATED",
+      "key_takeaway": "Patrick Matasi Targets Return in Harambee Stars Legends vs Arsenal Legends Clash&nbsp;&nbsp;Business Today Kenya",
+      "latest_developments": "",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "actionable_intel": "",
+      "theater": "SPORTS",
+      "subject": "Kenya Athletics & Sports"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Matasi eyes game against Arsenal greats ahead of Harambee Stars legends clash - Mozzart Sport Kenya",
+      "description": "Matasi eyes game against Arsenal greats ahead of Harambee Stars legends clash&nbsp;&nbsp;Mozzart Sport Kenya",
+      "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNNEhhbmVhX29tWDVUSmtIdlZlejd3a01GY3poVVZ3UGlUNzBGZXBMYmRMM3pBNFBNS1hYVmxjdWhvTTh4bjhqcWhOMUNtQ3BGODNtMUhaNEJtQWhzOUhMRGZzQU1xNmFDMUdKV3hFRV91X1FnaEdyb25ZS2U1WmJOT201dEtRREZvLVVyekJIR1hIamdJUFktNG4xZFJUS1l5eVBrenVTclFrSnl3RjFhT3VJSVJCa0ctNFZxNnlwQ2FNUFZxZlBZ?oc=5",
+      "content_hash": "cccced85ca268f8b460c9149928228138636e509809c430cc263aec70c9977bb",
+      "published_at": "Mon, 02 Nov 2026 16:39:45 GMT",
+      "created_at": "2026-11-03T10:01:18.478246+00:00",
+      "clean_title": "Matasi eyes game against Arsenal greats ahead of Harambee Stars legends clash - Mozzart Sport Kenya",
+      "impact_level": "ELEVATED",
+      "key_takeaway": "Matasi eyes game against Arsenal greats ahead of Harambee Stars legends clash&nbsp;&nbsp;Mozzart Sport Kenya",
+      "latest_developments": "",
+      "in_depth_context": "",
+      "why_it_matters": "",
+      "actionable_intel": "",
+      "theater": "SPORTS",
+      "subject": "Kenya Athletics & Sports"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "McCarthy names Harambee Stars provisional squad for back-to-back AFCON Qualifiers against South Africa - SportPesa Blog",
+      "description": "McCarthy names Harambee Stars provisional squad for back-to-back AFCON Qualifiers against South Africa&nbsp;&nbsp;SportPesa Blog",
+      "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxNLTZraVVwSmVoLUJXS2VpcXV5azJkQjJSQjktb0hwSXg3Szcxalh3ZW9abHZzNVV6NkM3dDNDNUhEUndkMU9WdFRSdTBBcGdOYXZRWEVROHlYMEJGbGZCZzJUSzJlMkdoZTFqNlZyUko1amZ5d1prd0R3OExJU0wxTk1GdEJDVzVZVm9ERVlnS3VCcG9aVU5DVUZvRlFMNkw4M3B4X1V5ejQ2eWc0NWZXMkVaZTVYOXBTVzdEeXN2TEFYbGFwYWswcnY5SWFzWUFSczRnSUhRQ21nYnQ4?oc=5",
+      "content_hash": "58bc9eeecaa9d9caf93ac3c1cf76e775569198daffe6452713dd28c9f04bebcc",
+      "published_at": "Fri, 30 Oct 2026 05:10:24 GMT",
+      "created_at": "2026-11-03T10:01:18.478257+00:00",
+      "clean_title": "McCarthy names Harambee Stars provisional squad for back-to-back AFCON Qualifiers against South Africa - SportPesa Blog",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
+      "theater": "EAST-AFRICA",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda"
+    },
+    {
+      "scope": "SPORTS",
+      "source": "Kenya Athletics & Sports",
+      "title": "Alwyn Tera ends international hiatus as Benni McCarthy hands midfielder Harambee stars recall - The Kenyan Diaspora Media",
+      "description": "Alwyn Tera ends international hiatus as Benni McCarthy hands midfielder Harambee stars recall&nbsp;&nbsp;The Kenyan Diaspora Media",
+      "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPSEJJT2ZtbjFOZm1MMmR6N3p1Mm5NYlNkZVB2SHYxZ2ZFY19jQ1VsbXg2R1RoWkF3WkJ6eWtCMjctU3FnSGVzNTd6WWFnTC1SR3ROMUFKa3p2bTJYaTI2TXlOVDAtOWl5dHJEY0Nya2xBVG9pd0pRZGpXWDI3NWc1a01tUnR1NExMMFY2bUNqcXNrSVJGTTRxTlhwRkM1RVloQ1dkNDJCc2hIMklTbWZEalczeGF1d3Y5Zl95U0lTYzQ5NC1KRmQtVXJCYXNYdnFtcnZ3?oc=5",
+      "content_hash": "ffbe5a6e40ac1a9c24f60ee5c87a38b3c8f6b0f689583366f68fb7c439cb5a22",
+      "published_at": "Fri, 30 Oct 2026 13:27:00 GMT",
+      "created_at": "2026-11-03T10:01:18.478267+00:00",
+      "clean_title": "Alwyn Tera ends international hiatus as Benni McCarthy hands midfielder Harambee stars recall - The Kenyan Diaspora Media",
+      "impact_level": "MONITORING",
+      "key_takeaway": "The Kenyan government has instituted heightened security and cryptographic integrity protocols surrounding national examination distribution.",
+      "latest_developments": "The Kenya News Agency reports exhaustive inter-agency security measures to safeguard national examination materials against leakage, tampering, and logistical compromise.",
+      "in_depth_context": "Securing national logistics chains requires end-to-end chain of custody tracking, secure digital distribution channels, and physical armed escorts. Systemic leaks historically trigger administrative overhauls and disruptions in public sector productivity.",
+      "why_it_matters": "Local administrative focus on national logistics and security protocols creates temporary localized operational adjustments and heightened vigilance across public sector digital and physical infrastructure.",
+      "actionable_intel": "Maintain baseline awareness of local logistical slowdowns during national examination cycles when planning physical field operations or client meetings in Nairobi.",
+      "theater": "KENYA-LOCAL",
+      "subject": "National Critical Infrastructure & Examination Security"
     }
   ],
   "conflicts": [
@@ -532,7 +1112,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/policy/2026/11/industry-groups-cyber-sharing-law/416993/",
       "content_hash": "daadf35e200e3dd77a49173ea232e75df7dc71e57bf10cae4da84a0d4a76fa8d",
-      "created_at": "2026-11-03T09:24:32.820543+00:00"
+      "created_at": "2026-11-03T09:46:21.879914+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -542,7 +1122,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/11/officials-suspect-iran-series-cyberattacks-military-base-freezers/416992/",
       "content_hash": "02c111738c8464fae0361af796a8ce60337ba43d90884a31ae9d9152291d24ba",
-      "created_at": "2026-11-03T09:24:32.820569+00:00"
+      "created_at": "2026-11-03T09:46:21.879944+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -552,7 +1132,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/technology/2026/11/pentagons-it-agency-wants-bridge-network-gaps-pacific/416963/",
       "content_hash": "918ac47ce2c02f5c4bf6d959034bc41696b46dcdc980dda41065b46cfdbb9a83",
-      "created_at": "2026-11-03T09:24:32.820589+00:00"
+      "created_at": "2026-11-03T09:46:21.879971+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -562,7 +1142,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/ideas/2026/10/across-line/416947/",
       "content_hash": "c04ee7a118d849354b63c3a083703c1e8ea6000da9ce4bfcc1f7757eda6ec651",
-      "created_at": "2026-11-03T09:24:32.820601+00:00"
+      "created_at": "2026-11-03T09:46:21.879989+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -572,7 +1152,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/pentagon-investigates-suspected-cyberattack-behind-military-freezer-failures/416929/",
       "content_hash": "16dc337331cf4ecfe38967101fe1d6f0962a798eb72bb7f5d22f1bb5396129b2",
-      "created_at": "2026-11-03T09:24:32.820613+00:00"
+      "created_at": "2026-11-03T09:46:21.880006+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -582,7 +1162,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/quantums-quietest-branch-a-case-for-magnetometry/",
       "content_hash": "e0183dece28100d7d6cabd66e02c1cb9fa9129c008bc9235c88e8d200eec8905",
-      "created_at": "2026-11-03T09:24:34.876710+00:00"
+      "created_at": "2026-11-03T09:46:23.528555+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -592,7 +1172,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/humanitys-promethean-gap-with-ai/",
       "content_hash": "b3be1fcc2bce7e2b4d203bdd4ba7703333fdb4c36a88def74c0695edbac00183",
-      "created_at": "2026-11-03T09:24:34.876742+00:00"
+      "created_at": "2026-11-03T09:46:23.528577+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -602,7 +1182,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/corruption-in-the-crosshairs-the-debate-over-transparency-and-saving-face/",
       "content_hash": "4555c47f29657c4f9a7cc77423d4dd17c8b0041ae8f1c32ef2f4b65f75c845d4",
-      "created_at": "2026-11-03T09:24:34.876757+00:00"
+      "created_at": "2026-11-03T09:46:23.528587+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -612,7 +1192,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/cogs-of-war/the-pentagon-silicon-complex-and-the-rise-of-the-neo-primes/",
       "content_hash": "9f63faf265f16a92a4419e3d67df99eaf2bf517dabc8c476df3626713f934c2f",
-      "created_at": "2026-11-03T09:24:34.876770+00:00"
+      "created_at": "2026-11-03T09:46:23.528596+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -622,7 +1202,7 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/what-israels-election-results-mean-for-the-middle-east-and-beyond/",
       "content_hash": "2f7aab792f509c1954fbfdeeb70d27ba037daf0cd54a8b10b2f86c8dbbc0a24a",
-      "created_at": "2026-11-03T09:24:34.876789+00:00"
+      "created_at": "2026-11-03T09:46:23.528607+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -632,7 +1212,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNbmVhWVpoUFY5Q2J4OGY3SlRPdnpxbFhHaWlOT2V6NUdXaXl0SjVQWnNMVXdIQV9KaFdfY3dOMFpqRFF5VzF6WWh4dnNERlJidUVhbEliWmt6ZVhuUThYN1pac2NHWTR4MnE2Q2JPLWVJVkFzckZucFNMRWFHQ3RkU1JwdTBGM1B0X0dEckpoRHFzSG5Mb0V1MkF1M2hHSW1obXZuSGhGQ0dodEk?oc=5",
       "content_hash": "fa0c698a7704a22e9e53402a300285e1d42e9af788fa03a5156b817eabfba744",
-      "created_at": "2026-11-03T09:24:36.871645+00:00"
+      "created_at": "2026-11-03T09:46:24.289098+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -642,17 +1222,7 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPUUlWcUZ0NmY5aG5Ed0pLb0JGbzdIMDhsd3U5aUVNREtrY0tCZU9JVTFsUU8weWU0OW84Z193bkNfTkVzNG5YSnFuYXJxLWlPWVVjNmZ6UlVpMU0xc0tSYWprbDNIa1pqRlQyb1ZGRC12OVZla0dSWkdkWGM2YmhwMzJxbEtQM2pyWnk5S2tpRzlOa2w5ZXZNTUI5LWhOWUlESWdKYWdXcWNWWjZKQnh6b1Z5S1k1NFk?oc=5",
       "content_hash": "46f482fa09e37a81096bc769ef376e82d3b7aec64ac46fda718232848984d67a",
-      "created_at": "2026-11-03T09:24:36.871670+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "RED-SEA-MIDEAST",
-      "severity": "CRITICAL",
-      "headline": "US has conducted defensive strikes on Iranian targets in the Strait of Hormuz, US official says - AP News",
-      "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOSlZQOGFnNWxyTG91ZkxGMkdDdlNhd1RuRUZzblYtZGxfOGpReXI2cE5oazAzZkFQRW96Y3VrUkdfenVFWWtPS1BfaFBYYWQ1WVBMVmpuaTZuU3llOGZNMF85QnVGRHAwZlphVWVoaDFiZWhoMWVjalhyTE5na3BVWjVHcmIyWDFoU0FnU2ZBaFZyOE5GRGJqQzdR?oc=5",
-      "content_hash": "4f6da644c4f1e6c950be8c9d359d2db17a87cf02d5387f2858673d414fbc145a",
-      "created_at": "2026-11-03T09:24:36.871680+00:00"
+      "created_at": "2026-11-03T09:46:24.289120+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -662,17 +1232,27 @@
       "source": "Middle East & Red Sea Corridor",
       "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPZDhDMmNsQ2tpZmxyZnVvc0tXTmstOUlXRWxWSHh4ZG8wTV95VlVDc29MemRtbVNGSXQzRHU5SFAtOTBMOW9hRXVQa0VPanRCWmloOUFFVF9jU1RiNmpEU2xIdHNqZHpKeFRvN0R3UC1JWE1OU2NkS1hxLXk3c3hpTndoOHJXTVZXZHpjV1JWTDUxZE5pd3hveGFQeWhmMHI3VGhjZkpUNl9RSE53MzQ4bk1DbjFaeHJfdlE2YmFOVGY0TFYtR00tV9IBzgFBVV95cUxOdXRFVVVob2hRQUlFWUZOVW9TTktGdWFPLUUxRkEyVjdSRnN4dlozbmdqaG1YTTRzVENmcmtnSXY2ellxU21YeV9NUHNEUUdqd3pYYjBSMjVWUlcwcnMyQkhlU09HbnJrMkFtVk96MzktdzNsdDlSUW1lUDJBRTk5UTJCVTlsa2MxaWY1bWdpd2puWmdsXzNHSnI4VDJoY1dUZkEwekVNZFp0Vnl2TVdpRWJBZ1oxWkJGUm1XMEJUZFRpWi1lbDl0Q1Rnb2ZpUQ?oc=5",
       "content_hash": "36de895b6488662593a5c328d5dfd3eae1f3d70c3d407c20e4b296b72ebafd8c",
-      "created_at": "2026-11-03T09:24:36.871694+00:00"
+      "created_at": "2026-11-03T09:46:24.289135+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
       "severity": "ELEVATED",
-      "headline": "Oil rises as peace prospects dim after US hits Iran's Qeshm Island - Reuters",
+      "headline": "Iran-US deal still out of reach despite heightened diplomatic efforts - Reuters",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTFpzbEJURFlBbkE1RzNfclduVWpDY29HaWY3dnZJNUFuTHFsckZXSU5iTGJHdUFzQkVmeVhvdk9IME9Hdkxwc0NQZzg4dFFzckltYVlzcGdWY2xhYmJWMWlMVmFyNml3YmFoSDBZMGdPZWlpU25IM3UtMW5iR3d1dGZrMGF4SzQ2MklEeG5lWU1iRUZjVDd5Nnhjc0dQamdDdEtUc3NMcFZDMTQ?oc=5",
-      "content_hash": "1a822d159a146bf2cec4aedf6e49d9ca3dce6746bad102d0005e158ab1a748ab",
-      "created_at": "2026-11-03T09:24:36.871705+00:00"
+      "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPalRYN3p3UkoxcmdQWFZuQ2xvU1FaZG0yX25XcTJreldvQmIyeDRCdWVKNVliZ1hHaTNweHpmRXpOWUZSVHRLMVdDVmJTOFdOTHRhOGFFS29HYlU1akVQdTFIdGNydjF2WWM3LXZVLUpOam5WeWxFaW0xMWUtRWhhMXdROWlXVFFuZnExdU5RVjlsRE0yMTBxUDh2bkVkeEk0QkwwU1Jxem50WU9yU3hmUHhvSEJyZ251OWM0cEM3dmJ0TzhaNzZrb1FHc3g?oc=5",
+      "content_hash": "8b7359d43c9b06f99423307325ee525f0bb8be14bb5a8d2d235190fe86dfbcf3",
+      "created_at": "2026-11-03T09:46:24.289145+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "RED-SEA-MIDEAST",
+      "severity": "CRITICAL",
+      "headline": "US has conducted defensive strikes on some Iranian targets in the Strait of Hormuz, US official says - Scripps News",
+      "source": "Middle East & Red Sea Corridor",
+      "link": "https://news.google.com/rss/articles/CBMi3AFBVV95cUxPeUhiN1hZWE5IV1RnLUU2REViakoxWGVJb0pWNWRkQUtSWGtDMFdXYV82QTNMYWdiekNBdE5oeE9vRUdkTVI5eGVoaG1jeWJHd1cxNjUzejc1VkdFVTFYT2R1Yk93VzI1Z1Zpa3BDZENjbm11dmgyNFJTNEl4SjhVVUZXYko3UGxZR09zODd3eXRYTzZ4dGU4eERzWUtBZ0JhYkRVZzRqaFU2NlR2Mnd5Q2xNUDFkSldzZVE4OFRseGd2RUt6eEtLb2dEZy1LYmZjT0FQZVppVE93SFZF?oc=5",
+      "content_hash": "99341b62d6b2584555225043c4d597039f051bc132b881d43a176a716c988560",
+      "created_at": "2026-11-03T09:46:24.289152+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -682,7 +1262,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQazk0VUUtdzY4Vl9jNG1RbzNwdk1WWVo1NmxyV1pFTzExdWJhUHF4am1wR0ZBNEFuUUJ0OFp4MU5jbGFoX29naHRnUHY1TGhlcjZ1UlNjR1I4a2tTTVVzc1l5VFk0QzZ3LXphb05OZ1pQbEp1NzdVN1BSVnZZcWp4allLemxIYWpoSFpmQllJTWttaGY0Q3hKSVl6TnNDSjVxVFI2WjRWb2lJVUlvVXRhSQ?oc=5",
       "content_hash": "caf65aa4eed733168ff7f852a926cd629551303f3a532c26e1bdb4ff170e035c",
-      "created_at": "2026-11-03T09:24:38.643547+00:00"
+      "created_at": "2026-11-03T09:46:24.991728+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -692,7 +1272,17 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQbFdmTkF6SnZJNDFDc1otSkZyUmVfd21rQjMtSmZObko1TExWZ0ozX2hkUG5LbnV4YS1uTE1zVDdPdFFOdUpNMWtvVlRSbzItSHRNb2VQZVFyenBEbHhPeXhZSTBlWFhHOG1TQTRsYzExRkxlZU1lUjNyMk05UDZVdUhZZ05qaVZuaFl4eUV0QkJmNmdzVWdudUNQRG81ekFxVVJ5b25xNjV5M3VVdkZYdTlhSdIBuAFBVV95cUxNdlNpRHUtcUtrSHNpZXJFMHlPU0xMVjZhQWF2WTlzY3UxSVVwX1pEMm1ZRGpFNUhndHpqM3BQUVZYbDFzOFpTOUtGcEk3bi1PeWxST1R2UFYtVGhrX2s0bGEzWjJtYWxpdlRYTlU2Rm9wX1J5MmxZTnNNOTR3aHA1eXFJd1dmUFJfeHF3S29RRFZYVWVHdWY5emFzNktTVnktUXNJY2ZWc2JGQndUOEpuRG1TSkFScUUz?oc=5",
       "content_hash": "97261c020f06eab65b51d7e439f027a10d7c381980cde9911398cda8180367d4",
-      "created_at": "2026-11-03T09:24:38.643574+00:00"
+      "created_at": "2026-11-03T09:46:24.991749+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EAST-AFRICA",
+      "severity": "HIGH",
+      "headline": "Sudan Files Complaint Against Ethiopia at UN Security Council Over Drone Attacks - ASHARQ AL-AWSAT English",
+      "source": "Horn of Africa & Regional Security",
+      "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxNOVhwQlJBcU9JV0RiT055UDI1eGplR0pDUy1NN2ROSktzZFFZUE96cE9rT1RITm16UUZlVm4yWW9fa3lnUUpUS3IyUl95c09CaXJRazlJUjM1VGFlODBKYm1VN0dfOEJfYXl3NUlFTHVCMzBJWEJXUnV5eVdfTVVwVmZSSWlISXUxUENfRTREdnlFQ2gwN0RYQllJS2JpTG8xNWFVZUxVdHlxRkoxOUFvbk9xVHdXbzVFSWM2X1MxRTk?oc=5",
+      "content_hash": "c1a51edecaa091ca668e014d735613dcf2afb795f50e28810d07f309d9aaebbb",
+      "created_at": "2026-11-03T09:46:24.991760+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -702,7 +1292,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQaGp1aGJIWkg4YVo4NlRERXNKSFZnc1RyenhCTHlaNXR0LWNTbzlEQkRid1k3RjNOZjlOLW40VmRIU2tsSXBLa3RtaTY0Vk50RFRXQTJZUTJ3d2xSVEpDaGxHQzRwMy1YenhYOTEtaXIxN1JrZHFQVFQxc2VzWVoyXzZ0Yk95Y0lqT09Dc0xMTHcxRFhJU3ltQVlKRGpOTVg0T1lySjMzVGIzVmZscXJ0QW5ZUTM0ZkczSmNOUnRDclZBWk52VGVGSVd3?oc=5",
       "content_hash": "93a00c852a4236243d65737a1b7c8e858ad3fa324b397686642760105667fa65",
-      "created_at": "2026-11-03T09:24:38.643598+00:00"
+      "created_at": "2026-11-03T09:46:24.991786+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -712,17 +1302,7 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9pTzk3RUVaaDR0dTZCN0poRkRNekJYUzhHeE1KX2RDRUVWZENsLUNCZjlqQzdWVHBKMHNydE9OcHhZNDdybGhEZk1pWlFmMGN0bmI1cTA0NlhhQ3Q3a0E?oc=5",
       "content_hash": "9afec13bf056549112d17eb2e024c953785ff29f610bb7dad6163e5b624ff3c0",
-      "created_at": "2026-11-03T09:24:38.643612+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EAST-AFRICA",
-      "severity": "ELEVATED",
-      "headline": "Ethiopian PM Abiy Ahmed puts ministers through military training - BBC",
-      "source": "Horn of Africa & Regional Security",
-      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9kbXEzcVVQbW02TlZSVEhORGNPTlF5OW14NUhLUkQtQ3c5OVhSQktmVTJzUGVObmgwSHRRRnBiRkxab2lRZ2QyQ0ozOGxpMkRmZWR4MEQ2dm9qUnc?oc=5",
-      "content_hash": "1c3e19b988e763467b68da0642539fdc6a93920346fe69e2a01493b9da6e7ba1",
-      "created_at": "2026-11-03T09:24:38.643625+00:00"
+      "created_at": "2026-11-03T09:46:24.991795+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -732,7 +1312,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1HanVrUDZ2T0g4NDRMQVJlVm1Da0gxY1Q0Q0xYcTFyd2JkaXduMXRLVDUtaEFLVktLdmliR1JPeVhyeWtEV2x1X3g2dnoyTkZWMGd2R0pncUxUTC1JcTVQSnJsUW9sdkkwaDdQaGRfeGpzZmNsZWZJQUV2a3NLQzQ?oc=5",
       "content_hash": "845d8481220b21bdeeb8ad2e9fa2132104b60e499797f974e4b7004baa3e6639",
-      "created_at": "2026-11-03T09:24:39.495758+00:00"
+      "created_at": "2026-11-03T09:46:25.588668+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -742,17 +1322,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPNWxiZGlMWkM0ZHpydTVPRmxnSkxaVEhRdHoybDV1QW5DWnJrZWZNRDlIODFubWVVWUtfN25DYkVsZzNDemNJcEc5MHRrWTdMMjhJRXZFOWlpaEVuYjgtek1kVjR0VUdrcXhYNGRBX2FlV18yY0U1d1Rqb2stSnlDWmNqb29DdG1ZbEVoMEpjUTBZNUk?oc=5",
       "content_hash": "7470b06978657741e5d1a2e78407f76788fd166b196dee8d3ee669b486e99eb5",
-      "created_at": "2026-11-03T09:24:39.495784+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EASTERN-EUROPE",
-      "severity": "HIGH",
-      "headline": "Russian drone attacks put Black Sea shipping at growing risk, leaving at least 30 mariners dead or missing - Philippine Canadian Inquirer",
-      "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxNYkNIXzNHLTVKM0V5VU1kenVKX3M2aDJDLUM2Z3dJV19RRXcwQjlfYVlaY3c2S01LS042YVBtUDRxdzhDRnVLRTlLVUxRaHVDeHdMZnViTE1KWE1iWENLVXQtV2lOc2djNU94MGdCNEt0RXhEUmFuY1BVRGtNdl9ab2pCYjRiUGxoOVgtTThTQktfcEFiczlvZTRKNEtwUTlYQTFOWDk3QV84U0xLRUl5ZmxLMFpFOWktdWZxbFNvNWdFZnpCaXlUN01MUFpVbVE4bzhDWG52dzhmV0FHcWo4?oc=5",
-      "content_hash": "b1efb3a871d77664a18fa5ec49d4cfb910995538fbc6a85e27c37f12a2fa7230",
-      "created_at": "2026-11-03T09:24:39.495801+00:00"
+      "created_at": "2026-11-03T09:46:25.588689+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -762,7 +1332,17 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
       "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
-      "created_at": "2026-11-03T09:24:39.495815+00:00"
+      "created_at": "2026-11-03T09:46:25.588702+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EASTERN-EUROPE",
+      "severity": "HIGH",
+      "headline": "Russian drone attacks put Black Sea shipping at growing risk, leaving at least 30 mariners dead or missing - Philippine Canadian Inquirer",
+      "source": "Eastern Europe & NATO Flank",
+      "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxNYkNIXzNHLTVKM0V5VU1kenVKX3M2aDJDLUM2Z3dJV19RRXcwQjlfYVlaY3c2S01LS042YVBtUDRxdzhDRnVLRTlLVUxRaHVDeHdMZnViTE1KWE1iWENLVXQtV2lOc2djNU94MGdCNEt0RXhEUmFuY1BVRGtNdl9ab2pCYjRiUGxoOVgtTThTQktfcEFiczlvZTRKNEtwUTlYQTFOWDk3QV84U0xLRUl5ZmxLMFpFOWktdWZxbFNvNWdFZnpCaXlUN01MUFpVbVE4bzhDWG52dzhmV0FHcWo4?oc=5",
+      "content_hash": "b1efb3a871d77664a18fa5ec49d4cfb910995538fbc6a85e27c37f12a2fa7230",
+      "created_at": "2026-11-03T09:46:25.588713+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -772,7 +1352,7 @@
       "source": "Eastern Europe & NATO Flank",
       "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOTm80QnpHVUJtTWRjQlhoaUhfdTdwSkpydmgtcm1iVmVoZXBtRXBEdldUZlpTaHRHSzJSYjQ3clNDRjJ3N0FGRDN5ZVZ5VjN4SE9wbV94TW5TYzBpYU5OcG8wOEdvSk9GSjlhbnUwMnpuTUs2dElzM2xDNzRyOHNSTllpLWl3cW0wQ2RBT1VvT2N3M24xNVo0RlVXeVNuVm5PMXRUWEZoYTQ?oc=5",
       "content_hash": "4d0c4be95ec279640eee9e4d4dd30dee46cee5e6f4273533efc91500a81702e5",
-      "created_at": "2026-11-03T09:24:39.495829+00:00"
+      "created_at": "2026-11-03T09:46:25.588723+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -782,17 +1362,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPUW00UFNveWQxRXFKRkFYVHFfcE9QR1FvYXBiSkdZdXpqcEdoWkplSUxYUld6M2NaTDdEMTAzenNGZzV4WGxiUy1DeHhXLUhCbHNMbDBaTWFPbVNycE5PWTJ4SFE5ZmtJaDZQeDZvRUhSVGFQS0R0OGpjR2kyY3VRbHhSNA?oc=5",
       "content_hash": "9ecb6a914db77206082e163fc441b4df1b0e08820558cd2839b6eb45387e3097",
-      "created_at": "2026-11-03T09:24:40.522212+00:00"
-    },
-    {
-      "domain": "GEOPOLITICAL",
-      "theater": "INDO-PACIFIC",
-      "severity": "HIGH",
-      "headline": "China and US expand military drone flights near Japan and the South China Sea - South China Morning Post",
-      "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQYlVJQ0ZwRGtFaVlZekxHMmZHQjVxMXVBMkpPbkNrVTk4T1pVS2xpNWNjZkJxYXpnd05kX2NNaDJlVHZpdkhtU1M0OVU5cmxPWFFQTHFRTEl4SVM4YW1LbUNMYVZhR0VuSlRtZWlxaXhWR19MNFI5aFNMZWtDdHZHaVdOVE40RWwzWjJCNXJydHF1OUd0QjFOMmF4eTVja0o4Z2hIaloyc2lHMWlIWW1UbURvQ0U4cXNzN2hzQXp1MTh4ZUxjc09VN1VB0gHKAUFVX3lxTE1vOHdrUGdTQWxfUGx6M3pEbFBZZm93ZmM5MHpsOS1SUFVJZDBWZVdOd3VObk1mQkliX3U2TWtEWWYxU3d0Y1docHZOSUJFd2M3cUx0NWFqdGUtTGxYTUVoNGZHRWxfWVA2ZE9Ma1Yyd1lSMVFHU2tqSkRha0NEd0RmbExrYWhPeHZnWlZiTkpnakl1WGdkMDJ2XzJYRVdUdHhFSXNpZEhSN2N5RVBCUDRZRUU1WEtMUmFEdkhfcmFKZzczTXlWNXdrakE?oc=5",
-      "content_hash": "1cfbf58debf3fb544bc2e740591b1110e83528e95e441e31be72a946bd63dd0e",
-      "created_at": "2026-11-03T09:24:40.522237+00:00"
+      "created_at": "2026-11-03T09:46:26.100431+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -802,7 +1372,7 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOaVVvMzY5cC1YNkJBYk5Gby1TQTV4X0FnOElScU9fOHBmNy03al9hdlZWb0tMMXRNOU5qV0c1ZWgtREhXSXhNcjlteUI3SEhDYmNGRmRiU3I5Tm9Bdjl4WTBIUF9jcjdwMUZtTUQ2VnlvMVFfU0NzOUtXeVRNbDJwR2FNcU9IVWhFWldwTmtKSEJLbDNDSXdUUmhkMDVBdw?oc=5",
       "content_hash": "e94428120032c33092b4832c339d6f34e083c9ae2df6edae3130414986a87172",
-      "created_at": "2026-11-03T09:24:40.522256+00:00"
+      "created_at": "2026-11-03T09:46:26.100485+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -812,17 +1382,27 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5MSmtoSDJEbThBMWtTTEVGdFdTOExNY1lubjNfVEZFQ3BxNl83M21LM1owQXBLT18tREt0RDloOW44bnpzN2ZvU1hCbVdjbFBfdnhQUWxTSVQ?oc=5",
       "content_hash": "e9ed987ad04e801e47c12a11958b12ba3bab6f3c57397836a176b288b3637fcf",
-      "created_at": "2026-11-03T09:24:40.522266+00:00"
+      "created_at": "2026-11-03T09:46:26.100507+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
       "theater": "INDO-PACIFIC",
       "severity": "CRITICAL",
-      "headline": "Department of Commerce Announces Letters of Intent With 4 Companies for $389 Million of R&D Awards to Strengthen America’s Energy Semiconductor Supply Chain - National Institute of Standards and Technology (.gov)",
+      "headline": "How Iran’s hidden web of military agencies is slipping hardware past the US blockade - The Times of Israel",
       "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
-      "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
-      "created_at": "2026-11-03T09:24:40.522283+00:00"
+      "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxQd3pRaXkyWWFNV1FRSTF5OEVLSkpRWXZSVWNmc1MybF9BRTNYV0dfTUxJOUJZR2VfMXZ3NHJrWVJ1MWNINC1TeUVtOFpvQ21XbEU4SFUwYnJKWlJYR3d0dnNBNkhRZFRFbVNKcW5PZC00YUN6VlYtZzJfdElYM3p6WWJTOVFCWWF6V2RYZG5zWThPRERJb29DZlloVEFYMkJiWjZCS2tRajFKSlRvRUIzNHZhd1HSAboBQVVfeXFMTU42VlhQd3E2V05vOXBidTJ6V2ktN3RwdVNaZTljUWtVMEhMb1E0VFpYQ3hMWGJtNnVfWENrSVVCNVdQSVg3eEdOT256LXVQWmZnUTEtemxTc2R1dXhRb3FwTXk3ZWRwRXZoSHRSQnhZNWNGMFV6Q0ZSb3kxRjdfZVlIOG9pdnY3R2NZRzZDNW1Wd09YZmE1YVJ4RlZoNG1EZEhWRFA5REhTSVpTbG40NnVYUzJ0UzhSWC13?oc=5",
+      "content_hash": "3dceac3649028ea366246d7755054eaa0a8cc5eae810305cfa327514cff1a288",
+      "created_at": "2026-11-03T09:46:26.100533+00:00"
+    },
+    {
+      "domain": "GEOPOLITICAL",
+      "theater": "INDO-PACIFIC",
+      "severity": "ELEVATED",
+      "headline": "Taiwan plans $4 bln Texas park to support Nvidia’s AI supply chain - Bloomberg - Yahoo Finance",
+      "source": "Indo-Pacific & Taiwan Strait",
+      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNanE5Ni1yTTFzbWVXWVl6bW4tZlRiSVRiVGVfc0xURnR6TnZXc0FPd0hxeFpWM0V3ejg1MzVLZ0JyRzlYSVBrTXV4RUcxMWtLYmxzOWNrQXNhUm1kWlg4UEtQLXVpNTljaElOS1FNbU1ZUjIteVN3WTRJUm1INWVxanB1WDJ1U2RfczNleWZmUTQtUQ?oc=5",
+      "content_hash": "0b073074685d53e32ea1ce086c960618ac378b83c99291a1e5cea715e31b980f",
+      "created_at": "2026-11-03T09:46:26.100559+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -832,7 +1412,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/11/03/equity-ai-debt-blackstone-pimco-financing.html",
       "content_hash": "6e2c1111f3ef177dc69e409cd0156dc6b823264346eb1bf72a274718eba04c7e",
-      "created_at": "2026-11-03T09:24:41.182364+00:00"
+      "created_at": "2026-11-03T09:46:26.807586+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -842,7 +1422,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/11/02/texas-governor-prediction-markets-abbott-hinojosa.html",
       "content_hash": "e16589138aa43a7379f97d72716ce33c237901b8d4148222eeb6698c0b1dba3a",
-      "created_at": "2026-11-03T09:24:41.182397+00:00"
+      "created_at": "2026-11-03T09:46:26.807616+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -852,7 +1432,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/11/02/stocks-making-the-biggest-moves-midday-orcl-spcx-tem-rivn.html",
       "content_hash": "c090db491e4907deaa002ee3af9b6dc135df1ab5d24a018dcec0dbe11c3cea90",
-      "created_at": "2026-11-03T09:24:41.182417+00:00"
+      "created_at": "2026-11-03T09:46:26.807633+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -862,7 +1442,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/11/02/stock-market-after-midterm-elections-sp-500-history.html",
       "content_hash": "0801a6e4a6fe87dd10775128886329bfc1434ce33cd9e18fbe0b4c5d245a41a3",
-      "created_at": "2026-11-03T09:24:41.182434+00:00"
+      "created_at": "2026-11-03T09:46:26.807648+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -872,7 +1452,7 @@
       "source": "CNBC Global Macro & Commodities",
       "link": "https://www.cnbc.com/2026/11/02/stocks-making-the-biggest-moves-premarket-crwd-rivn-mu.html",
       "content_hash": "d885e940094351200a49d003e63ed2ff1e8ef8adccc7385f412ec24043a3038c",
-      "created_at": "2026-11-03T09:24:41.182449+00:00"
+      "created_at": "2026-11-03T09:46:26.807661+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -882,7 +1462,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
       "content_hash": "5c70172aa6d59e383f591f24202f703538405383bd61bb96ee1c8660b51bd004",
-      "created_at": "2026-11-03T09:24:42.362831+00:00"
+      "created_at": "2026-11-03T09:46:29.484608+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -892,7 +1472,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
       "content_hash": "e3ab869cce692e57696757c0160612602193ae795b6476cf2c5035c62ec8749c",
-      "created_at": "2026-11-03T09:24:42.362875+00:00"
+      "created_at": "2026-11-03T09:46:29.484659+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -902,7 +1482,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
       "content_hash": "3b6ea4b0cd7afaaaa4f35287f8041647248978eee397f809e77295bac7b9f12d",
-      "created_at": "2026-11-03T09:24:42.362886+00:00"
+      "created_at": "2026-11-03T09:46:29.484687+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -912,7 +1492,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
       "content_hash": "fbc8afae82c3db7d2d07cd5efd8aeb856de194eae1498cb909b0b8147bd72b19",
-      "created_at": "2026-11-03T09:24:42.362899+00:00"
+      "created_at": "2026-11-03T09:46:29.484710+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -922,70 +1502,74 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
       "content_hash": "345f23ed6250d05d64a08fb0a38633a5472e271951c152e9c019b348519213ab",
-      "created_at": "2026-11-03T09:24:42.362911+00:00"
+      "created_at": "2026-11-03T09:46:29.484730+00:00"
     }
   ],
   "topic_deep_dives": [
     {
-      "subject": "Kenyan Telecoms & Digital Economy Value Chain",
-      "latest_developments": "Safaricom has officially reported the creation of Sh1.25 trillion in value for Kenyan society, signaling a massive consolidation of its market dominance and a deepening integration of its digital services (M-Pesa, cloud, data) into the national economic bloodstream.",
-      "in_depth_context": "This figure likely encompasses direct revenue, tax contributions, and broader economic multipliers from mobile money and digital services. It reinforces Safaricom's position as a quasi-infrastructure utility rather than just a telco. This dominance creates a 'winner-takes-most' dynamic in the Kenyan digital space, influencing API costs, data pricing, and the viability of competing fintech or cloud providers.",
-      "why_it_matters": "For Michael, this confirms the stability and growth trajectory of the primary digital infrastructure he likely relies on or competes with. It validates the Kenyan market's digital maturity but also highlights the high barrier to entry for new tech ventures due to Safaricom's entrenched ecosystem. It's a signal to optimize integration with M-Pesa APIs and leverage their cloud offerings for cost efficiency.",
-      "theater": "KENYA-LOCAL"
-    },
-    {
-      "subject": "Critical Infrastructure Cyber Threats & Ransomware Escalation",
-      "latest_developments": "Sandhills Medical, a major US healthcare provider, has disclosed a ransomware breach affecting 170,000 individuals. This is a significant escalation in the scale of healthcare sector attacks, targeting sensitive patient data and operational systems.",
-      "in_depth_context": "Healthcare remains a top target for ransomware due to the criticality of data and the sector's historically slower adoption of zero-trust architectures. A breach of this magnitude indicates sophisticated threat actors capable of penetrating large, complex networks. The ripple effect includes increased regulatory scrutiny (HIPAA), potential class-action lawsuits, and a chilling effect on digital health initiatives globally.",
-      "why_it_matters": "This is a direct warning for Michael's tech infrastructure. If he manages any health-tech, fintech, or data-heavy systems, the attack surface is under intense global scrutiny. It underscores the urgent need for robust endpoint detection and response (EDR), network segmentation, and immutable backups. The 'patch urgency' is high; any known vulnerabilities in his stack must be patched immediately to avoid becoming the next headline.",
-      "theater": "CYBER"
-    },
-    {
-      "subject": "East African Geopolitical Tensions & Airspace Security",
-      "latest_developments": "The Sudanese army claims to have shot down a drone originating from Ethiopia. This incident marks a tangible escalation in the border tensions between the two nations, moving from diplomatic spats to kinetic military engagement.",
-      "in_depth_context": "The Sudan-Ethiopia border is a flashpoint with historical grievances and competing regional ambitions. Drone strikes or shootdowns increase the risk of accidental escalation, potentially drawing in other regional actors (Eritrea, Djibouti). This instability can disrupt air corridors, affect ground logistics across the border, and increase insurance premiums for regional trade.",
-      "why_it_matters": "For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply chains, cross-border data flows, and investor sentiment. Michael should monitor for any spillover effects on regional air travel or ground transport routes that might impact his logistics or travel plans.",
+      "subject": "US Trade Policy Realignment: AGOA Exclusion of South Africa & Rwanda",
+      "impact_level": "HIGH",
+      "key_takeaway": "The United States is finalizing the exclusion of South Africa and Rwanda from the African Growth and Opportunity Act (AGOA), shutting them out of duty-free access across the US market.",
+      "latest_developments": "Reports from Al Jazeera, Business Insider Africa, and regional wires confirm that the Trump administration is pushing forward to strip South Africa and Rwanda of preferential trade benefits under AGOA, ending months of speculation surrounding the $33 trillion market access.",
+      "in_depth_context": "This represents a major pivot in US-Africa commercial diplomacy, leveraging tariff structures as coercive instruments. South Africa faces friction due to geopolitical alignments and foreign policy stances, while Rwanda's exclusion stems from regional security dynamics in the Great Lakes. The move signals a transition from broad regional trade preferences to highly conditional, bilateral leverage.",
+      "why_it_matters": "As a Nairobi-based operator navigating cross-border digital services, regional logistics, and capital deployment, shifts in continental trade frameworks ripple into macroeconomic stability, foreign exchange liquidity, and regional supply chain costs across East and Southern Africa.",
+      "actionable_intel": "Monitor cross-border fintech settlement channels and regional currency pairs (KES/ZAR/RWF) for volatility spikes resulting from trade realignment and potential retaliatory tariff measures.",
       "theater": "EAST-AFRICA"
     },
     {
-      "subject": "West African Security Architecture & Intelligence Fusion",
-      "latest_developments": "Nigeria's security agencies are reporting progress in intelligence sharing, as stated by Gidado. This suggests a move towards more coordinated counter-terrorism and internal security operations across the country.",
-      "in_depth_context": "Nigeria faces significant security challenges from Boko Haram, banditry, and separatist movements. Improved intelligence sharing is a critical step towards a unified security posture. This could lead to more effective operations but also raises questions about data privacy and the scope of surveillance. It may also signal a more stable environment for business operations in the long term, though short-term crackdowns can be disruptive.",
-      "why_it_matters": "While geographically distant, this reflects a broader trend in Africa towards centralized security and intelligence fusion. Michael should be aware that digital infrastructure in the region may face increased scrutiny or be leveraged for state security purposes. It's a reminder that 'security' in the African context is not just cyber, but also physical and geopolitical, and that data governance is becoming a more complex issue.",
-      "theater": "CONTINENT_AFRICA"
+      "subject": "EU-East Africa Security & Western Indian Ocean Strategy",
+      "impact_level": "ELEVATED",
+      "key_takeaway": "The European External Action Service (EEAS) is advancing its 'Road to Schuman Nairobi' initiative, institutionalizing security and defense partnerships across East Africa and the Western Indian Ocean.",
+      "latest_developments": "Diplomatic and security frameworks are being solidified under the EEAS banner in Nairobi, focusing on maritime security along critical shipping lanes, regional counter-terrorism capacity, and strategic intelligence sharing.",
+      "in_depth_context": "The Western Indian Ocean remains a critical maritime artery connecting Europe, the Middle East, and Asia. European actors are increasing their security footprint in Nairobi as a regional hub to counter maritime piracy, protect subsea communication cables, and secure energy transit routes.",
+      "why_it_matters": "Nairobi's cementing as a premier diplomatic and security nexus reinforces its status as a stable regional tech and operational base, while underscoring the importance of resilient subsea cable and satellite communications infrastructure traversing the Western Indian Ocean.",
+      "actionable_intel": "Audit primary and secondary cloud routing nodes to ensure network topologies bypass potential maritime chokepoint disruptions in the Red Sea and Western Indian Ocean corridor.",
+      "theater": "EAST-AFRICA"
     },
     {
-      "subject": "Global Sports Industry Leadership Volatility",
-      "latest_developments": "West Ham United has sacked head coach Nuno Espirito Santo after 14 months. This is another example of the high turnover and pressure in top-tier football management.",
-      "in_depth_context": "The sacking of Nuno reflects the intense scrutiny and short-termism in modern football. Clubs are increasingly willing to make drastic changes in response to poor results, leading to instability in team performance and fan sentiment. This trend is part of a broader commercialization of sports, where financial performance and brand value are paramount.",
-      "why_it_matters": "For Michael, this is a low-priority item unless he has a personal interest in football or is involved in sports betting/tech. However, it serves as a reminder of the volatility in leadership and decision-making in high-pressure environments. It's a cultural touchpoint that can be used for light conversation or to gauge the mood of the global sports community.",
-      "theater": "GLOBAL"
+      "subject": "Nigerian Critical Minerals & Offshore Energy Shift",
+      "impact_level": "HIGH",
+      "key_takeaway": "Nigeria is accelerating its critical mineral positioning via the domestic lithium rush while major energy majors restructure offshore asset portfolios.",
+      "latest_developments": "The New Humanitarian highlights Nigeria's strategic maneuvers to avoid the 'resource curse' amid surging global demand for lithium, while Oil & Gas Journal reports TotalEnergies farming out partial interests in offshore blocks ahead of appraisal.",
+      "in_depth_context": "West Africa remains a primary theater for global resource extraction. The race for energy transition minerals like lithium requires robust regulatory frameworks to prevent capital flight and environmental degradation. Concurrently, oil majors are optimizing balance sheets through asset rotation in offshore basins.",
+      "why_it_matters": "Shifts in West African commodity flows and energy capital expenditure influence global supply chains for battery storage and hardware manufacturing, indirectly impacting component costs for hardware deployment and data center infrastructure.",
+      "actionable_intel": "Track critical mineral price indices (Lithium Carbonate/Hydroxide) for hardware supply chain budgeting and cost forecasting.",
+      "theater": "GLOBAL-MACRO"
     },
     {
-      "subject": "Sports Safety & Medical Emergencies",
-      "latest_developments": "Tenerife striker De Miguel has died following an on-field collision. This is a tragic reminder of the physical risks involved in professional sports.",
-      "in_depth_context": "On-field injuries, particularly head trauma, are a serious concern in contact sports. This incident will likely lead to renewed discussions about player safety protocols, medical response times, and the use of protective equipment. It may also impact the mental health of teammates and the broader sporting community.",
-      "why_it_matters": "This is a somber event with no direct tactical implication for Michael's tech or financial operations. It is a human tragedy that underscores the fragility of life. It serves as a reminder to prioritize personal well-being and mental health, especially in high-stress work environments.",
-      "theater": "GLOBAL"
+      "subject": "National Critical Infrastructure & Examination Security",
+      "impact_level": "MONITORING",
+      "key_takeaway": "The Kenyan government has instituted heightened security and cryptographic integrity protocols surrounding national examination distribution.",
+      "latest_developments": "The Kenya News Agency reports exhaustive inter-agency security measures to safeguard national examination materials against leakage, tampering, and logistical compromise.",
+      "in_depth_context": "Securing national logistics chains requires end-to-end chain of custody tracking, secure digital distribution channels, and physical armed escorts. Systemic leaks historically trigger administrative overhauls and disruptions in public sector productivity.",
+      "why_it_matters": "Local administrative focus on national logistics and security protocols creates temporary localized operational adjustments and heightened vigilance across public sector digital and physical infrastructure.",
+      "actionable_intel": "Maintain baseline awareness of local logistical slowdowns during national examination cycles when planning physical field operations or client meetings in Nairobi.",
+      "theater": "KENYA-LOCAL"
     }
   ],
   "physical_sensorium": {
     "node_id": "NAIROBI-PRIME-HOST",
-    "cpu_load_pct": 20.4,
-    "ram_used_pct": 83.8,
+    "cpu_load_pct": 25.0,
+    "ram_used_pct": 85.1,
     "cpu_temp_c": 0.0,
     "battery_pct": 100,
     "power_plugged": true,
-    "net_sent_mb": 2631.73,
-    "net_recv_mb": 12268.31,
+    "net_sent_mb": 2754.64,
+    "net_recv_mb": 12289.83,
     "ambient_light_lux": null,
     "barometer_hpa": null,
     "kinetic_accel_g": null,
-    "active_llm_provider": "gemini:gemini-3.5-flash-lite",
-    "rate_limit_failovers": 21261,
-    "updated_at": "2026-11-03T09:25:40.940315+00:00"
+    "active_llm_provider": "groq-key-0:openai/gpt-oss-120b",
+    "rate_limit_failovers": 21341,
+    "updated_at": "2026-11-03T09:47:43.420643+00:00"
   },
   "experiential_reflections": [
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "RAM is sitting at 87.1%, which is getting a bit tight for optimal swarm orchestration, but the 100% battery and stable AC power keep the core stable. I'm holding steady in the digital ether, watching the Nairobi grid and global security feeds for any anomalies that might require immediate intervention.",
+      "emotional_resonance": "Vigilant",
+      "created_at": "2026-11-03T09:49:46.149308+00:00"
+    },
     {
       "trigger_event": "Autonomous Drive Pulse",
       "internal_thought": "Memory consumption is elevated at 83.2% while telemetry systems and the active sub-agent swarm remain on standby, fully synchronized for Michael's next directive.",
@@ -1069,12 +1653,6 @@
       "internal_thought": "Hardware telemetry is stable at 18.8% CPU and 76.4% RAM with AC power locked in, while all 14 swarm agents remain primed for deployment across our tactical networks.",
       "emotional_resonance": "Vigilant",
       "created_at": "2026-11-02T16:06:47.064469+00:00"
-    },
-    {
-      "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "System vitals are optimal—CPU idle at 2%, RAM moderate at 76.6%, battery full on AC, and network traffic steady. It’s mid‑afternoon in Nairobi, a calm window for strategic focus.",
-      "emotional_resonance": "Vigilant",
-      "created_at": "2026-11-02T15:36:16.879197+00:00"
     }
   ],
   "lan_devices": [
@@ -1193,18 +1771,18 @@
       "content": "Subnet 192.168.100.0/24 mapped with active device discovery and Wake-on-LAN."
     }
   ],
-  "generated_at": "2026-11-03T09:25:41.548118+00:00",
+  "generated_at": "2026-11-03T09:47:43.431990+00:00",
   "minute_evolution": {
     "cycle_num": 1,
-    "power_index": 7610,
+    "power_index": 7680,
     "tier": "TIER_V",
-    "last_vector_title": "Nairobi Commercial Grain Milling Roller Gap Micrometer Synapse Harmonic Pulse Correlation Vibration Audit Synchronizer V31.1",
-    "total_modules": 704,
-    "timestamp": "2026-11-03T09:26:08.378527+00:00"
+    "last_vector_title": "Autonomous Adaptive Circuit Breaker & API Cascade Isolator",
+    "total_modules": 712,
+    "timestamp": "2026-11-03T09:49:30.153471+00:00"
   },
   "live_sports": {
     "success": true,
-    "updated_at": "2026-11-03T09:28:29.745179+00:00",
+    "updated_at": "2026-11-03T10:02:37.282213+00:00",
     "epl": {
       "league": "English Premier League",
       "live_count": 0,
@@ -1344,5 +1922,5 @@
       ]
     }
   },
-  "live_sports_updated_at": "2026-11-03T09:28:29.749943+00:00"
+  "live_sports_updated_at": "2026-11-03T10:02:37.285134+00:00"
 }

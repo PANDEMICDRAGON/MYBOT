@@ -2285,11 +2285,15 @@ Telemetry, verified statutory standards, and stdout will stream here directly.</
           <p class="text-base font-bold text-white tracking-wide font-display mt-0.5">Continuous Global Dispatches</p>
         </div>
 
-        <!-- News Scope Tabs -->
+        <!-- News Scope & Impact Tabs -->
         <div class="flex items-center gap-1.5 flex-wrap">
           <button class="news-tab hud-btn active" data-scope="ALL" id="tab-all">All Dispatches</button>
-          <button class="news-tab hud-btn text-emerald-400" data-scope="LOCAL" id="tab-local">🇰🇪 Kenya Local</button>
-          <button class="news-tab hud-btn text-cyan-400" data-scope="GLOBAL" id="tab-global">🌐 World Wire</button>
+          <button class="news-tab hud-btn text-rose-400 border-rose-500/40" data-scope="CRITICAL" id="tab-critical">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse mr-1 inline-block"></span>🔴 High Impact
+          </button>
+          <button class="news-tab hud-btn text-emerald-400" data-scope="LOCAL" id="tab-local">🇰🇪 Kenya &amp; East Africa</button>
+          <button class="news-tab hud-btn text-cyan-400" data-scope="GLOBAL" id="tab-global">🌐 Global Wire</button>
+          <button class="news-tab hud-btn text-purple-400" data-scope="CYBER" id="tab-news-cyber">🛡️ Cyber &amp; Tech</button>
           <button class="news-tab hud-btn text-amber-400" data-scope="SPORTS" id="tab-sports">⚽ Sports Wire</button>
         </div>
       </div>

@@ -6415,14 +6415,14 @@ async def enrich_news_with_depth(client: httpx.AsyncClient, articles: list[dict]
     Enriches incoming articles with in-depth operational intelligence.
     Extracts structured topic deep dives (latest developments, second-order ripples, and operator impact).
     """
-    if not articles or not GROQ_API_KEY:
+    if not articles or not (GROQ_API_KEY or GEMINI_API_KEY):
         return articles, []
 
-    sample = articles[:6]
+    sample = articles[:8]
     items_for_prompt = []
     for a in sample:
-        clean_t = a.get("title", "").split(" // [TACTICAL INTEL]:")[0].strip()
-        desc = a.get("description", "")[:200].strip()
+        clean_t = re.sub(r"\s*//\s*\[TACTICAL INTEL\].*$", "", a.get("title", "")).strip()
+        desc = a.get("description", "")[:250].strip()
         items_for_prompt.append({
             "source": a.get("source"),
             "scope": a.get("scope"),
@@ -6430,25 +6430,31 @@ async def enrich_news_with_depth(client: httpx.AsyncClient, articles: list[dict]
             "summary": desc if desc else clean_t
         })
 
-    prompt = f"""You are HALO's Tactical Intelligence Analyst.
-Analyze these incoming raw news dispatches collected in the latest sweep across global & local sensors:
+    prompt = f"""You are HALO's Chief Tactical & Geopolitical Intelligence Analyst.
+Analyze these raw incoming intelligence dispatches collected across our global, regional, and African sensorium:
 {json.dumps(items_for_prompt, indent=2)}
 
-Provide IN-DEPTH OPERATIONAL INTELLIGENCE around these subjects. For each distinct subject/theater, extract:
-- subject: The active theme title (e.g., 'Red Sea & Bab-el-Mandeb Logistics', 'Kenya Forex & Central Bank Reserves', 'East Africa Energy Grid', 'Critical Infrastructure Cyber Threats')
-- latest_developments: Specific new details/developments (do NOT just repeat the headline; explain the latest tactical shift)
-- in_depth_context: Underlying mechanics, second-order economic/logistics/security ripples (freight rates, transit delays, inflation pass-through, or patch urgencies)
-- why_it_matters: Specific tactical consequence for our operator (Michael Obiero, based in Nairobi/Nairobi, managing tech infrastructure and capital)
-- theater: 'RED-SEA-MIDEAST' | 'EAST-AFRICA' | 'CYBER' | 'GLOBAL' | 'KENYA-LOCAL'
+Synthesize HIGH-IMPACT, RIGOROUS, AND DEEPLY DETAILED OPERATIONAL INTELLIGENCE. For each distinct subject/theater, extract:
+- subject: High-impact analytical theme title (e.g. 'US Trade Policy Realignments & AGOA Exclusion Threat', 'Red Sea Maritime Chokepoint & Shipping Risk', 'Kenya Forex Liquidity & CBK Reserves', 'Critical Infrastructure Ransomware Vectors')
+- impact_level: 'CRITICAL' | 'HIGH' | 'ELEVATED' | 'MONITORING' (Assign CRITICAL to major supply shocks, active cyber exploits, warfare, or currency shifts; HIGH to major policy/economic shifts)
+- key_takeaway: 1-2 sentence razor-sharp executive briefing of the core event
+- latest_developments: Specific tactical developments and operational shifts (do NOT just repeat the headline; explain the latest tactical posture)
+- in_depth_context: Deep systemic analysis: underlying mechanics, supply chain bottlenecks, monetary pass-through, geopolitical leverage, or technical mechanics
+- why_it_matters: Specific tactical consequence for our operator (Michael Obiero, based in Nairobi, Kenya, managing technology infrastructure, cloud systems, and capital assets)
+- actionable_intel: Concrete operational recommendation (e.g. currency hedging monitor, latency failover, firewall hardening, transit schedule buffer)
+- theater: 'EAST-AFRICA' | 'KENYA-LOCAL' | 'RED-SEA-MIDEAST' | 'CYBER' | 'GLOBAL-MACRO' | 'GLOBAL-TECH' | 'SPORTS-INTEL'
 
-Output valid JSON strictly as an array of objects matching this schema:
+Output valid JSON strictly as an array of objects:
 [
   {{
     "subject": "Theme Title",
+    "impact_level": "CRITICAL",
+    "key_takeaway": "...",
     "latest_developments": "...",
     "in_depth_context": "...",
     "why_it_matters": "...",
-    "theater": "..."
+    "actionable_intel": "...",
+    "theater": "EAST-AFRICA"
   }}
 ]"""
 
@@ -6456,39 +6462,94 @@ Output valid JSON strictly as an array of objects matching this schema:
         msg = await call_llm_with_failover(
             client,
             [
-                {"role": "system", "content": SYSTEM_PERSONA + " Always respond in valid JSON."},
+                {"role": "system", "content": SYSTEM_PERSONA + " Always respond strictly in valid JSON without markdown fences."},
                 {"role": "user", "content": prompt}
             ],
             json_mode=True
         )
-        parsed = json.loads(msg.get("content", "[]"))
-        if not isinstance(parsed, list):
-            parsed = [parsed] if isinstance(parsed, dict) else []
+        content_str = msg.get("content", "[]")
+        logger.info(f"[Enrich News LLM Raw ({len(content_str)} chars)]: {content_str[:400]}")
+        parsed_raw = None
+
+        # 1. Direct parse attempt
+        try:
+            parsed_raw = json.loads(content_str)
+        except Exception:
+            pass
+
+        # 2. Markdown code block extraction
+        if parsed_raw is None:
+            m = re.search(r"```(?:json)?\s*([\s\S]*?)\s*```", content_str)
+            if m:
+                try:
+                    parsed_raw = json.loads(m.group(1).strip())
+                except Exception:
+                    pass
+
+        # 3. Outer bracket extraction
+        if parsed_raw is None:
+            m = re.search(r"(\[[\s\S]*\]|\{[\s\S]*\})", content_str)
+            if m:
+                try:
+                    parsed_raw = json.loads(m.group(1).strip())
+                except Exception:
+                    pass
+
+        parsed = []
+        if isinstance(parsed_raw, list):
+            parsed = parsed_raw
+        elif isinstance(parsed_raw, dict):
+            for k in ["payload", "items", "analysis", "deep_dives", "data", "dispatches", "subjects", "topics", "results", "articles", "report", "intelligence", "intel"]:
+                if k in parsed_raw and isinstance(parsed_raw[k], list):
+                    parsed = parsed_raw[k]
+                    break
+            else:
+                if "subject" in parsed_raw or "title" in parsed_raw or "key_takeaway" in parsed_raw:
+                    parsed = [parsed_raw]
+
+        logger.info(f"[Enrich News Extracted]: {len(parsed)} deep-dive themes extracted (parsed_raw type: {type(parsed_raw)})")
 
         # Map deep-dive context back to articles
         enriched_articles = []
         for art in articles:
-            clean_title = art["title"].split(" // [TACTICAL INTEL]:")[0].strip()
+            raw_title = art.get("title", "")
+            clean_title = re.sub(r"\s*//\s*\[TACTICAL INTEL\].*$", "", raw_title).strip()
+            clean_title = re.sub(r"\s*//\s*\[IN-DEPTH ANALYSIS\].*$", "", clean_title).strip()
+            clean_lower = clean_title.lower()
+            source_lower = art.get("source", "").lower()
+
             matched_dd = None
             for dd in parsed:
-                subj_words = [w.lower() for w in dd.get("subject", "").split() if len(w) > 3]
-                if any(w in clean_title.lower() for w in subj_words) or any(w in art.get("source", "").lower() for w in subj_words):
+                subj = dd.get("subject", "").lower()
+                subj_words = [w for w in re.findall(r"\w{4,}", subj)]
+                if any(w in clean_lower for w in subj_words) or any(w in source_lower for w in subj_words):
                     matched_dd = dd
                     break
-            if not matched_dd and parsed:
-                matched_dd = parsed[0]
 
             art_copy = dict(art)
+            art_copy["clean_title"] = clean_title
+            art_copy["title"] = clean_title
+
             if matched_dd:
+                art_copy["impact_level"] = matched_dd.get("impact_level", "HIGH")
+                art_copy["key_takeaway"] = matched_dd.get("key_takeaway", art.get("description", clean_title))
+                art_copy["latest_developments"] = matched_dd.get("latest_developments", "")
                 art_copy["in_depth_context"] = matched_dd.get("in_depth_context", "")
                 art_copy["why_it_matters"] = matched_dd.get("why_it_matters", "")
+                art_copy["actionable_intel"] = matched_dd.get("actionable_intel", "")
+                art_copy["theater"] = matched_dd.get("theater", art.get("scope", "GLOBAL"))
                 art_copy["subject"] = matched_dd.get("subject", "ACTIVE THEATER")
-                short_note = matched_dd.get("why_it_matters", "")[:180]
-                art_copy["title"] = f"{clean_title} // [TACTICAL INTEL]: {short_note}"
             else:
+                impact = "CRITICAL" if any(k in clean_lower for k in ["zero-day", "0-day", "missile", "warfare", "strike", "emergency"]) else ("HIGH" if any(k in clean_lower for k in ["trade", "tariff", "forex", "cve", "ransomware", "shilling", "central bank", "cbk", "fed"]) else "ELEVATED")
+                art_copy["impact_level"] = impact
+                art_copy["key_takeaway"] = art.get("description", clean_title)
+                art_copy["latest_developments"] = ""
                 art_copy["in_depth_context"] = ""
                 art_copy["why_it_matters"] = ""
+                art_copy["actionable_intel"] = ""
+                art_copy["theater"] = art.get("scope", "GLOBAL")
                 art_copy["subject"] = art.get("source", "GENERAL")
+
             enriched_articles.append(art_copy)
 
         return enriched_articles, parsed
