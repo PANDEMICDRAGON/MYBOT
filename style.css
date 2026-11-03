@@ -2360,6 +2360,271 @@ body.theme-starwars .hud-panel {
   box-shadow: 0 0 10px var(--hud-cyan-dim);
 }
 
+/* ==========================================================================
+   WORKSPACE TABS & MODERN COMMAND DASHBOARD NAVIGATION
+   ========================================================================== */
 
+.hud-workspace-nav {
+  position: sticky;
+  top: 57px;
+  z-index: 35;
+  background: rgba(3, 7, 18, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.18);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
 
+.ws-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border-radius: 8px;
+  font-family: var(--font-hud);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-secondary);
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
 
+.ws-tab-btn:hover {
+  color: var(--text-primary);
+  background: rgba(0, 240, 255, 0.1);
+  border-color: rgba(0, 240, 255, 0.35);
+  transform: translateY(-1px);
+}
+
+.ws-tab-btn.active {
+  color: #ffffff;
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.22) 0%, rgba(168, 85, 247, 0.2) 100%);
+  border-color: var(--hud-cyan);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.28), inset 0 0 10px rgba(0, 240, 255, 0.12);
+}
+
+.ws-tab-btn.ws-tab-all.active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(239, 68, 68, 0.2) 100%);
+  border-color: var(--hud-amber);
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+}
+
+.ws-tab-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(0, 240, 255, 0.15);
+  color: var(--hud-cyan);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+/* Tab Visibility Rules */
+body.mode-tabs #main-hud-grid > section {
+  display: none !important;
+}
+
+/* Tab: Overview */
+body.mode-tabs[data-active-tab="overview"] #ai-core-section,
+body.mode-tabs[data-active-tab="overview"] #soul-sensorium-section,
+body.mode-tabs[data-active-tab="overview"] #command-console-section,
+body.mode-tabs[data-active-tab="overview"] #weather-section {
+  display: block !important;
+  animation: hudTabFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tab: Directive Console */
+body.mode-tabs[data-active-tab="console"] #command-console-section,
+body.mode-tabs[data-active-tab="console"] #terminal-section {
+  display: block !important;
+  animation: hudTabFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tab: Evolution & Reverse Engineering */
+body.mode-tabs[data-active-tab="evolution"] #evolution-modules-section {
+  display: block !important;
+  animation: hudTabFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tab: Cyber Defense */
+body.mode-tabs[data-active-tab="cyber"] #cyber-section,
+body.mode-tabs[data-active-tab="cyber"] #surveillance-section {
+  display: block !important;
+  animation: hudTabFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tab: Global OSINT & Intel */
+body.mode-tabs[data-active-tab="intel"] #conflict-matrix-section,
+body.mode-tabs[data-active-tab="intel"] #osint-section,
+body.mode-tabs[data-active-tab="intel"] #planetary-osint-section,
+body.mode-tabs[data-active-tab="intel"] #strategic-matrix-section,
+body.mode-tabs[data-active-tab="intel"] #news-section {
+  display: block !important;
+  animation: hudTabFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tab: Swarm & Autonomous Ops */
+body.mode-tabs[data-active-tab="swarm"] #personal-ops-section {
+  display: block !important;
+  animation: hudTabFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tab: Infrastructure & Telemetry */
+body.mode-tabs[data-active-tab="infra"] #lan-section,
+body.mode-tabs[data-active-tab="infra"] #weather-section,
+body.mode-tabs[data-active-tab="infra"] #sports-section {
+  display: block !important;
+  animation: hudTabFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Mode: All Systems (Full Sprawling Matrix) */
+body.mode-all #main-hud-grid > section {
+  display: block !important;
+  animation: hudTabFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes hudTabFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Command Palette Modal */
+.cmd-palette-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 14vh;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cmd-palette-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cmd-palette-dialog {
+  width: 100%;
+  max-width: 620px;
+  background: rgba(11, 19, 36, 0.96);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 35px rgba(0, 240, 255, 0.2);
+  overflow: hidden;
+  transform: scale(0.95) translateY(-10px);
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cmd-palette-backdrop.open .cmd-palette-dialog {
+  transform: scale(1) translateY(0);
+}
+
+.cmd-palette-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+  background: rgba(3, 7, 18, 0.5);
+}
+
+.cmd-palette-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-hud);
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.cmd-palette-input::placeholder {
+  color: var(--text-dim);
+}
+
+.cmd-palette-list {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.cmd-palette-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-family: var(--font-hud);
+  font-size: 12px;
+  transition: all 0.15s ease;
+}
+
+.cmd-palette-item:hover,
+.cmd-palette-item.active {
+  background: rgba(0, 240, 255, 0.14);
+  color: #ffffff;
+  transform: translateX(3px);
+}
+
+.cmd-palette-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cmd-palette-item-icon {
+  font-size: 15px;
+}
+
+.cmd-palette-item-tag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-dim);
+}
+
+.cmd-palette-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: rgba(3, 7, 18, 0.7);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+/* Scrollbar tweaks */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

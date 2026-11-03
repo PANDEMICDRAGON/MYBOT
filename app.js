@@ -4735,6 +4735,237 @@ function initDesktopFloatEngine(container, panels) {
   });
 }
 
+/* ==========================================================================
+   WORKSPACE TABS & MODERN COMMAND DASHBOARD CONTROLLER
+   ========================================================================== */
+
+function switchWorkspaceTab(tabId, playSound = true) {
+  const tabs = document.querySelectorAll(".ws-tab-btn");
+  if (!tabs.length) return;
+
+  const validTabs = ["overview", "console", "evolution", "cyber", "intel", "swarm", "infra", "all"];
+  if (!validTabs.includes(tabId)) tabId = "overview";
+
+  tabs.forEach(btn => {
+    if (btn.getAttribute("data-tab") === tabId) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+  });
+
+  document.body.setAttribute("data-active-tab", tabId);
+
+  if (tabId === "all") {
+    document.body.classList.remove("mode-tabs");
+    document.body.classList.add("mode-all");
+  } else {
+    document.body.classList.remove("mode-all");
+    document.body.classList.add("mode-tabs");
+  }
+
+  localStorage.setItem("unsc_hud_active_tab", tabId);
+
+  if (playSound && typeof playSciFiChirp === "function") {
+    playSciFiChirp("blip");
+  }
+
+  // Smooth scroll back to top of workspace container if needed
+  const mainGrid = document.getElementById("main-hud-grid");
+  if (mainGrid && window.scrollY > 300) {
+    mainGrid.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+function initWorkspaceTabs() {
+  const tabButtons = document.querySelectorAll(".ws-tab-btn");
+  if (!tabButtons.length) return;
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const tabId = btn.getAttribute("data-tab");
+      switchWorkspaceTab(tabId, true);
+    });
+  });
+
+  // Keyboard navigation: Ctrl+1 through Ctrl+8
+  window.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey) {
+      const keyMap = {
+        "1": "overview",
+        "2": "console",
+        "3": "evolution",
+        "4": "cyber",
+        "5": "intel",
+        "6": "swarm",
+        "7": "infra",
+        "8": "all"
+      };
+      if (keyMap[e.key]) {
+        e.preventDefault();
+        switchWorkspaceTab(keyMap[e.key], true);
+      }
+    }
+  });
+
+  // Restore saved tab or default to overview
+  const savedTab = localStorage.getItem("unsc_hud_active_tab") || "overview";
+  switchWorkspaceTab(savedTab, false);
+}
+
+/* ==========================================================================
+   GLOBAL COMMAND PALETTE CONTROLLER (CTRL + K)
+   ========================================================================== */
+
+function openCommandPalette() {
+  const palette = document.getElementById("hud-command-palette");
+  const input = document.getElementById("cmd-palette-input");
+  if (!palette || !input) return;
+
+  palette.classList.add("open");
+  input.value = "";
+  filterPaletteItems("");
+  setTimeout(() => input.focus(), 50);
+  if (typeof playSciFiChirp === "function") playSciFiChirp("blip");
+}
+
+function closeCommandPalette() {
+  const palette = document.getElementById("hud-command-palette");
+  if (!palette) return;
+  palette.classList.remove("open");
+}
+
+function filterPaletteItems(query) {
+  const q = (query || "").toLowerCase().trim();
+  const items = document.querySelectorAll(".cmd-palette-item");
+  let firstVisible = null;
+
+  items.forEach(item => {
+    const text = item.textContent.toLowerCase();
+    if (!q || text.includes(q)) {
+      item.style.display = "flex";
+      if (!firstVisible) firstVisible = item;
+    } else {
+      item.style.display = "none";
+    }
+    item.classList.remove("active");
+  });
+
+  if (firstVisible) {
+    firstVisible.classList.add("active");
+  }
+}
+
+function executePaletteAction(action) {
+  closeCommandPalette();
+  if (!action) return;
+
+  if (action.startsWith("tab-")) {
+    const tabName = action.replace("tab-", "");
+    switchWorkspaceTab(tabName, true);
+  } else if (action === "run-reverse-engineer") {
+    switchWorkspaceTab("evolution", false);
+    const inp = document.getElementById("evo-live-target-input");
+    const target = (inp && inp.value.trim()) ? inp.value.trim() : "bot.py";
+    if (typeof executeLiveSystem === "function") {
+      executeLiveSystem("reverse_engineer", target);
+    }
+    const workbench = document.getElementById("evo-live-workbench");
+    if (workbench) workbench.scrollIntoView({ behavior: "smooth", block: "center" });
+  } else if (action === "action-sweep") {
+    const btnRefresh = document.getElementById("btn-refresh");
+    if (btnRefresh) btnRefresh.click();
+  } else if (action === "action-sfx") {
+    const sfxBtn = document.getElementById("btn-toggle-sfx");
+    if (sfxBtn) sfxBtn.click();
+  }
+}
+
+function initCommandPalette() {
+  const palette = document.getElementById("hud-command-palette");
+  const input = document.getElementById("cmd-palette-input");
+  const triggerHint = document.getElementById("palette-trigger-hint");
+  const searchInput = document.getElementById("telemetry-search-input");
+
+  if (!palette || !input) return;
+
+  // Shortcut Ctrl+K / Cmd+K
+  window.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      if (palette.classList.contains("open")) {
+        closeCommandPalette();
+      } else {
+        openCommandPalette();
+      }
+    } else if (e.key === "Escape" && palette.classList.contains("open")) {
+      closeCommandPalette();
+    }
+  });
+
+  if (triggerHint) {
+    triggerHint.addEventListener("click", openCommandPalette);
+  }
+
+  // Also open palette on search reticle focus or click
+  if (searchInput) {
+    searchInput.addEventListener("focus", () => {
+      openCommandPalette();
+    });
+  }
+
+  // Backdrop click to close
+  palette.addEventListener("click", (e) => {
+    if (e.target === palette) {
+      closeCommandPalette();
+    }
+  });
+
+  // Filter input
+  input.addEventListener("input", (e) => {
+    filterPaletteItems(e.target.value);
+  });
+
+  // Keyboard navigation inside palette (Arrow Up, Arrow Down, Enter)
+  input.addEventListener("keydown", (e) => {
+    const visibleItems = Array.from(document.querySelectorAll(".cmd-palette-item")).filter(
+      el => el.style.display !== "none"
+    );
+    if (!visibleItems.length) return;
+
+    let currentIndex = visibleItems.findIndex(el => el.classList.contains("active"));
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (currentIndex >= 0) visibleItems[currentIndex].classList.remove("active");
+      const nextIndex = (currentIndex + 1) % visibleItems.length;
+      visibleItems[nextIndex].classList.add("active");
+      visibleItems[nextIndex].scrollIntoView({ block: "nearest" });
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (currentIndex >= 0) visibleItems[currentIndex].classList.remove("active");
+      const prevIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+      visibleItems[prevIndex].classList.add("active");
+      visibleItems[prevIndex].scrollIntoView({ block: "nearest" });
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      const activeItem = visibleItems[currentIndex >= 0 ? currentIndex : 0];
+      if (activeItem) {
+        const action = activeItem.getAttribute("data-action");
+        executePaletteAction(action);
+      }
+    }
+  });
+
+  // Item click execution
+  document.querySelectorAll(".cmd-palette-item").forEach(item => {
+    item.addEventListener("click", () => {
+      const action = item.getAttribute("data-action");
+      executePaletteAction(action);
+    });
+  });
+}
+
 // Event Listeners Setup
 document.addEventListener("DOMContentLoaded", () => {
   updateClock();
@@ -4761,6 +4992,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Initialize Modular Drag-and-Drop HUD System
   initDragAndDropHUD();
+
+  // Initialize Workspace Navigation Tabs & Global Command Palette
+  initWorkspaceTabs();
+  initCommandPalette();
 
   // Initialize Two-Way Cortana Comms Terminal
   initTerminalController();

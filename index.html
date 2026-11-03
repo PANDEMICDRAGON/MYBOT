@@ -30,7 +30,7 @@
   </script>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body class="selection:bg-cyan-500 selection:text-black">
+<body class="selection:bg-cyan-500 selection:text-black mode-tabs" data-active-tab="overview">
 
   <!-- Holographic Visor Scanlines & Horizon Beam -->
   <div class="hologram-overlay"></div>
@@ -166,6 +166,53 @@
 
     </div>
   </header>
+
+  <!-- WORKSPACE COMMAND TABS BAR -->
+  <nav class="hud-workspace-nav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex items-center justify-between gap-3 overflow-x-auto no-scrollbar">
+      <div class="flex items-center gap-1.5 flex-nowrap" id="workspace-tabs-bar">
+        <button class="ws-tab-btn active" data-tab="overview" title="Executive Telemetry, Core AI Specs & Sensorium (Ctrl+1)">
+          <span class="ws-tab-icon">⚡</span>
+          <span class="ws-tab-label">Overview &amp; Core</span>
+        </button>
+        <button class="ws-tab-btn" data-tab="console" title="Directives & Live Conversational Terminal (Ctrl+2)">
+          <span class="ws-tab-icon">💬</span>
+          <span class="ws-tab-label">Directive Console</span>
+        </button>
+        <button class="ws-tab-btn" data-tab="evolution" title="183+ Industrial Evolution Modules & Reverse Engineering Studio (Ctrl+3)">
+          <span class="ws-tab-icon">🧬</span>
+          <span class="ws-tab-label">Evolution &amp; Reverse Eng</span>
+          <span class="ws-tab-badge" id="tab-evo-badge">183+</span>
+        </button>
+        <button class="ws-tab-btn" data-tab="cyber" title="CISA KEV, Threat Intel, Zero-Trust Masker & Surveillance (Ctrl+4)">
+          <span class="ws-tab-icon">🛡️</span>
+          <span class="ws-tab-label">Cyber Defense</span>
+        </button>
+        <button class="ws-tab-btn" data-tab="intel" title="Geopolitics, Red Sea Maritime Radar, OSINT & Financial Tickers (Ctrl+5)">
+          <span class="ws-tab-icon">🌐</span>
+          <span class="ws-tab-label">Global OSINT</span>
+        </button>
+        <button class="ws-tab-btn" data-tab="swarm" title="Autonomous Multi-Agent Swarm & Personal Task Queue (Ctrl+6)">
+          <span class="ws-tab-icon">🛰️</span>
+          <span class="ws-tab-label">Swarm &amp; Tasks</span>
+        </button>
+        <button class="ws-tab-btn" data-tab="infra" title="LAN Topology, Wi-Fi Manager, Microclimate & Sports Telemetry (Ctrl+7)">
+          <span class="ws-tab-icon">📡</span>
+          <span class="ws-tab-label">Infrastructure</span>
+        </button>
+        <button class="ws-tab-btn ws-tab-all" data-tab="all" title="Sprawling Multi-Monitor Mode - Display All Panels Simultaneously (Ctrl+8)">
+          <span class="ws-tab-icon">🌌</span>
+          <span class="ws-tab-label">All Systems</span>
+        </button>
+      </div>
+
+      <!-- Quick Command Shortcut Helper -->
+      <div class="hidden lg:flex items-center gap-2 text-[10px] font-mono text-cyan-400/80 whitespace-nowrap cursor-pointer hover:text-cyan-200 transition" id="palette-trigger-hint">
+        <kbd class="px-1.5 py-0.5 rounded bg-slate-900 border border-cyan-500/30 text-cyan-300 font-bold">Ctrl</kbd>+<kbd class="px-1.5 py-0.5 rounded bg-slate-900 border border-cyan-500/30 text-cyan-300 font-bold">K</kbd>
+        <span>COMMAND PALETTE</span>
+      </div>
+    </div>
+  </nav>
 
   <!-- HOLOGRAPHIC NOTIFICATION TOAST (INCOMING TELEGRAM DISPATCH) -->
   <div id="hud-toast-banner" class="hud-toast-hidden">
@@ -2641,6 +2688,113 @@ Telemetry, verified statutory standards, and stdout will stream here directly.</
         <button id="btn-dismiss-wifi-scanner" class="hud-btn text-[11px] py-1 px-3 text-slate-300 hover:text-white">
           CLOSE MATRIX
         </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================
+       GLOBAL COMMAND PALETTE (CTRL + K)
+       =================================================================== -->
+  <div id="hud-command-palette" class="cmd-palette-backdrop">
+    <div class="cmd-palette-dialog">
+      <div class="cmd-palette-header">
+        <svg class="w-4 h-4 text-cyan-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+        <input 
+          type="text" 
+          id="cmd-palette-input" 
+          placeholder="Type a command, jump to tab, or search modules..." 
+          class="cmd-palette-input"
+          autocomplete="off"
+        />
+        <kbd class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-400">ESC</kbd>
+      </div>
+      <div class="cmd-palette-list" id="cmd-palette-items">
+        <div class="cmd-palette-item active" data-action="tab-overview">
+          <div class="cmd-palette-item-left">
+            <span class="cmd-palette-item-icon">⚡</span>
+            <span>Jump to: Overview &amp; Neural Core</span>
+          </div>
+          <span class="cmd-palette-item-tag">Ctrl+1</span>
+        </div>
+        <div class="cmd-palette-item" data-action="tab-console">
+          <div class="cmd-palette-item-left">
+            <span class="cmd-palette-item-icon">💬</span>
+            <span>Jump to: Directive &amp; Conversational Console</span>
+          </div>
+          <span class="cmd-palette-item-tag">Ctrl+2</span>
+        </div>
+        <div class="cmd-palette-item" data-action="tab-evolution">
+          <div class="cmd-palette-item-left">
+            <span class="cmd-palette-item-icon">🧬</span>
+            <span>Jump to: Evolution Modules &amp; Reverse Engineering</span>
+          </div>
+          <span class="cmd-palette-item-tag">Ctrl+3</span>
+        </div>
+        <div class="cmd-palette-item" data-action="tab-cyber">
+          <div class="cmd-palette-item-left">
+            <span class="cmd-palette-item-icon">🛡️</span>
+            <span>Jump to: Cyber Defense &amp; Vulnerability Radar</span>
+          </div>
+          <span class="cmd-palette-item-tag">Ctrl+4</span>
+        </div>
+        <div class="cmd-palette-item" data-action="tab-intel">
+          <div class="cmd-palette-item-left">
+            <span class="cmd-palette-item-icon">🌐</span>
+            <span>Jump to: Global OSINT &amp; Geopolitics</span>
+          </div>
+          <span class="cmd-palette-item-tag">Ctrl+5</span>
+        </div>
+        <div class="cmd-palette-item" data-action="tab-swarm">
+          <div class="cmd-palette-item-left">
+            <span class="cmd-palette-item-icon">🛰️</span>
+            <span>Jump to: Autonomous Swarm &amp; Tasks</span>
+          </div>
+          <span class="cmd-palette-item-tag">Ctrl+6</span>
+        </div>
+        <div class="cmd-palette-item" data-action="tab-infra">
+          <div class="cmd-palette-item-left">
+            <span class="cmd-palette-item-icon">📡</span>
+            <span>Jump to: Infrastructure &amp; Network Telemetry</span>
+          </div>
+          <span class="cmd-palette-item-tag">Ctrl+7</span>
+        </div>
+        <div class="cmd-palette-item" data-action="tab-all">
+          <div class="cmd-palette-item-left">
+            <span class="cmd-palette-item-icon">🌌</span>
+            <span>View All Panels (Sprawling Multi-Monitor Mode)</span>
+          </div>
+          <span class="cmd-palette-item-tag">Ctrl+8</span>
+        </div>
+        <div class="cmd-palette-item" data-action="run-reverse-engineer">
+          <div class="cmd-palette-item-left">
+            <span class="cmd-palette-item-icon">🔬</span>
+            <span>Execute: Reverse Engineering Suite</span>
+          </div>
+          <span class="cmd-palette-item-tag">Tool</span>
+        </div>
+        <div class="cmd-palette-item" data-action="action-sweep">
+          <div class="cmd-palette-item-left">
+            <span class="cmd-palette-item-icon">🔄</span>
+            <span>Action: Instant Telemetry Sweep</span>
+          </div>
+          <span class="cmd-palette-item-tag">Refresh</span>
+        </div>
+        <div class="cmd-palette-item" data-action="action-sfx">
+          <div class="cmd-palette-item-left">
+            <span class="cmd-palette-item-icon">🔊</span>
+            <span>Toggle Interface Sound FX</span>
+          </div>
+          <span class="cmd-palette-item-tag">Audio</span>
+        </div>
+      </div>
+      <div class="cmd-palette-footer">
+        <div class="flex items-center gap-2">
+          <span>Navigation: <kbd class="text-cyan-300">&uarr;</kbd> <kbd class="text-cyan-300">&darr;</kbd></span>
+          <span>Select: <kbd class="text-cyan-300">&crarr;</kbd></span>
+        </div>
+        <span>CORTANA // J.A.R.V.I.S. MK-VII</span>
       </div>
     </div>
   </div>

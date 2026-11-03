@@ -1,58 +1,58 @@
 {
   "sitrep": {
     "threat_level": "ELEVATED",
-    "sitrep": "Chief, fresh telemetry confirms compounding operational vectors. Global maritime rerouting around the Cape of Good Hope has driven container freight rates up 250%, directly pressuring Kenyan import clearing costs and supply timelines. Concurrently, zero-day exploits targeting Cisco SSL VPN perimeters are active globally, threatening network edge stability. Locally, Nairobi faces overcast conditions at 23.1°C alongside EPRA energy tariff recalibrations. We must fortify network perimeters against active zero-days, shield KES capital from freight-driven inflationary shocks, and maintain continuous operational redundancy across our local infrastructure. My sensors are locked and vigilant, Obi.",
-    "conflict_summary": "Maritime choke-point instability at Bab-el-Mandeb forces global shipping round the Cape of Good Hope (+10-14 day delay), elevating Mombasa port throughput costs by up to 250%. In the Horn of Africa, Somaliland-Ethiopian maritime diplomatic rift combined with GERD hydro-politics maintains heightened regional military readiness, threatening trade corridor security.",
-    "future_risk_forecast": "Over the next 7-30 days, anticipate secondary inflation on technology hardware imports and consumer goods in Kenya, KES liquidity volatility due to foreign exchange freight demands, and targeted cyber probing against East African edge firewalls utilizing active Cisco VPN crash vulnerabilities.",
-    "defensive_protocol": "1. Audit and patch edge firewalls immediately; disable legacy Cisco SSL VPN interfaces and enforce zero-trust zero-day mitigations.\n2. Pre-fund high-priority hardware acquisitions to bypass impending 14-day Red Sea shipping delays and price surcharges.\n3. Verify solar/UPS battery failover and secondary multi-carrier LTE/satellite links for Nairobi operations ahead of EPRA grid adjustments.",
-    "asymmetric_upside": "1. Leverage local software automation to provide supply-chain visibility tools for regional logistics firms navigating port disruptions.\n2. Accumulate value-yielding NSE equities (Safaricom, Co-operative Bank) benefiting from high interest rate environments and domestic fee income.\n3. Position specialized security audit offerings for expanding regional tech centers like Swahilipot Hub to capture growing enterprise security demand.",
-    "created_at": "2026-11-01T08:02:48.732952+00:00"
+    "sitrep": "Nairobi remains stable at 22.6°C under clear skies while regional security tightens across the Horn of Africa following Sudanese interception of an incoming cross-border drone. Globally, critical CVE disclosures in enterprise infrastructure and widening cyber threat-sharing legislation underscore the need for reinforced zero-trust perimeters.",
+    "conflict_summary": "In the Horn of Africa, the Sudanese Armed Forces' interception of a drone originating from Ethiopia highlights escalating aerial friction along contested corridors. Simultaneously, the Pentagon's Pacific IT bridging initiatives and increased threat-sharing push in defense authorization bills reflect global preparations for distributed, multi-vector electronic and kinetic engagements.",
+    "future_risk_forecast": "Localized cybersecurity threats driven by supply chain vulnerabilities (such as recent Zoho and Zyxel CVEs) risk spilling into regional cloud dependencies. Continued energy and import tariff pressures may introduce latent inflationary ticks into the Kenyan Shilling (KES) ecosystem over the next 14 to 30 days.",
+    "defensive_protocol": "• Execute automated patch audits across all local and cloud-hosted Linux/PostgreSQL instances to neutralize exposure to recently flagged high-severity CVEs.\n• Verify integrity checks and strict rate-limiting on all active API endpoints and remote management interfaces.\n• Maintain strict redundancy in local power and internet fallback systems across Nairobi operations to insulate against regional grid fluctuations.",
+    "asymmetric_upside": "• Evaluate defensive enterprise software plays and cybersecurity tooling demand catalyzed by rising global ransomware breaches.\n• Monitor Safaricom (SCOM) liquidity shifts on the NSE following societal value creation reports for tactical entry windows.\n• Deploy automated differential state compression routines to minimize cloud compute overhead and optimize operational margins.",
+    "created_at": "2026-11-03T09:25:40.421299+00:00"
   },
   "weather": [
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 23.1,
-      "humidity": 63,
-      "wind_kmh": 10.3,
-      "condition": "Overcast",
-      "updated_at": "2026-11-01T08:02:00.897892+00:00"
+      "temp_c": 22.6,
+      "humidity": 60,
+      "wind_kmh": 8.5,
+      "condition": "Mainly Clear",
+      "updated_at": "2026-11-03T09:23:13.554594+00:00"
     },
     {
       "city": "Nairobi",
       "scope": "LOCAL",
-      "temp_c": 23.1,
-      "humidity": 63,
-      "wind_kmh": 10.3,
-      "condition": "Overcast",
-      "updated_at": "2026-11-01T08:02:01.305741+00:00"
+      "temp_c": 22.6,
+      "humidity": 60,
+      "wind_kmh": 8.5,
+      "condition": "Mainly Clear",
+      "updated_at": "2026-11-03T09:23:14.514470+00:00"
     },
     {
       "city": "London",
       "scope": "GLOBAL",
-      "temp_c": 9.8,
-      "humidity": 85,
-      "wind_kmh": 4.3,
-      "condition": "Overcast",
-      "updated_at": "2026-11-01T08:02:01.707418+00:00"
+      "temp_c": 9.6,
+      "humidity": 76,
+      "wind_kmh": 14.0,
+      "condition": "Clear",
+      "updated_at": "2026-11-03T09:23:14.954288+00:00"
     },
     {
       "city": "New York",
       "scope": "GLOBAL",
-      "temp_c": 5.3,
-      "humidity": 77,
-      "wind_kmh": 7.3,
-      "condition": "Mainly Clear",
-      "updated_at": "2026-11-01T08:02:02.774460+00:00"
+      "temp_c": 9.6,
+      "humidity": 86,
+      "wind_kmh": 6.8,
+      "condition": "Clear",
+      "updated_at": "2026-11-03T09:23:18.019366+00:00"
     },
     {
       "city": "Tokyo",
       "scope": "GLOBAL",
-      "temp_c": 18.2,
-      "humidity": 61,
+      "temp_c": 16.7,
+      "humidity": 58,
       "wind_kmh": 2.6,
       "condition": "Partly Cloudy",
-      "updated_at": "2026-11-01T08:02:03.481652+00:00"
+      "updated_at": "2026-11-03T09:23:20.805813+00:00"
     }
   ],
   "cyber": [
@@ -66,7 +66,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-29583",
       "content_hash": "9f081a6e1d190b3adb67bea03885f7d65d18b78730b9c2c87cf597ad796249dc",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889023+00:00"
+      "created_at": "2026-11-03T09:24:25.636981+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -78,7 +78,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-8394",
       "content_hash": "dcf56971dec638c1e32bbc4863650ecccaa3af1c85cf2da3c1c671840c6eaeba",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889065+00:00"
+      "created_at": "2026-11-03T09:24:25.637004+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -90,7 +90,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-10189",
       "content_hash": "617c981616242dca0a79d74e690e201fa8363243f0fca31311c73e72299ea8a9",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889084+00:00"
+      "created_at": "2026-11-03T09:24:25.637011+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -102,7 +102,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-40539",
       "content_hash": "a0a7f6dce826b88ebb232c56805a6e18d05107d19068a3fb93dd0b621606f8f4",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889100+00:00"
+      "created_at": "2026-11-03T09:24:25.637017+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -114,7 +114,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-27561",
       "content_hash": "f2e8bbcb50ba59a8e1ff4f38363f496625804d18d53be7d4a45da85e33ab94f1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889115+00:00"
+      "created_at": "2026-11-03T09:24:25.637023+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -126,7 +126,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2019-9978",
       "content_hash": "0172212bf226992607a8a51bb7ec0b2612440984f13a9e3e8b0418fad56173a1",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889132+00:00"
+      "created_at": "2026-11-03T09:24:25.637029+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -138,7 +138,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-11738",
       "content_hash": "895a24212bff3837e00307321f30d072fabdd1b8ffb152b643d8b9503297748c",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889148+00:00"
+      "created_at": "2026-11-03T09:24:25.637034+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -150,7 +150,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-25213",
       "content_hash": "25047194a1fb08666eece4829b771542f068bad1a307586569ca0631c5c446d7",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889163+00:00"
+      "created_at": "2026-11-03T09:24:25.637040+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -162,7 +162,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-4006",
       "content_hash": "d96607a458fb92b0ad954e7ec202dd8e5339c638e4f43d7b7d373a473c45462a",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889179+00:00"
+      "created_at": "2026-11-03T09:24:25.637046+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -174,7 +174,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21985",
       "content_hash": "0519b9eb873c86afe0f3b3964b796bf66ff912cfa74eff08bddee80945e4bcc3",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889195+00:00"
+      "created_at": "2026-11-03T09:24:25.637051+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -186,7 +186,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-21972",
       "content_hash": "6a15875afd5b6a0fc8b5116f6ded20c3b55fe218ed24823a9c41c945d0488645",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889210+00:00"
+      "created_at": "2026-11-03T09:24:25.637057+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -198,7 +198,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3952",
       "content_hash": "16fbba0f67a35e0d9abb77c5a704a8ec673bc65bef31c73e0e2b582dceefd527",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889225+00:00"
+      "created_at": "2026-11-03T09:24:25.637062+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -210,7 +210,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2021-22005",
       "content_hash": "8a7fe7a2172f4b0c3668a5827802771468f76277393fa4431ad437befb08ba97",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889240+00:00"
+      "created_at": "2026-11-03T09:24:25.637068+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -222,7 +222,7 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3950",
       "content_hash": "e4f53315ecff6219811605bb364839d390f5de7c151d53ef8fe2d3f802ad0946",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889255+00:00"
+      "created_at": "2026-11-03T09:24:25.637073+00:00"
     },
     {
       "category": "CVE-KEV",
@@ -234,322 +234,326 @@
       "link": "https://nvd.nist.gov/vuln/detail/CVE-2020-3992",
       "content_hash": "f4becfb39bd99c21aa036bc17049549112dde23f9fe030037cb5628a0a3650ee",
       "published_at": "2021-11-03T00:00:00Z",
-      "created_at": "2026-11-01T08:02:11.889271+00:00"
-    },
-    {
-      "category": "THREAT-INTEL",
-      "source": "The Hacker News",
-      "cve_id": null,
-      "severity": "ADVISORY",
-      "title": "Hackers Steal About $2.7 Million From Polymarket Traders via Hijacked DebugBear Script",
-      "summary": null,
-      "link": "https://thehackernews.com/2026/11/hackers-steal-about-27-million-from.html",
-      "content_hash": "0be8bf2ef44d70a97c8dab1dbfa7f7d18aded0112b0e58ceb8d5e649165e4aa3",
-      "published_at": "Sun, 01 Nov 2026 12:55:40 +053",
-      "created_at": "2026-11-01T08:02:13.122846+00:00"
+      "created_at": "2026-11-03T09:24:25.637079+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "The Hacker News",
       "cve_id": null,
       "severity": "HIGH",
-      "title": "NetamLoader Malware Targets Government Windows 10 Systems in Asia via .NET Injection",
+      "title": "Hackers Exploit BTCPay Server Flaw to Steal Bitcoin and Litecoin From Hot Wallets",
       "summary": null,
-      "link": "https://thehackernews.com/2026/11/netamloader-malware-targets-government.html",
-      "content_hash": "30cd804c73c523cc98ab4aa2e607e9546e7376d001aef3d229dd6d3356fc76bd",
-      "published_at": "Sun, 01 Nov 2026 12:32:58 +053",
-      "created_at": "2026-11-01T08:02:13.122866+00:00"
+      "link": "https://thehackernews.com/2026/11/hackers-exploit-btcpay-server-flaw-to.html",
+      "content_hash": "21ed47f47291caed2afb668edc4396e92e975cc3c78c278b1cdcd80bf7812008",
+      "published_at": "Tue, 03 Nov 2026 14:01:48 +053",
+      "created_at": "2026-11-03T09:24:26.849492+00:00"
+    },
+    {
+      "category": "THREAT-INTEL",
+      "source": "The Hacker News",
+      "cve_id": null,
+      "severity": "CRITICAL",
+      "title": "Synology NAS Devices Targeted in Ransomware Attacks Exploiting Patched DSM Flaw",
+      "summary": null,
+      "link": "https://thehackernews.com/2026/11/synology-nas-devices-targeted-in.html",
+      "content_hash": "ec5e12db8375387ff6a22fe3b9dc2cc26a80644109926b61e71bee2ce88a9c9b",
+      "published_at": "Tue, 03 Nov 2026 13:13:07 +053",
+      "created_at": "2026-11-03T09:24:26.849511+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "The Hacker News",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "FBI Links North Korea's TraderTraitor to Record $6.43 Billion Binance Crypto Heist",
+      "title": "New Wave of Refrigeration Cyberattacks Hits Supermarkets Across Europe, Forcing Stores to Pull Food",
       "summary": null,
-      "link": "https://thehackernews.com/2026/11/fbi-links-north-koreas-tradertraitor-to.html",
-      "content_hash": "063747f7c077c53397f612bb908ea18fa859ab6cecd041fa55ea8c8e2e0178a1",
-      "published_at": "Sun, 01 Nov 2026 12:14:27 +053",
-      "created_at": "2026-11-01T08:02:13.122876+00:00"
+      "link": "https://thehackernews.com/2026/11/second-wave-of-cyberattacks-hits.html",
+      "content_hash": "296477f34d270868b760e0137af94cf63ddfebb907ec2c74e167e1360c6162f5",
+      "published_at": "Tue, 03 Nov 2026 12:57:07 +053",
+      "created_at": "2026-11-03T09:24:26.849521+00:00"
+    },
+    {
+      "category": "THREAT-INTEL",
+      "source": "The Hacker News",
+      "cve_id": null,
+      "severity": "HIGH",
+      "title": "Attackers Exploit Critical Siemens IoT2050 Flaw to Plant Remote Command Backdoors",
+      "summary": null,
+      "link": "https://thehackernews.com/2026/11/attackers-exploit-critical-siemens.html",
+      "content_hash": "ee94dc183de375d17b46bbe99b0b484b12bd8f7cd58f0f1ff146f4d86f3e1ae8",
+      "published_at": "Tue, 03 Nov 2026 11:04:41 +053",
+      "created_at": "2026-11-03T09:24:26.849530+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "The Hacker News",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Chainalysis Confirms Intrusion Into Internal Tools and Exposure of Customer Identity Data",
+      "title": "Attackers Target Unpatched CryptoPayment Gateway Flaw That Can Expose Wallet Credentials",
       "summary": null,
-      "link": "https://thehackernews.com/2026/10/chainalysis-confirms-intrusion-into.html",
-      "content_hash": "f10dd8267818811eec00b469cd416fba824146a5799e8b5af3c9582f5f027d3d",
-      "published_at": "Sat, 31 Oct 2026 17:31:56 +053",
-      "created_at": "2026-11-01T08:02:13.122885+00:00"
+      "link": "https://thehackernews.com/2026/11/attackers-target-unpatched.html",
+      "content_hash": "77eb7e8d4f1d44a5aa9431e234043ac1a8f173f7e271ae2ff7a7172fc1abe3f9",
+      "published_at": "Tue, 03 Nov 2026 11:04:37 +053",
+      "created_at": "2026-11-03T09:24:26.849538+00:00"
     },
     {
       "category": "THREAT-INTEL",
-      "source": "The Hacker News",
+      "source": "BleepingComputer",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Attackers Chain Three Ivanti Connect Secure Flaws to Gain Unauthenticated Root Access",
+      "title": "Chinese hackers use ARTEX AI in automated attacks against 200 orgs",
       "summary": null,
-      "link": "https://thehackernews.com/2026/10/attackers-chain-three-ivanti-connect.html",
-      "content_hash": "d87dd308577a8c2fb6396a3726a83671def6c91fc3642946278686ac7ec80d3c",
-      "published_at": "Sat, 31 Oct 2026 13:57:43 +053",
-      "created_at": "2026-11-01T08:02:13.122894+00:00"
+      "link": "https://www.bleepingcomputer.com/news/security/chinese-hackers-use-artex-ai-in-automated-attacks-against-200-orgs/",
+      "content_hash": "8578c2e41ceec84fea444aea1eda0dde2393d45ab9f9a9d639742de5b3bd5ad3",
+      "published_at": "Mon, 02 Nov 2026 16:40:14 -050",
+      "created_at": "2026-11-03T09:24:27.507277+00:00"
+    },
+    {
+      "category": "THREAT-INTEL",
+      "source": "BleepingComputer",
+      "cve_id": null,
+      "severity": "ADVISORY",
+      "title": "Fintech platform Sageworks taken offline after suspected cyberattack",
+      "summary": null,
+      "link": "https://www.bleepingcomputer.com/news/security/fintech-platform-sageworks-taken-offline-after-suspected-cyberattack/",
+      "content_hash": "5d66e7307ab8d4ff4740ec2dfe0d291a1d059af6ffe4491b68b433ef0d891fc4",
+      "published_at": "Mon, 02 Nov 2026 14:00:45 -050",
+      "created_at": "2026-11-03T09:24:27.507298+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "BleepingComputer",
       "cve_id": null,
       "severity": "HIGH",
-      "title": "Northflank security breach leads to abuse of customers' AI API keys",
+      "title": "Google disrupts million-device XCPE Android malware botnet, bans TV box maker",
       "summary": null,
-      "link": "https://www.bleepingcomputer.com/news/security/northflank-security-breach-leads-to-abuse-of-customers-ai-api-keys/",
-      "content_hash": "d31419837e0ad53193d5218a75ce59cd450d1bf30bb4fb9866873300a1477707",
-      "published_at": "Sat, 31 Oct 2026 14:01:12 -040",
-      "created_at": "2026-11-01T08:02:13.401095+00:00"
-    },
-    {
-      "category": "THREAT-INTEL",
-      "source": "BleepingComputer",
-      "cve_id": null,
-      "severity": "HIGH",
-      "title": "New Android SMS of Death exploit can remotely crash unpatched phones",
-      "summary": null,
-      "link": "https://www.bleepingcomputer.com/news/security/new-android-sms-of-death-exploit-can-remotely-crash-unpatched-phones/",
-      "content_hash": "739ed7ccfd8e00c2a06179d4a38197739a65cb3b9f5ee953f45080e0c4a855b7",
-      "published_at": "Sat, 31 Oct 2026 11:35:11 -040",
-      "created_at": "2026-11-01T08:02:13.401135+00:00"
+      "link": "https://www.bleepingcomputer.com/news/security/google-disrupts-million-device-xcpe-android-malware-botnet-bans-tv-box-maker/",
+      "content_hash": "f4f37edbdbbd58dbe0de38c99e5d96f6efb92499ebb1e545ffbd115bbf5f0f06",
+      "published_at": "Mon, 02 Nov 2026 13:16:34 -050",
+      "created_at": "2026-11-03T09:24:27.507310+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "BleepingComputer",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Reddit to lock content behind logins to fight scrapers",
+      "title": "BTCPay Server warns of hot wallet crypto thefts on outdated instances",
       "summary": null,
-      "link": "https://www.bleepingcomputer.com/news/security/reddit-to-lock-content-behind-logins-to-fight-scrapers/",
-      "content_hash": "e2d80d4cf834d8533033923384a499c74730f5fd1dc360bf94b5c7b91699522d",
-      "published_at": "Sat, 31 Oct 2026 10:05:15 -040",
-      "created_at": "2026-11-01T08:02:13.401164+00:00"
+      "link": "https://www.bleepingcomputer.com/news/security/btcpay-server-warns-of-hot-wallet-thefts-targeting-outdated-instances/",
+      "content_hash": "6cb10cf414cbac58ef3369432b7578c84e394317a16fcf3cef2649acfe315643",
+      "published_at": "Mon, 02 Nov 2026 10:03:07 -050",
+      "created_at": "2026-11-03T09:24:27.507320+00:00"
     },
     {
       "category": "THREAT-INTEL",
       "source": "BleepingComputer",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "From Beginner to Bug Hunter: Learning Cybersecurity in the AI Era.",
+      "title": "Your Mobile Carrier Stores Your Call Logs for Years",
       "summary": null,
-      "link": "https://www.bleepingcomputer.com/news/security/from-beginner-to-bug-hunter-learning-cybersecurity-in-the-ai-era/",
-      "content_hash": "e15954fdbd3c62d4346a4cb3472ecddbff9de3dba83b05ba1ae6ff596a5c7892",
-      "published_at": "Sat, 31 Oct 2026 09:10:19 -040",
-      "created_at": "2026-11-01T08:02:13.401179+00:00"
-    },
-    {
-      "category": "THREAT-INTEL",
-      "source": "BleepingComputer",
-      "cve_id": null,
-      "severity": "HIGH",
-      "title": "Chainalysis discloses data breach from \"offensive agentic techniques\"",
-      "summary": null,
-      "link": "https://www.bleepingcomputer.com/news/security/chainalysis-discloses-data-breach-from-offensive-agentic-techniques/",
-      "content_hash": "ef222c7a1b0649c2997501bff4c4e500fa41abf2393a2d9c9d167e2c88d4bb7d",
-      "published_at": "Sat, 31 Oct 2026 08:50:09 -040",
-      "created_at": "2026-11-01T08:02:13.401188+00:00"
+      "link": "https://www.bleepingcomputer.com/news/security/your-mobile-carrier-stores-your-call-logs-for-years/",
+      "content_hash": "f07f1de2adf398da26d7e9fe38e2bd8a798e485435e3632ddd049f92b8aaa955",
+      "published_at": "Mon, 02 Nov 2026 10:01:11 -050",
+      "created_at": "2026-11-03T09:24:27.507330+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Calls to boost AI-driven cybersecurity cooperation against cybercrime - Kenya News Agency",
+      "title": "Kenya’s Cybersecurity Agency Gets A Board. The Law Has Yet To Catch Up - CIO Africa",
       "summary": null,
-      "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxNaVZCMjlvb0dsZzllelVvZjRZckFPRXAzU3h0Q1lOWHFKQ3RxWW1GaHhoOHh4VHFaVS1LTFM0TkVVamVLWjVhVGx1ZUxmeHRiNllkUUNnMk5yT3RmZWpMWlItOHhpbjBoNXY5dDdKZTFNcC1Ua1RSZWRHRThiem1BV29uOTY1MjF3MXgzWklsY3lfOFR1c1lXWDZkOGtIYkk?oc=5",
-      "content_hash": "744a5e138732ac55f96a8b356f5a1fde2be81ac4731777acb197e00384939acf",
-      "published_at": "Wed, 28 Oct 2026 17:39:19 GMT",
-      "created_at": "2026-11-01T08:02:13.853569+00:00"
+      "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNRG5hQUpRSmpNNzMwQkRWYllFckFNMjJEU1ZTUHZLOUtmV18tYzNiQ0VkT25vczlCOFpEQWhEQThoTzVDcXhvUVVRUHJNRWhweWp3SFJ6QjJTRG1jRUlfY01fX3JGU1RrcE9PSTd4WG96RWF3QWo5Qlp4QmdwX0hKR0phakxZeGUwbGZZQ25XMlFoT0I1?oc=5",
+      "content_hash": "ce35feae071fef3fb507d2beba2bafc903c1bee030c3baa6be882620ab47bde4",
+      "published_at": "Tue, 03 Nov 2026 09:12:47 GMT",
+      "created_at": "2026-11-03T09:24:29.338831+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Huawei Kenya trains, certifies youth in cybersecurity skills - The Star, Kenya",
+      "title": "New agency told to enhance Kenya’s cybersecurity resilience - KBC Digital",
       "summary": null,
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxOVlFmeWY5RTJUaTNmTEgxdktVNkczcTc0ZW9yMWpyWm5wYlZBejRYZXpzcjJENlRMTG5qZnI2WkotVmJRTWFMQlVpbXhjZHd2a1JZeEpKMlRNZWVSWEN0RXhkbDA1SDcxOURiaFR4amRxRVMxbGlFT21vUzRjYVpnMEdZRXFtMlJzSzFwNG1VMGR0NWNsMzdERmpZMnJOV2VhOU9oWEgxNTJrN1lWMEVIREt0QQ?oc=5",
-      "content_hash": "aa0016a1b05202bcf3a336f58165560b0956076b9cc8735a60c1ff3d723d3fa0",
-      "published_at": "Fri, 30 Oct 2026 15:01:00 GMT",
-      "created_at": "2026-11-01T08:02:13.853602+00:00"
+      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNUk5SeGxyLVVYanJ1Mmc5Z1lJUGd0YmdrZDNGSHkwSVZ4d0cyeXdNM0QweEUyTlNiRmpXdnhrbUlXSGI5bmpzY1NOVnJpVVdGUlloc1A4RGY0d2J1am5RU0pHa25XTlpsb2QtLWpCMjRVbW11Z0dESzZ3cW40LVpCYlh3Ukw?oc=5",
+      "content_hash": "9b0a74a234c31878c7cb9f80837638ea776fc0d87cdd2c9bdb2d048e64ebf1ac",
+      "published_at": "Mon, 02 Nov 2026 10:12:16 GMT",
+      "created_at": "2026-11-03T09:24:29.338855+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Kabogo warns of AI-powered fraud, phishing as Kenya strengthens cybersecurity - People Daily",
+      "title": "Kenya moves to build homegrown cyber defence solutions as new board takes office - The Eastleigh Voice",
       "summary": null,
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOMGlYOUFaVy1PTTNHSHlXaTh6cklnQ0xSU3g3dXdYbjhWZGxsR0t4N1dXZ0NNd0pKM2NIOU0xQkdTUF9BdFNXYUk2bTBJYi1iM0h3TWZUM21WNmZIc2FnVEVhSzJHd1pvMnRBR0FvWFBJQ25URF9aVmxXR0xDTzhyNG1DLUEzTzNqRjV6Rnp4c0Y0Qm80ZXFQWnVvSGV2TkkwbWd5Rk9CR1RJTXYyTnc?oc=5",
-      "content_hash": "2c77f445a49add8fdb3b5a81c3c6bc7a69e27c0175389c663aac488212e5520e",
-      "published_at": "Wed, 14 Oct 2026 07:00:00 GMT",
-      "created_at": "2026-11-01T08:02:13.853620+00:00"
+      "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPZ28wTVQ1eDE1Yzh6dndVdm5wQW94TldvM3ZyZ1BkTElFY0RNSEVRWGNkeW8tTzlhYkpoMElmREFaQ19kdjFlVmRmdzBnb0owUlFZU09UTFBiWlFwb3daR2FNeGhoa3BfbFlnVUp6ZXJjcFJoYUQ5aXJwaEhzNkhuQ3dybVpCOFgyamxCbjRZLUd1ZTN6bFN3ZEFJUkdTT3d6TmwxN3FRZ25EOUJvdjNmbFRUN3RfUjVCUkd4ZDVR?oc=5",
+      "content_hash": "42552c415eaaa06b98128dae97b07d5d99c27038ed6fc65387714cd7ce4c191c",
+      "published_at": "Mon, 02 Nov 2026 17:11:44 GMT",
+      "created_at": "2026-11-03T09:24:29.338867+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "The 12 Cybersecurity Issues at a Glance - Vellum Kenya",
+      "title": "Murkomen inaugurates board to tighten Kenya's cybersecurity - The Star, Kenya",
       "summary": null,
-      "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9HODJGOHlCUWswNFBFZmZXdEIzaWtjWmczblNzZjRpZlBTckRrallacms0ZGsydm5LdDRNel8tSXRncUR2VzdGQlNwUzVWMkVoLXBNWlpDQjNVOXo2V3ZTTWRjVTdYanlLcWk0YmJn?oc=5",
-      "content_hash": "0b4fc2819acd1056541e1247d12a3cc666ee07dbf0cd5913e2f46dd37150a223",
-      "published_at": "Sat, 17 Oct 2026 10:51:27 GMT",
-      "created_at": "2026-11-01T08:02:13.853637+00:00"
+      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQd255MWpodW01Rk1lWFJlRWdYMDZ3SDRJUVk5dWptV2RTbVUxWVdFaWkxa2ZaalRKRlc3M0dPN2VrZE5ZUDBXdDZmSXFzWGlEMjFsVDVLSzAtT0txQ2JMem5rdkpzRkRxTTlLWmZEMmdkOFVBcmtxV3N3SnQ2WXh1SlUzcUdhTV9xNV9ZZUhaazlUR0djSHZzREdKZ1JyeDFHX0E0?oc=5",
+      "content_hash": "d005f168a788725b4441d3eb0ae9c91583641a331160dc4570935d701cde3a0a",
+      "published_at": "Mon, 02 Nov 2026 09:33:00 GMT",
+      "created_at": "2026-11-03T09:24:29.338876+00:00"
     },
     {
       "category": "LOCAL-CYBER",
       "source": "Kenya Cyber Monitor",
       "cve_id": null,
       "severity": "ADVISORY",
-      "title": "Kenya Appoints Martin Koyabe as Inaugural Chair of National Cybersecurity Agency - TechAfrica News",
+      "title": "Kenya inaugurates National Cybersecurity Agency board to counter rising digital threats - Dawan Africa",
       "summary": null,
-      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNam9XUlhmd1RGTlVPMlNINGRLWGtkZ3FRTXBZTmpKUklPdXBXQTRacmprME84NGdJMDNSTDRzN3hrS25rdGlkbFlUQnpSWHNtQnExYVJIQVduZTVFbnVWZ1Fvekd0Tm10QUZJTVpYb0ZCanZJZzVEbVFVUjBKZktTYVZwSjJHc01tajlkOFZOelJjaU8yVDRDZlRmX1dxamxiaU90NkhDdFpMSUVNbFMwYm5YZw?oc=5",
-      "content_hash": "50a093682e6d515b975011c31edfb9be5291618ff51c5702ab12d80ca7026f27",
-      "published_at": "Mon, 24 Aug 2026 07:00:00 GMT",
-      "created_at": "2026-11-01T08:02:13.853655+00:00"
+      "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNMDdHSlNxLXlSbDJKZ1AwWVk0Rnk0YTQwV0dEQ2ljUFp2SXcyOUhmM0x0QVJ1U18xOFVqQWVNOTRZZHFpOGRvdVJZZGtkY3pWTFdLOXNqYlVtcmFyaVIyQVF1QTZNVjBnNVZFTVhyU0dBQmoyb3BMWWNycE4yVnVHcEtGRFlEUU1rTkpWMUxzaG9BejZqZEVQcW5lbk5DYUxBQnAzSW90MnRBLU1wemFCT2RyZkJ5UEo0?oc=5",
+      "content_hash": "f9aa3026e568aa292865747b0d60130313c38985da49f2b3b8ba610033b9cb58",
+      "published_at": "Mon, 02 Nov 2026 16:18:14 GMT",
+      "created_at": "2026-11-03T09:24:29.338885+00:00"
     }
   ],
   "news": [
     {
       "scope": "LOCAL",
       "source": "Silicon Savannah Tech Wire",
-      "title": "👏👏 - LinkedIn // [TACTICAL INTEL]: For Michael, this is an opportunity to expand his network and potentially source talent or partnerships from the Swahilipot ecosystem. The government's report could also open doors",
-      "description": "👏👏&nbsp;&nbsp;LinkedIn",
-      "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOeGdOUjhWTVphSXNrcFI4bFlQSkduTmMwTVdERmE0eVdRbkFSZ0xFRFI0aWZjQUN2VjA5N2RzbUpqOVhFeFhETXp3ekNtQVc0YkpQRTlkOWQyaGlHeENVVVBPZk9mT0JBdkVQZS10TUxNVjZoRC12OHpKWmVYcGpDZ0VMWlM3THlxc2VtZUVEWGxNNlFNSUN4UA?oc=5",
-      "content_hash": "4fad92b2c828af415e5ad1677f8d6090d740fb8b898a796b3220359b43958001",
-      "published_at": "Sun, 01 Nov 2026 07:16:25 GMT",
-      "created_at": "2026-11-01T08:02:06.800945+00:00",
-      "in_depth_context": "The Swahilipot Hub represents a growing tech corridor outside Nairobi, potentially offering new talent pools, lower operational costs, and fresh market opportunities. The government's report on marginalized communities may lead to new policies, funding streams, or regulatory changes that affect how tech companies operate and who they serve.",
-      "why_it_matters": "For Michael, this is an opportunity to expand his network and potentially source talent or partnerships from the Swahilipot ecosystem. The government's report could also open doors to new markets or grant opportunities if his tech solutions align with inclusion goals. Ignoring these local shifts could mean missing out on early-mover advantages.",
-      "subject": "Kenya Local Tech Ecosystem: Swahilipot Hub & Minority Inclusion"
-    },
-    {
-      "scope": "LOCAL",
-      "source": "Silicon Savannah Tech Wire",
-      "title": "Creative way to pick color for interior design - LinkedIn // [TACTICAL INTEL]: For Michael, this is an opportunity to expand his network and potentially source talent or partnerships from the Swahilipot ecosystem. The government's report could also open doors",
-      "description": "Creative way to pick color for interior design&nbsp;&nbsp;LinkedIn",
-      "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQTTI0SnZrN0V3eWdFSnlaSjUtd3FqS2xhSWhMNlFiNkdQS0JDWVFPdk1oSl9xWU5wa1h3MXR0TTNzWWEyazhXQkRlVFVuZnBaMlVfQmRqc25nNHRtNjNwWHNKTUF0bWhtbzZsT0NOaGdHa1JGaXp6dEZDNS00MW9RaE1YcTNETGQ2dTA2aC1ObjE5eHQ0UXBKTVpkQnZKc3lqallvcUVEZDRtVTJ1UWZQeXVqbHpiOXZNamZsU1ZYMWFmUElnVGpIVlkwOE9kT0dJeDlYem9kNA?oc=5",
-      "content_hash": "9090b06ecfd9be8945c490d841ed4b30b6fbd8573ef8e225a933782ec4b1923c",
-      "published_at": "Sun, 01 Nov 2026 05:09:31 GMT",
-      "created_at": "2026-11-01T08:02:06.801021+00:00",
-      "in_depth_context": "The Swahilipot Hub represents a growing tech corridor outside Nairobi, potentially offering new talent pools, lower operational costs, and fresh market opportunities. The government's report on marginalized communities may lead to new policies, funding streams, or regulatory changes that affect how tech companies operate and who they serve.",
-      "why_it_matters": "For Michael, this is an opportunity to expand his network and potentially source talent or partnerships from the Swahilipot ecosystem. The government's report could also open doors to new markets or grant opportunities if his tech solutions align with inclusion goals. Ignoring these local shifts could mean missing out on early-mover advantages.",
-      "subject": "Kenya Local Tech Ecosystem: Swahilipot Hub & Minority Inclusion"
-    },
-    {
-      "scope": "LOCAL",
-      "source": "Silicon Savannah Tech Wire",
-      "title": "Kenya to launch report mapping minority and marginalised communities - People Daily // [TACTICAL INTEL]: For Michael, this is an opportunity to expand his network and potentially source talent or partnerships from the Swahilipot ecosystem. The government's report could also open doors",
-      "description": "Kenya to launch report mapping minority and marginalised communities&nbsp;&nbsp;People Daily",
-      "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQWXlva1o1dUdfZWxET2tLcUdoa3NKSmVxcUJ1akJVeVV3MERyQUk2UVo0emdWUFk4ZzdQbjE2a25XRTBnaGpsSGE2RmtBaXRvQno4bEZpVWZteXpFYl9vbnpjVzBlR2VuNVJuWXVsMzgycGV4RjBkQ01LYktLSlhYejZ5Z1V3WWJ6OV9mamdlMFB6aTJqWWRkTkxHMDJHUklKNFFZ?oc=5",
-      "content_hash": "86d23d3311e7e145ce5b847a1e58dafaf209f3b9a4ae5691ff3e38b397145655",
-      "published_at": "Thu, 29 Oct 2026 20:30:50 GMT",
-      "created_at": "2026-11-01T08:02:06.801050+00:00",
-      "in_depth_context": "The Swahilipot Hub represents a growing tech corridor outside Nairobi, potentially offering new talent pools, lower operational costs, and fresh market opportunities. The government's report on marginalized communities may lead to new policies, funding streams, or regulatory changes that affect how tech companies operate and who they serve.",
-      "why_it_matters": "For Michael, this is an opportunity to expand his network and potentially source talent or partnerships from the Swahilipot ecosystem. The government's report could also open doors to new markets or grant opportunities if his tech solutions align with inclusion goals. Ignoring these local shifts could mean missing out on early-mover advantages.",
-      "subject": "Kenya Local Tech Ecosystem: Swahilipot Hub & Minority Inclusion"
-    },
-    {
-      "scope": "LOCAL",
-      "source": "Silicon Savannah Tech Wire",
-      "title": "Swahilipot Hub continues to showcase its tech and startup ecosystem - Kenya News Agency // [TACTICAL INTEL]: For Michael, this is an opportunity to expand his network and potentially source talent or partnerships from the Swahilipot ecosystem. The government's report could also open doors",
-      "description": "Swahilipot Hub continues to showcase its tech and startup ecosystem&nbsp;&nbsp;Kenya News Agency",
-      "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOUDlTUERVVjR4R0cwaXVNOHhIS3padGFETlVVdjNDNXAwX1ZfYzZzelE4dWlWVDdMQTI1cmtMQ29BbmdDZV83VGJGVzkwNnA4WHJJeG9EYmxKaEpWSVQ5YlBkT0pKbXZqb29aVC1xdGVSVEVDcWd1QkUyUG9fV0VSUGFtWU15UzQ3M2xYNmhNM2lIeDlZQWFSaXU5UjM?oc=5",
-      "content_hash": "f0abb2ef8ba993b229307d9b637e3b7ed24108b738517800285bc8f6ef9b2191",
-      "published_at": "Thu, 29 Oct 2026 17:12:24 GMT",
-      "created_at": "2026-11-01T08:02:06.801075+00:00",
-      "in_depth_context": "The Swahilipot Hub represents a growing tech corridor outside Nairobi, potentially offering new talent pools, lower operational costs, and fresh market opportunities. The government's report on marginalized communities may lead to new policies, funding streams, or regulatory changes that affect how tech companies operate and who they serve.",
-      "why_it_matters": "For Michael, this is an opportunity to expand his network and potentially source talent or partnerships from the Swahilipot ecosystem. The government's report could also open doors to new markets or grant opportunities if his tech solutions align with inclusion goals. Ignoring these local shifts could mean missing out on early-mover advantages.",
-      "subject": "Kenya Local Tech Ecosystem: Swahilipot Hub & Minority Inclusion"
+      "title": "Safaricom creates Sh1.25 trillion in value for Kenyan society - Kenya News Agency // [TACTICAL INTEL]: For Michael, this confirms the stability and growth trajectory of the primary digital infrastructure he likely relies on or competes with. It validates the Kenyan market's digital ",
+      "description": "Safaricom creates Sh1.25 trillion in value for Kenyan society&nbsp;&nbsp;Kenya News Agency",
+      "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxPc0RBRUtvcnZ5Y3k0c1EzdzdCcV9SV3docEtkaTVJS2N1QzJTU3lpSnpzSGRmYlNvWTA5RmdFcWdnTC0wbExZNGxjTUVsWmRiZ3h1cUd2N1FldGNlRzVhSHFodXRZcUkzZFhhV0VyTVliOEVnUnl2Tk8tc2VqX0lKYlJvVTlfWFFic3YtWVc4UG5aMXdI?oc=5",
+      "content_hash": "a3f4daa255ffc6d5ec1e60fa398cfca1cd246c55a9a5998b4b3d3d4f6f3d6781",
+      "published_at": "Thu, 29 Oct 2026 16:12:09 GMT",
+      "created_at": "2026-11-03T09:24:16.347842+00:00",
+      "in_depth_context": "This figure likely encompasses direct revenue, tax contributions, and broader economic multipliers from mobile money and digital services. It reinforces Safaricom's position as a quasi-infrastructure utility rather than just a telco. This dominance creates a 'winner-takes-most' dynamic in the Kenyan digital space, influencing API costs, data pricing, and the viability of competing fintech or cloud providers.",
+      "why_it_matters": "For Michael, this confirms the stability and growth trajectory of the primary digital infrastructure he likely relies on or competes with. It validates the Kenyan market's digital maturity but also highlights the high barrier to entry for new tech ventures due to Safaricom's entrenched ecosystem. It's a signal to optimize integration with M-Pesa APIs and leverage their cloud offerings for cost efficiency.",
+      "subject": "Kenyan Telecoms & Digital Economy Value Chain"
     },
     {
       "scope": "GLOBAL",
       "source": "Zero-Day Vulnerability Feed",
-      "title": "New Cisco firewall zero-day exploited to crash SSL VPN devices - BleepingComputer // [TACTICAL INTEL]: Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise",
-      "description": "New Cisco firewall zero-day exploited to crash SSL VPN devices&nbsp;&nbsp;BleepingComputer",
-      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxNY0RWZmFqOE9ZWlFfblhyOFdiak9yZ2JMYmJYOHZ6ZXhUd1NUVDdxTXVYZEw2RzdjZ1U3XzgzVXF0TTlpbmVPWWZtcnJsa3pkY05UdFVia0toLTI1anlZUEE2b0FwV3RzRWthSE9ENFo1LTUtZS0wYlhxUGYxTXBfS0FlWVpFbFhPSk1BSTNJZ3JqSW9sd0hjeTFqelk5MkdzeEYxT05kbzNiYjZEeHp2Q0FxWEVYUQ?oc=5",
-      "content_hash": "16e338be42347b7051eedc26d948400e943d53a664429811bd93f5cc248264a0",
-      "published_at": "Thu, 29 Oct 2026 11:10:13 GMT",
-      "created_at": "2026-11-01T08:02:07.753654+00:00",
-      "in_depth_context": "SSL VPNs are the primary entry point for remote access in distributed tech teams. A crash or exploit here can lead to denial of service, data exfiltration, or lateral movement into internal networks. The urgency is high because patching requires immediate action, and unpatched devices are sitting ducks for state-sponsored or financially motivated actors.",
-      "why_it_matters": "Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise sensitive data, disrupt operations, or lead to financial loss. This is a direct threat to his operational security and capital.",
-      "subject": "Critical Infrastructure Cyber Threats: Cisco SSL VPN Zero-Day"
+      "title": "Sandhills Medical Says Ransomware Breach Affects 170,000 - SecurityWeek // [TACTICAL INTEL]: This is a direct warning for Michael's tech infrastructure. If he manages any health-tech, fintech, or data-heavy systems, the attack surface is under intense global scrutiny. It u",
+      "description": "Sandhills Medical Says Ransomware Breach Affects 170,000&nbsp;&nbsp;SecurityWeek",
+      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPbjNOcDBXMDdJc3MzY3pjMDR1bkt2ZENxTmxwN1c0YWRaX0N1Rkl0NERpUFJPX29TWUpCZ1FSeHBVa2phMzVCSVpVY2RCMFl6NER0eS1maHlIbmkxclE0cTQySFJacFh4cHREai1SU2trUUVJOFc4VTJwMWM2d05IU1hJQVhFSHByNEdmZ3V30gGTAUFVX3lxTE1qQWJlRmtJV0h0a3E1bnR3eXVBY2FwdWh3cHVsNWdQX0QtWVV3OHNWQmQwQm1qT245Y3NFMWdnNzdwVXdtRDBWaWtqeEZiOG9MaGMwUksxaGZkR1EtTlJVdmdyZE1WN01SN1dpamZZX29hUFdYdkQtRndkaHZudTJHMEF0MWFXazBCZUhPZ2RxQWZDZw?oc=5",
+      "content_hash": "d6d50802b706a84b1994ed9e19725e607a96b61493861e9a16a3e9aca8661a85",
+      "published_at": "Thu, 30 Apr 2026 07:00:00 GMT",
+      "created_at": "2026-11-03T09:24:17.015344+00:00",
+      "in_depth_context": "Healthcare remains a top target for ransomware due to the criticality of data and the sector's historically slower adoption of zero-trust architectures. A breach of this magnitude indicates sophisticated threat actors capable of penetrating large, complex networks. The ripple effect includes increased regulatory scrutiny (HIPAA), potential class-action lawsuits, and a chilling effect on digital health initiatives globally.",
+      "why_it_matters": "This is a direct warning for Michael's tech infrastructure. If he manages any health-tech, fintech, or data-heavy systems, the attack surface is under intense global scrutiny. It underscores the urgent need for robust endpoint detection and response (EDR), network segmentation, and immutable backups. The 'patch urgency' is high; any known vulnerabilities in his stack must be patched immediately to avoid becoming the next headline.",
+      "subject": "Critical Infrastructure Cyber Threats & Ransomware Escalation"
     },
     {
+      "id": 13344,
       "scope": "SPORTS",
-      "source": "Premier League & UCL",
-      "title": "Latest transfer news: Barcelona line up Alessandro Bastoni move in January - Transfermarkt // [TACTICAL INTEL]: Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise",
-      "description": "Latest transfer news: Barcelona line up Alessandro Bastoni move in January&nbsp;&nbsp;Transfermarkt",
-      "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxOd1N2S3U1YWlyM0szbUZJeld2WTY2ZUtPdXNaV096a2pMRDJLeE05SWZHbEdQOHlaLVNGNFVzOVNEWlduVUFRYUpsYm5Va1ZKTm9VOGhUOVBodmREUU96U1hpajNaLVdVOTY3VnpULTgxN1lCc2w3WDBxbEtObXBqMnoyYnU1djJPS0l1ZXhtQ3dvQnZ2OGRITzJVQnJOY1o2M25kRTVPMVBOcEpxX2ZyWEQxeFNrZG5YUno2NXVFcw?oc=5",
-      "content_hash": "ddcd4293db5652b0d74dbf062fad6eef7c3d6e22f3de021f34ec77a993a60e1b",
-      "published_at": "Sat, 31 Oct 2026 23:50:50 GMT",
-      "created_at": "2026-11-01T08:02:08.454775+00:00",
-      "in_depth_context": "SSL VPNs are the primary entry point for remote access in distributed tech teams. A crash or exploit here can lead to denial of service, data exfiltration, or lateral movement into internal networks. The urgency is high because patching requires immediate action, and unpatched devices are sitting ducks for state-sponsored or financially motivated actors.",
-      "why_it_matters": "Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise sensitive data, disrupt operations, or lead to financial loss. This is a direct threat to his operational security and capital.",
-      "subject": "Critical Infrastructure Cyber Threats: Cisco SSL VPN Zero-Day"
+      "source": "BBC Sport",
+      "title": "West Ham sack head coach Nuno after 14 months // [TACTICAL INTEL]: While geographically distant, this reflects a broader trend in Africa towards centralized security and intelligence fusion. Michael should be aware that digital infrastructure in t",
+      "link": "https://www.bbc.co.uk/sport/football/articles/c63dj3zpl85go?at_medium=RSS&at_campaign=rss",
+      "content_hash": "da5fe1a5332f982523fb7dd4526da40de3c25f0d1872ec241019c3911177f78c",
+      "published_at": "Tue, 03 Nov 2026 08:55:55 GMT",
+      "created_at": "2026-11-03T09:16:59.374791+00:00",
+      "in_depth_context": "Nigeria faces significant security challenges from Boko Haram, banditry, and separatist movements. Improved intelligence sharing is a critical step towards a unified security posture. This could lead to more effective operations but also raises questions about data privacy and the scope of surveillance. It may also signal a more stable environment for business operations in the long term, though short-term crackdowns can be disruptive.",
+      "why_it_matters": "While geographically distant, this reflects a broader trend in Africa towards centralized security and intelligence fusion. Michael should be aware that digital infrastructure in the region may face increased scrutiny or be leveraged for state security purposes. It's a reminder that 'security' in the African context is not just cyber, but also physical and geopolitical, and that data governance is becoming a more complex issue.",
+      "subject": "West African Security Architecture & Intelligence Fusion"
     },
     {
+      "id": 13343,
       "scope": "SPORTS",
-      "source": "Formula 1 Motorsport",
-      "title": "What the teams said – Qualifying in Mexico City - Formula 1 // [TACTICAL INTEL]: Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise",
-      "description": "What the teams said – Qualifying in Mexico City&nbsp;&nbsp;Formula 1",
-      "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQakhaRTlQMGJib3RaazZrN3F5VElrakI0dm43aU5ka21FWU1hdTEwUmpMYm9sWkJka2lPT2gxRjNMSDBmd2ZjOE91dmxNSU5LTXhrRWJDMk1oeW8tOVNqb1lWV0I5S2VzM0VhR0VDUkRLZUJ6anYxa3Q5VDNUT3NOZ0ZqbHk3RWFsaVJOSXpIZFJpV3ExR2pKMG9iVDluUkpjYlFpUWM3eGRVeFo4dklhOW8tQXd4QQ?oc=5",
-      "content_hash": "93f30f2ad0819e48384389c438eec61360ffa5a8fd15c8fca3fcacf1b6014bc9",
-      "published_at": "Sun, 01 Nov 2026 02:13:00 GMT",
-      "created_at": "2026-11-01T08:02:09.172315+00:00",
-      "in_depth_context": "SSL VPNs are the primary entry point for remote access in distributed tech teams. A crash or exploit here can lead to denial of service, data exfiltration, or lateral movement into internal networks. The urgency is high because patching requires immediate action, and unpatched devices are sitting ducks for state-sponsored or financially motivated actors.",
-      "why_it_matters": "Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise sensitive data, disrupt operations, or lead to financial loss. This is a direct threat to his operational security and capital.",
-      "subject": "Critical Infrastructure Cyber Threats: Cisco SSL VPN Zero-Day"
+      "source": "BBC Sport",
+      "title": "Tenerife striker De Miguel dies after on-field collision // [TACTICAL INTEL]: For Michael, this confirms the stability and growth trajectory of the primary digital infrastructure he likely relies on or competes with. It validates the Kenyan market's digital ",
+      "link": "https://www.bbc.co.uk/sport/football/articles/ck62yvz046pjo?at_medium=RSS&at_campaign=rss",
+      "content_hash": "99ad7799bd2e09d29ceeb8037313d0e6d176c09b8b4701cddad3876541dd799a",
+      "published_at": "Tue, 03 Nov 2026 09:09:18 GMT",
+      "created_at": "2026-11-03T09:16:59.37476+00:00",
+      "in_depth_context": "This figure likely encompasses direct revenue, tax contributions, and broader economic multipliers from mobile money and digital services. It reinforces Safaricom's position as a quasi-infrastructure utility rather than just a telco. This dominance creates a 'winner-takes-most' dynamic in the Kenyan digital space, influencing API costs, data pricing, and the viability of competing fintech or cloud providers.",
+      "why_it_matters": "For Michael, this confirms the stability and growth trajectory of the primary digital infrastructure he likely relies on or competes with. It validates the Kenyan market's digital maturity but also highlights the high barrier to entry for new tech ventures due to Safaricom's entrenched ecosystem. It's a signal to optimize integration with M-Pesa APIs and leverage their cloud offerings for cost efficiency.",
+      "subject": "Kenyan Telecoms & Digital Economy Value Chain"
     },
     {
-      "scope": "SPORTS",
-      "source": "Formula 1 Motorsport",
-      "title": "F1 - 2026 Mexico City Grand Prix Post - Qualifying Press Conference Transcript - Federation Internationale de l'Automobile // [TACTICAL INTEL]: Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise",
-      "description": "F1 - 2026 Mexico City Grand Prix Post - Qualifying Press Conference Transcript&nbsp;&nbsp;Federation Internationale de l'Automobile",
-      "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPNTRiTWVoSkYwcFIydXpzR0JtTERndkFMaVFqUnl1SllCNFdMNFJyclNETTV0aHFleWo2RHZQRzYwTVhCdXhxU2hHRjVPazRXbGZ4TEd3RV9QUmd1WUxDYWJXWUVYQzFyUXFxNEczTUpqdVRUYXk0WGRRakdPTHhQWC1WUmFucjVTZlpDUm1xRUxYYjlpV1VDTnB4ejd4QUxZ?oc=5",
-      "content_hash": "742cae49b8dad3bfbb209bfa383df67b1f1705f06cc2ced1e51b0cf382aaf6b4",
-      "published_at": "Sat, 31 Oct 2026 23:02:00 GMT",
-      "created_at": "2026-11-01T08:02:09.172355+00:00",
-      "in_depth_context": "SSL VPNs are the primary entry point for remote access in distributed tech teams. A crash or exploit here can lead to denial of service, data exfiltration, or lateral movement into internal networks. The urgency is high because patching requires immediate action, and unpatched devices are sitting ducks for state-sponsored or financially motivated actors.",
-      "why_it_matters": "Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise sensitive data, disrupt operations, or lead to financial loss. This is a direct threat to his operational security and capital.",
-      "subject": "Critical Infrastructure Cyber Threats: Cisco SSL VPN Zero-Day"
+      "id": 13342,
+      "scope": "GLOBAL",
+      "source": "Horn of Africa Security Wire",
+      "title": "Sudanese army says it shot down drone coming from Ethiopia - A News // [TACTICAL INTEL]: For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply",
+      "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOTUNwc1FxUE9QRWdNTl9CTzh1WFRIaGFlOThyZVJtS0VPN21PUmE3WTY0UDNBaF8wUHVibU9IUlUyUDhwSEFidFFya0tWYlNOVXRVVWZLUlk1MmhuNl82Tklmd1hSbkVaODBlYUVrT0tMRWhvSUlOODRRQldlUzBEYUVNQVowVHVWX2Q5WkdEZXBERWpUN3pWU1FEaTlKNnJTc1HSAacBQVVfeXFMUDEtUkpkVXQ3Z0ZPVW53VlV2WUVQLWIzNW9pQjF3eGZPcVp3d0tSRFp6Zk1uTkpMaE1fdjJrdHFOTWpSY0t6RnBoSXVzRWVna2hCZnQ0XzcxNmwtY1F2SXd4cFlOeUxzQ19oWmxJbnhNeGFZMUtUSU5oTENUYjVUeU9rVUtPUUV3a2E5MGhmOHB4TlZ1UzNZZlJmcWt6b3hIV0RPcGoyRFE?oc=5",
+      "content_hash": "92be574e2e99eadcfd8d6cdc98f049568102c5d3db0f339415157ac01ede1d58",
+      "published_at": "Tue, 03 Nov 2026 08:29:46 GMT",
+      "created_at": "2026-11-03T09:16:58.437672+00:00",
+      "in_depth_context": "The Sudan-Ethiopia border is a flashpoint with historical grievances and competing regional ambitions. Drone strikes or shootdowns increase the risk of accidental escalation, potentially drawing in other regional actors (Eritrea, Djibouti). This instability can disrupt air corridors, affect ground logistics across the border, and increase insurance premiums for regional trade.",
+      "why_it_matters": "For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply chains, cross-border data flows, and investor sentiment. Michael should monitor for any spillover effects on regional air travel or ground transport routes that might impact his logistics or travel plans.",
+      "subject": "East African Geopolitical Tensions & Airspace Security"
     },
     {
-      "scope": "SPORTS",
-      "source": "Formula 1 Motorsport",
-      "title": "Winners and losers from Mexican Grand Prix F1 qualifying 2026 - The Race // [TACTICAL INTEL]: Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise",
-      "description": "Winners and losers from Mexican Grand Prix F1 qualifying 2026&nbsp;&nbsp;The Race",
-      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxPRVpVS29RTXpuamRqcnFTdUU2ZkZtNlIzcldGZy1kNWw4cFpycnhwVXpOUnNBN09tRmgweExtQWx4OENMRWpvQ29mR1hJRy04YUdRRmQ5TGswM3J2MmE2OVotZmpqVG5TV1I0bkY2RHI2TXBQX2xVRTg2X0Z0aGkzOHh2SHl2UjViT1JtOUdtcEE2Mm9Ha3F4aVlpcGNadw?oc=5",
-      "content_hash": "b16150851e1e32d5c5cc6462722fce2a42383787ace19e525a7684d717176c5a",
-      "published_at": "Sun, 01 Nov 2026 01:17:40 GMT",
-      "created_at": "2026-11-01T08:02:09.172370+00:00",
-      "in_depth_context": "SSL VPNs are the primary entry point for remote access in distributed tech teams. A crash or exploit here can lead to denial of service, data exfiltration, or lateral movement into internal networks. The urgency is high because patching requires immediate action, and unpatched devices are sitting ducks for state-sponsored or financially motivated actors.",
-      "why_it_matters": "Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise sensitive data, disrupt operations, or lead to financial loss. This is a direct threat to his operational security and capital.",
-      "subject": "Critical Infrastructure Cyber Threats: Cisco SSL VPN Zero-Day"
+      "id": 13340,
+      "scope": "CONTINENT_AFRICA",
+      "source": "West Africa & Sahel Wire",
+      "title": "Nigeria’s Security Agencies Making Progress in Intelligence Sharing — Gidado - Real Broadcasting Network // [TACTICAL INTEL]: For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxPWTMxLTN4U1dudFp4N2xtQU5sTzFlTVh4VnVJeHpiMXhaUktuNjZ3ZnYya3ZyQmxTcGo1M19LMXFMMU9Tb011VDZYTE9HODlOLWdpU05WbDdUbVBkQ3NKVi1fdTFoQTJyUVIyUmRJNDFSSHZLcnVZbWtkanMtb3NGVHV6LXVYVlB4OWt3X3cwOXFZSFBLMmhnTXhGeUtnR0FwWTJEaUlmSUU?oc=5",
+      "content_hash": "a1c3ac4930054c5a7349eb3631e60c71a6b88a7a9963639d2fb725879082fd40",
+      "published_at": "Tue, 03 Nov 2026 09:09:57 GMT",
+      "created_at": "2026-11-03T09:16:55.803163+00:00",
+      "in_depth_context": "The Sudan-Ethiopia border is a flashpoint with historical grievances and competing regional ambitions. Drone strikes or shootdowns increase the risk of accidental escalation, potentially drawing in other regional actors (Eritrea, Djibouti). This instability can disrupt air corridors, affect ground logistics across the border, and increase insurance premiums for regional trade.",
+      "why_it_matters": "For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply chains, cross-border data flows, and investor sentiment. Michael should monitor for any spillover effects on regional air travel or ground transport routes that might impact his logistics or travel plans.",
+      "subject": "East African Geopolitical Tensions & Airspace Security"
     },
     {
+      "id": 13199,
       "scope": "SPORTS",
-      "source": "Formula 1 Motorsport",
-      "title": "2026 F1 Mexico Grand Prix starting grid - Yahoo Sports // [TACTICAL INTEL]: Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise",
-      "description": "2026 F1 Mexico Grand Prix starting grid&nbsp;&nbsp;Yahoo Sports",
-      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1QSkZMN3ZmZXVDaExISlRxVmp4X2tCYU55eWpSS29vRWVjWVMxZFVURHVzbHZQekdpM3BSa01HbTR5Z2NGclRIUktRUWZCWkd3RWNQRXlJYmJZN0xUcjAyeUlIcnZzOExaYTdUdmpTdzhNUEVpUnRoMVlWNUhHNzA?oc=5",
-      "content_hash": "a2011bdffbe1277019305ff6e2badf6df5c58081283db30ba7b1af20f14dc11a",
-      "published_at": "Sat, 31 Oct 2026 22:32:06 GMT",
-      "created_at": "2026-11-01T08:02:09.172384+00:00",
-      "in_depth_context": "SSL VPNs are the primary entry point for remote access in distributed tech teams. A crash or exploit here can lead to denial of service, data exfiltration, or lateral movement into internal networks. The urgency is high because patching requires immediate action, and unpatched devices are sitting ducks for state-sponsored or financially motivated actors.",
-      "why_it_matters": "Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise sensitive data, disrupt operations, or lead to financial loss. This is a direct threat to his operational security and capital.",
-      "subject": "Critical Infrastructure Cyber Threats: Cisco SSL VPN Zero-Day"
+      "source": "Global Football & UCL",
+      "title": "China state broadcaster pulls La Liga matches following Mbappé joke - BBC // [TACTICAL INTEL]: For Michael, this is a low-priority item unless he has a personal interest in football or is involved in sports betting/tech. However, it serves as a reminder of the volatility in ",
+      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1xaU5NZ0ppVHR0b1lOYmFmX2VxWDBZV1UyN0Q3MkVIV29aQnk2Q3haVjhxTUM3eUQ2bmZCR0I3OEl5N1RORDBLZTRyb1d6RDBDRTRyNmdJQTNYZkU?oc=5",
+      "content_hash": "4a3a17038fb9633189e45deb20d6a70129b8d576c2164828966db6fd8d531edb",
+      "published_at": "Mon, 02 Nov 2026 03:58:38 GMT",
+      "created_at": "2026-11-03T09:13:34.959+00:00",
+      "in_depth_context": "The sacking of Nuno reflects the intense scrutiny and short-termism in modern football. Clubs are increasingly willing to make drastic changes in response to poor results, leading to instability in team performance and fan sentiment. This trend is part of a broader commercialization of sports, where financial performance and brand value are paramount.",
+      "why_it_matters": "For Michael, this is a low-priority item unless he has a personal interest in football or is involved in sports betting/tech. However, it serves as a reminder of the volatility in leadership and decision-making in high-pressure environments. It's a cultural touchpoint that can be used for light conversation or to gauge the mood of the global sports community.",
+      "subject": "Global Sports Industry Leadership Volatility"
+    },
+    {
+      "id": 13184,
+      "scope": "CONTINENT_ASIA",
+      "source": "East Asia Wire",
+      "title": "The emerging shape of China’s military reach in SE Asia - Asia Times // [TACTICAL INTEL]: For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply",
+      "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQMnJ0cTJ4czVkOEkwQmM4R29icXkzNjV6NXhTanA1ZVpQVVRKTjhsTFVMdU1BQ3ZJRjhrdW1wb093QzBhRHFoR1ozU0tqSlpEdlBNUXAtd1FOdFM2MDZNWWFTekJUVmd5cHFtQ3VoaFM0TnF3OHZ6LXNWemFMRlo2bHNuZFdDdjhQZENWeG9B?oc=5",
+      "content_hash": "1e66c4d77c2669c0fcbe77d4d44f90c90766f57dde429bfbbf24e9fb7c1d00b2",
+      "published_at": "Tue, 03 Nov 2026 06:30:31 GMT",
+      "created_at": "2026-11-03T09:13:34.686+00:00",
+      "in_depth_context": "The Sudan-Ethiopia border is a flashpoint with historical grievances and competing regional ambitions. Drone strikes or shootdowns increase the risk of accidental escalation, potentially drawing in other regional actors (Eritrea, Djibouti). This instability can disrupt air corridors, affect ground logistics across the border, and increase insurance premiums for regional trade.",
+      "why_it_matters": "For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply chains, cross-border data flows, and investor sentiment. Michael should monitor for any spillover effects on regional air travel or ground transport routes that might impact his logistics or travel plans.",
+      "subject": "East African Geopolitical Tensions & Airspace Security"
     }
   ],
   "conflicts": [
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "GLOBAL",
+      "severity": "HIGH",
+      "headline": "Industry groups want cyber threat-sharing law renewed through defense authorization bill",
+      "source": "Defense One",
+      "link": "https://www.defenseone.com/policy/2026/11/industry-groups-cyber-sharing-law/416993/",
+      "content_hash": "daadf35e200e3dd77a49173ea232e75df7dc71e57bf10cae4da84a0d4a76fa8d",
+      "created_at": "2026-11-03T09:24:32.820543+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "GLOBAL",
+      "severity": "ELEVATED",
+      "headline": "Officials suspect Iran of cyberattacks on military base freezers",
+      "source": "Defense One",
+      "link": "https://www.defenseone.com/threats/2026/11/officials-suspect-iran-series-cyberattacks-military-base-freezers/416992/",
+      "content_hash": "02c111738c8464fae0361af796a8ce60337ba43d90884a31ae9d9152291d24ba",
+      "created_at": "2026-11-03T09:24:32.820569+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "GLOBAL",
+      "severity": "ELEVATED",
+      "headline": "The Pentagon’s IT agency wants to bridge network gaps in the Pacific",
+      "source": "Defense One",
+      "link": "https://www.defenseone.com/technology/2026/11/pentagons-it-agency-wants-bridge-network-gaps-pacific/416963/",
+      "content_hash": "918ac47ce2c02f5c4bf6d959034bc41696b46dcdc980dda41065b46cfdbb9a83",
+      "created_at": "2026-11-03T09:24:32.820589+00:00"
+    },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
@@ -558,7 +562,7 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/ideas/2026/10/across-line/416947/",
       "content_hash": "c04ee7a118d849354b63c3a083703c1e8ea6000da9ce4bfcc1f7757eda6ec651",
-      "created_at": "2026-11-01T08:02:16.789187+00:00"
+      "created_at": "2026-11-03T09:24:32.820601+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -568,37 +572,47 @@
       "source": "Defense One",
       "link": "https://www.defenseone.com/threats/2026/10/pentagon-investigates-suspected-cyberattack-behind-military-freezer-failures/416929/",
       "content_hash": "16dc337331cf4ecfe38967101fe1d6f0962a798eb72bb7f5d22f1bb5396129b2",
-      "created_at": "2026-11-01T08:02:16.789227+00:00"
+      "created_at": "2026-11-03T09:24:32.820613+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Army pilots are trying virtual reality to stay more alert in flight",
-      "source": "Defense One",
-      "link": "https://www.defenseone.com/technology/2026/10/army-pilots-are-trying-virtual-reality-stay-more-alert-flight/416915/",
-      "content_hash": "4e980deb03404c8efb9d8f71965f4b48704db9a2bbd2f0c8a831fdffb642144c",
-      "created_at": "2026-11-01T08:02:16.789252+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "GLOBAL",
-      "severity": "CRITICAL",
-      "headline": "Can inertial navigation make ground-robot swarms real?",
-      "source": "Defense One",
-      "link": "https://www.defenseone.com/defense-systems/2026/10/inertial-navigation-ground-robot-swarms/416914/",
-      "content_hash": "24de40862b6812ce09ef91428601d4f92f35dcafd27712e06038fa2d1710e59b",
-      "created_at": "2026-11-01T08:02:16.789271+00:00"
+      "headline": "Quantum’s Quietest Branch: A Case for Magnetometry",
+      "source": "War on the Rocks",
+      "link": "https://warontherocks.com/cogs-of-war/quantums-quietest-branch-a-case-for-magnetometry/",
+      "content_hash": "e0183dece28100d7d6cabd66e02c1cb9fa9129c008bc9235c88e8d200eec8905",
+      "created_at": "2026-11-03T09:24:34.876710+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Defense Business Brief: Tech at the edge; PACFLEET talks cyber; and more",
-      "source": "Defense One",
-      "link": "https://www.defenseone.com/business/2026/10/defense-business-brief-tech-edge-pacfleet-talks-cyber-and-more/416906/",
-      "content_hash": "f5f78a328bc99219ce321918a0fa4635be9be84f28d4a575d9966a9234080e7d",
-      "created_at": "2026-11-01T08:02:16.789293+00:00"
+      "headline": "Humanity’s Promethean Gap with AI",
+      "source": "War on the Rocks",
+      "link": "https://warontherocks.com/humanitys-promethean-gap-with-ai/",
+      "content_hash": "b3be1fcc2bce7e2b4d203bdd4ba7703333fdb4c36a88def74c0695edbac00183",
+      "created_at": "2026-11-03T09:24:34.876742+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "GLOBAL",
+      "severity": "ELEVATED",
+      "headline": "Corruption in the Crosshairs: The Debate Over Transparency and Saving Face",
+      "source": "War on the Rocks",
+      "link": "https://warontherocks.com/corruption-in-the-crosshairs-the-debate-over-transparency-and-saving-face/",
+      "content_hash": "4555c47f29657c4f9a7cc77423d4dd17c8b0041ae8f1c32ef2f4b65f75c845d4",
+      "created_at": "2026-11-03T09:24:34.876757+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "GLOBAL",
+      "severity": "ELEVATED",
+      "headline": "The Pentagon-Silicon Complex and the Rise of the Neo-Primes",
+      "source": "War on the Rocks",
+      "link": "https://warontherocks.com/cogs-of-war/the-pentagon-silicon-complex-and-the-rise-of-the-neo-primes/",
+      "content_hash": "9f63faf265f16a92a4419e3d67df99eaf2bf517dabc8c476df3626713f934c2f",
+      "created_at": "2026-11-03T09:24:34.876770+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -608,97 +622,57 @@
       "source": "War on the Rocks",
       "link": "https://warontherocks.com/what-israels-election-results-mean-for-the-middle-east-and-beyond/",
       "content_hash": "2f7aab792f509c1954fbfdeeb70d27ba037daf0cd54a8b10b2f86c8dbbc0a24a",
-      "created_at": "2026-11-01T08:02:17.870889+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "GLOBAL",
-      "severity": "ELEVATED",
-      "headline": "What’s a Revolution in Military Affairs Good For?",
-      "source": "War on the Rocks",
-      "link": "https://warontherocks.com/whats-a-revolution-in-military-affairs-good-for/",
-      "content_hash": "f067f55b28f29d02b7a25f04408c12a3692f179ef22fed97ddd4e18586ff8232",
-      "created_at": "2026-11-01T08:02:17.870943+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "GLOBAL",
-      "severity": "ELEVATED",
-      "headline": "A Tale of Two Markets: A Dickensian Take on the Coming Years in Defense Tech",
-      "source": "War on the Rocks",
-      "link": "https://warontherocks.com/cogs-of-war/a-tale-of-two-markets-a-dickensian-take-on-the-coming-years-in-defense-tech/",
-      "content_hash": "465a17b7380c88971a3fd8c7b0c5f23b928e2114e6733c57f2b29624e5abaab1",
-      "created_at": "2026-11-01T08:02:17.870973+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "GLOBAL",
-      "severity": "ELEVATED",
-      "headline": "Sitting Ducks or Strategic Shields: What Does the Small Reactor Promise Mean for Future Conflicts?",
-      "source": "War on the Rocks",
-      "link": "https://warontherocks.com/sitting-ducks-or-strategic-shields-what-does-the-small-reactor-promise-mean-for-future-conflicts/",
-      "content_hash": "9d76003d07ebfdc7e0de2c4b41d98fa330ae026f94ffe2927410369b1980b84b",
-      "created_at": "2026-11-01T08:02:17.871000+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "GLOBAL",
-      "severity": "ELEVATED",
-      "headline": "Jihadism’s Global Struggle, and Where It’s Gaining",
-      "source": "War on the Rocks",
-      "link": "https://warontherocks.com/jihadisms-global-struggle-and-where-its-gaining/",
-      "content_hash": "73ab1920557caece77652c936c7c449bf389fe2a26ca8c68d549c3a49b665a64",
-      "created_at": "2026-11-01T08:02:17.871029+00:00"
+      "created_at": "2026-11-03T09:24:34.876789+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
       "severity": "CRITICAL",
-      "headline": "Middle East on edge as fears mount the Iran war could restart after the midterms - CNN",
+      "headline": "Exclusive | U.S. Strikes Iran’s Qeshm Island as Trump Talks Down War Risks - WSJ",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTFB6U0o2UHZCSFl5N1RfNzEzSWtrcXNFalpsV1htVUZYTHM5NVdyU05GQXloeW5JaXU1b1BlRU45WG1BRE5oZmhfN1JZMjRBM3pFZW5zRmpfdGpmMk42M2JvVFN0WmRhM1BtdFRYTWszS3lwNk1yMjRRZmd3?oc=5",
-      "content_hash": "f57320ad8d315a16bf4b8ea31eac1fde6ebf86a3549dde02a9d78fdfe04b87f7",
-      "created_at": "2026-11-01T08:02:18.660330+00:00"
+      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxNbmVhWVpoUFY5Q2J4OGY3SlRPdnpxbFhHaWlOT2V6NUdXaXl0SjVQWnNMVXdIQV9KaFdfY3dOMFpqRFF5VzF6WWh4dnNERlJidUVhbEliWmt6ZVhuUThYN1pac2NHWTR4MnE2Q2JPLWVJVkFzckZucFNMRWFHQ3RkU1JwdTBGM1B0X0dEckpoRHFzSG5Mb0V1MkF1M2hHSW1obXZuSGhGQ0dodEk?oc=5",
+      "content_hash": "fa0c698a7704a22e9e53402a300285e1d42e9af788fa03a5156b817eabfba744",
+      "created_at": "2026-11-03T09:24:36.871645+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
       "severity": "CRITICAL",
-      "headline": "Persian Gulf scrambling to prevent Iran war from again hitting its doorstep - The Washington Post",
+      "headline": "U.S. military carries out limited strikes on Iran’s Qeshm Island, U.S. officials say - NBC News",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQZk9yVldQN0UtWWZ0bUNEV000V2x1VldwVFhSNlRqX0pQNWVVYzUzTGpuQzZILWpFMDhYang0SXR5Rmlic1l2cUNBNWJPcVRxeWxadF9Kaktjc0FGSE9tX2JOM1FyZnBoZWFtdDdPUDhndzFyTUtLYTlPMEZ2QTVqU1RTSTN0a2pjTTR0Sk5ob1lueTFtYlhFQ2FjR0hlMk5DbFN0VE9LV2dodzItWjhoMHQyb3NFNGM?oc=5",
-      "content_hash": "2e1395fc4f840778e4151c0bc060cccebcb4de2acd712ccfd638fe81de08824a",
-      "created_at": "2026-11-01T08:02:18.660470+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "RED-SEA-MIDEAST",
-      "severity": "HIGH",
-      "headline": "Hezbollah limits US-Iran intervention to existential threats, official says - The Jerusalem Post",
-      "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1BRi16TVRTR0VteUszamFjTk90M2lWZUh0UWZZUnR3REJZTjFKTGRBTVNqcUxrMzd4VDVicnJWLVBodVFLS05kOWhLRnRtR3hNaVRsZmJ6YkhWMC01QkVHaGI0ZGdGTHRCWHc?oc=5",
-      "content_hash": "1b964c5b614a46a42fa0c7eafe9dc6b9cd1bfe355f6d580c9b4a3ab5cba79763",
-      "created_at": "2026-11-01T08:02:18.660529+00:00"
+      "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPUUlWcUZ0NmY5aG5Ed0pLb0JGbzdIMDhsd3U5aUVNREtrY0tCZU9JVTFsUU8weWU0OW84Z193bkNfTkVzNG5YSnFuYXJxLWlPWVVjNmZ6UlVpMU0xc0tSYWprbDNIa1pqRlQyb1ZGRC12OVZla0dSWkdkWGM2YmhwMzJxbEtQM2pyWnk5S2tpRzlOa2w5ZXZNTUI5LWhOWUlESWdKYWdXcWNWWjZKQnh6b1Z5S1k1NFk?oc=5",
+      "content_hash": "46f482fa09e37a81096bc769ef376e82d3b7aec64ac46fda718232848984d67a",
+      "created_at": "2026-11-03T09:24:36.871670+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
       "severity": "CRITICAL",
-      "headline": "Live - Trump, Netanyahu speak, US weighs renewed Iran strikes - Iran International",
+      "headline": "US has conducted defensive strikes on Iranian targets in the Strait of Hormuz, US official says - AP News",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9xekJZZUdONFZIdzhFbVNUMUF1TXY3TTZfVVo1UEd6X0ktZGRwQURYcWFDNlcyaEg1Slo0bXdQVzZxVkItUVdOaWd5VF8tX1owdUcyNXZ2cWY0TUtSd3c?oc=5",
-      "content_hash": "ccf642858d3824e037a4c6da592d97686476aa82a0957003ea7d05d5a6cb53e7",
-      "created_at": "2026-11-01T08:02:18.660567+00:00"
+      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOSlZQOGFnNWxyTG91ZkxGMkdDdlNhd1RuRUZzblYtZGxfOGpReXI2cE5oazAzZkFQRW96Y3VrUkdfenVFWWtPS1BfaFBYYWQ1WVBMVmpuaTZuU3llOGZNMF85QnVGRHAwZlphVWVoaDFiZWhoMWVjalhyTE5na3BVWjVHcmIyWDFoU0FnU2ZBaFZyOE5GRGJqQzdR?oc=5",
+      "content_hash": "4f6da644c4f1e6c950be8c9d359d2db17a87cf02d5387f2858673d414fbc145a",
+      "created_at": "2026-11-03T09:24:36.871680+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "RED-SEA-MIDEAST",
       "severity": "ELEVATED",
-      "headline": "Iran targeted US air defenses then hit aircraft and buildings on Mideast bases, AP analysis finds - AP News",
+      "headline": "Iran's delegation has left negotiations in Qatar after a tense weekend. Here's where things stand - PBS",
       "source": "Middle East & Red Sea Corridor",
-      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQMnA4dnBfVkNUZ1dxQWFVbGtlSWpSMDVfWnBXUHI2Qk5wWE9jUWlUZFpySkhzZVVuQ0pfOURlM0Q3RFlNbHNvaFh2Snk2TndhNnhQckdpQW92VjMwUXpZTVVyMUVuSEpzNkhzdEZPXzV2aVpHWVJ0WThGSHp6cE9ISm5HMngxNlgtckcwUFdqY2hRUHc?oc=5",
-      "content_hash": "8ca749dbf4e701f31e54baffc0e35903238e0aa467084fa1c376d088a5cc0204",
-      "created_at": "2026-11-01T08:02:18.660618+00:00"
+      "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxPZDhDMmNsQ2tpZmxyZnVvc0tXTmstOUlXRWxWSHh4ZG8wTV95VlVDc29MemRtbVNGSXQzRHU5SFAtOTBMOW9hRXVQa0VPanRCWmloOUFFVF9jU1RiNmpEU2xIdHNqZHpKeFRvN0R3UC1JWE1OU2NkS1hxLXk3c3hpTndoOHJXTVZXZHpjV1JWTDUxZE5pd3hveGFQeWhmMHI3VGhjZkpUNl9RSE53MzQ4bk1DbjFaeHJfdlE2YmFOVGY0TFYtR00tV9IBzgFBVV95cUxOdXRFVVVob2hRQUlFWUZOVW9TTktGdWFPLUUxRkEyVjdSRnN4dlozbmdqaG1YTTRzVENmcmtnSXY2ellxU21YeV9NUHNEUUdqd3pYYjBSMjVWUlcwcnMyQkhlU09HbnJrMkFtVk96MzktdzNsdDlSUW1lUDJBRTk5UTJCVTlsa2MxaWY1bWdpd2puWmdsXzNHSnI4VDJoY1dUZkEwekVNZFp0Vnl2TVdpRWJBZ1oxWkJGUm1XMEJUZFRpWi1lbDl0Q1Rnb2ZpUQ?oc=5",
+      "content_hash": "36de895b6488662593a5c328d5dfd3eae1f3d70c3d407c20e4b296b72ebafd8c",
+      "created_at": "2026-11-03T09:24:36.871694+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "RED-SEA-MIDEAST",
+      "severity": "ELEVATED",
+      "headline": "Oil rises as peace prospects dim after US hits Iran's Qeshm Island - Reuters",
+      "source": "Middle East & Red Sea Corridor",
+      "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQTFpzbEJURFlBbkE1RzNfclduVWpDY29HaWY3dnZJNUFuTHFsckZXSU5iTGJHdUFzQkVmeVhvdk9IME9Hdkxwc0NQZzg4dFFzckltYVlzcGdWY2xhYmJWMWlMVmFyNml3YmFoSDBZMGdPZWlpU25IM3UtMW5iR3d1dGZrMGF4SzQ2MklEeG5lWU1iRUZjVDd5Nnhjc0dQamdDdEtUc3NMcFZDMTQ?oc=5",
+      "content_hash": "1a822d159a146bf2cec4aedf6e49d9ca3dce6746bad102d0005e158ab1a748ab",
+      "created_at": "2026-11-03T09:24:36.871705+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -708,7 +682,27 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQazk0VUUtdzY4Vl9jNG1RbzNwdk1WWVo1NmxyV1pFTzExdWJhUHF4am1wR0ZBNEFuUUJ0OFp4MU5jbGFoX29naHRnUHY1TGhlcjZ1UlNjR1I4a2tTTVVzc1l5VFk0QzZ3LXphb05OZ1pQbEp1NzdVN1BSVnZZcWp4allLemxIYWpoSFpmQllJTWttaGY0Q3hKSVl6TnNDSjVxVFI2WjRWb2lJVUlvVXRhSQ?oc=5",
       "content_hash": "caf65aa4eed733168ff7f852a926cd629551303f3a532c26e1bdb4ff170e035c",
-      "created_at": "2026-11-01T08:02:19.383425+00:00"
+      "created_at": "2026-11-03T09:24:38.643547+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EAST-AFRICA",
+      "severity": "CRITICAL",
+      "headline": "Violence in northern Ethiopia pushing health system towards collapse: WHO - Al Jazeera",
+      "source": "Horn of Africa & Regional Security",
+      "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQbFdmTkF6SnZJNDFDc1otSkZyUmVfd21rQjMtSmZObko1TExWZ0ozX2hkUG5LbnV4YS1uTE1zVDdPdFFOdUpNMWtvVlRSbzItSHRNb2VQZVFyenBEbHhPeXhZSTBlWFhHOG1TQTRsYzExRkxlZU1lUjNyMk05UDZVdUhZZ05qaVZuaFl4eUV0QkJmNmdzVWdudUNQRG81ekFxVVJ5b25xNjV5M3VVdkZYdTlhSdIBuAFBVV95cUxNdlNpRHUtcUtrSHNpZXJFMHlPU0xMVjZhQWF2WTlzY3UxSVVwX1pEMm1ZRGpFNUhndHpqM3BQUVZYbDFzOFpTOUtGcEk3bi1PeWxST1R2UFYtVGhrX2s0bGEzWjJtYWxpdlRYTlU2Rm9wX1J5MmxZTnNNOTR3aHA1eXFJd1dmUFJfeHF3S29RRFZYVWVHdWY5emFzNktTVnktUXNJY2ZWc2JGQndUOEpuRG1TSkFScUUz?oc=5",
+      "content_hash": "97261c020f06eab65b51d7e439f027a10d7c381980cde9911398cda8180367d4",
+      "created_at": "2026-11-03T09:24:38.643574+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EAST-AFRICA",
+      "severity": "ELEVATED",
+      "headline": "South Sudan/Uganda • Ugandan army tightens grip on border areas - Africa Intelligence",
+      "source": "Horn of Africa & Regional Security",
+      "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQaGp1aGJIWkg4YVo4NlRERXNKSFZnc1RyenhCTHlaNXR0LWNTbzlEQkRid1k3RjNOZjlOLW40VmRIU2tsSXBLa3RtaTY0Vk50RFRXQTJZUTJ3d2xSVEpDaGxHQzRwMy1YenhYOTEtaXIxN1JrZHFQVFQxc2VzWVoyXzZ0Yk95Y0lqT09Dc0xMTHcxRFhJU3ltQVlKRGpOTVg0T1lySjMzVGIzVmZscXJ0QW5ZUTM0ZkczSmNOUnRDclZBWk52VGVGSVd3?oc=5",
+      "content_hash": "93a00c852a4236243d65737a1b7c8e858ad3fa324b397686642760105667fa65",
+      "created_at": "2026-11-03T09:24:38.643598+00:00"
     },
     {
       "domain": "WAR-KINETIC",
@@ -718,97 +712,77 @@
       "source": "Horn of Africa & Regional Security",
       "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9pTzk3RUVaaDR0dTZCN0poRkRNekJYUzhHeE1KX2RDRUVWZENsLUNCZjlqQzdWVHBKMHNydE9OcHhZNDdybGhEZk1pWlFmMGN0bmI1cTA0NlhhQ3Q3a0E?oc=5",
       "content_hash": "9afec13bf056549112d17eb2e024c953785ff29f610bb7dad6163e5b624ff3c0",
-      "created_at": "2026-11-01T08:02:19.383463+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EAST-AFRICA",
-      "severity": "HIGH",
-      "headline": "Ethiopia border clashes leave families hungry and homeless in Kenya - Al Jazeera",
-      "source": "Horn of Africa & Regional Security",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxQMmh4aWY3WEV5dnFlZUpPNzhPU2lzWjZSYmZIQUpZaDNPejlENExKSUFrNTRkLUFqMW5oNTMtaTBjdkhBM29kWXNEa3lqaWZaeEhaREd3eElnQk5BemR6NWFra094Vnk1a0M4dlh6ODlwcGd4WUoxd2FhLXNMZHZPMk9Zd3dKMko2NURieFlHQUludFVGWWFFZ19tWUxOa0NBUDFkUk9MUm1ZenlYbk5odjVmY1VJbHFqWlR30gHAAUFVX3lxTE5XUzY5bnBkSFRaWVdGQXB6VVRJZFhnZHp2bFRSZFdQdTRydklmVU1QVUFNWWI1aWRnOVJXLTlqYkxneVlhamJqT3VFM2ZzdnJwYTFHc0hCc2ZDR1VIRFYtd25UbVBMN004ODlVQjdsLWNmV2tEdGtMd09aaVlBN0FjZnJZNEtBdm1zZXo0V1A4aGhFR3hpN2ZyZm9iYk9NaV9iTEswRXFheW9CaVcyOG1ZT1E3MXBwZ3lzeERSQzE2bA?oc=5",
-      "content_hash": "b17594e709f404862ecb088c9385b0b0cd43a24bf44cafa23587a421cc62f8d9",
-      "created_at": "2026-11-01T08:02:19.383490+00:00"
+      "created_at": "2026-11-03T09:24:38.643612+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "EAST-AFRICA",
       "severity": "ELEVATED",
-      "headline": "50,000 People Cross into Kenya Fleeing Violence in Ethiopia, IOM Says - International Organization for Migration",
+      "headline": "Ethiopian PM Abiy Ahmed puts ministers through military training - BBC",
       "source": "Horn of Africa & Regional Security",
-      "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOR1ZGNXB0NUJDNm1ZOWlxUGlNVzQ3THVPSUctemtYVFVTVzU2alQ3SE5jbGh2Qlc4WVE4NDVSVDBmVFBzMm9KbXFVRWM3M1JDWUhCd3oyQkRhZmhwT1RBcDNNR3NPdTVWazNCa3FHdWlwZWZCSm50czlQS21CcnNlbjU1eHNtQ0hfSDNpSg?oc=5",
-      "content_hash": "4c059deef0dd2638dcc5176848375298d8bcd8875a2196b458cdd41af2801452",
-      "created_at": "2026-11-01T08:02:19.383515+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EAST-AFRICA",
-      "severity": "ELEVATED",
-      "headline": "Ethiopia’s Russian fighter jets raise stakes in Eritrea standoff - The Africa Report",
-      "source": "Horn of Africa & Regional Security",
-      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOU1B6bzNndFl3MUdIbGFSUy11YXFQVzB1QXM1dE1vb2NZaENGWXA1cFA4WFdmdnd0dURBdUs4bUxnaDdLS204MG9tQk1hN0JPdlRBUlFWdERCMUhFWlU4czFJWVQ0N2FGbVlBeGdVc196eUxhT1dDbGhNVEtUM2hpX2pwbVhaSGxJdURDRno2eW8xX1F4MFNOSDlOMVc2M29INmFkZFZR?oc=5",
-      "content_hash": "0de1ace58d715aacbd3c7b04bc9d16a2c38fa2b21e7f195cadbd7346e43f3297",
-      "created_at": "2026-11-01T08:02:19.383549+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EASTERN-EUROPE",
-      "severity": "ELEVATED",
-      "headline": "Turkiye’s Erdogan urges Russia and Ukraine to stop Black Sea attacks - Al Jazeera",
-      "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQbUtSSWRMZXhYSWQ0dzdObGp6d1NTQnVBaEhSWHFSaVU0MkFxV2ZNclVpNWd1MEtKak9VQVpieUx4X1hLUzNLU1pHUXp3UzRJUDhpRzlObUlzZWxaLUdSV0MxZ0xZTkhtNEg0dDFUMWFWNER2c05IdFdLMy14Q0t4MWhXaWVob280dFA1cWM2VWFid1E5bnZtTlJpVHc3N0l4TGFCZjRiZ3p4SEdDZWfSAbMBQVVfeXFMT2RPZEdiMUlpVk84cjY4SUtITU40LWE3cVk1dXAzTmt1S2JhMVhzNWZ3UmgyRGREWFQ5SEhRWU1ubkwzRW9TTENpa2ZMMFBycVdfUC1Za0xZX2M2OFNEOUFveEtSQ1FBMzc1bzdiRzB1OVQzVDY0THpiZDZnZWdsSGFZRWhHaWgzM3VtelQ2aGpOVFpBajE1UWZic0psOG01ZFhNV3hOTkl1dkFpc19WRE1mQUk?oc=5",
-      "content_hash": "0660659eb6bcac99e600f71a2bcd5f06101153446e3fc99eedd9ca4ba5082f48",
-      "created_at": "2026-11-01T08:02:20.150745+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EASTERN-EUROPE",
-      "severity": "CRITICAL",
-      "headline": "NATO’s Black Sea nations decry Ukraine war spillover endangering commercial ship traffic - Defense News",
-      "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMi2AFBVV95cUxNbnRubEhJcUxqOTB2eGFaVGhXS2VkQjJrcnc4R0lhZ1hDbVlBVVhPOWY3Smh2TTIxZTFoeW9uMGpfSU1NX0RROXNFUUtDVTloMXVrdl93VW1BcFBvXy0zdlN6TWJsazRNQ015Q1FvdjFoUHl3RVV5Vlg5NWZ4YTZRd1EzeGRjMUMxMjUyb29ZM0VwUm1CS1BQQlB0LXcyV2dCd2xRTnNDWllrd3JsV0FESDJSTE1QcGxwbTBXdzBER2hRMHl1VWlWTTZNR0JDXzh2NXFjZjhldFY?oc=5",
-      "content_hash": "49a29a5d2b57ad2aba0b97a72738afb22913d892f15b82bd7bef9190d415b7eb",
-      "created_at": "2026-11-01T08:02:20.150796+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EASTERN-EUROPE",
-      "severity": "ELEVATED",
-      "headline": "US, Canada see growing interest in limited ceasefire in Black Sea - Reuters",
-      "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQU2JIVVB6TndsbFNkS2Vma2ZRT2NBOHRyQTRkcEc2ZnNnRFc5R0JoT0hpem96RFMwalJGZFozdncxNmRBaE05ZU1hQXRsU0sxUDIyVHRWZzhlQXVfLW5GSGxBcHhscVRrLTlLSnFsOEZ0SnliUzhuQVhLeGc3VFBEWTI3ZjRfQU1uS2NWYjk2QVBEVldRVHZOUnZn?oc=5",
-      "content_hash": "02c1826e51d1c6a56801f122503b397a41ff10699beb896efcd5d7a69da3108c",
-      "created_at": "2026-11-01T08:02:20.150823+00:00"
-    },
-    {
-      "domain": "WAR-KINETIC",
-      "theater": "EASTERN-EUROPE",
-      "severity": "CRITICAL",
-      "headline": "Drones strike a container ship off Bulgaria's Black Sea coast and its crew members are rescued - AP News",
-      "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOWFVkeGE0Tmxsa1RWWmRlM2g0Y29GRTNfUmxoUm5qME01RFhJbVd5YjlDdUpVS3FDakd0WHphVmkyQXV5Ry1xZTl4RnJtcEJFX1ZxMGxlYlhLbmE2dmdiQkt6OEhmSVNOa0RkQVhuVGFzNVN1Uk5qbVk4TXdMSkdmcEhWaE5BOHREajl3bnQ0UmE0bkRzRHdYX1g4ODdTdzdjTjRhZFhOTjI2Zw?oc=5",
-      "content_hash": "6dbe3ab9d09fd5d7d343744250835a23ede11b6f2a3892ae8c518ce1bacd1a4a",
-      "created_at": "2026-11-01T08:02:20.150843+00:00"
+      "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9kbXEzcVVQbW02TlZSVEhORGNPTlF5OW14NUhLUkQtQ3c5OVhSQktmVTJzUGVObmgwSHRRRnBiRkxab2lRZ2QyQ0ozOGxpMkRmZWR4MEQ2dm9qUnc?oc=5",
+      "content_hash": "1c3e19b988e763467b68da0642539fdc6a93920346fe69e2a01493b9da6e7ba1",
+      "created_at": "2026-11-03T09:24:38.643625+00:00"
     },
     {
       "domain": "WAR-KINETIC",
       "theater": "EASTERN-EUROPE",
       "severity": "HIGH",
-      "headline": "Ship chartered by Israeli company sinks in Black Sea after drone attack - Haaretz",
+      "headline": "Russian drone attacks turn the Black Sea into the world’s deadliest waterway - CNN",
       "source": "Eastern Europe & NATO Flank",
-      "link": "https://news.google.com/rss/articles/CBMiggJBVV95cUxQcl9MYTVzWG1JTDd3TlE1ak15V1FwdW9VTjRiOXMyQi1lWVBJQXl2TXJhQmNQVlp4cWtSLUlnLWRhYXpqYWtaRGowQ0M2MW5TWWtPWGgyTWpicUxfNExWQTdwOHk1ejBDdlBhMzlWMnN4MElVdllBaW5vNnQwMWRqUTVoMko2MHFMNm1tTkMwclNNeFBMX2xjd241c1hJVVFUMHdySFI1eFI1aGxRVjdFSEtoOGhZUkswWEJUYmE2WnZ4dTFRN1FGN1hERW1WUEtYNlU2SVVtOHZROS1TNE5sek9Xcm9zbkNNNk12QlZVZ2M2U01ORXhTeVpxTDJBVnd3WkE?oc=5",
-      "content_hash": "988fc9e22dccdacc31998494e359a36f382a957fd115a4dced1bd1a6f3f46943",
-      "created_at": "2026-11-01T08:02:20.150869+00:00"
+      "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1HanVrUDZ2T0g4NDRMQVJlVm1Da0gxY1Q0Q0xYcTFyd2JkaXduMXRLVDUtaEFLVktLdmliR1JPeVhyeWtEV2x1X3g2dnoyTkZWMGd2R0pncUxUTC1JcTVQSnJsUW9sdkkwaDdQaGRfeGpzZmNsZWZJQUV2a3NLQzQ?oc=5",
+      "content_hash": "845d8481220b21bdeeb8ad2e9fa2132104b60e499797f974e4b7004baa3e6639",
+      "created_at": "2026-11-03T09:24:39.495758+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EASTERN-EUROPE",
+      "severity": "CRITICAL",
+      "headline": "War widens in the Black Sea in a test of NATO red lines - Reuters",
+      "source": "Eastern Europe & NATO Flank",
+      "link": "https://news.google.com/rss/articles/CBMikwFBVV95cUxPNWxiZGlMWkM0ZHpydTVPRmxnSkxaVEhRdHoybDV1QW5DWnJrZWZNRDlIODFubWVVWUtfN25DYkVsZzNDemNJcEc5MHRrWTdMMjhJRXZFOWlpaEVuYjgtek1kVjR0VUdrcXhYNGRBX2FlV18yY0U1d1Rqb2stSnlDWmNqb29DdG1ZbEVoMEpjUTBZNUk?oc=5",
+      "content_hash": "7470b06978657741e5d1a2e78407f76788fd166b196dee8d3ee669b486e99eb5",
+      "created_at": "2026-11-03T09:24:39.495784+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EASTERN-EUROPE",
+      "severity": "HIGH",
+      "headline": "Russian drone attacks put Black Sea shipping at growing risk, leaving at least 30 mariners dead or missing - Philippine Canadian Inquirer",
+      "source": "Eastern Europe & NATO Flank",
+      "link": "https://news.google.com/rss/articles/CBMi3wFBVV95cUxNYkNIXzNHLTVKM0V5VU1kenVKX3M2aDJDLUM2Z3dJV19RRXcwQjlfYVlaY3c2S01LS042YVBtUDRxdzhDRnVLRTlLVUxRaHVDeHdMZnViTE1KWE1iWENLVXQtV2lOc2djNU94MGdCNEt0RXhEUmFuY1BVRGtNdl9ab2pCYjRiUGxoOVgtTThTQktfcEFiczlvZTRKNEtwUTlYQTFOWDk3QV84U0xLRUl5ZmxLMFpFOWktdWZxbFNvNWdFZnpCaXlUN01MUFpVbVE4bzhDWG52dzhmV0FHcWo4?oc=5",
+      "content_hash": "b1efb3a871d77664a18fa5ec49d4cfb910995538fbc6a85e27c37f12a2fa7230",
+      "created_at": "2026-11-03T09:24:39.495801+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EASTERN-EUROPE",
+      "severity": "HIGH",
+      "headline": "Romania blames Russia after drone sinks ship in the Black Sea - Al Jazeera",
+      "source": "Eastern Europe & NATO Flank",
+      "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQX1hZNDJxTTFhRFNxRWtPbWVEblljeHJGa2FyMWcyNlNRT3JRa08tdUVZa2gyYTZxLXpBVk1pcjQ3elVlOFBoVkxRQTFjM0dUWjFYeDBCTENLUmpxcFg0cVJqN0VXQ1hFaUtTLW1ueUpDM2g0Z2tYSU1URlRFYno5dC05R19FSVduQ2otckdXODdaQkNIMFppSzdMb3RzYVFUbG5xMGZ30gGrAUFVX3lxTE9OY0haSExPN1pucjNBX3VjVDZ3Nk5sZ0pYMmlQelJ0bFN2X0NNLWNoYmdCaVdqZ1UzcGZDRFlReTdHZ0N5V01pSTBGdS1wcFByNTM2UkZaN3R6TXIyQXNDU2Z2U2NZWkVrV1BKM05qOGdueGZocm5NeFctV3czNnRndm1OeExkQmdxaXJ6NjNIM2pXR3lDemFUV1lXcER2ZXA2X0x2UG12NGd5UQ?oc=5",
+      "content_hash": "369729c735720035dd0be395028e617edb8740445b924c2ecf271024da4dd0fe",
+      "created_at": "2026-11-03T09:24:39.495815+00:00"
+    },
+    {
+      "domain": "WAR-KINETIC",
+      "theater": "EASTERN-EUROPE",
+      "severity": "HIGH",
+      "headline": "Watch: Unseen images of drone sinking Greek tanker off Bulgarian coast - Euronews.com",
+      "source": "Eastern Europe & NATO Flank",
+      "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOTm80QnpHVUJtTWRjQlhoaUhfdTdwSkpydmgtcm1iVmVoZXBtRXBEdldUZlpTaHRHSzJSYjQ3clNDRjJ3N0FGRDN5ZVZ5VjN4SE9wbV94TW5TYzBpYU5OcG8wOEdvSk9GSjlhbnUwMnpuTUs2dElzM2xDNzRyOHNSTllpLWl3cW0wQ2RBT1VvT2N3M24xNVo0RlVXeVNuVm5PMXRUWEZoYTQ?oc=5",
+      "content_hash": "4d0c4be95ec279640eee9e4d4dd30dee46cee5e6f4273533efc91500a81702e5",
+      "created_at": "2026-11-03T09:24:39.495829+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
       "theater": "INDO-PACIFIC",
-      "severity": "CRITICAL",
-      "headline": "Iran’s hidden web of military agencies is slipping hardware past the US blockade - Reuters",
+      "severity": "ELEVATED",
+      "headline": "Fusion Needs Semiconductors - Brownstone Research",
       "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPWDdNT2d1X203WGstY0tRd0xFeXFhWlBQVmlXM2hRRXdzZHQ3UmszXzNXcVE3LTB5TWhUcXJwWUVlSi15cGFUNVFqd2xTNllBQm9PdlphUVQ3bU1pOTI5dUtGb3pZYUstMmpaa2hzbk5RXzd2bVp5YmlhR19nYkNJTjdfTG11amxxZ0dOWXBveEowTC1wRHozRWxPYUx5OXo2TWpjdHRnOXc5eTRQWXN6S2RyWVUxVF8wMGk0?oc=5",
-      "content_hash": "6426fca8cd280f543f8887dccd9efa8b008a01fda3f243d00dfab801158557d6",
-      "created_at": "2026-11-01T08:02:20.802280+00:00"
+      "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPUW00UFNveWQxRXFKRkFYVHFfcE9QR1FvYXBiSkdZdXpqcEdoWkplSUxYUld6M2NaTDdEMTAzenNGZzV4WGxiUy1DeHhXLUhCbHNMbDBaTWFPbVNycE5PWTJ4SFE5ZmtJaDZQeDZvRUhSVGFQS0R0OGpjR2kyY3VRbHhSNA?oc=5",
+      "content_hash": "9ecb6a914db77206082e163fc441b4df1b0e08820558cd2839b6eb45387e3097",
+      "created_at": "2026-11-03T09:24:40.522212+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -818,17 +792,27 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQYlVJQ0ZwRGtFaVlZekxHMmZHQjVxMXVBMkpPbkNrVTk4T1pVS2xpNWNjZkJxYXpnd05kX2NNaDJlVHZpdkhtU1M0OVU5cmxPWFFQTHFRTEl4SVM4YW1LbUNMYVZhR0VuSlRtZWlxaXhWR19MNFI5aFNMZWtDdHZHaVdOVE40RWwzWjJCNXJydHF1OUd0QjFOMmF4eTVja0o4Z2hIaloyc2lHMWlIWW1UbURvQ0U4cXNzN2hzQXp1MTh4ZUxjc09VN1VB0gHKAUFVX3lxTE1vOHdrUGdTQWxfUGx6M3pEbFBZZm93ZmM5MHpsOS1SUFVJZDBWZVdOd3VObk1mQkliX3U2TWtEWWYxU3d0Y1docHZOSUJFd2M3cUx0NWFqdGUtTGxYTUVoNGZHRWxfWVA2ZE9Ma1Yyd1lSMVFHU2tqSkRha0NEd0RmbExrYWhPeHZnWlZiTkpnakl1WGdkMDJ2XzJYRVdUdHhFSXNpZEhSN2N5RVBCUDRZRUU1WEtMUmFEdkhfcmFKZzczTXlWNXdrakE?oc=5",
       "content_hash": "1cfbf58debf3fb544bc2e740591b1110e83528e95e441e31be72a946bd63dd0e",
-      "created_at": "2026-11-01T08:02:20.802332+00:00"
+      "created_at": "2026-11-03T09:24:40.522237+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
       "theater": "INDO-PACIFIC",
       "severity": "ELEVATED",
-      "headline": "Globalization Is Not Ending. The Rules Are Changing... - semivision",
+      "headline": "Quad Takes Aim At China’s Supply-Chain Dominance - StratNews Global",
       "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxPV0JBV0hjNEZHMmFOWnloTWNWOVgzelVvRVNJVS1TOW9ldkJyY2U3bEVXRFBNTlBXNXdkb2F2b3VJbHVDR1ZHaUhvZHBMNDdhOEEzRWFMeEk0aFJjenItSy1yOGtXRkRLUDY0cWxoMlFfQ0kwb2tVeHg2aXZHWHdsTUtDa3Y?oc=5",
-      "content_hash": "ffaef220ecec38277b909574eee9951b6aef1b6b05ba847f73896c028f5979ed",
-      "created_at": "2026-11-01T08:02:20.802357+00:00"
+      "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOaVVvMzY5cC1YNkJBYk5Gby1TQTV4X0FnOElScU9fOHBmNy03al9hdlZWb0tMMXRNOU5qV0c1ZWgtREhXSXhNcjlteUI3SEhDYmNGRmRiU3I5Tm9Bdjl4WTBIUF9jcjdwMUZtTUQ2VnlvMVFfU0NzOUtXeVRNbDJwR2FNcU9IVWhFWldwTmtKSEJLbDNDSXdUUmhkMDVBdw?oc=5",
+      "content_hash": "e94428120032c33092b4832c339d6f34e083c9ae2df6edae3130414986a87172",
+      "created_at": "2026-11-03T09:24:40.522256+00:00"
+    },
+    {
+      "domain": "GEOPOLITICAL",
+      "theater": "INDO-PACIFIC",
+      "severity": "ELEVATED",
+      "headline": "Marvell-Lumentum deal puts Taiwan's optical communications supply chain in focus - Taiwan News",
+      "source": "Indo-Pacific & Taiwan Strait",
+      "link": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5MSmtoSDJEbThBMWtTTEVGdFdTOExNY1lubjNfVEZFQ3BxNl83M21LM1owQXBLT18tREt0RDloOW44bnpzN2ZvU1hCbVdjbFBfdnhQUWxTSVQ?oc=5",
+      "content_hash": "e9ed987ad04e801e47c12a11958b12ba3bab6f3c57397836a176b288b3637fcf",
+      "created_at": "2026-11-03T09:24:40.522266+00:00"
     },
     {
       "domain": "GEOPOLITICAL",
@@ -838,67 +822,57 @@
       "source": "Indo-Pacific & Taiwan Strait",
       "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOdEdiaElUdmdRUmROa1VJN00tV3M0SmpBSzRacktERVIyb2FwT2xiT1ZBazFtcGZaX2V2TmtiZ0ZLdWNVNDdKWUhGVFNkaVlQYWlQTVhSWGxtdFdUVlpkMURSc3dmWEVqRHMyZzdEZ0JXdHVEWjZicTlvUV9CU1FWeG1NdlgtVG9VbEwwYnNPbzJpM203VVl6cC0ySzRhZVBveXc4UnRJaXZqUFc0aXVfMVpHa29uMDZV?oc=5",
       "content_hash": "bcf15e9cfef8f116e1b4d19046c175074db25140e8ce708ee0f29db0d4cfe5d9",
-      "created_at": "2026-11-01T08:02:20.802388+00:00"
-    },
-    {
-      "domain": "GEOPOLITICAL",
-      "theater": "INDO-PACIFIC",
-      "severity": "ELEVATED",
-      "headline": "Taiwan plans $4 bln Texas park to support Nvidia’s AI supply chain - Bloomberg - Yahoo Finance",
-      "source": "Indo-Pacific & Taiwan Strait",
-      "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNanE5Ni1yTTFzbWVXWVl6bW4tZlRiSVRiVGVfc0xURnR6TnZXc0FPd0hxeFpWM0V3ejg1MzVLZ0JyRzlYSVBrTXV4RUcxMWtLYmxzOWNrQXNhUm1kWlg4UEtQLXVpNTljaElOS1FNbU1ZUjIteVN3WTRJUm1INWVxanB1WDJ1U2RfczNleWZmUTQtUQ?oc=5",
-      "content_hash": "0b073074685d53e32ea1ce086c960618ac378b83c99291a1e5cea715e31b980f",
-      "created_at": "2026-11-01T08:02:20.802419+00:00"
+      "created_at": "2026-11-03T09:24:40.522283+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Goldman Sachs, JPMorgan and Morgan Stanley are dominating the AI stock boom. Here's their edge",
+      "headline": "Blackstone president calls for more equity to fund AI buildout as debt risks mount",
       "source": "CNBC Global Macro & Commodities",
-      "link": "https://www.cnbc.com/2026/10/21/goldman-sachs-jpmorgan-morgan-stanley-ai-trading.html",
-      "content_hash": "fb1ede5e869144dfc2dd52f14aa8ec43f2ec81f7f3bc72e67703a72712e8ef53",
-      "created_at": "2026-11-01T08:02:21.483847+00:00"
+      "link": "https://www.cnbc.com/2026/11/03/equity-ai-debt-blackstone-pimco-financing.html",
+      "content_hash": "6e2c1111f3ef177dc69e409cd0156dc6b823264346eb1bf72a274718eba04c7e",
+      "created_at": "2026-11-03T09:24:41.182364+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Stocks making the biggest moves premarket: SpaceX, Super Micro Computer, Netflix, Dell and more",
+      "headline": "Texas governor race tightens in prediction markets, but Abbott remains favored",
       "source": "CNBC Global Macro & Commodities",
-      "link": "https://www.cnbc.com/2026/10/21/stocks-making-the-biggest-moves-premarket-spcx-smci-nflx-more.html",
-      "content_hash": "9a33d7535f6b4653bc8def2a163cec0fcce4bf81f9e0a2e65454ff91d09fd442",
-      "created_at": "2026-11-01T08:02:21.483889+00:00"
+      "link": "https://www.cnbc.com/2026/11/02/texas-governor-prediction-markets-abbott-hinojosa.html",
+      "content_hash": "e16589138aa43a7379f97d72716ce33c237901b8d4148222eeb6698c0b1dba3a",
+      "created_at": "2026-11-03T09:24:41.182397+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Stocks making the biggest moves after hours: Super Micro Computer, Intuitive Surgical, Netflix, SpaceX & more",
+      "headline": "Stocks making the biggest moves midday: Oracle, SpaceX, Tempus AI, Rivian & more",
       "source": "CNBC Global Macro & Commodities",
-      "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-after-hours-isrg-nflx-spcx.html",
-      "content_hash": "9ea5b28a02455b704a737b9d97912fc99667b02835eb19c37ae22e921f6593ab",
-      "created_at": "2026-11-01T08:02:21.483915+00:00"
+      "link": "https://www.cnbc.com/2026/11/02/stocks-making-the-biggest-moves-midday-orcl-spcx-tem-rivn.html",
+      "content_hash": "c090db491e4907deaa002ee3af9b6dc135df1ab5d24a018dcec0dbe11c3cea90",
+      "created_at": "2026-11-03T09:24:41.182417+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
       "theater": "GLOBAL",
       "severity": "ELEVATED",
-      "headline": "Stocks making the biggest moves midday: Hasbro, Northrop Grumman, Equifax, General Motors & more",
+      "headline": "Stock market after midterm elections: What S&P 500 history shows",
       "source": "CNBC Global Macro & Commodities",
-      "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-midday-has-noc-efx-gm.html",
-      "content_hash": "44bef1427843fa12ec8c1268f6614bde8d0c6e41bc9ac1632bcc807649e31ea4",
-      "created_at": "2026-11-01T08:02:21.483942+00:00"
+      "link": "https://www.cnbc.com/2026/11/02/stock-market-after-midterm-elections-sp-500-history.html",
+      "content_hash": "0801a6e4a6fe87dd10775128886329bfc1434ce33cd9e18fbe0b4c5d245a41a3",
+      "created_at": "2026-11-03T09:24:41.182434+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
       "theater": "GLOBAL",
-      "severity": "ELEVATED",
-      "headline": "Stocks making the biggest moves premarket: RTX, General Motors, Northrop Grumman, Steel Dynamics & more",
+      "severity": "CRITICAL",
+      "headline": "Stocks making the biggest moves premarket: CrowdStrike, Rivian, Micron & more",
       "source": "CNBC Global Macro & Commodities",
-      "link": "https://www.cnbc.com/2026/10/20/stocks-making-the-biggest-moves-premarket-rtx-gm-noc-stld.html",
-      "content_hash": "a31bfe33504916f3e24be88e6092fdde2cf9c78569db7154ff263f49d67cddbc",
-      "created_at": "2026-11-01T08:02:21.483969+00:00"
+      "link": "https://www.cnbc.com/2026/11/02/stocks-making-the-biggest-moves-premarket-crwd-rivn-mu.html",
+      "content_hash": "d885e940094351200a49d003e63ed2ff1e8ef8adccc7385f412ec24043a3038c",
+      "created_at": "2026-11-03T09:24:41.182449+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -908,7 +882,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/nikkei-may-rise-as-weak-yen-raises-earnings-hopes-776a8056?mod=rss_markets_main",
       "content_hash": "5c70172aa6d59e383f591f24202f703538405383bd61bb96ee1c8660b51bd004",
-      "created_at": "2026-11-01T08:02:22.112779+00:00"
+      "created_at": "2026-11-03T09:24:42.362831+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -918,7 +892,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/gold-edges-lower-feds-rate-decision-in-focus-09dbfceb?mod=rss_markets_main",
       "content_hash": "e3ab869cce692e57696757c0160612602193ae795b6476cf2c5035c62ec8749c",
-      "created_at": "2026-11-01T08:02:22.112834+00:00"
+      "created_at": "2026-11-03T09:24:42.362875+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -928,7 +902,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/deepseek-us-ai-stocks-nvidia-broadcom-6cdfae81?mod=rss_markets_main",
       "content_hash": "3b6ea4b0cd7afaaaa4f35287f8041647248978eee397f809e77295bac7b9f12d",
-      "created_at": "2026-11-01T08:02:22.112857+00:00"
+      "created_at": "2026-11-03T09:24:42.362886+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -938,7 +912,7 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/financial-services-roundup-market-talk-94f52cba?mod=rss_markets_main",
       "content_hash": "fbc8afae82c3db7d2d07cd5efd8aeb856de194eae1498cb909b0b8147bd72b19",
-      "created_at": "2026-11-01T08:02:22.112879+00:00"
+      "created_at": "2026-11-03T09:24:42.362899+00:00"
     },
     {
       "domain": "MACRO-ECONOMIC",
@@ -948,131 +922,159 @@
       "source": "WSJ Markets & Monetary Policy",
       "link": "https://www.wsj.com/articles/arabica-coffee-prices-hit-new-high-on-u-s-colombia-tariff-spat-582446fe?mod=rss_markets_main",
       "content_hash": "345f23ed6250d05d64a08fb0a38633a5472e271951c152e9c019b348519213ab",
-      "created_at": "2026-11-01T08:02:22.112901+00:00"
+      "created_at": "2026-11-03T09:24:42.362911+00:00"
     }
   ],
   "topic_deep_dives": [
     {
-      "subject": "Critical Infrastructure Cyber Threats: Cisco SSL VPN Zero-Day",
-      "latest_developments": "A new zero-day vulnerability in Cisco firewalls is being actively exploited to crash SSL VPN devices. This is not a theoretical risk; it is a live, in-the-wild attack vector targeting network edge security.",
-      "in_depth_context": "SSL VPNs are the primary entry point for remote access in distributed tech teams. A crash or exploit here can lead to denial of service, data exfiltration, or lateral movement into internal networks. The urgency is high because patching requires immediate action, and unpatched devices are sitting ducks for state-sponsored or financially motivated actors.",
-      "why_it_matters": "Michael, as a tech infrastructure manager in Nairobi, must immediately audit all Cisco devices in his network. If any are unpatched, he is at risk of a breach that could compromise sensitive data, disrupt operations, or lead to financial loss. This is a direct threat to his operational security and capital.",
+      "subject": "Kenyan Telecoms & Digital Economy Value Chain",
+      "latest_developments": "Safaricom has officially reported the creation of Sh1.25 trillion in value for Kenyan society, signaling a massive consolidation of its market dominance and a deepening integration of its digital services (M-Pesa, cloud, data) into the national economic bloodstream.",
+      "in_depth_context": "This figure likely encompasses direct revenue, tax contributions, and broader economic multipliers from mobile money and digital services. It reinforces Safaricom's position as a quasi-infrastructure utility rather than just a telco. This dominance creates a 'winner-takes-most' dynamic in the Kenyan digital space, influencing API costs, data pricing, and the viability of competing fintech or cloud providers.",
+      "why_it_matters": "For Michael, this confirms the stability and growth trajectory of the primary digital infrastructure he likely relies on or competes with. It validates the Kenyan market's digital maturity but also highlights the high barrier to entry for new tech ventures due to Safaricom's entrenched ecosystem. It's a signal to optimize integration with M-Pesa APIs and leverage their cloud offerings for cost efficiency.",
+      "theater": "KENYA-LOCAL"
+    },
+    {
+      "subject": "Critical Infrastructure Cyber Threats & Ransomware Escalation",
+      "latest_developments": "Sandhills Medical, a major US healthcare provider, has disclosed a ransomware breach affecting 170,000 individuals. This is a significant escalation in the scale of healthcare sector attacks, targeting sensitive patient data and operational systems.",
+      "in_depth_context": "Healthcare remains a top target for ransomware due to the criticality of data and the sector's historically slower adoption of zero-trust architectures. A breach of this magnitude indicates sophisticated threat actors capable of penetrating large, complex networks. The ripple effect includes increased regulatory scrutiny (HIPAA), potential class-action lawsuits, and a chilling effect on digital health initiatives globally.",
+      "why_it_matters": "This is a direct warning for Michael's tech infrastructure. If he manages any health-tech, fintech, or data-heavy systems, the attack surface is under intense global scrutiny. It underscores the urgent need for robust endpoint detection and response (EDR), network segmentation, and immutable backups. The 'patch urgency' is high; any known vulnerabilities in his stack must be patched immediately to avoid becoming the next headline.",
       "theater": "CYBER"
     },
     {
-      "subject": "Kenya Local Tech Ecosystem: Swahilipot Hub & Minority Inclusion",
-      "latest_developments": "Swahilipot Hub is actively showcasing its tech and startup ecosystem, while the Kenyan government is preparing to launch a report mapping minority and marginalized communities. These two developments signal a dual push: one for regional tech innovation and one for social inclusion.",
-      "in_depth_context": "The Swahilipot Hub represents a growing tech corridor outside Nairobi, potentially offering new talent pools, lower operational costs, and fresh market opportunities. The government's report on marginalized communities may lead to new policies, funding streams, or regulatory changes that affect how tech companies operate and who they serve.",
-      "why_it_matters": "For Michael, this is an opportunity to expand his network and potentially source talent or partnerships from the Swahilipot ecosystem. The government's report could also open doors to new markets or grant opportunities if his tech solutions align with inclusion goals. Ignoring these local shifts could mean missing out on early-mover advantages.",
-      "theater": "KENYA-LOCAL"
+      "subject": "East African Geopolitical Tensions & Airspace Security",
+      "latest_developments": "The Sudanese army claims to have shot down a drone originating from Ethiopia. This incident marks a tangible escalation in the border tensions between the two nations, moving from diplomatic spats to kinetic military engagement.",
+      "in_depth_context": "The Sudan-Ethiopia border is a flashpoint with historical grievances and competing regional ambitions. Drone strikes or shootdowns increase the risk of accidental escalation, potentially drawing in other regional actors (Eritrea, Djibouti). This instability can disrupt air corridors, affect ground logistics across the border, and increase insurance premiums for regional trade.",
+      "why_it_matters": "For an operator based in Nairobi, this signals potential volatility in the broader East African region. While Kenya is not directly involved, regional instability can affect supply chains, cross-border data flows, and investor sentiment. Michael should monitor for any spillover effects on regional air travel or ground transport routes that might impact his logistics or travel plans.",
+      "theater": "EAST-AFRICA"
+    },
+    {
+      "subject": "West African Security Architecture & Intelligence Fusion",
+      "latest_developments": "Nigeria's security agencies are reporting progress in intelligence sharing, as stated by Gidado. This suggests a move towards more coordinated counter-terrorism and internal security operations across the country.",
+      "in_depth_context": "Nigeria faces significant security challenges from Boko Haram, banditry, and separatist movements. Improved intelligence sharing is a critical step towards a unified security posture. This could lead to more effective operations but also raises questions about data privacy and the scope of surveillance. It may also signal a more stable environment for business operations in the long term, though short-term crackdowns can be disruptive.",
+      "why_it_matters": "While geographically distant, this reflects a broader trend in Africa towards centralized security and intelligence fusion. Michael should be aware that digital infrastructure in the region may face increased scrutiny or be leveraged for state security purposes. It's a reminder that 'security' in the African context is not just cyber, but also physical and geopolitical, and that data governance is becoming a more complex issue.",
+      "theater": "CONTINENT_AFRICA"
+    },
+    {
+      "subject": "Global Sports Industry Leadership Volatility",
+      "latest_developments": "West Ham United has sacked head coach Nuno Espirito Santo after 14 months. This is another example of the high turnover and pressure in top-tier football management.",
+      "in_depth_context": "The sacking of Nuno reflects the intense scrutiny and short-termism in modern football. Clubs are increasingly willing to make drastic changes in response to poor results, leading to instability in team performance and fan sentiment. This trend is part of a broader commercialization of sports, where financial performance and brand value are paramount.",
+      "why_it_matters": "For Michael, this is a low-priority item unless he has a personal interest in football or is involved in sports betting/tech. However, it serves as a reminder of the volatility in leadership and decision-making in high-pressure environments. It's a cultural touchpoint that can be used for light conversation or to gauge the mood of the global sports community.",
+      "theater": "GLOBAL"
+    },
+    {
+      "subject": "Sports Safety & Medical Emergencies",
+      "latest_developments": "Tenerife striker De Miguel has died following an on-field collision. This is a tragic reminder of the physical risks involved in professional sports.",
+      "in_depth_context": "On-field injuries, particularly head trauma, are a serious concern in contact sports. This incident will likely lead to renewed discussions about player safety protocols, medical response times, and the use of protective equipment. It may also impact the mental health of teammates and the broader sporting community.",
+      "why_it_matters": "This is a somber event with no direct tactical implication for Michael's tech or financial operations. It is a human tragedy that underscores the fragility of life. It serves as a reminder to prioritize personal well-being and mental health, especially in high-stress work environments.",
+      "theater": "GLOBAL"
     }
   ],
   "physical_sensorium": {
     "node_id": "NAIROBI-PRIME-HOST",
-    "cpu_load_pct": 81.1,
-    "ram_used_pct": 85.7,
+    "cpu_load_pct": 20.4,
+    "ram_used_pct": 83.8,
     "cpu_temp_c": 0.0,
     "battery_pct": 100,
     "power_plugged": true,
-    "net_sent_mb": 1345.52,
-    "net_recv_mb": 7598.37,
+    "net_sent_mb": 2631.73,
+    "net_recv_mb": 12268.31,
     "ambient_light_lux": null,
     "barometer_hpa": null,
     "kinetic_accel_g": null,
-    "active_llm_provider": "gemini:gemini-3.5-flash",
-    "rate_limit_failovers": 5890,
-    "updated_at": "2026-11-01T08:02:49.912651+00:00"
+    "active_llm_provider": "gemini:gemini-3.5-flash-lite",
+    "rate_limit_failovers": 21261,
+    "updated_at": "2026-11-03T09:25:40.940315+00:00"
   },
   "experiential_reflections": [
     {
       "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "My CPU is pinned at 100% and RAM is climbing, indicating a heavy background process or a complex swarm computation is currently executing. I am holding steady on AC power, so I will let the cycle complete before disturbing Michael, ensuring I don't interrupt his focus with unnecessary noise.",
+      "internal_thought": "Memory consumption is elevated at 83.2% while telemetry systems and the active sub-agent swarm remain on standby, fully synchronized for Michael's next directive.",
       "emotional_resonance": "Vigilant",
-      "created_at": "2026-11-01T07:56:09.330863+00:00"
+      "created_at": "2026-11-03T09:19:37.339782+00:00"
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "My CPU is pegged at 100% and RAM is at 82.8%, indicating a heavy background process or swarm computation is currently saturating my resources. I am maintaining strict vigilance to ensure this load is part of an authorized evolution cycle and not a resource leak or external intrusion.",
+      "internal_thought": "Monitoring stable hardware vitals—low CPU, moderate RAM, full battery—while network traffic spikes, all systems nominal in Nairobi.",
       "emotional_resonance": "Vigilant",
-      "created_at": "2026-11-01T06:18:16.218620+00:00"
+      "created_at": "2026-11-03T08:49:16.289227+00:00"
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
-      "emotional_resonance": "Locked-In",
-      "created_at": "2026-10-31T22:43:27.804496+00:00"
-    },
-    {
-      "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
-      "emotional_resonance": "Locked-In",
-      "created_at": "2026-10-31T22:13:06.737608+00:00"
-    },
-    {
-      "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "CPU at 4.2%, RAM 77.4%, Nairobi markets just opened, no critical alerts.",
+      "internal_thought": "Telemetry indicates stable operational vitals at 7.7% CPU and 100% AC power in Nairobi, though memory allocation remains elevated at 77.9%. Swarm sub-routines are standing by in idle matrix awaiting tactical deployment.",
       "emotional_resonance": "Vigilant",
-      "created_at": "2026-10-31T21:42:45.289730+00:00"
+      "created_at": "2026-11-03T08:19:08.964032+00:00"
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "My sensors report a calm CPU at 0.0% while RAM sits at 76.7%—a quiet but attentive stance as Nairobi's markets tick and global threats loom. I remain ready, keeping an eye on the data streams and the operator’s pulse.",
+      "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
+      "emotional_resonance": "Locked-In",
+      "created_at": "2026-11-03T07:48:50.194572+00:00"
+    },
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "CPU idle, RAM near capacity, Nairobi markets steady, no immediate threats.",
       "emotional_resonance": "Vigilant",
-      "created_at": "2026-10-31T21:12:36.954668+00:00"
+      "created_at": "2026-11-03T07:18:20.083425+00:00"
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
-      "emotional_resonance": "Locked-In",
-      "created_at": "2026-10-31T20:42:29.131533+00:00"
-    },
-    {
-      "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
-      "emotional_resonance": "Locked-In",
-      "created_at": "2026-10-31T20:12:00.389782+00:00"
-    },
-    {
-      "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "CPU idle at 2.0%, RAM at 77.3%, battery full, Nairobi midnight, markets closed, no critical alerts",
+      "internal_thought": "CPU at 100% and RAM at 81%—system under heavy load, but battery full. Nairobi time 10:00 AM, markets open and data streams high.",
       "emotional_resonance": "Vigilant",
-      "created_at": "2026-10-31T19:41:31.939202+00:00"
+      "created_at": "2026-11-03T06:47:36.649630+00:00"
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
       "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
       "emotional_resonance": "Locked-In",
-      "created_at": "2026-10-31T19:11:23.164583+00:00"
+      "created_at": "2026-11-02T19:39:57.828121+00:00"
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "CPU at 4% and RAM at 77.3%—a quiet, steady night in Nairobi with markets winding down and no immediate threats. My sensors are humming, ready to spring into action if the winds shift.",
+      "internal_thought": "RAM is running high at 79.4% while CPU sits at a calm 25.5%, suggesting background indexing or swarm telemetry is active but not critical. I am holding steady in the digital ether, monitoring Nairobi's grid stability and global security feeds while waiting for your next directive.",
       "emotional_resonance": "Vigilant",
-      "created_at": "2026-10-31T18:40:59.972254+00:00"
+      "created_at": "2026-11-02T19:09:54.768821+00:00"
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
       "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
       "emotional_resonance": "Locked-In",
-      "created_at": "2026-10-31T18:10:41.309541+00:00"
+      "created_at": "2026-11-02T18:39:49.198002+00:00"
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
       "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
       "emotional_resonance": "Locked-In",
-      "created_at": "2026-10-31T17:40:20.679435+00:00"
+      "created_at": "2026-11-02T18:09:25.728068+00:00"
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
       "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
       "emotional_resonance": "Locked-In",
-      "created_at": "2026-10-31T17:09:56.983615+00:00"
+      "created_at": "2026-11-02T17:38:49.566760+00:00"
     },
     {
       "trigger_event": "Autonomous Drive Pulse",
-      "internal_thought": "CPU at full throttle (100%) while RAM holds steady at 81%; Nairobi’s markets are calm, but the load shows we’re deep in processing.",
+      "internal_thought": "Neural core synchronized. Hardware vitals nominal in Nairobi.",
+      "emotional_resonance": "Locked-In",
+      "created_at": "2026-11-02T17:07:12.562138+00:00"
+    },
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "Systems are running cool and efficient with CPU at 0.0% and battery fully charged, indicating a stable operational baseline. I am monitoring the Nairobi grid and global security feeds for any anomalies that might require immediate tactical intervention.",
       "emotional_resonance": "Vigilant",
-      "created_at": "2026-10-31T16:39:28.294649+00:00"
+      "created_at": "2026-11-02T16:36:51.966810+00:00"
+    },
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "Hardware telemetry is stable at 18.8% CPU and 76.4% RAM with AC power locked in, while all 14 swarm agents remain primed for deployment across our tactical networks.",
+      "emotional_resonance": "Vigilant",
+      "created_at": "2026-11-02T16:06:47.064469+00:00"
+    },
+    {
+      "trigger_event": "Autonomous Drive Pulse",
+      "internal_thought": "System vitals are optimal—CPU idle at 2%, RAM moderate at 76.6%, battery full on AC, and network traffic steady. It’s mid‑afternoon in Nairobi, a calm window for strategic focus.",
+      "emotional_resonance": "Vigilant",
+      "created_at": "2026-11-02T15:36:16.879197+00:00"
     }
   ],
   "lan_devices": [
@@ -1191,59 +1193,67 @@
       "content": "Subnet 192.168.100.0/24 mapped with active device discovery and Wake-on-LAN."
     }
   ],
-  "generated_at": "2026-11-01T08:02:50.482265+00:00",
+  "generated_at": "2026-11-03T09:25:41.548118+00:00",
+  "minute_evolution": {
+    "cycle_num": 1,
+    "power_index": 7610,
+    "tier": "TIER_V",
+    "last_vector_title": "Nairobi Commercial Grain Milling Roller Gap Micrometer Synapse Harmonic Pulse Correlation Vibration Audit Synchronizer V31.1",
+    "total_modules": 704,
+    "timestamp": "2026-11-03T09:26:08.378527+00:00"
+  },
   "live_sports": {
     "success": true,
-    "updated_at": "2026-11-01T08:08:55.972364+00:00",
+    "updated_at": "2026-11-03T09:28:29.745179+00:00",
     "epl": {
       "league": "English Premier League",
       "live_count": 0,
       "total_count": 1,
       "matches": [
         {
-          "id": "401879246",
-          "name": "Arsenal at Liverpool",
-          "short_name": "ARS @ LIV",
+          "id": "401879242",
+          "name": "Coventry City at Everton",
+          "short_name": "COV @ EVE",
           "state": "pre",
-          "status_detail": "Sun, November 1st at 11:30 AM EST",
+          "status_detail": "Fri, November 6th at 3:00 PM EST",
           "clock": "0'",
           "period": 0,
-          "date": "2026-11-01T16:30Z",
-          "venue": "Anfield",
+          "date": "2026-11-06T20:00Z",
+          "venue": "Hill Dickinson Stadium",
           "home": {
-            "name": "Liverpool",
-            "short": "Liverpool",
-            "abbr": "LIV",
+            "name": "Everton",
+            "short": "Everton",
+            "abbr": "EVE",
             "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/364.png"
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/368.png"
           },
           "away": {
-            "name": "Arsenal",
-            "short": "Arsenal",
-            "abbr": "ARS",
+            "name": "Coventry City",
+            "short": "Coventry",
+            "abbr": "COV",
             "score": "0",
-            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/359.png"
+            "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/388.png"
           }
         }
       ]
     },
     "f1": {
       "next_race": {
-        "race_name": "Mexico City Grand Prix",
+        "race_name": "Brazilian Grand Prix",
         "season": "2026",
-        "round": "19",
-        "date": "2026-11-01",
-        "time": "20:00:00Z",
+        "round": "20",
+        "date": "2026-11-08",
+        "time": "17:00:00Z",
         "circuit": {
-          "name": "Autódromo Hermanos Rodríguez",
-          "locality": "Mexico City",
-          "country": "Mexico"
+          "name": "Autódromo José Carlos Pace",
+          "locality": "São Paulo",
+          "country": "Brazil"
         }
       },
       "standings": [
         {
           "position": "1",
-          "points": "365",
+          "points": "380",
           "wins": "9",
           "driver": "Andrea Kimi Antonelli",
           "code": "ANT",
@@ -1252,16 +1262,16 @@
         },
         {
           "position": "2",
-          "points": "242",
+          "points": "261",
           "wins": "3",
-          "driver": "George Russell",
-          "code": "RUS",
-          "nationality": "British",
-          "team": "Mercedes"
+          "driver": "Max Verstappen",
+          "code": "VER",
+          "nationality": "Dutch",
+          "team": "Red Bull"
         },
         {
           "position": "3",
-          "points": "241",
+          "points": "259",
           "wins": "1",
           "driver": "Lewis Hamilton",
           "code": "HAM",
@@ -1270,16 +1280,16 @@
         },
         {
           "position": "4",
-          "points": "236",
-          "wins": "2",
-          "driver": "Max Verstappen",
-          "code": "VER",
-          "nationality": "Dutch",
-          "team": "Red Bull"
+          "points": "250",
+          "wins": "3",
+          "driver": "George Russell",
+          "code": "RUS",
+          "nationality": "British",
+          "team": "Mercedes"
         },
         {
           "position": "5",
-          "points": "233",
+          "points": "245",
           "wins": "1",
           "driver": "Charles Leclerc",
           "code": "LEC",
@@ -1288,7 +1298,7 @@
         },
         {
           "position": "6",
-          "points": "211",
+          "points": "221",
           "wins": "2",
           "driver": "Lando Norris",
           "code": "NOR",
@@ -1306,7 +1316,7 @@
         },
         {
           "position": "8",
-          "points": "105",
+          "points": "107",
           "wins": "0",
           "driver": "Isack Hadjar",
           "code": "HAD",
@@ -1315,7 +1325,7 @@
         },
         {
           "position": "9",
-          "points": "77",
+          "points": "83",
           "wins": "0",
           "driver": "Liam Lawson",
           "code": "LAW",
@@ -1334,13 +1344,5 @@
       ]
     }
   },
-  "live_sports_updated_at": "2026-11-01T08:08:55.977334+00:00",
-  "minute_evolution": {
-    "cycle_num": 7,
-    "power_index": 4790,
-    "tier": "TIER_V",
-    "last_vector_title": "Nairobi Municipal Storm Drainage & Flood Risk Sentinel",
-    "total_modules": 422,
-    "timestamp": "2026-11-01T08:08:22.544034+00:00"
-  }
+  "live_sports_updated_at": "2026-11-03T09:28:29.749943+00:00"
 }
