@@ -1,131 +1,185 @@
 import hashlib
 import time
-import uuid
-from typing import Dict, List, Optional
+import os
+import json
+from typing import Dict, Any, Optional
 from dataclasses import dataclass, field
 from enum import Enum
 import logging
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("KRA_EIN_Rotator")
+
+class RotationStatus(Enum):
+    SUCCESS = "SUCCESS"
+    FAILED = "FAILED"
+    PENDING = "PENDING"
 
 @dataclass
-class EINRecord:
-    ein: str
+class RotationEvent:
     timestamp: float
-    status: str = 'active'
-    metadata: Dict = field(default_factory=dict)
+    status: RotationStatus
+    old_ein_hash: str
+    new_ein_hash: str
+    reason: str
+    metadata: Dict[str, Any] = field(default_factory=dict)
 
-class EINStatus(Enum):
-    ACTIVE = 'active'
-    EXPIRED = 'expired'
-    REVOKED = 'revoked'
+class KRAEINDynamicRotator:
+    """
+    Autonomous KRA EIN Dynamic Rotator & Compliance Sentinel.
+    
+    This class handles the secure, time-based rotation of Electronic Identity Numbers (EINs)
+    used for KRA API interactions. It ensures that credentials are never static and
+    monitors the integrity of the communication channel.
+    """
 
-class KraEinDynamicRotator:
-    def __init__(self, max_ein_age: int = 3600, max_ein_count: int = 1000):
-        self.max_ein_age = max_ein_age
-        self.max_ein_count = max_ein_count
-        self.ein_records: Dict[str, EINRecord] = {}
-        self.lock = threading.Lock()
+    def __init__(self, secret_key: str, rotation_interval: int = 300):
+        """
+        Initialize the Rotator.
+        
+        Args:
+            secret_key (str): The base secret key for generating EINs.
+            rotation_interval (int): Interval in seconds for rotation.
+        """
+        self.secret_key = secret_key
+        self.rotation_interval = rotation_interval
+        self.current_ein: Optional[str] = None
+        self.last_rotation_time: float = 0.0
+        self.rotation_history: list[RotationEvent] = []
+        self._generate_new_ein()
 
-    def generate_ein(self, transaction_id: str) -> str:
-        """Generate a unique EIN based on transaction ID and timestamp."""
-        with self.lock:
-            timestamp = time.time()
-            unique_id = uuid.uuid4().hex
-            ein = f"{timestamp}_{unique_id}"
-            self.ein_records[ein] = EINRecord(ein=ein, timestamp=timestamp, metadata={'transaction_id': transaction_id})
-            logger.info(f"Generated new EIN: {ein}")
-            return ein
+    def _generate_new_ein(self) -> str:
+        """
+        Generate a new EIN based on the current time and secret key.
+        
+        Returns:
+            str: The newly generated EIN.
+        """
+        current_time = int(time.time())
+        # Use a combination of time, secret key, and a random nonce for entropy
+        nonce = os.urandom(16).hex()
+        data = f"{self.secret_key}:{current_time}:{nonce}".encode('utf-8')
+        ein_hash = hashlib.sha256(data).hexdigest()
+        
+        # Format the EIN to look like a standard KRA EIN (e.g., 12345678901234567890123456789012)
+        # For demonstration, we'll use the first 32 characters of the hash
+        self.current_ein = ein_hash[:32]
+        self.last_rotation_time = time.time()
+        
+        logger.info(f"Generated new EIN: {self.current_ein[:8]}... (Hash: {ein_hash[:8]}...)")
+        return self.current_ein
 
-    def validate_ein(self, ein: str) -> bool:
-        """Validate if an EIN is active and not expired."""
-        with self.lock:
-            record = self.ein_records.get(ein)
-            if not record:
-                logger.warning(f"EIN not found: {ein}")
+    def get_current_ein(self) -> str:
+        """
+        Get the current EIN, rotating it if necessary.
+        
+        Returns:
+            str: The current valid EIN.
+        """
+        if time.time() - self.last_rotation_time > self.rotation_interval:
+            old_ein_hash = hashlib.sha256(self.current_ein.encode('utf-8')).hexdigest()
+            self._generate_new_ein()
+            new_ein_hash = hashlib.sha256(self.current_ein.encode('utf-8')).hexdigest()
+            
+            event = RotationEvent(
+                timestamp=time.time(),
+                status=RotationStatus.SUCCESS,
+                old_ein_hash=old_ein_hash,
+                new_ein_hash=new_ein_hash,
+                reason="Time-based rotation",
+                metadata={"interval": self.rotation_interval}
+            )
+            self.rotation_history.append(event)
+            logger.info(f"Rotated EIN. Old: {old_ein_hash[:8]}..., New: {new_ein_hash[:8]}...")
+        
+        return self.current_ein
+
+    def verify_response_integrity(self, response_headers: Dict[str, str]) -> bool:
+        """
+        Verify the integrity of the KRA API response headers.
+        
+        Args:
+            response_headers (Dict[str, str]): The headers from the KRA API response.
+            
+        Returns:
+            bool: True if the response is valid, False otherwise.
+        """
+        required_headers = ['X-KRA-Signature', 'X-KRA-Timestamp']
+        for header in required_headers:
+            if header not in response_headers:
+                logger.warning(f"Missing required header: {header}")
                 return False
-            if record.status != EINStatus.ACTIVE.value:
-                logger.warning(f"EIN is not active: {ein}")
-                return False
-            if time.time() - record.timestamp > self.max_ein_age:
-                logger.warning(f"EIN is expired: {ein}")
-                return False
-            return True
+        
+        # Simulate signature verification
+        signature = response_headers['X-KRA-Signature']
+        timestamp = response_headers['X-KRA-Timestamp']
+        
+        # Check if the timestamp is within a reasonable window (e.g., 5 minutes)
+        if abs(time.time() - float(timestamp)) > 300:
+            logger.warning("Response timestamp is outside the acceptable window.")
+            return False
+        
+        # Simulate signature check (in production, this would use the KRA public key)
+        if not signature:
+            logger.warning("Empty signature in response.")
+            return False
+        
+        return True
 
-    def revoke_ein(self, ein: str) -> bool:
-        """Revoke an EIN."""
-        with self.lock:
-            record = self.ein_records.get(ein)
-            if not record:
-                logger.warning(f"EIN not found: {ein}")
-                return False
-            record.status = EINStatus.REVOKED.value
-            logger.info(f"Revoked EIN: {ein}")
-            return True
+    def get_rotation_history(self) -> list[Dict[str, Any]]:
+        """
+        Get the history of EIN rotations.
+        
+        Returns:
+            list[Dict[str, Any]]: A list of rotation events.
+        """
+        return [
+            {
+                "timestamp": event.timestamp,
+                "status": event.status.value,
+                "old_ein_hash": event.old_ein_hash,
+                "new_ein_hash": event.new_ein_hash,
+                "reason": event.reason,
+                "metadata": event.metadata
+            }
+            for event in self.rotation_history
+        ]
 
-    def rotate_eins(self) -> List[str]:
-        """Rotate expired EINs and return a list of revoked EINs."""
-        with self.lock:
-            revoked_eins = []
-            for ein, record in self.ein_records.items():
-                if record.status == EINStatus.ACTIVE.value and time.time() - record.timestamp > self.max_ein_age:
-                    record.status = EINStatus.EXPIRED.value
-                    revoked_eins.append(ein)
-                    logger.info(f"Rotated EIN: {ein}")
-            return revoked_eins
-
-    def get_active_eins(self) -> List[str]:
-        """Get a list of active EINs."""
-        with self.lock:
-            return [ein for ein, record in self.ein_records.items() if record.status == EINStatus.ACTIVE.value]
-
-    def get_ein_count(self) -> int:
-        """Get the count of active EINs."""
-        with self.lock:
-            return len(self.get_active_eins())
-
-    def cleanup_old_eins(self) -> int:
-        """Clean up old EINs beyond max_ein_count."""
-        with self.lock:
-            if len(self.ein_records) > self.max_ein_count:
-                sorted_eins = sorted(self.ein_records.items(), key=lambda x: x[1].timestamp)
-                to_remove = len(self.ein_records) - self.max_ein_count
-                for ein, _ in sorted_eins[:to_remove]:
-                    del self.ein_records[ein]
-                    logger.info(f"Cleaned up old EIN: {ein}")
-                return to_remove
-            return 0
-
-if __name__ == '__main__':
-    rotator = KraEinDynamicRotator(max_ein_age=60, max_ein_count=10)
+if __name__ == "__main__":
+    # Test harness
+    secret = "test_secret_key_for_kra"
+    rotator = KRAEINDynamicRotator(secret_key=secret, rotation_interval=1)
     
-    # Generate EINs
-    ein1 = rotator.generate_ein("TXN123")
-    ein2 = rotator.generate_ein("TXN456")
+    # Test 1: Get current EIN
+    ein1 = rotator.get_current_ein()
+    print(f"Initial EIN: {ein1}")
     
-    # Validate EINs
-    assert rotator.validate_ein(ein1), "EIN1 should be valid"
-    assert rotator.validate_ein(ein2), "EIN2 should be valid"
+    # Wait for rotation
+    time.sleep(1.1)
     
-    # Revoke EIN
-    assert rotator.revoke_ein(ein1), "EIN1 should be revoked"
-    assert not rotator.validate_ein(ein1), "EIN1 should be invalid after revocation"
+    # Test 2: Get rotated EIN
+    ein2 = rotator.get_current_ein()
+    print(f"Rotated EIN: {ein2}")
     
-    # Rotate EINs
-    time.sleep(61)  # Wait for EINs to expire
-    rotated_eins = rotator.rotate_eins()
-    assert ein2 in rotated_eins, "EIN2 should be rotated"
+    assert ein1 != ein2, "EIN should have rotated"
     
-    # Get active EINs
-    active_eins = rotator.get_active_eins()
-    assert len(active_eins) == 0, "No active EINs should remain"
+    # Test 3: Verify response integrity
+    valid_headers = {
+        "X-KRA-Signature": "valid_signature",
+        "X-KRA-Timestamp": str(time.time())
+    }
+    assert rotator.verify_response_integrity(valid_headers) == True, "Valid headers should pass"
     
-    # Cleanup old EINs
-    for i in range(15):
-        rotator.generate_ein(f"TXN{i}")
-    cleaned_count = rotator.cleanup_old_eins()
-    assert cleaned_count == 5, "5 old EINs should be cleaned up"
+    invalid_headers = {
+        "X-KRA-Signature": "",
+        "X-KRA-Timestamp": str(time.time())
+    }
+    assert rotator.verify_response_integrity(invalid_headers) == False, "Invalid headers should fail"
     
-    logger.info("All tests passed successfully.")
+    # Test 4: Check rotation history
+    history = rotator.get_rotation_history()
+    assert len(history) == 1, "Should have one rotation event"
+    
+    print("All tests passed successfully.")
+    print(f"Rotation History: {json.dumps(history, indent=2)}")
